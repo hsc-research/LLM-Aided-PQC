@@ -34,7 +34,9 @@ synth_design \\
     -part {PART} \\
     -mode out_of_context \\
     -generic parameter_set={param_set}
-create_clock -period 5.000 -name clk [get_ports clk]
+set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
+if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
+create_clock -period 5.000 -name clk [get_ports $clk_port]
 report_utilization \\
     -file ./synth_out/{module}/{module}_{param_set}_util.rpt
 report_timing_summary \\

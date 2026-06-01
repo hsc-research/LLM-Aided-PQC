@@ -36,3 +36,6 @@ __pycache__/
 
 # Local experiment backups
 *.v.backup
+
+# Isolated diagnostic synthesis runs (not canonical results)
+synth_out/hqc_barrett_red/
