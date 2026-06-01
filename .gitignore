@@ -1,0 +1,38 @@
+# Vivado simulation working directories
+test_keygen/
+test_encap/
+test_decap/
+
+# Vivado project directories
+vivado_projects/
+*.cache/
+*.hw/
+*.sim/
+*.runs/
+*.gen/
+*.srcs/
+
+# Agent-generated Vivado cycle-test projects
+agent/cycle_test_baseline/
+agent/cycle_test_optimized/
+agent/cycle_test_64/
+agent/__pycache__/
+
+# Vivado logs and journals
+*.jou
+*.log
+*.backup.jou
+*.backup.log
+*.str
+*.pb
+vivado*.backup*
+
+# Large backup archives
+*.zip
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local experiment backups
+*.v.backup
