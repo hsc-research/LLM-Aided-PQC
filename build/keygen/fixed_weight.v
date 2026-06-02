@@ -243,7 +243,8 @@ wire [23:0] shake_ctx_out;
 assign addr_ctx_0 = wr_addr_ctx[`CLOG2(WEIGHT)-1:0];
 assign addr_ctx_1 = rd_addr_ctx[`CLOG2(WEIGHT)-1:0];
 
-wire rejection_threshold_pass;
+wire rejection_threshold_pass_comb;
+reg rejection_threshold_pass;
  
  
   mem_dual #(.WIDTH(24), .DEPTH(WEIGHT)) shake_ctx (
@@ -262,7 +263,8 @@ wire rejection_threshold_pass;
 reg dout_shake_sel_red;
 
 
-assign rejection_threshold_pass = shake_ctx_out < UTILS_REJECTION_THRESHOLD ? 1'b1 : 1'b0;
+assign rejection_threshold_pass_comb = shake_ctx_out < UTILS_REJECTION_THRESHOLD ? 1'b1 : 1'b0;
+always@(posedge clk) rejection_threshold_pass <= rejection_threshold_pass_comb;
 
 //assign data_in_ms = shake_ctx_out % PARAM_N_HEX; 
   
