@@ -39,3 +39,4 @@ __pycache__/
 
 # Isolated diagnostic synthesis runs (not canonical results)
 synth_out/hqc_barrett_red/
+synth_out/fixed_weight_pipe/
