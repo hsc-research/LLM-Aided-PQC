@@ -1,9 +1,9 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Wed May 20 14:57:59 2026
+| Date         : Fri Jun 12 16:12:30 2026
 | Host         : MSI running 64-bit Ubuntu 26.04 LTS
-| Command      : report_timing_summary -file {./synth_out/decap/decap_SUGGESTION_MODE synth_property_timing.rpt}
+| Command      : report_timing_summary -file ./synth_out/decap/decap_hqc128_timing.rpt
 | Design       : decap
 | Device       : 7a200t-fbg676
 | Speed File   : -1  PRODUCTION 1.23 2018-06-13
@@ -90,13 +90,13 @@ Table of Contents
 
  There are 3 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/FSM_onehot_state_shake_reg[8]/Q (HIGH)
 
- There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/FSM_sequential_ctx_state_reg[0]/Q (HIGH)
-
- There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/FSM_sequential_ctx_state_reg[1]/Q (HIGH)
-
- There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/FSM_sequential_ctx_state_reg[2]/Q (HIGH)
-
  There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/count_steps_reg[0]/Q (HIGH)
+
+ There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/ctx_state_reg[0]/Q (HIGH)
+
+ There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/ctx_state_reg[1]/Q (HIGH)
+
+ There are 2 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/ctx_state_reg[2]/Q (HIGH)
 
  There are 4 register/latch pins with no clock driven by root clock pin: ENCAP_FOR_RENCRYPT/ENCRYPT/FIXEDWEIGHT/onegen_instance/state_reg[0]/Q (HIGH)
 
@@ -262,7 +262,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-     -2.233     -377.386                    388                15543        0.177        0.000                      0                15543        1.250        0.000                       0                  6842  
+     -2.233     -297.776                    327                15677        0.177        0.000                      0                15677        1.250        0.000                       0                  6914  
 
 
 Timing constraints are not met.
@@ -285,7 +285,7 @@ clk    {0.000 2.500}        5.000           200.000
 
 Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-clk                -2.233     -377.386                    388                15543        0.177        0.000                      0                15543        1.250        0.000                       0                  6842  
+clk                -2.233     -297.776                    327                15677        0.177        0.000                      0                15677        1.250        0.000                       0                  6914  
 
 
 ------------------------------------------------------------------------------------------------
@@ -316,7 +316,7 @@ Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing 
 From Clock:  clk
   To Clock:  clk
 
-Setup :          388  Failing Endpoints,  Worst Slack       -2.233ns,  Total Violation     -377.386ns
+Setup :          327  Failing Endpoints,  Worst Slack       -2.233ns,  Total Violation     -297.776ns
 Hold  :            0  Failing Endpoints,  Worst Slack        0.177ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        1.250ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6841, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6913, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -372,7 +372,7 @@ Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6841, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6913, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[48]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -408,7 +408,7 @@ Slack (MET) :             0.177ns  (arrival time - required time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6841, unset)         0.410     0.410    DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/clk
+                         net (fo=6913, unset)         0.410     0.410    DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/clk
                          FDRE                                         r  DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/add_out0_reg[2]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.141     0.551 r  DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/add_out0_reg[2]/Q
@@ -418,7 +418,7 @@ Slack (MET) :             0.177ns  (arrival time - required time)
 
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6841, unset)         0.432     0.432    DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/FIFO_F0/fifo_reg_0_31_0_3/WCLK
+                         net (fo=6913, unset)         0.432     0.432    DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/FIFO_F0/fifo_reg_0_31_0_3/WCLK
                          RAMD32                                       r  DECRYPT/DECODE/RM_DECOD/HADAMARD/HADAMARD_LAYER[0].HL/FIFO_F0/fifo_reg_0_31_0_3/RAMB/CLK
                          clock pessimism              0.000     0.432    
                          RAMD32 (Hold_ramd32_CLK_I)

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Thu Jun 11 21:49:04 2026
+| Date         : Fri Jun 12 16:14:12 2026
 | Host         : MSI running 64-bit Ubuntu 26.04 LTS
 | Command      : report_utilization -file ./synth_out/keygen/keygen_hqc128_util.rpt
 | Design       : keygen
@@ -31,17 +31,17 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                | 1240 |     0 |          0 |    134600 |  0.92 |
-|   LUT as Logic             | 1239 |     0 |          0 |    134600 |  0.92 |
+| Slice LUTs*                | 1227 |     0 |          0 |    134600 |  0.91 |
+|   LUT as Logic             | 1226 |     0 |          0 |    134600 |  0.91 |
 |   LUT as Memory            |    1 |     0 |          0 |     46200 | <0.01 |
 |     LUT as Distributed RAM |    0 |     0 |            |           |       |
 |     LUT as Shift Register  |    1 |     0 |            |           |       |
-| Slice Registers            |  727 |     0 |          0 |    269200 |  0.27 |
-|   Register as Flip Flop    |  708 |     0 |          0 |    269200 |  0.26 |
+| Slice Registers            |  730 |     0 |          0 |    269200 |  0.27 |
+|   Register as Flip Flop    |  711 |     0 |          0 |    269200 |  0.26 |
 |   Register as Latch        |   19 |     0 |          0 |    269200 | <0.01 |
 | F7 Muxes                   |    0 |     0 |          0 |     67300 |  0.00 |
 | F8 Muxes                   |    0 |     0 |          0 |     33650 |  0.00 |
-| Unique Control Sets        |   52 |       |          0 |     33650 |  0.15 |
+| Unique Control Sets        |   51 |       |          0 |     33650 |  0.15 |
 +----------------------------+------+-------+------------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
 Warning! LUT value is adjusted to account for LUT combining.
@@ -64,7 +64,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |          Yes |           - |          Set |
 | 19    |          Yes |           - |        Reset |
 | 3     |          Yes |         Set |            - |
-| 705   |          Yes |       Reset |            - |
+| 708   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -158,12 +158,12 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |  705 |        Flop & Latch |
-| LUT6     |  419 |                 LUT |
-| LUT4     |  310 |                 LUT |
-| LUT2     |  303 |                 LUT |
-| LUT5     |  226 |                 LUT |
-| LUT3     |  146 |                 LUT |
+| FDRE     |  708 |        Flop & Latch |
+| LUT6     |  390 |                 LUT |
+| LUT4     |  316 |                 LUT |
+| LUT2     |  306 |                 LUT |
+| LUT5     |  236 |                 LUT |
+| LUT3     |  144 |                 LUT |
 | LDCE     |   19 |        Flop & Latch |
 | LUT1     |   11 |                 LUT |
 | CARRY4   |   10 |          CarryLogic |
