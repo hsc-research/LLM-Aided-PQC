@@ -228,7 +228,10 @@ wire [LOG_W_CTX-1:0] addr_ctx_0,addr_ctx_1;
 reg [LOG_W_CTX:0] wr_addr_ctx, rd_addr_ctx;
 reg [LOG_W_CTX:0] count_red;
 reg wr_en_shake_ctx;
+wire [24:0] shake_ctx_q;
 wire [23:0] shake_ctx_out;
+assign shake_ctx_out = shake_ctx_q[23:0];
+wire dout_shake_pass;
 
 assign addr_ctx_0 = wr_addr_ctx[LOG_W_CTX-1:0];
 assign addr_ctx_1 = rd_addr_ctx[LOG_W_CTX-1:0];
@@ -236,23 +239,24 @@ assign addr_ctx_1 = rd_addr_ctx[LOG_W_CTX-1:0];
 wire rejection_threshold_pass;
  
  
-  mem_dual #(.WIDTH(24), .DEPTH(NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT)) shake_ctx (
+  mem_dual #(.WIDTH(25), .DEPTH(NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT)) shake_ctx (
     .clock(clk),
-    .data_0(dout_shake_sel),
+    .data_0({dout_shake_pass, dout_shake_sel}),
     .data_1(0),
     .address_0(addr_ctx_0),
     .address_1(addr_ctx_1),
     .wren_0(wr_en_shake_ctx),
     .wren_1(0),
     // .q_0(shake_ctx_out)
-    .q_1(shake_ctx_out)
+    .q_1(shake_ctx_q)
   );
   
 
 reg dout_shake_sel_red;
 
 
-assign rejection_threshold_pass = shake_ctx_out < UTILS_REJECTION_THRESHOLD ? 1'b1 : 1'b0;
+assign dout_shake_pass = dout_shake_sel < UTILS_REJECTION_THRESHOLD ? 1'b1 : 1'b0;
+assign rejection_threshold_pass = shake_ctx_q[24];
 
 
   
