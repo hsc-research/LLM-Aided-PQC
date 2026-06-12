@@ -226,6 +226,7 @@ assign dout_shake_sel = (sel_ctx == 2'b00)? dout_shake_0:
 
 wire [LOG_W_CTX-1:0] addr_ctx_0,addr_ctx_1;
 reg [LOG_W_CTX:0] wr_addr_ctx, rd_addr_ctx;
+reg wr_in_range;
 reg rd_at_last;
 reg [LOG_W_CTX:0] count_red;
 reg wr_en_shake_ctx;
@@ -369,14 +370,16 @@ begin
         ctx_state <= s_ctx_wait_valid;
         shake_output_counter <= 0;
         wr_addr_ctx <= 0;
+        wr_in_range <= ((0) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
     end
     else begin
 		
         if (ctx_state == s_ctx_wait_valid) begin
-            if (wr_addr_ctx <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1) begin	
+            if (wr_in_range) begin	
                 if (dout_valid_sh_internal) begin
                    ctx_state <= s_ctx_first;
                    wr_addr_ctx <= wr_addr_ctx+1;
+                   wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end
             end
             else begin
@@ -390,10 +393,11 @@ begin
             if (mod_weight_zero) begin
                 ctx_state <= s_ctx_wait_valid;
             end
-            else if (wr_addr_ctx <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1) begin
+            else if (wr_in_range) begin
                 if (dout_valid_sh_internal) begin
                    ctx_state <= s_ctx_second;
                    wr_addr_ctx <= wr_addr_ctx+1;
+                   wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end
             end
 				else begin
@@ -407,13 +411,14 @@ begin
                 ctx_state <= s_ctx_wait_valid;
               
             end
-            else if (wr_addr_ctx <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1) begin
+            else if (wr_in_range) begin
                 if (dout_valid_sh_internal) begin
                    if (mod_weight_minus_1) begin
                         ctx_state <= s_ctx_reset;
                    end
                    else begin
                         wr_addr_ctx <= wr_addr_ctx+1;   
+                        wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                         ctx_state <= s_ctx_third;
                    end
                 end
@@ -433,9 +438,10 @@ begin
             else if (mod_weight_minus_1) begin
                 ctx_state <= s_ctx_reset;
             end
-            else if (wr_addr_ctx <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1) begin
+            else if (wr_in_range) begin
                    ctx_state <= s_ctx_wait_valid;
                    wr_addr_ctx <= wr_addr_ctx+1;
+                   wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
             end
             else begin
                 if (dout_valid_sh_internal) begin
@@ -447,12 +453,14 @@ begin
 		else if (ctx_state == s_ctx_reset) begin
 		    if (dout_valid_sh_internal) begin
                 wr_addr_ctx <= wr_addr_ctx + 1;
+                wr_in_range <= ((wr_addr_ctx + 1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 ctx_state <= s_ctx_wait_valid;   // discarding final bits	
             end
 		end
 		
 		else if (ctx_state == s_ctx_done) begin
             wr_addr_ctx <= 0;
+            wr_in_range <= ((0) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
             ctx_state <= s_ctx_wait_valid;   // discarding final bits	
 		end
         
