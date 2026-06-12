@@ -93,6 +93,8 @@ OUTPUT JSON SCHEMA:
      {"op": "regex_swap", "pattern": str, "replacement": str,
       "guard_reg": str, "expect": int}
    ]}]}}
+Keep "reason" under 120 words: classification, target register, equivalence \
+argument, nothing else. Long reasoning risks truncating your own JSON. \
 Return ONLY the JSON object."""
 
 def propose(board_text, rtl_excerpts, recon_notes=""):
@@ -101,7 +103,7 @@ def propose(board_text, rtl_excerpts, recon_notes=""):
             f"{rtl_excerpts}\n\nRECON NOTES:\n{recon_notes}\n\n"
             "Classify the worst RTL-addressable cluster and return your JSON.")
     msg = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=4096,
+        model="claude-sonnet-4-5", max_tokens=8192,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user}])
     raw = msg.content[0].text.strip()
