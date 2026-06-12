@@ -269,7 +269,7 @@ reg [`CLOG2((K+(32-K%32)%32)/32) -1:0] m_addr_int;
 
 assign msg_addr = (m_wen)? m_addr:
                            m_addr_int;
-  mem_single_dist #(.WIDTH(32), .DEPTH((K+(32-K%32)%32)/32)) MSG_MEM
+  mem_single #(.WIDTH(32), .DEPTH((K+(32-K%32)%32)/32)) MSG_MEM
   (
          .clock(clk),
          .data({m_in[7:0],m_in[15:8],m_in[23:16],m_in[31:24]}),
