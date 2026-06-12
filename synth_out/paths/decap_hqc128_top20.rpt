@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Fri Jun 12 13:25:31 2026
+| Date         : Fri Jun 12 17:05:38 2026
 | Host         : MSI running 64-bit Ubuntu 26.04 LTS
 | Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/decap_hqc128_top20.rpt
 | Design       : decap
@@ -36,7 +36,7 @@ Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -60,7 +60,7 @@ Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[48]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -95,7 +95,7 @@ Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -119,7 +119,7 @@ Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[49]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -154,7 +154,7 @@ Slack (VIOLATED) :        -2.230ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -178,7 +178,7 @@ Slack (VIOLATED) :        -2.230ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[24]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -213,7 +213,7 @@ Slack (VIOLATED) :        -2.230ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -237,7 +237,7 @@ Slack (VIOLATED) :        -2.230ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[25]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -272,7 +272,7 @@ Slack (VIOLATED) :        -2.074ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/Q
@@ -296,7 +296,7 @@ Slack (VIOLATED) :        -2.074ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[112]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -331,7 +331,7 @@ Slack (VIOLATED) :        -2.074ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/Q
@@ -355,7 +355,7 @@ Slack (VIOLATED) :        -2.074ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[113]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -390,7 +390,7 @@ Slack (VIOLATED) :        -2.071ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/Q
@@ -414,7 +414,7 @@ Slack (VIOLATED) :        -2.071ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[88]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -449,7 +449,7 @@ Slack (VIOLATED) :        -2.071ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]/Q
@@ -473,7 +473,7 @@ Slack (VIOLATED) :        -2.071ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[89]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -508,7 +508,7 @@ Slack (VIOLATED) :        -1.749ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -534,7 +534,7 @@ Slack (VIOLATED) :        -1.749ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[118]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -569,7 +569,7 @@ Slack (VIOLATED) :        -1.745ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -595,7 +595,7 @@ Slack (VIOLATED) :        -1.745ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[86]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -605,61 +605,6 @@ Slack (VIOLATED) :        -1.745ns  (required time - arrival time)
                          arrival time                          -7.747    
   -------------------------------------------------------------------
                          slack                                 -1.745    
-
-Slack (VIOLATED) :        -1.647ns  (required time - arrival time)
-  Source:                 DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg/CLKBWRCLK
-                            (rising edge-triggered cell RAMB18E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg/DIADI[3]
-                            (rising edge-triggered cell RAMB18E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        6.322ns  (logic 2.942ns (46.533%)  route 3.380ns (53.467%))
-  Logic Levels:           4  (LUT3=2 LUT5=2)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/clk
-                         RAMB18E1                                     r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg/CLKBWRCLK
-  -------------------------------------------------------------------    -------------------
-                         RAMB18E1 (Prop_ramb18e1_CLKBWRCLK_DOBDO[3])
-                                                      2.454     3.427 r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg/DOBDO[3]
-                         net (fo=2, unplaced)         0.800     4.227    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/rd_data[3]
-                         LUT3 (Prop_lut3_I2_O)        0.116     4.343 r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_49/O
-                         net (fo=1, unplaced)         0.902     5.245    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_49_n_0
-                         LUT5 (Prop_lut5_I0_O)        0.124     5.369 r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_31/O
-                         net (fo=1, unplaced)         0.419     5.788    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_31_n_0
-                         LUT5 (Prop_lut5_I4_O)        0.124     5.912 r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_16/O
-                         net (fo=2, unplaced)         0.460     6.372    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_16_n_0
-                         LUT3 (Prop_lut3_I2_O)        0.124     6.496 r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg_i_6/O
-                         net (fo=2, unplaced)         0.800     7.295    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_din[3]
-                         RAMB18E1                                     r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg/DIADI[3]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/clk
-                         RAMB18E1                                     r  DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB18E1 (Setup_ramb18e1_CLKARDCLK_DIADI[3])
-                                                     -0.241     5.648    DECRYPT/DECODE/RS_DECOD/COMPUTE_ROOTS/ADD_FFT/FFT_PART2/ROUND[3].FFT_ROUND/FIFO_FFT/fifo_reg
-  -------------------------------------------------------------------
-                         required time                          5.648    
-                         arrival time                          -7.295    
-  -------------------------------------------------------------------
-                         slack                                 -1.647    
 
 Slack (VIOLATED) :        -1.516ns  (required time - arrival time)
   Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
@@ -685,7 +630,7 @@ Slack (VIOLATED) :        -1.516ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -711,7 +656,7 @@ Slack (VIOLATED) :        -1.516ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[36]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -746,7 +691,7 @@ Slack (VIOLATED) :        -1.516ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -772,7 +717,7 @@ Slack (VIOLATED) :        -1.516ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[37]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -807,7 +752,7 @@ Slack (VIOLATED) :        -1.510ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -833,7 +778,7 @@ Slack (VIOLATED) :        -1.510ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[39]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -868,7 +813,7 @@ Slack (VIOLATED) :        -1.510ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -894,7 +839,7 @@ Slack (VIOLATED) :        -1.510ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[40]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -929,7 +874,7 @@ Slack (VIOLATED) :        -1.510ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -955,7 +900,7 @@ Slack (VIOLATED) :        -1.510ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[41]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -990,7 +935,7 @@ Slack (VIOLATED) :        -1.506ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -1016,7 +961,7 @@ Slack (VIOLATED) :        -1.506ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[38]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -1051,7 +996,7 @@ Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -1077,7 +1022,7 @@ Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[108]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -1112,7 +1057,7 @@ Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -1138,7 +1083,7 @@ Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[109]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -1173,7 +1118,7 @@ Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=6850, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
                          FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
@@ -1199,11 +1144,72 @@ Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=6850, unset)         0.924     5.924    POLY_MULT/clk
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
                          FDRE                                         r  POLY_MULT/dshift_reg_reg[111]/C
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
                          FDRE (Setup_fdre_C_D)        0.113     6.002    POLY_MULT/dshift_reg_reg[111]
+  -------------------------------------------------------------------
+                         required time                          6.002    
+                         arrival time                          -7.462    
+  -------------------------------------------------------------------
+                         slack                                 -1.460    
+
+Slack (VIOLATED) :        -1.460ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[115]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        6.489ns  (logic 1.716ns (26.445%)  route 4.773ns (73.555%))
+  Logic Levels:           8  (LUT3=1 LUT6=5 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6944, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[6]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[113]_i_349/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[113]_i_349_n_0
+                         LUT3 (Prop_lut3_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[113]_i_347/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[113]_i_347_n_0
+                         LUT6 (Prop_lut6_I2_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[113]_i_236/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_1[93]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[127]_i_50/O
+                         net (fo=6, unplaced)         0.934     5.929    DECRYPT/V_MINUS_UY/dshift_reg[127]_i_50_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.053 r  DECRYPT/V_MINUS_UY/dshift_reg[115]_i_13/O
+                         net (fo=8, unplaced)         0.940     6.993    DECRYPT/V_MINUS_UY/dshift_reg[115]_i_13_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.117 r  DECRYPT/V_MINUS_UY/dshift_reg[115]_i_5/O
+                         net (fo=1, unplaced)         0.000     7.117    DECRYPT/V_MINUS_UY/dshift_reg[115]_i_5_n_0
+                         MUXF7 (Prop_muxf7_I1_O)      0.247     7.364 r  DECRYPT/V_MINUS_UY/dshift_reg_reg[115]_i_2/O
+                         net (fo=1, unplaced)         0.000     7.364    DECRYPT/V_MINUS_UY/dshift_reg_reg[115]_i_2_n_0
+                         MUXF8 (Prop_muxf8_I0_O)      0.098     7.462 r  DECRYPT/V_MINUS_UY/dshift_reg_reg[115]_i_1/O
+                         net (fo=1, unplaced)         0.000     7.462    POLY_MULT/D[115]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[115]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=6944, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[115]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.113     6.002    POLY_MULT/dshift_reg_reg[115]
   -------------------------------------------------------------------
                          required time                          6.002    
                          arrival time                          -7.462    

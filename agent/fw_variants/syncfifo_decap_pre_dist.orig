@@ -21,7 +21,7 @@ module syncfifo
 );
 
 
-(* ram_style = "distributed" *) reg     [DW-1:0]    fifo[0:DEPTH-1];
+reg     [DW-1:0]    fifo[0:DEPTH-1];
 reg     [DW-1:0]    rd_data, wr_data;
 reg     [AW-1:0]    wr_addr=0, next_wr_addr=1, rd_addr=0, next_rd_addr=1;
 reg                 full=0, empty=1, wr_rd=0;
