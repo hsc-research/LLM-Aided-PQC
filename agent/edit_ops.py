@@ -43,9 +43,16 @@ def _apply_regex_swap(text, op):
     # Swap consumer expressions; never touches assignment lines of guard_reg.
     pat = re.compile(op["pattern"])
     guard = re.compile(r"^\s*" + re.escape(op.get("guard_reg", "\x00")) + r"\s*<=") if op.get("guard_reg") else None
+    asn = re.compile(r"^\s*\w+\s*<=")
     lines, out, nc = text.split("\n"), [], 0
     for ln in lines:
         if pat.search(ln) and not (guard and guard.match(ln)):
+            # Structural rule: swaps live in conditions, never in assignment
+            # lines. A hit on an assignment means the proposer is editing
+            # flag machinery (flight-6 failure class). Refuse outright.
+            assert not asn.match(ln), (
+                f"regex_swap: pattern hits an assignment line (flag-of-a-flag "
+                f"guard): {ln.strip()[:70]}")
             out.append(pat.sub(op["replacement"], ln)); nc += 1
         else:
             out.append(ln)

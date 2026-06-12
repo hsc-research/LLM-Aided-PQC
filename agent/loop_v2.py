@@ -32,11 +32,28 @@ def excerpts_for(paths_text, module):
     out = []
     flags = sh(f"grep -rn 'reg wr_in_range\\|reg rd_at_last\\|reg cnt_lt_mu\\|"
                f"reg mod_weight\\|ram_style' build/{module}/*.v")
-    out.append(f"--- EXISTING OPTIMIZATIONS IN THIS BUILD (do not re-propose) ---\n{flags}")
-    for sig in list(sigs)[:6]:
-        hits = sh(f"grep -rn '{sig}' build/{module}/*.v")
-        if hits:
-            out.append(f"--- {sig} (all occurrences) ---\n{hits}")
+    out.append(f"--- EXISTING OPTIMIZATIONS IN THIS BUILD (do not re-propose; "
+               f"lines pairing these flags are MACHINERY, not targets) ---\n{flags}")
+    # Whole always-blocks containing each board signal: counts become reading.
+    import glob
+    for vf in glob.glob(f"build/{module}/*.v"):
+        txt = open(vf).read()
+        if not any(s in txt for s in sigs):
+            continue
+        blocks, cur, in_blk = [], [], False
+        for ln in txt.split("\n"):
+            if ln.strip().startswith("always"):
+                in_blk, cur = True, [ln]
+            elif in_blk:
+                cur.append(ln)
+                if ln.strip().startswith("end") and len(ln) - len(ln.lstrip()) == 0:
+                    in_blk = False
+                    blk = "\n".join(cur)
+                    if any(s in blk for s in sigs):
+                        blocks.append(blk)
+        if blocks:
+            out.append(f"--- COMPLETE always-blocks from {vf} mentioning board "
+                       f"signals ---\n" + "\n...\n".join(blocks[:4]))
     return "\n".join(out)
 
 def run(module, level):
