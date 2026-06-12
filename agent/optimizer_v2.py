@@ -62,6 +62,12 @@ A sensitivity-list-only edit can NEVER improve timing and must never be \
 proposed as an experiment. Only ever ADD signals to a sensitivity list. NEVER remove \
 or replace existing entries; the block may consume them elsewhere.
 
+TARGET SELECTION: if every compare on the worst cluster's register is already \
+a flag (check the EXISTING OPTIMIZATIONS inventory), that cluster is a RESIDUAL \
+routing-bound cone. Do not propose duplicate flags under new names; move to the \
+NEXT cluster on the board and classify that instead. Walking away from an \
+exhausted cone is a correct verdict, not a failure.
+
 CROSS-REGISTER RULE (harness-enforced): a flag paired to register R replaces \
 ONLY compares on R itself. The path's SOURCE register and the compare register \
 in its cone are often different signals; identify the register inside the \
