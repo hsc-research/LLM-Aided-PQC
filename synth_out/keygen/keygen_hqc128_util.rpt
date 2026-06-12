@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Mon Jun  1 11:08:26 2026
+| Date         : Thu Jun 11 21:49:04 2026
 | Host         : MSI running 64-bit Ubuntu 26.04 LTS
 | Command      : report_utilization -file ./synth_out/keygen/keygen_hqc128_util.rpt
 | Design       : keygen
@@ -31,8 +31,8 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                | 1199 |     0 |          0 |    134600 |  0.89 |
-|   LUT as Logic             | 1198 |     0 |          0 |    134600 |  0.89 |
+| Slice LUTs*                | 1240 |     0 |          0 |    134600 |  0.92 |
+|   LUT as Logic             | 1239 |     0 |          0 |    134600 |  0.92 |
 |   LUT as Memory            |    1 |     0 |          0 |     46200 | <0.01 |
 |     LUT as Distributed RAM |    0 |     0 |            |           |       |
 |     LUT as Shift Register  |    1 |     0 |            |           |       |
@@ -159,11 +159,11 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
 | FDRE     |  705 |        Flop & Latch |
-| LUT6     |  380 |                 LUT |
-| LUT4     |  311 |                 LUT |
-| LUT2     |  300 |                 LUT |
-| LUT5     |  228 |                 LUT |
-| LUT3     |  138 |                 LUT |
+| LUT6     |  419 |                 LUT |
+| LUT4     |  310 |                 LUT |
+| LUT2     |  303 |                 LUT |
+| LUT5     |  226 |                 LUT |
+| LUT3     |  146 |                 LUT |
 | LDCE     |   19 |        Flop & Latch |
 | LUT1     |   11 |                 LUT |
 | CARRY4   |   10 |          CarryLogic |
