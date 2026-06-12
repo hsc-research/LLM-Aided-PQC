@@ -57,7 +57,9 @@ has its own copies of encap.v and its dependencies. Edits to shared modules \
 must hit every build copy that elaborates them, kept byte-identical.
 - Verifying a file changed is not verifying the netlist changed.
 
-SENSITIVITY LISTS: only ever ADD signals to a sensitivity list. NEVER remove \
+SENSITIVITY LISTS affect SIMULATION ONLY; synthesis ignores them entirely. \
+A sensitivity-list-only edit can NEVER improve timing and must never be \
+proposed as an experiment. Only ever ADD signals to a sensitivity list. NEVER remove \
 or replace existing entries; the block may consume them elsewhere.
 
 CROSS-REGISTER RULE (harness-enforced): a flag paired to register R replaces \

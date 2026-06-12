@@ -5,7 +5,19 @@ import re, shutil, os, time
 
 BACKUP_DIR = "agent/fw_variants"
 
+def _sens_add_only(old, new):
+    # Sensitivity-list edits must be add-only. Flight 7 removed a signal;
+    # synthesis ignores sens lists (guaranteed zero gain) and the removal
+    # creates a sim/synth mismatch invisible to synth, timing, and possibly
+    # KAT. Prompt rules are not enforcement; this is.
+    if "always@" not in old.replace(" ", ""):
+        return
+    ids = lambda s: set(re.findall(r"[A-Za-z_]\w*", s))
+    missing = ids(old) - ids(new)
+    assert not missing, f"sens-list edit removes identifiers {missing}; add-only"
+
 def _apply_replace_exact(text, op):
+    _sens_add_only(op["old"], op["new"])
     if op.get("whole_line"):
         # Anchor to complete lines (post-strip equality). Prevents legal-but-
         # unintended substring hits, e.g. a declaration that has since gained
