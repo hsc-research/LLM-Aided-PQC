@@ -49,10 +49,37 @@ def run(module, level):
     print(json.dumps(proposal, indent=2))
     if proposal["verdict"] != "experiment":
         print(f"NO ACTION: {proposal['reason']}"); return
-    try:
-        backups = edit_ops.apply_experiment(proposal["experiment"])
-    except AssertionError as e:
-        print(f"GATE REFUSED (no bytes written): {e}"); return
+    backups = None
+    for attempt in range(2):
+        try:
+            backups = edit_ops.apply_experiment(proposal["experiment"])
+            break
+        except AssertionError as e:
+            print(f"GATE REFUSED (no bytes written): {e}")
+            if attempt == 1:
+                return
+            # Feedback pass: hand the model ground truth for every op target
+            # so counts become reading, not guessing. One retry only.
+            fb = [f"YOUR EXPERIMENT WAS REFUSED: {e}", "GROUND TRUTH FOLLOWS:"]
+            for fs in proposal["experiment"]["files"]:
+                for op in fs["ops"]:
+                    if op["op"] == "pair_assignments":
+                        fb.append(f"--- all '{op['reg']} <=' lines in {fs['path']} ---")
+                        fb.append(sh(f"grep -n '{op['reg']} <=' {fs['path']}"))
+                    elif op["op"] == "regex_swap":
+                        pat = op["pattern"].replace("'", ".")
+                        fb.append(f"--- grep -nE '{pat}' {fs['path']} ---")
+                        fb.append(sh(f"grep -nE '{pat}' {fs['path']}"))
+            fb.append("Revise your experiment with counts derived from these "
+                      "lines. Distinguish assignments (your pair sites) from "
+                      "comparisons. Return the full corrected JSON.")
+            proposal = optimizer_v2.propose(board + "\n" + detail, excerpts,
+                                            recon_notes="\n".join(fb))
+            print(json.dumps(proposal, indent=2))
+            if proposal["verdict"] != "experiment":
+                print(f"NO ACTION on retry: {proposal['reason']}"); return
+    if backups is None:
+        return
     print("Applied. Synth verdict...")
     res = run_synthesis(module, level)
     if "error" in res or res["wns_ns"] is None:
