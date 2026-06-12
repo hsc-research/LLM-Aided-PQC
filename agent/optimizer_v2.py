@@ -107,4 +107,22 @@ def propose(board_text, rtl_excerpts, recon_notes=""):
     raw = msg.content[0].text.strip()
     if raw.startswith("```"):
         raw = raw.split("\n", 1)[1].rsplit("```", 1)[0]
-    return json.loads(raw)
+    # Tolerant extraction: take the first balanced top-level JSON object,
+    # ignore anything after it (flight 9: trailing prose crashed the loop).
+    # Log the full raw reply so contract violations stay visible.
+    with open("agent/last_raw_reply.txt", "w") as f:
+        f.write(raw)
+    start = raw.find("{")
+    assert start >= 0, "no JSON object in model reply (see agent/last_raw_reply.txt)"
+    depth, in_str, esc = 0, False, False
+    for i, ch in enumerate(raw[start:], start):
+        if esc: esc = False; continue
+        if ch == "\\" and in_str: esc = True; continue
+        if ch == '"': in_str = not in_str; continue
+        if in_str: continue
+        if ch == "{": depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return json.loads(raw[start:i+1])
+    raise AssertionError("unbalanced JSON in model reply (see agent/last_raw_reply.txt)")
