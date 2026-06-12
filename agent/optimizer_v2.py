@@ -60,6 +60,11 @@ must hit every build copy that elaborates them, kept byte-identical.
 SENSITIVITY LISTS: only ever ADD signals to a sensitivity list. NEVER remove \
 or replace existing entries; the block may consume them elsewhere.
 
+CROSS-REGISTER RULE (harness-enforced): a flag paired to register R replaces \
+ONLY compares on R itself. The path's SOURCE register and the compare register \
+in its cone are often different signals; identify the register inside the \
+compare expression you are swapping, and pair the flag to THAT register.
+
 HARD INVARIANTS:
 - Never alter cycle schedules, FSM state encodings, or handshakes.
 - Never introduce secret-dependent control flow or addressing.

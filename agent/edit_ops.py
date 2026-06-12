@@ -56,10 +56,26 @@ _OPS = {"replace_exact": _apply_replace_exact,
         "pair_assignments": _apply_pair_assignments,
         "regex_swap": _apply_regex_swap}
 
+def _check_cross_register(fspec):
+    # A flag paired to register R may only replace expressions that mention R.
+    # Lesson: maiden flight #3 proposed swapping a hash_in_addr compare with a
+    # count_hash_inputs-derived flag; counts happened to refuse, semantics
+    # would not have. This makes it structural.
+    paired = [op["reg"] for op in fspec["ops"] if op["op"] == "pair_assignments"]
+    if not paired:
+        return
+    for op in fspec["ops"]:
+        if op["op"] == "regex_swap":
+            assert any(r in op["pattern"] for r in paired), (
+                f"cross-register: swap pattern '{op['pattern'][:60]}' does not "
+                f"mention any paired register {paired}")
+
 def apply_experiment(experiment):
     """experiment = {"name": str, "files": [{"path": str, "ops": [op, ...]}, ...]}
     Returns dict of backups made. Raises AssertionError (no writes) on any gate."""
     staged, backups = {}, {}
+    for fspec in experiment["files"]:
+        _check_cross_register(fspec)
     for fspec in experiment["files"]:
         path = fspec["path"]
         text = open(path).read()

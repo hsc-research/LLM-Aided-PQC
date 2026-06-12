@@ -24,15 +24,19 @@ def gather(module, level, n_detail=2):
     return board, detail
 
 def excerpts_for(paths_text, module):
-    """Crude excerpt gatherer: grep counters/signals named in the board out of
-    the build dir so the proposer sees verbatim text its ops must match."""
+    """Excerpt gatherer: signals from the board, UNTRUNCATED, plus an explicit
+    inventory of optimizations already present so the proposer never re-proposes
+    an existing flag (lesson: maiden flight #2 refusal)."""
     import re
     sigs = set(re.findall(r"(\w+)_reg(?:_reg)?\[", paths_text))
     out = []
+    flags = sh(f"grep -rn 'reg wr_in_range\\|reg rd_at_last\\|reg cnt_lt_mu\\|"
+               f"reg mod_weight\\|ram_style' build/{module}/*.v")
+    out.append(f"--- EXISTING OPTIMIZATIONS IN THIS BUILD (do not re-propose) ---\n{flags}")
     for sig in list(sigs)[:6]:
-        hits = sh(f"grep -rn '{sig}' build/{module}/*.v | head -25")
+        hits = sh(f"grep -rn '{sig}' build/{module}/*.v")
         if hits:
-            out.append(f"--- {sig} ---\n{hits}")
+            out.append(f"--- {sig} (all occurrences) ---\n{hits}")
     return "\n".join(out)
 
 def run(module, level):
