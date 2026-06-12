@@ -66,7 +66,7 @@ wire    [7:0]   err_dout;
 
 
 wire    [7:0]   inv_in, inv_out;
-(* rom_style = "distributed" *) reg     [7:0]   inv_buf;
+reg     [7:0]   inv_buf;
 reg     [7:0]   tmp1, tmp2;
 reg     [7:0]   inv_power;
 
