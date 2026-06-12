@@ -226,6 +226,7 @@ assign dout_shake_sel = (sel_ctx == 2'b00)? dout_shake_0:
 
 wire [LOG_W_CTX-1:0] addr_ctx_0,addr_ctx_1;
 reg [LOG_W_CTX:0] wr_addr_ctx, rd_addr_ctx;
+reg rd_at_last;
 reg [LOG_W_CTX:0] count_red;
 reg wr_en_shake_ctx;
 wire [24:0] shake_ctx_q;
@@ -565,6 +566,7 @@ begin
     if (rst) begin
         red_state <= s_red_wait;
 		rd_addr_ctx <=0;
+		rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 		count_red <= 0;
 		wr_addr_ms <= 0;
     end
@@ -574,6 +576,7 @@ begin
 			if (start_red) begin
 				red_state <= s_red_stall_0;
 				rd_addr_ctx <= 0;
+				rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				wr_addr_ms <= 0;
 				count_red <=0;
 			end
@@ -593,6 +596,7 @@ begin
 		else if (red_state == s_red_stall_0) begin   
 				red_state <= s_red_move;
 				rd_addr_ctx <= rd_addr_ctx+1;
+				rd_at_last <= ((rd_addr_ctx+1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				count_red <= count_red + 1;
 				wr_addr_ms <= 0;
         end 
@@ -604,6 +608,7 @@ begin
 				count_red <= count_red + 1;
 				if (weight_count < WEIGHT) begin
                     rd_addr_ctx <= rd_addr_ctx + 1;
+                    rd_at_last <= ((rd_addr_ctx + 1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end
                 if (weight_count < WEIGHT) begin
                     if (rejection_threshold_pass) begin
@@ -636,9 +641,10 @@ begin
         end 
 		
 		else if (red_state == s_red_check_weight) begin
-			if ((weight_count < WEIGHT)  && (rd_addr_ctx ==  NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1)) begin
+			if ((weight_count < WEIGHT)  && (rd_at_last)) begin
 				    red_state <= s_red_wait_3;
 				    rd_addr_ctx <= 0;
+				    rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 			end
 			
 			else if (weight_count == WEIGHT) begin
@@ -655,6 +661,7 @@ begin
 			if (start_red == 1'b1) begin
 				red_state <= s_red_move;
 				rd_addr_ctx <= rd_addr_ctx+1;
+				rd_at_last <= ((rd_addr_ctx+1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				wr_addr_ms <= wr_addr_ms+1;				
 			end
 		end 
@@ -663,10 +670,12 @@ begin
 			if (start_red == 1'b1 && rd_addr_ctx == 0) begin
 				red_state <= s_red_move;
 				rd_addr_ctx <= rd_addr_ctx+1;				
+				rd_at_last <= ((rd_addr_ctx+1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 			end
 			else if (rd_addr_ctx > 0 ) begin
 				red_state <= s_red_move;
 				rd_addr_ctx <= rd_addr_ctx+1;
+				rd_at_last <= ((rd_addr_ctx+1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 			end
 		end 
 
@@ -675,23 +684,28 @@ begin
 				wr_addr_ms <= rd_addr_ms;
 				red_state <= s_red_stall_2;
 				count_red <= count_red - 1;
-				if (rd_addr_ctx ==  NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1) begin
+				if (rd_at_last) begin
     				rd_addr_ctx <= 0;
+    				rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
     			end
 			end
 			else if (done_onegen) begin
 				wr_addr_ms <= 0;
 				if (rd_addr_ctx == WEIGHT) begin 
 				   rd_addr_ctx <= WEIGHT; 
+				   rd_at_last <= ((WEIGHT) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				end
 				else if (rd_addr_ctx > WEIGHT && rd_addr_ctx <= 2*WEIGHT) begin 
 				   rd_addr_ctx <= 2*WEIGHT; 
+				   rd_at_last <= ((2*WEIGHT) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				end
 				else if (rd_addr_ctx > 2*WEIGHT && rd_addr_ctx <= 3*WEIGHT) begin 
 				   rd_addr_ctx <= 3*WEIGHT; 
+				   rd_at_last <= ((3*WEIGHT) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				end
 				else begin
 				    rd_addr_ctx <= 0;
+				    rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end				
 				red_state <= s_red_wait_from_second;
 				count_red <= 0;
@@ -704,6 +718,7 @@ begin
 		
 		else if (red_state == s_red_move_2) begin   
 				rd_addr_ctx <= rd_addr_ctx + 1;
+				rd_at_last <= ((rd_addr_ctx + 1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				red_state <= s_red_stall_1;
         end 
         
@@ -712,6 +727,7 @@ begin
 			if (force_done_shake) begin
 				red_state <= s_red_wait;
 				rd_addr_ctx <= 0;
+				rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				wr_addr_ms <= 0;
 			end
 		end
@@ -720,7 +736,7 @@ begin
 end 
 
 
-always@(red_state or rejection_threshold_pass or weight_count or collision_ms or ready_onegen or rd_addr_ctx) 
+always@(red_state or rejection_threshold_pass or weight_count or collision_ms or ready_onegen or rd_addr_ctx or rd_at_last) 
 begin
     case (red_state)
 		s_red_wait: begin
@@ -801,7 +817,7 @@ begin
 			    start_onegen <= 1'b0;
 				squeeze_ctrl <= 1'b1;
 			end
-			else if (weight_count < WEIGHT && rd_addr_ctx == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1) begin
+			else if (weight_count < WEIGHT && rd_at_last) begin
 			     start_onegen <= 1'b0;
 				 squeeze_ctrl <= 1'b1;
 			end 
