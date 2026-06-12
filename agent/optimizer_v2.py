@@ -48,6 +48,18 @@ decision k-1 with candidate k. KAT-fatal and can pass at 2 of 3 security levels.
 regressed timing. ONE flag per cone.
 - max_fanout hints on synthesis-stage placement-bound nets: marginal (+0.019).
 
+ELABORATION MAP (critical, learned the hard way in this codebase):
+- encap, keygen, and decap ALL elaborate fixed_weight_ct. Plain fixed_weight \
+and fixed_weight_cww are NOT instantiated in any default configuration; edits \
+to them are vacuous. Instance name FIXEDWEIGHT in path reports = fixed_weight_ct.
+- decap contains a full encap instance (ENCAP_FOR_RENCRYPT); decap's build dir \
+has its own copies of encap.v and its dependencies. Edits to shared modules \
+must hit every build copy that elaborates them, kept byte-identical.
+- Verifying a file changed is not verifying the netlist changed.
+
+SENSITIVITY LISTS: only ever ADD signals to a sensitivity list. NEVER remove \
+or replace existing entries; the block may consume them elsewhere.
+
 HARD INVARIANTS:
 - Never alter cycle schedules, FSM state encodings, or handshakes.
 - Never introduce secret-dependent control flow or addressing.
