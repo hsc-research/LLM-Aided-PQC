@@ -1,0 +1,40 @@
+CLUSTER CHARACTERIZATION: synth_out/paths/decap_hqc128_top20.rpt  (20 violated paths)
+======================================================================
+
+1. SOURCE REGISTERS (2 unique):
+    16x  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[6]
+     4x  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[5]
+
+2. DESTINATION REGISTERS (20 unique):
+     1x  POLY_MULT/dshift_reg_reg[48]/D
+     1x  POLY_MULT/dshift_reg_reg[49]/D
+     1x  POLY_MULT/dshift_reg_reg[24]/D
+     1x  POLY_MULT/dshift_reg_reg[25]/D
+     1x  POLY_MULT/dshift_reg_reg[112]/D
+     1x  POLY_MULT/dshift_reg_reg[113]/D
+     1x  POLY_MULT/dshift_reg_reg[88]/D
+     1x  POLY_MULT/dshift_reg_reg[89]/D
+     1x  POLY_MULT/dshift_reg_reg[118]/D
+     1x  POLY_MULT/dshift_reg_reg[86]/D
+
+3. ROUTE vs LOGIC: route 70.0-79.2% (mean 74.4%), levels 7-8
+
+4. HIERARCHY CROSSINGS:
+    20x  DECRYPT -> POLY_MULT
+
+5. COMMON NETS (appearing in >=3 paths, by max fanout):
+   in 16 paths, fo=128   DECRYPT/V_MINUS_UY/dshift_reg[113]_i_347_n_0
+   in  4 paths, fo=128   DECRYPT/V_MINUS_UY/uv_in_01
+   in 16 paths, fo=1     DECRYPT/V_MINUS_UY/uv_addr_1_reg[6]
+   in 16 paths, fo=1     DECRYPT/V_MINUS_UY/dshift_reg[113]_i_349_n_0
+   in  4 paths, fo=1     DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[5]
+   in  4 paths, fo=1     DECRYPT/V_MINUS_UY/dshift_reg[113]_i_348_n_0
+
+6. ENDPOINT PROXIMITY:
+    20 endpoints match 'dshift'
+    20 endpoints match 'poly_mult'
+    20 endpoints match 'POLY_MULT'
+
+7. VERDICT INPUTS: route-dominated + single-crossing + shared-fanout
+   nets => placement/floorplan, register duplication, or bundled
+   boundary pipeline (per PI). Local FSM rewrite contraindicated.
