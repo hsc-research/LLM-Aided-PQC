@@ -57,7 +57,7 @@ def live_compares(path, reg):
         return None                            # unknown file: caller decides
     hits = []
     asn = re.compile(r"^\s*\w+(\[\S+\])?\s*<=")
-    cmp_pat = re.compile(rf"{re.escape(reg)}\s*(==|<=|<|>=|>|%)")
+    cmp_pat = re.compile(rf"\b{re.escape(reg)}\s*(==|<=|<|>=|>|%)")
     for i, ln in enumerate(open(path), 1):
         if ln.lstrip().startswith("//") or asn.match(ln):
             continue

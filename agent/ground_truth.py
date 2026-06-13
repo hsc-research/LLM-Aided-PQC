@@ -6,7 +6,7 @@ def gather(target):
     f, reg = target["file"], target["reg"]
     lines = open(f).read().split("\n")
     asn = re.compile(rf"^(\s*){re.escape(reg)}\s*<=\s*([^;]+);\s*$")
-    cmp_pat = re.compile(rf"{re.escape(reg)}\s*(==|<=|<|>=|>|%)")
+    cmp_pat = re.compile(rf"\b{re.escape(reg)}\s*(==|<=|<|>=|>|%)")
     any_asn = re.compile(r"^\s*\w+(\[\S+\])?\s*<=")
 
     sites, compares, flag_lines, sens = [], [], [], []
@@ -17,12 +17,12 @@ def gather(target):
         if m:
             sites.append({"line": i, "rhs": m.group(2).strip()}); continue
         if any_asn.match(ln):
-            if reg in ln:                      # flag machinery touching reg
+            if re.search(rf"\b{re.escape(reg)}\b", ln):                      # flag machinery touching reg
                 flag_lines.append({"line": i, "text": ln.strip()[:110]})
             continue
         if cmp_pat.search(ln):
             compares.append({"line": i, "text": ln.strip()[:110]}); continue
-        if "always@" in ln.replace(" ", "") and reg in ln:
+        if "always@" in ln.replace(" ", "") and re.search(rf"\b{re.escape(reg)}\b", ln):
             sens.append({"line": i, "text": ln.strip()[:160]})
 
     # Complete always-blocks mentioning reg (block = always.. to column-0 end)
@@ -36,9 +36,12 @@ def gather(target):
             if s.startswith("end") and (len(ln) - len(ln.lstrip())) == 0:
                 in_blk = False
                 blk = "\n".join(cur)
-                if reg in blk:
+                if re.search(rf"\b{re.escape(reg)}\b", blk):
                     blocks.append(blk)
 
+    assert not (compares and not sites), (
+        f"inventory error: {reg} has {len(compares)} compares but 0 "
+        f"assignment sites; a compared register must be assigned somewhere")
     return {
         "file": f, "register": reg,
         "assignment_sites": sites, "n_sites": len(sites),
