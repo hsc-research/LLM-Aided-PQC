@@ -341,10 +341,9 @@ begin
 end
 
 
-wire mod_weight_zero;
+reg mod_weight_zero;
 reg mod_weight_minus_1;
 
-assign mod_weight_zero = (wr_addr_ctx == 0 || wr_addr_ctx == WEIGHT || wr_addr_ctx == 2*WEIGHT || wr_addr_ctx == 3*WEIGHT || wr_addr_ctx == 4*WEIGHT || wr_addr_ctx == 5*WEIGHT )? 1 :0;
 
 
 
@@ -369,6 +368,7 @@ begin
         ctx_state <= s_ctx_wait_valid;
         shake_output_counter <= 0;
         wr_addr_ctx <= 0;
+        mod_weight_zero <= ((0) == 0 || (0) == WEIGHT || (0) == 2*WEIGHT || (0) == 3*WEIGHT || (0) == 4*WEIGHT || (0) == 5*WEIGHT);
         mod_weight_minus_1 <= ((0) == WEIGHT-1 || (0) == 2*WEIGHT-1 || (0) == 3*WEIGHT-1 || (0) == 4*WEIGHT-1 || (0) == 5*WEIGHT-1 || (0) == 6*WEIGHT-1);
         wr_in_range <= ((0) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
     end
@@ -379,6 +379,7 @@ begin
                 if (dout_valid_sh_internal) begin
                    ctx_state <= s_ctx_first;
                    wr_addr_ctx <= wr_addr_ctx+1;
+                   mod_weight_zero <= ((wr_addr_ctx+1) == 0 || (wr_addr_ctx+1) == WEIGHT || (wr_addr_ctx+1) == 2*WEIGHT || (wr_addr_ctx+1) == 3*WEIGHT || (wr_addr_ctx+1) == 4*WEIGHT || (wr_addr_ctx+1) == 5*WEIGHT);
                    mod_weight_minus_1 <= ((wr_addr_ctx+1) == WEIGHT-1 || (wr_addr_ctx+1) == 2*WEIGHT-1 || (wr_addr_ctx+1) == 3*WEIGHT-1 || (wr_addr_ctx+1) == 4*WEIGHT-1 || (wr_addr_ctx+1) == 5*WEIGHT-1 || (wr_addr_ctx+1) == 6*WEIGHT-1);
                    wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end
@@ -398,6 +399,7 @@ begin
                 if (dout_valid_sh_internal) begin
                    ctx_state <= s_ctx_second;
                    wr_addr_ctx <= wr_addr_ctx+1;
+                   mod_weight_zero <= ((wr_addr_ctx+1) == 0 || (wr_addr_ctx+1) == WEIGHT || (wr_addr_ctx+1) == 2*WEIGHT || (wr_addr_ctx+1) == 3*WEIGHT || (wr_addr_ctx+1) == 4*WEIGHT || (wr_addr_ctx+1) == 5*WEIGHT);
                    mod_weight_minus_1 <= ((wr_addr_ctx+1) == WEIGHT-1 || (wr_addr_ctx+1) == 2*WEIGHT-1 || (wr_addr_ctx+1) == 3*WEIGHT-1 || (wr_addr_ctx+1) == 4*WEIGHT-1 || (wr_addr_ctx+1) == 5*WEIGHT-1 || (wr_addr_ctx+1) == 6*WEIGHT-1);
                    wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end
@@ -420,6 +422,7 @@ begin
                    end
                    else begin
                         wr_addr_ctx <= wr_addr_ctx+1;   
+                        mod_weight_zero <= ((wr_addr_ctx+1) == 0 || (wr_addr_ctx+1) == WEIGHT || (wr_addr_ctx+1) == 2*WEIGHT || (wr_addr_ctx+1) == 3*WEIGHT || (wr_addr_ctx+1) == 4*WEIGHT || (wr_addr_ctx+1) == 5*WEIGHT);
                         mod_weight_minus_1 <= ((wr_addr_ctx+1) == WEIGHT-1 || (wr_addr_ctx+1) == 2*WEIGHT-1 || (wr_addr_ctx+1) == 3*WEIGHT-1 || (wr_addr_ctx+1) == 4*WEIGHT-1 || (wr_addr_ctx+1) == 5*WEIGHT-1 || (wr_addr_ctx+1) == 6*WEIGHT-1);
                         wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                         ctx_state <= s_ctx_third;
@@ -444,6 +447,7 @@ begin
             else if (wr_in_range) begin
                    ctx_state <= s_ctx_wait_valid;
                    wr_addr_ctx <= wr_addr_ctx+1;
+                   mod_weight_zero <= ((wr_addr_ctx+1) == 0 || (wr_addr_ctx+1) == WEIGHT || (wr_addr_ctx+1) == 2*WEIGHT || (wr_addr_ctx+1) == 3*WEIGHT || (wr_addr_ctx+1) == 4*WEIGHT || (wr_addr_ctx+1) == 5*WEIGHT);
                    mod_weight_minus_1 <= ((wr_addr_ctx+1) == WEIGHT-1 || (wr_addr_ctx+1) == 2*WEIGHT-1 || (wr_addr_ctx+1) == 3*WEIGHT-1 || (wr_addr_ctx+1) == 4*WEIGHT-1 || (wr_addr_ctx+1) == 5*WEIGHT-1 || (wr_addr_ctx+1) == 6*WEIGHT-1);
                    wr_in_range <= ((wr_addr_ctx+1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
             end
@@ -457,6 +461,7 @@ begin
 		else if (ctx_state == s_ctx_reset) begin
 		    if (dout_valid_sh_internal) begin
                 wr_addr_ctx <= wr_addr_ctx + 1;
+                mod_weight_zero <= ((wr_addr_ctx + 1) == 0 || (wr_addr_ctx + 1) == WEIGHT || (wr_addr_ctx + 1) == 2*WEIGHT || (wr_addr_ctx + 1) == 3*WEIGHT || (wr_addr_ctx + 1) == 4*WEIGHT || (wr_addr_ctx + 1) == 5*WEIGHT);
                 mod_weight_minus_1 <= ((wr_addr_ctx + 1) == WEIGHT-1 || (wr_addr_ctx + 1) == 2*WEIGHT-1 || (wr_addr_ctx + 1) == 3*WEIGHT-1 || (wr_addr_ctx + 1) == 4*WEIGHT-1 || (wr_addr_ctx + 1) == 5*WEIGHT-1 || (wr_addr_ctx + 1) == 6*WEIGHT-1);
                 wr_in_range <= ((wr_addr_ctx + 1) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 ctx_state <= s_ctx_wait_valid;   // discarding final bits	
@@ -465,6 +470,7 @@ begin
 		
 		else if (ctx_state == s_ctx_done) begin
             wr_addr_ctx <= 0;
+            mod_weight_zero <= ((0) == 0 || (0) == WEIGHT || (0) == 2*WEIGHT || (0) == 3*WEIGHT || (0) == 4*WEIGHT || (0) == 5*WEIGHT);
             mod_weight_minus_1 <= ((0) == WEIGHT-1 || (0) == 2*WEIGHT-1 || (0) == 3*WEIGHT-1 || (0) == 4*WEIGHT-1 || (0) == 5*WEIGHT-1 || (0) == 6*WEIGHT-1);
             wr_in_range <= ((0) <= NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
             ctx_state <= s_ctx_wait_valid;   // discarding final bits	
