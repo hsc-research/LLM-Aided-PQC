@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Fri Jun 12 16:30:21 2026
+| Date         : Fri Jun 12 20:40:14 2026
 | Host         : MSI running 64-bit Ubuntu 26.04 LTS
 | Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/encap_hqc128_top20.rpt
 | Design       : encap
@@ -12,16 +12,16 @@ Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanc
 
 Timing Report
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[0]
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIPADIP[0]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -36,46 +36,151 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_48/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[0]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[0]
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[16])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[16]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[16]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_29__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_29__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_66__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_66__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_29__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[16]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIPADIP[0]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIPADIP[0])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.333    
+  -------------------------------------------------------------------
+                         slack                                 -0.685    
+
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIPADIP[1]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[17])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[17]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[17]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_27__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_27__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_64__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_64__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_28__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[17]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIPADIP[1]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIPADIP[1])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.333    
+  -------------------------------------------------------------------
+                         slack                                 -0.685    
+
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[0]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[18])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[18]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[18]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_25__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_25__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_37__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_37__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_14__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[18]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[0]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
                          RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[0])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.333    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.685    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[10]
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[1]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -90,586 +195,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_38/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[10]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[10]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[10])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[11]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_37/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[11]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[11]
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[19])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[19]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[19]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_23__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_23__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_35__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_35__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_13__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[19]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[1]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[11])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[12]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_36/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[12]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[12]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[12])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[13]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_35/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[13]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[13]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[13])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[14]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_34/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[14]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[14]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[14])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[15]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_33/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[15]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[15]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[15])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[16]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_32/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[16]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[16]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[16])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[17]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_31/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[17]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[17]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[17])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[18]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_30/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[18]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[18]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[18])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[19]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_29/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[19]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[19]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
-                         clock pessimism              0.000     5.924    
-                         clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[19])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
-  -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
-  -------------------------------------------------------------------
-                         slack                                 -0.247    
-
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[1]
-                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Path Group:             clk
-  Path Type:              Setup (Max at Slow Process Corner)
-  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
-  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
-    Source Clock Delay      (SCD):    0.973ns
-    Clock Pessimism Removal (CPR):    0.000ns
-  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter     (TSJ):    0.071ns
-    Total Input Jitter      (TIJ):    0.000ns
-    Discrete Jitter          (DJ):    0.000ns
-    Phase Error              (PE):    0.000ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk rise edge)        0.000     0.000 r  
-                                                      0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
-  -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_47/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[1]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[1]
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk rise edge)        5.000     5.000 r  
-                                                      0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
                          RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[1])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.333    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.685    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[20]
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[2]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -684,46 +248,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_28/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[20]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[20]
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[20])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[20]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[20]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_21__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_21__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_34__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_34__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_12__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[20]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[2]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[20])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[2])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.333    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.685    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[21]
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[3]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -738,46 +301,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_27/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[21]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[21]
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[21])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[21]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[21]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_19__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_19__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_33__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_33__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_11__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[21]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[3]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[21])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[3])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.333    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.685    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[22]
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[4]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -792,46 +354,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_26/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[22]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[22]
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[22])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[22]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[22]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_17__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_17__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_32__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_32__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_10__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[22]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[4]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[22])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[4])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.333    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.685    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[23]
+Slack (VIOLATED) :        -0.685ns  (required time - arrival time)
+  Source:                 ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[5]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.360ns  (logic 2.852ns (53.205%)  route 2.508ns (46.795%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -846,46 +407,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_25/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[23]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[23]
+                         RAMB36E1 (Prop_ramb36e1_CLKBWRCLK_DOBDO[23])
+                                                      2.454     3.427 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DOBDO[23]
+                         net (fo=5, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/dout[23]
+                         LUT5 (Prop_lut5_I0_O)        0.150     4.377 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_15__1/O
+                         net (fo=2, unplaced)         0.460     4.837    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_15__1_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     4.961 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_31__1/O
+                         net (fo=1, unplaced)         0.449     5.410    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_31__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.534 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_9__1/O
+                         net (fo=1, unplaced)         0.800     6.333    HASH_MEM/data[23]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[5]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[23])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[5])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.333    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.685    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[24]
+Slack (VIOLATED) :        -0.666ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIADI[11]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.341ns  (logic 2.826ns (52.907%)  route 2.515ns (47.093%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -900,46 +460,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_24/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[24]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[24]
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[3])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[3]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[3]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[3]_INST_0_i_1/O
+                         net (fo=3, unplaced)         0.467     4.818    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[3]
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.942 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_39__1/O
+                         net (fo=1, unplaced)         0.449     5.391    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_39__1_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     5.515 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_16__1/O
+                         net (fo=1, unplaced)         0.800     6.314    HASH_MEM/data[11]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIADI[11]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[24])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[11])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.314    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.666    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[25]
+Slack (VIOLATED) :        -0.666ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIADI[12]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.341ns  (logic 2.826ns (52.907%)  route 2.515ns (47.093%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -954,46 +513,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_23/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[25]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[25]
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[4])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[4]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[4]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[4]_INST_0_i_1/O
+                         net (fo=3, unplaced)         0.467     4.818    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[4]
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.942 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_37__1/O
+                         net (fo=1, unplaced)         0.449     5.391    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_37__1_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     5.515 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_15__1/O
+                         net (fo=1, unplaced)         0.800     6.314    HASH_MEM/data[12]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIADI[12]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[25])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[12])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.314    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.666    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[26]
+Slack (VIOLATED) :        -0.666ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIADI[13]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.341ns  (logic 2.826ns (52.907%)  route 2.515ns (47.093%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -1008,46 +566,45 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_22/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[26]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[26]
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[5])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[5]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[5]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[5]_INST_0_i_1/O
+                         net (fo=3, unplaced)         0.467     4.818    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[5]
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.942 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_35__1/O
+                         net (fo=1, unplaced)         0.449     5.391    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_35__1_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     5.515 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_14__1/O
+                         net (fo=1, unplaced)         0.800     6.314    HASH_MEM/data[13]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIADI[13]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[26])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[13])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.314    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.666    
 
-Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
-  Source:                 sel_uv_reg/C
-                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
-  Destination:            ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[27]
+Slack (VIOLATED) :        -0.666ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIADI[14]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.426ns  (logic 1.123ns (25.374%)  route 3.303ns (74.626%))
-  Logic Levels:           4  (LUT2=1 LUT4=1 LUT5=1 LUT6=1)
+  Data Path Delay:        5.341ns  (logic 2.826ns (52.907%)  route 2.515ns (47.093%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -1062,35 +619,458 @@ Slack (VIOLATED) :        -0.247ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=2059, unset)         0.973     0.973    clk
-                         FDRE                                         r  sel_uv_reg/C
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  sel_uv_reg/Q
-                         net (fo=2, unplaced)         0.817     2.246    HASH_MEM/encap_out[32]
-                         LUT5 (Prop_lut5_I0_O)        0.295     2.541 r  HASH_MEM/encap_out[127]_INST_0_i_1/O
-                         net (fo=274, unplaced)       0.574     3.115    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/sel_uv_to_enc
-                         LUT2 (Prop_lut2_I0_O)        0.124     3.239 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_90/O
-                         net (fo=137, unplaced)       0.556     3.795    ENCRYPT/XOR_BASED_ADDER/mem_reg_0
-                         LUT4 (Prop_lut4_I0_O)        0.124     3.919 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_92/O
-                         net (fo=137, unplaced)       0.556     4.475    ENCRYPT/XOR_BASED_ADDER/add_out_valid_reg_reg_0
-                         LUT6 (Prop_lut6_I0_O)        0.124     4.599 r  ENCRYPT/XOR_BASED_ADDER/mem_reg_0_i_21/O
-                         net (fo=1, unplaced)         0.800     5.399    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/data_10[27]
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIADI[27]
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[6])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[6]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[6]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[6]_INST_0_i_1/O
+                         net (fo=3, unplaced)         0.467     4.818    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[6]
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.942 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_33__1/O
+                         net (fo=1, unplaced)         0.449     5.391    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_33__1_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     5.515 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_13__1/O
+                         net (fo=1, unplaced)         0.800     6.314    HASH_MEM/data[14]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIADI[14]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=2059, unset)         0.924     5.924    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/clk
-                         RAMB36E1                                     r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKARDCLK
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
-                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[27])
-                                                     -0.737     5.152    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[14])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
   -------------------------------------------------------------------
-                         required time                          5.152    
-                         arrival time                          -5.399    
+                         required time                          5.648    
+                         arrival time                          -6.314    
   -------------------------------------------------------------------
-                         slack                                 -0.247    
+                         slack                                 -0.666    
+
+Slack (VIOLATED) :        -0.666ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_0/DIADI[15]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.341ns  (logic 2.826ns (52.907%)  route 2.515ns (47.093%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[7])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[7]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[7]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[7]_INST_0_i_1/O
+                         net (fo=3, unplaced)         0.467     4.818    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[7]
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.942 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_31__1/O
+                         net (fo=1, unplaced)         0.449     5.391    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_31__1_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     5.515 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_12__1/O
+                         net (fo=1, unplaced)         0.800     6.314    HASH_MEM/data[15]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/DIADI[15]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_0/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[15])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.314    
+  -------------------------------------------------------------------
+                         slack                                 -0.666    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[10]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[28])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[28]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[28]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[28]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[28]
+                         LUT5 (Prop_lut5_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_22__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_22__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_4__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[28]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[10]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[10])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[11]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[29])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[29]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[29]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[29]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[29]
+                         LUT5 (Prop_lut5_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_20__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_20__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_3__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[29]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[11]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[11])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[12]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT6=2)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[30])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[30]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[30]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[30]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[30]
+                         LUT6 (Prop_lut6_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_18__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_18__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_2__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[30]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[12]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[12])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[13]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT6=2)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[31])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[31]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[31]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[31]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[31]
+                         LUT6 (Prop_lut6_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_16__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_16__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_1__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[31]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[13]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[13])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[6]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[24])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[24]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[24]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[24]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[24]
+                         LUT5 (Prop_lut5_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_30__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_30__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_8__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[24]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[6]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[6])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[7]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[25])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[25]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[25]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[25]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[25]
+                         LUT5 (Prop_lut5_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_28__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_28__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_7__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[25]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[7]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[7])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
+
+Slack (VIOLATED) :        -0.659ns  (required time - arrival time)
+  Source:                 ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            HASH_MEM/mem_reg_1/DIADI[8]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        5.334ns  (logic 2.826ns (52.977%)  route 2.508ns (47.023%))
+  Logic Levels:           3  (LUT3=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2071, unset)         0.973     0.973    ENCRYPT/u_mem/clk
+                         RAMB36E1                                     r  ENCRYPT/u_mem/mem_reg_0/CLKARDCLK
+  -------------------------------------------------------------------    -------------------
+                         RAMB36E1 (Prop_ramb36e1_CLKARDCLK_DOADO[26])
+                                                      2.454     3.427 r  ENCRYPT/u_mem/mem_reg_0/DOADO[26]
+                         net (fo=2, unplaced)         0.800     4.227    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/q[26]
+                         LUT3 (Prop_lut3_I2_O)        0.124     4.351 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/encap_out[26]_INST_0_i_1/O
+                         net (fo=2, unplaced)         0.460     4.811    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/u_v_int[26]
+                         LUT5 (Prop_lut5_I0_O)        0.124     4.935 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_26__1/O
+                         net (fo=1, unplaced)         0.449     5.384    ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_26__1_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.508 r  ENCRYPT/POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_6__1/O
+                         net (fo=1, unplaced)         0.800     6.307    HASH_MEM/data[26]
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/DIADI[8]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=2071, unset)         0.924     5.924    HASH_MEM/clk
+                         RAMB36E1                                     r  HASH_MEM/mem_reg_1/CLKARDCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKARDCLK_DIADI[8])
+                                                     -0.241     5.648    HASH_MEM/mem_reg_1
+  -------------------------------------------------------------------
+                         required time                          5.648    
+                         arrival time                          -6.307    
+  -------------------------------------------------------------------
+                         slack                                 -0.659    
 
 
 
