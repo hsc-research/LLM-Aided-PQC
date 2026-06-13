@@ -326,17 +326,21 @@ assign done = done_onegen;
 reg weight_counter_init;
 reg [LOG_WEIGHT:0] weight_count;
 reg decrease_weight_count;
+reg wc_lt_W;
 
 always@(posedge clk)
 begin
     if (weight_counter_init) begin
         weight_count = 0;
+        wc_lt_W = (weight_count < WEIGHT);
     end
     else if (wr_en_ms) begin
         weight_count = weight_count + 1;
+        wc_lt_W = (weight_count < WEIGHT);
     end
 	else if (decrease_weight_count) begin
 		weight_count = weight_count - 1;
+        wc_lt_W = (weight_count < WEIGHT);
 	end
 end
 
@@ -626,11 +630,11 @@ begin
 			if (count_red < NO_OF_CTX*WEIGHT-1) begin
 				red_state <= s_red_move;
 				count_red <= count_red + 1;
-				if (weight_count < WEIGHT) begin
+				if (wc_lt_W) begin
                     rd_addr_ctx <= rd_addr_ctx + 1;
                     rd_at_last <= ((rd_addr_ctx + 1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
                 end
-                if (weight_count < WEIGHT) begin
+                if (wc_lt_W) begin
                     if (rejection_threshold_pass) begin
                         wr_addr_ms <= wr_addr_ms+1;
                     end
@@ -661,7 +665,7 @@ begin
         end 
 		
 		else if (red_state == s_red_check_weight) begin
-			if ((weight_count < WEIGHT)  && (rd_at_last)) begin
+			if ((wc_lt_W)  && (rd_at_last)) begin
 				    red_state <= s_red_wait_3;
 				    rd_addr_ctx <= 0;
 				    rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
@@ -756,7 +760,7 @@ begin
 end 
 
 
-always@(red_state or rejection_threshold_pass or weight_count or collision_ms or ready_onegen or rd_addr_ctx or rd_at_last) 
+always@(red_state or rejection_threshold_pass or weight_count or wc_lt_W or collision_ms or ready_onegen or rd_addr_ctx or rd_at_last) 
 begin
     case (red_state)
 		s_red_wait: begin
@@ -791,7 +795,7 @@ begin
 			squeeze_ctrl <= 1'b0;
 			start_onegen <= 1'b0;
 
-			if (rejection_threshold_pass && (weight_count<= WEIGHT-1)) begin
+			if (rejection_threshold_pass && (wc_lt_W)) begin
 				wr_en_ms <= 1'b1;
 			end
 			else begin
@@ -804,7 +808,7 @@ begin
 			decrease_weight_count <= 1'b0;
 			start_onegen <= 1'b0;
 			squeeze_ctrl <= 1'b0;
-			if (rejection_threshold_pass && (weight_count<= WEIGHT-1)) begin
+			if (rejection_threshold_pass && (wc_lt_W)) begin
 				wr_en_ms <= 1'b1;
 			end
 			else begin
@@ -833,11 +837,11 @@ begin
 			decrease_weight_count <= 1'b0;
 			weight_counter_init <= 1'b0;
 			wr_en_ms <= 1'b0;
-			if (weight_count < WEIGHT && rd_addr_ctx == 0) begin
+			if (wc_lt_W && rd_addr_ctx == 0) begin
 			    start_onegen <= 1'b0;
 				squeeze_ctrl <= 1'b1;
 			end
-			else if (weight_count < WEIGHT && rd_at_last) begin
+			else if (wc_lt_W && rd_at_last) begin
 			     start_onegen <= 1'b0;
 				 squeeze_ctrl <= 1'b1;
 			end 
@@ -882,7 +886,7 @@ begin
 			start_onegen <= 1'b0;
 			squeeze_ctrl <= 1'b0;
 
-			if (rejection_threshold_pass && (weight_count<= WEIGHT-1)) begin
+			if (rejection_threshold_pass && (wc_lt_W)) begin
 				wr_en_ms <= 1'b1;
 			end
 			else begin
