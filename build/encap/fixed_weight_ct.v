@@ -229,6 +229,7 @@ reg [LOG_W_CTX:0] wr_addr_ctx, rd_addr_ctx;
 reg wr_in_range;
 reg rd_at_last;
 reg [LOG_W_CTX:0] count_red;
+reg cr_lt_lim;
 reg wr_en_shake_ctx;
 wire [24:0] shake_ctx_q;
 wire [23:0] shake_ctx_out;
@@ -592,6 +593,7 @@ begin
 		rd_addr_ctx <=0;
 		rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 		count_red <= 0;
+		cr_lt_lim <= ((0) < NO_OF_CTX*WEIGHT-1);
 		wr_addr_ms <= 0;
     end
     else begin
@@ -603,6 +605,7 @@ begin
 				rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				wr_addr_ms <= 0;
 				count_red <=0;
+				cr_lt_lim <= ((0) < NO_OF_CTX*WEIGHT-1);
 			end
         end 
         
@@ -611,6 +614,7 @@ begin
 			     red_state <= s_red_stall_0;
 			     wr_addr_ms <= 0;
 				 count_red <=0;
+				 cr_lt_lim <= ((0) < NO_OF_CTX*WEIGHT-1);
 			end
 			else if (request_another_vector == 2'b01) begin
                 red_state <= s_red_wait;
@@ -622,14 +626,16 @@ begin
 				rd_addr_ctx <= rd_addr_ctx+1;
 				rd_at_last <= ((rd_addr_ctx+1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
 				count_red <= count_red + 1;
+				cr_lt_lim <= ((count_red + 1) < NO_OF_CTX*WEIGHT-1);
 				wr_addr_ms <= 0;
         end 
         
         
 		else if (red_state == s_red_move) begin   
-			if (count_red < NO_OF_CTX*WEIGHT-1) begin
+			if (cr_lt_lim) begin
 				red_state <= s_red_move;
 				count_red <= count_red + 1;
+				cr_lt_lim <= ((count_red + 1) < NO_OF_CTX*WEIGHT-1);
 				if (wc_lt_W) begin
                     rd_addr_ctx <= rd_addr_ctx + 1;
                     rd_at_last <= ((rd_addr_ctx + 1) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
@@ -708,6 +714,7 @@ begin
 				wr_addr_ms <= rd_addr_ms;
 				red_state <= s_red_stall_2;
 				count_red <= count_red - 1;
+				cr_lt_lim <= ((count_red - 1) < NO_OF_CTX*WEIGHT-1);
 				if (rd_at_last) begin
     				rd_addr_ctx <= 0;
     				rd_at_last <= ((0) == NUM_OF_FW_VEC*NO_OF_CTX*WEIGHT-1);
@@ -733,6 +740,7 @@ begin
                 end				
 				red_state <= s_red_wait_from_second;
 				count_red <= 0;
+				cr_lt_lim <= ((0) < NO_OF_CTX*WEIGHT-1);
 			end 
 		end 
 		
