@@ -1,0 +1,101 @@
+[
+  {
+    "module": "keygen",
+    "param_set": "hqc128",
+    "luts": 1227,
+    "ffs": 730,
+    "bram": 10,
+    "dsp": 0,
+    "wns_ns": -0.297,
+    "fmax_mhz": 188.8,
+    "timing_met": false
+  },
+  {
+    "module": "keygen",
+    "param_set": "hqc192",
+    "luts": 1269,
+    "ffs": 737,
+    "bram": 10,
+    "dsp": 0,
+    "wns_ns": -0.383,
+    "fmax_mhz": 185.8,
+    "timing_met": false
+  },
+  {
+    "module": "keygen",
+    "param_set": "hqc256",
+    "luts": 1287,
+    "ffs": 755,
+    "bram": 11,
+    "dsp": 0,
+    "wns_ns": -0.299,
+    "fmax_mhz": 188.7,
+    "timing_met": false
+  },
+  {
+    "module": "encap",
+    "param_set": "hqc128",
+    "luts": 2707,
+    "ffs": 2029,
+    "bram": 12,
+    "dsp": 0,
+    "wns_ns": -0.247,
+    "fmax_mhz": 190.6,
+    "timing_met": false
+  },
+  {
+    "module": "encap",
+    "param_set": "hqc192",
+    "luts": 2808,
+    "ffs": 2299,
+    "bram": 15,
+    "dsp": 0,
+    "wns_ns": -0.917,
+    "fmax_mhz": 169.0,
+    "timing_met": false
+  },
+  {
+    "module": "encap",
+    "param_set": "hqc256",
+    "luts": 3373,
+    "ffs": 2916,
+    "bram": 15,
+    "dsp": 0,
+    "wns_ns": -0.715,
+    "fmax_mhz": 175.0,
+    "timing_met": false
+  },
+  {
+    "module": "decap",
+    "param_set": "hqc128",
+    "luts": 7682,
+    "ffs": 6514,
+    "bram": 18,
+    "dsp": 0,
+    "wns_ns": -2.233,
+    "fmax_mhz": 138.3,
+    "timing_met": false
+  },
+  {
+    "module": "decap",
+    "param_set": "hqc192",
+    "luts": 8434,
+    "ffs": 7816,
+    "bram": 21,
+    "dsp": 0,
+    "wns_ns": -2.238,
+    "fmax_mhz": 138.2,
+    "timing_met": false
+  },
+  {
+    "module": "decap",
+    "param_set": "hqc256",
+    "luts": 9431,
+    "ffs": 9318,
+    "bram": 21,
+    "dsp": 0,
+    "wns_ns": -2.242,
+    "fmax_mhz": 138.1,
+    "timing_met": false
+  }
+]

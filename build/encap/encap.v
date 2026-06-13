@@ -554,6 +554,7 @@ assign hash_addr = (hash_mem_wen)?          hash_in_addr:
 //reg [`CLOG2(HASH_RAMBITS_32/32)-1:0] count_hash_inputs;
 reg [12-1:0] count_hash_inputs;
 reg cnt_lt_mu;
+reg cnt_lt_rb;
 reg [`CLOG2(HASH_RAMBITS_32/32)-1:0] count_hash_inputs_test;
 reg [3:0] count_uv_blocks;
 reg cap_uv_reg;
@@ -602,6 +603,7 @@ begin
         count_uv_blocks <= 0;
         u_v_out_en_int <= 0;
         count_hash_inputs <= 0;
+        cnt_lt_rb <= ((0) < HASH_RAMBITS_32/32 - 1);
         cnt_lt_mu <= ((0) < HASH_M_U_32/32-1);
         sel_uv <= 0;
         fixed_weight_processing <= 0;
@@ -658,6 +660,7 @@ begin
             count_uv_blocks <= 0;
             u_v_out_en_int <= 0;
             count_hash_inputs <= count_hash_inputs + 1;
+            cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
             cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
             sel_uv <= 0;
             fixed_weight_processing <= 0;
@@ -675,6 +678,7 @@ begin
             count_uv_blocks <= 0;
             u_v_out_en_int <= 0;
             count_hash_inputs <= count_hash_inputs + 1;
+            cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
             cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
             fixed_weight_processing <= 0;
             sel_uv <= 0;
@@ -881,6 +885,7 @@ begin
                 if (chi_mod34_neq_0) begin
 //                if (count_hash_inputs%34 != 0) begin
                     count_hash_inputs <= count_hash_inputs + 1;
+                    cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
                     cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
                     if (count_uv_blocks < 3) begin
                         state <= s_save_u;
@@ -916,6 +921,7 @@ begin
                if (chi_mod34_neq_0) begin             
 //               if (count_hash_inputs%34 != 0) begin             
                        count_hash_inputs <= count_hash_inputs + 1;
+                       cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
                        cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
                    if (count_uv_blocks < 3) begin
                         state <= s_save_u;
@@ -949,6 +955,7 @@ begin
            u_v_out_en_int <= 1;
            hash_in_addr <= hash_in_addr+1;
            count_hash_inputs <= count_hash_inputs + 1;
+           cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
            cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
            sel_uv <= 0;
            if (count_uv_blocks < 3) begin
@@ -974,11 +981,12 @@ begin
            u_v_out_en_int <= 1;
            
            
-           if (count_hash_inputs < HASH_RAMBITS_32/32 - 1) begin
+           if (cnt_lt_rb) begin
                 sel_uv <= 1;
                 if (chi_mod34_neq_0) begin
 //                if (count_hash_inputs%34 != 0) begin
                     count_hash_inputs <= count_hash_inputs + 1;
+                    cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
                     cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
                     if (count_uv_blocks < 3) begin
                         state <= s_save_v;
@@ -1018,6 +1026,7 @@ begin
                if (chi_mod34_neq_0) begin
 //               if (count_hash_inputs%34 != 0) begin
                    count_hash_inputs <= count_hash_inputs + 1;    
+                   cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
                    cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
                    if (count_uv_blocks < 3) begin
                         state <= s_save_v;
@@ -1054,6 +1063,7 @@ begin
            u_v_out_en_int <= 1;
            hash_in_addr <= hash_in_addr+1;
            count_hash_inputs <= count_hash_inputs + 1;
+           cnt_lt_rb <= ((count_hash_inputs + 1) < HASH_RAMBITS_32/32 - 1);
            cnt_lt_mu <= ((count_hash_inputs + 1) < HASH_M_U_32/32-1);
            sel_uv <= 1;
            if (count_uv_blocks < 3) begin
@@ -1100,7 +1110,7 @@ end
   
 reg block_capture, last_block_capture;
 
-always@(state, shake_dout_valid_h, done_encrypt, done_fixed_weight, count_hash_inputs, cnt_lt_mu, cap_uv_reg, count_uv_blocks, theta_addr)
+always@(state, shake_dout_valid_h, done_encrypt, done_fixed_weight, count_hash_inputs, cnt_lt_mu, cnt_lt_rb, cap_uv_reg, count_uv_blocks, theta_addr)
 begin
 
 case(state)
@@ -1307,7 +1317,7 @@ case(state)
     
     s_load_u: begin
         shake_force_done <= 0;
-        if (count_hash_inputs < HASH_M_U_32/32 -1) begin
+        if (cnt_lt_mu) begin
             hash_mem_wen <= 1;
             block_capture <= 0;
         end
@@ -1388,17 +1398,17 @@ case(state)
     
      s_load_v: begin
         shake_force_done <= 0;
-        if (count_hash_inputs < HASH_RAMBITS_32/32 - 1) begin
+        if (cnt_lt_rb) begin
             hash_mem_wen <= 1;
         end
         else begin
             hash_mem_wen <= 0;
         end
         
-        if (count_hash_inputs%34 == 0 && count_hash_inputs < HASH_RAMBITS_32/32 - 1) begin
+        if (count_hash_inputs%34 == 0 && cnt_lt_rb) begin
             block_capture <= 0;
         end
-        else if (count_hash_inputs >= HASH_RAMBITS_32/32 -1) begin
+        else if (!cnt_lt_rb) begin
             block_capture <= 0;
         end
         else begin
