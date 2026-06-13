@@ -22,7 +22,7 @@
 */
 
 
-module encrypt
+module encrypt_parallel
 #( 
 
     parameter parameter_set = "hqc256",
@@ -98,8 +98,8 @@ module encrypt
 	parameter LOG_RAMDEPTH = `CLOG2(RAMDEPTH),
 	
 	parameter COPIES_OF_CDW = (parameter_set == "hqc128")? 3 : 5,
-	
-	parameter CT_DESIGN = 2'b10  
+     
+    parameter CT_DESIGN = 2'b10 // CT_DESIGN = 2'b10 Constant weight word design, CT_DESIGN = 2'b01 Probabalistic Constant time design, CT_DESIGN = 2'b00 Default Design    
 													
 )
 (
@@ -107,7 +107,7 @@ module encrypt
     input rst,
     input start,
     input [K-1:0] msg_in,
-    
+	
 	input [3:0]theta_addr,
     input [31:0] theta,
 	input theta_wen,
@@ -118,20 +118,25 @@ module encrypt
 //	input [RAMWIDTH-1:0] hs_1,	
 //	output [`CLOG2(X)-1:0] hs_addr_0,
 //	output [`CLOG2(X)-1:0] hs_addr_1,
-//	output reg sel_hs, // sel_hs = 0 input is h, sel_hs = 1 input is s 
+	
+    input [RAMWIDTH-1:0] h_0,
+	input [RAMWIDTH-1:0] h_1,	
+	output [`CLOG2(X)-1:0] h_addr_0,
+	output [`CLOG2(X)-1:0] h_addr_1,
 	
 	input [RAMWIDTH-1:0] s_0,
 	input [RAMWIDTH-1:0] s_1,	
 	output [`CLOG2(X)-1:0] s_addr_0,
 	output [`CLOG2(X)-1:0] s_addr_1,
 	
-	input [RAMWIDTH-1:0] h_0,
-	input [RAMWIDTH-1:0] h_1,	
-	output [`CLOG2(X)-1:0] h_addr_0,
-	output [`CLOG2(X)-1:0] h_addr_1,
+//	output reg sel_hs, // sel_hs = 0 input is h, sel_hs = 1 input is s 
 	
 	
-	input sel_uv,  // sel_uv = 0 output is u, sel_uv = 1 output is v
+//	input u_out_en,
+//	input [`CLOG2(RAMDEPTH)-1:0] u_out_addr,
+//	output [RAMWIDTH-1:0] u_out,
+	
+	input  sel_uv, // sel_uv = 0 input is u, sel_uv = 1 input is v 
 	input u_v_out_en,
 	input [`CLOG2(RAMDEPTH)-1:0] u_v_out_addr,
 	output [RAMWIDTH-1:0] u_v_out,
@@ -141,7 +146,7 @@ module encrypt
 	input [RAMWIDTH-1:0] u_v_in,
 	
 	output reg done_fixed_weight,
-
+	
 `ifdef SHARED
     output pm_start,    
 	output [M-1:0] pm_loc_in,
@@ -171,13 +176,7 @@ module encrypt
     input  wire shake_dout_valid
 	
     );
-
-reg sel_hs; // sel_hs = 0 input is h, sel_hs = 1 input is s 
-wire [RAMWIDTH-1:0] hs_0;
-wire [RAMWIDTH-1:0] hs_1;	
-wire  [`CLOG2(X)-1:0] hs_addr_0;
-wire  [`CLOG2(X)-1:0] hs_addr_1;
-  
+   
 reg start_fw;   
 wire done_fw;
 reg [1:0] request_another_vector;
@@ -204,18 +203,16 @@ assign shake_dout_ready = shake_dout_ready_fw;
 assign shake_dout_scram_fw = shake_dout_scram;
 assign shake_dout_valid_fw = shake_dout_valid;
 
-
-
 wire rd_error_loc;
 wire [LOG_WEIGHT_ENC-1:0] rd_addr_error_loc;
 
 assign rd_error_loc = (rd_fw|sel_e)? 1'b1: 1'b0;
 
 assign rd_addr_error_loc = sel_fw? fw_addr: 
-                           sel_e? r1_e_rd_addr: 
+                           sel_e? e_rd_addr: 
                            0;
 generate
-    if (CT_DESIGN == 2'b00) begin
+    if (CT_DESIGN ==  2'b00) begin
       fixed_weight #(
       .parameter_set(parameter_set), 
       .N(N), 
@@ -255,7 +252,7 @@ generate
       );
   end
  
-    else if (CT_DESIGN == 2'b01) begin 
+    else if (CT_DESIGN ==  2'b01) begin 
         fixed_weight_ct #(
       .parameter_set(parameter_set), 
       .N(N), 
@@ -296,9 +293,9 @@ generate
       );
 
     end
-    
-    
-   else if (CT_DESIGN == 2'b10) begin 
+   
+   
+       else if (CT_DESIGN == 2'b10) begin 
         fixed_weight_cww #(
       .parameter_set(parameter_set), 
       .N(N), 
@@ -335,7 +332,7 @@ generate
     
 endgenerate
 
-assign u_v_out = (sel_uv)? pm_out : u_out;
+assign u_v_out = (sel_uv)? pm_out_sr2 : pm_out;
  
 wire [127:0] cdw_out;
 reg  cdw_out_en = 0;
@@ -347,7 +344,7 @@ wire  [LOG_N1_BYTES-1:0] cdw_out_addr;
    ( .clk(clk),
      .rst(rst),
      .start(start_encode),
-     .msg_in(msg_in[K-1:0]),
+     .msg_in(msg_in),
     
 	 .cdw_out_addr(cdw_out_addr),
      .cdw_out_en(xor_add_en),
@@ -364,90 +361,116 @@ wire  [LOG_N1_BYTES-1:0] cdw_out_addr;
          .wr_en(wen_fw & en_r1),
          .q(r1_internal)
   );
+
  
-  mem_single #(.WIDTH(M), .DEPTH(WEIGHT_ENC) ) r2_mem
-  (
-         .clock(clk),
-         .data(error_loc),
-         .address(rd_fw?fw_addr_reg:loc_addr),
-         .wr_en(wen_fw & en_r2),
-         .q(r2_internal)
+//  mem_single #(.WIDTH(M), .DEPTH(WEIGHT_ENC) ) r2_mem_hr2
+//  (
+//         .clock(clk),
+//         .data(error_loc),
+//         .address(rd_fw?fw_addr_reg:loc_addr_hr2),
+//         .wr_en(wen_fw & en_r2),
+//         .q(r2_internal_hr2)
+//  );
+  
+  
+   mem_dual #(.WIDTH(M), .DEPTH(WEIGHT_ENC)) r2_mem (
+    .clock(clk),
+    .data_0(error_loc),
+    .data_1(0),
+    .address_0(rd_fw?fw_addr_reg:loc_addr_hr2),
+    .address_1(loc_addr_sr2),
+    .wren_0(wen_fw & en_r2),
+    .wren_1(0),
+    .q_0(r2_internal_hr2),
+    .q_1(r2_internal_sr2)
   );
 
-wire [RAMWIDTH-1:0] u_out;
-  mem_single #(.WIDTH(RAMWIDTH), .DEPTH(RAMDEPTH)) u_mem
-  (
-         .clock(clk),
-         .data(u_v_in_wen ? u_v_in : pm_out),
-         .address(u_v_out_en? u_v_out_addr : u_v_in_wen? u_v_in_addr : u_cpy_addr_reg),
-         .wr_en((u_v_in_wen && sel_uv == 0)? 1: wen_u),
-         .q(u_out)
-  );
+//wire [RAMWIDTH-1:0] u_out;
+//  mem_single #(.WIDTH(RAMWIDTH), .DEPTH(RAMDEPTH)) u_mem
+//  (
+//         .clock(clk),
+//         .data(pm_out),
+//         .address(u_v_out_en? u_v_out_addr : u_cpy_addr_reg),
+//         .wr_en(wen_u),
+//         .q(u_out)
+//  );
   
-wire [RAMWIDTH-1:0] hs_in_0;
-wire [RAMWIDTH-1:0] hs_in_1;
+
+wire [RAMWIDTH-1:0] h_in_0;
+wire [RAMWIDTH-1:0] h_in_1;
+wire [RAMWIDTH-1:0] s_in_0;
+wire [RAMWIDTH-1:0] s_in_1;
 reg sel_r1 = 0;
 reg sel_r2 = 0;
 reg sel_e  = 0;
 wire [M-1:0] r1_internal; 
 wire [M-1:0] r2_internal;
+wire [M-1:0] r2_internal_hr2;
+wire [M-1:0] r2_internal_sr2;
 wire [M-1:0] error;
-wire [LOG_WEIGHT_ENC-1:0] loc_addr, r1_e_rd_addr;
-wire [RAMWIDTH-1:0] pm_out;
+wire [LOG_WEIGHT_ENC-1:0] loc_addr_hr2, r1_e_rd_addr, e_rd_addr;
+wire [LOG_WEIGHT_ENC-1:0] loc_addr_sr2;
+wire [RAMWIDTH-1:0] pm_out, pm_out_sr2;
 reg start_poly_mult_r2h;
 reg start_poly_mult_sr2;
-wire done_poly_mult;
+wire done_poly_mult, done_poly_mult_sr2;
 
-assign h_addr_0 = (sel_hs == 0)? hs_addr_0 : 0;
-assign h_addr_1 = (sel_hs == 0)? hs_addr_1 : 0;
-assign s_addr_0 = (sel_hs == 1)? hs_addr_0 : 0;
-assign s_addr_1 = (sel_hs == 1)? hs_addr_1 : 0;
+//assign h_in_0 = (h_addr_0 <= X/2)? h_0 : 0;
+//assign h_in_1 = (h_addr_1 <= X/2)? h_1 : 0;
 
-assign hs_0 = (sel_hs == 1)? s_0 : h_0;
-assign hs_1 = (sel_hs == 1)? s_1 : h_1;
+//assign s_in_0 = (s_addr_0 <= X/2)? s_0 : 0;
+//assign s_in_1 = (s_addr_1 <= X/2)? s_1 : 0;
 
-//assign hs_in_0 = (hs_addr_0 <= X/2)? hs_0 : 0;
-//assign hs_in_1 = (hs_addr_1 <= X/2)? hs_1 : 0;
-                         
-assign error = r2_internal;
-
-
+//assign error = (sel_r1 | sel_r1_hr2)? r1_internal:
+//               (sel_r2|sel_r2_sr2)? r2_internal:
+//                         error_loc; 
 
 // poly_mult optimization
 
-reg  [`CLOG2(X)-1:0] hs_addr_0_reg;
-reg  [`CLOG2(X)-1:0] hs_addr_1_reg;
+reg  [`CLOG2(X)-1:0] h_addr_0_reg;
+reg  [`CLOG2(X)-1:0] h_addr_1_reg;
+reg  [`CLOG2(X)-1:0] s_addr_0_reg;
+reg  [`CLOG2(X)-1:0] s_addr_1_reg;
+
 always@(posedge clk) begin
-   hs_addr_0_reg <= hs_addr_0; 
-   hs_addr_1_reg <= hs_addr_1; 
+   h_addr_0_reg <= h_addr_0; 
+   h_addr_1_reg <= h_addr_1;
+   s_addr_0_reg <= s_addr_0; 
+   s_addr_1_reg <= s_addr_1; 
 end
 
-assign hs_in_0 = (hs_addr_0_reg> (X + X%2)/2 - 1)? 0: hs_0;
-assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
+assign h_in_0 = (h_addr_0_reg> (X + X%2)/2 - 1)? 0: h_0;
+assign h_in_1 = (h_addr_1_reg> (X + X%2)/2 - 1)? 0: h_1;
+
+assign s_in_0 = (s_addr_0_reg> (X + X%2)/2 - 1)? 0: s_0;
+assign s_in_1 = (s_addr_1_reg> (X + X%2)/2 - 1)? 0: s_1;
+                         
+assign error = r2_internal_hr2;
+
 
 `ifdef SHARED
-    assign pm_start      = start_poly_mult_r2h|start_poly_mult_sr2;
+    assign pm_start      = start_poly_mult_r2h;
     assign pm_loc_in     = error;
     assign pm_weight     = WEIGHT_ENC;
-    assign pm_mux_word_0 = hs_in_0;
-    assign pm_mux_word_1 = hs_in_1;
-    assign pm_rd_dout    = (copy_u|u_v_out_en|xor_add_en|pm_rd_en)? 1'b1: 1'b0;
-    assign pm_addr_result= copy_u? u_cpy_addr: xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr;
-    assign pm_add_wr_en  = (u_v_in_wen && sel_uv == 1)? 1 : xor_add_en? xor_add_out_valid: add_out_valid;
-    assign pm_add_addr   = (u_v_in_wen && sel_uv == 1)? u_v_in_addr :xor_add_en? xor_add_out_addr : add_out_addr;
-    assign pm_add_in     = (u_v_in_wen && sel_uv == 1)? u_v_in : xor_add_en? xor_add_out : add_out;
+    assign pm_mux_word_0 = h_in_0;
+    assign pm_mux_word_1 = h_in_1;
+    assign pm_rd_dout    = (u_v_out_en|pm_rd_en)? 1'b1: 1'b0;
+    assign pm_addr_result= u_v_out_en? u_v_out_addr: pm_rd_addr;
+    assign pm_add_wr_en  = (u_v_in_wen && sel_uv==0)? 1'b1: add_out_valid;
+    assign pm_add_addr   = u_v_in_wen? u_v_in_addr :add_out_addr;
+    assign pm_add_in     = u_v_in_wen? u_v_in :add_out;
     
-    assign loc_addr = pm_loc_addr;
-    assign hs_addr_0 = pm_addr_0;
-    assign hs_addr_1 = pm_addr_1;
+    assign loc_addr_hr2 = pm_loc_addr;
+    assign h_addr_0 = pm_addr_0;
+    assign h_addr_1 = pm_addr_1;
     assign done_poly_mult = pm_valid;
     assign pm_out = pm_dout;
 
 `endif
 
 `ifndef SHARED
- poly_mult #(
 // poly_mult #(
+ poly_mult #(
   .parameter_set(parameter_set),
   .MAX_WEIGHT(WEIGHT_ENC),
   .N(N),
@@ -457,45 +480,84 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
   .X(X)
   
   )
-  POLY_MULT  (
+  POLY_MULT_HR2  (
 		.clk(clk),
 		.rst(rst),
-		.start(start_poly_mult_r2h|start_poly_mult_sr2),
+		.start(start_poly_mult_r2h),
 				
 		// Shift Position loading
-		.loc_addr(loc_addr),
+		.loc_addr(loc_addr_hr2),
 		.loc_in(error),
 		.weight(WEIGHT_ENC),
 		
 		// Random Vector Loading
-		.mux_word_0(hs_in_0),
-		.mux_word_1(hs_in_1),
-		.addr_0(hs_addr_0),
-		.addr_1(hs_addr_1),
+		.mux_word_0(h_in_0),
+		.mux_word_1(h_in_1),
+		.addr_0(h_addr_0),
+		.addr_1(h_addr_1),
 		
 		.valid(done_poly_mult),
-		.addr_result(copy_u? u_cpy_addr: xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr),
-		.rd_dout((copy_u|u_v_out_en|xor_add_en|pm_rd_en)? 1'b1: 1'b0),
+		.addr_result(u_v_out_en? u_v_out_addr: pm_rd_addr),
+		.rd_dout((u_v_out_en|pm_rd_en)? 1'b1: 1'b0),
 		.dout(pm_out),
 		
-        .add_in((u_v_in_wen && sel_uv == 1)? u_v_in : xor_add_en? xor_add_out : add_out),
-		.add_addr((u_v_in_wen && sel_uv == 1)? u_v_in_addr :xor_add_en? xor_add_out_addr : add_out_addr),
-		.add_wr_en((u_v_in_wen && sel_uv == 1)? 1 : xor_add_en? xor_add_out_valid: add_out_valid)
+        .add_in(u_v_in_wen? u_v_in :add_out),
+		.add_addr(u_v_in_wen? u_v_in_addr :add_out_addr),
+		.add_wr_en((u_v_in_wen && sel_uv==0)? 1'b1: add_out_valid)
   );
-`endif
+`endif  
+  
+  
+//   poly_mult #(
+   poly_mult #(
+  .parameter_set(parameter_set),
+  .MAX_WEIGHT(WEIGHT_ENC),
+  .N(N),
+  .M(M),
+  .W(W),
+  .RAMWIDTH(RAMWIDTH),
+  .X(X)
+  
+  )
+  POLY_MULT_SR2  (
+		.clk(clk),
+		.rst(rst),
+		.start(start_poly_mult_sr2),
+				
+		// Shift Position loading
+		.loc_addr(loc_addr_sr2),
+		.loc_in(r2_internal_sr2),
+		.weight(WEIGHT_ENC),
+		
+		// Random Vector Loading
+		.mux_word_0(s_in_0),
+		.mux_word_1(s_in_1),
+		.addr_0(s_addr_0),
+		.addr_1(s_addr_1),
+		
+		.valid(done_poly_mult_sr2),
+		.addr_result(xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr_sr2),
+		.rd_dout((u_v_out_en|xor_add_en|pm_rd_en_sr2)? 1'b1: 1'b0),
+		.dout(pm_out_sr2),
+		
+        .add_in(u_v_in_wen? u_v_in: xor_add_en? xor_add_out : add_out_sr2),
+		.add_addr(u_v_in_wen? u_v_in_addr: xor_add_en? xor_add_out_addr : add_out_addr_sr2),
+		.add_wr_en((u_v_in_wen && sel_uv==1)? 1'b1:xor_add_en? xor_add_out_valid: add_out_valid_sr2)
+  );
+
 
  wire [RAMWIDTH-1:0] pm_out;
- wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr;
- wire pm_rd_en;
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
+ wire pm_rd_en, pm_rd_en_sr2;
  
- wire [MEM_WIDTH-1:0] add_out;
- wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr;
- wire add_out_valid;
+ wire [MEM_WIDTH-1:0] add_out, add_out_sr2;
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr, add_out_addr_sr2;
+ wire add_out_valid, add_out_valid_sr2;
  
  reg start_adder_r1r2h;
  reg start_adder_sr2_plus_e;
- wire done_loc_based_adder;
- wire r1_e_rd_en;
+ wire done_loc_based_adder, done_loc_based_adder_sr2;
+ wire r1_e_rd_en, e_rd_en;
  
   loc_based_adder #(.parameter_set(parameter_set), .WIDTH(RAMWIDTH), .WEIGHT(WEIGHT_ENC), .N(N))
   LOC_BASED_ADDER
@@ -503,11 +565,12 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
     .clk(clk),
     .rst(rst),
     
-    .start(start_adder_r1r2h | start_adder_sr2_plus_e),
+    .start(start_adder_r1r2h),
     
     .loc_rd_addr(r1_e_rd_addr),
     .loc_rd_en(r1_e_rd_en),
-    .location(sel_r1_hr2? r1_internal: sel_e? error_loc : r1_internal),
+//    .location(sel_r1_hr2? r1_internal: sel_e? error_loc : r1_internal),
+    .location(r1_internal),
     
     .pm_rd_addr(pm_rd_addr),
     .pm_rd_en(pm_rd_en),
@@ -519,6 +582,29 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
     .done(done_loc_based_adder)
     
     );
+    
+  loc_based_adder #(.parameter_set(parameter_set), .WIDTH(RAMWIDTH), .WEIGHT(WEIGHT_ENC), .N(N))
+  LOC_BASED_ADDER_SR2
+   (
+    .clk(clk),
+    .rst(rst),
+    
+    .start(start_adder_sr2_plus_e),
+    
+    .loc_rd_addr(e_rd_addr),
+    .loc_rd_en(e_rd_en),
+    .location(error_loc),
+    
+    .pm_rd_addr(pm_rd_addr_sr2),
+    .pm_rd_en(pm_rd_en_sr2),
+    .pm_in(pm_out_sr2),
+    
+    .add_out(add_out_sr2),
+    .add_out_addr(add_out_addr_sr2),
+    .add_out_valid(add_out_valid_sr2),
+    .done(done_loc_based_adder_sr2)
+    
+    );
   
   reg start_adder_mG;
   wire done_xor_adder;
@@ -526,15 +612,14 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
   wire [RAMWIDTH-1:0] add_in_2;
   wire xor_add_en;
   wire [LOG_RAMDEPTH-1:0] xor_add_addr;
-  wire [LOG_RAMDEPTH-1:0] xor_add_addr_div;
   
   wire [RAMWIDTH-1:0]  xor_add_out;
   wire [LOG_RAMDEPTH-1:0] xor_add_out_addr;
   wire xor_add_out_valid;
   
-  assign add_in_1 = pm_out;
+  assign add_in_1 = pm_out_sr2;
   assign add_in_2 = cdw_out;
-  assign cdw_out_addr = xor_add_addr_div;
+  assign cdw_out_addr = xor_add_addr/COPIES_OF_CDW;
    
   xor_based_adder #(.parameter_set(parameter_set), .N(N) , .WIDTH(RAMWIDTH))
   XOR_BASED_ADDER
@@ -547,7 +632,6 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
     .in_1(add_in_1),
     .in_2(add_in_2),
     .in_addr(xor_add_addr),
-    .in_addr_div(xor_add_addr_div),
     .in_rd_en(xor_add_en),
     
     .add_out(xor_add_out),
@@ -571,161 +655,6 @@ reg en_r1;
 reg en_r2;
 reg en_e;
 
-
-//always@(posedge clk)
-//begin
-
-//     if (rst) begin
-//        state <= s_wait_start;
-//        request_another_vector <= 2'b00;
-//        en_r1 <= 0;
-//        en_r2 <= 0;
-//        en_e <= 0;
-//        r2_done <= 0;
-//        done_fixed_weight <= 0;
-//    end
-//    else begin
-//        if (state == s_wait_start) begin
-//            en_r1 <= 0;
-//            en_r2 <= 0;
-//            en_e <= 0;;
-//            r2_done <= 0;
-//            done_fixed_weight <= 0;
-//            request_another_vector <= 2'b00;
-//            shake_force_done <= 1'b0;
-//            if (start) begin
-//				state <= s_gen_r1;				
-//			end 
-//        end 
-		
-//		else if (state == s_gen_r1) begin
-//		      en_r2 <= 0;
-//		      en_e <= 0;
-//		      r2_done <= 0;
-//		      done_fixed_weight <= 0;
-//		      if (done_fw) begin
-//			     state <= s_gen_r2;
-//			     en_r1 <= 1;
-//			     request_another_vector <= 2'b11;
-//			  end
-//			  else begin 
-//			     state <= s_gen_r1;
-//			     en_r1 <= 0;
-//			     request_another_vector <= 2'b00;
-//			  end
-//		end
-		
-//		else if (state == s_gen_r2) begin
-//		      r2_done <= 0;
-//		      done_fixed_weight <= 0;
-//		      if (done_fw_transfer) begin
-//		          en_r1 <= 0;    
-//		      end
-//		      en_e <= 0;
-//		      if (done_fw) begin
-//			     state <= s_gen_e;
-//			     en_r2 <= 1;
-//			     request_another_vector <= 2'b11;
-//			  end
-//			  else begin 
-//			     state <= s_gen_r2;
-//			     en_r2 <= 0;
-//			     request_another_vector <= 2'b00;
-//			  end
-//		end
-		
-//		else if (state == s_gen_e) begin
-//		      en_r1 <= 0;
-//		      done_fixed_weight <= 0;
-//		      if (done_fw_transfer) begin
-//		          en_r2 <= 0;
-//		          r2_done <= 1;    
-//		      end
-//		      else begin
-//		          r2_done <= 0;
-//		      end
-//		      request_another_vector <= 2'b00;
-//		      if (done_fw) begin
-//			     state <= s_done;
-//			     en_e <= 1;
-//			  end
-//			  else begin 
-//			     state <= s_gen_e;
-//			     en_e <= 0;
-//			  end
-//		end
-		
-//		else if (state == s_done) begin
-//		      state <= s_wait_start;
-//		      en_r1 <= 0;
-//		      en_r2 <= 0;
-//		      r2_done <= 0;
-//		      done_fixed_weight <= 1; 
-//		end
-        
-//    end 
-//end
-
-//always@(state, start, done_fw, shake_din_ready) 
-//begin
-//    case (state)
-//     s_wait_start: 
-//     begin
-//        start_fw_transfer <= 0;
-//        if (start) begin
-//            start_fw <= 1'b1;
-//            start_encode <= 1'b1;
-//        end
-//        else begin
-//            start_fw <= 1'b0;
-//            start_encode <= 1'b0;
-//        end
-//     end
-     
-//     s_gen_r1: 
-//     begin
-//        start_fw <= 0;
-//        start_encode <= 1'b0;
-//        if (done_fw) begin
-//            start_fw_transfer <= 1'b1;
-//        end
-//        else begin
-//            start_fw_transfer <= 1'b0;
-//        end
-//     end
-     
-//     s_gen_r2: 
-//     begin
-//        start_fw <= 0;
-//        start_encode <= 1'b0;
-//        if (done_fw) begin
-//            start_fw_transfer <= 1'b1;
-//        end
-//        else begin
-//            start_fw_transfer <= 1'b0;
-//        end
-//     end 
-     
-//     s_gen_e: 
-//     begin
-//        start_fw <= 0;
-//        start_encode <= 1'b0;
-//        start_fw_transfer <= 1'b0;
-//     end 
-     
-   
-     
-      
-//	  default: 
-//	  begin
-//	       start_fw <= 1'b0;
-//	       start_encode <= 1'b0; 
-//	       start_fw_transfer <= 1'b0;
-//	  end         
-      
-//    endcase
-
-//end 
 
 always@(posedge clk)
 begin
@@ -923,6 +852,7 @@ begin
 
 end 
 
+
  reg wen_fw, sel_fw, rd_fw;
  reg start_fw_transfer;
  reg done_fw_transfer;
@@ -930,7 +860,7 @@ end
  parameter trx_wait_start  =   0;
  parameter trx_tranfer =   1;
  parameter trx_done =   2;
- reg [LOG_WEIGHT_ENC-1:0] fw_addr, fw_addr_reg;
+ reg [LOG_WEIGHT_ENC-1:0] fw_addr, fw_addr_reg = 0;
  
  
  always@(posedge clk)
@@ -1173,18 +1103,13 @@ begin
         if (v_state == v_wait_start) begin
             done <= 0;
             sel_e <= 0;
-            if (u_done) begin
+            if (r2_done) begin
                 v_state <= v_s_mul_r2;
-                sel_hs <= 1'b1;
-            end
-            else begin
-                sel_hs <= 1'b0;
             end
         end
         
         else if (v_state == v_s_mul_r2) begin
-            sel_hs <= 1'b1;
-            if (done_poly_mult) begin
+            if (done_poly_mult_sr2) begin
                 v_state <= v_e_plus_sr2;
                 sel_e <= 1;
             end
@@ -1192,7 +1117,7 @@ begin
         
         else if (v_state == v_e_plus_sr2) begin
             done <= 0;
-            if (done_loc_based_adder) begin
+            if (done_loc_based_adder_sr2) begin
                 v_state <= v_mG_plus_sr2_plus_e;
                 sel_e <= 0;
             end
@@ -1208,7 +1133,7 @@ begin
     end
 end
 
-always@(v_state, u_done, done_poly_mult, done_loc_based_adder, done_xor_adder)
+always@(v_state, r2_done, done_poly_mult_sr2, done_loc_based_adder_sr2, done_xor_adder)
 begin
 
     case(v_state)
@@ -1216,7 +1141,7 @@ begin
     v_wait_start: begin
                     start_adder_sr2_plus_e <= 1'b0;
                     start_adder_mG <= 1'b0;
-                    if (u_done) begin
+                    if (r2_done) begin
                         start_poly_mult_sr2 <= 1'b1;
                         sel_r2_sr2 <= 1'b1;
                     end
@@ -1230,7 +1155,7 @@ begin
                     sel_r2_sr2 <= 1'b1;
                     start_adder_mG <= 1'b0;
                     start_poly_mult_sr2 <= 1'b0;
-                    if (done_poly_mult) begin
+                    if (done_poly_mult_sr2) begin
                         start_adder_sr2_plus_e <= 1'b1;
                     end
                     else begin
@@ -1242,7 +1167,7 @@ begin
                     sel_r2_sr2 <= 1'b1;
                     start_adder_sr2_plus_e <= 1'b0;
                     start_poly_mult_sr2 <= 1'b0;
-                    if (done_loc_based_adder) begin
+                    if (done_loc_based_adder_sr2) begin
                         start_adder_mG <= 1'b1;
                     end
                     else begin

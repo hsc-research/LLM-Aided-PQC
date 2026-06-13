@@ -526,6 +526,7 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
   wire [RAMWIDTH-1:0] add_in_2;
   wire xor_add_en;
   wire [LOG_RAMDEPTH-1:0] xor_add_addr;
+  wire [LOG_RAMDEPTH-1:0] xor_add_addr_div;
   
   wire [RAMWIDTH-1:0]  xor_add_out;
   wire [LOG_RAMDEPTH-1:0] xor_add_out_addr;
@@ -533,7 +534,7 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
   
   assign add_in_1 = pm_out;
   assign add_in_2 = cdw_out;
-  assign cdw_out_addr = xor_add_addr/COPIES_OF_CDW;
+  assign cdw_out_addr = xor_add_addr_div;
    
   xor_based_adder #(.parameter_set(parameter_set), .N(N) , .WIDTH(RAMWIDTH))
   XOR_BASED_ADDER
@@ -546,6 +547,7 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
     .in_1(add_in_1),
     .in_2(add_in_2),
     .in_addr(xor_add_addr),
+    .in_addr_div(xor_add_addr_div),
     .in_rd_en(xor_add_en),
     
     .add_out(xor_add_out),

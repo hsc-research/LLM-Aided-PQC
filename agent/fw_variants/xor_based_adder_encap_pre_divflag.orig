@@ -61,7 +61,6 @@ module xor_based_adder
     input [(WIDTH-1):0] in_1,
     input [(WIDTH-1):0] in_2,
     output reg [LOG_DEPTH-1:0] in_addr,
-    output reg [LOG_DEPTH-1:0] in_addr_div,
     output reg in_rd_en,
     
     input start,
@@ -90,8 +89,6 @@ parameter s_load_loc               =   1;//
 parameter s_stall               =   2;//
 
 reg [3:0] state     = 0;
-localparam DIV_CDW = (parameter_set == "hqc128") ? 3 : 5;
-reg [2:0] in_addr_rem;
 
 
 
@@ -116,8 +113,6 @@ begin
     if (rst) begin
         state <= s_wait_start;
         in_addr <= 0;
-        in_addr_div <= 0;
-        in_addr_rem <= 0;
         done_reg <= 0;
         add_out_valid_reg <= 1'b0;
     end
@@ -126,8 +121,6 @@ begin
          
          if (state == s_wait_start) begin
             in_addr <= 0;
-            in_addr_div <= 0;
-            in_addr_rem <= 0;
             done_reg <= 0;
             add_out_valid_reg <= 1'b0;
             if (start) begin 
@@ -144,13 +137,6 @@ begin
             end
             else begin
                 in_addr <= in_addr + 1;
-                if (in_addr_rem == DIV_CDW-1) begin
-                    in_addr_div <= in_addr_div + 1;
-                    in_addr_rem <= 0;
-                end
-                else begin
-                    in_addr_rem <= in_addr_rem + 1;
-                end
                 state <= s_load_loc;
             end  
          end
