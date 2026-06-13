@@ -81,6 +81,16 @@ def _check_cross_register(fspec):
     # count_hash_inputs-derived flag; counts happened to refuse, semantics
     # would not have. This makes it structural.
     paired = [op["reg"] for op in fspec["ops"] if op["op"] == "pair_assignments"]
+    # New-flag gate (flight 11a): every pair_assignments flag must be a NEW
+    # name declared by a replace_exact in this same experiment. Reusing an
+    # existing flag double-drives another register's machinery.
+    declared = " ".join(op.get("new", "") for op in fspec["ops"]
+                        if op["op"] == "replace_exact")
+    for op in fspec["ops"]:
+        if op["op"] == "pair_assignments":
+            assert f"reg {op['flag']};" in declared, (
+                f"new-flag gate: '{op['flag']}' is not declared by a "
+                f"replace_exact in this experiment (flight-11a class)")
     if not paired:
         return
     for op in fspec["ops"]:
