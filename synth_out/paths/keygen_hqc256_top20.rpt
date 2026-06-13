@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Fri Jun 12 20:57:08 2026
+| Date         : Fri Jun 12 21:25:28 2026
 | Host         : MSI running 64-bit Ubuntu 26.04 LTS
 | Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/keygen_hqc256_top20.rpt
 | Design       : keygen
@@ -12,16 +12,16 @@ Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanc
 
 Timing Report
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[0]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -36,25 +36,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_82/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[0]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_82/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[0]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[0]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -62,20 +62,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[10]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -90,25 +90,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_72/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[10]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_72/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[10]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[10]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -116,20 +116,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[11]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -144,25 +144,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_71/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[11]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_71/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[11]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[11]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -170,20 +170,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[12]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -198,25 +198,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_70/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[12]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_70/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[12]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[12]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -224,20 +224,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[13]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -252,25 +252,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_69/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[13]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_69/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[13]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[13]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -278,20 +278,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[14]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -306,25 +306,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_68/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[14]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_68/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[14]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[14]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -332,20 +332,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[15]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -360,25 +360,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_67/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[15]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_67/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[15]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[15]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -386,20 +386,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[16]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -414,25 +414,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_66/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[16]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_66/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[16]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[16]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -440,20 +440,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[17]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -468,25 +468,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_65/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[17]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_65/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[17]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[17]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -494,20 +494,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[18]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -522,25 +522,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_64/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[18]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_64/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[18]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[18]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -548,20 +548,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[19]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -576,25 +576,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_63/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[19]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_63/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[19]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[19]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -602,20 +602,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[1]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -630,25 +630,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_81/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[1]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_81/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[1]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[1]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -656,20 +656,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[20]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -684,25 +684,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_62/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[20]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_62/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[20]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[20]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -710,20 +710,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[21]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -738,25 +738,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_61/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[21]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_61/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[21]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[21]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -764,20 +764,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[22]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -792,25 +792,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_60/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[22]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_60/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[22]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[22]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -818,20 +818,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[23]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -846,25 +846,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_59/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[23]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_59/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[23]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[23]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -872,20 +872,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[24]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -900,25 +900,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_58/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[24]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_58/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[24]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[24]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -926,20 +926,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[25]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -954,25 +954,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_57/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[25]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_57/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[25]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[25]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -980,20 +980,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[26]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -1008,25 +1008,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_56/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[26]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_56/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[26]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[26]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -1034,20 +1034,20 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
-Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
-  Source:                 POLY_MULT/addr_0_intermediate_reg[1]/C
+Slack (VIOLATED) :        -0.229ns  (required time - arrival time)
+  Source:                 POLY_MULT/addr_0_intermediate_reg_reg[4]/C
                             (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Destination:            POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[27]
                             (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
   Path Group:             clk
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
-  Data Path Delay:        4.263ns  (logic 1.123ns (26.345%)  route 3.140ns (73.655%))
-  Logic Levels:           4  (LUT4=1 LUT5=1 LUT6=2)
+  Data Path Delay:        4.408ns  (logic 1.123ns (25.478%)  route 3.285ns (74.522%))
+  Logic Levels:           4  (LUT5=3 LUT6=1)
   Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
     Source Clock Delay      (SCD):    0.973ns
@@ -1062,25 +1062,25 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          (clock clk rise edge)        0.000     0.000 r  
                                                       0.000     0.000 r  clk (IN)
-                         net (fo=762, unset)          0.973     0.973    POLY_MULT/clk
-                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg[1]/C
+                         net (fo=763, unset)          0.973     0.973    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/addr_0_intermediate_reg_reg[4]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg[1]/Q
-                         net (fo=8, unplaced)         0.779     2.208    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_3_0[0]
-                         LUT4 (Prop_lut4_I1_O)        0.295     2.503 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
-                         net (fo=2, unplaced)         0.460     2.963    POLY_MULT/INTERLEAVED_RED_MEM/addr_0_intermediate_reg[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124     3.087 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
-                         net (fo=92, unplaced)        0.546     3.633    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124     3.757 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92/O
-                         net (fo=128, unplaced)       0.555     4.312    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_92_n_0
-                         LUT5 (Prop_lut5_I1_O)        0.124     4.436 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_55/O
-                         net (fo=1, unplaced)         0.800     5.236    POLY_MULT/INTERLEAVED_RED_MEM/din_0[27]
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  POLY_MULT/addr_0_intermediate_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_0[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76/O
+                         net (fo=1, unplaced)         0.449     3.138    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_76_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74/O
+                         net (fo=93, unplaced)        0.547     3.809    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_1_i_74_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.933 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93/O
+                         net (fo=37, unplaced)        0.524     4.457    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_93_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124     4.581 r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0_i_55/O
+                         net (fo=1, unplaced)         0.800     5.381    POLY_MULT/INTERLEAVED_RED_MEM/din_0[27]
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[27]
   -------------------------------------------------------------------    -------------------
 
                          (clock clk rise edge)        5.000     5.000 r  
                                                       0.000     5.000 r  clk (IN)
-                         net (fo=762, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
+                         net (fo=763, unset)          0.924     5.924    POLY_MULT/INTERLEAVED_RED_MEM/clk
                          RAMB36E1                                     r  POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
                          clock pessimism              0.000     5.924    
                          clock uncertainty           -0.035     5.889    
@@ -1088,9 +1088,9 @@ Slack (VIOLATED) :        -0.084ns  (required time - arrival time)
                                                      -0.737     5.152    POLY_MULT/INTERLEAVED_RED_MEM/mem_reg_0
   -------------------------------------------------------------------
                          required time                          5.152    
-                         arrival time                          -5.236    
+                         arrival time                          -5.381    
   -------------------------------------------------------------------
-                         slack                                 -0.084    
+                         slack                                 -0.229    
 
 
 

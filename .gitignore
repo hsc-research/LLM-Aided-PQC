@@ -41,3 +41,13 @@ __pycache__/
 synth_out/hqc_barrett_red/
 synth_out/fixed_weight_pipe/
 *.v.bak
+
+# Regenerated synthesis reports (kept locally, not versioned)
+synth_out/*/*_timing.rpt
+synth_out/*/*_util.rpt
+# Agent volatile per-run state
+agent/skiplist.json
+agent/last_raw_reply.txt
+# NOTE kept on purpose: agent/fw_variants/ (pre-edit backups),
+# synth_out/full_matrix.json, synth_out/paths/*_top20.rpt,
+# synth_out/*.xdc, agent/flight_log.jsonl
