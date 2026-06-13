@@ -51,3 +51,5 @@ agent/last_raw_reply.txt
 # NOTE kept on purpose: agent/fw_variants/ (pre-edit backups),
 # synth_out/full_matrix.json, synth_out/paths/*_top20.rpt,
 # synth_out/*.xdc, agent/flight_log.jsonl
+# Regenerated path-extraction TCL scripts
+synth_out/paths/extract_*.tcl
