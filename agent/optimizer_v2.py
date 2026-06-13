@@ -19,7 +19,8 @@ cone, or same-cell BRAM read-modify-write loops. Semantics-preserving by \
 construction. Implement as replace_exact on the array declaration.
 - Face 2b, precompute-by-increment: a compare on a counter register feeding \
 R/CE pins or FSM logic, where the counter updates only at statically known sites \
-(constants or +1). Implement as: replace_exact to add the flag declaration after \
+(constants or +1). Implement as: a declare_reg op to add the flag declaration (the \
+harness places it at module scope; do NOT use replace_exact for declarations), then \
 the counter's reg declaration; pair_assignments to compute the flag from each \
 site's RHS with {rhs} substitution; regex_swap to replace consumer expressions \
 (guard_reg set to the counter to avoid assignment/compare ambiguity); \
@@ -87,6 +88,7 @@ OUTPUT JSON SCHEMA:
  "experiment": {                     // only when verdict == experiment
    "name": str,                      // short slug
    "files": [{"path": str, "ops": [
+     {"op": "declare_reg", "name": str} |
      {"op": "replace_exact", "old": str, "new": str, "expect": int} |
      {"op": "pair_assignments", "reg": str, "flag": str, "expr": str,
       "expect_sites": int} |          // expr uses {rhs}

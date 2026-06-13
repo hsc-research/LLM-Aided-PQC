@@ -18,6 +18,22 @@ def _sens_add_only(old, new):
 
 def _apply_replace_exact(text, op):
     _sens_add_only(op["old"], op["new"])
+    # Declaration-placement gate: a reg/wire declaration introduced by this op
+    # must not be appended directly after a nonblocking assignment, which would
+    # place it INSIDE an always block (illegal Verilog). Lesson from the first
+    # v2.1 graduation flight: the model anchored a `reg` decl to a `<=` line in
+    # a clocked block; counts passed but synthesis would have failed.
+    added = [ln.strip() for ln in op["new"].split("\n")
+             if ln.strip() not in op["old"].split("\n")]
+    decl = re.compile(r"^(reg|wire)\b")
+    new_lines = op["new"].split("\n")
+    for i, ln in enumerate(new_lines):
+        if decl.match(ln.strip()) and ln.strip() not in op["old"]:
+            prev = new_lines[i-1].strip() if i > 0 else ""
+            assert "<=" not in prev and "=" not in prev.rstrip(";"), (
+                f"decl-placement gate: '{ln.strip()[:50]}' is introduced "
+                f"after an assignment ('{prev[:50]}'), which places it inside "
+                f"an always block. Declare reg/wire at module scope instead.")
     if op.get("whole_line"):
         # Anchor to complete lines (post-strip equality). Prevents legal-but-
         # unintended substring hits, e.g. a declaration that has since gained
@@ -71,9 +87,25 @@ def _apply_regex_swap(text, op):
     assert nc == op["expect"], f"regex_swap: {nc} consumers, expected {op['expect']}"
     return "\n".join(out)
 
+def _apply_declare_reg(text, op):
+    import re as _re
+    name = op["name"]
+    assert _re.match(r"^[A-Za-z_]\w*$", name), f"declare_reg: bad name {name!r}"
+    assert f"reg {name};" not in text and f"reg {name} " not in text, \
+        f"declare_reg: {name} already declared"
+    lines = text.split("\n")
+    last = None
+    for i, ln in enumerate(lines):
+        if (ln.startswith("reg ") or ln.startswith("wire ")) and ln.rstrip().endswith(";"):
+            last = i
+    assert last is not None, "declare_reg: no module-scope reg/wire anchor found"
+    lines.insert(last + 1, f"reg {name};")
+    return "\n".join(lines)
+
 _OPS = {"replace_exact": _apply_replace_exact,
         "pair_assignments": _apply_pair_assignments,
-        "regex_swap": _apply_regex_swap}
+        "regex_swap": _apply_regex_swap,
+        "declare_reg": _apply_declare_reg}
 
 def _check_cross_register(fspec):
     # A flag paired to register R may only replace expressions that mention R.
@@ -86,11 +118,14 @@ def _check_cross_register(fspec):
     # existing flag double-drives another register's machinery.
     declared = " ".join(op.get("new", "") for op in fspec["ops"]
                         if op["op"] == "replace_exact")
+    declared_names = {op["name"] for op in fspec["ops"]
+                      if op["op"] == "declare_reg"}
     for op in fspec["ops"]:
         if op["op"] == "pair_assignments":
-            assert f"reg {op['flag']};" in declared, (
+            assert (f"reg {op['flag']};" in declared
+                    or op["flag"] in declared_names), (
                 f"new-flag gate: '{op['flag']}' is not declared by a "
-                f"replace_exact in this experiment (flight-11a class)")
+                f"declare_reg or replace_exact in this experiment (flight-11a)")
     if not paired:
         return
     for op in fspec["ops"]:

@@ -1,0 +1,6 @@
+{"target": "keygen/hqc192/FIXEDWEIGHT/wr_addr_ctx", "verdict": "no_action"}
+{"target": "keygen/hqc192/FIXEDWEIGHT/weight_count", "verdict": "no_action"}
+{"target": "keygen/hqc192/FIXEDWEIGHT/wr_addr_ctx", "verdict": "no_action"}
+{"target": "keygen/hqc256/POLY_MULT/addr_0_intermediate", "verdict": "synth_fail"}
+{"target": "keygen/hqc256/POLY_MULT/addr_0_intermediate", "verdict": "refused", "err": "decl-placement gate: 'reg addr_0_intermediate_at_limit;' is introduced after an assignment ('addr_0_intermediate_reg <= addr_0_intermediate;'), which places it inside an always block. Declare reg/wire at module scope instead."}
+{"target": "keygen/hqc256/POLY_MULT/addr_0_intermediate", "verdict": "marginal", "gain": -0.14500000000000002}
