@@ -1,0 +1,1097 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Tue Jun 16 20:18:28 2026
+| Host         : MSI running 64-bit Ubuntu 26.04 LTS
+| Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/poly_mult_hqc256_top20.rpt
+| Design       : poly_mult
+| Device       : 7a200t-fbg676
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[0]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_64/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[0]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[0]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[0])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[10]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_54/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[10]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[10]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[10])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[11]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_53/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[11]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[11]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[11])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[12]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_52/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[12]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[12]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[12])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[13]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_51/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[13]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[13]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[13])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[14]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_50/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[14]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[14]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[14])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[15]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_49/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[15]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[15]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[15])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[16]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_48/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[16]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[16]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[16])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[17]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_47/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[17]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[17]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[17])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[18]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_46/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[18]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[18]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[18])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[19]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_45/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[19]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[19]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[19])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[1]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_63/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[1]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[1]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[1])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[20]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_44/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[20]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[20]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[20])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[21]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_43/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[21]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[21]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[21])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[22]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_42/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[22]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[22]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[22])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[23]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_41/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[23]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[23]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[23])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[24]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_40/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[24]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[24]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[24])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[25]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_39/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[25]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[25]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[25])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[26]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_38/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[26]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[26]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[26])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+Slack (VIOLATED) :        -0.092ns  (required time - arrival time)
+  Source:                 addr_0_intermediate_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[27]
+                            (rising edge-triggered cell RAMB36E1 clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        4.271ns  (logic 1.123ns (26.295%)  route 3.148ns (73.705%))
+  Logic Levels:           4  (LUT4=1 LUT5=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=353, unset)          0.973     0.973    clk
+                         FDRE                                         r  addr_0_intermediate_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  addr_0_intermediate_reg[1]/Q
+                         net (fo=15, unplaced)        0.859     2.288    INTERLEAVED_RED_MEM/mem_reg_1_0[0]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.583 r  INTERLEAVED_RED_MEM/mem_reg_3_i_63/O
+                         net (fo=1, unplaced)         0.449     3.032    INTERLEAVED_RED_MEM/mem_reg_3_i_63_n_0
+                         LUT5 (Prop_lut5_I1_O)        0.124     3.156 r  INTERLEAVED_RED_MEM/mem_reg_3_i_60/O
+                         net (fo=92, unplaced)        0.516     3.672    INTERLEAVED_RED_MEM/mem_reg_3_i_60_n_0
+                         LUT4 (Prop_lut4_I0_O)        0.124     3.796 r  INTERLEAVED_RED_MEM/mem_reg_1_i_73/O
+                         net (fo=37, unplaced)        0.524     4.320    INTERLEAVED_RED_MEM/mem_reg_1_i_73_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.124     4.444 r  INTERLEAVED_RED_MEM/mem_reg_0_i_37/O
+                         net (fo=1, unplaced)         0.800     5.244    INTERLEAVED_RED_MEM/din_0[27]
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/DIBDI[27]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=353, unset)          0.924     5.924    INTERLEAVED_RED_MEM/clk
+                         RAMB36E1                                     r  INTERLEAVED_RED_MEM/mem_reg_0/CLKBWRCLK
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         RAMB36E1 (Setup_ramb36e1_CLKBWRCLK_DIBDI[27])
+                                                     -0.737     5.152    INTERLEAVED_RED_MEM/mem_reg_0
+  -------------------------------------------------------------------
+                         required time                          5.152    
+                         arrival time                          -5.244    
+  -------------------------------------------------------------------
+                         slack                                 -0.092    
+
+
+
+

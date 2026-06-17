@@ -99,6 +99,26 @@ MODULE_SOURCES["keygen"] = [
 ]
 
 
+MODULE_SOURCES["fixed_weight"] = [
+    "./build/keygen/clog2.v",
+    "./build/keygen/fixed_weight.v",
+    "./build/keygen/onegen.v",
+    "./build/keygen/fixed_weight_ct.v",
+    "./build/keygen/onegen_ct.v",
+    "./build/keygen/hqc_barrett_red.v",
+    "./build/keygen/mem_single.v",
+    "./build/keygen/mem_dual.v",
+    "./build/keygen/keccak_top.v",
+    "./build/keygen/keccak_pkg.v",
+    "./build/keygen/keccak_math.v",
+    "./build/keygen/control_path.v",
+    "./build/keygen/data_path.v",
+    "./build/keygen/rc.v",
+    "./build/keygen/state_ram.v",
+    "./build/keygen/stateram_inference.v",
+    "./build/keygen/transform.v",
+]
+
 MODULE_SOURCES["decap"] = [
     "./build/decap/add_fft.v",
     "./build/decap/barrett_red_gen.v",
