@@ -1,0 +1,1197 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Fri Jun 12 20:15:16 2026
+| Host         : MSI running 64-bit Ubuntu 26.04 LTS
+| Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/decap_hqc256_top20.rpt
+| Design       : decap
+| Device       : 7a200t-fbg676
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -2.242ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[97]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.187ns  (logic 1.495ns (20.801%)  route 5.692ns (79.199%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_183/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[11]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_47/O
+                         net (fo=9, unplaced)         0.943     5.938    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_47_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.062 r  DECRYPT/V_MINUS_UY/dshift_reg[97]_i_11/O
+                         net (fo=7, unplaced)         0.937     6.999    DECRYPT/V_MINUS_UY/dshift_reg[97]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.123 r  DECRYPT/V_MINUS_UY/dshift_reg[97]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.036    DECRYPT/V_MINUS_UY/dshift_reg[97]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.160 r  DECRYPT/V_MINUS_UY/dshift_reg[97]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.160    POLY_MULT/D[97]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[97]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[97]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[97]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.160    
+  -------------------------------------------------------------------
+                         slack                                 -2.242    
+
+Slack (VIOLATED) :        -2.239ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[93]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.184ns  (logic 1.495ns (20.810%)  route 5.689ns (79.190%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_187/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[7]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_48/O
+                         net (fo=9, unplaced)         0.943     5.938    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_48_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.062 r  DECRYPT/V_MINUS_UY/dshift_reg[93]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.996    DECRYPT/V_MINUS_UY/dshift_reg[93]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.120 r  DECRYPT/V_MINUS_UY/dshift_reg[93]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.033    DECRYPT/V_MINUS_UY/dshift_reg[93]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.157 r  DECRYPT/V_MINUS_UY/dshift_reg[93]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.157    POLY_MULT/D[93]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[93]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[93]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[93]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.157    
+  -------------------------------------------------------------------
+                         slack                                 -2.239    
+
+Slack (VIOLATED) :        -2.239ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[98]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.184ns  (logic 1.495ns (20.810%)  route 5.689ns (79.190%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_182/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[12]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_48/O
+                         net (fo=8, unplaced)         0.940     5.935    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_48_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.059 r  DECRYPT/V_MINUS_UY/dshift_reg[98]_i_11/O
+                         net (fo=7, unplaced)         0.937     6.996    DECRYPT/V_MINUS_UY/dshift_reg[98]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.120 r  DECRYPT/V_MINUS_UY/dshift_reg[98]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.033    DECRYPT/V_MINUS_UY/dshift_reg[98]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.157 r  DECRYPT/V_MINUS_UY/dshift_reg[98]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.157    POLY_MULT/D[98]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[98]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[98]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[98]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.157    
+  -------------------------------------------------------------------
+                         slack                                 -2.239    
+
+Slack (VIOLATED) :        -2.238ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[33]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.183ns  (logic 1.495ns (20.813%)  route 5.688ns (79.187%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_247/O
+                         net (fo=4, unplaced)         0.926     4.867    DECRYPT/V_MINUS_UY/pm_mux_word_1[75]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.991 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_63/O
+                         net (fo=9, unplaced)         0.943     5.934    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_63_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.058 r  DECRYPT/V_MINUS_UY/dshift_reg[97]_i_15/O
+                         net (fo=7, unplaced)         0.937     6.995    DECRYPT/V_MINUS_UY/dshift_reg[97]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.119 r  DECRYPT/V_MINUS_UY/dshift_reg[97]_i_4/O
+                         net (fo=2, unplaced)         0.913     8.032    DECRYPT/V_MINUS_UY/dshift_reg[97]_i_4_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.156 r  DECRYPT/V_MINUS_UY/dshift_reg[33]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.156    POLY_MULT/D[33]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[33]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[33]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[33]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.156    
+  -------------------------------------------------------------------
+                         slack                                 -2.238    
+
+Slack (VIOLATED) :        -2.236ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[100]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.181ns  (logic 1.495ns (20.819%)  route 5.686ns (79.181%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_180/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[14]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[104]_i_44/O
+                         net (fo=7, unplaced)         0.937     5.932    DECRYPT/V_MINUS_UY/dshift_reg[104]_i_44_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.056 r  DECRYPT/V_MINUS_UY/dshift_reg[100]_i_11/O
+                         net (fo=7, unplaced)         0.937     6.993    DECRYPT/V_MINUS_UY/dshift_reg[100]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.117 r  DECRYPT/V_MINUS_UY/dshift_reg[100]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.030    DECRYPT/V_MINUS_UY/dshift_reg[100]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.154 r  DECRYPT/V_MINUS_UY/dshift_reg[100]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.154    POLY_MULT/D[100]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[100]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[100]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[100]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.154    
+  -------------------------------------------------------------------
+                         slack                                 -2.236    
+
+Slack (VIOLATED) :        -2.236ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[102]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.181ns  (logic 1.495ns (20.819%)  route 5.686ns (79.181%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_178/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[16]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_47/O
+                         net (fo=8, unplaced)         0.940     5.935    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_47_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.059 r  DECRYPT/V_MINUS_UY/dshift_reg[102]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.993    DECRYPT/V_MINUS_UY/dshift_reg[102]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.117 r  DECRYPT/V_MINUS_UY/dshift_reg[102]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.030    DECRYPT/V_MINUS_UY/dshift_reg[102]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.154 r  DECRYPT/V_MINUS_UY/dshift_reg[102]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.154    POLY_MULT/D[102]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[102]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[102]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[102]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.154    
+  -------------------------------------------------------------------
+                         slack                                 -2.236    
+
+Slack (VIOLATED) :        -2.236ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[94]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.181ns  (logic 1.495ns (20.819%)  route 5.686ns (79.181%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_186/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[8]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_49/O
+                         net (fo=8, unplaced)         0.940     5.935    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_49_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.059 r  DECRYPT/V_MINUS_UY/dshift_reg[94]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.993    DECRYPT/V_MINUS_UY/dshift_reg[94]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.117 r  DECRYPT/V_MINUS_UY/dshift_reg[94]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.030    DECRYPT/V_MINUS_UY/dshift_reg[94]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.154 r  DECRYPT/V_MINUS_UY/dshift_reg[94]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.154    POLY_MULT/D[94]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[94]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[94]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[94]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.154    
+  -------------------------------------------------------------------
+                         slack                                 -2.236    
+
+Slack (VIOLATED) :        -2.235ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[29]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.180ns  (logic 1.495ns (20.822%)  route 5.685ns (79.178%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_251/O
+                         net (fo=4, unplaced)         0.926     4.867    DECRYPT/V_MINUS_UY/pm_mux_word_1[71]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.991 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_64/O
+                         net (fo=9, unplaced)         0.943     5.934    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_64_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.058 r  DECRYPT/V_MINUS_UY/dshift_reg[93]_i_15/O
+                         net (fo=6, unplaced)         0.934     6.992    DECRYPT/V_MINUS_UY/dshift_reg[93]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.116 r  DECRYPT/V_MINUS_UY/dshift_reg[93]_i_4/O
+                         net (fo=2, unplaced)         0.913     8.029    DECRYPT/V_MINUS_UY/dshift_reg[93]_i_4_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.153 r  DECRYPT/V_MINUS_UY/dshift_reg[29]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.153    POLY_MULT/D[29]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[29]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[29]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.153    
+  -------------------------------------------------------------------
+                         slack                                 -2.235    
+
+Slack (VIOLATED) :        -2.235ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[34]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.180ns  (logic 1.495ns (20.822%)  route 5.685ns (79.178%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_246/O
+                         net (fo=4, unplaced)         0.926     4.867    DECRYPT/V_MINUS_UY/pm_mux_word_1[76]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.991 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_64/O
+                         net (fo=8, unplaced)         0.940     5.931    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_64_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.055 r  DECRYPT/V_MINUS_UY/dshift_reg[98]_i_15/O
+                         net (fo=7, unplaced)         0.937     6.992    DECRYPT/V_MINUS_UY/dshift_reg[98]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.116 r  DECRYPT/V_MINUS_UY/dshift_reg[98]_i_4/O
+                         net (fo=2, unplaced)         0.913     8.029    DECRYPT/V_MINUS_UY/dshift_reg[98]_i_4_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.153 r  DECRYPT/V_MINUS_UY/dshift_reg[34]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.153    POLY_MULT/D[34]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[34]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[34]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[34]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.153    
+  -------------------------------------------------------------------
+                         slack                                 -2.235    
+
+Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[103]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.178ns  (logic 1.495ns (20.828%)  route 5.683ns (79.172%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_177/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[17]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[103]_i_43/O
+                         net (fo=7, unplaced)         0.937     5.932    DECRYPT/V_MINUS_UY/dshift_reg[103]_i_43_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.056 r  DECRYPT/V_MINUS_UY/dshift_reg[103]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.990    DECRYPT/V_MINUS_UY/dshift_reg[103]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.114 r  DECRYPT/V_MINUS_UY/dshift_reg[103]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.027    DECRYPT/V_MINUS_UY/dshift_reg[103]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.151 r  DECRYPT/V_MINUS_UY/dshift_reg[103]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.151    POLY_MULT/D[103]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[103]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[103]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[103]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.151    
+  -------------------------------------------------------------------
+                         slack                                 -2.233    
+
+Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[91]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.178ns  (logic 1.495ns (20.828%)  route 5.683ns (79.172%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_189/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[5]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[103]_i_46/O
+                         net (fo=7, unplaced)         0.937     5.932    DECRYPT/V_MINUS_UY/dshift_reg[103]_i_46_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.056 r  DECRYPT/V_MINUS_UY/dshift_reg[91]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.990    DECRYPT/V_MINUS_UY/dshift_reg[91]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.114 r  DECRYPT/V_MINUS_UY/dshift_reg[91]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.027    DECRYPT/V_MINUS_UY/dshift_reg[91]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.151 r  DECRYPT/V_MINUS_UY/dshift_reg[91]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.151    POLY_MULT/D[91]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[91]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[91]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[91]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.151    
+  -------------------------------------------------------------------
+                         slack                                 -2.233    
+
+Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[92]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.178ns  (logic 1.495ns (20.828%)  route 5.683ns (79.172%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_188/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[6]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[104]_i_46/O
+                         net (fo=7, unplaced)         0.937     5.932    DECRYPT/V_MINUS_UY/dshift_reg[104]_i_46_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.056 r  DECRYPT/V_MINUS_UY/dshift_reg[92]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.990    DECRYPT/V_MINUS_UY/dshift_reg[92]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.114 r  DECRYPT/V_MINUS_UY/dshift_reg[92]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.027    DECRYPT/V_MINUS_UY/dshift_reg[92]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.151 r  DECRYPT/V_MINUS_UY/dshift_reg[92]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.151    POLY_MULT/D[92]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[92]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[92]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[92]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.151    
+  -------------------------------------------------------------------
+                         slack                                 -2.233    
+
+Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[96]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.178ns  (logic 1.495ns (20.828%)  route 5.683ns (79.172%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_184/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[10]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[104]_i_45/O
+                         net (fo=7, unplaced)         0.937     5.932    DECRYPT/V_MINUS_UY/dshift_reg[104]_i_45_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.056 r  DECRYPT/V_MINUS_UY/dshift_reg[96]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.990    DECRYPT/V_MINUS_UY/dshift_reg[96]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.114 r  DECRYPT/V_MINUS_UY/dshift_reg[96]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.027    DECRYPT/V_MINUS_UY/dshift_reg[96]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.151 r  DECRYPT/V_MINUS_UY/dshift_reg[96]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.151    POLY_MULT/D[96]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[96]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[96]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.151    
+  -------------------------------------------------------------------
+                         slack                                 -2.233    
+
+Slack (VIOLATED) :        -2.233ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[99]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.178ns  (logic 1.495ns (20.828%)  route 5.683ns (79.172%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_181/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[13]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[103]_i_44/O
+                         net (fo=7, unplaced)         0.937     5.932    DECRYPT/V_MINUS_UY/dshift_reg[103]_i_44_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.056 r  DECRYPT/V_MINUS_UY/dshift_reg[99]_i_11/O
+                         net (fo=6, unplaced)         0.934     6.990    DECRYPT/V_MINUS_UY/dshift_reg[99]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.114 r  DECRYPT/V_MINUS_UY/dshift_reg[99]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.027    DECRYPT/V_MINUS_UY/dshift_reg[99]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.151 r  DECRYPT/V_MINUS_UY/dshift_reg[99]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.151    POLY_MULT/D[99]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[99]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[99]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[99]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.151    
+  -------------------------------------------------------------------
+                         slack                                 -2.233    
+
+Slack (VIOLATED) :        -2.232ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[30]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.177ns  (logic 1.495ns (20.830%)  route 5.682ns (79.170%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_250/O
+                         net (fo=4, unplaced)         0.926     4.867    DECRYPT/V_MINUS_UY/pm_mux_word_1[72]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.991 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_65/O
+                         net (fo=8, unplaced)         0.940     5.931    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_65_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.055 r  DECRYPT/V_MINUS_UY/dshift_reg[94]_i_15/O
+                         net (fo=6, unplaced)         0.934     6.989    DECRYPT/V_MINUS_UY/dshift_reg[94]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.113 r  DECRYPT/V_MINUS_UY/dshift_reg[94]_i_4/O
+                         net (fo=2, unplaced)         0.913     8.026    DECRYPT/V_MINUS_UY/dshift_reg[94]_i_4_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.150 r  DECRYPT/V_MINUS_UY/dshift_reg[30]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.150    POLY_MULT/D[30]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[30]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[30]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.150    
+  -------------------------------------------------------------------
+                         slack                                 -2.232    
+
+Slack (VIOLATED) :        -2.232ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[36]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.177ns  (logic 1.495ns (20.830%)  route 5.682ns (79.170%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_244/O
+                         net (fo=4, unplaced)         0.926     4.867    DECRYPT/V_MINUS_UY/pm_mux_word_1[78]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.991 r  DECRYPT/V_MINUS_UY/dshift_reg[104]_i_60/O
+                         net (fo=7, unplaced)         0.937     5.928    DECRYPT/V_MINUS_UY/dshift_reg[104]_i_60_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.052 r  DECRYPT/V_MINUS_UY/dshift_reg[100]_i_15/O
+                         net (fo=7, unplaced)         0.937     6.989    DECRYPT/V_MINUS_UY/dshift_reg[100]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.113 r  DECRYPT/V_MINUS_UY/dshift_reg[100]_i_4/O
+                         net (fo=2, unplaced)         0.913     8.026    DECRYPT/V_MINUS_UY/dshift_reg[100]_i_4_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.150 r  DECRYPT/V_MINUS_UY/dshift_reg[36]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.150    POLY_MULT/D[36]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[36]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[36]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[36]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.150    
+  -------------------------------------------------------------------
+                         slack                                 -2.232    
+
+Slack (VIOLATED) :        -2.232ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[38]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.177ns  (logic 1.495ns (20.830%)  route 5.682ns (79.170%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_242/O
+                         net (fo=4, unplaced)         0.926     4.867    DECRYPT/V_MINUS_UY/pm_mux_word_1[80]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.991 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_63/O
+                         net (fo=8, unplaced)         0.940     5.931    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_63_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.055 r  DECRYPT/V_MINUS_UY/dshift_reg[102]_i_15/O
+                         net (fo=6, unplaced)         0.934     6.989    DECRYPT/V_MINUS_UY/dshift_reg[102]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.113 r  DECRYPT/V_MINUS_UY/dshift_reg[102]_i_4/O
+                         net (fo=2, unplaced)         0.913     8.026    DECRYPT/V_MINUS_UY/dshift_reg[102]_i_4_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.150 r  DECRYPT/V_MINUS_UY/dshift_reg[38]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.150    POLY_MULT/D[38]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[38]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[38]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[38]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.150    
+  -------------------------------------------------------------------
+                         slack                                 -2.232    
+
+Slack (VIOLATED) :        -2.231ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[101]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.176ns  (logic 1.495ns (20.833%)  route 5.681ns (79.167%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_179/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[15]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_46/O
+                         net (fo=9, unplaced)         0.943     5.938    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_46_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.062 r  DECRYPT/V_MINUS_UY/dshift_reg[101]_i_11/O
+                         net (fo=4, unplaced)         0.926     6.988    DECRYPT/V_MINUS_UY/dshift_reg[101]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.112 r  DECRYPT/V_MINUS_UY/dshift_reg[101]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.025    DECRYPT/V_MINUS_UY/dshift_reg[101]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.149 r  DECRYPT/V_MINUS_UY/dshift_reg[101]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.149    POLY_MULT/D[101]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[101]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[101]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[101]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.149    
+  -------------------------------------------------------------------
+                         slack                                 -2.231    
+
+Slack (VIOLATED) :        -2.231ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[105]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.176ns  (logic 1.495ns (20.833%)  route 5.681ns (79.167%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg_reg[1]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_347_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.262 f  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_345/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/uv_in_01
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_175/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_0[19]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_45/O
+                         net (fo=9, unplaced)         0.943     5.938    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_45_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.062 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_11/O
+                         net (fo=4, unplaced)         0.926     6.988    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_11_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.112 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.025    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.149 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.149    POLY_MULT/D[105]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[105]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[105]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[105]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.149    
+  -------------------------------------------------------------------
+                         slack                                 -2.231    
+
+Slack (VIOLATED) :        -2.231ns  (required time - arrival time)
+  Source:                 DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            POLY_MULT/dshift_reg_reg[85]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.176ns  (logic 1.495ns (20.833%)  route 5.681ns (79.167%))
+  Logic Levels:           7  (LUT4=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=9791, unset)         0.973     0.973    DECRYPT/V_MINUS_UY/clk
+                         FDRE                                         r  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  DECRYPT/V_MINUS_UY/uv_addr_1_reg_reg[4]/Q
+                         net (fo=1, unplaced)         0.965     2.394    DECRYPT/V_MINUS_UY/uv_addr_1_reg[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.689 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348/O
+                         net (fo=1, unplaced)         0.449     3.138    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_348_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     3.262 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346/O
+                         net (fo=128, unplaced)       0.555     3.817    DECRYPT/V_MINUS_UY/dshift_reg[106]_i_346_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.941 r  DECRYPT/V_MINUS_UY/dshift_reg[106]_i_195/O
+                         net (fo=5, unplaced)         0.930     4.871    DECRYPT/V_MINUS_UY/pm_mux_word_1[127]
+                         LUT6 (Prop_lut6_I3_O)        0.124     4.995 r  DECRYPT/V_MINUS_UY/dshift_reg[105]_i_50/O
+                         net (fo=9, unplaced)         0.943     5.938    DECRYPT/V_MINUS_UY/dshift_reg[105]_i_50_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.062 r  DECRYPT/V_MINUS_UY/dshift_reg[101]_i_12/O
+                         net (fo=4, unplaced)         0.926     6.988    DECRYPT/V_MINUS_UY/dshift_reg[101]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.112 r  DECRYPT/V_MINUS_UY/dshift_reg[85]_i_3/O
+                         net (fo=2, unplaced)         0.913     8.025    DECRYPT/V_MINUS_UY/dshift_reg[85]_i_3_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.149 r  DECRYPT/V_MINUS_UY/dshift_reg[85]_i_1__0/O
+                         net (fo=1, unplaced)         0.000     8.149    POLY_MULT/D[85]
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[85]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=9791, unset)         0.924     5.924    POLY_MULT/clk
+                         FDRE                                         r  POLY_MULT/dshift_reg_reg[85]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    POLY_MULT/dshift_reg_reg[85]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.149    
+  -------------------------------------------------------------------
+                         slack                                 -2.231    
+
+
+
+
