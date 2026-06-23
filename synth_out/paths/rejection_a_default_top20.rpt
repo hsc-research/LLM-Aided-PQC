@@ -1,0 +1,1197 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Mon Jun 22 18:00:29 2026
+| Host         : MSI running 64-bit Ubuntu 26.04 LTS
+| Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/rejection_a_default_top20.rpt
+| Design       : rejection_a
+| Device       : 7a200t-fbg676
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -2.933ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[70]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[56]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.878ns  (logic 1.519ns (19.282%)  route 6.359ns (80.718%))
+  Logic Levels:           7  (LUT4=1 LUT5=1 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[70]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  SIPO_IN_reg[70]/Q
+                         net (fo=13, unplaced)        1.015     2.444    SIPO_IN_reg_n_0_[70]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.739 r  sipo_out_len[2]_i_12/O
+                         net (fo=1, unplaced)         1.111     3.850    sipo_out_len[2]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.974 f  sipo_out_len[2]_i_3/O
+                         net (fo=56, unplaced)        0.987     4.961    sipo_out_len[2]_i_3_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.148     5.109 f  SIPO_OUT[91]_i_48/O
+                         net (fo=6, unplaced)         0.934     6.043    SIPO_OUT[91]_i_48_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     6.167 f  SIPO_OUT[88]_i_14/O
+                         net (fo=4, unplaced)         0.926     7.093    SIPO_OUT[88]_i_14_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.217 f  SIPO_OUT[88]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.143    SIPO_OUT[88]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.267 r  SIPO_OUT[56]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.727    SIPO_OUT[56]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.851 r  SIPO_OUT[56]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.851    SIPO_OUT[56]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[56]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[56]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[56]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.851    
+  -------------------------------------------------------------------
+                         slack                                 -2.933    
+
+Slack (VIOLATED) :        -2.903ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[70]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[120]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.848ns  (logic 1.519ns (19.355%)  route 6.329ns (80.645%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[70]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 f  SIPO_IN_reg[70]/Q
+                         net (fo=13, unplaced)        1.015     2.444    SIPO_IN_reg_n_0_[70]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.739 r  sipo_out_len[2]_i_12/O
+                         net (fo=1, unplaced)         1.111     3.850    sipo_out_len[2]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.974 f  sipo_out_len[2]_i_3/O
+                         net (fo=56, unplaced)        0.987     4.961    sipo_out_len[2]_i_3_n_0
+                         LUT5 (Prop_lut5_I2_O)        0.148     5.109 f  SIPO_OUT[91]_i_48/O
+                         net (fo=6, unplaced)         0.934     6.043    SIPO_OUT[91]_i_48_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     6.167 f  SIPO_OUT[88]_i_14/O
+                         net (fo=4, unplaced)         0.926     7.093    SIPO_OUT[88]_i_14_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.217 f  SIPO_OUT[88]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.143    SIPO_OUT[88]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.267 r  SIPO_OUT[56]_i_2/O
+                         net (fo=2, unplaced)         0.430     8.697    SIPO_OUT[56]_i_2_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.821 r  SIPO_OUT[120]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.821    SIPO_OUT[120]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[120]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[120]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[120]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.821    
+  -------------------------------------------------------------------
+                         slack                                 -2.903    
+
+Slack (VIOLATED) :        -2.891ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[113]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.836ns  (logic 1.495ns (19.079%)  route 6.341ns (80.921%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_42/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_42_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[89]_i_20/O
+                         net (fo=5, unplaced)         0.930     7.051    SIPO_OUT[89]_i_20_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.175 f  SIPO_OUT[81]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.101    SIPO_OUT[81]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.225 r  SIPO_OUT[49]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.685    SIPO_OUT[49]_i_2_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     8.809 r  SIPO_OUT[113]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.809    SIPO_OUT[113]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[113]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[113]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[113]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.809    
+  -------------------------------------------------------------------
+                         slack                                 -2.891    
+
+Slack (VIOLATED) :        -2.891ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[119]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.836ns  (logic 1.495ns (19.079%)  route 6.341ns (80.921%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_47/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_47_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     6.121 f  SIPO_OUT[91]_i_20/O
+                         net (fo=5, unplaced)         0.930     7.051    SIPO_OUT[91]_i_20_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.175 f  SIPO_OUT[87]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.101    SIPO_OUT[87]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.225 r  SIPO_OUT[55]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.685    SIPO_OUT[55]_i_2_n_0
+                         LUT6 (Prop_lut6_I3_O)        0.124     8.809 r  SIPO_OUT[119]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.809    SIPO_OUT[119]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[119]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[119]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[119]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.809    
+  -------------------------------------------------------------------
+                         slack                                 -2.891    
+
+Slack (VIOLATED) :        -2.891ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[49]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.836ns  (logic 1.495ns (19.079%)  route 6.341ns (80.921%))
+  Logic Levels:           7  (LUT4=1 LUT5=1 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_42/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_42_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[89]_i_20/O
+                         net (fo=5, unplaced)         0.930     7.051    SIPO_OUT[89]_i_20_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.175 f  SIPO_OUT[81]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.101    SIPO_OUT[81]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.225 r  SIPO_OUT[49]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.685    SIPO_OUT[49]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.809 r  SIPO_OUT[49]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.809    SIPO_OUT[49]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[49]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[49]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[49]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.809    
+  -------------------------------------------------------------------
+                         slack                                 -2.891    
+
+Slack (VIOLATED) :        -2.891ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[55]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.836ns  (logic 1.495ns (19.079%)  route 6.341ns (80.921%))
+  Logic Levels:           7  (LUT4=1 LUT5=2 LUT6=4)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_47/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_47_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     6.121 f  SIPO_OUT[91]_i_20/O
+                         net (fo=5, unplaced)         0.930     7.051    SIPO_OUT[91]_i_20_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.175 f  SIPO_OUT[87]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.101    SIPO_OUT[87]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.225 r  SIPO_OUT[55]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.685    SIPO_OUT[55]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.809 r  SIPO_OUT[55]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.809    SIPO_OUT[55]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[55]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[55]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[55]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.809    
+  -------------------------------------------------------------------
+                         slack                                 -2.891    
+
+Slack (VIOLATED) :        -2.887ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[115]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.832ns  (logic 1.495ns (19.088%)  route 6.337ns (80.912%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_44/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_44_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[91]_i_19/O
+                         net (fo=4, unplaced)         0.926     7.047    SIPO_OUT[91]_i_19_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.171 f  SIPO_OUT[83]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.097    SIPO_OUT[83]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.221 r  SIPO_OUT[51]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.681    SIPO_OUT[51]_i_2_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.805 r  SIPO_OUT[115]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.805    SIPO_OUT[115]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[115]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[115]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[115]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.805    
+  -------------------------------------------------------------------
+                         slack                                 -2.887    
+
+Slack (VIOLATED) :        -2.887ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[51]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.832ns  (logic 1.495ns (19.088%)  route 6.337ns (80.912%))
+  Logic Levels:           7  (LUT4=1 LUT5=1 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_44/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_44_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[91]_i_19/O
+                         net (fo=4, unplaced)         0.926     7.047    SIPO_OUT[91]_i_19_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.171 f  SIPO_OUT[83]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.097    SIPO_OUT[83]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.221 r  SIPO_OUT[51]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.681    SIPO_OUT[51]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.805 r  SIPO_OUT[51]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.805    SIPO_OUT[51]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[51]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[51]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[51]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.805    
+  -------------------------------------------------------------------
+                         slack                                 -2.887    
+
+Slack (VIOLATED) :        -2.883ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[117]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.828ns  (logic 1.495ns (19.098%)  route 6.333ns (80.902%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_46/O
+                         net (fo=5, unplaced)         0.930     5.993    SIPO_OUT[91]_i_46_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.117 f  SIPO_OUT[89]_i_15/O
+                         net (fo=4, unplaced)         0.926     7.043    SIPO_OUT[89]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.167 f  SIPO_OUT[85]_i_6/O
+                         net (fo=4, unplaced)         0.926     8.093    SIPO_OUT[85]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.217 r  SIPO_OUT[53]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.677    SIPO_OUT[53]_i_2_n_0
+                         LUT6 (Prop_lut6_I3_O)        0.124     8.801 r  SIPO_OUT[117]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.801    SIPO_OUT[117]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[117]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[117]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[117]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.801    
+  -------------------------------------------------------------------
+                         slack                                 -2.883    
+
+Slack (VIOLATED) :        -2.883ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[53]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.828ns  (logic 1.495ns (19.098%)  route 6.333ns (80.902%))
+  Logic Levels:           7  (LUT4=1 LUT5=1 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_46/O
+                         net (fo=5, unplaced)         0.930     5.993    SIPO_OUT[91]_i_46_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.117 f  SIPO_OUT[89]_i_15/O
+                         net (fo=4, unplaced)         0.926     7.043    SIPO_OUT[89]_i_15_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.167 f  SIPO_OUT[85]_i_6/O
+                         net (fo=4, unplaced)         0.926     8.093    SIPO_OUT[85]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.217 r  SIPO_OUT[53]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.677    SIPO_OUT[53]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.801 r  SIPO_OUT[53]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.801    SIPO_OUT[53]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[53]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[53]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[53]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.801    
+  -------------------------------------------------------------------
+                         slack                                 -2.883    
+
+Slack (VIOLATED) :        -2.881ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[118]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.826ns  (logic 1.495ns (19.103%)  route 6.331ns (80.897%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_47/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_47_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[86]_i_13/O
+                         net (fo=3, unplaced)         0.920     7.041    SIPO_OUT[86]_i_13_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.165 f  SIPO_OUT[86]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.091    SIPO_OUT[86]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.215 r  SIPO_OUT[54]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.675    SIPO_OUT[54]_i_2_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     8.799 r  SIPO_OUT[118]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.799    SIPO_OUT[118]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[118]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[118]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[118]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.799    
+  -------------------------------------------------------------------
+                         slack                                 -2.881    
+
+Slack (VIOLATED) :        -2.881ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[50]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.826ns  (logic 1.495ns (19.103%)  route 6.331ns (80.897%))
+  Logic Levels:           7  (LUT4=1 LUT5=1 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_43/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_43_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[86]_i_12/O
+                         net (fo=3, unplaced)         0.920     7.041    SIPO_OUT[86]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.165 f  SIPO_OUT[82]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.091    SIPO_OUT[82]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.215 r  SIPO_OUT[50]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.675    SIPO_OUT[50]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.799 r  SIPO_OUT[50]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.799    SIPO_OUT[50]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[50]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[50]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[50]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.799    
+  -------------------------------------------------------------------
+                         slack                                 -2.881    
+
+Slack (VIOLATED) :        -2.881ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[54]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.826ns  (logic 1.495ns (19.103%)  route 6.331ns (80.897%))
+  Logic Levels:           7  (LUT4=1 LUT5=1 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_47/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_47_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[86]_i_13/O
+                         net (fo=3, unplaced)         0.920     7.041    SIPO_OUT[86]_i_13_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.165 f  SIPO_OUT[86]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.091    SIPO_OUT[86]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.215 r  SIPO_OUT[54]_i_2/O
+                         net (fo=2, unplaced)         0.460     8.675    SIPO_OUT[54]_i_2_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124     8.799 r  SIPO_OUT[54]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.799    SIPO_OUT[54]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[54]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[54]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[54]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.799    
+  -------------------------------------------------------------------
+                         slack                                 -2.881    
+
+Slack (VIOLATED) :        -2.880ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[97]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.825ns  (logic 1.495ns (19.105%)  route 6.330ns (80.895%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_42/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_42_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[89]_i_20/O
+                         net (fo=5, unplaced)         0.930     7.051    SIPO_OUT[89]_i_20_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.175 f  SIPO_OUT[81]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.101    SIPO_OUT[81]_i_5_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.225 f  SIPO_OUT[97]_i_2/O
+                         net (fo=1, unplaced)         0.449     8.674    SIPO_OUT[97]_i_2_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     8.798 r  SIPO_OUT[97]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.798    SIPO_OUT[97]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[97]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[97]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[97]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.798    
+  -------------------------------------------------------------------
+                         slack                                 -2.880    
+
+Slack (VIOLATED) :        -2.876ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[96]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.821ns  (logic 1.495ns (19.115%)  route 6.326ns (80.885%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_41/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_41_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[88]_i_12/O
+                         net (fo=4, unplaced)         0.926     7.047    SIPO_OUT[88]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.171 f  SIPO_OUT[80]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.097    SIPO_OUT[80]_i_5_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.221 f  SIPO_OUT[96]_i_2/O
+                         net (fo=1, unplaced)         0.449     8.670    SIPO_OUT[96]_i_2_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     8.794 r  SIPO_OUT[96]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.794    SIPO_OUT[96]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[96]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[96]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.794    
+  -------------------------------------------------------------------
+                         slack                                 -2.876    
+
+Slack (VIOLATED) :        -2.870ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[98]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.815ns  (logic 1.495ns (19.130%)  route 6.320ns (80.870%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_43/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_43_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[86]_i_12/O
+                         net (fo=3, unplaced)         0.920     7.041    SIPO_OUT[86]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.165 f  SIPO_OUT[82]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.091    SIPO_OUT[82]_i_5_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.215 f  SIPO_OUT[98]_i_2/O
+                         net (fo=1, unplaced)         0.449     8.664    SIPO_OUT[98]_i_2_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     8.788 r  SIPO_OUT[98]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.788    SIPO_OUT[98]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[98]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[98]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[98]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.788    
+  -------------------------------------------------------------------
+                         slack                                 -2.870    
+
+Slack (VIOLATED) :        -2.851ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[114]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.796ns  (logic 1.495ns (19.177%)  route 6.301ns (80.823%))
+  Logic Levels:           7  (LUT5=2 LUT6=5)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_43/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_43_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[86]_i_12/O
+                         net (fo=3, unplaced)         0.920     7.041    SIPO_OUT[86]_i_12_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.165 f  SIPO_OUT[82]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.091    SIPO_OUT[82]_i_5_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     8.215 r  SIPO_OUT[50]_i_2/O
+                         net (fo=2, unplaced)         0.430     8.645    SIPO_OUT[50]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     8.769 r  SIPO_OUT[114]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.769    SIPO_OUT[114]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[114]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[114]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[114]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.769    
+  -------------------------------------------------------------------
+                         slack                                 -2.851    
+
+Slack (VIOLATED) :        -2.850ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[91]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.795ns  (logic 1.495ns (19.179%)  route 6.300ns (80.821%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_36/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_36_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[91]_i_17/O
+                         net (fo=4, unplaced)         0.926     7.047    SIPO_OUT[91]_i_17_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.171 f  SIPO_OUT[91]_i_9/O
+                         net (fo=5, unplaced)         0.930     8.101    SIPO_OUT[91]_i_9_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.225 f  SIPO_OUT[91]_i_5/O
+                         net (fo=1, unplaced)         0.419     8.644    SIPO_OUT[91]_i_5_n_0
+                         LUT6 (Prop_lut6_I2_O)        0.124     8.768 r  SIPO_OUT[91]_i_2/O
+                         net (fo=1, unplaced)         0.000     8.768    SIPO_OUT[91]_i_2_n_0
+                         FDRE                                         r  SIPO_OUT_reg[91]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[91]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[91]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.768    
+  -------------------------------------------------------------------
+                         slack                                 -2.850    
+
+Slack (VIOLATED) :        -2.850ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[93]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.795ns  (logic 1.495ns (19.179%)  route 6.300ns (80.821%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_38/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_38_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[89]_i_19/O
+                         net (fo=5, unplaced)         0.930     7.051    SIPO_OUT[89]_i_19_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.175 f  SIPO_OUT[77]_i_10/O
+                         net (fo=4, unplaced)         0.926     8.101    SIPO_OUT[77]_i_10_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.225 f  SIPO_OUT[93]_i_2/O
+                         net (fo=1, unplaced)         0.419     8.644    SIPO_OUT[93]_i_2_n_0
+                         LUT6 (Prop_lut6_I2_O)        0.124     8.768 r  SIPO_OUT[93]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.768    SIPO_OUT[93]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[93]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[93]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[93]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.768    
+  -------------------------------------------------------------------
+                         slack                                 -2.850    
+
+Slack (VIOLATED) :        -2.846ns  (required time - arrival time)
+  Source:                 SIPO_IN_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            SIPO_OUT_reg[95]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        7.791ns  (logic 1.495ns (19.189%)  route 6.296ns (80.811%))
+  Logic Levels:           7  (LUT5=1 LUT6=6)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=225, unset)          0.973     0.973    clk
+                         FDRE                                         r  SIPO_IN_reg[17]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.456     1.429 r  SIPO_IN_reg[17]/Q
+                         net (fo=3, unplaced)         0.983     2.412    SIPO_IN_reg_n_0_[17]
+                         LUT6 (Prop_lut6_I0_O)        0.295     2.707 f  sipo_out_len[2]_i_6/O
+                         net (fo=1, unplaced)         1.111     3.818    sipo_out_len[2]_i_6_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     3.942 r  sipo_out_len[2]_i_2/O
+                         net (fo=83, unplaced)        0.997     4.939    sipo_out_len[2]_i_2_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124     5.063 f  SIPO_OUT[91]_i_40/O
+                         net (fo=6, unplaced)         0.934     5.997    SIPO_OUT[91]_i_40_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     6.121 f  SIPO_OUT[91]_i_18/O
+                         net (fo=4, unplaced)         0.926     7.047    SIPO_OUT[91]_i_18_n_0
+                         LUT6 (Prop_lut6_I1_O)        0.124     7.171 f  SIPO_OUT[79]_i_5/O
+                         net (fo=4, unplaced)         0.926     8.097    SIPO_OUT[79]_i_5_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.221 f  SIPO_OUT[95]_i_2/O
+                         net (fo=1, unplaced)         0.419     8.640    SIPO_OUT[95]_i_2_n_0
+                         LUT6 (Prop_lut6_I2_O)        0.124     8.764 r  SIPO_OUT[95]_i_1/O
+                         net (fo=1, unplaced)         0.000     8.764    SIPO_OUT[95]_i_1_n_0
+                         FDRE                                         r  SIPO_OUT_reg[95]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=225, unset)          0.924     5.924    clk
+                         FDRE                                         r  SIPO_OUT_reg[95]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)        0.029     5.918    SIPO_OUT_reg[95]
+  -------------------------------------------------------------------
+                         required time                          5.918    
+                         arrival time                          -8.764    
+  -------------------------------------------------------------------
+                         slack                                 -2.846    
+
+
+
+

@@ -1,0 +1,1077 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Mon Jun 22 17:35:36 2026
+| Host         : MSI running 64-bit Ubuntu 26.04 LTS
+| Command      : report_timing -max_paths 20 -sort_by slack -file ./synth_out/paths/butterfly_default_top20.rpt
+| Design       : butterfly
+| Device       : 7a200t-fbg676
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[17]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[0])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[0]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[17]
+                         FDRE                                         r  barrett_datai_reg[17]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[17]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[17]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[18]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[1])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[1]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[18]
+                         FDRE                                         r  barrett_datai_reg[18]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[18]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[18]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[19]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[2])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[2]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[19]
+                         FDRE                                         r  barrett_datai_reg[19]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[19]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[19]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[20]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[3])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[3]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[20]
+                         FDRE                                         r  barrett_datai_reg[20]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[20]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[20]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[21]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[4])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[4]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[21]
+                         FDRE                                         r  barrett_datai_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[21]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[21]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[22]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[5])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[5]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[22]
+                         FDRE                                         r  barrett_datai_reg[22]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[22]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[22]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[23]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[6])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[6]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[23]
+                         FDRE                                         r  barrett_datai_reg[23]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[23]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[23]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[24]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[7])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[7]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[24]
+                         FDRE                                         r  barrett_datai_reg[24]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[24]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[24]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[25]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[8])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[8]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[25]
+                         FDRE                                         r  barrett_datai_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[25]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[25]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[26]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[9])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[9]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[26]
+                         FDRE                                         r  barrett_datai_reg[26]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[26]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[26]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[27]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[10])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[10]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[27]
+                         FDRE                                         r  barrett_datai_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[27]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[27]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[28]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[11])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[11]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[28]
+                         FDRE                                         r  barrett_datai_reg[28]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[28]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[28]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[29]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[12])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[12]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[29]
+                         FDRE                                         r  barrett_datai_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[29]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[29]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[30]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[13])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[13]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[30]
+                         FDRE                                         r  barrett_datai_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[30]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[30]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[31]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[14])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[14]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[31]
+                         FDRE                                         r  barrett_datai_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[31]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[31]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[32]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[15])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[15]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[32]
+                         FDRE                                         r  barrett_datai_reg[32]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[32]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[32]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[33]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[16])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[16]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[33]
+                         FDRE                                         r  barrett_datai_reg[33]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[33]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[33]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[34]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[17])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[17]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[34]
+                         FDRE                                         r  barrett_datai_reg[34]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[34]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[34]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[35]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[18])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[18]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[35]
+                         FDRE                                         r  barrett_datai_reg[35]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[35]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[35]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+Slack (VIOLATED) :        -3.802ns  (required time - arrival time)
+  Source:                 zeta_delay_reg[16]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            barrett_datai_reg[36]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk rise@5.000ns - clk rise@0.000ns)
+  Data Path Delay:        8.670ns  (logic 6.182ns (71.300%)  route 2.488ns (28.700%))
+  Logic Levels:           3  (DSP48E1=2 LUT5=1)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 5.924 - 5.000 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=540, unset)          0.973     0.973    clk
+                         FDRE                                         r  zeta_delay_reg[16]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.518     1.491 r  zeta_delay_reg[16]/Q
+                         net (fo=5, unplaced)         0.834     2.325    zeta_delay[16]
+                         LUT5 (Prop_lut5_I0_O)        0.295     2.620 r  barrett_datai_reg0_i_1/O
+                         net (fo=1, unplaced)         0.800     3.420    multb[16]
+                         DSP48E1 (Prop_dsp48e1_B[16]_PCOUT[47])
+                                                      3.851     7.271 r  barrett_datai_reg0/PCOUT[47]
+                         net (fo=1, unplaced)         0.055     7.326    barrett_datai_reg0_n_106
+                         DSP48E1 (Prop_dsp48e1_PCIN[47]_P[19])
+                                                      1.518     8.844 r  barrett_datai_reg0__0/P[19]
+                         net (fo=1, unplaced)         0.800     9.643    barrett_datai_reg0__1[36]
+                         FDRE                                         r  barrett_datai_reg[36]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        5.000     5.000 r  
+                                                      0.000     5.000 r  clk (IN)
+                         net (fo=540, unset)          0.924     5.924    clk
+                         FDRE                                         r  barrett_datai_reg[36]/C
+                         clock pessimism              0.000     5.924    
+                         clock uncertainty           -0.035     5.889    
+                         FDRE (Setup_fdre_C_D)       -0.048     5.841    barrett_datai_reg[36]
+  -------------------------------------------------------------------
+                         required time                          5.841    
+                         arrival time                          -9.643    
+  -------------------------------------------------------------------
+                         slack                                 -3.802    
+
+
+
+

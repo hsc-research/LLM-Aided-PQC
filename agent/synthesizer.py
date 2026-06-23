@@ -215,3 +215,25 @@ MODULE_SOURCES["encap"] = [
     "./build/encap/transform.v",
     "./build/encap/xor_based_adder.v",
 ]
+
+MODULE_SOURCES["butterfly"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/Barrett_8380417.v",
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/butterfly.v",
+]
+
+MODULE_SOURCES["rejection_a"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_a.v",
+]
+
+MODULE_SOURCES["decomposer_unit"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/decomposer_unit.v",
+]
+
+MODULE_SOURCES["coeff_decomposer"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/decomp_map1.v",
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/coeff_decomposer.v",
+]
+
+MODULE_SOURCES["makehint"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/makehint.v",
+]
