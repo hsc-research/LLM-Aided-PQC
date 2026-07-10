@@ -232,7 +232,7 @@ MODULE_SOURCES["coeff_decomposer"] = [
 ]
 
 MODULE_SOURCES["makehint"] = [
-    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/makehint.v",
+    "./agent/mldsa/mldsa_src/makehint.v",
 ]
 
 if __name__ == "__main__":
