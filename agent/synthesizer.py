@@ -227,8 +227,8 @@ MODULE_SOURCES["decomposer_unit"] = [
 ]
 
 MODULE_SOURCES["coeff_decomposer"] = [
-    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/decomp_map1.v",
-    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/coeff_decomposer.v",
+    "./agent/mldsa/mldsa_src/decomp_map1.v",
+    "./agent/mldsa/mldsa_src/coeff_decomposer.v",
 ]
 
 MODULE_SOURCES["makehint"] = [

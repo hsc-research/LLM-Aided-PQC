@@ -3,7 +3,7 @@
 import subprocess, os, shutil, tempfile
 HERE      = os.path.dirname(os.path.abspath(__file__))
 CHECK_DIR = os.path.join(HERE, "mldsa_check")
-MLDSA_SRC = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src"
+MLDSA_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mldsa_src")
 TB="tb_coeff_decomposer.v"; GEN="gen_vectors.py"; DEP="decomp_map1.v"; TARGET="coeff_decomposer.v"
 NVEC="200"; SEC_LEVELS=["2","3"]
 def _run(cmd, cwd, timeout=120):
