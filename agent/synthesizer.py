@@ -219,7 +219,7 @@ MODULE_SOURCES["butterfly"] = [
 ]
 
 MODULE_SOURCES["rejection_a"] = [
-    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_a.v",
+    "./agent/mldsa/mldsa_src/rejection_a.v",
 ]
 
 MODULE_SOURCES["decomposer_unit"] = [
