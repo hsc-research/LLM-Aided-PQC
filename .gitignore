@@ -53,3 +53,4 @@ agent/last_raw_reply.txt
 # synth_out/*.xdc, agent/flight_log.jsonl
 # Regenerated path-extraction TCL scripts
 synth_out/paths/extract_*.tcl
+demo/

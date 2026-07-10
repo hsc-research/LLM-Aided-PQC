@@ -69,9 +69,6 @@ def run_synthesis(module, param_set, repo_root="."):
 
     return read_ppa(module, param_set)
 
-if __name__ == "__main__":
-    result = run_synthesis("poly_mult", "hqc128")
-    print(result)
 
 MODULE_SOURCES["keygen"] = [
     "./build/keygen/clog2.v",
@@ -237,3 +234,10 @@ MODULE_SOURCES["coeff_decomposer"] = [
 MODULE_SOURCES["makehint"] = [
     "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/makehint.v",
 ]
+
+if __name__ == "__main__":
+    import sys
+    module = sys.argv[1] if len(sys.argv) > 1 else "poly_mult"
+    param  = sys.argv[2] if len(sys.argv) > 2 else "hqc128"
+    result = run_synthesis(module, param)
+    print(result)
