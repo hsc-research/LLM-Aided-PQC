@@ -5,7 +5,7 @@ elaboration map. The model never chooses targets."""
 import re, json, os, sys
 from collections import defaultdict
 
-SKIPLIST = "agent/skiplist.json"
+SKIPLIST = "agent/hqc/skiplist.json"
 
 # Elaboration map: instance name -> actual elaborated file.
 # fixed_weight variants: ALL operations elaborate fixed_weight_ct.

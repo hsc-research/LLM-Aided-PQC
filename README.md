@@ -29,4 +29,4 @@ timing results, and an agent run is in the docs folder:
   optimization class is expected to translate to an ASIC flow.
 - **[docs/04_agent_architecture.md](docs/04_agent_architecture.md)**, the agent
   pipeline, gate catalog, and flight-log narrative.
-- **[docs/findings/](docs/findings/)**, raw dated lab notes.
+- **[docs/findings/hqc/](docs/findings/hqc/)** and **[docs/findings/mldsa/](docs/findings/mldsa/)**, raw dated lab notes, split by scheme. HQC also has [variants_archive/](docs/findings/hqc/variants_archive/), retained candidate RTL variants from the flag-precompute optimization runs.

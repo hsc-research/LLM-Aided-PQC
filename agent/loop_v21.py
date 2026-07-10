@@ -100,7 +100,7 @@ def run(module, level):
     if gain < MIN_GAIN_NS:
         edit_ops.revert(backups); target_selector.save_skip(target["key"], f"marginal {gain:+.3f}")
         log({"target": target["key"], "verdict": "marginal", "gain": gain}); return
-    kat = sh("python3 agent/kat_gate.py"); print(kat)
+    kat = sh("python3 agent/hqc/kat_gate.py"); print(kat)
     if "KAT RESULT: PASS" not in kat:
         edit_ops.revert(backups); target_selector.save_skip(target["key"], "KAT FAIL")
         log({"target": target["key"], "verdict": "KAT_FAIL"})

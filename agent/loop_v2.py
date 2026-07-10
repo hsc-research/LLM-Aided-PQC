@@ -106,7 +106,7 @@ def run(module, level):
     if gain < MIN_GAIN_NS:
         print(f"MARGINAL (< {MIN_GAIN_NS}) -> revert"); edit_ops.revert(backups); return
     print("Improvement real. KAT verdict...")
-    kat = sh("python3 agent/kat_gate.py")
+    kat = sh("python3 agent/hqc/kat_gate.py")
     print(kat)
     if "KAT RESULT: PASS" not in kat:
         print("KAT FAIL -> revert"); edit_ops.revert(backups); return
