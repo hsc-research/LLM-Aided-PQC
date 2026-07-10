@@ -58,3 +58,4 @@ agent/cycle_test_*/
 agent/__pycache__/
 agent/flight_2*.log
 agent/last_raw_reply.txt
+synth_out/
