@@ -47,7 +47,7 @@ module rejection_a #(
     reg [2*W-1:0] rdi_shift;
     reg [9:0] rdi_shift_amt;
 
-    (* max_fanout = 16 *) reg [79:0]  SIPO_IN;
+    reg [79:0]  SIPO_IN;
     reg [137:0] SIPO_OUT;
     reg [3*SAMPLE_W-1:0] sipo_out_in;
     reg [6*SAMPLE_W-1:0] sipo_out_in_shft;
@@ -58,7 +58,7 @@ module rejection_a #(
     reg [1:0] num_valid;
     
     reg [6:0] sipo_in_len, sipo_in_len_next;
-    (* max_fanout = 16 *) reg [7:0] sipo_out_len, sipo_out_len_next;
+    reg [7:0] sipo_out_len, sipo_out_len_next;
     
     always @(*) begin
         ready_i = (sipo_in_len < 3*RDI_SAMPLE_W) ? 1 : 0;

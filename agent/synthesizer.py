@@ -11,6 +11,13 @@ from ppa_reader import read_ppa
 VIVADO = "vivado"
 PART   = "xc7a200tfbg676-1"
 
+# When the MODULE_SOURCES key is a variant label, map it to the real top module.
+TOP_OVERRIDE = {
+    "sampler_s_pristine": "sampler_s",     "sampler_s_opt": "sampler_s",
+    "sampler_y_pristine": "sampler_y_ext", "sampler_y_opt": "sampler_y_ext",
+    "sampler_a_pristine": "sampler_a_ext", "sampler_a_opt": "sampler_a_ext",
+}
+
 MODULE_SOURCES = {
     "poly_mult": [
         "./build/keygen/clog2.v",
@@ -24,13 +31,14 @@ MODULE_SOURCES = {
 
 def build_tcl(module, param_set):
     sources = MODULE_SOURCES[module]
+    top = TOP_OVERRIDE.get(module, module)
     source_lines = "\n        ".join(sources)
     return f"""file mkdir "./synth_out/{module}"
 read_verilog {{
         {source_lines}
 }}
 synth_design \\
-    -top {module} \\
+    -top {top} \\
     -part {PART} \\
     -mode out_of_context \\
     -generic parameter_set={param_set}
@@ -259,3 +267,11 @@ MODULE_SOURCES["decoder"] = [
 MODULE_SOURCES["usehint"] = [
     "./agent/mldsa/mldsa_src/usehint.v",
 ]
+
+# Composite targets: sampler wrappers, pristine vs optimized rejection cores
+MODULE_SOURCES["sampler_s_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_s.v", "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_s.v"]
+MODULE_SOURCES["sampler_s_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_s.v", "./agent/mldsa/mldsa_src/rejection_s.v"]
+MODULE_SOURCES["sampler_y_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_y_ext.v", "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_y.v"]
+MODULE_SOURCES["sampler_y_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_y_ext.v", "./agent/mldsa/mldsa_src/rejection_y.v"]
+MODULE_SOURCES["sampler_a_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v", "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_a.v"]
+MODULE_SOURCES["sampler_a_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v", "./agent/mldsa/mldsa_src/rejection_a.v"]
