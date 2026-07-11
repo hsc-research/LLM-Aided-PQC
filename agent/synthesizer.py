@@ -231,6 +231,9 @@ MODULE_SOURCES["coeff_decomposer"] = [
     "./agent/mldsa/mldsa_src/coeff_decomposer.v",
 ]
 
+MODULE_SOURCES["rejection_s"] = [
+    "./agent/mldsa/mldsa_src/rejection_s.v",
+]
 MODULE_SOURCES["makehint"] = [
     "./agent/mldsa/mldsa_src/makehint.v",
 ]
