@@ -226,6 +226,16 @@ MODULE_SOURCES["butterfly"] = [
     "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/butterfly.v",
 ]
 
+MODULE_SOURCES["expandmask_ext"] = [
+    "./agent/mldsa/mldsa_src/rejection_y.v",
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_y_ext.v",
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/expandmask_ext.v",
+]
+MODULE_SOURCES["gen_a_ext"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_a.v",
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v",
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/gen_a_ext.v",
+]
 MODULE_SOURCES["rejection_a"] = [
     "./agent/mldsa/mldsa_src/rejection_a.v",
 ]
