@@ -223,7 +223,7 @@ MODULE_SOURCES["encap"] = [
 
 MODULE_SOURCES["butterfly"] = [
     "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/Barrett_8380417.v",
-    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/butterfly.v",
+    "./agent/mldsa/mldsa_src/butterfly.v",
 ]
 
 MODULE_SOURCES["expandmask_ext"] = [

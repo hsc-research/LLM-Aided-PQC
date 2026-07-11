@@ -59,3 +59,6 @@ agent/__pycache__/
 agent/flight_2*.log
 agent/last_raw_reply.txt
 synth_out/
+agent/mldsa/fullkat_vectors.json
+agent/mldsa/fullkat_run.log
+agent/mldsa/dbglog_*.log

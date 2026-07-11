@@ -4,7 +4,7 @@
 #   No arg: pristine baseline. With arg (e.g. agent/mldsa/mldsa_src):
 #   same-named files there OVERRIDE pristine in the compile set.
 # PASS = "testbench done" printed and zero "WRONG" lines.
-import subprocess, os, sys, json, glob, shutil, tempfile
+import subprocess, os, sys, json, glob, shutil, tempfile, time, re
 
 ROOT   = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main"
 SRC    = os.path.join(ROOT, "ref_combined/src")
@@ -14,6 +14,28 @@ KAT    = os.path.join(ROOT, "KAT")
 VIVADO_BIN = "/tools/Xilinx/2025.2/Vivado/bin"
 TIMEOUT = 86400  # default 24h; override with --timeout SECS
 LOGFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fullkat_run.log")
+VECFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fullkat_vectors.json")
+
+def parse_per_vector(out):
+    vecs, cur = [], None
+    for line in out.splitlines():
+        m = re.search(r"KAT\s*#\s*(\d+)", line)
+        if m:
+            k = int(m.group(1))
+            if cur is None or cur["kat"] != k:
+                cur = next((v for v in vecs if v["kat"] == k), None)
+                if cur is None:
+                    cur = {"kat": k, "completed": False, "cycles": None, "wrong": 0}
+                    vecs.append(cur)
+            if "completed in" in line:
+                cur["completed"] = True
+                mc = re.search(r"completed in\s*(\d+)", line)
+                if mc: cur["cycles"] = int(mc.group(1))
+        if "WRONG" in line and cur is not None:
+            cur["wrong"] += 1
+    for v in vecs:
+        v["pass"] = v["completed"] and v["wrong"] == 0
+    return vecs
 
 def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT):
     work = tempfile.mkdtemp(prefix="mldsa_fullkat_")
@@ -103,10 +125,19 @@ def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT):
                 for line in proc.stdout:
                     lf.write(line); lf.flush()
                     lines.append(line)
-                proc.wait(timeout=timeout)
+                try:
+                    proc.wait(timeout=timeout)
+                except subprocess.TimeoutExpired:
+                    proc.kill(); proc.wait()
+                    class R: pass
+                    r = R(); r.returncode = -9
+                    r.stdout = "".join(lines); r.stderr = ""
+                    r.timed_out = True
+                    return r
                 class R: pass
                 r = R(); r.returncode = proc.returncode
                 r.stdout = "".join(lines); r.stderr = ""
+                r.timed_out = False
                 return r
 
         # multi-pass VHDL compile: retry failures until fixpoint (order-independent)
@@ -134,19 +165,30 @@ def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT):
         r = x("xelab tb_keygen_top -s kat_sim --timescale 1ns/1ps")
         if r.returncode != 0:
             return {"status": "FAIL", "stage": "xelab", "reason": r.stdout[-400:] + r.stderr[-200:]}
+        t0 = time.time()
         r = x("xsim kat_sim -R", tee=True)   # -R: batch run-all-then-exit, no gui simmode, no wdb
+        runtime = round(time.time() - t0, 1)
         out = r.stdout
+        vecs  = parse_per_vector(out)
+        json.dump(vecs, open(VECFILE, "w"), indent=1)
         wrong = [l for l in out.splitlines() if "WRONG" in l]
         done  = "testbench done" in out
-        kats  = len([l for l in out.splitlines() if "KAT #" in l and "completed in" in l])
+        kats  = sum(1 for v in vecs if v["completed"])
+        base  = {"kats_completed": kats, "runtime_s": runtime,
+                 "per_vector_file": VECFILE,
+                 "vector_pass": sum(1 for v in vecs if v.get("pass")),
+                 "vector_fail": sum(1 for v in vecs if not v.get("pass"))}
+        if getattr(r, "timed_out", False):
+            inprog = vecs[-1]["kat"] if vecs else None
+            return {"status": "FAIL", "stage": "sim-timeout",
+                    "in_progress_vector": inprog, **base}
         if done and not wrong:
             ok = True
-            return {"status": "PASS", "kats_completed": kats,
-                    "override": override_dir or "pristine",
-                    "vectors": vectors or "full"}
-        return {"status": "FAIL", "stage": "sim", "kats_completed": kats,
+            return {"status": "PASS", "override": override_dir or "pristine",
+                    "vectors": vectors or "full", **base}
+        return {"status": "FAIL", "stage": "sim",
                 "wrong_count": len(wrong),
-                "first_wrong": wrong[0] if wrong else "no 'testbench done'"}
+                "first_wrong": wrong[0] if wrong else "no 'testbench done'", **base}
     finally:
         if ok:
             shutil.rmtree(work, ignore_errors=True)
