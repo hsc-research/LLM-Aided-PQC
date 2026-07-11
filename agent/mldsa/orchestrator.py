@@ -158,8 +158,10 @@ def main():
                 g = float(m.group(1)) if m else -1.0
                 if g < -0.02:
                     failed.append(r["strategy"])       # genuinely regressed
-                else:
+                elif abs(g) < 0.001:
                     dead.append(r["strategy"])          # netlist no-op / dead edit
+                else:
+                    failed.append(r["strategy"])       # live edit, insufficient gain: exhausted
     if failed:
         tags = list(tags) + [f"STRATEGIES THAT REGRESSED OR FAILED THE GATE on this block (do not repeat): {sorted(set(failed))}"]
     if dead:
@@ -192,6 +194,13 @@ def main():
     # 3. assertion-gated apply (assert count==1 per edit), all-or-nothing
     edits = prop.get("edits") or ([{"old": prop["old"], "new": prop["new"]}]
                                   if "old" in prop else None)
+    if edits and os.path.exists(LOG):
+        prior = [json.dumps(json.loads(l).get("edits")) for l in open(LOG)
+                 if json.loads(l).get("block") == block]
+        if json.dumps(edits) in prior:
+            log({"block": block, "verdict": "refused",
+                 "reason": "byte-identical to a prior attempt on this block",
+                 "strategy": prop.get("strategy")}); return
     if not edits or not (1 <= len(edits) <= 4):
         log({"block": block, "verdict": "refused", "reason": "bad edits slot"}); return
     work = rtl
