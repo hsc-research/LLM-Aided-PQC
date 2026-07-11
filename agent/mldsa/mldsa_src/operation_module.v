@@ -111,7 +111,7 @@ module operation_module(
     
     reg running, bram_delay, pause_delay,pause_delay1;
     
-    reg [5:0] addr1_sr [25:0];
+    reg [5:0] addr1_sr [26:0];
     reg [8:0] valid_sr = 0;  // widened: MULT valido now +1 cycle
     
     integer i;
@@ -122,7 +122,7 @@ module operation_module(
         done_latch = 0;
         pause      = 0;
         
-        for (i = 0; i < 25; i = i + 1)
+        for (i = 0; i < 26; i = i + 1)
             addr1_sr[i] = 0;
     end 
     
@@ -177,7 +177,7 @@ module operation_module(
             zetai_bf  = {do4_twiddle,do3_twiddle,do2_twiddle,do1_twiddle};
             validi_bf = bram_delay  & ~done & ~done_delay & ~pause_delay;
             
-            addrb1 = addr1_sr[24];
+            addrb1 = addr1_sr[26];
             web1   = valid_sr[3];
             dib1   = data_out;
             
@@ -233,14 +233,14 @@ module operation_module(
             pause_ctr <= 0;
             
             valid_sr <= 0;
-            for (i = 0; i < 25; i = i + 1)
+            for (i = 0; i < 26; i = i + 1)
                 addr1_sr[i] <= 0;
         end else begin
             running <= running;
             
             if (running || (mode == FORWARD_NTT_MODE && valido_bf)) begin
                 addr1_sr[0] <= ram_addr;
-                for (i = 0; i < 25; i = i + 1)
+                for (i = 0; i < 26; i = i + 1)
                     addr1_sr[i+1] <= addr1_sr[i];
             end
         
@@ -279,7 +279,7 @@ module operation_module(
                     pause_ctr <= 0;
                 end else if (pause) begin
                     pause_ctr <= pause_ctr + 1;
-                    pause <= (pause_ctr == 6) ? 0 : 1;
+                    pause <= (pause_ctr == 8) ? 0 : 1;
                 end
                     
                 if (running)

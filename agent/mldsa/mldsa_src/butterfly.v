@@ -52,9 +52,11 @@ module butterfly(
     reg [23:0] aj2 = 0, ajlen2_FNTT = 0;
     reg [23:0] ajlen2_INTT = 0;
     reg [23:0] ajlen2_MODM = 0;
-    reg [23:0] aj3  [5:0];
+    reg [23:0] aj3  [6:0];
     reg [45:0] mult_result;
     reg [45:0] mult_p = 0;
+    reg [23:0] sub_r = 0, add_r = 0;   // round-2: INTT input-side stage
+    reg [23:0] zeta_delay3 = 0;
     reg [23:0] ajlen3 = 0;
     reg [23:0] aj4 = 0, ajlen4 = 0, ajlen4_sub = 0;
     reg [23:0] aj5 = 0, ajlen5 = 0;
@@ -66,7 +68,7 @@ module butterfly(
     reg [23:0] sub_tmp = 0;
     reg [23:0] subtractor = 0;
     
-    reg [9:0] valid_sr;
+    reg [10:0] valid_sr;
     
     wire barrett_readyi;
     reg  barrett_validi;
@@ -99,6 +101,7 @@ module butterfly(
         aj3[3] = 0;
         aj3[4] = 0;
         aj3[5] = 0;
+        aj3[6] = 0;
     end
 
     reg [2:0] modei;
@@ -113,10 +116,10 @@ module butterfly(
         barrett_readyo = 1;
 
         multa = ajlen2_FNTT;
-        multb = (modei == INVERSE_NTT_MODE) ? zeta_delay2 : zeta_delay;
+        multb = (modei == INVERSE_NTT_MODE) ? zeta_delay3 : zeta_delay;
 
         if (mode == INVERSE_NTT_MODE) 
-            valido = valid_sr[9];
+            valido = valid_sr[10];
         else if (mode == MULT_MODE)
             valido = valid_sr[8];
         else if (mode == FORWARD_NTT_MODE)
@@ -180,17 +183,20 @@ module butterfly(
         if (rst) begin
             valid_sr <= 0;
         end else begin
-            valid_sr <= {valid_sr[8:0], validi};
+            valid_sr <= {valid_sr[9:0], validi};
         end
         
         modei <= mode;
         
         zeta_delay <= (mode == INVERSE_NTT_MODE) ? DILITHIUM_Q - zeta :  zeta;
         zeta_delay2 <= zeta_delay;
+        zeta_delay3 <= zeta_delay2;
 
         aj1    <= aj;
         ajlen1 <= ajlen;
         
+        sub_r          <= subtractor;
+        add_r          <= adder;
         mult_p         <= mult_result;
         barrett_datai  <= mult_p;
 
@@ -212,12 +218,12 @@ module butterfly(
         end
         INVERSE_NTT_MODE: begin
             aj2    <= adder;
-            ajlen2_INTT <= subtractor;
+            ajlen2_INTT <= sub_r;
             
-            if (aj3[5][0] == 1)
-                aj5 <= (aj3[5] >> 1) + (DILITHIUM_Q + 1) / 2;
+            if (aj3[6][0] == 1)
+                aj5 <= (aj3[6] >> 1) + (DILITHIUM_Q + 1) / 2;
             else
-                aj5 <= (aj3[5] >> 1);
+                aj5 <= (aj3[6] >> 1);
     
             if (ajlen3[0] == 1)
                 ajlen5 <= (ajlen3 >> 1) + (DILITHIUM_Q + 1) / 2;
@@ -247,6 +253,7 @@ module butterfly(
         aj3[3] <= aj3[2];
         aj3[4] <= aj3[3];
         aj3[5] <= aj3[4];
+        aj3[6] <= aj3[5];
     end
     
     

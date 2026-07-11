@@ -44,8 +44,8 @@ module butterfly2x2(
         SUB_MODE         = 3'd4;
     
     reg [23:0] z0, z1, z2, z3;
-    reg [23:0] z2_sr [9:0];
-    reg [23:0] z3_sr [9:0];
+    reg [23:0] z2_sr [10:0];
+    reg [23:0] z3_sr [10:0];
 
     
     reg  [23:0] a0, b0, c0, d0;
@@ -117,8 +117,8 @@ module butterfly2x2(
         
             z0 = zetai[24*0+:24];
             z1 = zetai[24*1+:24];
-            z2 = z2_sr[9];
-            z3 = z3_sr[9];
+            z2 = z2_sr[10];
+            z3 = z3_sr[10];
         end
         endcase
         
@@ -172,7 +172,7 @@ module butterfly2x2(
     
     integer i;
     initial begin
-        for (i = 0; i < 10; i = i + 1) begin
+        for (i = 0; i < 11; i = i + 1) begin
             z2_sr[i] = 0;
             z3_sr[i] = 0;
         end
@@ -181,7 +181,7 @@ module butterfly2x2(
     always @(posedge clk) begin
 
         if (rst) begin
-            for (i = 0; i < 10; i = i + 1) begin
+            for (i = 0; i < 11; i = i + 1) begin
                 z2_sr[i] <= 0;
                 z3_sr[i] <= 0;
             end
@@ -189,9 +189,9 @@ module butterfly2x2(
             z2_sr[0] <= zetai[24*2+:24];
             z3_sr[0] <= zetai[24*3+:24];
             
-            for (i = 1; i < 10; i = i + 1)
+            for (i = 1; i < 11; i = i + 1)
                 z2_sr[i] <= z2_sr[i-1];
-            for (i = 1; i < 10; i = i + 1)
+            for (i = 1; i < 11; i = i + 1)
                 z3_sr[i] <= z3_sr[i-1];
             
         end
