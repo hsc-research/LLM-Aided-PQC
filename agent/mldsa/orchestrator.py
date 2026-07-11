@@ -165,6 +165,17 @@ def main():
             "likely a flag that no consumer reads, or an attribute on a pruned net). "
             "These strategies remain VALID — the previous EDIT was wrong, not the strategy. "
             "If you retry, ensure every new signal is actually consumed on the critical path."]
+    accepted = []
+    if os.path.exists(LOG):
+        for line in open(LOG):
+            r = json.loads(line)
+            if r.get("block") == block and r.get("verdict") == "ACCEPTED":
+                accepted.append(r)
+    if accepted:
+        hist = "; ".join(f"{r['strategy']}: {json.dumps(r.get('edits'))[:200]}" for r in accepted)
+        tags = list(tags) + [f"EDITS ALREADY APPLIED AND ACCEPTED on this block (present in the RTL "
+            f"you were given; do NOT re-apply, duplicate, or paraphrase them — a strategy already "
+            f"accepted on a cone is exhausted for that cone): {hist}"]
     prop = call_llm(block, rtl, board, tags)
     print(json.dumps({k: v for k, v in prop.items() if k != "old" and k != "new"}, indent=1))
     if prop["verdict"] != "experiment":
