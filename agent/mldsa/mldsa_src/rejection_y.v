@@ -92,6 +92,28 @@ module rejection_y #(
     reg [10:0] SHIFT_IN_AMT;
     
     
+    function [79:0] rdi_shifted(input [10:0] amt);
+    begin
+        case (amt)
+            11'd0:  rdi_shifted = {16'd0, rdi};
+            11'd2:  rdi_shifted = {14'd0, rdi, 2'd0};
+            11'd4:  rdi_shifted = {12'd0, rdi, 4'd0};
+            11'd6:  rdi_shifted = {10'd0, rdi, 6'd0};
+            11'd8:  rdi_shifted = {8'd0,  rdi, 8'd0};
+            11'd10: rdi_shifted = {6'd0,  rdi, 10'd0};
+            11'd12: rdi_shifted = {4'd0,  rdi, 12'd0};
+            11'd14: rdi_shifted = {2'd0,  rdi, 14'd0};
+            11'd16: rdi_shifted = {rdi, 16'd0};
+            11'd18: rdi_shifted = {rdi[61:0], 18'd0};
+            11'd20: rdi_shifted = {rdi[59:0], 20'd0};
+            11'd22: rdi_shifted = {rdi[57:0], 22'd0};
+            11'd24: rdi_shifted = {rdi[55:0], 24'd0};
+            11'd26: rdi_shifted = {rdi[53:0], 26'd0};
+            default: rdi_shifted = 80'd0;  // unreachable per even/<=26 invariant; gate verifies
+        endcase
+    end
+    endfunction
+
     always @(*) begin
         ready_i = (sipo_in_len < 3*RDI_SAMPLE_W) ? 1 : 0;
         valid_o = (sipo_out_len >= SAMPLE_W*BUS_W) ? 1 : 0; 
@@ -158,7 +180,7 @@ module rejection_y #(
             
         sipo_in_len <= sipo_in_len_next - SHIFT_IN_AMT;
         if (valid_i) begin
-            SIPO_IN <= SIPO_IN_SHIFT | (rdi << sipo_in_len - SHIFT_IN_AMT);
+            SIPO_IN <= SIPO_IN_SHIFT | rdi_shifted(sipo_in_len - SHIFT_IN_AMT);
         end else begin
             SIPO_IN <= SIPO_IN_SHIFT;
         end
