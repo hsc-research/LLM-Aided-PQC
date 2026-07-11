@@ -44,14 +44,20 @@ POLICY = """VALIDATED STRATEGY MENU (pick exactly one, or no_action):
 3. sign_select: compare-then-conditional-subtract idiom -> single subtract, select on
    sign bit. (n=2)
 4. shifter_mux_reduce: variable shifter ONLY if the reachable shift-amount set is
-   already proven closed in findings. NEVER propose new probes; if unproven, no_action
-   with reason "shifter unproven".
+   already proven closed in findings AND the shift amount reaches the shifter as an
+   opaque COMPUTED value (arithmetic like len-amt). If the amount signal is assigned
+   only literal constants, Vivado already infers the select — the rewrite is DEAD
+   (bit-identical netlist, verified on rejection_y input shift). NEVER propose new
+   probes; if unproven or literal-assigned, no_action with reason "shifter unproven"
+   or "shifter amount literal-assigned".
 5. max_fanout_16: route-bound (route% >= ~70) + high-fanout source register ->
    (* max_fanout = 16 *) on the SOURCE REGISTER declaration. Never on combinational
    always@(*) regs (regressed twice). 16 not 8.
 FORBIDDEN (never propose): arithmetic-divide rewrites, unpipelined DSP inference,
 ANY latency/cycle-schedule change (lockstep gate will fail), width-narrowing on
-placement-sensitive paths, sensitivity-list-only edits, edits to coeff_decomposer.
+placement-sensitive paths, sensitivity-list-only edits, edits to coeff_decomposer,
+edits targeting a path through an unpipelined DSP multiply (DSP-latency-bound:
+~4ns intrinsic, only fixable by MREG/PREG = latency change; butterfly closed on this).
 OUTPUT: JSON only, one of:
 {"verdict":"experiment","strategy":"<menu name>","reason":"<1 sentence>",
  "edits":[{"old":"<exact unique substring>","new":"<replacement>"}, ...]}
@@ -79,8 +85,13 @@ def classify(paths):
         if pth["route_pct"] >= 70: pt.append("route-heavy")
         if pth["logic_pct"] >= 40: pt.append("logic-heavy")
         if pth["levels"] >= 12: pt.append(f"deep({pth['levels']}lv)")
+        if pth["logic_pct"] >= 60 and pth["levels"] <= 4: pt.append("DSP-latency-suspect")
         tags.append(f"path{i}[slack {pth['slack']}]: {','.join(pt) or 'mixed'}"
                     f" {pth['source'][:40]} -> {pth['dest'][:40]}")
+    if any("DSP-latency-suspect" in t for t in tags):
+        tags.append("NOTE: DSP-latency-suspect (high logic%, <=4 levels) usually means "
+                    "an unpipelined DSP multiply on the path — FORBIDDEN territory, "
+                    "prefer no_action unless the RTL shows otherwise.")
     tags.append("NOTE: route-heavy does NOT exclude flag_precompute; shortening "
                 "logic into a registered flag also removes routed nets. Consider "
                 "the full menu against the RTL structure before max_fanout_16.")
