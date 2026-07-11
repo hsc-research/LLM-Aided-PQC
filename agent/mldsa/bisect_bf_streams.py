@@ -29,7 +29,7 @@ def build(name, use_edited):
         shutil.copy(os.path.join(PRISTINE, b), d)
     if use_edited:
         # construct edited by RUNNING the apply scripts against this dir
-        for scr in ("apply_butterfly_dsp.py", "apply_bf2x2_zeta.py", "apply_opmod_retap.py"):
+        for scr in ("apply_butterfly_dsp.py", "apply_bf2x2_zeta.py", "apply_opmod_retap.py", "apply_butterfly_areg.py"):
             r = subprocess.run([sys.executable, os.path.join(BASE, scr), d],
                                capture_output=True, text=True)
             assert r.returncode == 0, f"{scr} failed: {r.stdout[-300:]}{r.stderr[-300:]}"
@@ -38,7 +38,7 @@ def build(name, use_edited):
         b2 = open(os.path.join(d, "butterfly2x2.v")).read()
         om = open(os.path.join(d, "operation_module.v")).read()
         assert bt.count("mult_p") >= 3, "butterfly edit missing"
-        assert "z2_sr[9]" in b2 or "[9:0]" in b2, "bf2x2 edit missing"
+        assert "z2_sr[10]" in b2, "bf2x2 edit missing"
         assert "addr1_sr[23]" in om, "opmod edit missing"
     f = os.path.join(d, "butterfly2x2.v")
     s = open(f).read()
