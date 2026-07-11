@@ -99,7 +99,7 @@ module gen_c # (
     reg [31:0] ctr, ctr_next;
     reg [8:0]  sample_no;
     
-    reg [63:0] dout_buffer;
+    (* max_fanout = 16 *) reg [63:0] dout_buffer;
     reg [511:0] MU_SIPO;
     reg [512 - 1 : 0] C_SIPO;
     reg [63:0] SIGN;
