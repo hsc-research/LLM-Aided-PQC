@@ -78,7 +78,7 @@ module decoder #(
         GAMMA1_35 = 23'd524288;
     
     
-    reg [2:0] encode_mode;
+    (* max_fanout = 16 *) reg [2:0] encode_mode;
     reg [3*W-1:0]                SIPO_IN, SIPO_IN_SHIFT;
     reg [199:0] SIPO_OUT;
     reg [4*COEFF_W-1:0]          sipo_out_in, sipo_out_in_shift;

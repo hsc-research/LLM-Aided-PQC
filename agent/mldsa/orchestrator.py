@@ -214,7 +214,7 @@ def main():
     res = run_synthesis(block, param_set)
     if "error" in res:
         revert("synth_fail"); return
-    gain = res["wns_ns"] - pre_wns
+    gain = round(res["wns_ns"] - pre_wns, 3)
     dl = (res["luts"] - base_luts) if (base_luts and res.get("luts")) else None
     print(f"WNS {pre_wns} -> {res['wns_ns']} (gain {gain:+.3f})"
           + (f", LUTs {base_luts} -> {res['luts']} ({dl:+d})" if dl is not None else ""))
