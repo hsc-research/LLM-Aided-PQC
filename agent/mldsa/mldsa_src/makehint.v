@@ -91,9 +91,14 @@ module makehint #(
     reg rej;
     
     reg [3:0] hint_needed;   // now registered: computed from pre-register inputs, same cycle alignment
+    reg [1:0] hn_off1, hn_off2, hn_off3;  // registered prefix sums of hint_needed
+    reg [2:0] hn_total;                    // registered total
     reg [3:0] K;
     
     integer i, k;
+    function hn_c(input integer j);
+        hn_c = !(poly0_ie[24*j+:24] <= GAMMA2 || poly0_ie[24*j+:24] > Q-GAMMA2) || (poly0_ie[24*j+:24] == Q-GAMMA2 && poly1_ie[24*j+:24] != 0);
+    endfunction
     always @(*) begin
         poly_ready_i = 1;
         reject_hint  = 0;
@@ -177,6 +182,10 @@ module makehint #(
         poly1_i <= poly1_ie;
         for (i = 0; i < 4; i = i + 1)
             hint_needed[i] <= !(poly0_ie[24*i+:24] <= GAMMA2 || poly0_ie[24*i+:24] > Q-GAMMA2) || (poly0_ie[24*i+:24] == Q-GAMMA2 && poly1_ie[24*i+:24] != 0);
+        hn_off1 <= hn_c(0);
+        hn_off2 <= hn_c(0) + hn_c(1);
+        hn_off3 <= hn_c(0) + hn_c(1) + hn_c(2);
+        hn_total <= hn_c(0) + hn_c(1) + hn_c(2) + hn_c(3);
         poly_valid_i <= (rst) ? 0 : poly_valid_ie;
     
         if (rst) begin
@@ -206,7 +215,7 @@ module makehint #(
                         ctr      <= 0;
                         poly_num <= poly_num + 1;
                         
-                        poly_hint_cnt[poly_num] <= num_hints + hint_needed[0] + hint_needed[1] + hint_needed[2] + hint_needed[3];
+                        poly_hint_cnt[poly_num] <= num_hints + hn_total;
                         
                         if (poly_num == K-1) begin
                             state <= S_UNLOADHINT;
@@ -218,15 +227,15 @@ module makehint #(
                         hint_addr[num_hints] <= ctr + 0;
                     end
                     if (hint_needed[1]) begin
-                        hint_addr[num_hints + hint_needed[0]] <= ctr + 1;
+                        hint_addr[num_hints + hn_off1] <= ctr + 1;
                     end
                     if (hint_needed[2]) begin
-                        hint_addr[num_hints + hint_needed[0] + hint_needed[1]] <= ctr + 2;
+                        hint_addr[num_hints + hn_off2] <= ctr + 2;
                     end
                     if (hint_needed[3]) begin
-                        hint_addr[num_hints + hint_needed[0] + hint_needed[1] + hint_needed[2]] <= ctr + 3;
+                        hint_addr[num_hints + hn_off3] <= ctr + 3;
                     end
-                    num_hints <= num_hints + hint_needed[0] + hint_needed[1] + hint_needed[2] + hint_needed[3];
+                    num_hints <= num_hints + hn_total;
                 end
             end
             S_UNLOADHINT: begin
