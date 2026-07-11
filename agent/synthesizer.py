@@ -247,3 +247,7 @@ if __name__ == "__main__":
     param  = sys.argv[2] if len(sys.argv) > 2 else "hqc128"
     result = run_synthesis(module, param)
     print(result)
+
+MODULE_SOURCES["gen_c"] = [
+    "./agent/mldsa/mldsa_src/gen_c.v",
+]
