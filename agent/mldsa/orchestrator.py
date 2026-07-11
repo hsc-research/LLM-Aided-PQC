@@ -32,6 +32,7 @@ BLOCKS = {
     "rejection_y": ("agent/mldsa/mldsa_src/rejection_y.v", "rejection_y_equiv_gate", -4.230, 1313),
     "makehint":    ("agent/mldsa/mldsa_src/makehint.v",    "makehint_equiv_gate",    -0.633, None),
     "gen_c":       ("agent/mldsa/mldsa_src/gen_c.v",       "gen_c_equiv_gate",       -5.233, 2141),
+    "decoder":     ("agent/mldsa/mldsa_src/decoder.v",     "decoder_equiv_gate",     -4.806, 2138),
     # coeff_decomposer: CLOSED (placement-coupled, 5 failed restructurings). Not registered.
 }
 

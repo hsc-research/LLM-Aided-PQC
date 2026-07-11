@@ -251,3 +251,7 @@ if __name__ == "__main__":
 MODULE_SOURCES["gen_c"] = [
     "./agent/mldsa/mldsa_src/gen_c.v",
 ]
+
+MODULE_SOURCES["decoder"] = [
+    "./agent/mldsa/mldsa_src/decoder.v",
+]
