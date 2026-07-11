@@ -255,3 +255,7 @@ MODULE_SOURCES["gen_c"] = [
 MODULE_SOURCES["decoder"] = [
     "./agent/mldsa/mldsa_src/decoder.v",
 ]
+
+MODULE_SOURCES["usehint"] = [
+    "./agent/mldsa/mldsa_src/usehint.v",
+]

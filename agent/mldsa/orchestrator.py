@@ -33,6 +33,7 @@ BLOCKS = {
     "makehint":    ("agent/mldsa/mldsa_src/makehint.v",    "makehint_equiv_gate",    -0.633, None),
     "gen_c":       ("agent/mldsa/mldsa_src/gen_c.v",       "gen_c_equiv_gate",       -5.233, 2141),
     "decoder":     ("agent/mldsa/mldsa_src/decoder.v",     "decoder_equiv_gate",     -4.806, 2138),
+    "usehint":     ("agent/mldsa/mldsa_src/usehint.v",     "usehint_equiv_gate",     -2.542, 6857),
     # coeff_decomposer: CLOSED (placement-coupled, 5 failed restructurings). Not registered.
 }
 
@@ -177,7 +178,13 @@ def main():
         tags = list(tags) + [f"EDITS ALREADY APPLIED AND ACCEPTED on this block (present in the RTL "
             f"you were given; do NOT re-apply, duplicate, or paraphrase them — a strategy already "
             f"accepted on a cone is exhausted for that cone): {hist}"]
+    closed = {r["strategy"] for r in accepted}
     prop = call_llm(block, rtl, board, tags)
+    if prop.get("verdict") == "experiment" and prop.get("strategy") in closed:
+        log({"block": block, "verdict": "refused",
+             "reason": f"strategy {prop['strategy']} already ACCEPTED on this block; cone closed",
+             "strategy": prop["strategy"]})
+        return
     print(json.dumps({k: v for k, v in prop.items() if k != "old" and k != "new"}, indent=1))
     if prop["verdict"] != "experiment":
         log({"block": block, "verdict": "no_action", "reason": prop["reason"]}); return
