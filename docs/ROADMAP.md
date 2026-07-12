@@ -44,3 +44,24 @@ divergence-guided repair), corruption-validated gate suite (block lockstep,
 latency-tolerant block, full-KAT 75-vector), latency-agnostic stream
 bisection, cost-tracked API loop, live dashboard, 23 findings docs + INDEX,
 complete flight logs including every refusal and regression.
+
+## Model attribution (required for honest reporting)
+Three capability tiers were used, and the distinction IS a result:
+- claude-sonnet-4-6 (API, in-loop): all autonomous latency-preserving wins;
+  on latency-changing edits it derives retap arithmetic under divergence
+  feedback but repeatedly fails insertion-point selection (12 calls, 0 wins
+  on butterfly round-3).
+- claude-opus-4-8 (API, in-loop, 1 call, $0.245): correctly REFUSED the
+  unworkable block with the same structural reasoning as manual analysis.
+- claude-fable-5 (chat interface, human-in-loop): designed every
+  latency-changing win (butterfly rounds 1-2) and the judgment-heavy
+  latency-preserving wins of the final sessions (gen_c sample_addr precompute,
+  gen_c/makehint fanout profile, coeff_decomposer width narrowing, and the
+  sign_select/S-LUT negative probes), with the human operating gates,
+  terminal, and accept/revert authority. Fable 5 also root-caused the
+  chained-stage retap rule via the stream-bisection method it designed.
+The paper should report this as: insertion-point and load-profile judgment
+currently requires frontier-model reasoning (Fable 5 interactive / Opus
+refusal-quality); mid-tier models suffice for the constrained autonomous
+tier. "Human-in-loop" in this project means human-operated verification
+around frontier-model design reasoning — the human never designed an edit.
