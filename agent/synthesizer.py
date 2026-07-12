@@ -31,7 +31,7 @@ MODULE_SOURCES = {
 
 VHDL_SOURCES = {}  # module -> list of .vhd files (read via read_vhdl before synth)
 
-def build_tcl(module, param_set):
+def build_tcl(module, param_set, period=5.000):
     sources = MODULE_SOURCES[module]
     top = TOP_OVERRIDE.get(module, module)
     source_lines = "\n        ".join(sources)
@@ -51,7 +51,7 @@ synth_design \\
     -generic parameter_set={param_set}
 set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
 if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
-create_clock -period 5.000 -name clk [get_ports $clk_port]
+create_clock -period {period:.3f} -name clk [get_ports $clk_port]
 report_utilization \\
     -file ./synth_out/{module}/{module}_{param_set}_util.rpt
 report_timing_summary \\
@@ -59,14 +59,14 @@ report_timing_summary \\
 puts "=== DONE: {module} {param_set} ==="
 """
 
-def run_synthesis(module, param_set, repo_root="."):
+def run_synthesis(module, param_set, repo_root=".", period=5.000):
     if module not in MODULE_SOURCES:
         return {"error": f"module {module} not registered in synthesizer"}
 
     tcl_path = os.path.join(repo_root, f"_agent_synth_{module}_{param_set}.tcl")
 
     with open(tcl_path, "w") as f:
-        f.write(build_tcl(module, param_set))
+        f.write(build_tcl(module, param_set, period))
 
     print(f"Running synthesis: {module} / {param_set} ...")
     result = subprocess.run(
