@@ -49,8 +49,13 @@ POLICY = """VALIDATED STRATEGY MENU (pick exactly one, or no_action):
    mode of its cone. In mode-shared transform cones, attribute the binding mode
    first; a bit-exact LUT of a non-binding mode disturbs cross-mode sharing and
    regresses (decoder S-LUT negative, -0.283ns).
-3. sign_select: compare-then-conditional-subtract idiom -> single subtract, select on
-   sign bit. (n=2)
+3. sign_select: applies ONLY when pristine computes the correction via a
+   sign-extract/mask idiom (>>31 & Q style) -> rewrite to explicit compare or
+   single subtract+select. (n=2 wins on sign-extract forms.) EXCLUSION
+   (validated n=2, widths 13-24b): if pristine is ALREADY a ternary on an
+   explicit compare ((x > C) ? a : b), both arms synthesize in parallel;
+   rewriting to subtract-then-sign-select SERIALIZES and regresses. Never
+   propose sign_select on an existing explicit-compare ternary.
 4. shifter_mux_reduce: variable shifter ONLY if the reachable shift-amount set is
    already proven closed in findings AND the shift amount reaches the shifter as an
    opaque COMPUTED value (arithmetic like len-amt). If the amount signal is assigned
