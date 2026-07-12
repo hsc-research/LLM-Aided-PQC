@@ -23,3 +23,13 @@ macros, which replicate differently than fabric CE banks — a candidate
 refinement to the load-profile rule: macro-pin banks may not respond).
 Remaining HQC transfer targets: decap cones (known placement-bound, expect
 no_action — itself a transfer test of the closure priors) and keygen residuals.
+
+## Second probe: keygen/hqc128 (worst -0.091, dout_shake 32b reg)
+After a harness fix (hierarchical right-to-left register lookup for target-file
+selection), the model returned no_action citing the load-profile rule exactly:
+32-bit source with heterogeneous bit-slice loads -> fanout excluded. $0.05.
+Transfer v0 summary: 3 probes, 1 correct rule application (gated, honest
+marginal revert), 2 correct refusals with transferred reasoning, 0 false
+accepts, ~$0.16 total. The ML-DSA-learned calculus transfers to HQC without
+modification; what it lacks on HQC is instances where its preconditions hold,
+which is itself the accurate reading of a near-closed board.

@@ -82,15 +82,20 @@ def main():
     tags = classify(paths)
     print(f"Worst slack {pre} | {tags}")
     # target file = the source file that DECLARES the top path's source register
-    src_reg = re.sub(r"_reg.*$", "", paths[0]["source"].split("/")[0].split("[")[0])
+    # walk hierarchy segments right-to-left (skip pin names like /C, /D)
+    segs = [re.sub(r"_reg$", "", g.split("[")[0])
+            for g in paths[0]["source"].split("/") if len(g.split("[")[0]) > 2]
     src_file = None
-    for f in srcs:
-        try: txt = open(f).read()
-        except OSError: continue
-        if re.search(r"\breg\b[^;]*\b" + re.escape(src_reg) + r"\b", txt):
-            src_file = f; break
+    for cand in reversed(segs):
+        for f in srcs:
+            try: txt = open(f).read()
+            except OSError: continue
+            if re.search(r"\breg\b[^;]*\b" + re.escape(cand) + r"\b", txt):
+                src_file = f; break
+        if src_file: 
+            src_reg = cand; break
     if src_file is None:
-        src_file = srcs[0]
+        src_reg, src_file = segs[-1] if segs else "?", srcs[0]
     print(f"target reg '{src_reg}' -> {os.path.basename(src_file)}")
     rtl = open(src_file).read()
     prop = call_llm(module, rtl, json.dumps(paths[:5], indent=1), tags)
