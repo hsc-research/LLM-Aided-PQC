@@ -95,7 +95,7 @@ module gen_c # (
     
     reg  [31:0] ctrl_len;
     
-    reg [3:0]  cstate, nstate;
+    (* max_fanout = 16 *) reg [3:0]  cstate, nstate;
     reg [31:0] ctr, ctr_next;
     reg [8:0]  sample_no;
     
