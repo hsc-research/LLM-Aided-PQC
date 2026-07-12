@@ -259,12 +259,6 @@ MODULE_SOURCES["makehint"] = [
     "./agent/mldsa/mldsa_src/makehint.v",
 ]
 
-if __name__ == "__main__":
-    import sys
-    module = sys.argv[1] if len(sys.argv) > 1 else "poly_mult"
-    param  = sys.argv[2] if len(sys.argv) > 2 else "hqc128"
-    result = run_synthesis(module, param)
-    print(result)
 
 MODULE_SOURCES["gen_c"] = [
     "./agent/mldsa/mldsa_src/gen_c.v",
@@ -285,3 +279,10 @@ MODULE_SOURCES["sampler_y_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/
 MODULE_SOURCES["sampler_y_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_y_ext.v", "./agent/mldsa/mldsa_src/rejection_y.v"]
 MODULE_SOURCES["sampler_a_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v", "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_a.v"]
 MODULE_SOURCES["sampler_a_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v", "./agent/mldsa/mldsa_src/rejection_a.v"]
+
+if __name__ == "__main__":
+    import sys
+    module = sys.argv[1] if len(sys.argv) > 1 else "poly_mult"
+    param  = sys.argv[2] if len(sys.argv) > 2 else "hqc128"
+    result = run_synthesis(module, param)
+    print(result)
