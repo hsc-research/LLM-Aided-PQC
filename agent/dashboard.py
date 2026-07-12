@@ -10,6 +10,7 @@ LOGS = {
     "latency":      os.path.join(HERE, "mldsa", "latency_log.jsonl"),
     "orchestrator": os.path.join(HERE, "mldsa", "orchestrator_log.jsonl"),
     "flight":       os.path.join(HERE, "flight_log.jsonl"),
+    "transfer":     os.path.join(HERE, "hqc", "transfer_log.jsonl"),
 }
 RUNLOG = os.path.join(HERE, "mldsa", "fullkat_run.log")
 
@@ -145,6 +146,9 @@ details{margin:2px 0}summary{cursor:pointer}
 <h2>Latency-preserving tier — same-cycle logic rewrites</h2>
 <p class="sub">Older autonomous tier: rewrites that must produce identical outputs on identical cycles.</p>
 <div id="orch"></div>
+<h2>Cross-design transfer (ML-DSA priors on HQC)</h2>
+<p class="sub">Autonomous transfer probes: ML-DSA-learned rules applied to HQC blocks, gated by the HQC KAT.</p>
+<div id="transfer"></div>
 <h2>HQC flight log</h2>
 <p class="sub">Historical record from the HQC accelerator work: wins, refusals, no-actions.</p>
 <div id="flight"></div>
@@ -181,6 +185,7 @@ async function tick(){
       (d.live.age_s!=null?`\n[log last updated ${d.live.age_s}s ago — if agent is running and this exceeds ~120s, the sim may be hung]`:"");
     document.getElementById("latency").innerHTML=table(d.logs.latency);
     document.getElementById("orch").innerHTML=table(d.logs.orchestrator);
+    document.getElementById("transfer").innerHTML=table(d.logs.transfer);
     document.getElementById("flight").innerHTML=table(d.logs.flight);
   }catch(e){document.getElementById("clock").textContent="fetch error";}
 }
