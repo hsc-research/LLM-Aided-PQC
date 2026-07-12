@@ -51,6 +51,16 @@ retap ALL downstream consumers. Hard-won rules from verified wins:
    do NOT retap their valido taps, addr taps, or drains — leave every ADD/SUB
    index byte-identical to the original. Retapping an unaffected mode is the
    most common failure.
+8. INSERTION-POINT RUBRIC (the decisive judgment; validated across 5 attempts):
+   register the OUTPUT side of the deep operator (multiply result, subtract
+   result) so downstream consumers shift uniformly; NEVER the INPUT side
+   (operand registers desync the mode-select mux and every same-cycle
+   rendezvous inside the block; n=4 identical failures). Before proposing,
+   run the RENDEZVOUS TEST: list every signal that must arrive at the cut
+   point in the same cycle as the pipelined value; if any of them is selected
+   by a mode/state signal computed that cycle, the cut is unworkable — refuse.
+9. A refusal with the correct structural reason is a SUCCESS, not a failure.
+   State the rendezvous conflict explicitly in no_action reasons.
 OUTPUT JSON ONLY:
 {"verdict":"experiment","design":"<2-sentence retiming derivation incl. total shift per mode>",
  "edits":{"<filename.v>":[{"old":"<exact unique substring>","new":"..."}, ...], ...}}
