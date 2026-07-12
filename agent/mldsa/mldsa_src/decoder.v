@@ -90,6 +90,7 @@ module decoder #(
     reg [2*W-1:0] di_shift;
     
     reg [5:0] ENCODE_LVL;
+    (* max_fanout = 16 *) reg [5:0] ENCODE_LVL_r = 0;  // precomputed 1 cycle ahead from encode_modei
     integer i;
     
     initial begin
@@ -173,7 +174,7 @@ module decoder #(
         
         samples = SIPO_OUT[OUTPUT_W*COEFF_W-1:0];
 
-        SIPO_IN_SHIFT = (SIPO_IN >> 4*ENCODE_LVL);
+        SIPO_IN_SHIFT = (SIPO_IN >> {ENCODE_LVL_r, 2'b00});  // registered amount (4*lvl)
 
         if (valid_o && ready_o) begin   
             sipo_out_in_shift = sipo_out_in << (sipo_out_len - OUTPUT_W*COEFF_W);  
@@ -190,6 +191,25 @@ module decoder #(
     
     always @(posedge clk) begin
         encode_mode <= encode_modei;
+        // ENCODE_LVL precompute: same casex, one cycle early, from encode_modei.
+        // ENCODE_LVL_r(t) == ENCODE_LVL(t) since encode_mode <= encode_modei every cycle.
+        casex({sec_lvl, encode_modei})
+        {3'dX, ENCODE_T0}: ENCODE_LVL_r <= 13;
+        {3'dX, ENCODE_T1}: ENCODE_LVL_r <= 10;
+        {3'd2, ENCODE_S2},
+        {3'd5, ENCODE_S2},
+        {3'd2, ENCODE_S1},
+        {3'd5, ENCODE_S1}: ENCODE_LVL_r <= 3;
+        {3'd3, ENCODE_S2},
+        {3'd3, ENCODE_S1}: ENCODE_LVL_r <= 4;
+        {3'd3, ENCODE_W1},
+        {3'd5, ENCODE_W1}: ENCODE_LVL_r <= 4;
+        {3'd2, ENCODE_W1}: ENCODE_LVL_r <= 6;
+        {3'd2, ENCODE_Z}:  ENCODE_LVL_r <= 18;
+        {3'd3, ENCODE_Z},
+        {3'd5, ENCODE_Z}:  ENCODE_LVL_r <= 20;
+        default:           ENCODE_LVL_r <= 0;
+        endcase
         if (rst) begin
             SIPO_IN  <= 0;
             SIPO_OUT <= 0;
