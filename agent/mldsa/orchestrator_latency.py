@@ -15,6 +15,9 @@ from synthesizer import run_synthesis
 import path_extractor
 
 MODEL = "claude-sonnet-4-6"
+if "--model" in sys.argv:
+    MODEL = {"opus": "claude-opus-4-8", "sonnet": "claude-sonnet-4-6"}.get(
+        sys.argv[sys.argv.index("--model") + 1], sys.argv[sys.argv.index("--model") + 1])
 MIN_GAIN_NS = 0.05
 LOG = os.path.join(HERE, "latency_log.jsonl")
 SRCDIR = "agent/mldsa/mldsa_src"
@@ -42,8 +45,12 @@ retap ALL downstream consumers. Hard-won rules from verified wins:
    bounds (initial, reset, shift) or X-propagation results.
 5. Drain/pause counters that let writes land before the next round's reads must
    extend by the same total shift, else read-after-write hazards corrupt round 2+.
-6. Only pipeline paths through DSP multipliers or deep carry chains; ADD/SUB-style
-   modes not touching the target path stay untouched.
+6. Only pipeline paths through DSP multipliers or deep carry chains.
+7. CRITICAL: modes whose datapath does NOT route through the multiplier get +0
+   total shift. In this design ADD_MODE and SUB_MODE never use the multiplier:
+   do NOT retap their valido taps, addr taps, or drains — leave every ADD/SUB
+   index byte-identical to the original. Retapping an unaffected mode is the
+   most common failure.
 OUTPUT JSON ONLY:
 {"verdict":"experiment","design":"<2-sentence retiming derivation incl. total shift per mode>",
  "edits":{"<filename.v>":[{"old":"<exact unique substring>","new":"..."}, ...], ...}}
@@ -52,6 +59,12 @@ Anchors byte-exact incl. whitespace, each occurring exactly once in its file."""
 
 def log(rec):
     rec["ts"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    try:
+        rec.setdefault("model", MODEL)
+        rec.setdefault("cost_usd", usage_cost())
+        rec.setdefault("api_calls", USAGE["calls"])
+    except NameError:
+        pass
     open(LOG, "a").write(json.dumps(rec) + "\n")
     print("LOG:", rec.get("verdict"), rec.get("reason", rec.get("design", ""))[:120])
 
@@ -76,7 +89,8 @@ def apply_edits(edits):
 
 def full_kat():
     r = subprocess.run([sys.executable, f"{HERE}/full_kat_gate.py",
-                        f"{REPO}/{SRCDIR}"], capture_output=True, text=True)
+                        f"{REPO}/{SRCDIR}", "--timeout", "600"],
+                       capture_output=True, text=True)
     i = r.stdout.find("{")
     return json.loads(r.stdout[i:]) if i != -1 else {"status": "FAIL", "reason": r.stdout[-300:]}
 
@@ -99,8 +113,8 @@ def bisect(cluster_files):
     logs = {}
     for tag, pr in (("p", True), ("e", False)):
         d = build("lat_dbg_" + tag, pr)
-        subprocess.run([sys.executable, f"{HERE}/full_kat_gate.py", d, "--vectors", "1"],
-                       capture_output=True, text=True)
+        subprocess.run([sys.executable, f"{HERE}/full_kat_gate.py", d, "--vectors", "1",
+                        "--timeout", "300"], capture_output=True, text=True)
         logs[tag] = open(f"{HERE}/fullkat_run.log").read()
         shutil.rmtree(d, ignore_errors=True)
     def parse(t):
@@ -123,11 +137,23 @@ def bisect(cluster_files):
             out.append(f"{key[1]} stream length mismatch: pristine={len(a)} edited={len(b)}")
     return "\n".join(out) or "no divergence found in first 4000 transactions of instrumented streams"
 
+USAGE = {"calls": 0, "in_tok": 0, "out_tok": 0}
+# $/Mtok (input, output)
+PRICES = {"claude-opus-4-8": (15.0, 75.0), "claude-sonnet-4-6": (3.0, 15.0)}
+
+def usage_cost():
+    pi, po = PRICES.get(MODEL, (3.0, 15.0))
+    return round(USAGE["in_tok"]/1e6*pi + USAGE["out_tok"]/1e6*po, 4)
+
 def call_llm(messages):
     client = anthropic.Anthropic()
     msgs = list(messages)
     for a in range(3):
         r = client.messages.create(model=MODEL, max_tokens=8000, system=POLICY, messages=msgs)
+        USAGE["calls"] += 1
+        USAGE["in_tok"] += r.usage.input_tokens
+        USAGE["out_tok"] += r.usage.output_tokens
+        print(f"[api] call {USAGE['calls']}: {r.usage.input_tokens} in / {r.usage.output_tokens} out | run total ${usage_cost()}")
         txt = r.content[0].text
         i, j = txt.find("{"), txt.rfind("}")
         if i != -1 and j > i:
@@ -163,10 +189,15 @@ def main():
         if prop.get("verdict") != "experiment":
             log({"block": block, "verdict": "no_action", "reason": prop.get("reason", "")}); return
         print("DESIGN:", prop.get("design", "")[:300])
+        print(f"--- attempt {attempt} ---")
         err = apply_edits(prop["edits"])
         if err:
+            print("APPLY FAILED:", err)
+            log({"block": block, "verdict": "apply_fail", "attempt": attempt,
+                 "reason": err, "design": prop.get("design", "")[:200]})
+            git_reset(files)
             messages += [{"role": "assistant", "content": raw},
-                         {"role": "user", "content": f"APPLY FAILED: {err}. Fix anchors, resend full JSON."}]
+                         {"role": "user", "content": f"APPLY FAILED: {err}. The anchor must occur exactly once, byte-exact including whitespace. Resend full corrected JSON."}]
             continue
         g = full_kat()
         if g["status"] == "PASS":
@@ -175,6 +206,7 @@ def main():
             print(f"WNS {pre_wns} -> {res['wns_ns']} ({gain:+.3f})")
             if gain >= MIN_GAIN_NS:
                 log({"block": block, "verdict": "ACCEPTED", "attempt": attempt,
+                     "model": MODEL, "api_calls": USAGE["calls"], "cost_usd": usage_cost(),
                      "wns_pre": pre_wns, "wns_post": res["wns_ns"], "gain": gain,
                      "design": prop.get("design"), "edits": prop["edits"]})
                 print("=== ACCEPTED. Review diff + commit manually. ==="); return
@@ -194,7 +226,8 @@ def main():
                       "Diagnose which retap is off (remember rule 2: total shift = per-stage shift x "
                       "chained instances). Resend the FULL corrected JSON edit set (applied to "
                       "ORIGINAL file state, not incremental)."}]
-    log({"block": block, "verdict": "retries_exhausted"})
+    log({"block": block, "verdict": "retries_exhausted", "model": MODEL,
+         "api_calls": USAGE["calls"], "cost_usd": usage_cost()})
     print("Retries exhausted; tracked state reset clean.")
 
 if __name__ == "__main__":
