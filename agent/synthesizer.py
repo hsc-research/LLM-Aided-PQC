@@ -298,7 +298,7 @@ def _combined_vlist():
         if b in pris:
             pris[b] = p   # tracked override
     return sorted(pris.values())
-MODULE_SOURCES["encoder"] = [_PRIS + "/uncenter_coeff.v", _PRIS + "/zero_strip.v", _PRIS + "/encoder.v"]
+MODULE_SOURCES["encoder"] = [_PRIS + "/uncenter_coeff.v", _PRIS + "/zero_strip.v", "./agent/mldsa/mldsa_src/encoder.v"]
 MODULE_SOURCES["combined_top"]          = _combined_vlist()
 MODULE_SOURCES["combined_top_pristine"] = sorted(_glob.glob(_PRIS + "/*.v"))
 VHDL_SOURCES["combined_top"]          = sorted(_glob.glob(_PRIS + "/*.vhd"))
