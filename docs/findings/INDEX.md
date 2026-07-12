@@ -46,11 +46,10 @@ negative, I = infrastructure/process. Full details in each file.
 | rejection_s | -4.013 | -2.486 | internal-merge-bound |
 | usehint | -2.542 | -2.542 | self-loop, closed |
 | butterfly | -3.802 | -2.793 | DSP floor, closed (2 DSP) |
-| rejection_a | ~-2.86† | -2.933 | family, closed |
+| rejection_a | -2.933 | -2.933 | fanout win deliberately reverted (composition inversion), closed |
 | rejection_y | -4.470 | -3.511 | internal-merge-bound |
 | decoder | -4.806 | -4.299 | architectural residual |
 
 *coeff_decomposer base shown post sign_select win (true pristine base predates
 current ledger; the earlier failed pipeline attempt measured -1.688).
-†rejection_a baseline approximate (logged -2.857 under an earlier source list);
-measured current is authoritative. HQC ledger in the ICCAD abstract Table I.
+HQC ledger in the ICCAD abstract Table I.
