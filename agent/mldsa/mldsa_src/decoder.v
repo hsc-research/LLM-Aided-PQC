@@ -167,7 +167,7 @@ module decoder #(
         
         
         valid_o = (sipo_out_len >= OUTPUT_W*COEFF_W) ? 1 : 0; 
-        ready_i = (sipo_in_len < 4*ENCODE_LVL || (valid_o && 4*ENCODE_LVL > 63)) ? 1 : 0;
+        ready_i = (sipo_in_len < {ENCODE_LVL_r, 2'b00} || (valid_o && {ENCODE_LVL_r, 2'b00} > 63)) ? 1 : 0;
         
         sipo_in_len_next  = (ready_i && valid_i) ? sipo_in_len + W : sipo_in_len;
         sipo_out_len_next = (valid_o && ready_o) ? sipo_out_len - OUTPUT_W*COEFF_W: sipo_out_len;   
@@ -182,8 +182,8 @@ module decoder #(
             sipo_out_in_shift = sipo_out_in << sipo_out_len;
         end
 
-        if (sipo_in_len >= 4*ENCODE_LVL) begin
-            di_shift = ({64'd0, di} << (sipo_in_len - 4*ENCODE_LVL));
+        if (sipo_in_len >= {ENCODE_LVL_r, 2'b00}) begin
+            di_shift = ({64'd0, di} << (sipo_in_len - {ENCODE_LVL_r, 2'b00}));
         end else begin
             di_shift = ({64'd0, di} << sipo_in_len);
         end
@@ -217,8 +217,8 @@ module decoder #(
             sipo_out_len <= 0;  
         end else begin
             if (sipo_out_len_next <= OUTPUT_W*COEFF_W) begin
-                if (sipo_in_len >= 4*ENCODE_LVL) begin
-                    sipo_in_len  <= sipo_in_len_next  - 4*ENCODE_LVL;
+                if (sipo_in_len >= {ENCODE_LVL_r, 2'b00}) begin
+                    sipo_in_len  <= sipo_in_len_next  - {ENCODE_LVL_r, 2'b00};
                     sipo_out_len <= sipo_out_len_next + 4*COEFF_W;
                     
                     if (valid_i) begin
