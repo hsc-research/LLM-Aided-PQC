@@ -39,8 +39,16 @@ BLOCKS = {
 
 POLICY = """VALIDATED STRATEGY MENU (pick exactly one, or no_action):
 1. flag_precompute: compare logic on already-registered inputs feeding CE/write-index
-   decode -> register the flag from pre-register inputs. (n=3, best pattern.)
-2. constant_lut: small-domain (<=4-bit input) arithmetic chain -> constant LUT. (n=1)
+   decode -> register the flag from pre-register inputs. (n=5, best pattern.)
+   SOURCE RULE (validated): the precomputed expression's source must be a value
+   with a PARALLEL registered copy (shadow/mirror computable one cycle early);
+   NEVER a self-loop endpoint (e.g. ctr_next feeding ctr) — the loop endpoint IS
+   the critical dependency and cannot be precomputed (usehint negative).
+2. constant_lut: small-domain arithmetic chain -> constant LUT. (n=1 win, 1 loss)
+   HARD DOMAIN CAP: input domain must be <=8 bits AND proven to be the BINDING
+   mode of its cone. In mode-shared transform cones, attribute the binding mode
+   first; a bit-exact LUT of a non-binding mode disturbs cross-mode sharing and
+   regresses (decoder S-LUT negative, -0.283ns).
 3. sign_select: compare-then-conditional-subtract idiom -> single subtract, select on
    sign bit. (n=2)
 4. shifter_mux_reduce: variable shifter ONLY if the reachable shift-amount set is
@@ -52,7 +60,12 @@ POLICY = """VALIDATED STRATEGY MENU (pick exactly one, or no_action):
    or "shifter amount literal-assigned".
 5. max_fanout_16: route-bound (route% >= ~70) + high-fanout source register ->
    (* max_fanout = 16 *) on the SOURCE REGISTER declaration. Never on combinational
-   always@(*) regs (regressed twice). 16 not 8.
+   always@(*) regs (regressed twice). LOAD-PROFILE RULE (validated, n=4 wins/2 losses):
+   pays on NARROW regs (FSM state, counters, small flags) whose loads are a
+   HOMOGENEOUS wide bank (CE decode arrays, register-file enables); LOSES on wide
+   regs (SIPO buses) and on regs with heterogeneous load types. Default N=16;
+   N=8 optimal on very small regs (makehint num_hints); sweep only if 16 is
+   marginal.
 FORBIDDEN (never propose): arithmetic-divide rewrites, unpipelined DSP inference,
 ANY latency/cycle-schedule change (lockstep gate will fail), width-narrowing on
 placement-sensitive paths, sensitivity-list-only edits, edits to coeff_decomposer,
@@ -95,6 +108,12 @@ def classify(paths):
     tags.append("NOTE: route-heavy does NOT exclude flag_precompute; shortening "
                 "logic into a registered flag also removes routed nets. Consider "
                 "the full menu against the RTL structure before max_fanout_16.")
+    if any(p["route_pct"] >= 70 for p in paths[:3]):
+        tags.append("NOTE: for route-heavy paths, check the SOURCE register width and "
+                    "LOAD profile in the RTL: narrow source (<=8b FSM/counter/flag) "
+                    "fanning to a homogeneous CE/enable bank -> max_fanout_16 is "
+                    "HIGH-CONFIDENCE; wide source (SIPO/bus) or mixed load types -> "
+                    "max_fanout regresses, prefer no_action or another strategy.")
     return tags
 
 def call_llm(block, rtl, board, tags):
