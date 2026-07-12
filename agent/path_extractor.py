@@ -9,17 +9,23 @@
 import subprocess, re, sys, os
 
 sys.path.insert(0, os.path.dirname(__file__))
-from synthesizer import MODULE_SOURCES, PART
+from synthesizer import MODULE_SOURCES, PART, VHDL_SOURCES, TOP_OVERRIDE
 
 def build_tcl(module, param_set, n_paths):
     sources = MODULE_SOURCES[module]
+    vhdl = VHDL_SOURCES.get(module, [])
     source_lines = "\n        ".join(sources)
+    top = TOP_OVERRIDE.get(module, module)
+    vhdl_block = ""
+    if vhdl:
+        vhdl_lines = "\n        ".join(vhdl)
+        vhdl_block = f"read_vhdl {{\n        {vhdl_lines}\n}}\n"
     return f"""file mkdir "./synth_out/paths"
-read_verilog {{
+{vhdl_block}read_verilog {{
         {source_lines}
 }}
 synth_design \\
-    -top {module} \\
+    -top {top} \\
     -part {PART} \\
     -mode out_of_context \\
     -generic parameter_set={param_set}

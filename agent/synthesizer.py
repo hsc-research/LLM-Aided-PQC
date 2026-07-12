@@ -29,12 +29,19 @@ MODULE_SOURCES = {
     ]
 }
 
+VHDL_SOURCES = {}  # module -> list of .vhd files (read via read_vhdl before synth)
+
 def build_tcl(module, param_set):
     sources = MODULE_SOURCES[module]
     top = TOP_OVERRIDE.get(module, module)
     source_lines = "\n        ".join(sources)
+    vhdl = VHDL_SOURCES.get(module, [])
+    vhdl_block = ""
+    if vhdl:
+        vhdl_lines = "\n        ".join(vhdl)
+        vhdl_block = f"read_vhdl {{\n        {vhdl_lines}\n}}\n"
     return f"""file mkdir "./synth_out/{module}"
-read_verilog {{
+{vhdl_block}read_verilog {{
         {source_lines}
 }}
 synth_design \\
@@ -279,6 +286,24 @@ MODULE_SOURCES["sampler_y_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/
 MODULE_SOURCES["sampler_y_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_y_ext.v", "./agent/mldsa/mldsa_src/rejection_y.v"]
 MODULE_SOURCES["sampler_a_pristine"] = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v", "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/rejection_a.v"]
 MODULE_SOURCES["sampler_a_opt"]      = ["/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/sampler_a_ext.v", "./agent/mldsa/mldsa_src/rejection_a.v"]
+
+# --- combined_top: full-chip integration (advisor sequence) ---
+import glob as _glob
+_PRIS = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src"
+_TRK  = "./agent/mldsa/mldsa_src"
+def _combined_vlist():
+    pris = {__import__('os').path.basename(p): p for p in _glob.glob(_PRIS + "/*.v")}
+    for p in _glob.glob(_TRK + "/*.v"):
+        b = __import__('os').path.basename(p)
+        if b in pris:
+            pris[b] = p   # tracked override
+    return sorted(pris.values())
+MODULE_SOURCES["encoder"] = [_PRIS + "/uncenter_coeff.v", _PRIS + "/zero_strip.v", _PRIS + "/encoder.v"]
+MODULE_SOURCES["combined_top"]          = _combined_vlist()
+MODULE_SOURCES["combined_top_pristine"] = sorted(_glob.glob(_PRIS + "/*.v"))
+VHDL_SOURCES["combined_top"]          = sorted(_glob.glob(_PRIS + "/*.vhd"))
+VHDL_SOURCES["combined_top_pristine"] = sorted(_glob.glob(_PRIS + "/*.vhd"))
+TOP_OVERRIDE["combined_top_pristine"] = "combined_top"
 
 if __name__ == "__main__":
     import sys
