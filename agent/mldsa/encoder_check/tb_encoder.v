@@ -84,6 +84,49 @@ module tb_encoder;
         end
     endtask
 
+    task run_switch_seq(input [2:0] sl);
+        integer j, m;
+        begin
+            @(negedge clk); rst = 1; valid_i = 0; ready_o = 0;
+            sec_lvl = sl; encode_mode = 0;
+            @(negedge clk); @(negedge clk); @(negedge clk); @(negedge clk);
+            rst = 0; g_n = 0; c_n = 0;
+            for (m = 0; m < 6; m = m + 1) begin
+                // change mode AND offer first word in the same cycle,
+                // matching combined_top FSM state-entry behavior
+                @(negedge clk);
+                encode_mode = m[2:0];
+                ready_o = 1; valid_i = 1;
+                di = {$random(seed), $random(seed), $random(seed)};
+                j = 1;
+                while (j < 40) begin
+                    @(negedge clk);
+                    ready_o = ($random(seed) % 4 != 0);
+                    if ($random(seed) % 3 != 0) begin
+                        valid_i = 1;
+                        di = {$random(seed), $random(seed), $random(seed)};
+                        j = j + 1;
+                    end else valid_i = 0;
+                end
+                @(negedge clk); valid_i = 0;
+                ready_o = 1;
+                for (j = 0; j < 100; j = j + 1) @(negedge clk);  // drain
+            end
+            if (g_n != c_n) begin
+                errors = errors + 1;
+                $display("SWITCHSEQ sl=%0d COUNT MISMATCH gold=%0d cand=%0d", sl, g_n, c_n);
+            end else begin
+                for (j = 0; j < g_n; j = j + 1)
+                    if (g_stream[j] !== c_stream[j]) begin
+                        errors = errors + 1;
+                        $display("SWITCHSEQ sl=%0d WORD %0d MISMATCH gold=%h cand=%h", sl, j, g_stream[j], c_stream[j]);
+                        j = g_n;
+                    end
+            end
+            $display("SWITCHSEQ sl=%0d done: %0d words", sl, g_n);
+        end
+    endtask
+
     initial begin
         seed = 32'hC0FFEE01;
         lvls[0] = 2; lvls[1] = 3; lvls[2] = 5;
@@ -92,6 +135,10 @@ module tb_encoder;
         for (cfg = 0; cfg < 3; cfg = cfg + 1)
             for (k = 0; k < 6; k = k + 1)
                 run_config(lvls[cfg], modes[k]);
+        // config 19+: mode-switch sequences (drain between modes, as
+        // combined_top's FSM does). Catches mode-decode lag bugs.
+        run_switch_seq(3);
+        run_switch_seq(5);
         if (errors == 0) $display("GATE RESULT: PASS");
         else             $display("GATE RESULT: FAIL (%0d errors)", errors);
         $finish;
