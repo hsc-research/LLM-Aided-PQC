@@ -87,6 +87,8 @@ module rejection_y #(
     reg [1:0] num_valid;
     
     reg [6:0] sipo_in_len, sipo_in_len_next;
+    (* max_fanout = 16 *) reg ge1_r = 0, ge2_r = 0, ge3_r = 0;
+    reg [6:0] len_nx;
     reg [7:0] sipo_out_len, sipo_out_len_next;
     
     reg [10:0] SHIFT_IN_AMT;
@@ -128,11 +130,11 @@ module rejection_y #(
             rej_lane2 = {SIPO_IN[59:40]};
         end
         
-        if (sipo_in_len >= 3*RDI_SAMPLE_W) begin
+        if (ge3_r) begin
             SHIFT_IN_AMT = 3*RDI_SAMPLE_W;
-        end else if (sipo_in_len >= 2*RDI_SAMPLE_W) begin
+        end else if (ge2_r) begin
             SHIFT_IN_AMT = 2*RDI_SAMPLE_W;
-        end else if (sipo_in_len >= RDI_SAMPLE_W) begin
+        end else if (ge1_r) begin
             SHIFT_IN_AMT = RDI_SAMPLE_W;
         end else begin
             SHIFT_IN_AMT = 0;
@@ -147,9 +149,9 @@ module rejection_y #(
         sample2 = sdiff2[22] ? (sdiff2 + DILITHIUM_Q) : sdiff2;
         
         
-        rej_lane0_valid = (sipo_in_len >= RDI_SAMPLE_W) ? 1 : 0;
-        rej_lane1_valid = (sipo_in_len >= 2*RDI_SAMPLE_W) ? 1 : 0;
-        rej_lane2_valid = (sipo_in_len >= 3*RDI_SAMPLE_W) ? 1 : 0;
+        rej_lane0_valid = ge1_r;
+        rej_lane1_valid = ge2_r;
+        rej_lane2_valid = ge3_r;
         num_valid       = rej_lane0_valid + rej_lane1_valid + rej_lane2_valid;
         
         if (rej_lane0_valid == 0)
@@ -179,6 +181,10 @@ module rejection_y #(
     always @(posedge clk) begin
             
         sipo_in_len <= sipo_in_len_next - SHIFT_IN_AMT;
+        len_nx = sipo_in_len_next - SHIFT_IN_AMT;
+        ge1_r <= (len_nx >= RDI_SAMPLE_W);
+        ge2_r <= (len_nx >= 2*RDI_SAMPLE_W);
+        ge3_r <= (len_nx >= 3*RDI_SAMPLE_W);
         if (valid_i) begin
             SIPO_IN <= SIPO_IN_SHIFT | rdi_shifted(sipo_in_len - SHIFT_IN_AMT);
         end else begin
@@ -210,6 +216,7 @@ module rejection_y #(
             SIPO_OUT <= 0;
         
             sipo_in_len  <= 0;
+            ge1_r <= 0; ge2_r <= 0; ge3_r <= 0;
             sipo_out_len <= 0;         
         end   
     end
