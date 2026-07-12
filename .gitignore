@@ -62,3 +62,4 @@ synth_out/
 agent/mldsa/fullkat_vectors.json
 agent/mldsa/fullkat_run.log
 agent/mldsa/dbglog_*.log
+agent/mldsa/latency_log.jsonl
