@@ -57,7 +57,7 @@ module coeff_decomposer(
     
     
     reg [23:0] di_buffer;
-    reg signed [55:0] a1_0, a1_1, a1_2, a0_0, a0_1, a0_2;
+    reg signed [27:0] a1_0, a1_1, a1_2, a0_0, a0_1, a0_2;  // narrowed 56->28b: max |a0_1| < 2^26
     
     wire above_mid;
     assign above_mid = (a0_1 > 24'sd4190208);   // (Q-1)/2, signed compare replaces sign-extract

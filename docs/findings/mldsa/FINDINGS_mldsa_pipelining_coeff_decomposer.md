@@ -24,7 +24,7 @@ no VHDL involved. The full NIST KAT remains the intended outer confirmation
 for any future change, deferred for now.
 
 ## 2. The block-level gate: built, then proven correct in three steps
-Files: `agent/mldsa_block_gate.py`, `agent/mldsa_check/`
+Files: `agent/mldsa/mldsa_block_gate.py`, `agent/mldsa/mldsa_check/`
 (`gen_vectors.py`, `tb_coeff_decomposer.v`).
 **Reference model.** `gen_vectors.py` implements FIPS 204 `Decompose` in
 Python (gamma2 = (Q-1)/88 for sec_lvl 2, (Q-1)/32 for sec_lvl 3 and 5),
