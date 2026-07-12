@@ -81,10 +81,16 @@ def main():
     pre = paths[0]["slack"]
     tags = classify(paths)
     print(f"Worst slack {pre} | {tags}")
+    if pre >= 0:
+        print(f"timing MET (WNS {pre}) — no_action, no API call")
+        log({"verdict": "no_action", "reason": f"timing met, WNS {pre}", "cost": 0})
+        return
     # target file = the source file that DECLARES the top path's source register
     # walk hierarchy segments right-to-left (skip pin names like /C, /D)
     segs = [re.sub(r"_reg$", "", g.split("[")[0])
             for g in paths[0]["source"].split("/") if len(g.split("[")[0]) > 2]
+    # Vivado renames FSM state regs to FSM_sequential_<name>; add stripped form
+    segs += [re.sub(r"^FSM_(sequential|onehot|gray)_", "", g) for g in segs if g.startswith("FSM_")]
     src_file = None
     for cand in reversed(segs):
         for f in srcs:
