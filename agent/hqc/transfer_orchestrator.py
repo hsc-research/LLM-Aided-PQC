@@ -81,13 +81,17 @@ def main():
     pre = paths[0]["slack"]
     tags = classify(paths)
     print(f"Worst slack {pre} | {tags}")
-    # target file = the source whose registers appear in the top path
+    # target file = the source file that DECLARES the top path's source register
+    src_reg = re.sub(r"_reg.*$", "", paths[0]["source"].split("/")[0].split("[")[0])
     src_file = None
     for f in srcs:
-        base = os.path.basename(f)
-        if re.sub(r"\.v$", "", base) in paths[0]["source"] + paths[0]["dest"] or len(srcs) == 1:
+        try: txt = open(f).read()
+        except OSError: continue
+        if re.search(r"\breg\b[^;]*\b" + re.escape(src_reg) + r"\b", txt):
             src_file = f; break
-    src_file = src_file or srcs[0]
+    if src_file is None:
+        src_file = srcs[0]
+    print(f"target reg '{src_reg}' -> {os.path.basename(src_file)}")
     rtl = open(src_file).read()
     prop = call_llm(module, rtl, json.dumps(paths[:5], indent=1), tags)
     if prop.get("verdict") != "experiment":
