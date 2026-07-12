@@ -86,7 +86,7 @@ module makehint #(
     reg [2:0] poly_num;
     reg [7:0] hint_addr [79:0];
     reg [7:0] poly_hint_cnt [7:0];
-    reg [7:0] num_hints;
+    (* max_fanout = 8 *) reg [7:0] num_hints;
     reg [7:0] ctr;
     reg rej;
     
