@@ -120,6 +120,7 @@ module gen_c # (
         end
     end
     reg [7:0] sample_addr;
+    (* max_fanout = 16 *) reg [7:0] sample_addr_r = 0;
     reg [10:0] W1_LEN;
     reg [10 - 1 : 0] C_SIPO_START;
     reg [7:0]  TAU;
@@ -247,7 +248,7 @@ module gen_c # (
             nstate = S_SAMPLEC;
         end
         S_SAMPLEC: begin
-            sample_addr = dout_buffer[{4'd7-ctr[2:0],3'd0}+:8];
+            sample_addr = sample_addr_r;  // precomputed 1 cycle ahead from dout
         
             ctr_next = ctr + 1;
             nstate = (sample_no == 256) ? S_UNLOAD_C : S_SAMPLEC;
@@ -405,7 +406,11 @@ module gen_c # (
                                     dout[5*8+:8], dout[6*8+:8], dout[7*8+:8]};
             end
         end
+        S_STALL: begin
+            sample_addr_r <= dout[{4'd7-ctr[2:0],3'd0}+:8];
+        end
         S_SAMPLEC: begin
+            sample_addr_r <= dout[{4'd7-ctr_next[2:0],3'd0}+:8];
             if (sample_no <= 255) begin
                 ctr <= ctr_next;
                 if (sample_addr <= sample_no) begin
