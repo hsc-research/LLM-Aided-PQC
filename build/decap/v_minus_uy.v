@@ -151,13 +151,17 @@ assign uv_addr_0 = (sel_uv)? xor_add_addr: uv_addr_0_mul;
 //polymult optimization
 reg  [`CLOG2(X)-1:0] uv_addr_0_mul_reg;
 reg  [`CLOG2(X)-1:0] uv_addr_1_reg;
+reg uv_addr_0_mul_oob;
+reg uv_addr_1_oob;
 always@(posedge clk) begin
-   uv_addr_0_mul_reg <= uv_addr_0_mul; 
-   uv_addr_1_reg <= uv_addr_1; 
+   uv_addr_0_mul_reg <= uv_addr_0_mul;
+   uv_addr_1_reg <= uv_addr_1;
+   uv_addr_0_mul_oob <= (uv_addr_0_mul > (X + X%2)/2 - 1);
+   uv_addr_1_oob <= (uv_addr_1 > (X + X%2)/2 - 1);
 end
 
-assign uv_in_0 = (uv_addr_0_mul_reg> (X + X%2)/2 - 1)? 0: uv_0;
-assign uv_in_1 = (uv_addr_1_reg> (X + X%2)/2 - 1)? 0: uv_1;
+assign uv_in_0 = uv_addr_0_mul_oob? 0: uv_0;
+assign uv_in_1 = uv_addr_1_oob? 0: uv_1;
 
 
 assign pm_start      = start_poly_mult;
