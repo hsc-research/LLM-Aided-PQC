@@ -46,3 +46,25 @@ Alignment to state explicitly in the report:
 Unresolved residual after grade+target alignment: 96.2 vs 116 MHz (~17%),
 attributed to directive/frequency-search class — quantify via Vector-1
 flow sweep before making comparative claims in the paper.
+
+## Advisor-requested completions (variability + both targets)
+
+Variability (N=3, identical settings, post-synth, 8.6ns, -1): all runs
+bit-identical for both variants (pristine -6.201/54224 LUT x3; optimized
+-6.418/54085 LUT x3). The -0.217ns post-synth delta is therefore a REAL,
+deterministic synthesis-stage regression — not placement noise — that
+INVERTS to a win post-route. Corrected statement: post-synth chip estimates
+mispredict the sign of the integration outcome; post-route is the only valid
+chip-level judge. (Seed sweeps are moot for synthesis: flow is deterministic;
+implementation-stage seed/directive variation is the Vector-1 flow study.)
+
+Complete post-route corner table (both advisor-requested targets):
+| Corner | Pristine WNS / fmax | Optimized WNS / fmax | delta |
+|---|---|---|---|
+| -1, 5.00ns (200MHz stretch) | -10.318 / 65.3 MHz | -8.766 / 72.6 MHz | +11.2% |
+| -1, 8.60ns | -5.995 / 68.5 MHz | -5.017 / 73.4 MHz | +7.2% |
+| -3, 8.62ns (116MHz GMU) | -1.974 / 94.4 MHz | -1.779 / 96.2 MHz | +1.9% |
+
+Observations: the optimization margin GROWS with constraint pressure
+(harder target -> bigger win), consistent with the edits removing depth the
+router must otherwise fight for; headroom to 200MHz remains architectural.
