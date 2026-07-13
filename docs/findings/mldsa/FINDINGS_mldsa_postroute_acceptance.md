@@ -29,3 +29,20 @@ variant's path now STARTS at ENCODE_LVL_r_rep (our precompute register,
 fanout-replicated) — the RTL-reachable portion of the cone is consumed;
 the residual is the cross-module handshake + 256-bit variable shift + PISO
 fanout, architectural per FINDINGS_mldsa_encoder_campaign.md.
+
+## GMU comparison alignment checklist (advisor req — verify before citing)
+Source: Beckwith et al., ePrint 2021/1451 — cite the exact Artix-7 timing
+table/passage and their "critical path is within the interconnect for the
+shared Keccak modules" statement with page/table number (VERIFY in PDF).
+Alignment to state explicitly in the report:
+- Device: theirs Artix-7 (CONFIRM exact part+grade from paper) vs ours
+  xc7a200tfbg676-1 (and -3 for the grade study)
+- Tool: their Vivado version (CONFIRM) vs ours 2025.2
+- Flow: theirs Minerva frequency search, post-P&R vs ours single-target
+  post-route (synth default, opt/place/phys_opt/route)
+- Clock: theirs searched natural frequency vs ours fixed 8.60/8.62 ns targets
+- Hierarchy: same combined_top RTL lineage (ours = their open-source release
+  + our committed optimizations)
+Unresolved residual after grade+target alignment: 96.2 vs 116 MHz (~17%),
+attributed to directive/frequency-search class — quantify via Vector-1
+flow sweep before making comparative claims in the paper.
