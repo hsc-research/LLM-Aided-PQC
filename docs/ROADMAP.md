@@ -45,8 +45,23 @@ latency-tolerant block, full-KAT 75-vector), latency-agnostic stream
 bisection, cost-tracked API loop, live dashboard, 23 findings docs + INDEX,
 complete flight logs including every refusal and regression.
 
-## Model attribution (required for honest reporting)
-Three capability tiers were used, and the distinction IS a result:
+## Model attribution and case-study framing (required for honest reporting)
+Per advisor guidance: report the Sonnet/Opus comparison as a CONTROLLED CASE
+STUDY on one task, not a general model-capability ranking (one stronger-model
+call cannot establish a broad ranking). The stronger result is FEEDBACK-DRIVEN
+POLICY REFINEMENT: failed attempts exposed a reusable pipeline-cut rule
+(output-side insertion + rendezvous test); encoding it moved the standard
+model from 0 workable designs (12 calls) to 3/3 workable proposals. Artifacts
+retained for before/after analysis: prompts and rejection reasons in
+latency_log.jsonl, token counts and costs per call in the same records.
+Describe the pipelining stage as AGENT-ASSISTED latency optimization (human
+guidance designed the first accepted edits; agent infrastructure verified)
+unless a later run independently selects the cut and produces accepted RTL.
+The HQC result is CROSS-DESIGN TRANSFER EVIDENCE, not generalization across
+arbitrary accelerators; next confirmation target is an additional PQC design
+(per advisor, immediate action).
+
+Three tiers were used, and the distinction is a finding within this case study:
 - claude-sonnet-4-6 (API, in-loop): all autonomous latency-preserving wins;
   on latency-changing edits it derives retap arithmetic under divergence
   feedback but repeatedly fails insertion-point selection (12 calls, 0 wins

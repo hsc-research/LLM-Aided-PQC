@@ -42,3 +42,16 @@ orchestrator_latency.py (divergence-guided repair).
 ## Dead code note
 `add_r` registered but unconsumed (attempt-2 leftover) — remove in a later
 cleanup pass; left in place to keep anchors stable.
+
+## Full metric table (advisor-requested reporting format)
+5.0 ns constraint (200 MHz target) throughout:
+| Metric | Pristine | Round-1 | Round-2 (final) |
+|---|---|---|---|
+| WNS (ns) | -3.802 | -3.280 | -2.793 |
+| Critical-path delay (ns) | 8.802 | 8.280 | 7.793 |
+| Achievable fmax (MHz) | 113.6 | 120.8 | 128.3 |
+| LUT | 613 | 614 | 609 |
+| FF | 531 | 531+ | 604 (+73 vs pristine) |
+| DSP | 2 | 2 | 2 (unchanged) |
+| Added latency (cycles) | — | +1 all mult modes | INTT +2, FNTT/MULT +1 total |
+Throughput impact negligible: NTT operations span thousands of cycles.
