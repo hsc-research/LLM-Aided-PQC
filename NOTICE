@@ -1,0 +1,19 @@
+This repository contains modified versions of third-party hardware source code.
+
+ML-DSA (CRYSTALS-Dilithium) RTL
+  Portions Copyright (c) 2021 Cryptographic Engineering Research Group (CERG),
+  ECE Department, George Mason University. Author: Luke Beckwith.
+  Licensed under the Apache License, Version 2.0.
+  Source: https://eprint.iacr.org/2021/1451
+
+  Portions Copyright (c) 2025 KU Leuven - COSIC. Licensed under the MIT License.
+
+These files have been MODIFIED by the authors of this repository for the purpose
+of research into LLM-driven PPA optimization. Modified files are tracked under
+agent/mldsa/mldsa_src/ and agent/hqc/. All original copyright notices and license
+headers are preserved in the modified files. A record of each modification, with
+rationale and measured results, is maintained in docs/findings/.
+
+HQC RTL
+  Portions derived from the HQC hardware implementation (Yale, SAC 2023).
+  See original source headers for applicable license terms.
