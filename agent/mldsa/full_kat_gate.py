@@ -119,16 +119,26 @@ def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT):
             with open(LOGFILE, "w") as lf:
                 lf.write(f"=== {cmd} ===\n"); lf.flush()
                 proc = subprocess.Popen(cmd, cwd=rundir, stdout=subprocess.PIPE,
+                                        start_new_session=True,
                                         stderr=subprocess.STDOUT, text=True,
                                         env=env, shell=True)
+                import threading, signal as _sig
+                timed_out_flag = {"v": False}
+                def _watchdog():
+                    timed_out_flag["v"] = True
+                    try: os.killpg(os.getpgid(proc.pid), _sig.SIGKILL)
+                    except (ProcessLookupError, PermissionError):
+                        try: proc.kill()
+                        except Exception: pass
+                wd = threading.Timer(timeout, _watchdog)
+                wd.start()
                 lines = []
                 for line in proc.stdout:
                     lf.write(line); lf.flush()
                     lines.append(line)
-                try:
-                    proc.wait(timeout=timeout)
-                except subprocess.TimeoutExpired:
-                    proc.kill(); proc.wait()
+                wd.cancel()
+                proc.wait()
+                if timed_out_flag["v"]:
                     class R: pass
                     r = R(); r.returncode = -9
                     r.stdout = "".join(lines); r.stderr = ""
