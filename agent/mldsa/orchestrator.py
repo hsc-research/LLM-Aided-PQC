@@ -118,7 +118,7 @@ def classify(paths):
                     "LOAD profile in the RTL: narrow source (<=8b FSM/counter/flag) "
                     "fanning to a homogeneous CE/enable bank -> max_fanout_16 is "
                     "HIGH-CONFIDENCE; wide source (SIPO/bus) or mixed load types -> "
-                    "max_fanout regresses, prefer no_action or another strategy.")
+                    "max_fanout regresses, prefer no_action or another strategy. ALSO excluded on distributed/block-RAM MACRO address or select ports (SP/I pins of RAM primitives): replication cannot shorten macro-pin broadcast and regresses (validated on Keccak state RAM).")
     return tags
 
 def call_llm(block, rtl, board, tags):
