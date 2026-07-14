@@ -33,3 +33,24 @@ max_fanout is excluded on distributed-RAM / block-RAM MACRO address or select
 ports (SP/I pins of *_reg RAM primitives): replication cannot shorten macro-pin
 broadcast and regresses. This extends the existing load-profile rule (which
 covered heterogeneous fabric loads) to memory-macro loads specifically.
+
+## Architectural analysis (why the refusal is correct, not incidental)
+stateram_inference.v reveals a rho-FOLDED state RAM: the Keccak state is stored
+split into ram_high/ram_low at a per-lane rotation offset (RHO_OFFSET(i)), so
+the permutation's rho (rotation) step is absorbed into the memory addressing
+rather than existing as a combinational round block. The critical path is the
+address register raddr_low_reg driving 25 asymmetric-width RAM read muxes
+(ram_low[raddr_low_reg] per lane), assembled in the hash_output block.
+
+Consequence: round-function pipelining — the standard Keccak throughput lever —
+DOES NOT APPLY to this implementation, because there is no discrete
+combinational round datapath to insert a register into; the permutation is
+distributed across the memory read path. This is the same tightly-coupled
+memory-addressing category as HQC poly_mult's accumulate loop (documented:
+naive pipelining breaks correctness).
+
+Conclusion for the shared-primitive question: Keccak throughput in THIS design
+is a memory-architecture property, not an RTL-optimization target. The agent's
+correct refusal reflects a real architectural boundary. A different Keccak
+microarchitecture (unfolded round datapath) would be pipelineable, but that is
+a redesign, not an optimization of the existing RTL.
