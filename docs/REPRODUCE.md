@@ -401,3 +401,180 @@ The keygen seeds are generated randomly by `openssl rand -hex 40`, so they are
 unique per run. Anyone using the same seeds with the same RTL gets identical
 output, which is the deterministic property of HQC, useful for reproducing a
 specific run or comparing outputs against a reference software implementation.
+
+---
+
+# Part II: ML-DSA
+
+Sections 0-7 above cover HQC, the first case study. The remaining sections
+cover ML-DSA (GMU/Beckwith codebase), the second scheme. The environment setup
+in Section 0 and the general AI-workflow guidance in Section 5 apply to both;
+everything below is ML-DSA specific.
+
+## 8. ML-DSA: Prove correctness (full KAT gate)
+
+ML-DSA correctness is verified against its own source tree, separate from HQC:
+
+```
+ROOT   = /mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main
+SRC    = ROOT/ref_combined/src
+TB     = ROOT/ref_combined/src_tb/tb_keygen_top.v
+COMMON = ROOT/common
+KAT    = ROOT/KAT
+```
+
+The gate runs the ENTIRE keygen pipeline (~50 files, mixed Verilog/VHDL
+including Keccak) via Vivado xsim against NIST KAT vectors: 25 vectors x 3
+security levels (75 total). This is the outer, full-design gate, distinct from
+the per-block lockstep gates, which only verify fixed-latency equivalence and
+can miss a block that shifts by a cycle.
+
+Usage:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py [override_dir] [--vectors N] [--timeout S]
+```
+
+- No arg: pristine baseline.
+- `override_dir` (e.g. `agent/mldsa/mldsa_src`): same-named files there override
+  the pristine SRC files by basename.
+- `--vectors N`: run a subset of N KAT vectors instead of all 75.
+- `--timeout S`: override the default 24h timeout.
+
+Pristine baseline:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py
+```
+
+Against tracked/optimized sources:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src
+```
+
+PASS criterion: `testbench done` printed and zero `WRONG` lines. Batch mode (the
+default) completes a full 75-KAT pristine run in about 1m37s wall, cheap enough
+to run on every candidate edit, not just pre-commit.
+
+Logs: `agent/mldsa/fullkat_run.log`. Parsed per-vector results:
+`agent/mldsa/fullkat_vectors.json`.
+
+If interrupted or failed, the script preserves the temp work directory and
+prints its path (`workdir preserved: /tmp/mldsa_fullkat_FAILED_...`).
+
+Do not edit the pristine SRC tree directly. A `.bak` file appearing next to a
+pristine source is a contamination signal, meaning an edit was accidentally
+applied to pristine instead of routed through `agent/mldsa/mldsa_src`. Periodic
+check: `ls SRC/*.bak` should be empty.
+
+---
+
+## 9. ML-DSA: Prove the block-level timing wins
+
+Block-level timing reproduction reuses `agent/path_extractor.py` and
+`agent/synthesizer.py`, with the param_set argument set to `mldsa`:
+
+```bash
+python3 agent/path_extractor.py <module> mldsa 20
+```
+
+Valid `<module>` names (from `MODULE_SOURCES` in `agent/synthesizer.py`):
+
+`butterfly`, `expandmask_ext`, `gen_a_ext`, `rejection_a`, `decomposer_unit`,
+`coeff_decomposer`, `rejection_y`, `rejection_s`, `makehint`, `gen_c`,
+`decoder`, `usehint`, `sampler_s_pristine` / `sampler_s_opt`,
+`sampler_y_pristine` / `sampler_y_opt`, `sampler_a_pristine` / `sampler_a_opt`,
+`encoder`, `combined_top`.
+
+Example:
+
+```bash
+python3 agent/path_extractor.py decoder mldsa 20
+```
+
+The `*_pristine` / `*_opt` pairs share the same wrapper source and swap only the
+inner block, letting you diff timing directly between pristine and optimized
+versions of that block in composition.
+
+Composition is not guaranteed to inherit block-level wins. Documented case:
+`rejection_a`'s `max_fanout` attribute win (+0.076 ns in isolation) INVERTED to
+a loss in the `sampler_a` wrapper (-0.446 ns) once placed in context, and was
+later reverted to pristine for that reason. Structural rewrites
+(flag-precompute, constant-LUT collapse, sign-select) transferred cleanly in all
+measured cases; attribute-only edits (max_fanout and similar) did not, and must
+be re-validated at the composition level before being kept.
+
+---
+
+## 10. ML-DSA: Full-chip integration and the post-route acceptance rule
+
+Post-synthesis (OOC) chip-level estimates are NOT the accept/reject standard for
+ML-DSA at the chip level; post-route is. Post-synthesis chip comparisons showed
+the optimized `combined_top` marginally worse than pristine (a real,
+deterministic -0.217 ns to -0.244 ns regression, confirmed non-noise by a 3-run
+variability check). Post-route with `phys_opt` reverses this: the optimized
+design wins at every measured corner.
+
+| Corner | Pristine WNS / fmax | Optimized WNS / fmax | delta |
+|---|---|---|---|
+| -1 grade, 5.00 ns (200 MHz stretch) | -10.318 / 65.3 MHz | -8.766 / 72.6 MHz | +11.2% |
+| -1 grade, 8.60 ns | -5.995 / 68.5 MHz | -5.017 / 73.4 MHz | +7.2% |
+| -3 grade, 8.62 ns (116 MHz GMU-comparable) | -1.974 / 94.4 MHz | -1.779 / 96.2 MHz | +1.9% |
+
+Post-route (implementation) is run via `agent/impl_runner.py`:
+
+```bash
+python3 agent/impl_runner.py <module> [period] [--pristine]
+```
+
+- `<module>`: e.g. `combined_top`.
+- `[period]`: target clock period in ns. Defaults to 8.6 if omitted.
+- `--pristine`: runs the pristine variant instead of the tracked/optimized one
+  (internally maps to a `<module>_pristine` key in `MODULE_SOURCES`).
+
+Note: this script does not expose the -1 vs -3 speed grade as a command-line
+argument. The part/grade used for a given corner is set elsewhere in the
+project's Vivado configuration, not passed here. Confirm the active part/grade
+before comparing against the table above.
+
+Commands matching the table's three corners (optimized shown; add `--pristine`
+for the pristine row):
+
+```bash
+python3 agent/impl_runner.py combined_top 5.00
+python3 agent/impl_runner.py combined_top 5.00 --pristine
+python3 agent/impl_runner.py combined_top 8.60
+python3 agent/impl_runner.py combined_top 8.60 --pristine
+python3 agent/impl_runner.py combined_top 8.62
+python3 agent/impl_runner.py combined_top 8.62 --pristine
+```
+
+`combined_top` is registered in `agent/synthesizer.py` (~39 Verilog + 11 VHDL
+files, Keccak included via VHDL) with two variants: pristine (all GMU original
+sources) and the tracked-override version (every committed block win applied by
+basename).
+
+WSL memory note: full-chip synthesis OOM-killed at the default 7.6 GB WSL memory
+allocation. It was raised to 12 GB to complete. Each full-chip run took roughly
+15-40 minutes observed at 12 GB.
+
+Chip-level critical path: both pristine and optimized bind on the DECODER to
+ENCODER cone, specifically `encoder.v`'s PISO output merge (a 256-bit
+variable-length shift register), not any single arithmetic block. This is
+consistent with GMU's own paper (Beckwith et al., ePrint 2021/1451), which
+states their critical path is within the interconnect for the shared Keccak
+modules. Chip-level absolute timing closure is explicitly NOT claimed by this
+project: block-level wins are real and KAT-verified in isolation, but the
+chip-level bottleneck is a shared-resource/interconnect problem outside the
+scope of the per-block optimization taxonomy used here.
+
+GMU comparison, for anyone reproducing the 116 MHz comparison point: the -1 vs
+-3 speed grade accounts for most of the gap (68.5 to 94.1 MHz); constraint
+targeting at 8.62 ns on -3 grade reaches 96.2 MHz optimized. The remaining ~17%
+gap to GMU's reported 116 MHz is attributed to the directive/frequency-search
+class (GMU's Minerva tool iterates multiple targets automatically; this project
+ran a single fixed target per corner). Before citing GMU's numbers directly,
+verify their exact device grade, Vivado version, and flow stage against the
+source paper. These are noted as unconfirmed pending citation-check in the
+project's own findings.
