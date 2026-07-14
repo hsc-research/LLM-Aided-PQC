@@ -158,7 +158,7 @@ function vclass(v){v=String(v||"");if(v.startsWith("marginal"))return"v-marginal
 function gcell(g){if(typeof g!=="number")return"";return `<span class="${g>=0?'gain-pos':'gain-neg'}">${g>0?'+':''}${g}</span>`}
 function table(recs){
   if(!recs.length)return"<small>empty</small>";
-  const cols=["ts","block","verdict","strategy","gain","cost_usd","model","reason","design"];
+  const cols=["ts","block","module","verdict","strategy","gain","cost_usd","model","reason","design","edits"];
   let h="<table><tr>"+cols.map(c=>`<th>${c}</th>`).join("")+"</tr>";
   for(const r of recs.slice().reverse().slice(0,40)){
     h+="<tr>"+cols.map(c=>{
@@ -166,6 +166,11 @@ function table(recs){
       if(c==="verdict")return`<td class="${vclass(v)}" title="${esc(v)}">${esc(v)}</td>`;
       if(c==="gain")return`<td>${gcell(v)}</td>`;
       if(c==="reason"||c==="design")return`<td>${esc(String(v||"").slice(0,140))}</td>`;
+      if(c==="edits"){
+        if(!v)return"<td></td>";
+        const txt=JSON.stringify(v);
+        return`<td><details><summary>${txt.length>0?"view":""}</summary><pre style="white-space:pre-wrap;font-size:10px">${esc(txt.slice(0,1500))}</pre></details></td>`;
+      }
       return`<td>${esc(v)}</td>`;
     }).join("")+"</tr>";
   }

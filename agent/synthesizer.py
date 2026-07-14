@@ -264,6 +264,18 @@ MODULE_SOURCES["rejection_y"] = [
 MODULE_SOURCES["rejection_s"] = [
     "./agent/mldsa/mldsa_src/rejection_s.v",
 ]
+MODULE_SOURCES["keccak_hqc"] = [
+    "./build/keygen/keccak_top.v",
+    "./build/keygen/keccak_pkg.v",
+    "./build/keygen/keccak_math.v",
+    "./build/keygen/state_ram.v",
+    "./build/keygen/stateram_inference.v",
+    "./build/keygen/control_path.v",
+    "./build/keygen/data_path.v",
+    "./build/keygen/rc.v",
+    "./build/keygen/transform.v",
+]
+TOP_OVERRIDE["keccak_hqc"] = "keccak_top"
 MODULE_SOURCES["makehint"] = [
     "./agent/mldsa/mldsa_src/makehint.v",
 ]

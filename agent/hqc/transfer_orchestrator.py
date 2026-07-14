@@ -51,7 +51,24 @@ def log(rec):
 
 def call_llm(block, rtl, board, tags):
     client = anthropic.Anthropic()
+    FAMILY = {
+        "keccak_hqc": ("Keccak/SHAKE permutation core (symmetric primitive, shared by "
+                       "ALL PQC schemes). Fixed 24-round permutation over a 25-lane "
+                       "state array held in distributed RAM. No secret-dependent "
+                       "branching may be introduced. Arithmetic is XOR/rotate only: "
+                       "arithmetic strategies (sign_select, constant_lut, width "
+                       "narrowing) DO NOT APPLY. The plausible levers are fanout/"
+                       "replication on state-array address broadcast and memory "
+                       "retargeting."),
+    }
+    extra = FAMILY.get(block, "")
     prompt = (f"BLOCK: {block} (HQC KEM accelerator, Artix-7 xc7a200tfbg676-1, 200 MHz OOC).\n"
+              + (f"DESIGN-FAMILY CONTEXT: {extra}\n" if extra else "")
+              + "ADDITIONAL VALIDATED STRATEGY (from the HQC campaign, n=2):\n"
+                "6. memory_retarget: a register array or distributed-RAM structure whose "
+                "read/write address broadcast dominates a route-heavy path -> retarget to "
+                "block RAM or restructure the address distribution. Only when the array is "
+                "large and the access pattern is regular.\n"
               f"NOTE: your strategy menu and rules were validated on a DIFFERENT design "
               f"(ML-DSA). Apply them to this HQC block only where the structural "
               f"preconditions genuinely hold; no_action is the correct answer when "
