@@ -90,6 +90,17 @@ def call_llm(block, rtl, board, tags):
         prompt += "\n\nInvalid JSON; resend ONLY the JSON object."
     raise SystemExit("no valid JSON")
 
+def _prior_failures(block):
+    fails = set()
+    if os.path.exists(LOG):
+        for ln in open(LOG):
+            try: r = json.loads(ln)
+            except: continue
+            if r.get("module") == block and r.get("strategy") and \
+               (str(r.get("verdict","")).startswith("marginal") or r.get("verdict") in ("kat_fail","synth_fail","refused")):
+                fails.add(r["strategy"])
+    return sorted(fails)
+
 def main():
     module = sys.argv[1]; level = sys.argv[2]
     srcs = MODULE_SOURCES[module]
@@ -97,6 +108,9 @@ def main():
     paths = path_extractor.parse_paths(rpt)
     pre = paths[0]["slack"]
     tags = classify(paths)
+    excluded = _prior_failures(module)
+    if excluded:
+        tags = tags + [f"ALREADY TRIED AND FAILED on this block (do NOT repeat, pick a DIFFERENT strategy or no_action): {excluded}"]
     print(f"Worst slack {pre} | {tags}")
     if pre >= 0:
         print(f"timing MET (WNS {pre}) — no_action, no API call")
