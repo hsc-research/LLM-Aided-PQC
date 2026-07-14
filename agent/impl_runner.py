@@ -46,5 +46,22 @@ rpt = open(out + "/timing_postroute.rpt").read() if os.path.exists(out + "/timin
 m = re.search(r"WNS\(ns\)\s*.*?\n.*?\n\s*(-?[\d.]+)", rpt)
 wns = float(m.group(1)) if m else None
 fmax = round(1000.0 / (period - wns), 1) if wns is not None else None
-print(json.dumps({"module": key, "period": period, "postroute_wns": wns,
-                  "achievable_fmax_mhz": fmax}))
+def _num(path, pat, idx=1):
+    try: txt = open(path).read()
+    except OSError: return None
+    m = re.search(pat, txt)
+    if not m: return None
+    try: return float(m.group(idx))
+    except ValueError: return None
+
+pw = out + "/power_postroute.rpt"
+ut = out + "/util_postroute.rpt"
+res = {"module": key, "period": period, "postroute_wns": wns,
+       "achievable_fmax_mhz": fmax,
+       "total_power_w": _num(pw, r"Total On-Chip Power \(W\)\s*\|\s*([\d.]+)"),
+       "dynamic_power_w": _num(pw, r"Dynamic \(W\)\s*\|\s*([\d.]+)"),
+       "static_power_w": _num(pw, r"Device Static \(W\)\s*\|\s*([\d.]+)"),
+       "luts": _num(ut, r"Slice LUTs\s*\|\s*(\d+)"),
+       "ffs": _num(ut, r"Slice Registers\s*\|\s*(\d+)"),
+       "power_note": "vector-less activity propagation; valid for A/B comparison, not absolute"}
+print(json.dumps(res))
