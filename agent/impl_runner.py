@@ -34,6 +34,7 @@ phys_opt_design
 route_design
 report_timing_summary -file {out}/timing_postroute.rpt
 report_utilization -file {out}/util_postroute.rpt
+report_power -file {out}/power_postroute.rpt
 puts "=== IMPL DONE: {key} ==="
 """
 tclf = os.path.join(out, "impl.tcl")

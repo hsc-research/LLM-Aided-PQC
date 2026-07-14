@@ -54,6 +54,8 @@ if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
 create_clock -period {period:.3f} -name clk [get_ports $clk_port]
 report_utilization \\
     -file ./synth_out/{module}/{module}_{param_set}_util.rpt
+report_power \\
+    -file ./synth_out/{module}/{module}_{param_set}_power.rpt
 report_timing_summary \\
     -file ./synth_out/{module}/{module}_{param_set}_timing.rpt
 puts "=== DONE: {module} {param_set} ==="

@@ -26,6 +26,23 @@ def parse_util(filepath):
     dsp  = extract_first_int(text, "| DSPs")
     return {"luts": luts, "ffs": ffs, "bram": bram, "dsp": dsp}
 
+def parse_power(filepath):
+    try:
+        with open(filepath, "r") as f:
+            text = f.read()
+    except OSError:
+        return {"total_w": None, "dynamic_w": None, "static_w": None}
+    def grab(label):
+        for line in text.splitlines():
+            if label in line:
+                m = re.findall(r"\d+\.\d+", line)
+                if m:
+                    return float(m[0])
+        return None
+    return {"total_w":   grab("Total On-Chip Power (W)"),
+            "dynamic_w": grab("Dynamic (W)"),
+            "static_w":  grab("Device Static (W)")}
+
 def parse_timing(filepath):
     with open(filepath, "r") as f:
         text = f.read()
@@ -36,8 +53,10 @@ def parse_timing(filepath):
 def read_ppa(module, param_set, synth_out="synth_out"):
     util_path   = f"{synth_out}/{module}/{module}_{param_set}_util.rpt"
     timing_path = f"{synth_out}/{module}/{module}_{param_set}_timing.rpt"
+    power_path  = f"{synth_out}/{module}/{module}_{param_set}_power.rpt"
     util        = parse_util(util_path)
     timing      = parse_timing(timing_path)
+    power       = parse_power(power_path)
     result = {
         "module":     module,
         "param_set":  param_set,
@@ -47,7 +66,10 @@ def read_ppa(module, param_set, synth_out="synth_out"):
         "dsp":        util["dsp"],
         "wns_ns":     timing["wns_ns"],
         "fmax_mhz":   timing["fmax_mhz"],
-        "timing_met": timing["timing_met"]
+        "timing_met": timing["timing_met"],
+        "total_w":    power["total_w"],
+        "dynamic_w":  power["dynamic_w"],
+        "static_w":   power["static_w"]
     }
     return result
 
