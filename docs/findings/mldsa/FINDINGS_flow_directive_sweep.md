@@ -32,3 +32,26 @@ Establishes a THIRD optimization tier: the agent optimizing the implementation
 FLOW, not just the RTL. Novel vs. the LLM-for-EDA literature, which optimizes
 or generates RTL only. The sweep infrastructure is reusable and the log feeds
 the dashboard.
+
+## Second sweep: GMU-comparable corner (-3 grade, 8.62 ns)
+| place / phys_opt / route | WNS | fmax |
+|---|---|---|
+| Default (single-point baseline) | -1.779 | 96.2 MHz |
+| AltSpreadLogic_high / Explore / AggressiveExplore | -1.362 | 100.2 MHz |
+| **ExtraPostPlacementOpt / AggressiveExplore / AggressiveExplore** | **-1.235** | **101.5 MHz** |
+
+Directive search recovered +5.3% here (96.2 -> 101.5) vs +2.1% at the 5.0 ns
+stretch corner — confirming the prediction that directive headroom scales with
+constraint slack.
+
+CONSTRAINT-DEPENDENT OPTIMUM (finding): at the tight 5.0 ns corner, aggressive
+directives REGRESSED and all-Explore won; at the loose 8.62 ns corner,
+aggressive directives WON. There is no universally-best directive set; the
+optimal flow depends on the constraint. This is exactly the search space a
+frequency-target-iterating flow (GMU's Minerva) explores.
+
+GMU gap status: 96.2 -> 101.5 MHz closes the directive component. Residual to
+their 116 MHz (~12.5%) is now attributable to constraint-target search
+(Minerva iterates the target period itself, not just directives) — the one
+lever we have not yet applied. Cost note: the winning aggressive combo ran
+2.3 hours; the +5% carries a real wall-time cost worth stating.
