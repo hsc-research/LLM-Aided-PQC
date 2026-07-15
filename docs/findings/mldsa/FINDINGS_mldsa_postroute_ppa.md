@@ -32,3 +32,26 @@ on sign-extract idioms) remove combinational logic.
    is not a valid reporting corner. All reportable numbers use 5.0 ns.
 3. Iso-frequency power was NOT measured. Do not claim energy-per-operation
    improvement without running the optimized design at the pristine Fmax.
+
+## Iso-frequency power (matched ~65 MHz, both timing MET, 15.31 ns, -1)
+| Metric | Pristine | Optimized | Delta |
+|---|---|---|---|
+| WNS | +0.361 (met) | +0.134 (met) | both pass |
+| Fmax | 66.9 MHz | 65.9 MHz | ~equal |
+| Total power | 1.198 W | 1.213 W | +1.3% |
+| Dynamic power | 1.063 W | 1.078 W | +1.4% |
+| LUTs | 52,874 | 52,745 | -129 |
+| Registers | 29,081 | 30,308 | +1,227 |
+
+Interpretation: at MATCHED frequency the +1,227 registers cost only +1.4%
+dynamic power. The two honest power framings:
+1. Same-constraint (5.0 ns): optimized +2.8% power, but +11.2% faster (more
+   work per second).
+2. Iso-frequency (~65 MHz): power within 1.4%.
+Combined PPA claim: +11.2% frequency for ~1% per-operation energy overhead.
+Frequency for nearly free.
+
+Note also: optimized dynamic power at its own 72.6 MHz max is 3.424 W vs
+1.078 W at 65.9 MHz — dynamic power scales steeply with clock proximity, so
+the relaxed-clock operating point is dramatically lower power, quantifying the
+speed-vs-power operating choice the design now offers.
