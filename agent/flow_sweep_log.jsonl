@@ -1,0 +1,7 @@
+{"module": "combined_top", "period": 5.0, "place": "Default", "phys_opt": "Default", "route": "Default", "wns": -8.766, "fmax_mhz": 72.6, "runtime_s": 314.8, "ts": "17:51:08"}
+{"module": "combined_top", "period": 5.0, "place": "Explore", "phys_opt": "Explore", "route": "Explore", "wns": -8.497, "fmax_mhz": 74.1, "runtime_s": 580.0, "ts": "18:00:48"}
+{"module": "combined_top", "period": 5.0, "place": "ExtraNetDelay_high", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -8.505, "fmax_mhz": 74.0, "runtime_s": 886.5, "ts": "18:15:34"}
+{"module": "combined_top", "period": 5.0, "place": "ExtraNetDelay_low", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -8.862, "fmax_mhz": 72.1, "runtime_s": 600.4, "ts": "18:25:35"}
+{"module": "combined_top", "period": 5.0, "place": "SSI_SpreadLogic_high", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -8.951, "fmax_mhz": 71.7, "runtime_s": 627.4, "ts": "18:36:02"}
+{"module": "combined_top", "period": 5.0, "place": "AltSpreadLogic_high", "phys_opt": "Explore", "route": "AggressiveExplore", "wns": -8.535, "fmax_mhz": 73.9, "runtime_s": 1263.7, "ts": "18:57:06"}
+{"module": "combined_top", "period": 5.0, "place": "ExtraPostPlacementOpt", "phys_opt": "AggressiveExplore", "route": "AggressiveExplore", "wns": -8.983, "fmax_mhz": 71.5, "runtime_s": 656.1, "ts": "19:08:02"}

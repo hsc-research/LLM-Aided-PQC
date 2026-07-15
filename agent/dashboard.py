@@ -11,6 +11,7 @@ LOGS = {
     "orchestrator": os.path.join(HERE, "mldsa", "orchestrator_log.jsonl"),
     "flight":       os.path.join(HERE, "flight_log.jsonl"),
     "transfer":     os.path.join(HERE, "hqc", "transfer_log.jsonl"),
+    "flow_sweep":   os.path.join(HERE, "flow_sweep_log.jsonl"),
 }
 RUNLOG = os.path.join(HERE, "mldsa", "fullkat_run.log")
 
