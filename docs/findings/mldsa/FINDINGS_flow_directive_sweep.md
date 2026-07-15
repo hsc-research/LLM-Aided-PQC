@@ -55,3 +55,28 @@ their 116 MHz (~12.5%) is now attributable to constraint-target search
 (Minerva iterates the target period itself, not just directives) — the one
 lever we have not yet applied. Cost note: the winning aggressive combo ran
 2.3 hours; the +5% carries a real wall-time cost worth stating.
+
+## Constraint-target sweep (-1 grade, default directives) — NULL result
+| Target period | WNS | Achievable fmax |
+|---|---|---|
+| 8.0 ns | -6.201 | 70.4 MHz |
+| 8.62 ns | -5.874 | 69.0 MHz |
+| 9.0 ns | -5.410 | 69.4 MHz |
+| 9.5 ns | -5.291 | 67.6 MHz |
+| 10.0 ns | -4.334 | 69.8 MHz |
+
+Achievable fmax is flat at ~68-70 MHz regardless of target period on this
+fabric with default directives. Constraint-target search alone does NOT help
+here — the -1 Artix-7 fabric floor dominates. Conclusion: the Minerva-style
+gain on our part comes from DIRECTIVES (captured: +5.3% at -3), not from
+constraint-target iteration. This is a checked null result, not an omission.
+
+## GMU gap — final decomposition
+1. Speed grade -1 -> -3: the dominant factor (68.5 -> 94.1 MHz).
+2. Directives: +5.3% (96.2 -> 101.5 MHz at -3).
+3. Constraint target: negligible on our fabric (this sweep).
+4. Residual to GMU's 116 MHz: DEVICE FAMILY. GMU's ML-DSA-OSH reports on
+   ZCU102 (UltraScale+), a substantially faster fabric than our Artix-7.
+   VERIFY exact device in their paper; if confirmed, the residual is largely
+   device-family, and the honest framing is "comparable frequency on a slower,
+   lower-cost part," not a methodology deficit.
