@@ -20,7 +20,7 @@ LOG = os.path.join(HERE, "flow_sweep_log.jsonl")
 PLACE = ["Default","Explore","ExtraNetDelay_high","ExtraNetDelay_low",
          "SSI_SpreadLogic_high","SSI_SpreadLogic_low","AltSpreadLogic_high",
          "AltSpreadLogic_medium","AltSpreadLogic_low","ExtraPostPlacementOpt",
-         "ExtraTimingOpt","SpreadSLLs","BalanceSLLs","EarlyBlockPlacement"]
+         "ExtraTimingOpt","EarlyBlockPlacement"]  # SLL directives removed: SSI/multi-die only, fail on Artix-7
 PHYS  = ["Default","Explore","AggressiveExplore","AggressiveFanoutOpt",
          "AlternateReplication","AddRetime","ExploreWithHoldFix"]
 ROUTE = ["Default","Explore","AggressiveExplore","NoTimingRelaxation",

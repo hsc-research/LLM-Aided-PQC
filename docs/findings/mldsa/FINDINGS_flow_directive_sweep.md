@@ -123,3 +123,13 @@ SAME slack (both attack routing pressure on the binding cone). RTL wins and
 flow wins do not compose additively; report both corners, never their sum.
 Reviewers should see the flow-matched number (+2.6%) alongside the
 default-flow number (+11.2%).
+
+## Tier-3 validation: agent-driven flow search (first run)
+4 autonomous calls, $0.016: proposed ExtraTimingOpt (97.1, new family probe),
+then EXPLOITED the AltSpreadLogic family -> AltSpreadLogic_medium = 101.7 MHz,
+a NEW BEST (beats hand-sweep 101.5). Then SSI_SpreadLogic_low (101.5, tie),
+then BalanceSLLs (invalid on Artix-7 — SSI/multi-die directive, instant fail;
+vocabulary pruned). Reasoning per call was sound and history-grounded:
+explore-then-exploit without being told to. Tier-3 loop validated end-to-end:
+the agent optimizes the implementation flow autonomously, same untrusted-
+proposal structure as the RTL tiers.
