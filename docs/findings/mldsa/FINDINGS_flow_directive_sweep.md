@@ -80,3 +80,12 @@ constraint-target iteration. This is a checked null result, not an omission.
    VERIFY exact device in their paper; if confirmed, the residual is largely
    device-family, and the honest framing is "comparable frequency on a slower,
    lower-cost part," not a methodology deficit.
+
+## Policy hygiene validation (post-Keccak rules live)
+Re-ran the ML-DSA orchestrator on decoder and rejection_s with the
+Keccak-derived RAM-macro exclusion in POLICY. Both returned correct no_action:
+rejection_s citing the wide-SIPO load-profile rule, decoder additionally
+reasoning through constant_lut (correctly identified the 8-value ENCODE_LVL
+domain within the cap, correctly rejected on route-domination) before
+terminating. The refinement loop is closed: a rule learned on HQC's Keccak now
+governs ML-DSA proposals. Cost ~$0.05.
