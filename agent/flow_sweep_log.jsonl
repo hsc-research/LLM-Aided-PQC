@@ -12,3 +12,10 @@
 {"module": "combined_top", "period": 8.62, "place": "SSI_SpreadLogic_high", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -1.442, "fmax_mhz": 99.4, "runtime_s": 570.5, "ts": "20:12:56"}
 {"module": "combined_top", "period": 8.62, "place": "AltSpreadLogic_high", "phys_opt": "Explore", "route": "AggressiveExplore", "wns": -1.362, "fmax_mhz": 100.2, "runtime_s": 569.2, "ts": "20:22:25"}
 {"module": "combined_top", "period": 8.62, "place": "ExtraPostPlacementOpt", "phys_opt": "AggressiveExplore", "route": "AggressiveExplore", "wns": -1.235, "fmax_mhz": 101.5, "runtime_s": 8216.7, "ts": "22:39:22"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "Default", "phys_opt": "Default", "route": "Default", "wns": -10.318, "fmax_mhz": 65.3, "runtime_s": 342.9, "ts": "14:46:39"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "Explore", "phys_opt": "Explore", "route": "Explore", "wns": -9.675, "fmax_mhz": 68.1, "runtime_s": 673.3, "ts": "14:57:52"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "ExtraNetDelay_high", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -8.854, "fmax_mhz": 72.2, "runtime_s": 848.2, "ts": "15:12:01"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "ExtraNetDelay_low", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -8.897, "fmax_mhz": 72.0, "runtime_s": 611.5, "ts": "15:22:12"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "SSI_SpreadLogic_high", "phys_opt": "AggressiveExplore", "route": "Explore", "wns": -9.869, "fmax_mhz": 67.3, "runtime_s": 589.3, "ts": "15:32:01"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "AltSpreadLogic_high", "phys_opt": "Explore", "route": "AggressiveExplore", "wns": -9.931, "fmax_mhz": 67.0, "runtime_s": 676.9, "ts": "15:43:18"}
+{"module": "combined_top_pristine", "period": 5.0, "place": "ExtraPostPlacementOpt", "phys_opt": "AggressiveExplore", "route": "AggressiveExplore", "wns": -9.79, "fmax_mhz": 67.6, "runtime_s": 637.8, "ts": "15:53:56"}
