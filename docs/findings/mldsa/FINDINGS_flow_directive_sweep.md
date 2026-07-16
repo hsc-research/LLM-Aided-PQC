@@ -106,3 +106,20 @@ SAME slack (both attack routing pressure on the binding cone). RTL wins and
 flow wins do not compose additively; report both corners, never their sum.
 Reviewers should see the flow-matched number (+2.6%) alongside the
 default-flow number (+11.2%).
+
+## Flow-parity fairness study (pristine sweep, 5.0 ns, -1)
+Pristine best across the same 7 combos: 72.2 MHz (ExtraNetDelay_high/
+AggressiveExplore/Explore) vs optimized best 74.1 MHz (all-Explore).
+
+Two honest claims, different questions:
+- Default flow both variants: 65.3 -> 72.6 MHz (+11.2%) — RTL contribution
+  under identical default implementation.
+- Best-searched flow both variants: 72.2 -> 74.1 MHz (+2.6%) — RTL
+  contribution surviving flow parity.
+
+INTERACTION FINDING: directive search recovers +10.6% on pristine but only
++2.1% on optimized — the RTL edits and the flow search partially consume the
+SAME slack (both attack routing pressure on the binding cone). RTL wins and
+flow wins do not compose additively; report both corners, never their sum.
+Reviewers should see the flow-matched number (+2.6%) alongside the
+default-flow number (+11.2%).
