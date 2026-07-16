@@ -147,3 +147,18 @@ original stands as best). Constraint-target search is NOT null on -3 with
 timing-directed placement: the earlier null was -1/default-directives only.
 Checkpoints are now keyed by speed grade (post_synth_grade{N}.dcp) to prevent
 grade mixups; pristine-at-same-recipe run pending for the fair delta.
+
+## Fair delta at the breakthrough recipe (-3, 5.0 ns, ExtraTimingOpt/Explore/Explore)
+| Variant | WNS | fmax |
+|---|---|---|
+| Pristine | -5.107 | 98.9 MHz |
+| Optimized | -1.535 | 153.0 MHz |
+
+RTL contribution under flow parity at this corner: +54.7%. The flow-RTL
+interaction INVERTS between corners: at -1/5.0 flow search compressed the RTL
+delta to +2.6%; at -3/5.0 with timing-directed placement the RTL edits UNLOCK
+flow headroom pristine cannot reach (its deeper cones bind before
+ExtraTimingOpt's placement pressure pays). Corner-dependent interaction is
+now a central finding: report deltas per corner, never a single number.
+vs GMU 116 MHz (Minerva-searched, -3): pristine 98.9 (-15%), optimized 153.0
+(+32%).
