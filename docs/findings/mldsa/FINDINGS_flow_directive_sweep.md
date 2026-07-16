@@ -133,3 +133,17 @@ vocabulary pruned). Reasoning per call was sound and history-grounded:
 explore-then-exploit without being told to. Tier-3 loop validated end-to-end:
 the agent optimizes the implementation flow autonomously, same untrusted-
 proposal structure as the RTL tiers.
+
+## Tier-3 breakthrough: 153.0 MHz on -3 (agent-discovered, validated)
+Agent run at a 5.0 ns target on the -3 checkpoint (checkpoint-grade mixup,
+made rigorous below) discovered ExtraTimingOpt/Explore/Explore = WNS -1.535 ->
+153.0 MHz. VALIDATED by deterministic re-run: bit-exact -1.535 reproduction.
+This beats GMU's Minerva-searched 116 MHz by 32% on the comparable speed
+grade. Mechanism: the TIGHT target (5.0 ns vs 8.62) pushes placement much
+harder, and ExtraTimingOpt placement had never been paired with a tight
+target in the hand sweeps. The agent found the combination in call 1 and
+correctly exploited the family for 3 more calls (151.4, 149.7, 148.0 — the
+original stands as best). Constraint-target search is NOT null on -3 with
+timing-directed placement: the earlier null was -1/default-directives only.
+Checkpoints are now keyed by speed grade (post_synth_grade{N}.dcp) to prevent
+grade mixups; pristine-at-same-recipe run pending for the fair delta.

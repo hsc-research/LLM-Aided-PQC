@@ -32,7 +32,7 @@ COMBOS = [
 vhdl_block = ""
 if vhdl:
     vhdl_block = "read_vhdl {\n  " + "\n  ".join(vhdl) + "\n}\n"
-ckpt = f"{out}/post_synth.dcp"
+ckpt = f"{out}/post_synth_grade{PART.rsplit(chr(45),1)[1]}.dcp"
 
 # 1) synth once -> checkpoint
 synth_tcl = f"""{vhdl_block}read_verilog {{

@@ -99,7 +99,11 @@ def main():
     module = sys.argv[1]; period = float(sys.argv[2])
     key = module + ("_pristine" if "--pristine" in sys.argv else "")
     max_runs = int(sys.argv[sys.argv.index("--max-runs")+1]) if "--max-runs" in sys.argv else 4
-    out = f"./synth_out/sweep_{key}"; ckpt = f"{out}/post_synth.dcp"
+    out = f"./synth_out/sweep_{key}"
+    grade = PART.rsplit("-",1)[1]
+    ckpt = f"{out}/post_synth_grade{grade}.dcp"
+    if not os.path.exists(ckpt) and os.path.exists(f"{out}/post_synth.dcp"):
+        ckpt = f"{out}/post_synth.dcp"  # legacy fallback — VERIFY part matches
     assert os.path.exists(ckpt), f"no checkpoint at {ckpt}; run flow_sweep.py once first"
     total_cost = 0.0
     for i in range(max_runs):
