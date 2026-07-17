@@ -48,3 +48,17 @@ items: (a) try synth_design -no_lc / -keep_equivalent_registers, (b) elaborate
 through implementation (their flow may have used an older Vivado without this
 merge behavior). Block-level OOC keygen results remain valid; joint-design
 closure (+1.9%) already contains keygen's cones.
+
+## HQC joint closure: recipe-robustness check + keygen-standalone resolution
+Second recipe (ExtraTimingOpt/Explore/Explore): pristine 117.6 MHz, optimized
+119.3 MHz (+1.4%). Combined with default recipe (117.1 vs 119.3, +1.9%):
+optimized wins under BOTH flows and each design's closure is stable across
+recipes (<0.5% spread). The HQC composition win is recipe-robust.
+
+keygen-standalone resolution: block-level "keygen" (1227 LUT) is the
+controller/sampler slice only — poly_mult and SHAKE attach at a higher level,
+so the keygen OPERATION's critical path exists only in composed context. The
+standalone closure search was measuring a torso (and its OOC-top port
+aliasing blocked implementation anyway); the joint design is the correct and
+completed measurement. Paper caveat: block-tier "keygen" numbers = keygen
+controller module, not the operation.
