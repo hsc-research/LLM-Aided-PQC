@@ -87,6 +87,40 @@ def run_synthesis(module, param_set, repo_root=".", period=5.000):
     return read_ppa(module, param_set)
 
 
+def _hqc_joint(pristine=False):
+    import glob as _g, os as _o
+    pris = sorted(set(_g.glob("./hardware/**/*.v", recursive=True)) - set(_g.glob("./hardware/**/tb/*.v", recursive=True)))
+    if pristine:
+        return pris
+    d = {}
+    for dd in ("./build/keygen","./build/encap","./build/decap"):
+        for p in _g.glob(dd+"/*.v"):
+            d[_o.path.basename(p)] = p
+    for p in pris:
+        b = _o.path.basename(p)
+        if b not in d:
+            d[b] = p
+    return sorted(d.values())
+MODULE_SOURCES["hqc_joint_pristine"] = _hqc_joint(True)
+def _hqc_joint_opt():
+    import glob as _g, os as _o
+    pris = {}
+    for p in _hqc_joint(True):
+        b = _o.path.basename(p)
+        if b not in pris or "shake256" not in p:
+            pris[b] = p  # prefer non-shake256 copy on basename collision
+    SWAP = ("encap.v","encrypt_parallel.v","encrypt.v","fixed_weight_ct.v",
+            "fixed_weight.v","hqc_rsdecod_err_val.v","syncfifo.v",
+            "v_minus_uy.v","xor_based_adder.v","mem_single_dist.v")
+    for dd in ("./build/keygen","./build/encap","./build/decap"):
+        for p in _g.glob(dd+"/*.v"):
+            b = _o.path.basename(p)
+            if b in SWAP:
+                pris[b] = p
+    return sorted(pris.values())
+MODULE_SOURCES["hqc_joint_opt"] = _hqc_joint_opt()
+TOP_OVERRIDE["hqc_joint_pristine"] = "hqc_kem_joint_design"
+TOP_OVERRIDE["hqc_joint_opt"] = "hqc_kem_joint_design"
 MODULE_SOURCES["keygen"] = [
     "./build/keygen/clog2.v",
     "./build/keygen/keygen.v",
