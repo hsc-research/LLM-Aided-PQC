@@ -22,3 +22,15 @@ NIST standards, all numbers closure-honest (no violated-run projections).
 HQC opt composition: pristine hardware tree + 9 win-carrying leaf modules +
 mem_single_dist (interface-safe swap; stale build/decap top-level divergence
 excluded). SHARED_ENCAP define required for joint elaboration.
+
+## Per-operation closure searches: DEFERRED (elaboration blocker, documented)
+Standalone keygen (both trees) hits a multi-driver net on
+FIXEDWEIGHT/shake_dout_ready_fw under the full-impl flow (opt_design Opt
+31-37), despite correctly guarded CT_DESIGN generate branches — an
+elaboration/flattening artifact not present in the OOC block flow (which
+never runs opt_design) nor in the joint design (which elaborates through
+SHARED_ENCAP paths). Affects pristine and optimized identically. Root-cause
+is upstream-RTL forensics; deferred. The joint-design closure result (+1.9%)
+already includes keygen's cones and carries the composition thesis. Block-
+level keygen numbers (OOC synth WNS) remain valid as reported, with the
+projection caveat applied.

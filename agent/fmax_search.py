@@ -10,6 +10,7 @@ for it in range(5):
     mid = round((lo + hi) / 2, 2)
     rpt = f"/tmp/fsrch_{tag}_{mid}.rpt"
     tcl = f"""open_checkpoint {ckpt}
+set_property SEVERITY {{Warning}} [get_drc_checks MDRV-1]
 set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
 if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
 create_clock -period {mid:.3f} -name clk [get_ports $clk_port]

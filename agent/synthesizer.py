@@ -101,6 +101,26 @@ def _hqc_joint(pristine=False):
         if b not in d:
             d[b] = p
     return sorted(d.values())
+def _hqc_op_pristine(op):
+    import glob as _g, os as _o
+    d = {}
+    for p in _hqc_joint(True):
+        b = _o.path.basename(p)
+        if b not in d or "shake256" not in p:
+            d[b] = p
+    return sorted(d.values())
+def _mirror_pristine(ref_key):
+    import glob as _g, os as _o
+    want = [_o.path.basename(p) for p in MODULE_SOURCES[ref_key]]
+    allh = _g.glob("./hardware/**/*.v", recursive=True)
+    out = []
+    for b in want:
+        cands = [p for p in allh if _o.path.basename(p) == b and "/tb/" not in p]
+        cands.sort(key=lambda p: "shake256" in p if b == "clog2.v" else 0)
+        assert cands, f"no pristine source for {b}"
+        out.append(cands[0])
+    return out
+TOP_OVERRIDE["keygen_pristine"] = "keygen"
 MODULE_SOURCES["hqc_joint_pristine"] = _hqc_joint(True)
 def _hqc_joint_opt():
     import glob as _g, os as _o
@@ -369,3 +389,5 @@ if __name__ == "__main__":
     param  = sys.argv[2] if len(sys.argv) > 2 else "hqc128"
     result = run_synthesis(module, param)
     print(result)
+MODULE_SOURCES["keygen_pristine"] = _mirror_pristine("keygen")
+TOP_OVERRIDE["keygen_pristine"] = "keygen"
