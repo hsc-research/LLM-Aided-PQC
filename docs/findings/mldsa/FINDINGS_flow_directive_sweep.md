@@ -162,3 +162,18 @@ ExtraTimingOpt's placement pressure pays). Corner-dependent interaction is
 now a central finding: report deltas per corner, never a single number.
 vs GMU 116 MHz (Minerva-searched, -3): pristine 98.9 (-15%), optimized 153.0
 (+32%).
+
+## Full PPA at the breakthrough corner (-3, 5.0 ns, ExtraTimingOpt/Explore/Explore)
+| Metric | Pristine | Optimized | Delta |
+|---|---|---|---|
+| fmax | 98.9 MHz | 153.0 MHz | +54.7% |
+| Total power | 3.458 W | 2.153 W | -37.7% |
+| Dynamic power | 3.317 W | 2.015 W | -39.3% |
+| LUTs | 54,283 | 53,238 | -1,045 (-1.9%) |
+| Registers | 29,164 | 30,333 | +1,169 (+4.0%) |
+
+At this corner the optimized design wins ALL THREE PPA axes. Power inverts
+in our favor (vs +2.8% at default-flow corners) because vectorless power
+tracks routed capacitance: pristine under this recipe is heavily congested
+(41k failing endpoints, long nets); the optimized netlist routes clean.
+Vectorless caveat still applies (A/B valid, absolute not).
