@@ -177,3 +177,18 @@ in our favor (vs +2.8% at default-flow corners) because vectorless power
 tracks routed capacitance: pristine under this recipe is heavily congested
 (41k failing endpoints, long nets); the optimized netlist routes clean.
 Vectorless caveat still applies (A/B valid, absolute not).
+
+## CRITICAL CAVEAT: projected fmax does not survive re-targeting (checked)
+Re-running the breakthrough recipe constrained AT the projected 6.54 ns
+(153 MHz) lands WNS -3.896 (~95.8 MHz achievable) — the over-constraint
+ITSELF was the mechanism producing the tight placement; relaxing the target
+relaxes the placer. Honest claims:
+1. The 5.0ns-constrained ROUTED ARTIFACT genuinely closes at 6.54 ns
+   (153 MHz) per its own signoff timing — the netlist/placement is real.
+2. Directly targeting 6.54 ns does NOT reproduce it (95.8 MHz).
+3. Projected fmax = 1/(target - WNS) is unreliable under heavy
+   over-constraint. All projected-fmax numbers in this project from violated
+   runs must carry the "as-routed at constraint X" qualifier. Deltas between
+   variants at IDENTICAL constraint remain valid comparisons (+54.7% stands).
+This caveat was caught by the validate-before-trusting protocol, one run
+before the number would have entered the paper.
