@@ -314,6 +314,16 @@ def _combined_vlist():
     return sorted(pris.values())
 MODULE_SOURCES["encoder"] = [_PRIS + "/uncenter_coeff.v", _PRIS + "/zero_strip.v", "./agent/mldsa/mldsa_src/encoder.v"]
 MODULE_SOURCES["combined_top"]          = _combined_vlist()
+def _selective_vlist(keep=("encoder.v",)):
+    pris = {__import__('os').path.basename(p): p for p in _glob.glob(_PRIS + "/*.v")}
+    for p in _glob.glob(_TRK + "/*.v"):
+        b = __import__('os').path.basename(p)
+        if b in pris and b in keep:
+            pris[b] = p
+    return sorted(pris.values())
+MODULE_SOURCES["combined_top_selective"] = _selective_vlist()
+VHDL_SOURCES["combined_top_selective"] = sorted(_glob.glob(_PRIS + "/*.vhd"))
+TOP_OVERRIDE["combined_top_selective"] = "combined_top"
 MODULE_SOURCES["combined_top_pristine"] = sorted(_glob.glob(_PRIS + "/*.v"))
 VHDL_SOURCES["combined_top"]          = sorted(_glob.glob(_PRIS + "/*.vhd"))
 VHDL_SOURCES["combined_top_pristine"] = sorted(_glob.glob(_PRIS + "/*.vhd"))

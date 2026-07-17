@@ -223,3 +223,22 @@ chip-critical-path edits (encoder mode/lvl precompute, optionally decoder)
 and re-run the closing-fmax search. Predicts targeted benefit without the
 register tax. Thesis under test: chip-critical-path membership must gate
 integration, not block-level acceptance alone.
+
+## Selective composition result (-1, default recipe, true closure)
+| Variant | Closing period | fmax |
+|---|---|---|
+| Pristine | 14.25 ns | 70.2 MHz |
+| Selective (encoder edit only) | 14.38 ns | 69.5 MHz |
+| Full composition (13 blocks) | 14.50 ns | 69.0 MHz |
+
+Selective recovers +0.5 MHz of the full composition's register tax but does
+not beat pristine. All three land within ~2% — near single-seed flow noise.
+HONEST CHIP CONCLUSION: at true timing closure the chip's frequency is set by
+the encoder PISO cone (architectural, unmoved by any accepted RTL edit);
+composition of block-level wins neither helps nor materially hurts chip
+closure on this design. The register-tax ordering (pristine > selective >
+full) is internally consistent and quantifies the cost of integrating
+non-critical-path optimizations: ~0.5-1.2% closing fmax on this design.
+Block-level wins, the verification methodology, the policy-refinement loop,
+the flow tier, and the boundary analyses stand as the contributions; the
+chip-level claim is a rigorous null with a measured explanation.
