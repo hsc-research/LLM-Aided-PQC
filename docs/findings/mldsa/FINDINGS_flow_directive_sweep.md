@@ -192,3 +192,14 @@ relaxes the placer. Honest claims:
    variants at IDENTICAL constraint remain valid comparisons (+54.7% stands).
 This caveat was caught by the validate-before-trusting protocol, one run
 before the number would have entered the paper.
+
+## True closing-fmax search (-3, ExtraTimingOpt recipe) — INVERSION
+Binary search for WNS>=0: optimized closes at 10.69 ns (93.5 MHz), pristine
+at 10.31 ns (97.0 MHz). At TRUE closure pristine wins +3.6% — the +54.7%
+over-constrained delta was a regime artifact: the RTL edits pay under heavy
+placement pressure (depth removal prevents congestion collapse) but the
+added ~1,200 registers cost more than the shortened cones return at relaxed,
+truly-closing targets under this recipe. ALL violated-run projected-fmax
+comparisons in this project (incl. the -1 +11.2%) are now suspect pending
+closing-fmax searches at their own corners. Honest chip-level story pending:
+closing-fmax binary search, default recipe, -1 grade, both variants.
