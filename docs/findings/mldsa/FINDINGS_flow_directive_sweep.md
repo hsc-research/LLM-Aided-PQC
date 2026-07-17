@@ -203,3 +203,23 @@ truly-closing targets under this recipe. ALL violated-run projected-fmax
 comparisons in this project (incl. the -1 +11.2%) are now suspect pending
 closing-fmax searches at their own corners. Honest chip-level story pending:
 closing-fmax binary search, default recipe, -1 grade, both variants.
+
+## FINAL VERDICT: true closing fmax, both corners
+| Corner | Pristine | Optimized (full composition) |
+|---|---|---|
+| -1, default recipe | 70.2 MHz (14.25 ns) | 69.0 MHz (14.5 ns) |
+| -3, ExtraTimingOpt | 97.0 MHz (10.31 ns) | 93.5 MHz (10.69 ns) |
+
+At TRUE timing closure the fully-composed optimized design LOSES to pristine
+by 1.7% (-1) and 3.6% (-3). All previously-projected chip-level wins (+11.2%,
++54.7%) were over-constraint regime artifacts. Root cause hypothesis: the
+composition integrates edits from ~12 blocks, but only encoder/decoder sit on
+the chip critical cone; the other blocks' ~1,200 added registers levy a
+chip-wide placement/congestion tax with no timing return. Block-level results
+are unaffected (measured at their own closure/KAT).
+
+NEXT EXPERIMENT (decisive): SELECTIVE COMPOSITION — integrate only the
+chip-critical-path edits (encoder mode/lvl precompute, optionally decoder)
+and re-run the closing-fmax search. Predicts targeted benefit without the
+register tax. Thesis under test: chip-critical-path membership must gate
+integration, not block-level acceptance alone.
