@@ -34,3 +34,17 @@ is upstream-RTL forensics; deferred. The joint-design closure result (+1.9%)
 already includes keygen's cones and carries the composition thesis. Block-
 level keygen numbers (OOC synth WNS) remain valid as reported, with the
 projection caveat applied.
+
+## keygen-standalone closure: BLOCKED after 5 attempts, escalated
+Multi-driver (FIXEDWEIGHT/shake_dout_ready_fw) is baked into the SYNTHESIZED
+netlist when keygen is top: keygen's output-mux LUT is absorbed into
+FIXEDWEIGHT scope aliased with the port net. Survived: DRC downgrade,
+opt_design catch (place enforces), -flatten_hierarchy rebuilt, SHARED_ENCAP
+removal, default (non-OOC) mode, and (* dont_touch *) on the net. Same
+keygen logic places and routes FINE inside the joint design — the artifact is
+specific to keygen-as-top under Vivado 2025.2 synthesis. Morning/advisor
+items: (a) try synth_design -no_lc / -keep_equivalent_registers, (b) elaborate
+-rtl and inspect, (c) ask Sanjay whether standalone keygen was ever taken
+through implementation (their flow may have used an older Vivado without this
+merge behavior). Block-level OOC keygen results remain valid; joint-design
+closure (+1.9%) already contains keygen's cones.
