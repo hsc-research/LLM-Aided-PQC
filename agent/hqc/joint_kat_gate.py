@@ -125,7 +125,7 @@ def main():
     for d in ("build/keygen/tb/keygen.tcl", "build/encap/tb/encap.tcl"):
         if not os.path.isfile(d):
             print(f"missing {d}: run the standalone build staging first"); sys.exit(2)
-    for proj in ("test_keygen", "test_encap", "test_joint_design"):
+    for proj in ("test_keygen", "test_encap", "test_decap", "test_joint_design"):
         shutil.rmtree(proj, ignore_errors=True)
     ok, msg = run_standalone("./build/keygen/tb/keygen.tcl", "keygen")
     if not ok: print("KEYGEN FAIL:", msg); sys.exit(1)
