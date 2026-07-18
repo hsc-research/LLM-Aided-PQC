@@ -11,10 +11,11 @@ for it in range(5):
     rpt = f"/tmp/fsrch_{tag}_{mid}.rpt"
     tcl = f"""open_checkpoint {ckpt}
 set_property SEVERITY {{Warning}} [get_drc_checks MDRV-1]
+set_msg_config -id {{Opt 31-37}} -new_severity WARNING
 set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
 if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
 create_clock -period {mid:.3f} -name clk [get_ports $clk_port]
-opt_design
+catch {{opt_design}}
 place_design -directive ExtraTimingOpt
 phys_opt_design -directive Explore
 route_design -directive Explore
