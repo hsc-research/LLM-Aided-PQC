@@ -19,7 +19,7 @@ negative, I = infrastructure/process. Full details in each file.
 | fanout_load_profile | W/N | gen_c FSM fanout -3.307→-1.264 (project record +2.043ns) + makehint N=8; load-profile rule: narrow reg + homogeneous CE bank pays, wide/heterogeneous loses |
 | precompute_boundaries | W/N | decoder ENCODE_LVL_r + rejection_y ge-flag wins; 4 negatives incl. loop-endpoint rule (usehint ctr) |
 | decoder_usehint_autonomous | W | Autonomous decoder win; usehint characterization |
-| decoder_slut_negative | N | S-mode constant-LUT regressed; binding mode is T0/Z; constant_lut excluded for domain width |
+| decoder_s_lut_negative | N | S-mode constant-LUT regressed; binding mode is T0/Z; constant_lut excluded for domain width |
 | decoder_signselect_negative | N | T0/Z sign-select regressed at 13-20b; strategy excluded on explicit-compare ternaries at ALL widths; board closed under taxonomy |
 | composition | W/N | Structural rewrites compose intact (+1.53ns transfers exactly); fanout attribute inverted in composition and was reverted |
 | rejection_makehint_session | W | rejection_s/y + makehint latency-preserving wins |
