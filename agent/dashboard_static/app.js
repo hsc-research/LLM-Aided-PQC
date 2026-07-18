@@ -1,6 +1,8 @@
 /* PQC Agent Dashboard v3 front end (vanilla JS, no deps) */
 let DATA = null;
 let tierFilter = null, verdictFilter = null, q = "";
+let design = localStorage.getItem("pqc.design") || "mldsa";
+let theme = localStorage.getItem("pqc.theme") || "dark";
 const open = new Set();          // open card keys persist across refresh
 
 const $ = id => document.getElementById(id);
@@ -123,15 +125,46 @@ function renderFilters(){
     verdictFilter, k => { verdictFilter = k; renderFilters(); renderCards(); });
 }
 
-function renderBoard(board, chip){
+function applyTheme(){
+  document.documentElement.dataset.theme = theme;
+  document.querySelectorAll("#theme-tabs .tab").forEach(t =>
+    t.classList.toggle("active", t.dataset.theme === theme));
+  rainSet(theme === "matrix");
+}
+
+function renderDesignTabs(){
+  const el = $("design-tabs");
+  if (!DATA || !DATA.designs) return;
+  el.innerHTML = Object.entries(DATA.designs).map(([k, d]) =>
+    `<span class="tab ${design === k ? "active" : ""}" data-d="${esc(k)}">${esc(d.label)}</span>`).join("");
+  el.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+    design = t.dataset.d; localStorage.setItem("pqc.design", design);
+    renderDesignTabs(); renderBoard(); renderCards();
+  }));
+}
+
+function renderBoard(){
   const el = $("board");
-  if (!board || !board.length){ el.innerHTML = ""; return; }
-  const min = Math.min(...board.map(b => Math.min(b.base, b.now))) - 0.3;
-  const max = 0.3;
+  const d = DATA && DATA.designs && DATA.designs[design];
+  if (!d){ el.innerHTML = ""; $("chipline").innerHTML = ""; return; }
+  const cores = d.cores || [];
+  const known = cores.filter(b => b.base != null && b.now != null);
+  const vals = known.flatMap(b => [b.base, b.now]).concat(cores.map(b => b.now).filter(v => v != null));
+  const min = Math.min(...vals, -0.5) - 0.3, max = Math.max(0.3, ...vals.map(v => v)) + 0.1;
   const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
-  el.innerHTML = board
-    .slice().sort((a,b) => a.now - b.now)
+  el.innerHTML = cores
+    .slice().sort((a,b) => (a.now ?? 0) - (b.now ?? 0))
     .map(b => {
+      if (b.base == null){
+        return `<div class="row">
+          <span class="lbl">${esc(b.block)}</span>
+          <div class="track">
+            <span class="pt now" style="left:${pct(b.now)}" title="current ${b.now}ns"></span>
+            <span class="target" style="left:${pct(0)}"></span>
+          </div>
+          <span class="vals"><span class="base-na">no baseline</span> → <b>${b.now}</b></span>
+        </div>`;
+      }
       const left = Math.min(b.base, b.now), right = Math.max(b.base, b.now);
       const improved = b.now > b.base;
       return `<div class="row">
@@ -145,11 +178,44 @@ function renderBoard(board, chip){
         <span class="vals">${b.base} → <b class="${improved ? "gain-pos" : ""}">${b.now}</b></span>
       </div>`;
     }).join("");
-  if (chip){
-    const d = (chip.now_mhz - chip.pristine_mhz) / chip.pristine_mhz * 100;
+  const chip = d.chip;
+  if (chip && chip.pristine != null){
+    const delta = (chip.now - chip.pristine) / chip.pristine * 100;
     $("chipline").innerHTML =
-      `Chip: ${esc(chip.label)} — pristine ${chip.pristine_mhz} MHz → <b>${chip.now_mhz} MHz</b> (+${d.toFixed(1)}%)`;
+      `Full-chip: ${esc(chip.label)} — pristine ${chip.pristine} ${esc(chip.unit)} → <b>${chip.now} ${esc(chip.unit)}</b> (<span class="${delta >= 0 ? "gain-pos" : "gain-neg"}">${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%</span>)`;
+  } else { $("chipline").innerHTML = ""; }
+}
+
+/* digit rain (matrix theme) */
+let rainTimer = null;
+function rainSet(on){
+  const cv = $("rain");
+  if (!on){ if (rainTimer){ cancelAnimationFrame(rainTimer); rainTimer = null; }
+    const g = cv.getContext("2d"); g.clearRect(0,0,cv.width,cv.height); return; }
+  if (rainTimer) return;
+  const ctx = cv.getContext("2d");
+  function size(){ cv.width = innerWidth; cv.height = innerHeight; }
+  size(); addEventListener("resize", size);
+  const fs = 14, cols = () => Math.floor(cv.width / fs);
+  let drops = Array(cols()).fill(0).map(() => Math.random() * -60);
+  let last = 0;
+  function frame(t){
+    rainTimer = requestAnimationFrame(frame);
+    if (t - last < 70) return;             // ~14fps: calm, cheap
+    last = t;
+    if (drops.length !== cols()) drops = Array(cols()).fill(0).map(() => Math.random() * -60);
+    ctx.fillStyle = "rgba(0,4,0,0.12)";
+    ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.font = fs + "px ui-monospace,monospace";
+    for (let i = 0; i < drops.length; i++){
+      if (Math.random() < 0.4) continue;   // staggered columns
+      const ch = Math.random() < 0.5 ? "0" : "1";
+      ctx.fillStyle = Math.random() < 0.08 ? "#7dffb0" : "#0f5f33";
+      ctx.fillText(ch, i * fs, drops[i] * fs);
+      drops[i] = (drops[i] * fs > cv.height && Math.random() > 0.975) ? 0 : drops[i] + 1;
+    }
   }
+  rainTimer = requestAnimationFrame(frame);
 }
 
 async function tick(){
@@ -161,7 +227,8 @@ async function tick(){
     $("proc-pills").innerHTML = procPills(DATA.procs);
     $("hero-stats").innerHTML = heroStats(DATA.totals);
     trend(DATA.series);
-    renderBoard(DATA.board, DATA.chip);
+    renderDesignTabs();
+    renderBoard();
     $("live-tail").textContent = DATA.live.tail || "(no run log)";
     $("live-age").textContent = DATA.live.age_s != null ? `· ${DATA.live.age_s}s ago` : "";
     $("legendbody").innerHTML = Object.entries(DATA.explain).map(([k, v]) =>
@@ -179,6 +246,11 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape"){ $("q").blur(); }
 });
 
+document.querySelectorAll("#theme-tabs .tab").forEach(t =>
+  t.addEventListener("click", () => {
+    theme = t.dataset.theme; localStorage.setItem("pqc.theme", theme); applyTheme();
+  }));
+applyTheme();
 tick();
 setInterval(tick, 5000);
 

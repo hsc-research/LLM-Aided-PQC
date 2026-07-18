@@ -1,0 +1,41 @@
+{
+  "designs": {
+    "mldsa": {
+      "label": "ML-DSA",
+      "chip": {
+        "label": "combined_top post-route closure (Artix-7 -1)",
+        "unit": "MHz",
+        "pristine": 70.2,
+        "now": 78.6
+      },
+      "cores": {
+        "makehint":         {"base": -3.511, "now": -0.485},
+        "coeff_decomposer": {"base": -1.247, "now": -1.196},
+        "gen_c":            {"base": -5.233, "now": -1.264},
+        "rejection_s":      {"base": -4.013, "now": -2.486},
+        "usehint":          {"base": -2.542, "now": -2.542},
+        "butterfly":        {"base": -3.802, "now": -2.793},
+        "rejection_a":      {"base": -2.933, "now": -2.933},
+        "rejection_y":      {"base": -4.470, "now": -3.511},
+        "decoder":          {"base": -4.806, "now": -4.299},
+        "encoder":          {"base": -2.900, "now": -2.288}
+      }
+    },
+    "hqc": {
+      "label": "HQC",
+      "chip": {
+        "label": "joint keygen+encap+decap post-route closure (Artix-7 -1)",
+        "unit": "MHz",
+        "pristine": 117.1,
+        "now": 119.3
+      },
+      "cores": {
+        "fixed_weight": {"base": -2.064, "now": 0.100},
+        "decap":        {"base": -2.233, "now": -1.507},
+        "keygen":       {"base": null,   "now": -0.091},
+        "encap":        {"base": null,   "now": -0.247}
+      }
+    }
+  },
+  "_note": "Edit + git commit to update the dashboard (re-read live every poll). base/now are WNS ns at 200MHz OOC unless unit says otherwise. base null = pristine baseline not measured; shown as current-only."
+}
