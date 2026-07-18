@@ -42,7 +42,9 @@ DESIGNS = {
             "FIXEDWEIGHT": "build/keygen/fixed_weight_ct.v",
             "ENCAP": "build/encap/encap.v",
             "DECAP": "build/decap/decap.v",
-            "POLY_MULT": "build/keygen/poly_mult.v",
+            "POLY_MULT": "build/joint_design/hqc_kem_joint_design.v",  # input cones = shared-mux fan-in, joint-top scope
+            "V_MINUS_UY": "build/decap/v_minus_uy.v",
+            "VECTSETRAND": "build/keygen/vect_set_random.v",
             "KECCAK": "build/keygen/keccak_top.v",
             "ENCRYPT": "build/encap/encrypt.v",
         },
