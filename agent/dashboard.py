@@ -18,21 +18,14 @@ LOGS = {
 }
 RUNLOG = os.path.join(HERE, "mldsa", "fullkat_run.log")
 
-# Measured pristine baselines (WNS ns @ 200MHz OOC) and current committed state,
-# from docs/findings/INDEX.md ledger. Chip rows are post-route closing fmax (MHz).
-BASELINES = {
-    "makehint":         {"base": -3.511, "now": -0.485},
-    "coeff_decomposer": {"base": -1.247, "now": -1.196},
-    "gen_c":            {"base": -5.233, "now": -1.264},
-    "rejection_s":      {"base": -4.013, "now": -2.486},
-    "usehint":          {"base": -2.542, "now": -2.542},
-    "butterfly":        {"base": -3.802, "now": -2.793},
-    "rejection_a":      {"base": -2.933, "now": -2.933},
-    "rejection_y":      {"base": -4.470, "now": -3.511},
-    "decoder":          {"base": -4.806, "now": -4.299},
-    "encoder":          {"base": -2.900, "now": -2.288},
-}
-CHIP = {"pristine_mhz": 70.2, "now_mhz": 78.6, "label": "combined_top post-route closure (grade -1)"}
+BASELINES_JSON = os.path.join(HERE, "dashboard_baselines.json")
+def load_baselines():
+    try:
+        return json.load(open(BASELINES_JSON))
+    except Exception:
+        return {"designs": {}}
+
+
 
 
 TIER_LABEL = {
@@ -200,15 +193,23 @@ def data():
                      and isinstance(c.get("gain"), (int, float)) and c.get("block")],
                     key=lambda c: str(c.get("ts") or "")):
         b = str(c["block"])
-        base = BASELINES.get(b, {}).get("base")
+        all_bases = {k: v["base"] for d in load_baselines().get("designs", {}).values()
+                     for k, v in d.get("cores", {}).items() if v.get("base") is not None}
+        base = all_bases.get(b)
         if base is None: continue
         pts = traj.setdefault(b, [["baseline", base]])
         pts.append([c.get("ts") or "", round(pts[-1][1] + c["gain"], 3)])
-    board = [{"block": k, "base": v["base"], "now": v["now"]} for k, v in BASELINES.items()]
+
+    bl = load_baselines()
+    designs = {}
+    for dk, d in bl.get("designs", {}).items():
+        cores = [{"block": k, "base": v.get("base"), "now": v.get("now")}
+                 for k, v in d.get("cores", {}).items()]
+        designs[dk] = {"label": d.get("label", dk), "chip": d.get("chip"), "cores": cores}
 
     return jsonify({
-        "cards": cards[:200], "series": series, "traj": traj,
-        "board": board, "chip": CHIP, "explain": VERDICT_EXPLAIN,
+        "cards": cards[:200], "series": series, "designs": designs, "traj": traj,
+        "explain": VERDICT_EXPLAIN,
         "totals": {"attempts": attempts_total, "accepted": accepted_total,
                    "gain_ns": round(gains_total, 3), "cost_usd": round(run_costs_total, 3)},
         "live": live, "procs": procs, "status": status, "state": state,
