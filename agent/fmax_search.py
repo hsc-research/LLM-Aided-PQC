@@ -20,6 +20,7 @@ place_design -directive ExtraTimingOpt
 phys_opt_design -directive Explore
 route_design -directive Explore
 report_timing_summary -file {rpt}
+report_utilization -file {rpt}.util
 puts "DONE"
 """
     open(f"/tmp/fsrch_{tag}_{mid}.tcl","w").write(tcl)
