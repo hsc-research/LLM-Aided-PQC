@@ -20,7 +20,7 @@ DESIGNS = {
     "mldsa": {
         "key": "combined_top",
         "ckpt": "./synth_out/sweep_combined_top/post_synth_grade1.dcp",
-        "bracket": (10.0, 18.0),
+        "bracket": (12.0, 13.5),
         "hier2file": {
             "ENCODER": "agent/mldsa/mldsa_src/encoder.v",
             "DECODER": "agent/mldsa/mldsa_src/decoder.v",
