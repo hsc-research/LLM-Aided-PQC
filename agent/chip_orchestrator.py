@@ -150,8 +150,9 @@ def main():
         print(f"[5a] functional KAT gate: {' '.join(gate)}")
         g = subprocess.run(gate, capture_output=True, text=True, timeout=7200)
         print(g.stdout[-800:])
-        last = g.stdout.strip().splitlines()[-1] if g.stdout.strip() else ""
-        gate_pass = (g.returncode == 0) and ("PASS" in last)
+        out = g.stdout or ""
+        # accept either convention: '"status": "PASS"' (mldsa json) or 'GATE: PASS' (hqc)
+        gate_pass = (g.returncode == 0) and ('"status": "PASS"' in out or "GATE: PASS" in out) and '"status": "FAIL"' not in out and "GATE: FAIL" not in out
         if not gate_pass:
             print("[5a] KAT GATE FAILED — edit is functionally broken; reverting tracked sources and ending chip loop.")
             subprocess.run(["git", "checkout", "--", f], capture_output=True, text=True)  # revert only the dispatched file
