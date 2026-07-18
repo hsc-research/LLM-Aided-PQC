@@ -62,3 +62,8 @@ synth_out/
 agent/mldsa/fullkat_vectors.json
 agent/mldsa/fullkat_run.log
 agent/mldsa/dbglog_*.log
+.Xil/
+clockInfo.txt
+tight_setup_hold_pins.txt
+minerva_ws/
+tools/minerva/
