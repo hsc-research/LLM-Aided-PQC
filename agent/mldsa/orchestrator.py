@@ -37,6 +37,9 @@ BLOCKS = {
     # coeff_decomposer: CLOSED (placement-coupled, 5 failed restructurings). Not registered.
 }
 
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+from learned_rules import rules_prompt_block, distill_rule
 POLICY = """VALIDATED STRATEGY MENU (pick exactly one, or no_action):
 1. flag_precompute: compare logic on already-registered inputs feeding CE/write-index
    decode -> register the flag from pre-register inputs. (n=5, best pattern.)
@@ -129,7 +132,7 @@ def call_llm(block, rtl, board, tags):
               "Fill exactly two slots: strategy + str-replace pair. JSON only.")
     for attempt in range(2):
         r = client.messages.create(model=MODEL, max_tokens=2000,
-            system=POLICY, messages=[{"role": "user", "content": prompt}])
+            system=POLICY + rules_prompt_block("mldsa"), messages=[{"role": "user", "content": prompt}])
         txt = r.content[0].text
         i, j = txt.find("{"), txt.rfind("}")
         if i != -1 and j > i:
@@ -273,11 +276,20 @@ def main():
     # 6. accept/revert
     lut_win = dl is not None and dl < 0 and gain > -0.010  # LUT win allowed if WNS-neutral
     if gain >= MIN_GAIN_NS or lut_win:
-        log({"block": block, "verdict": "ACCEPTED", "strategy": prop["strategy"],
+        rec = {"block": block, "verdict": "ACCEPTED", "strategy": prop["strategy"],
              "wns_pre": pre_wns, "wns_post": res["wns_ns"], "gain": round(gain, 3),
-             "luts": res.get("luts"), "edits": edits})
+             "luts": res.get("luts"), "edits": edits}
+        log(rec)
+        try: distill_rule(anthropic.Anthropic(), MODEL, rec, "mldsa")
+        except Exception as e: print(f"rule distill skipped: {e}")
         print("=== ACCEPTED. .bak kept; review diff and commit manually. ===")
     else:
+        try:
+            distill_rule(anthropic.Anthropic(), MODEL,
+                         {"block": block, "verdict": "REJECTED_MARGINAL",
+                          "strategy": prop.get("strategy"), "wns_pre": pre_wns,
+                          "wns_post": res["wns_ns"], "gain": round(gain, 3)}, "mldsa")
+        except Exception as e: print(f"rule distill skipped: {e}")
         revert(f"marginal_{gain:+.3f}")
 
 if __name__ == "__main__":
