@@ -216,6 +216,29 @@ def data():
         "now": time.strftime("%H:%M:%S"),
     })
 
+@app.route("/api/rules")
+def rules():
+    p = os.path.join(HERE, "learned_rules.jsonl")
+    recs = read_jsonl(p)
+    return jsonify({"rules": recs[-60:]})
+
+@app.route("/api/minerva")
+def minerva():
+    import xml.etree.ElementTree as ET, glob
+    out = []
+    for x in glob.glob(os.path.join(HERE, "..", "minerva_ws", "*", "minerva_status", "*_MS.xml")):
+        try:
+            t = ET.parse(x)
+            root = t.getroot()
+            e = {"alg": root.attrib.get("AlgName"), "results": []}
+            for r in root.iter():
+                if r.tag == "Minerva_TP_Opt":
+                    e["results"].append(dict(r.attrib))
+            out.append(e)
+        except Exception:
+            pass
+    return jsonify({"minerva": out, "running": pg("run.py -tp")})
+
 @app.route("/")
 def index():
     return send_from_directory(STATIC, "index.html")

@@ -1,257 +1,169 @@
-/* PQC Agent Dashboard v3 front end (vanilla JS, no deps) */
-let DATA = null;
-let tierFilter = null, verdictFilter = null, q = "";
-let design = localStorage.getItem("pqc.design") || "mldsa";
-let theme = localStorage.getItem("pqc.theme") || "dark";
-const open = new Set();          // open card keys persist across refresh
+/* PQC Agent Dashboard v5 */
+let DATA=null, DESIGN=localStorage.getItem('design')||'mldsa';
 
-const $ = id => document.getElementById(id);
-const esc = s => String(s == null ? "" : s)
-  .replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-
-function fmtGain(g){
-  if (typeof g !== "number") return "";
-  const cls = g >= 0 ? "gain-pos" : "gain-neg";
-  return `<span class="${cls}">${g > 0 ? "+" : ""}${g}ns</span>`;
-}
-
-function heroStats(t){
-  const items = [
-    [t.accepted, "wins"],
-    [t.attempts, "attempts"],
-    [t.gain_ns + "ns", "gained", t.gain_ns > 0],
-    ["$" + t.cost_usd, "api spend"],
-  ];
-  return items.map(([v, l, pos]) =>
-    `<div class="stat"><b class="${pos ? "pos" : ""}">${esc(v)}</b><span>${l}</span></div>`).join("");
-}
-
-function procPills(p){
-  const names = {block_orch:"block orchestrator", chip_orch:"chip loop",
-                 minerva:"minerva", vivado:"vivado", xsim:"simulation"};
-  return Object.entries(p)
-    .map(([k, on]) => `<span class="pill ${on ? "live" : ""}">${on ? "●" : "○"} ${names[k]}</span>`)
-    .join("");
-}
-
-function trend(series){
-  const svg = $("trend");
-  if (!series || series.length < 2){
-    svg.innerHTML = `<text x="300" y="75" fill="#5b6272" font-size="12" text-anchor="middle">not enough accepted edits yet</text>`;
-    return;
+/* ---------- matrix rain (proper 1s/0s) ---------- */
+const cv=document.getElementById('rain'),cx=cv.getContext('2d');
+let drops=[],FS=14;
+function sizeRain(){cv.width=innerWidth;cv.height=innerHeight;
+  const cols=Math.floor(cv.width/FS);drops=Array(cols).fill(0).map(()=>Math.random()*-50);}
+sizeRain();addEventListener('resize',sizeRain);
+setInterval(()=>{
+  if(document.body.dataset.theme!=='matrix')return;
+  cx.fillStyle='rgba(4,7,10,0.12)';cx.fillRect(0,0,cv.width,cv.height);
+  cx.font=FS+'px monospace';
+  for(let i=0;i<drops.length;i++){
+    const y=drops[i]*FS;
+    cx.fillStyle=Math.random()<0.08?'#b4ffd0':'#1e9e4a';
+    cx.fillText(Math.random()<0.5?'0':'1',i*FS,y);
+    if(y>cv.height&&Math.random()>0.975)drops[i]=0;else drops[i]++;
   }
-  const W = 600, H = 140, P = 12;
-  const ys = series.map(s => s[1]);
-  const max = Math.max(...ys), min = Math.min(0, ...ys);
-  const x = i => P + i * (W - 2 * P) / (series.length - 1);
-  const y = v => H - P - (v - min) * (H - 2 * P) / (max - min || 1);
-  const pts = series.map((s, i) => `${x(i)},${y(s[1])}`).join(" ");
-  const area = `M${x(0)},${y(min)} L` + pts.replace(/ /g, " L") + ` L${x(series.length-1)},${y(min)} Z`;
-  svg.innerHTML = `
-    <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3fd68f" stop-opacity=".25"/>
-      <stop offset="100%" stop-color="#3fd68f" stop-opacity="0"/>
-    </linearGradient></defs>
-    <path d="${area}" fill="url(#g)"/>
-    <polyline points="${pts}" fill="none" stroke="#3fd68f" stroke-width="2"
-      stroke-linejoin="round" stroke-linecap="round"/>
-    <text x="${W-P}" y="${y(max)+4}" fill="#3fd68f" font-size="11" text-anchor="end">${max}ns</text>`;
+},55);
+
+/* ---------- theme ---------- */
+document.querySelectorAll('.themes button').forEach(b=>b.onclick=()=>{
+  document.body.dataset.theme=b.dataset.t;localStorage.setItem('theme',b.dataset.t);});
+document.body.dataset.theme=localStorage.getItem('theme')||'matrix';
+
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function svgLine(pts,w,h,color){
+  if(pts.length<2)return '<div class="nobase">not enough points</div>';
+  const xs=pts.map((_,i)=>i),ys=pts.map(p=>p[1]);
+  const mn=Math.min(...ys),mx=Math.max(...ys),pad=(mx-mn)||1;
+  const X=i=>10+(i/(pts.length-1))*(w-20),Y=v=>h-14-((v-mn)/pad)*(h-30);
+  let d=pts.map((p,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+  let dots=pts.map((p,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="3" fill="${color}"/>`).join('');
+  return `<svg width="100%" viewBox="0 0 ${w} ${h}">
+    <path d="${d}" stroke="${color}" fill="none" stroke-width="2"/>${dots}
+    <text x="10" y="12">${mx.toFixed(3)}</text><text x="10" y="${h-4}">${mn.toFixed(3)}</text></svg>`;
 }
 
-function pillbar(el, items, active, onclick){
-  el.innerHTML = items.map(([k, label, n]) =>
-    `<span class="pill click ${active === k ? "active" : ""}" data-k="${esc(k)}">${esc(label)}<span class="n">${n}</span></span>`
-  ).join("");
-  el.querySelectorAll(".pill").forEach(p =>
-    p.addEventListener("click", () => onclick(p.dataset.k === active ? null : p.dataset.k)));
+/* ---------- drill-down modal ---------- */
+function openModal(html){$('mbody').innerHTML=html;$('modal').classList.remove('hidden');}
+$('mclose').onclick=()=>$('modal').classList.add('hidden');
+$('modal').onclick=e=>{if(e.target.id==='modal')$('modal').classList.add('hidden');};
+function editHtml(edits){
+  if(!edits||!edits.length)return '<div class="nobase">edit text not recorded for this win</div>';
+  return edits.map((e,i)=>`<div class="diff"><h3>EDIT ${i+1}${e.file?' — '+esc(e.file):''}</h3>
+    ${e.old_str?`<pre class="old">- ${esc(e.old_str)}</pre>`:''}
+    ${e.new_str?`<pre class="new">+ ${esc(e.new_str)}</pre>`:''}
+    ${(!e.old_str&&!e.new_str)?`<pre>${esc(JSON.stringify(e,null,1))}</pre>`:''}</div>`).join('');
+}
+function showFix(card){
+  const d=card.detail||{};
+  openModal(`<h2>WIN — ${esc(card.block)}</h2>
+    <div class="mrow">
+      <span><span class="k">strategy</span> ${esc(card.strategy||'—')}</span>
+      <span><span class="k">gain</span> +${card.gain}ns</span>
+      <span><span class="k">cost</span> ${card.cost!=null?'$'+card.cost:'n/a (no API cost logged)'}</span>
+      <span><span class="k">model</span> ${esc(card.model||'—')}</span>
+      <span><span class="k">when</span> ${esc(card.ts||'—')}</span>
+    </div>
+    <div class="mrow"><span><span class="k">tier</span> ${esc(card.tier)}</span></div>
+    ${editHtml(d.edits)}`);
+}
+function findWin(block){
+  const wins=(DATA.cards||[]).filter(c=>c.verdict==='ACCEPTED'&&c.block===block);
+  return wins[0]||null;
 }
 
-function cardKey(c){ return c.src + ":" + c.idx; }
+/* ---------- render ---------- */
+function render(){
+  const d=DATA;if(!d)return;
+  $('clock').textContent=d.now;
+  const hero=$('hero');hero.className='hero '+d.state;$('status').textContent=d.status;
+  $('procs').innerHTML=Object.entries(d.procs).map(([k,v])=>
+    `<span class="proc ${v?'on':''}">${k}${v?' ●':''}</span>`).join('');
+  const t=d.totals;
+  $('totals').innerHTML=[['attempts',t.attempts],['verified wins',t.accepted],
+    ['total gain (ns)',t.gain_ns],['API spend ($)',t.cost_usd]]
+    .map(([l,n])=>`<div class="tot"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
 
-function renderCards(){
-  const el = $("journey");
-  if (!DATA) return;
-  let cards = DATA.cards;
-  if (tierFilter)    cards = cards.filter(c => c.src === tierFilter);
-  if (verdictFilter) cards = cards.filter(c => c.verdict === verdictFilter);
-  if (q){
-    const s = q.toLowerCase();
-    cards = cards.filter(c => JSON.stringify(c).toLowerCase().includes(s));
-  }
-  if (!cards.length){ el.innerHTML = `<div class="empty">no attempts match</div>`; return; }
-  el.innerHTML = cards.map(c => {
-    const k = cardKey(c);
-    const title = [c.strategy, c.block].filter(Boolean).join(" · ") || c.tier;
-    const meta = [
-      c.gain != null ? fmtGain(c.gain) : "",
-      c.cost != null ? "$" + c.cost : "",
-      c.model ? esc(c.model) : "",
-      c.ts ? esc(c.ts) : "",
-    ].filter(Boolean).join(" · ");
-    const hasDetail = c.detail && Object.keys(c.detail).length;
-    return `<div class="attempt ${c.kind} ${open.has(k) ? "open" : ""}" data-k="${k}">
-      <div class="a-head">
-        <span class="badge ${c.kind}">${esc(c.verdict || "event")}</span>
-        <span class="a-title">${esc(title)}</span>
-        <span class="a-meta">${meta}</span>
-      </div>
-      <p class="a-story">${esc(c.story)}</p>
-      <div class="a-sub">${esc(c.tier)}</div>
-      ${hasDetail ? `<span class="a-expand">details</span>
-        <div class="a-detail"><pre>${esc(JSON.stringify(c.detail, null, 2).slice(0, 4000))}</pre></div>` : ""}
-    </div>`;
-  }).join("");
-  el.querySelectorAll(".a-expand").forEach(x =>
-    x.addEventListener("click", e => {
-      const card = e.target.closest(".attempt");
-      const k = card.dataset.k;
-      open.has(k) ? open.delete(k) : open.add(k);
-      card.classList.toggle("open");
-    }));
+  /* tabs + board */
+  const dk=Object.keys(d.designs||{});
+  if(!dk.includes(DESIGN))DESIGN=dk[0];
+  $('tabs').innerHTML=dk.map(k=>`<button class="${k===DESIGN?'on':''}" data-k="${k}">${esc(d.designs[k].label||k)}</button>`).join('');
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{DESIGN=b.dataset.k;localStorage.setItem('design',DESIGN);render();});
+  const des=d.designs[DESIGN]||{cores:[]};
+  const vals=des.cores.flatMap(c=>[c.base,c.now]).filter(v=>typeof v==='number');
+  const mn=Math.min(...vals,0)-0.2,mx=Math.max(...vals,0)+0.2;
+  const px=v=>((v-mn)/(mx-mn))*100;
+  $('board').innerHTML=des.cores.map(c=>{
+    if(c.base==null)return `<div class="core"><div class="nm"><span>${esc(c.block)}</span><span class="nobase">no baseline measured</span></div></div>`;
+    const win=findWin(c.block);
+    return `<div class="core"><div class="nm"><span>${esc(c.block)}</span>
+      <span>${c.base} → <b style="color:var(--win)">${c.now??c.base}</b> ns</span></div>
+      <div class="dumb"><div class="track"></div>
+        <div class="zero" style="left:${px(0)}%"></div>
+        <div class="dot base" style="left:${px(c.base)}%" title="baseline ${c.base}"></div>
+        <div class="dot now" style="left:${px(c.now??c.base)}%" title="click for the fix"
+          onclick='showFixByBlock("${esc(c.block)}")'></div>
+      </div></div>`;}).join('')
+    +(des.chip?`<div class="chipline">chip closure: ${esc(JSON.stringify(des.chip))}</div>`:'');
+
+  /* trend */
+  $('trend').innerHTML=svgLine(d.series||[],860,150,'var(--win)');
+
+  /* trajectories */
+  const tr=d.traj||{};
+  $('traj').innerHTML=Object.keys(tr).length?Object.entries(tr).map(([b,pts])=>
+    `<div class="trajcard"><div class="nm">${esc(b)}</div>${svgLine(pts,300,110,'var(--acc)')}</div>`).join('')
+    :'<div class="nobase">trajectories appear as blocks accumulate accepted wins</div>';
+
+  /* legend + feed */
+  $('legend').innerHTML=[['win','var(--win)'],['fail','var(--fail)'],['marginal','var(--marg)'],['neutral','var(--neu)']]
+    .map(([l,c])=>`<span><span class="sw" style="background:${c}"></span>${l}</span>`).join('');
+  drawFeed();
 }
+window.showFixByBlock=b=>{const w=findWin(b);if(w)showFix(w);else openModal(`<h2>${esc(b)}</h2><div class="nobase">no accepted win recorded in the logs for this block (baseline improvement may predate structured logging)</div>`);};
 
-function renderFilters(){
-  const counts = {};
-  const vcounts = {};
-  for (const c of DATA.cards){
-    counts[c.src] = (counts[c.src] || 0) + 1;
-    vcounts[c.verdict] = (vcounts[c.verdict] || 0) + 1;
-  }
-  pillbar($("tier-pills"),
-    Object.entries(counts).map(([k, n]) => [k, DATA.cards.find(c => c.src === k).tier, n]),
-    tierFilter, k => { tierFilter = k; renderFilters(); renderCards(); });
-  pillbar($("verdict-pills"),
-    Object.entries(vcounts).map(([k, n]) => [k, k, n]),
-    verdictFilter, k => { verdictFilter = k; renderFilters(); renderCards(); });
+function drawFeed(){
+  const q=($('q').value||'').toLowerCase();
+  const cards=(DATA.cards||[]).filter(c=>!q||JSON.stringify(c).toLowerCase().includes(q));
+  $('feed').innerHTML=cards.slice(0,80).map((c,i)=>
+    `<div class="card ${c.kind}" data-i="${i}">
+      <div class="top"><span>${esc(c.tier)}${c.block?' · '+esc(c.block):''}</span>
+      <span><span class="badge">${esc(c.verdict)}</span> ${esc(c.ts||'')}</span></div>
+      <div class="story">${esc(c.story)}</div></div>`).join('');
+  document.querySelectorAll('#feed .card').forEach(el=>el.onclick=()=>{
+    const c=cards[+el.dataset.i];
+    if(c.verdict==='ACCEPTED')showFix(c);
+    else openModal(`<h2>${esc(c.verdict)} — ${esc(c.block||c.tier)}</h2>
+      <div class="mrow"><span><span class="k">when</span> ${esc(c.ts||'—')}</span>
+      <span><span class="k">cost</span> ${c.cost!=null?'$'+c.cost:'—'}</span></div>
+      <p style="margin:8px 0">${esc(c.story)}</p>
+      <p style="color:var(--dim);font-size:12px">${esc((DATA.explain||{})[c.verdict]||'')}</p>
+      ${c.detail?`<pre>${esc(JSON.stringify(c.detail,null,1))}</pre>`:''}`);
+  });
 }
+$('q').oninput=drawFeed;
 
-function applyTheme(){
-  document.documentElement.dataset.theme = theme;
-  document.querySelectorAll("#theme-tabs .tab").forEach(t =>
-    t.classList.toggle("active", t.dataset.theme === theme));
-  rainSet(theme === "matrix");
-}
-
-function renderDesignTabs(){
-  const el = $("design-tabs");
-  if (!DATA || !DATA.designs) return;
-  el.innerHTML = Object.entries(DATA.designs).map(([k, d]) =>
-    `<span class="tab ${design === k ? "active" : ""}" data-d="${esc(k)}">${esc(d.label)}</span>`).join("");
-  el.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
-    design = t.dataset.d; localStorage.setItem("pqc.design", design);
-    renderDesignTabs(); renderBoard(); renderCards();
-  }));
-}
-
-function renderBoard(){
-  const el = $("board");
-  const d = DATA && DATA.designs && DATA.designs[design];
-  if (!d){ el.innerHTML = ""; $("chipline").innerHTML = ""; return; }
-  const cores = d.cores || [];
-  const known = cores.filter(b => b.base != null && b.now != null);
-  const vals = known.flatMap(b => [b.base, b.now]).concat(cores.map(b => b.now).filter(v => v != null));
-  const min = Math.min(...vals, -0.5) - 0.3, max = Math.max(0.3, ...vals.map(v => v)) + 0.1;
-  const pct = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
-  el.innerHTML = cores
-    .slice().sort((a,b) => (a.now ?? 0) - (b.now ?? 0))
-    .map(b => {
-      if (b.base == null){
-        return `<div class="row">
-          <span class="lbl">${esc(b.block)}</span>
-          <div class="track">
-            <span class="pt now" style="left:${pct(b.now)}" title="current ${b.now}ns"></span>
-            <span class="target" style="left:${pct(0)}"></span>
-          </div>
-          <span class="vals"><span class="base-na">no baseline</span> → <b>${b.now}</b></span>
-        </div>`;
-      }
-      const left = Math.min(b.base, b.now), right = Math.max(b.base, b.now);
-      const improved = b.now > b.base;
-      return `<div class="row">
-        <span class="lbl">${esc(b.block)}</span>
-        <div class="track">
-          <div class="seg" style="left:${pct(left)};width:calc(${pct(right)} - ${pct(left)})"></div>
-          <span class="pt base" style="left:${pct(b.base)}" title="baseline ${b.base}ns"></span>
-          <span class="pt now" style="left:${pct(b.now)}" title="current ${b.now}ns"></span>
-          <span class="target" style="left:${pct(0)}" title="target (timing met)"></span>
-        </div>
-        <span class="vals">${b.base} → <b class="${improved ? "gain-pos" : ""}">${b.now}</b></span>
-      </div>`;
-    }).join("");
-  const chip = d.chip;
-  if (chip && chip.pristine != null){
-    const delta = (chip.now - chip.pristine) / chip.pristine * 100;
-    $("chipline").innerHTML =
-      `Full-chip: ${esc(chip.label)} — pristine ${chip.pristine} ${esc(chip.unit)} → <b>${chip.now} ${esc(chip.unit)}</b> (<span class="${delta >= 0 ? "gain-pos" : "gain-neg"}">${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%</span>)`;
-  } else { $("chipline").innerHTML = ""; }
-}
-
-/* digit rain (matrix theme) */
-let rainTimer = null;
-function rainSet(on){
-  const cv = $("rain");
-  if (!on){ if (rainTimer){ cancelAnimationFrame(rainTimer); rainTimer = null; }
-    const g = cv.getContext("2d"); g.clearRect(0,0,cv.width,cv.height); return; }
-  if (rainTimer) return;
-  const ctx = cv.getContext("2d");
-  function size(){ cv.width = innerWidth; cv.height = innerHeight; }
-  size(); addEventListener("resize", size);
-  const fs = 14, cols = () => Math.floor(cv.width / fs);
-  let drops = Array(cols()).fill(0).map(() => Math.random() * -60);
-  let last = 0;
-  function frame(t){
-    rainTimer = requestAnimationFrame(frame);
-    if (t - last < 70) return;             // ~14fps: calm, cheap
-    last = t;
-    if (drops.length !== cols()) drops = Array(cols()).fill(0).map(() => Math.random() * -60);
-    ctx.fillStyle = "rgba(0,4,0,0.12)";
-    ctx.fillRect(0,0,cv.width,cv.height);
-    ctx.font = fs + "px ui-monospace,monospace";
-    for (let i = 0; i < drops.length; i++){
-      if (Math.random() < 0.4) continue;   // staggered columns
-      const ch = Math.random() < 0.5 ? "0" : "1";
-      ctx.fillStyle = Math.random() < 0.08 ? "#7dffb0" : "#0f5f33";
-      ctx.fillText(ch, i * fs, drops[i] * fs);
-      drops[i] = (drops[i] * fs > cv.height && Math.random() > 0.975) ? 0 : drops[i] + 1;
-    }
-  }
-  rainTimer = requestAnimationFrame(frame);
-}
-
-async function tick(){
+/* ---------- side panels ---------- */
+async function loadSide(){
   try{
-    DATA = await (await fetch("/api/data")).json();
-    $("clock").textContent = "updated " + DATA.now;
-    $("statedot").className = "dot " + (DATA.state === "run" ? "run" : DATA.state);
-    $("status-line").textContent = DATA.status;
-    $("proc-pills").innerHTML = procPills(DATA.procs);
-    $("hero-stats").innerHTML = heroStats(DATA.totals);
-    trend(DATA.series);
-    renderDesignTabs();
-    renderBoard();
-    $("live-tail").textContent = DATA.live.tail || "(no run log)";
-    $("live-age").textContent = DATA.live.age_s != null ? `· ${DATA.live.age_s}s ago` : "";
-    $("legendbody").innerHTML = Object.entries(DATA.explain).map(([k, v]) =>
-      `<div><b class="v-${esc(k).replace(/[^\w]/g,"_")}">${esc(k)}</b> — ${esc(v)}</div>`).join("");
-    renderFilters();
-    renderCards();
-  }catch(e){
-    $("clock").textContent = "fetch error";
-  }
+    const r=await(await fetch('/api/rules')).json();
+    $('rcount').textContent=(r.rules||[]).length;
+    $('rules').innerHTML=(r.rules||[]).slice().reverse().map(x=>
+      `<div class="rule">${esc(x.rule)}<div class="m">[${esc(x.design)}] ${esc(x.ts)} · ${esc(x.source_model||'')}</div></div>`).join('')
+      ||'<div class="nobase">rulebook empty — populates from ACCEPTED / REJECTED_MARGINAL verdicts</div>';
+  }catch(e){}
+  try{
+    const m=await(await fetch('/api/minerva')).json();
+    $('mrun').textContent=m.running?'RUNNING':'idle';
+    $('minerva').innerHTML=(m.minerva||[]).map(e=>{
+      const rs=(e.results||[]).map(r=>
+        `<div class="mtile"><b>${esc(e.alg)}</b> — <b>${parseFloat(r.freq).toFixed(1)} MHz</b><br>
+        LUT ${esc(r.LUT)} · FF ${esc(r.FF)} · Slice ${esc(r.Slice)}<br>
+        <span style="color:var(--dim)">start ${esc(r.start_time)} · runtime ${esc(r.run_time)} · ${esc(r.device)}</span></div>`).join('');
+      return rs||`<div class="mtile"><b>${esc(e.alg)}</b> — <span class="nobase">no result yet</span></div>`;
+    }).join('')||'<div class="nobase">no Minerva status files found</div>';
+  }catch(e){}
 }
 
-$("q").addEventListener("input", e => { q = e.target.value; renderCards(); });
-document.addEventListener("keydown", e => {
-  if (e.key === "/" && document.activeElement !== $("q")){ e.preventDefault(); $("q").focus(); }
-  if (e.key === "Escape"){ $("q").blur(); }
-});
-
-document.querySelectorAll("#theme-tabs .tab").forEach(t =>
-  t.addEventListener("click", () => {
-    theme = t.dataset.theme; localStorage.setItem("pqc.theme", theme); applyTheme();
-  }));
-applyTheme();
-tick();
-setInterval(tick, 5000);
-
-
+/* ---------- poll ---------- */
+async function tick(){
+  try{DATA=await(await fetch('/api/data')).json();render();}catch(e){}
+  loadSide();
+}
+tick();setInterval(tick,5000);

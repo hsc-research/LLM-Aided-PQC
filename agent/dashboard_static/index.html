@@ -1,67 +1,62 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PQC Agent — Optimization Console</title>
+<title>PQC Agent — Mission Control</title>
 <link rel="stylesheet" href="/static/app.css">
 </head>
-<body>
+<body data-theme="matrix">
 <canvas id="rain"></canvas>
-<nav id="topbar">
-  <div class="brand"><span class="dot" id="statedot"></span> PQC Optimization Agent</div>
-  <div class="nav-right">
-    <div class="tabs" id="theme-tabs">
-      <span class="tab" data-theme="matrix">matrix</span>
-      <span class="tab" data-theme="dark">dark</span>
-      <span class="tab" data-theme="light">light</span>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="logo">▚</span>
+      <div><h1>PQC AGENT</h1><div class="sub">LLM-aided PPA optimization — HQC · ML-DSA · Artix-7</div></div>
     </div>
-    <span id="clock" class="muted"></span>
-  </div>
-</nav>
+    <div class="hdr-right">
+      <div id="clock" class="clock"></div>
+      <div class="themes">
+        <button data-t="matrix" title="Matrix">◉</button>
+        <button data-t="dark" title="Dark">◐</button>
+        <button data-t="light" title="Light">○</button>
+      </div>
+    </div>
+  </header>
 
-<main>
-  <section id="hero" class="card hero">
-    <div class="hero-left">
-      <div id="status-line">loading…</div>
-      <div id="proc-pills" class="pills"></div>
-    </div>
-    <div class="hero-stats" id="hero-stats"></div>
+  <section id="hero" class="hero"><div id="status" class="status">loading…</div>
+    <div id="procs" class="procs"></div>
   </section>
 
-  <div class="tabs big" id="design-tabs"></div>
-
-  <section class="card" id="board-card">
-    <h2 id="board-title">Cores vs baseline <span class="muted">(WNS ns @ 200MHz OOC — right is better, 0 = met)</span></h2>
-    <div id="board"></div>
-    <div id="chipline" class="chipline"></div>
-  </section>
+  <section class="totals" id="totals"></section>
 
   <section class="grid2">
-    <div class="card">
-      <h2>Cumulative timing gain <span class="muted">(accepted edits, ns)</span></h2>
-      <svg id="trend" viewBox="0 0 600 140" preserveAspectRatio="none"></svg>
+    <div class="panel"><h2>Design boards</h2>
+      <div class="tabs" id="tabs"></div>
+      <div id="board"></div>
     </div>
-    <div class="card">
-      <h2>Live simulation <span class="muted" id="live-age"></span></h2>
-      <pre id="live-tail" class="live">(no run log)</pre>
+    <div class="col">
+      <div class="panel"><h2>Minerva <span id="mrun" class="pill"></span></h2><div id="minerva"></div></div>
+      <div class="panel"><h2>Learned rules <span id="rcount" class="pill"></span></h2><div id="rules" class="rules"></div></div>
     </div>
   </section>
 
-  <section id="filterbar">
-    <input id="q" type="search" placeholder="Filter: block, strategy, verdict…  ( / to focus )">
-    <div id="tier-pills" class="pills"></div>
-    <div id="verdict-pills" class="pills"></div>
+  <section class="panel"><h2>Cumulative verified gain</h2><div id="trend"></div></section>
+  <section class="panel"><h2>Per-block trajectories</h2><div id="traj" class="trajgrid"></div></section>
+
+  <section class="panel"><h2>Attempt feed</h2>
+    <div class="feedbar">
+      <input id="q" placeholder="filter: block, strategy, verdict…">
+      <div id="legend" class="legend"></div>
+    </div>
+    <div id="feed"></div>
   </section>
+</div>
 
-  <section id="journey"></section>
-
-  <details id="legend" class="card">
-    <summary>Verdict reference</summary>
-    <div id="legendbody"></div>
-  </details>
-</main>
-
+<div id="modal" class="modal hidden"><div class="modal-card">
+  <button id="mclose" class="mclose">✕</button>
+  <div id="mbody"></div>
+</div></div>
 <script src="/static/app.js"></script>
 </body>
 </html>
