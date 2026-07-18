@@ -50,6 +50,9 @@ DESIGNS = {
             "ENCRYPT": "build/encap/encrypt.v",
         },
         "orchestrator": "agent/hqc/transfer_orchestrator.py",
+        # joint-top cones (hier2file -> hqc_kem_joint_design.v) use the bounded-
+        # autonomous joint orchestrator instead of the block-transfer one:
+        "joint_orchestrator": "agent/hqc/joint_top_orchestrator.py",
         "kat_gate": ["python3", "agent/hqc/joint_kat_gate.py"],
     },
 }
@@ -138,8 +141,12 @@ def main():
         open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+chr(10))
         return
     blk = os.path.splitext(os.path.basename(f))[0]
-    print(f"[4] AUTO-DISPATCH: {cfg['orchestrator']} {blk}")
-    r = subprocess.run(["python3", cfg["orchestrator"], blk],
+    orch = cfg["orchestrator"]
+    orch_args = [blk]
+    if blk == "hqc_kem_joint_design" and cfg.get("joint_orchestrator"):
+        orch = cfg["joint_orchestrator"]; orch_args = []
+    print(f"[4] AUTO-DISPATCH: {orch} {' '.join(orch_args)}")
+    r = subprocess.run(["python3", orch] + orch_args,
                        capture_output=True, text=True, timeout=7200)
     print(r.stdout[-2000:])
     if "ACCEPTED" not in r.stdout:
