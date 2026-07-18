@@ -278,7 +278,7 @@ def main():
     if gain >= MIN_GAIN_NS or lut_win:
         rec = {"block": block, "verdict": "ACCEPTED", "strategy": prop["strategy"],
              "wns_pre": pre_wns, "wns_post": res["wns_ns"], "gain": round(gain, 3),
-             "luts": res.get("luts"), "edits": edits}
+             "luts": res.get("luts"), "edits": edits, **{k: res.get(k) for k in ("luts","ffs","dsp","total_w","dynamic_w") if isinstance(res, dict) and res.get(k) is not None}}  # ppa-logged
         log(rec)
         try: distill_rule(anthropic.Anthropic(), MODEL, rec, "mldsa")
         except Exception as e: print(f"rule distill skipped: {e}")

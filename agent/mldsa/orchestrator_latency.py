@@ -218,7 +218,9 @@ def main():
                 log({"block": block, "verdict": "ACCEPTED", "attempt": attempt,
                      "model": MODEL, "api_calls": USAGE["calls"], "cost_usd": usage_cost(),
                      "wns_pre": pre_wns, "wns_post": res["wns_ns"], "gain": gain,
-                     "design": prop.get("design"), "edits": prop["edits"]})
+                     "design": prop.get("design"), "edits": prop["edits"],
+                     **{k: res.get(k) for k in ("luts","ffs","dsp","total_w","dynamic_w")
+                        if isinstance(res, dict) and res.get(k) is not None}})  # ppa-logged
                 print("=== ACCEPTED. Review diff + commit manually. ==="); return
             git_reset(files)
             log({"block": block, "verdict": f"marginal_{gain:+.3f}", "attempt": attempt,

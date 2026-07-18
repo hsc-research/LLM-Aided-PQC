@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PQC Agent — Optimization Console</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<nav id="topbar">
+  <div class="brand"><span class="dot" id="statedot"></span> PQC Optimization Agent</div>
+  <div class="nav-right">
+    <span id="clock" class="muted"></span>
+  </div>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section id="hero" class="card hero">
+    <div class="hero-left">
+      <div id="status-line">loading…</div>
+      <div id="proc-pills" class="pills"></div>
+    </div>
+    <div class="hero-stats" id="hero-stats"></div>
+  </section>
+
+  <!-- TREND -->
+  <section class="grid2">
+    <div class="card">
+      <h2>Cumulative timing gain <span class="muted">(accepted edits, ns)</span></h2>
+      <svg id="trend" viewBox="0 0 600 140" preserveAspectRatio="none"></svg>
+    </div>
+    <div class="card">
+      <h2>Live simulation <span class="muted" id="live-age"></span></h2>
+      <pre id="live-tail" class="live">(no run log)</pre>
+    </div>
+  </section>
+
+  <!-- BOARD: PPA vs baseline snapshot -->
+  <section class="card" id="board-card">
+    <h2>Board vs baseline <span class="muted">(WNS ns @ 200MHz OOC target — right is better, 0 = met)</span></h2>
+    <div id="board"></div>
+    <div id="chipline" class="chipline"></div>
+  </section>
+
+  <!-- FILTERS -->
+  <section id="filterbar">
+    <input id="q" type="search" placeholder="Filter: block, strategy, verdict…  ( / to focus )">
+    <div id="tier-pills" class="pills"></div>
+    <div id="verdict-pills" class="pills"></div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey"></section>
+
+  <details id="legend" class="card">
+    <summary>Verdict reference</summary>
+    <div id="legendbody"></div>
+  </details>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
