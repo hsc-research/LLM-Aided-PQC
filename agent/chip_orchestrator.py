@@ -76,10 +76,36 @@ def map_to_file(path_rec, hier2file):
                 return top_inst, f
     return None, None
 
+def regen_ckpt(cfg):
+    """Re-synthesize the chip from current tracked sources into cfg['ckpt'].
+    Required between dispatch and re-judge: closure_search judges a post-synth
+    checkpoint, so a block edit is invisible until the dcp is rebuilt."""
+    import subprocess
+    sys.path.insert(0, os.path.join(HERE, ".."))
+    from synthesizer import MODULE_SOURCES, VHDL_SOURCES, PART, TOP_OVERRIDE
+    key = cfg["key"]
+    srcs = MODULE_SOURCES[key]; vhdl = VHDL_SOURCES.get(key, [])
+    top = TOP_OVERRIDE.get(key, key)
+    vb = "read_vhdl {\n  " + "\n  ".join(vhdl) + "\n}\n" if vhdl else ""
+    nl = chr(10)
+    tcl = (vb + "read_verilog {" + nl + "  " + nl.join(srcs) + nl + "}" + nl +
+           f"synth_design -top {top} -part {PART}" + nl +
+           "set clk_port [lindex [get_ports -quiet {clk clk_i}] 0]" + nl +
+           'if {$clk_port eq ""} { set clk_port [lindex [get_ports -quiet *clk*] 0] }' + nl +
+           "create_clock -period 8.600 -name clk [get_ports $clk_port]" + nl +
+           f"write_checkpoint -force {cfg['ckpt']}" + nl + 'puts "REGEN DONE"' + nl)
+    tf = "/tmp/regen_ckpt.tcl"
+    open(tf, "w").write(tcl)
+    r = subprocess.run(["vivado","-mode","batch","-source",tf,"-nojournal","-nolog"],
+                       capture_output=True, text=True)
+    assert "REGEN DONE" in r.stdout, "checkpoint regen failed"
+
 def main():
     design = sys.argv[1]
     cfg = DESIGNS[design]
     tag = f"chipv2_{design}_{int(time.time())%100000}"
+    print(f"[0] regen checkpoint from current tracked sources")
+    regen_ckpt(cfg)
     print(f"[1] closure baseline: {cfg['key']}")
     base = closure_search(cfg["ckpt"], tag, *cfg["bracket"])
     assert base and base["closing_fmax_mhz"], f"closure search failed: {base}"
