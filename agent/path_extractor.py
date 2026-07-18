@@ -9,14 +9,14 @@
 import subprocess, re, sys, os
 
 sys.path.insert(0, os.path.dirname(__file__))
-from synthesizer import MODULE_SOURCES, PART, VHDL_SOURCES, TOP_OVERRIDE
+from synthesizer import MODULE_SOURCES, PART, VHDL_SOURCES, TOP_OVERRIDE, ordered_sources, synth_flags
 
 def build_tcl(module, param_set, n_paths):
-    sources = sorted(MODULE_SOURCES[module], key=lambda p: (0 if p.split('/')[-1] in ('clog2.v','keccak_pkg.v') else 1))
+    sources = ordered_sources(module)
     vhdl = VHDL_SOURCES.get(module, [])
     source_lines = "\n        ".join(sources)
     top = TOP_OVERRIDE.get(module, module)
-    defines = ' -verilog_define SHARED=1 -verilog_define SHARED_ENCAP=1' if module.startswith('hqc_joint') else ''
+    defines = synth_flags(module)
     vhdl_block = ""
     if vhdl:
         vhdl_lines = "\n        ".join(vhdl)
@@ -29,7 +29,6 @@ synth_design \\
     -top {top} \\
     -part {PART} \\
     -mode out_of_context{defines} \\
-    -include_dirs {{./build/keygen ./build/encap ./build/decap ./hardware/common/shake256/rtl ./hardware/common}} \\
     -generic parameter_set={param_set}
 set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
 if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}

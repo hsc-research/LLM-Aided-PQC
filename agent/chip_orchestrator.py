@@ -84,17 +84,18 @@ def regen_ckpt(cfg):
     checkpoint, so a block edit is invisible until the dcp is rebuilt."""
     import subprocess
     sys.path.insert(0, os.path.join(HERE, ".."))
-    from synthesizer import MODULE_SOURCES, VHDL_SOURCES, PART, TOP_OVERRIDE
+    from synthesizer import MODULE_SOURCES, VHDL_SOURCES, PART, TOP_OVERRIDE, ordered_sources, synth_flags
     key = cfg["key"]
-    srcs = MODULE_SOURCES[key]; vhdl = VHDL_SOURCES.get(key, [])
+    srcs = ordered_sources(key); vhdl = VHDL_SOURCES.get(key, [])
     top = TOP_OVERRIDE.get(key, key)
+    period = cfg.get("regen_period_ns", 8.600)
     vb = "read_vhdl {\n  " + "\n  ".join(vhdl) + "\n}\n" if vhdl else ""
     nl = chr(10)
     tcl = (vb + "read_verilog {" + nl + "  " + nl.join(srcs) + nl + "}" + nl +
-           f"synth_design -top {top} -part {PART}" + nl +
+           f"synth_design -top {top} -part {PART}{synth_flags(key)}" + nl +
            "set clk_port [lindex [get_ports -quiet {clk clk_i}] 0]" + nl +
            'if {$clk_port eq ""} { set clk_port [lindex [get_ports -quiet *clk*] 0] }' + nl +
-           "create_clock -period 8.600 -name clk [get_ports $clk_port]" + nl +
+           "create_clock -period " + f"{period:.3f}" + " -name clk [get_ports $clk_port]" + nl +
            f"write_checkpoint -force {cfg['ckpt']}" + nl + 'puts "REGEN DONE"' + nl)
     tf = "/tmp/regen_ckpt.tcl"
     open(tf, "w").write(tcl)

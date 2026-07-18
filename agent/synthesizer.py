@@ -31,10 +31,25 @@ MODULE_SOURCES = {
 
 VHDL_SOURCES = {}  # module -> list of .vhd files (read via read_vhdl before synth)
 
+HDR_FIRST = ("clog2.v", "keccak_pkg.v")
+INCLUDE_DIRS = "./build/keygen ./build/encap ./build/decap ./hardware/common/shake256/rtl ./hardware/common"
+
+def ordered_sources(module):
+    """Header/macro files first; single source of truth for read order."""
+    return sorted(MODULE_SOURCES[module],
+                  key=lambda p: (0 if p.split('/')[-1] in HDR_FIRST else 1))
+
+def synth_flags(module):
+    """Per-design synth_design extra flags (defines, include dirs)."""
+    fl = f" -include_dirs {{{INCLUDE_DIRS}}}"
+    if module.startswith("hqc_joint"):
+        fl += " -verilog_define SHARED=1 -verilog_define SHARED_ENCAP=1"
+    return fl
+
 def build_tcl(module, param_set, period=5.000):
-    sources = sorted(MODULE_SOURCES[module], key=lambda p: (0 if p.split('/')[-1] in ('clog2.v','keccak_pkg.v') else 1))
+    sources = ordered_sources(module)
     top = TOP_OVERRIDE.get(module, module)
-    defines = ' -verilog_define SHARED=1 -verilog_define SHARED_ENCAP=1' if module.startswith('hqc_joint') else ''
+    defines = synth_flags(module)
     source_lines = "\n        ".join(sources)
     vhdl = VHDL_SOURCES.get(module, [])
     vhdl_block = ""
@@ -49,7 +64,6 @@ synth_design \\
     -top {top} \\
     -part {PART} \\
     -mode out_of_context{defines} \\
-    -include_dirs {{./build/keygen ./build/encap ./build/decap ./hardware/common/shake256/rtl ./hardware/common}} \\
     -generic parameter_set={param_set}
 set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
 if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
