@@ -565,72 +565,82 @@ assign shake_dout_valid_d   = (operation == DECAPSULATION)? shake_dout_valid:
 
 
  `ifdef SHARED
-assign pm_start  = (operation == KEYGEN)? pm_start_kg: 
+// AGENT EDIT: registered one-hot client select for shared POLY_MULT mux
+// (retimes DECAP FSM -> POLY_MULT cone; safe: ownership settles >=1 cycle before pm_start)
+reg sel_kg_r, sel_e_r, sel_d_r;
+always @(posedge clk) begin
+    sel_kg_r <= (operation == KEYGEN);
+    sel_e_r  <= (operation == ENCAPSULATION) || encap_inside_decap;
+    sel_d_r  <= (operation == DECAPSULATION) && !encap_inside_decap;
+end
+// AGENT EDIT NOTE: pm_start stays combinational — 1-cycle pulse; registered
+// select can swallow the first pulse after ownership change (deadlock risk).
+assign pm_start  = (operation == KEYGEN)? pm_start_kg:
                    (operation == ENCAPSULATION || encap_inside_decap)? pm_start_e:
                    (operation == DECAPSULATION)? pm_start_d:
                    0;
 
-assign pm_loc_in  = (operation == KEYGEN)? pm_loc_in_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_loc_in_e:
-                   (operation == DECAPSULATION)? pm_loc_in_d:
+assign pm_loc_in  = sel_kg_r? pm_loc_in_kg:
+                   sel_e_r? pm_loc_in_e:
+                   sel_d_r? pm_loc_in_d:
                    0;
                    
-assign pm_weight  = (operation == KEYGEN)? pm_weight_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_weight_e:
-                   (operation == DECAPSULATION)? pm_weight_d:
+assign pm_weight  = sel_kg_r? pm_weight_kg:
+                   sel_e_r? pm_weight_e:
+                   sel_d_r? pm_weight_d:
                    0;
                    
-assign pm_mux_word_0  = (operation == KEYGEN)? pm_mux_word_0_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_mux_word_0_e:
-                   (operation == DECAPSULATION)? pm_mux_word_0_d:
+assign pm_mux_word_0  = sel_kg_r? pm_mux_word_0_kg:
+                   sel_e_r? pm_mux_word_0_e:
+                   sel_d_r? pm_mux_word_0_d:
                    0;
                    
-assign pm_mux_word_1  = (operation == KEYGEN)? pm_mux_word_1_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_mux_word_1_e:
-                   (operation == DECAPSULATION)? pm_mux_word_1_d:
+assign pm_mux_word_1  = sel_kg_r? pm_mux_word_1_kg:
+                   sel_e_r? pm_mux_word_1_e:
+                   sel_d_r? pm_mux_word_1_d:
                    0;
                    
-assign pm_rd_dout  = (operation == KEYGEN)? pm_rd_dout_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_rd_dout_e:
-                   (operation == DECAPSULATION)? pm_rd_dout_d:
+assign pm_rd_dout  = sel_kg_r? pm_rd_dout_kg:
+                   sel_e_r? pm_rd_dout_e:
+                   sel_d_r? pm_rd_dout_d:
                    0;
                    
-assign pm_addr_result  = (operation == KEYGEN)? pm_addr_result_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_addr_result_e:
-                   (operation == DECAPSULATION)? pm_addr_result_d:
+assign pm_addr_result  = sel_kg_r? pm_addr_result_kg:
+                   sel_e_r? pm_addr_result_e:
+                   sel_d_r? pm_addr_result_d:
                    0;
                    
-assign pm_add_wr_en  = (operation == KEYGEN)? pm_add_wr_en_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_add_wr_en_e:
-                   (operation == DECAPSULATION)? pm_add_wr_en_d:
+assign pm_add_wr_en  = sel_kg_r? pm_add_wr_en_kg:
+                   sel_e_r? pm_add_wr_en_e:
+                   sel_d_r? pm_add_wr_en_d:
                    0;
                    
-assign pm_add_addr  = (operation == KEYGEN)? pm_add_addr_kg:
-                   (operation == ENCAPSULATION || encap_inside_decap)? pm_add_addr_e:
-                   (operation == DECAPSULATION)? pm_add_addr_d:
+assign pm_add_addr  = sel_kg_r? pm_add_addr_kg:
+                   sel_e_r? pm_add_addr_e:
+                   sel_d_r? pm_add_addr_d:
                    0;
                    
-assign pm_add_in  = (operation == KEYGEN)? pm_add_in_kg:
-                    (operation == ENCAPSULATION || encap_inside_decap)? pm_add_in_e:
-                    (operation == DECAPSULATION)? pm_add_in_d:
+assign pm_add_in  = sel_kg_r? pm_add_in_kg:
+                    sel_e_r? pm_add_in_e:
+                    sel_d_r? pm_add_in_d:
                     0;
 
 assign pm_loc_addr_kg   = pm_loc_addr;
 assign pm_addr_0_kg     = pm_addr_0;
 assign pm_addr_1_kg     = pm_addr_1;
-assign pm_valid_kg      = (operation == KEYGEN)? pm_valid:0;
+assign pm_valid_kg      = sel_kg_r? pm_valid:0;
 assign pm_dout_kg       = pm_dout;
 
 assign pm_loc_addr_e   = pm_loc_addr;
 assign pm_addr_0_e     = pm_addr_0;
 assign pm_addr_1_e     = pm_addr_1;
-assign pm_valid_e      = (operation == ENCAPSULATION || encap_inside_decap)? pm_valid:0;
+assign pm_valid_e      = sel_e_r? pm_valid:0;
 assign pm_dout_e       = pm_dout;
 
 assign pm_loc_addr_d   = pm_loc_addr;
 assign pm_addr_0_d     = pm_addr_0;
 assign pm_addr_1_d     = pm_addr_1;
-assign pm_valid_d      = (operation == DECAPSULATION)? pm_valid:0;
+assign pm_valid_d      = sel_d_r? pm_valid:0;
 assign pm_dout_d       = pm_dout;
 
    poly_mult #(
