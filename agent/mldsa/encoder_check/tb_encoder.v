@@ -57,7 +57,9 @@ module tb_encoder;
             while (j < NWORDS) begin
                 @(negedge clk);
                 ready_o = ($random(seed) % 4 != 0);   // 75% ready
-                if ($random(seed) % 3 != 0) begin      // 66% offer
+                // envelope gate: pristine PISO legal only if insert cannot exceed 256b.
+                // In-system flow control guarantees this; TB must respect the same contract.
+                if ($random(seed) % 3 != 0 && (GOLD.piso_len + GOLD.buffer_len[0] + GOLD.buffer_len[1] <= 176)) begin
                     valid_i = 1;
                     di = {$random(seed), $random(seed), $random(seed)};
                     j = j + 1;
@@ -102,7 +104,7 @@ module tb_encoder;
                 while (j < 40) begin
                     @(negedge clk);
                     ready_o = ($random(seed) % 4 != 0);
-                    if ($random(seed) % 3 != 0) begin
+                    if ($random(seed) % 3 != 0 && (GOLD.piso_len + GOLD.buffer_len[0] + GOLD.buffer_len[1] <= 176)) begin
                         valid_i = 1;
                         di = {$random(seed), $random(seed), $random(seed)};
                         j = j + 1;

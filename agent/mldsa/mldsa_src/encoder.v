@@ -91,25 +91,32 @@ module encoder #(
     reg [OUTPUT_W*COEFF_W-1:0] di_buffer;
 
     reg [1:0] valid_buffer;
-    (* max_fanout = 16 *) reg [2:0] mode_r = 0;
-    (* max_fanout = 16 *) reg [4:0] lvl_r1 = 0, lvl_r2 = 0;
 
     genvar i;
     generate
         for (i = 0; i < OUTPUT_W; i = i + 1) begin
-            uncenter_coeff UNCENTER (sec_lvl, mode_r, di_buffer[23*i+:23], di_uncentered[23*i+:23]);
+            uncenter_coeff UNCENTER (sec_lvl, mode, di_buffer[23*i+:23], di_uncentered[23*i+:23]);
         end
     endgenerate
 
-    zero_strip Z_STRIP(lvl_r2, di_uncentered_buffer, stripped);
+    zero_strip Z_STRIP(ENCODE_LVL, di_uncentered_buffer, stripped);
     
-    reg [255:0] PISO;
-    reg [9:0]  piso_len, piso_len_next;
+    // BANKED PISO: 144b accumulator (6-bit shift) + 4x64 word FIFO (no shift)
+    reg [255:0] ACC;
+    reg [7:0]   acc_len;
+    reg [63:0]  fifo [3:0];
+    reg [1:0]   fifo_head, fifo_tail;
+    reg [2:0]   fifo_count;
     reg [9:0] buffer_len [1:0];
-    
+    wire fifo_full  = (fifo_count == 3'd4);
+    wire fifo_empty = (fifo_count == 3'd0);
+    wire do_pop  = (acc_len >= 8'd64) && !fifo_full;
+    wire do_out;
+    reg  [255:0] acc_after_pop;
+    reg  [7:0]   len_after_pop;
     initial begin
-        PISO = 0;
-        piso_len = 0;        
+        ACC = 0; acc_len = 0;
+        fifo_head = 0; fifo_tail = 0; fifo_count = 0;
     end
     
     always @(*) begin
@@ -157,12 +164,13 @@ module encoder #(
         endcase
     
         
-        valid_o = (piso_len >= W) ? 1 : 0; 
-        piso_len_next = (valid_o && ready_o) ? piso_len - W: piso_len;   
+        valid_o = !fifo_empty;
         ready_i = 1;
-        
-        dout = PISO[W-1:0];
+        dout = fifo[fifo_head];
+        acc_after_pop = do_pop ? (ACC >> 64) : ACC;
+        len_after_pop = do_pop ? (acc_len - 8'd64) : acc_len;
     end
+    assign do_out = valid_o && ready_o;
     
     always @(posedge clk) begin
         
@@ -173,25 +181,26 @@ module encoder #(
 
         buffer_len[0] <= (ready_i && valid_i) ? 4*ENCODE_LVL : 0;
         buffer_len[1] <= buffer_len[0];
-        piso_len <= piso_len_next + buffer_len[1];
-
         di_buffer <= di;
-        mode_r <= mode;
-        lvl_r1 <= ENCODE_LVL;
-        lvl_r2 <= lvl_r1;
         if (rst) begin
-            piso_len <= 0;
-            PISO     <= 0;
+            ACC <= 0; acc_len <= 0;
+            fifo_head <= 0; fifo_tail <= 0; fifo_count <= 0;
         end else begin
-            if (valid_buffer[1]) begin
-                if (valid_o && ready_o) begin
-                    PISO <= (PISO >> W) | ({192'd0, stripped} << piso_len_next);
-                end else begin
-                    PISO <= PISO | ({192'd0, stripped} << piso_len_next);    
-                end
-            end else if (valid_o && ready_o) begin
-                PISO <= (PISO >> W);
+            // pop ACC word -> FIFO, then insert stripped at post-pop length
+            if (valid_buffer[1])
+                ACC <= acc_after_pop | ({176'd0, stripped} << len_after_pop);
+            else
+                ACC <= acc_after_pop;
+            acc_len <= len_after_pop + (valid_buffer[1] ? buffer_len[1][7:0] : 8'd0);
+            if (do_pop) begin
+                fifo[fifo_tail] <= ACC[63:0];
+                fifo_tail <= fifo_tail + 2'd1;
             end
+            if (do_pop)
+                $display("BANKPOP t=%0t word=%h acclen=%0d vb=%b", $time, ACC[63:0], acc_len, valid_buffer[1]);
+            if (do_out)
+                fifo_head <= fifo_head + 2'd1;
+            fifo_count <= fifo_count + (do_pop ? 3'd1 : 3'd0) - (do_out ? 3'd1 : 3'd0);
         end
     end
     

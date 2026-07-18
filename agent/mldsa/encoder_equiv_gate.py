@@ -23,6 +23,10 @@ FILES = ("encoder.v", "uncenter_coeff.v", "zero_strip.v")
 
 def _gold_rename(src):
     src = re.sub(r"\bmodule encoder\b", "module encoder_gold", src)
+    # debug tap: gold drain events
+    src = src.replace(
+        "PISO <= (PISO >> W) | ({192'd0, stripped} << piso_len_next);",
+        "begin PISO <= (PISO >> W) | ({192'd0, stripped} << piso_len_next); $display(\"GOLDPOP t=%0t word=%h len=%0d ins=1\", $time, PISO[63:0], piso_len); end")
     src = re.sub(r"\bmodule uncenter_coeff\b", "module uncenter_coeff_gold", src)
     src = re.sub(r"\bmodule zero_strip\b", "module zero_strip_gold", src)
     src = src.replace("uncenter_coeff UNCENTER", "uncenter_coeff_gold UNCENTER")
@@ -53,6 +57,7 @@ def run_equiv(candidate_dir=None):
             return {"status": "FAIL", "reason": "compile: " + r.stderr[-300:]}
         r = subprocess.run(["vvp", sim], capture_output=True, text=True, timeout=600)
         out = r.stdout
+        open("/tmp/encgate_sim.log","w").write(out)
         words = sum(int(m) for m in re.findall(r"done: (\d+) words", out))
         if "GATE RESULT: PASS" in out:
             return {"status": "PASS", "reason": "all 18 configs stream-match", "words": words}

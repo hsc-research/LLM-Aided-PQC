@@ -94,8 +94,30 @@ def main():
            "dispatch_instance": inst, "dispatch_file": f,
            "orchestrator": cfg["orchestrator"], "ts": time.strftime("%F %T")}
     open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+"\n")
-    print(f"[4] next (human): run {cfg['orchestrator']} on the mapped block, "
-          f"re-integrate, then re-run this script; accept only if closing fmax rises.")
+    if "--dispatch" not in sys.argv:
+        print(f"[4] next (human): run {cfg['orchestrator']} on the mapped block, "
+              f"re-integrate, then re-run this script; accept only if closing fmax rises.")
+        return
+    # ---- stage 2: auto-dispatch ----
+    import subprocess
+    blk = os.path.splitext(os.path.basename(f))[0]
+    print(f"[4] AUTO-DISPATCH: {cfg['orchestrator']} {blk}")
+    r = subprocess.run(["python3", cfg["orchestrator"], blk],
+                       capture_output=True, text=True, timeout=7200)
+    print(r.stdout[-2000:])
+    if "ACCEPTED" not in r.stdout:
+        print("[5] block orchestrator produced no accepted edit -- chip loop ends.")
+        return
+    print("[5] re-synth chip checkpoint (updated tracked sources)")
+    regen_ckpt(cfg)
+    print("[6] re-judge at closure")
+    tag2 = tag + "_r2"
+    post = closure_search(cfg["ckpt"], tag2, *cfg["bracket"])
+    print(json.dumps(post))
+    verdict = "ACCEPT" if post["closing_fmax_mhz"] > base["closing_fmax_mhz"] else "REJECT (revert block edit)"
+    print(f"[7] CHIP VERDICT: {base['closing_fmax_mhz']} -> {post['closing_fmax_mhz']} MHz : {verdict}")
+    rec["post"] = post; rec["verdict"] = verdict
+    open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+"\n")
 
 if __name__ == "__main__":
     main()
