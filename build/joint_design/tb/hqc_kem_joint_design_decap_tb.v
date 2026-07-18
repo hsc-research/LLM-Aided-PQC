@@ -179,10 +179,8 @@ assign hs_1 = (sel_hs)? s_1: h_1;
 
 // AGENT TB FIX: u/v arms were commented out in pristine (incomplete TB);
 // wire U_MEM/V_MEM read ports to the load loop like the d path.
-assign u_addr_0 = decap_in_addr[LOG_RAMDEPTH-1:0];
-assign u_addr_1 = 0;
-assign v_addr_0 = decap_in_addr[LOG_RAMDEPTH-1:0];
-assign v_addr_1 = 0;
+// (u_addr_*/v_addr_* are driven by the DUT's direct-read ports; do not drive here.
+//  Earlier fix wrongly tied addr_1 to 0 creating multiple drivers -> X.)
 assign decap_in = (decap_in_type == 2)? u_0:
                   (decap_in_type == 3)? v_0:
                   (decap_in_type == 1)? d_out:
