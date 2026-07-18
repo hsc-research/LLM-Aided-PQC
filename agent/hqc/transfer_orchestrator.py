@@ -39,6 +39,7 @@ try:
 except SystemExit:
     pass
 POLICY = _m.POLICY
+from learned_rules import rules_prompt_block, distill_rule
 classify = _m.classify
 
 def log(rec):
@@ -78,7 +79,7 @@ def call_llm(block, rtl, board, tags):
               "Fill exactly two slots: strategy + str-replace pair(s). JSON only.")
     for attempt in range(2):
         r = client.messages.create(model=MODEL, max_tokens=4000,
-            system=POLICY, messages=[{"role": "user", "content": prompt}])
+            system=POLICY + rules_prompt_block("hqc"), messages=[{"role": "user", "content": prompt}])
         USAGE["calls"] += 1; USAGE["in_tok"] += r.usage.input_tokens
         USAGE["out_tok"] += r.usage.output_tokens
         print(f"[api] call {USAGE['calls']} | run total ${usage_cost()}")
@@ -167,10 +168,19 @@ def main():
     gain = round(res["wns_ns"] - pre, 3)
     print(f"WNS {pre} -> {res['wns_ns']} ({gain:+.3f})")
     if gain >= MIN_GAIN_NS:
-        log({"module": module, "verdict": "ACCEPTED", "strategy": prop["strategy"],
-             "wns_pre": pre, "wns_post": res["wns_ns"], "gain": gain, "edits": edits})
+        rec = {"module": module, "verdict": "ACCEPTED", "strategy": prop["strategy"],
+             "wns_pre": pre, "wns_post": res["wns_ns"], "gain": gain, "edits": edits}
+        log(rec)
+        try: distill_rule(anthropic.Anthropic(), MODEL, rec, "hqc")
+        except Exception as e: print(f"rule distill skipped: {e}")
         print("=== ACCEPTED (TRANSFER WIN). .bak kept; review + commit manually. ===")
     else:
+        try:
+            distill_rule(anthropic.Anthropic(), MODEL,
+                         {"module": module, "verdict": "REJECTED_MARGINAL",
+                          "strategy": prop.get("strategy"), "wns_pre": pre,
+                          "wns_post": res["wns_ns"], "gain": gain}, "hqc")
+        except Exception as e: print(f"rule distill skipped: {e}")
         revert(f"marginal_{gain:+.3f}")
 
 if __name__ == "__main__":
