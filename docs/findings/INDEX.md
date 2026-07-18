@@ -25,6 +25,14 @@ negative, I = infrastructure/process. Full details in each file.
 | rejection_makehint_session | W | rejection_s/y + makehint latency-preserving wins |
 | board_closure | I | Latency-preserving tier closure rationale per block |
 | repro_and_pristine_integrity | I | Synthesis determinism (3× bit-identical, 7ps delta real); pristine-tree contamination found/fixed, no results invalidated |
+| fullchip_integration | I | First combined_top synthesis (39 V + 11 VHDL); chip critical path = encoder PISO merge, invisible to block OOC; GMU 116MHz methodology comparison |
+| postroute_acceptance | I | Measurement law: post-synth chip compares mislead (sign errors); post-route is the only chip judge; optimized beats pristine at every corner post-route |
+| postroute_ppa | I/W | Post-route chip PPA flow (impl_runner power/util); pristine 73.0 vs optimized 81.2 MHz at 8.6ns corner |
+| flow_directive_sweep | W/I | Tier-3 flow-space search: directive sweep infra; agent autonomously found new-best (101.5) at $0.016 |
+| encoder_campaign | W/N | 4-angle encoder RTL campaign: mode/lvl precompute kept (-2.900→-2.837); piso_len fanout regressed; insert-delay gate-caught occupancy-unsafe; skid excluded by capacity measurement |
+| encoder_insert_delay | N | stripped_r insert delay: occupancy-unsafe under backpressure (unbounded AXI stall); occupancy-probe method established |
+| DESIGN_encoder_banked_piso | I | Vector 2 design doc: banked word-aligned ACC+FIFO replacing 256b variable-shift PISO; 200MHz verdict (not reachable on -1; ~140-165 ceiling on -3); advisor sign-off doc |
+| precompute_boundaries | W/N | (see above) |
 
 ## HQC (docs/findings/hqc/)
 
@@ -35,6 +43,15 @@ negative, I = infrastructure/process. Full details in each file.
 | poly_mult_ramwidth | W | Memory-retarget family win |
 | decap_encap_crossmodule | I | Cross-module characterization |
 | decap_topN_recon | I | Decap path recon; decap closed (placement-bound) |
+| hqc_transfer_v0 | I/N | Transfer orchestrator v0: ML-DSA POLICY verbatim on HQC; correct rule application, honest marginal reverts, gate-caught false positive |
+| transfer_v1_and_policy_v2 | W/I | First autonomous cross-design win (decap flag_precompute +0.726ns, $0.037); POLICY v2 rendezvous rubric closed insertion-point gap; CE-pin prior refinement |
+| keccak_transfer | I | Keccak symmetric-primitive transfer experiments (Malik datapoint) |
+
+## Cross-design (docs/findings/)
+
+| Doc | Tag | Summary |
+|---|---|---|
+| crossdesign_closure | I/W | True-closure A/B: HQC joint +1.9% recipe-robust win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't |
 
 ## Current WNS ledger (Artix-7 OOC, 200 MHz) — measured 2026-07-11, all deterministic (3×-verified flow)
 
@@ -49,7 +66,19 @@ negative, I = infrastructure/process. Full details in each file.
 | rejection_a | -2.933 | -2.933 | fanout win deliberately reverted (composition inversion), closed |
 | rejection_y | -4.470 | -3.511 | internal-merge-bound |
 | decoder | -4.806 | -4.299 | architectural residual |
+| encoder (banked) | -2.900 | -2.288 | Vector 2 architectural rework; best encoder OOC |
 
 *coeff_decomposer base shown post sign_select win (true pristine base predates
 current ledger; the earlier failed pipeline attempt measured -1.688).
+
+## Chip-level ledger (post-route closure, grade -1, ExtraTimingOpt/Explore/Explore recipe)
+
+| Build | Closing fmax | LUT | FF | Power @ closure |
+|---|---|---|---|---|
+| combined_top pristine (14.25ns) | 70.2 MHz | 52987 | 29081 | 1.286 W |
+| combined_top optimized, pre-banked | 73.4 MHz | — | — | — |
+| combined_top banked encoder (12.73ns) | **78.6 MHz** | 53309 | 30034 | 1.480 W |
+
+Banked vs pristine: +12.0% fmax, +0.6% LUT, +3.3% FF; power rise tracks the
+faster clock (energy per operation approximately flat, ~+2.7%).
 HQC ledger in the ICCAD abstract Table I.
