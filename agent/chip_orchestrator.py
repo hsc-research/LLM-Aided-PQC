@@ -126,6 +126,12 @@ def main():
         return
     # ---- stage 2: auto-dispatch ----
     import subprocess
+    if f is None:
+        print("[4] no dispatch target: worst-path instance is outside the block-orchestrator "
+              "scope (e.g. shared Keccak, interconnect). Chip loop ends; architectural tier owns this cone.")
+        rec["verdict"] = "NO_TARGET (out-of-scope cone)"
+        open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+chr(10))
+        return
     blk = os.path.splitext(os.path.basename(f))[0]
     print(f"[4] AUTO-DISPATCH: {cfg['orchestrator']} {blk}")
     r = subprocess.run(["python3", cfg["orchestrator"], blk],
