@@ -32,8 +32,9 @@ MODULE_SOURCES = {
 VHDL_SOURCES = {}  # module -> list of .vhd files (read via read_vhdl before synth)
 
 def build_tcl(module, param_set, period=5.000):
-    sources = MODULE_SOURCES[module]
+    sources = sorted(MODULE_SOURCES[module], key=lambda p: (0 if p.split('/')[-1] in ('clog2.v','keccak_pkg.v') else 1))
     top = TOP_OVERRIDE.get(module, module)
+    defines = ' -verilog_define SHARED=1 -verilog_define SHARED_ENCAP=1' if module.startswith('hqc_joint') else ''
     source_lines = "\n        ".join(sources)
     vhdl = VHDL_SOURCES.get(module, [])
     vhdl_block = ""
@@ -47,7 +48,8 @@ def build_tcl(module, param_set, period=5.000):
 synth_design \\
     -top {top} \\
     -part {PART} \\
-    -mode out_of_context \\
+    -mode out_of_context{defines} \\
+    -include_dirs {{./build/keygen ./build/encap ./build/decap ./hardware/common/shake256/rtl ./hardware/common}} \\
     -generic parameter_set={param_set}
 set clk_port [lindex [get_ports -quiet {{clk clk_i}}] 0]
 if {{$clk_port eq ""}} {{ set clk_port [lindex [get_ports -quiet *clk*] 0] }}
@@ -89,7 +91,7 @@ def run_synthesis(module, param_set, repo_root=".", period=5.000):
 
 def _hqc_joint(pristine=False):
     import glob as _g, os as _o
-    pris = sorted(set(_g.glob("./hardware/**/*.v", recursive=True)) - set(_g.glob("./hardware/**/tb/*.v", recursive=True)))
+    pris = sorted(p for p in _g.glob("./hardware/**/*.v", recursive=True) if "/tb/" not in p)
     if pristine:
         return pris
     d = {}
@@ -137,6 +139,9 @@ def _hqc_joint_opt():
             b = _o.path.basename(p)
             if b in SWAP:
                 pris[b] = p
+    # tracked joint-design overrides (e.g. registered pm client select)
+    for p in _g.glob("./build/joint_design/*.v"):
+        pris[_o.path.basename(p)] = p
     return sorted(pris.values())
 MODULE_SOURCES["hqc_joint_opt"] = _hqc_joint_opt()
 TOP_OVERRIDE["hqc_joint_pristine"] = "hqc_kem_joint_design"
