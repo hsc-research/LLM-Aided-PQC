@@ -188,7 +188,7 @@ assign decap_in = (decap_in_type == 2)? u_0:
                   (decap_in_type == 1)? d_out:
                   0;
  
-  hqc_kem_joint_design #(.parameter_set(parameter_set))
+  hqc_kem_joint_design #(.parameter_set(parameter_set), .CT_DESIGN(2'b01))  // AGENT TB FIX: match standalone-verified sampler config (joint default 2'b10=cww stalls)
   DUT  
   (
     .clk(clk),
