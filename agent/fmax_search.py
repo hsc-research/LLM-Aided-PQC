@@ -23,12 +23,21 @@ report_timing_summary -file {rpt}
 puts "DONE"
 """
     open(f"/tmp/fsrch_{tag}_{mid}.tcl","w").write(tcl)
-    subprocess.run(["vivado","-mode","batch","-source",f"/tmp/fsrch_{tag}_{mid}.tcl",
-                    "-journal",f"/tmp/fsrch_{tag}_{mid}.jou","-log",f"/tmp/fsrch_{tag}_{mid}.log"],
-                   text=True, stdout=subprocess.DEVNULL)
-    txt = open(rpt).read() if os.path.exists(rpt) else ""
-    m = re.search(r"Slack \((VIOLATED|MET)\)\s*:\s*(-?[\d.]+)", txt)
-    if not m: print(f"iter {it}: {mid}ns NO RESULT"); break
+    m = None
+    for attempt in (1, 2):  # retry once on corrupted/missing probe
+        if os.path.exists(rpt): os.remove(rpt)  # never read a stale report
+        r = subprocess.run(["vivado","-mode","batch","-source",f"/tmp/fsrch_{tag}_{mid}.tcl",
+                        "-journal",f"/tmp/fsrch_{tag}_{mid}.jou","-log",f"/tmp/fsrch_{tag}_{mid}.log"],
+                       text=True, stdout=subprocess.DEVNULL)
+        txt = open(rpt).read() if os.path.exists(rpt) else ""
+        m = re.search(r"Slack \((VIOLATED|MET)\)\s*:\s*(-?[\d.]+)", txt)
+        route_ok = "Routing Is Not Complete" not in txt
+        if r.returncode == 0 and m and route_ok:
+            break
+        print(f"iter {it}: {mid}ns probe invalid (rc={r.returncode}, "
+              f"parsed={bool(m)}, routed={route_ok}) attempt {attempt}")
+        m = None
+    if not m: print(f"iter {it}: {mid}ns NO RESULT after retry — aborting search"); break
     met = m.group(1) == "MET"; wns = float(m.group(2))
     print(f"iter {it}: {mid}ns -> WNS {wns} ({'MET' if met else 'VIOL'})")
     if met: best = (mid, wns); hi = mid
