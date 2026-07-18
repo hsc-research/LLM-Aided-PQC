@@ -33,6 +33,7 @@ DESIGNS = {
             "REJ": "agent/mldsa/mldsa_src/rejection_s.v",
         },
         "orchestrator": "agent/mldsa/orchestrator.py",
+        "kat_gate": ["python3", "agent/mldsa/full_kat_gate.py", "agent/mldsa/mldsa_src"],
     },
     "hqc": {
         "key": "hqc_joint_opt",
@@ -49,6 +50,7 @@ DESIGNS = {
             "ENCRYPT": "build/encap/encrypt.v",
         },
         "orchestrator": "agent/hqc/transfer_orchestrator.py",
+        "kat_gate": ["python3", "agent/hqc/joint_kat_gate.py"],
     },
 }
 
@@ -143,6 +145,20 @@ def main():
     if "ACCEPTED" not in r.stdout:
         print("[5] block orchestrator produced no accepted edit -- chip loop ends.")
         return
+    gate = cfg.get("kat_gate")
+    if gate:
+        print(f"[5a] functional KAT gate: {' '.join(gate)}")
+        g = subprocess.run(gate, capture_output=True, text=True, timeout=7200)
+        print(g.stdout[-800:])
+        last = g.stdout.strip().splitlines()[-1] if g.stdout.strip() else ""
+        gate_pass = (g.returncode == 0) and ("PASS" in last)
+        if not gate_pass:
+            print("[5a] KAT GATE FAILED — edit is functionally broken; reverting tracked sources and ending chip loop.")
+            subprocess.run(["git", "checkout", "--", f], capture_output=True, text=True)  # revert only the dispatched file
+            rec["verdict"] = "KAT_FAIL (edit reverted)"
+            open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+chr(10))
+            return
+        print("[5a] KAT gate PASS")
     print("[5] re-synth chip checkpoint (updated tracked sources)")
     regen_ckpt(cfg)
     print("[6] re-judge at closure")
