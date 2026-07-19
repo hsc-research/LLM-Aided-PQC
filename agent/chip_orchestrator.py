@@ -97,7 +97,7 @@ def regen_ckpt(cfg):
     vb = "read_vhdl {\n  " + "\n  ".join(vhdl) + "\n}\n" if vhdl else ""
     nl = chr(10)
     tcl = (vb + "read_verilog {" + nl + "  " + nl.join(srcs) + nl + "}" + nl +
-           f"synth_design -top {top} -part {PART}{synth_flags(key)}" + nl +
+           f"synth_design -top {top} -part {PART} -mode out_of_context{synth_flags(key)}" + nl +
            "set clk_port [lindex [get_ports -quiet {clk clk_i}] 0]" + nl +
            'if {$clk_port eq ""} { set clk_port [lindex [get_ports -quiet *clk*] 0] }' + nl +
            "create_clock -period " + f"{period:.3f}" + " -name clk [get_ports $clk_port]" + nl +
