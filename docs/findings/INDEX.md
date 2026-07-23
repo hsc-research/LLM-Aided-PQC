@@ -18,6 +18,7 @@ negative, I = infrastructure/process. Full details in each file.
 | gen_c_sample_addr | W | sample_addr precompute 1 cycle ahead: -5.029→-3.307 (+20.8% fmax) |
 | fanout_load_profile | W/N | gen_c FSM fanout -3.307→-1.264 (project record +2.043ns) + makehint N=8; load-profile rule: narrow reg + homogeneous CE bank pays, wide/heterogeneous loses |
 | precompute_boundaries | W/N | decoder ENCODE_LVL_r + rejection_y ge-flag wins; 4 negatives incl. loop-endpoint rule (usehint ctr) |
+| policy_v2_insertion_point | I/N | POLICY v2 rendezvous rubric: insertion-point selection 0/12 to 4/4 post-rule (log-verified); all 4 edits still failed downstream (3 anchor, 1 gate) |
 | decoder_usehint_autonomous | W | Autonomous decoder win; usehint characterization |
 | decoder_s_lut_negative | N | S-mode constant-LUT regressed; binding mode is T0/Z; constant_lut excluded for domain width |
 | decoder_signselect_negative | N | T0/Z sign-select regressed at 13-20b; strategy excluded on explicit-compare ternaries at ALL widths; board closed under taxonomy |
@@ -51,7 +52,7 @@ negative, I = infrastructure/process. Full details in each file.
 
 | Doc | Tag | Summary |
 |---|---|---|
-| crossdesign_closure | I/W | True-closure A/B: HQC joint +1.9% recipe-robust win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't |
+| crossdesign_closure | I/W | True-closure A/B: HQC joint +1.9% win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't |
 
 ## Current WNS ledger (Artix-7 OOC, 200 MHz) — measured 2026-07-11, all deterministic (3×-verified flow)
 

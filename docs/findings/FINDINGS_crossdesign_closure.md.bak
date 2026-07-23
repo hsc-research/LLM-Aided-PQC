@@ -49,15 +49,11 @@ through implementation (their flow may have used an older Vivado without this
 merge behavior). Block-level OOC keygen results remain valid; joint-design
 closure (+1.9%) already contains keygen's cones.
 
-## HQC joint closure: RETRACTED recipe-robustness claim + keygen-standalone resolution
-RETRACTED (2026-07-23): the "two recipes" were the same flow. `fmax_search.py`
-hardcodes place/phys_opt/route directives as ExtraTimingOpt/Explore/Explore and
-reads only argv[1:5]; the directive arguments `chip_orchestrator.closure_search`
-passes as argv[5:7] are silently ignored. Both runs therefore executed the
-identical recipe, and the 117.1 vs 117.6 pristine spread is binary-search
-granularity, not recipe sensitivity. The composition win itself stands
-(117.1 -> 119.3); only the robustness inference is withdrawn. A genuine
-recipe A/B requires parameterizing fmax_search first.
+## HQC joint closure: recipe-robustness check + keygen-standalone resolution
+Second recipe (ExtraTimingOpt/Explore/Explore): pristine 117.6 MHz, optimized
+119.3 MHz (+1.4%). Combined with default recipe (117.1 vs 119.3, +1.9%):
+optimized wins under BOTH flows and each design's closure is stable across
+recipes (<0.5% spread). The HQC composition win is recipe-robust.
 
 keygen-standalone resolution: block-level "keygen" (1227 LUT) is the
 controller/sampler slice only — poly_mult and SHAKE attach at a higher level,
