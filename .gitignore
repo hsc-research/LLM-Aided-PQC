@@ -67,3 +67,4 @@ clockInfo.txt
 tight_setup_hold_pins.txt
 minerva_ws/
 tools/minerva/
+build/**/*.dcp
