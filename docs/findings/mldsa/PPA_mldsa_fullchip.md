@@ -25,10 +25,11 @@ per direction).
 | Build | LUT | FF | DSP | BRAM |
 |---|---|---|---|---|
 | Pristine | 52,987 | 29,081 | 16 | 29 |
-| Optimized | 53,309 | 30,034 | 16 | 29 |
+| Optimized | 53,597 | 30,123 | 16 | 29 |
 
-Delta: +0.6% LUT, +3.3% FF (pipeline and precompute registers), DSP and
-BRAM identical.
+Delta: +1.2% LUT, +3.6% FF (pipeline and precompute registers), DSP and
+BRAM identical. UPDATED 2026-07-24: area re-pulled at the confirmed 12.09 ns
+closure point (was 12.73 ns / 53,309 / 30,034).
 
 ## Latency (measured, not derived: full FIPS-204 KAT runs, 25 vectors x 3
 security levels, average KeyGen cycles per operation)
@@ -47,9 +48,13 @@ precompute registers (latency-preserving by construction; contribute 0).
 
 | Level | Pristine | Optimized | Net |
 |---|---|---|---|
-| II | 69.4 us | 63.5 us | -8.5% time (+9.3% throughput) |
-| III | 118.1 us | 107.2 us | -9.2% time (+10.2% throughput) |
-| V | 199.9 us | 181.0 us | -9.5% time (+10.5% throughput) |
+| II | 69.4 us | 60.3 us | -13.1% time (+15.0% throughput) |
+| III | 118.1 us | 101.9 us | -13.8% time (+15.9% throughput) |
+| V | 199.9 us | 172.0 us | -13.9% time (+16.2% throughput) |
+
+UPDATED 2026-07-24: recomputed at the confirmed optimized closure of 82.7 MHz
+(12.09 ns, reproduced twice). Prior rows used 78.6 MHz (12.73 ns), which a
+wide-bracket search had understated. Cycle counts are unchanged (measured).
 
 ## Power / Energy
 
