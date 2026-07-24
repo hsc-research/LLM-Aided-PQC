@@ -52,6 +52,11 @@ period should be re-pulled before it replaces the 78.6 MHz table entry.
 ## Next
 - Current worst-path cone (FSM replica → start_op) is the next architectural
   target, not Keccak as previously assumed — reassess before further work.
-- Reproduce 82.7 MHz via standalone `fmax_search.py`, same bracket.
+- ~~Reproduce 82.7 MHz via standalone `fmax_search.py`, same bracket.~~ DONE
+  2026-07-24: reproduced exactly (12.09 ns, WNS +0.095) on the same
+  post_synth_grade1.dcp. Pristine also re-closed on a tight bracket and
+  reproduced exactly at 14.25 ns / 70.2 MHz (WNS +0.068), so the pair is
+  symmetric and the earlier wide-bracket concern is resolved. 82.7 MHz now
+  replaces 78.6 in all tables; headline is +17.8% vs pristine.
 - Update advisor package with corrected framing (measurement precision, not
   autonomous fix).
