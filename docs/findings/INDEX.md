@@ -47,6 +47,7 @@ negative, I = infrastructure/process. Full details in each file.
 | decap_topN_recon | I | Decap path recon; decap closed (placement-bound) |
 | hqc_transfer_v0 | I/N | Transfer orchestrator v0: ML-DSA POLICY verbatim on HQC; correct rule application, honest marginal reverts, gate-caught false positive |
 | transfer_v1_and_policy_v2 | W/I | First autonomous cross-design win (decap flag_precompute +0.726ns, $0.037); POLICY v2 rendezvous rubric closed insertion-point gap; CE-pin prior refinement |
+| joint_propagation | I/W | a1a7ad2 silently reverted the joint composition to pristine for 3 days (untracked build tree + stage() regeneration); restored, 114.8 -> 116.0 MHz true closure; HQC now binds on shared Keccak state RAM, 4 of 5 worst paths |
 | keccak_transfer | I | Keccak symmetric-primitive transfer experiments (Malik datapoint) |
 
 ## Cross-design (docs/findings/)
