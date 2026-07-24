@@ -6,7 +6,15 @@ Matched pair, identical settings: xc7a200tfbg676-1, 5.0 ns constraint
 | Metric | Pristine | Optimized | Delta |
 |---|---|---|---|
 | WNS | -10.318 ns | -8.766 ns | +1.552 ns |
-| Achievable Fmax | 65.3 MHz | 72.6 MHz | +11.2% |
+| ~~Achievable Fmax~~ | ~~65.3 MHz~~ | ~~72.6 MHz~~ | ~~+11.2%~~ |
+
+**RETRACTED 2026-07-24.** The Fmax row above is `1/(period - WNS)` projected
+from runs violating by 8-10 ns. That formula is invalid under over-constraint
+(see FINDINGS_crossdesign_closure). True closure, measured by binary search
+and each reproduced exactly: pristine 70.2 MHz (14.25 ns, WNS +0.068),
+optimized 82.7 MHz (12.09 ns, WNS +0.095), i.e. +17.8%. The AREA and POWER
+rows in this table remain valid: they are real post-route measurements of a
+matched pair under identical settings, and the caveats below still apply.
 | Slice LUTs | 54,233 | 54,090 | -143 (-0.3%) |
 | Slice Registers | 29,117 | 30,344 | +1,227 (+4.2%) |
 | Total on-chip power | 3.469 W | 3.567 W | +2.8% |
