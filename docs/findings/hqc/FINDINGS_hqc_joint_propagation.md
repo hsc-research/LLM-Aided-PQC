@@ -131,11 +131,26 @@ Four of five terminate in the shared Keccak state RAM. The cluster spans
 the next binds: 8.62 to 8.546 ns, about +0.9%. This is a converged design, not
 one with a single removable spike.
 
-Deshpande et al. (PQC 2022) report the same wall on this architecture: they
-explored pipelining the critical path, found several such paths, and concluded
-the cycle-count overhead outweighed the frequency gain. Speed grade differs
-(their tables are `-3`, ours is `-1`), so their absolute numbers are not
-directly comparable, but the terminus is.
+Deshpande et al. (SAC 2023) report the same wall, and specifically on this
+module. In Section 2.1, immediately after describing their SHAKE256
+improvements, they state they explored raising the maximum clock frequency by
+pipelining the critical path, found several such paths, and that pipelining
+each added severe clock-cycle overhead for minimal frequency improvement. They
+conclude their Table 1 gives optimal time and area for the given architecture.
+The scope of that statement is the SHAKE256 module itself, which is precisely
+the cone we now bind on.
+
+The `parallel_slices` lever is also already maximized: extending the module
+from 16 to 32 slices was one of their contributions, and they selected 32 for
+best time-area product. Our build inherits that setting, so there is no
+remaining headroom there.
+
+Speed grade differs. Their SHAKE256 at 32 slices reports 166 MHz on
+`xc7a200t-3`; their joint design reports 164 MHz (Balanced) and 178 MHz
+(HighSpeed) on `xc7a100t-3`. Ours is `-1`. A -3 to -1 derate of roughly 30%
+places their joint design near 115 to 125 MHz, which brackets our 116.0 MHz.
+Absolute numbers are therefore not directly comparable, but both the terminus
+and the approximate ceiling agree.
 
 ML-DSA reached the same place: its chip loop also ended on shared-Keccak
 interconnect. Two PQC families, two independent campaigns, one shared
