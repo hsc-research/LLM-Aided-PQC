@@ -222,7 +222,6 @@ assign pm_out = pm_dout;
 //  );
 
 
- wire [RAMWIDTH-1:0] pm_out;
  wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr;
  wire pm_rd_en;
  
