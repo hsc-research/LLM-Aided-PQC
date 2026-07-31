@@ -1,0 +1,7 @@
+{
+  "top": "poly_mult",
+  "period_ns": 1.28125,
+  "fmax_mhz": 780.4878048780488,
+  "corner": "GPDK045_SVT_slow_0p9V_125C",
+  "memories": "blackboxed"
+}
