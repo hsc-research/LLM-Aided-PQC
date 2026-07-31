@@ -71,3 +71,10 @@ build/**/*.dcp
 test_joint_design/
 *.bak
 *_output_*.out
+
+# ASIC / Genus
+minerva_ws/
+asic/out/
+genus.log*
+genus.cmd*
+fv/
