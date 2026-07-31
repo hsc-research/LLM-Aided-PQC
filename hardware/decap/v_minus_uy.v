@@ -138,6 +138,12 @@ reg start_poly_mult;
 wire done_poly_mult;
 reg poly_mult_on;
 
+  wire xor_add_en;
+  wire [LOG_RAMDEPTH-1:0] xor_add_addr;
+  
+  wire [RAMWIDTH-1:0]  xor_add_out;
+  wire [LOG_RAMDEPTH-1:0] xor_add_out_addr;
+  wire xor_add_out_valid;
 assign u_minus_vy_out = pm_out;
 
 
@@ -230,12 +236,6 @@ assign pm_out = pm_dout;
   wire done_adder;
   wire [RAMWIDTH-1:0] add_in_1;
   wire [RAMWIDTH-1:0] add_in_2;
-  wire xor_add_en;
-  wire [LOG_RAMDEPTH-1:0] xor_add_addr;
-  
-  wire [RAMWIDTH-1:0]  xor_add_out;
-  wire [LOG_RAMDEPTH-1:0] xor_add_out_addr;
-  wire xor_add_out_valid;
   
   assign add_in_1 = pm_out;
   assign add_in_2 = uv_0;
