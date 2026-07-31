@@ -137,20 +137,27 @@ alongside the number. A gate can pass on files that were never edited.
 
 ---
 
-## Open item: log reconciliation
+## Resolved: log reconciliation
 
-The README claims 59 gated proposals. Committed JSONL logs total 48 records
-across four files. Two additional non-JSONL flight logs
-(`agent/flight_20260616_203218.log`, 117 lines;
-`agent/flight_20260616_203631.log`, 111 lines) have not been parsed and likely
-contain the remainder.
+The README's 59 gated proposals figure is **correct and reproducible**.
+Source of record: `docs/findings/FINDINGS_gate_catch_rate.md`.
 
-**This must be reconciled before D&T.** The figure is a headline number and its
-breakdown (33 applied, 14 functionally incorrect) does not obviously fit 48
-records. Until reconciled, cite the count as approximate or recount from
-primary logs.
+| Log | Records |
+|---|---|
+| `agent/flight_log.jsonl` | 7 |
+| `agent/hqc/transfer_log.jsonl` | 15 |
+| `agent/mldsa/orchestrator_log.jsonl` | 21 |
+| `agent/mldsa/latency_log.jsonl` | 22 |
+| Total | 65 |
+| Less 6 terminator records (post-verdict, not separate proposals) | **59** |
 
----
+Excluded by design: `chip_orchestrator_log.jsonl` (5, closure/dispatch) and
+`flow_sweep_log.jsonl` (29, directive search). Both record measurement, not
+edit attempts. The two `flight_2026*.log` files are human-readable transcripts
+containing 1 verdict each, already counted in `flight_log.jsonl`.
+
+A prior draft of this document flagged a 59-vs-48 discrepancy. That was an
+error in the recount: `latency_log.jsonl` was omitted. No action needed.
 
 ## Next steps
 
