@@ -127,6 +127,9 @@ module combined_top #(
         FSM2_MAKEHINT   = 5'd11;
         
     reg [31:0] mlen;
+    reg a_generated;
+    reg a_generated_during;
+    reg op_done_ntty;
     reg [31:0] mlen_PLUS48, mlen_PLUS64,mlen_PLUS80, mlen_PLUS112, mlen_PLUS128, mlen_PLUS144, mlen_PLUS152;
     reg [4:0] cstate0, nstate0;
     reg [4:0] cstate1, nstate1;
@@ -2282,9 +2285,6 @@ module combined_top #(
     
     integer i;
     
-    reg a_generated;
-    reg a_generated_during;
-    reg op_done_ntty;
     
     always @(posedge clk) begin
         mlen_PLUS48  <= mlen + 48;

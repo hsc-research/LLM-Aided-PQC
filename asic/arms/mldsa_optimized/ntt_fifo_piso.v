@@ -56,15 +56,15 @@ module ntt_fifo_piso
                 fifo[i] <= fifo[i-1];
             
             if (piso_en) begin
-                fifo[3] = line[0*24+:24];
-                fifo[2] = line[1*24+:24];
-                fifo[1] = line[2*24+:24];
-                fifo[0] = line[3*24+:24];
+                fifo[3] <= line[0*24+:24];
+                fifo[2] <= line[1*24+:24];
+                fifo[1] <= line[2*24+:24];
+                fifo[0] <= line[3*24+:24];
             end else begin
-                fifo[3] = fifo[2];
-                fifo[2] = fifo[1];
-                fifo[1] = fifo[0];
-                fifo[0] = new_value;
+                fifo[3] <= fifo[2];
+                fifo[2] <= fifo[1];
+                fifo[1] <= fifo[0];
+                fifo[0] <= new_value;
             end
         end
     end
