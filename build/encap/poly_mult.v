@@ -193,6 +193,24 @@ wire [W_BY_X-1:0] xor_in_0;
 wire [W_BY_X-1:0] xor_in_1;
 
 parameter DIFF_BITS = (W_BY_X - (N)%W_BY_X)%W_BY_X;
+
+reg [ADDR_WIDTH-1:0] addr_0_intermediate;
+reg [3:0] state = 0;
+// Below are states
+parameter S_WAIT_START_L            =   0;
+parameter S_CLEAR_INTER_MEM         =   1;
+parameter S_LOAD_DONE_L	         =   2;
+parameter S_ADDR_SETTING            =   3;
+parameter S_SHIFT_L                 =   4;
+parameter S_MUL_DONE                =   5;
+parameter S_REDUCTION_START         =   6;
+parameter S_WAIT_REDUCTION          =   7;
+parameter S_REDUCTION_DONE          =   8;
+
+parameter S_STALL          =   9;
+
+
+
 reg [ADDR_WIDTH-1:0] addr_0_intermediate_reg;
 
 always@(posedge clk) 
@@ -237,25 +255,8 @@ mem_dual #(.WIDTH(W_BY_X), .DEPTH(RAMSIZE/2)) INTERLEAVED_RED_MEM (
 
 
 
-reg [ADDR_WIDTH-1:0] addr_0_intermediate;
 
 assign RAMSIZE_minus_shift = (RAMSIZE - shift[LOGW-1:LOGW-ADDR_WIDTH]);
-
-reg [3:0] state = 0;
-// Below are states
-parameter S_WAIT_START_L            =   0;
-parameter S_CLEAR_INTER_MEM         =   1;
-parameter S_LOAD_DONE_L	         =   2;
-parameter S_ADDR_SETTING            =   3;
-parameter S_SHIFT_L                 =   4;
-parameter S_MUL_DONE                =   5;
-parameter S_REDUCTION_START         =   6;
-parameter S_WAIT_REDUCTION          =   7;
-parameter S_REDUCTION_DONE          =   8;
-
-parameter S_STALL          =   9;
-
-
 
 assign count_chunks_reg = addr_0_intermediate + 1;
 
