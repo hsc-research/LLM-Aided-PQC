@@ -1,0 +1,11 @@
+Genus Fmax: v_minus_uy  src=../arms/v_minus_uy_optimized  bracket [0.5, 5.0] ns
+  period=5.000ns  MET  slack=3707ps  (106s)
+  period=2.750ns  MET  slack=1457ps  (106s)
+  period=1.625ns  MET  slack=337ps  (106s)
+  period=1.062ns  MET  slack=3ps  (110s)
+  period=0.781ns  MET  slack=2ps  (136s)
+  period=0.641ns  VIOLATED  slack=-18ps  (160s)
+  period=0.711ns  VIOLATED  slack=-3ps  (125s)
+  period=0.746ns  MET  slack=2ps  (115s)
+
+RESULT v_minus_uy: min period 0.746 ns  ->  Fmax 1340.31 MHz

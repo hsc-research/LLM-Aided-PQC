@@ -1,0 +1,11 @@
+Genus Fmax search: poly_mult  bracket [1.0, 5.0] ns
+  period=5.000ns  MET  slack=2524ps  (375s)
+  period=3.000ns  MET  slack=549ps  (334s)
+  period=2.000ns  MET  slack=7ps  (343s)
+  period=1.500ns  MET  slack=0ps  (427s)
+  period=1.250ns  VIOLATED  slack=-18ps  (931s)
+  period=1.375ns  MET  slack=0ps  (458s)
+  period=1.312ns  MET  slack=0ps  (642s)
+  period=1.281ns  MET  slack=0ps  (882s)
+
+RESULT poly_mult: min period 1.281 ns  ->  Fmax 780.49 MHz

@@ -78,3 +78,6 @@ asic/out/
 genus.log*
 genus.cmd*
 fv/
+
+# Result logs are evidence, not build noise
+!asic/results/*.log
