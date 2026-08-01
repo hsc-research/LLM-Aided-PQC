@@ -26,10 +26,24 @@ TARGETS = [
 
 def probe(basename):
     """Run Genus parse check, return (code, error_text)."""
+    # Genus stays resident after a read_hdl failure, so a defective file would
+    # otherwise block for the full timeout. The error is written before the
+    # hang, so run in background, wait for the log, then reap.
     subprocess.run(["ssh", HOST,
-        f"cd ~/pqc/hqc/asic/portwork && GENUS_FILE=../../build/joint_design/{basename} "
-        f"timeout 900 genus -no_gui -f parse_check.tcl > /dev/null 2>&1"],
+        f"cd ~/pqc/hqc/asic/portwork && nohup bash -c "
+        f"'GENUS_FILE=../../build/joint_design/{basename} timeout 300 "
+        f"genus -no_gui -f parse_check.tcl' > /dev/null 2>&1 &"],
         capture_output=True)
+    for _ in range(60):                       # up to 300 s
+        time.sleep(5)
+        chk = subprocess.run(["ssh", HOST,
+            "L=$(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1); "
+            "grep -cE '^PARSE_OK$|Error' $L"],
+            capture_output=True, text=True)
+        if chk.stdout.strip() not in ("", "0"):
+            break
+    subprocess.run(["ssh", HOST, "pkill -u alco9414 -f parse_check.tcl"],
+                   capture_output=True)
     r = subprocess.run(["ssh", HOST,
         "grep -m 1 -B 4 -A 6 'Error' $(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1)"],
         capture_output=True, text=True)

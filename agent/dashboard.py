@@ -15,6 +15,7 @@ LOGS = {
     "transfer":     os.path.join(HERE, "hqc", "transfer_log.jsonl"),
     "flow_sweep":   os.path.join(HERE, "flow_sweep_log.jsonl"),
     "chip":         os.path.join(HERE, "chip_orchestrator_log.jsonl"),
+    "port":         os.path.join(HERE, "port", "port_log.jsonl"),
 }
 RUNLOG = os.path.join(HERE, "mldsa", "fullkat_run.log")
 
@@ -35,6 +36,7 @@ TIER_LABEL = {
     "transfer":     "Cross-design transfer",
     "flow_sweep":   "Flow-space search",
     "chip":         "Chip-level closure loop",
+    "port":         "Cross-toolchain port fixes",
 }
 
 VERDICT_EXPLAIN = {
@@ -139,12 +141,13 @@ def data():
             cards.append({
                 "src": src, "tier": TIER_LABEL.get(src, src), "idx": i,
                 "ts": r.get("ts"), "verdict": v, "kind": STATUS_KIND.get(v, "neutral"),
-                "block": r.get("block") or r.get("module") or r.get("dispatch_instance"),
-                "strategy": r.get("strategy"), "gain": g,
+                "block": r.get("block") or r.get("module") or r.get("dispatch_instance") or r.get("file"),
+                "strategy": r.get("strategy") or r.get("code"), "gain": g,
                 "cost": cost_delta if cost_delta is not None else r.get("cost_usd"), "model": r.get("model"),
                 "story": narrative(r, src),
                 "detail": {k2: r.get(k2) for k2 in
-                           ("reason", "design", "edits", "closure", "post", "worst_path")
+                           ("reason", "design", "edits", "closure", "post", "worst_path",
+                            "gate", "rationale", "usage")
                            if r.get(k2) is not None},
             })
         run_costs_total += cur_cost
