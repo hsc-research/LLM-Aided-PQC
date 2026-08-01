@@ -12,10 +12,14 @@ class GenusBackend(SynthBackend):
     name = "genus"
     stage = "post_synth"
 
-    def __init__(self, effort="high", blackbox_memories=True, period=5.000):
+    def __init__(self, effort="high", blackbox_memories=True, period=5.000,
+                 srcdir=None, outdir=None, tcl="genus_fmax_arm.tcl"):
         self.effort = effort
         self.blackbox = blackbox_memories
         self.period = period
+        self.srcdir = srcdir      # remote path, e.g. ../arms/v_minus_uy_baseline
+        self.outdir = outdir      # remote path, e.g. ~/pqc/hqc/asic/out/vmu_baseline
+        self.tcl = tcl
 
     def config_fingerprint(self):
         return {"backend": "genus", "effort": self.effort,
@@ -27,7 +31,12 @@ class GenusBackend(SynthBackend):
         return subprocess.run(["ssh", HOST, cmd], capture_output=True,
                               text=True, timeout=timeout)
 
-    def synthesize(self, module, param_set, srcdir, outdir, tcl="genus_fmax_arm.tcl"):
+    def synthesize(self, module, param_set, srcdir=None, outdir=None, tcl=None):
+        srcdir = srcdir or self.srcdir
+        outdir = outdir or self.outdir
+        tcl    = tcl or self.tcl
+        if not srcdir or not outdir:
+            return {"error": "GenusBackend needs srcdir and outdir"}
         env = (f"GENUS_PERIOD={self.period:.3f} GENUS_TOP={module} "
                f"GENUS_SRCDIR={srcdir} GENUS_OUTDIR={outdir}")
         r = self._ssh(f"cd {REMOTE}/scripts && {env} "

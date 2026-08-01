@@ -61,7 +61,7 @@ def ask_claude(verilog_code, previous_error=None):
     )
     return strip_fences(message.content[0].text)
 
-def optimize_once(module, param_set, verilog_path, backup=True, previous_error=None):
+def optimize_once(module, param_set, verilog_path, backup=True, previous_error=None, backend=None):
     original = load_verilog(verilog_path)
     backup_path = verilog_path + ".backup"
 
@@ -73,8 +73,12 @@ def optimize_once(module, param_set, verilog_path, backup=True, previous_error=N
     optimized = ask_claude(original, previous_error=previous_error)
     save_verilog(verilog_path, optimized)
 
-    print("Running synthesis on optimized version...")
-    result = run_synthesis(module, param_set)
+    bname = backend.name if backend else "vivado"
+    print(f"Running synthesis on optimized version [{bname}]...")
+    if backend is None:
+        result = run_synthesis(module, param_set)
+    else:
+        result = backend.synthesize(module, param_set)
 
     if "error" in result:
         print(f"Synthesis failed: {result['error']}")
