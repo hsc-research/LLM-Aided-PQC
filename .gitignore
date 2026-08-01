@@ -81,3 +81,8 @@ fv/
 
 # Result logs are evidence, not build noise
 !asic/results/*.log
+
+# Secrets
+.env
+*.key
+**/anthropic_env
