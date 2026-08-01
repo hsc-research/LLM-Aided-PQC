@@ -18,10 +18,15 @@ def stage1_pure_reorder(path_before, path_after):
     b = subprocess.run(["sort", path_after],  capture_output=True, text=True, env=env).stdout
     if a == b:
         return True, "pure reorder"
-    la, lb = a.split("\n"), b.split("\n")
-    added   = [x for x in lb if x not in la]
-    removed = [x for x in la if x not in lb]
-    return False, f"not a pure reorder: +{len(added)} -{len(removed)}"
+    from collections import Counter
+    ca, cb = Counter(a.split("\n")), Counter(b.split("\n"))
+    added   = cb - ca
+    removed = ca - cb
+    def show(c):
+        return "; ".join(f"{n}x {repr(l)[:60]}" for l, n in list(c.items())[:4])
+    return False, (f"not a pure reorder: +{sum(added.values())} "
+                   f"-{sum(removed.values())} | added: {show(added)} "
+                   f"| removed: {show(removed)}")
 
 
 def stage2_tool_accepts(runner):

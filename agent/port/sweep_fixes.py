@@ -67,6 +67,14 @@ if __name__ == "__main__":
         code, err = probe(base)
         if not code:
             print(f"  no error found, already clean"); continue
-        print(f"  first error: {code}")
-        run(rel, code, err, do_kat=True)
+        # Genus reports one error cluster per pass, so a file with several
+        # defects needs several rounds. Re-probe after each accepted fix.
+        for round_n in range(1, 6):
+            print(f"  round {round_n}: {code}")
+            r = run(rel, code, err, do_kat=True)
+            if r.get("verdict") != "ACCEPTED":
+                break
+            code, err = probe(base)
+            if not code:
+                print(f"  clean after {round_n} round(s)"); break
         time.sleep(2)

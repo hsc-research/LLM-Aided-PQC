@@ -5,7 +5,7 @@ Stage 2 runs Genus in asic/portwork/ so it cannot collide with other jobs
 """
 import sys, os, json, shutil, subprocess, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from propose_fix import propose, apply_edit
+from propose_fix import propose, apply_edit, apply_move
 from port_gate import stage1_pure_reorder, stage3_kat
 from fix_templates import TEMPLATES
 
@@ -19,10 +19,22 @@ def genus_accepts(fname):
     """Stage 2. Returns (ok, detail)."""
     subprocess.run(["rsync", "-az", f"{REPO}/build/joint_design/{fname}",
                     f"{HOST}:~/pqc/hqc/build/joint_design/"], check=True)
+    # Genus stays resident after read_hdl finishes, so run it in the
+    # background, poll the log, then reap. Blocking here cost 15 min per file.
+    import time
     subprocess.run(["ssh", HOST,
-        "cd ~/pqc/hqc/asic/portwork && GENUS_FILE=../../build/joint_design/"
-        + fname + " timeout 900 genus -no_gui -f parse_check.tcl > /dev/null 2>&1"],
-        capture_output=True)
+        "cd ~/pqc/hqc/asic/portwork && nohup bash -c 'GENUS_FILE="
+        "../../build/joint_design/" + fname + " timeout 300 genus -no_gui "
+        "-f parse_check.tcl' > /dev/null 2>&1 &"], capture_output=True)
+    for _ in range(60):
+        time.sleep(5)
+        chk = subprocess.run(["ssh", HOST,
+            "L=$(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1); "
+            "grep -cE '^PARSE_OK$|Error' $L"], capture_output=True, text=True)
+        if chk.stdout.strip() not in ("", "0"):
+            break
+    subprocess.run(["ssh", HOST, "pkill -u alco9414 -f parse_check.tcl"],
+                   capture_output=True)
     # Match the emitted line only. "PARSE_OK" also appears in the echoed
     # source line, so a plain count returns 2 on success.
     r = subprocess.run(["ssh", HOST,
@@ -57,12 +69,27 @@ def run(fname, code, error_text, do_kat=True):
     shutil.copy(src_path, bak)
     print(f"[{base}] proposing fix for {code}")
     edit = propose(code, base, open(src_path).read(), error_text)
-    if edit.get("verdict") != "edit":
+    if edit.get("verdict") not in ("edit", "move"):
         os.remove(bak)
         return record_and_return({"verdict": "refuse", "file": base, "code": code,
-                                  "reason": edit.get("reason"), "usage": edit.get("_usage")})
+                                  "reason": edit.get("reason"), "raw": edit.get("raw"),
+                                  "usage": edit.get("_usage")})
 
-    ok, msg = apply_edit(src_path, edit)
+    if edit["verdict"] == "move":
+        mv = edit.get("moves") or [{"first_line": edit.get("first_line"),
+                                    "last_line": edit.get("last_line"),
+                                    "after_line": edit.get("after_line")}]
+        # Apply bottom-up so line numbers above the edit stay valid.
+        mv = sorted(mv, key=lambda m: m["first_line"], reverse=True)
+        ok, msg = True, ""
+        for m in mv:
+            ok, d = apply_move(src_path, m["first_line"], m["last_line"],
+                               m["after_line"])
+            msg += d + "; "
+            if not ok:
+                break
+    else:
+        ok, msg = apply_edit(src_path, edit)
     print(f"  apply: {msg}")
     if not ok:
         shutil.copy(bak, src_path); os.remove(bak)

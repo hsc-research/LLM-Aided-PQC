@@ -22,16 +22,23 @@ Rules, without exception:
    module-scope declarations. Never inside an always block, initial block,
    generate block, or task. A reg declaration inside a procedural block is
    illegal Verilog even though moving it there is a pure reordering.
-4. Anchors must be byte-exact including leading whitespace, and must appear
-   exactly once in the file.
-5. If you cannot construct a byte-exact unique anchor, or the fix is not
-   clearly semantics-preserving, return {"verdict":"refuse","reason":"..."}.
+0. Fix EVERY use-before-declaration in the file, not only the symbols the
+   tool happened to report. The tool stops at its first error cluster, but you
+   can see the whole file. If several separate declaration blocks are each
+   used before they are declared, return a list of moves.
+4. You identify WHICH lines move by number. You never reproduce their text.
+   The source is given with 1-indexed line numbers. Deterministic code moves
+   the original bytes verbatim, so whitespace is preserved automatically.
+5. first_line..last_line must cover the whole contiguous declaration block,
+   including any blank or whitespace-only lines inside it.
+6. after_line is a line number in the ORIGINAL numbering. The block is placed
+   immediately after it, and it must be at module scope.
+7. If the fix is not clearly semantics-preserving, or the declarations are not
+   contiguous, return {"verdict":"refuse","reason":"..."}.
 
-Schema for a proposed fix:
-{"verdict":"edit",
- "remove":"<exact text to delete, or empty string>",
- "anchor":"<exact unique line the insertion goes AFTER>",
- "insert":"<exact text to insert>",
+Schema for a proposed fix (all line numbers refer to the ORIGINAL file):
+{"verdict":"move",
+ "moves":[{"first_line":<int>,"last_line":<int>,"after_line":<int>}, ...],
  "rationale":"<one sentence>"}"""
 
 
@@ -40,6 +47,7 @@ def propose(code, filename, source, error_text):
     if not tpl.get("autonomous"):
         return {"verdict": "refuse",
                 "reason": f"{code} is not autonomous: {tpl.get('constraint','')}"}
+    numbered = "\n".join(f"{i}: {l}" for i, l in enumerate(source.split("\n"), 1))
     prompt = f"""Defect: {code} ({tpl.get('name')})
 Prescribed fix: {tpl.get('fix')}
 Constraint: {tpl.get('constraint')}
@@ -48,22 +56,57 @@ Tool error:
 {error_text}
 
 File: {filename}
---- SOURCE ---
-{source}
+--- SOURCE (1-indexed) ---
+{numbered}
 --- END SOURCE ---
 
 Return the JSON object."""
-    r = client.messages.create(model=MODEL, max_tokens=2000,
+    r = client.messages.create(model=MODEL, max_tokens=4000,
                                system=SYSTEM,
                                messages=[{"role": "user", "content": prompt}])
     txt = "".join(b.text for b in r.content if b.type == "text").strip()
     txt = re.sub(r"^```(?:json)?|```$", "", txt, flags=re.M).strip()
+    # The model sometimes prefixes prose despite rule 1. Extract the outermost
+    # JSON object rather than assuming the whole response is JSON.
+    if not txt.startswith("{"):
+        i = txt.find("{")
+        if i >= 0:
+            depth, j = 0, i
+            for j in range(i, len(txt)):
+                if txt[j] == "{": depth += 1
+                elif txt[j] == "}":
+                    depth -= 1
+                    if depth == 0: break
+            txt = txt[i:j+1]
     try:
         out = json.loads(txt)
     except json.JSONDecodeError:
-        return {"verdict": "refuse", "reason": "unparsable model output"}
+        return {"verdict": "refuse", "reason": "unparsable model output",
+                "raw": txt[:600]}
     out["_usage"] = {"in": r.usage.input_tokens, "out": r.usage.output_tokens}
     return out
+
+
+def apply_move(path, first_line, last_line, after_line):
+    """Move lines [first_line, last_line] to just after after_line, 1-indexed.
+
+    The model identifies WHICH lines move; this code moves the original bytes
+    verbatim. Asking the model to reproduce whitespace it cannot see reliably
+    caused spurious stage-1 failures on lines with trailing spaces.
+    """
+    lines = open(path).readlines()
+    n = len(lines)
+    if not (1 <= first_line <= last_line <= n and 1 <= after_line <= n):
+        return False, f"line range out of bounds (file has {n} lines)"
+    if first_line <= after_line <= last_line:
+        return False, "destination is inside the moved block"
+    block = lines[first_line-1:last_line]
+    rest  = lines[:first_line-1] + lines[last_line:]
+    # after_line refers to the ORIGINAL numbering; adjust if it sat below block
+    dest = after_line if after_line < first_line else after_line - len(block)
+    out = rest[:dest] + block + rest[dest:]
+    open(path, "w").writelines(out)
+    return True, f"moved {len(block)} lines from {first_line}-{last_line} to after {after_line}"
 
 
 def _nl(t):
