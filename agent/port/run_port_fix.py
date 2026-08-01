@@ -30,7 +30,7 @@ def genus_accepts(fname):
         time.sleep(5)
         chk = subprocess.run(["ssh", HOST,
             "L=$(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1); "
-            "grep -cE '^PARSE_OK$|Error' $L"], capture_output=True, text=True)
+            "grep -cE '^PARSE_OK$|^Error' $L"], capture_output=True, text=True)
         if chk.stdout.strip() not in ("", "0"):
             break
     subprocess.run(["ssh", HOST, "pkill -u alco9414 -f parse_check.tcl"],
@@ -43,7 +43,7 @@ def genus_accepts(fname):
     if r.stdout.strip() not in ("", "0"):
         return True, "genus accepts"
     e = subprocess.run(["ssh", HOST,
-        "grep -m 1 -A 2 Error $(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1)"],
+        "grep -m 1 -A 2 '^Error' $(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1)"],
         capture_output=True, text=True)
     return False, e.stdout.strip()[:400]
 
@@ -75,11 +75,22 @@ def run(fname, code, error_text, do_kat=True):
                                   "reason": edit.get("reason"), "raw": edit.get("raw"),
                                   "usage": edit.get("_usage")})
 
+    # A hoist must not delete anything. Allowing deletions in a VLOGPT-20 fix
+    # would skip stage 1, the strongest check, so refuse instead.
+    if edit.get("deletes") and code != "VLOGPT-22":
+        shutil.copy(bak, src_path); os.remove(bak)
+        return record_and_return({"verdict": "refuse", "file": base, "code": code,
+                                  "reason": f"proposal for {code} contained deletions; "
+                                            f"only VLOGPT-22 may delete",
+                                  "usage": edit.get("_usage")})
+
     if edit["verdict"] == "move":
-        mv = edit.get("moves") or [{"first_line": edit.get("first_line"),
-                                    "last_line": edit.get("last_line"),
-                                    "after_line": edit.get("after_line")}]
-        # Apply bottom-up so line numbers above the edit stay valid.
+        mv = edit.get("moves")
+        if mv is None and edit.get("first_line") is not None:
+            mv = [{"first_line": edit["first_line"],
+                   "last_line": edit["last_line"],
+                   "after_line": edit["after_line"]}]
+        mv = mv or []                                    # deletes-only proposal
         mv = sorted(mv, key=lambda m: m["first_line"], reverse=True)
         ok, msg = True, ""
         for m in mv:
@@ -88,6 +99,13 @@ def run(fname, code, error_text, do_kat=True):
             msg += d + "; "
             if not ok:
                 break
+        if ok and edit.get("deletes"):
+            lines = open(src_path).readlines()
+            for ln in sorted(edit["deletes"], reverse=True):
+                if 1 <= ln <= len(lines):
+                    msg += f"deleted L{ln}: {lines[ln-1].strip()[:40]}; "
+                    del lines[ln-1]
+            open(src_path, "w").writelines(lines)
     else:
         ok, msg = apply_edit(src_path, edit)
     print(f"  apply: {msg}")
@@ -97,7 +115,15 @@ def run(fname, code, error_text, do_kat=True):
                                   "code": code, "reason": msg})
 
     gate = []
-    ok, d = stage1_pure_reorder(bak, src_path); gate.append(("pure_reorder", ok, d))
+    if edit.get("deletes"):
+        # A deletion is not a reordering, so stage 1 cannot apply. The
+        # guarantee comes from stage 2 plus KAT. Record the skip explicitly
+        # so the record cannot imply a check that never ran.
+        ok, d = True, "skipped: proposal contains deletions"
+        gate.append(("pure_reorder", None, d))
+    else:
+        ok, d = stage1_pure_reorder(bak, src_path)
+        gate.append(("pure_reorder", ok, d))
     print(f"  stage1: {d}")
     if ok:
         # propagate to build dirs before the tool and KAT see them

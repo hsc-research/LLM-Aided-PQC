@@ -26,11 +26,16 @@ TEMPLATES = {
         "name": "duplicate_declaration",
         "fix": "remove the redundant declaration",
         "pure_reorder": False,          # deletion, not reorder
-        "autonomous": True,
+        "autonomous": False,            # downgraded 2026-07-31
         "constraint": (
-            "Only autonomous when the two declarations are byte-identical "
-            "modulo whitespace. A differing width or type is intentional "
-            "shadowing or a real bug: refuse and escalate."
+            "NOT autonomous. On vect_set_random.v Genus reported redeclaration "
+            "of rand_mem_in and wr_en_rand, but only ONE declaration of each "
+            "exists in the file and neither appears in the included "
+            "keccak_pkg.v. The model proposed deleting the only declarations "
+            "present, on a premise that did not hold. Until the source of the "
+            "reported duplicate is understood, this class requires a human. "
+            "Deletion also cannot be checked by the sorted diff, so the gate "
+            "is two stages rather than three."
         ),
         "seen_in": ["v_minus_uy.v"],
     },
@@ -45,6 +50,21 @@ TEMPLATES = {
             "reasoning plus full KAT. Escalate."
         ),
         "seen_in": ["ntt_fifo_piso.v"],
+    },
+    "VLOGPT-61": {
+        "name": "array_in_sensitivity_list",
+        "fix": "replace the explicit sensitivity list with always @(*)",
+        "pure_reorder": False,
+        "autonomous": False,
+        "constraint": (
+            "NOT autonomous. Verilog-2001 forbids an unindexed memory array in "
+            "a sensitivity list. Replacing the list with @(*) is the usual fix "
+            "but it CHANGES the described sensitivity, so it is not a "
+            "reordering and the sorted-diff check cannot apply. Requires human "
+            "review plus full KAT. Note the hand-written list is often already "
+            "incomplete, which is itself worth reporting upstream."
+        ),
+        "seen_in": ["state_ram.v"],
     },
     "VLOGPT-1": {
         "name": "parse_error",

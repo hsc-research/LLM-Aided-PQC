@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fix_templates import TEMPLATES
 
 client = anthropic.Anthropic()
-MODEL = "claude-sonnet-4-6"
+MODEL = "claude-opus-4-5"
 
 SYSTEM = """You fix Verilog cross-toolchain portability defects.
 
@@ -22,23 +22,35 @@ Rules, without exception:
    module-scope declarations. Never inside an always block, initial block,
    generate block, or task. A reg declaration inside a procedural block is
    illegal Verilog even though moving it there is a pure reordering.
-0. Fix EVERY use-before-declaration in the file, not only the symbols the
-   tool happened to report. The tool stops at its first error cluster, but you
-   can see the whole file. If several separate declaration blocks are each
-   used before they are declared, return a list of moves.
+0. Fix EVERY instance of the reported defect class in the file, not only the
+   symbols the tool happened to report. The tool stops at its first error
+   cluster; you can see the whole file.
+0b. Use "deletes" ONLY when the reported defect is VLOGPT-22. For a
+   use-before-declaration fix, return moves only: deleting a line is not a
+   reordering and bypasses the verification check. Remove exact duplicates (the same signal
+   declared twice with identical width and type). Report these in "deletes".
+   If two declarations of one signal differ in width or type, do NOT delete
+   either: return refuse, because that is intentional shadowing or a real bug.
 4. You identify WHICH lines move by number. You never reproduce their text.
    The source is given with 1-indexed line numbers. Deterministic code moves
    the original bytes verbatim, so whitespace is preserved automatically.
 5. first_line..last_line must cover the whole contiguous declaration block,
    including any blank or whitespace-only lines inside it.
 6. after_line is a line number in the ORIGINAL numbering. The block is placed
-   immediately after it, and it must be at module scope.
+   immediately after it. Two conditions, BOTH required:
+   (a) after_line must be at module scope, not inside any always, initial,
+       generate, task, or function block;
+   (b) after_line must be STRICTLY LESS THAN the line of the symbol's first
+       use. Moving a declaration to a line that is still below its first use
+       fixes nothing. State the first-use line in your rationale so this is
+       checkable.
 7. If the fix is not clearly semantics-preserving, or the declarations are not
    contiguous, return {"verdict":"refuse","reason":"..."}.
 
 Schema for a proposed fix (all line numbers refer to the ORIGINAL file):
 {"verdict":"move",
  "moves":[{"first_line":<int>,"last_line":<int>,"after_line":<int>}, ...],
+ "deletes":[<int>, ...],
  "rationale":"<one sentence>"}"""
 
 
@@ -83,7 +95,8 @@ Return the JSON object."""
     except json.JSONDecodeError:
         return {"verdict": "refuse", "reason": "unparsable model output",
                 "raw": txt[:600]}
-    out["_usage"] = {"in": r.usage.input_tokens, "out": r.usage.output_tokens}
+    out["_usage"] = {"in": r.usage.input_tokens, "out": r.usage.output_tokens,
+                     "model": MODEL}
     return out
 
 

@@ -38,20 +38,24 @@ def probe(basename):
         time.sleep(5)
         chk = subprocess.run(["ssh", HOST,
             "L=$(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1); "
-            "grep -cE '^PARSE_OK$|Error' $L"],
+            "grep -cE '^PARSE_OK$|^Error' $L"],
             capture_output=True, text=True)
         if chk.stdout.strip() not in ("", "0"):
             break
     subprocess.run(["ssh", HOST, "pkill -u alco9414 -f parse_check.tcl"],
                    capture_output=True)
+    # Match real errors only. VLOGPT-37 and friends appear as Warning lines
+    # and were being picked up as the first "Error".
     r = subprocess.run(["ssh", HOST,
-        "grep -m 1 -B 4 -A 6 'Error' $(ls -t ~/pqc/hqc/asic/portwork/genus.log* | head -n 1)"],
-        capture_output=True, text=True)
+        "grep -m 1 -B 4 -A 6 '^Error' $(ls -t ~/pqc/hqc/asic/portwork/genus.log* "
+        "| head -n 1)"], capture_output=True, text=True)
     txt = r.stdout
     if not txt.strip():
         return None, ""
     import re
-    m = re.search(r"\[([A-Z]+-\d+)\]", txt)
+    # -B context can contain warning codes, so only search from the Error line.
+    i = txt.find("Error")
+    m = re.search(r"\[([A-Z]+-\d+)\]", txt[i:] if i >= 0 else txt)
     return (m.group(1) if m else None), txt
 
 
