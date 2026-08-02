@@ -86,3 +86,7 @@ fv/
 .env
 *.key
 **/anthropic_env
+
+# PDKs and external tutorials live outside the repo
+asap7/
+tutorial_innovus/
