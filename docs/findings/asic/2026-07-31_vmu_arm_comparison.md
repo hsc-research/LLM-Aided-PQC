@@ -1,3 +1,8 @@
+> **SUPERSEDED 2026-08-02.** This document describes GPDK045 45 nm work.
+> The ASIC target is now **ASAP7 7 nm** and every number here is retracted as
+> not comparable. Mechanisms and methodology findings still hold; the numbers
+> do not. See `docs/findings/asic/2026-08-02_asap7_transition.md`.
+
 # ASIC Findings Addendum: v_minus_uy Arm Comparison
 
 Date: 2026-07-31

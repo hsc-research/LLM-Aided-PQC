@@ -1,3 +1,8 @@
+> **SUPERSEDED 2026-08-02.** This document describes GPDK045 45 nm work.
+> The ASIC target is now **ASAP7 7 nm** and every number here is retracted as
+> not comparable. Mechanisms and methodology findings still hold; the numbers
+> do not. See `docs/findings/asic/2026-08-02_asap7_transition.md`.
+
 # Genus / ASIC Port: Bring-Up Findings
 
 **Status:** flow bring-up complete. No optimized-vs-baseline delta exists yet.

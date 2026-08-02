@@ -87,3 +87,13 @@ Banked vs pristine: +17.8% fmax, +1.2% LUT, +3.6% FF.
 at 12.09 ns. Energy-per-operation claims remain HELD pending the SAIF/VCD
 flow (see PPA_mldsa_fullchip).
 HQC ledger in the ICCAD abstract Table I.
+
+## ASIC (docs/findings/asic/)
+
+| Doc | Tag | Summary |
+|---|---|---|
+| 2026-07-30_genus_asic_port | I | **SUPERSEDED (GPDK045).** Genus bring-up, F1 use-before-declaration, F2 memory blackboxing (later reversed), F3 effort sensitivity 10.9% |
+| 2026-07-31_defect_survey | I | 13 of 59 HQC files carry cross-tool RTL portability defects, confirmed by Genus and an independent static checker; 102 instances |
+| 2026-07-31_vmu_arm_comparison | N | **SUPERSEDED (GPDK045).** F6 the one accepted HQC edit does not transfer at ASIC block level; arms invert with constraint tightness |
+| 2026-07-31_mldsa_genus_port | I | F8 same defect class in ML-DSA (different codebase), F9 mixed blocking/non-blocking, F10 mixed-language design, VHDL package read order is load-bearing |
+| 2026-08-02_asap7_transition | I | **CURRENT.** A1-A4 retracted (library change to ASAP7 7nm); F11 memories now flip-flop arrays; F12 a search must prove its lower bound violates; F13 unconstrained static inputs capture the critical path; F14 reference flow validated |
