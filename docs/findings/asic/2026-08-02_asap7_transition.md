@@ -47,7 +47,7 @@ independently.
 | Genus numbers unqualified | **"pre-layout"** | Must be reported separately from Innovus post-route. |
 
 The F3 correction matters more than it sounds. The earlier framing implied any
-delta under 10.9% was unreportable, which would have ruled out the HQC +1.9%
+delta under 10.9% was unreportable, which would have ruled out the HQC +5.8%
 result entirely. The correct statement is that effort, clock period and
 uncertainty, library and corner, hierarchy, flattening, and retiming must be
 identical across arms and recorded with the number.

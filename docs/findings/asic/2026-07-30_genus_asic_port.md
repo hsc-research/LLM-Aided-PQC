@@ -190,7 +190,7 @@ Search traces:
 1. Effort must be identical between baseline and optimized arms, and stated in
    every reported number. Treat it exactly like the OOC-mode ruling on Vivado.
 2. **The effort gap (10.9%) is larger than the FPGA results being replicated**
-   (ML-DSA +17.8%, HQC +1.9%). Any ASIC delta below roughly 11% cannot be
+   (ML-DSA +17.8%, HQC +5.8%). Any ASIC delta below roughly 11% cannot be
    distinguished from a tooling artifact without holding effort fixed and
    publishing the search traces.
 3. Slack pins to exactly 0 ps across many MET points. Genus optimizes until

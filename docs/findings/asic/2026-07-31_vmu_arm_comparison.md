@@ -170,7 +170,7 @@ error in the recount: `latency_log.jsonl` was omitted. No action needed.
 2. Run the arm comparison on a module where the agent's edit is actually on
    the binding path. F6 shows `v_minus_uy` was not such a case.
 3. Chip-level ASIC arm comparison on `hqc_kem_joint_design`, which is where
-   the FPGA +1.9% was measured. Expect many more portability defects at that
+   the FPGA +5.8% was measured. Expect many more portability defects at that
    scale.
 4. Repository reorganization: consolidate logs, gitignore `build/`, move
    optimized RTL into tracked source. Requires its own session and a KAT run

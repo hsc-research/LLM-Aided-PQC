@@ -41,7 +41,7 @@ FIXEDWEIGHT/shake_dout_ready_fw under the full-impl flow (opt_design Opt
 elaboration/flattening artifact not present in the OOC block flow (which
 never runs opt_design) nor in the joint design (which elaborates through
 SHARED_ENCAP paths). Affects pristine and optimized identically. Root-cause
-is upstream-RTL forensics; deferred. The joint-design closure result (+1.9%)
+is upstream-RTL forensics; deferred. The joint-design closure result (superseded, now +5.8%)
 already includes keygen's cones and carries the composition thesis. Block-
 level keygen numbers (OOC synth WNS) remain valid as reported, with the
 projection caveat applied.
@@ -58,7 +58,7 @@ items: (a) try synth_design -no_lc / -keep_equivalent_registers, (b) elaborate
 -rtl and inspect, (c) ask Sanjay whether standalone keygen was ever taken
 through implementation (their flow may have used an older Vivado without this
 merge behavior). Block-level OOC keygen results remain valid; joint-design
-closure (+1.9%) already contains keygen's cones.
+closure (superseded, now +5.8%) already contains keygen's cones.
 
 ## HQC joint closure: RETRACTED recipe-robustness claim + keygen-standalone resolution
 RETRACTED (2026-07-23): the "two recipes" were the same flow. `fmax_search.py`

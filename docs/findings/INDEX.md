@@ -54,7 +54,7 @@ negative, I = infrastructure/process. Full details in each file.
 
 | Doc | Tag | Summary |
 |---|---|---|
-| crossdesign_closure | I/W | True-closure A/B: HQC joint +1.9% win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't |
+| crossdesign_closure | I/W | True-closure A/B: HQC joint win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't. NUMBERS SUPERSEDED, see HQC chip ledger below (+5.8%) |
 
 ## Current WNS ledger (Artix-7 OOC, 200 MHz) — measured 2026-07-11, all deterministic (3×-verified flow)
 
@@ -129,6 +129,24 @@ source artifact for both backends.
 
 Before 2026-08-03 no properly measured HQC pristine baseline existed. That is
 the root cause of every prior discrepancy in these numbers.
+
+### Open question, recorded rather than resolved
+
+The pre-`a1a7ad2` pristine measurement read 117.1 MHz; today's reads 109.6 MHz.
+Both are genuine pristine closures. The difference is 7.5 MHz and **we cannot
+currently explain it.** The regen period differed and was not recorded for the
+earlier run, so the two started from different synthesized netlists, but that
+is a hypothesis and not a verified cause.
+
+What is established: today's pair was measured under one recorded command at
+one commit, and both arms reproduced exactly on re-run (baseline twice at
+9.12 ns, optimized matching a prior 8.62 ns measurement). That is why it is
+the canonical pair.
+
+What is not established: whether 117.1 was optimistic, whether the current
+regen is pessimistic for the baseline, or whether the two measure meaningfully
+different netlists. Reproducing the earlier configuration would settle it and
+has not been done.
 
 ## ASIC (docs/findings/asic/)
 
