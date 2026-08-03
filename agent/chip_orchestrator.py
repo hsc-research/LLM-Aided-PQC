@@ -35,6 +35,16 @@ DESIGNS = {
         "orchestrator": "agent/mldsa/orchestrator.py",
         "kat_gate": ["python3", "agent/mldsa/full_kat_gate.py", "agent/mldsa/mldsa_src"],
     },
+    # Baseline arm. Same bracket and regen path as "hqc" so the two are
+    # comparable; no orchestrator or dispatch map, it is measurement only.
+    "hqc_baseline": {
+        "key": "hqc_joint_pristine",
+        "ckpt": "./synth_out/sweep_hqc_joint_pristine/post_synth_grade1.dcp",
+        "bracket": (6.0, 10.0),
+        "hier2file": {},
+        "orchestrator": None,
+        "kat_gate": ["python3", "agent/hqc/joint_kat_gate.py"],
+    },
     "hqc": {
         "key": "hqc_joint_opt",
         "ckpt": "./synth_out/sweep_hqc_joint_opt/post_synth_grade1.dcp",
