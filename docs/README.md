@@ -1,40 +1,99 @@
-# HQC RTL Optimization — Documentation
+# Assurance-Guided LLM-Based RTL Optimization for PQC Accelerators
 
-LLM-aided Power/Performance/Area (PPA) optimization of the open-source HQC
-post-quantum KEM RTL (Deshpande et al., Yale, SAC 2023) targeting a Xilinx
-Artix-7 `xc7a200tfbg676-1` at 200 MHz (5.000 ns), out-of-context synthesis,
-across all three security levels (HQC-128 / 192 / 256).
+An optimization agent for post-quantum cryptographic hardware. A language
+model proposes RTL edits; deterministic code applies and verifies them; a
+cryptographic correctness gate decides what is kept. The model is structurally
+untrusted: it cannot influence any check that decides acceptance.
 
-Every accepted RTL change in this project passes a Known-Answer Test (KAT) gate:
-the full keygen → encap → decap simulation chain must reproduce matching shared
-secrets at all three security levels before the change is committed.
+Two NIST-standardized designs:
+
+- **ML-DSA** (FIPS 204, lattice signature), GMU/Beckwith implementation
+- **HQC** (code-based KEM), Yale/Deshpande implementation, SAC 2023
+
+Both target an AMD Artix-7 `xc7a200tfbg676-1`. An ASIC arc on ASAP7 7 nm
+(Genus + Innovus) is in progress.
+
+---
+
+## THE ONLY VALID SOURCE OF NUMBERS
+
+**[findings/INDEX.md](findings/INDEX.md)** carries the canonical ledgers:
+block-level WNS, ML-DSA chip-level, and HQC chip-level. Each chip-level entry
+records the command that reproduces it and the commit it was measured at.
+
+A number that is not in a ledger may not be quoted in a paper, abstract,
+slide, or email. Superseded numbers stay in the ledger, marked, with the
+reason. See [DOCUMENTATION_STANDARD.md](DOCUMENTATION_STANDARD.md).
+
+### Current headline results
+
+| Design | Baseline | Optimized | Delta | Measured |
+|---|---|---|---|---|
+| ML-DSA `combined_top` | 70.2 MHz | 82.7 MHz | +17.8% | post-route closure |
+| HQC joint KEM | 109.6 MHz | 116.0 MHz | +5.8% | post-route closure, OOC |
+
+Every frequency is a *closing* frequency: binary-searched period, fully placed
+and routed, non-negative slack. Frequency is never projected from a violated
+run by `1/(T - WNS)`; numbers derived that way were retracted.
+
+---
 
 ## Where to start
 
 | Document | Contents |
-|----------|----------|
-| [01_results.md](01_results.md) | The verified optimizations, the cross-level timing table, and measured PPA deltas. Start here for "what was done." |
-| [02_optimization_taxonomy.md](02_optimization_taxonomy.md) | The classification of optimization patterns, the fingerprints that predict success or regression, and the negative results. The "theory" behind the wins. |
-| [03_asic_ppa_analysis.md](03_asic_ppa_analysis.md) | How each class of optimization translates from FPGA to an ASIC flow, including which trades reverse sign. |
-| [04_agent_architecture.md](04_agent_architecture.md) | The LLM-driven optimization agent: pipeline, safety gates, and the supervised flight log. |
-| [findings/](findings/) | Original dated lab notes, preserved verbatim. Primary-source records of individual experiments. |
+|---|---|
+| [findings/INDEX.md](findings/INDEX.md) | **Canonical ledgers and a one-line map of every experiment.** Start here. |
+| [DOCUMENTATION_STANDARD.md](DOCUMENTATION_STANDARD.md) | How results are recorded, retracted, and superseded |
+| [01_results.md](01_results.md) | The fifteen HQC block-level wins, cross-level timing, PPA deltas |
+| [02_optimization_taxonomy.md](02_optimization_taxonomy.md) | Optimization patterns, the fingerprints that predict success or regression, and the negatives |
+| [04_agent_architecture.md](04_agent_architecture.md) | Agent pipeline, gates, flight log |
+| [REPRODUCE.md](REPRODUCE.md) | Fresh machine to reproduced results |
+| [2026-08-02_asic_game_plan.md](2026-08-02_asic_game_plan.md) | Current ASIC plan and the RTL freeze |
+| [findings/](findings/) | Dated lab notes, preserved verbatim, including every negative |
 
-## Quick status
+---
 
-- 15 KAT-verified timing optimizations, all cycle-schedule neutral.
-- keygen meets timing within roughly 0.1 ns at all three security levels.
-- Every RTL logic-depth critical-path cluster across keygen and encap has been
-  eliminated or attributed; the remaining negative slack is placement/routing
-  bound (memory endpoints, high-fanout broadcast nets) rather than logic depth.
-- The optimization agent is operational: it selects targets from critical-path
-  clusters, proposes typed edits through an assertion-gated harness, measures
-  per-cluster gain, and reverts non-improvements autonomously.
+## The three findings that shaped the work
 
-## Repository layout (relevant paths)
+**Block-level acceptance does not predict chip-level outcome.** Composing four
+individually verified ML-DSA block edits and re-closing gave 69.0 MHz against
+a 70.2 MHz baseline, a net regression. The real bottleneck was a 256-bit
+variable-shift serializer that no block-level run could see. Chip-level
+closure is the only valid judge.
 
-- `agent/` — the optimization agent and supporting tooling (code only).
-- `build/{keygen,encap,decap}/` — the three elaborated build trees that are
-  synthesized and simulated.
-- `synth_out/` — synthesis reports, extracted critical paths, the cross-level
-  matrix.
-- `docs/` — this documentation.
+**Correctness cannot be sampled.** Of 33 applied edits, 14 were functionally
+wrong. All 14 compiled and simulated cleanly. Only a checker separated them
+from the 4 commits. The failure rate is lane-dependent: 4 of 23
+latency-preserving, 10 of 10 latency-changing.
+
+**Priors transfer across hardness assumptions; bottlenecks do not.** The
+ML-DSA rule set applied verbatim to HQC produced a win for $0.037 in one call,
+and the binding path moved off the edited datapath onto the shared Keccak
+permutation. Neither design is limited by its own arithmetic.
+
+---
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `hardware/` | **Authoritative RTL.** Common source for both Vivado and Genus. |
+| `build/{keygen,encap,decap,joint_design}/` | Elaborated trees that are synthesized and simulated. Win-carrying files are tracked. |
+| `agent/` | Agent code. `hqc/` and `mldsa/` hold per-design orchestrators and gates. |
+| `agent/backends/` | Synthesis backend abstraction (Vivado, Genus) |
+| `agent/port/` | Cross-toolchain port-fix loop and its three-stage gate |
+| `asic/` | ASAP7 scripts, SDC, arms, results. Does not touch `hardware/` or `build/`. |
+| `synth_out/` | Synthesis reports, checkpoints, extracted paths |
+| `docs/` | This documentation |
+
+## Correctness gates
+
+Every accepted RTL change passes a Known-Answer Test. For HQC the full
+keygen -> encap -> decap chain must reproduce matching shared secrets at
+HQC-128, 192, and 256. For ML-DSA a 25-vector NIST KAT runs against the full
+design, with cycle-accurate lockstep equivalence at block level.
+
+Each gate is corruption-validated before autonomous use: it must reject an
+injected boundary fault and a live-branch arithmetic fault. This found a real
+blind spot in a Fisher-Yates comparison, which the repaired gate later used to
+correctly reject an unsafe agent proposal.
