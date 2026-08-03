@@ -86,7 +86,49 @@ Banked vs pristine: +17.8% fmax, +1.2% LUT, +3.6% FF.
 *Power for the banked build is still the 12.73 ns figure and needs a re-pull
 at 12.09 ns. Energy-per-operation claims remain HELD pending the SAIF/VCD
 flow (see PPA_mldsa_fullchip).
-HQC ledger in the ICCAD abstract Table I.
+## HQC chip-level ledger (post-route closure, joint KEM, Artix-7 -1, OOC)
+
+**Canonical. Measured 2026-08-03 at commit 6351cac. Reproduce with:**
+Recipe is fixed in `fmax_search.py`: ExtraTimingOpt / Explore / Explore,
+regen period 8.600 ns, bracket 6.0-10.0 ns, accept only WNS >= 0.
+
+| Build | Closing fmax | WNS | LUT | LUT-mem | FF | BRAM | DSP |
+|---|---|---|---|---|---|---|---|
+| `hqc_joint_pristine` (9.12 ns) | 109.6 MHz | +0.072 | 13045 | 1019 | 6765 | 21 | 4 |
+| `hqc_joint_opt` (8.62 ns) | **116.0 MHz** | +0.006 | 13331 | 1075 | 6887 | 19.5 | 4 |
+
+Optimized vs baseline: **+5.8% fmax**, +2.2% LUT, +1.8% FF, -7.1% BRAM.
+The BRAM reduction is the memory-retarget wins (MSG_MEM, FFT FIFO to
+distributed RAM), which is also why LUT-as-memory rises.
+
+**Binding path moves between arms**, which is the mechanism, not a side note:
+
+| Build | Worst path at closure |
+|---|---|
+| baseline | `DECAP/DECRYPT/V_MINUS_UY/uv_addr_0_mul_reg[1]/C` -> `POLY_MULT/dshift_reg[35]/D` |
+| optimized | `SHAKE256/control_path/counter_reg[5]/C` -> `SHAKE256/data_path/state_ram/.../SP/I` |
+
+The agent's one accepted HQC edit (flag_precompute on `v_minus_uy`, commit
+`12d930d`, $0.037, one API call) sits on the baseline's binding path. After
+the edit the design binds on the shared Keccak state RAM instead, which the
+rule set does not address.
+
+**FPGA-neutrality control.** The baseline was re-closed on pre-port-fix RTL
+(commit `cd92639`, before the five cross-tool portability fixes) and
+reproduced 9.12 ns / 109.6 MHz / WNS +0.072 exactly. The declaration
+reorderings are therefore FPGA-neutral, and the normalized RTL is the common
+source artifact for both backends.
+
+### Superseded HQC numbers, do not quote
+
+| Number | What it actually was | Why superseded |
+|---|---|---|
+| 117.1 / 119.3 MHz | pre-`a1a7ad2` pair | Different regen period, configuration not recorded, not comparable |
+| 114.8 MHz | **the optimized arm while its composition was silently reverted** by `a1a7ad2`, not a baseline | Measured a design that was pristine in everything but name |
+| 116.0 MHz (as "vs 114.8") | correct value, wrong comparator | 114.8 is not the baseline; the baseline is 109.6 |
+
+Before 2026-08-03 no properly measured HQC pristine baseline existed. That is
+the root cause of every prior discrepancy in these numbers.
 
 ## ASIC (docs/findings/asic/)
 

@@ -1,3 +1,14 @@
+> **NUMBERS SUPERSEDED 2026-08-03.** The HQC row below (117.1 -> 119.3,
+> +1.9%) is not comparable to current measurements: different regen period,
+> configuration not recorded. The canonical HQC pair is **109.6 -> 116.0 MHz,
+> +5.8%**, measured at commit `6351cac`; see the HQC chip-level ledger in
+> `docs/findings/INDEX.md`.
+>
+> **The composition thesis in this document still stands**, and the new
+> measurement strengthens it: the binding path moves off the edited datapath
+> onto Keccak, which is direct evidence that the edit sat on the chip's
+> binding cone. Only the numbers change, not the conclusion.
+
 # FINDINGS: cross-design true-closure verdict (the composition thesis, measured)
 
 Closing-fmax binary search (WNS>=0, post-route, default recipe, -1 grade;
