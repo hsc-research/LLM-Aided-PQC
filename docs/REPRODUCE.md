@@ -516,11 +516,22 @@ deterministic -0.217 ns to -0.244 ns regression, confirmed non-noise by a 3-run
 variability check). Post-route with `phys_opt` reverses this: the optimized
 design wins at every measured corner.
 
-| Corner | Pristine WNS / fmax | Optimized WNS / fmax | delta |
+RETIRED 2026-08-03. Every row below ran with negative WNS, so the Fmax
+figures were projections computed as 1/(T-WNS) on violated runs, and the
+percentage deltas were derived from those projections. Projected Fmax may not
+be quoted; see rule 2 of the documentation standard. WNS values are retained
+because they are measured.
+
+| Corner | Pristine WNS | Optimized WNS | Fmax |
 |---|---|---|---|
-| -1 grade, 5.00 ns (200 MHz stretch) | -10.318 / 65.3 MHz | -8.766 / 72.6 MHz | +11.2% |
-| -1 grade, 8.60 ns | -5.995 / 68.5 MHz | -5.017 / 73.4 MHz | +7.2% |
-| -3 grade, 8.62 ns (116 MHz GMU-comparable) | -1.974 / 94.4 MHz | -1.779 / 96.2 MHz | +1.9% |
+| -1 grade, 5.00 ns | -10.318 | -8.766 | ~~65.3 / 72.6 MHz, +11.2%~~ |
+| -1 grade, 8.60 ns | -5.995 | -5.017 | ~~68.5 / 73.4 MHz, +7.2%~~ |
+| -3 grade, 8.62 ns | -1.974 | -1.779 | ~~94.4 / 96.2 MHz, +1.9%~~ |
+
+The measured WNS improvement at every corner still supports the qualitative
+claim that post-route `phys_opt` reverses the pre-route regression. Only the
+frequency figures and the percentages are retracted. For measured closure
+numbers see the ML-DSA chip-level ledger in `docs/findings/INDEX.md`.
 
 Post-route (implementation) is run via `agent/impl_runner.py`:
 
