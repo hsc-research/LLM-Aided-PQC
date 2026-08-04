@@ -35,11 +35,14 @@ ROOT = subprocess.run(["git", "rev-parse", "--show-toplevel"],
 # ---------------------------------------------------------------------------
 ALLOWED = {
     # ML-DSA chip-level, post-route closure, Artix-7 -1
-    "70.2":  "ML-DSA combined_top baseline, 14.25 ns",
-    "82.7":  "ML-DSA combined_top optimized (banked encoder), 12.09 ns",
-    "69.0":  "ML-DSA block-composition regression, the documented null",
-    "73.4":  "ML-DSA optimized pre-banked, intermediate build",
-    "78.6":  "ML-DSA banked encoder at 12.73 ns, superseded by 82.7 at closure",
+    "70.2":  "M1: ML-DSA combined_top_pristine baseline, 14.25 ns, OOC, "
+             "WNS +0.027, 2026-08-03",
+    "80.5":  "M2: ML-DSA combined_top optimized (banked encoder), 12.43 ns, "
+             "OOC, WNS +0.029, 2026-08-03",
+    "69.0":  "ML-DSA block-composition regression, the documented null. "
+             "PINNED FLOW, not yet re-closed in OOC",
+    "73.4":  "ML-DSA optimized pre-banked, intermediate build. PINNED FLOW, "
+             "not yet re-closed in OOC",
 
     # HQC chip-level, post-route closure, joint KEM, OOC, measured 2026-08-03
     "109.6": "HQC hqc_joint_pristine baseline, 9.12 ns, commit 6351cac",
@@ -67,6 +70,11 @@ RETIRED = {
     "117.6": "pre-a1a7ad2 HQC spread, binary-search granularity",
     "114.8": "NOT a baseline: the optimized arm while its composition was "
              "silently reverted by a1a7ad2. The baseline is 109.6.",
+    "82.7":  "ML-DSA optimized measured in Vivado's default pinned flow "
+             "before 23c5672 moved regen_ckpt to OOC. Superseded by M2, "
+             "80.5 MHz. See INDEX ML-DSA chip-level ledger.",
+    "78.6":  "ML-DSA banked encoder at 12.73 ns, pinned flow and wide "
+             "bracket. Superseded by M2, 80.5 MHz.",
     "72.6":  "ML-DSA projected from a violated run, 1/(T-WNS), invalid",
     "65.3":  "ML-DSA projected from a violated run, 1/(T-WNS), invalid",
     "780.49": "GPDK045 ASIC, retracted with the library change to ASAP7",
