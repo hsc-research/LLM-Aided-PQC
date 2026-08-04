@@ -95,6 +95,28 @@ MARKERS = ("supersede", "SUPERSEDE", "retract", "RETRACT", "~~",
            "NOT a baseline", "stale", "STALE")
 
 FREQ = re.compile(r"(\d+\.?\d*)\s*MHz")
+PCT  = re.compile(r"[+-]?(\d+\.\d)\s*%")
+NEG_WNS = re.compile(r"-\d+\.\d{3}")
+
+# Percentage deltas. A delta outlives the numbers it came from, which is how
+# +1.9% survived in five documents after 117.1/119.3 were retired.
+ALLOWED_PCT = {
+    "14.7": "M2 vs M1 ML-DSA Fmax, OOC, 2026-08-03",
+    "13.1": "ML-DSA Level V throughput, cycles/Fmax at M1/M2",
+    "12.9": "ML-DSA Level III throughput, cycles/Fmax at M1/M2",
+    "12.0": "ML-DSA Level II throughput, cycles/Fmax at M1/M2",
+    "5.8":  "HQC optimized vs baseline Fmax, OOC, commit 6351cac",
+    "10.9": "Genus effort sensitivity, F3",
+}
+RETIRED_PCT = {
+    "17.8": "ML-DSA Fmax delta from pinned-flow 82.7. Now +14.7%.",
+    "16.2": "ML-DSA Level V throughput from pinned 82.7. Now +13.1%.",
+    "15.9": "ML-DSA Level III throughput from pinned 82.7. Now +12.9%.",
+    "15.0": "ML-DSA Level II throughput from pinned 82.7. Now +12.0%.",
+    "1.9":  "HQC delta from retired 117.1/119.3. Now +5.8%.",
+    "11.2": "derived from projected Fmax on a violated run, invalid",
+    "7.2":  "derived from projected Fmax on a violated run, invalid",
+}
 
 
 def tracked_markdown():
@@ -125,6 +147,21 @@ def main():
                         errors.append((rel, n, val, RETIRED[val]))
                 else:
                     warnings.append((rel, n, val))
+            # An Fmax on a line that also carries a negative WNS is a
+            # projection, whatever the value is allowed to mean elsewhere.
+            if FREQ.search(line) and NEG_WNS.search(line) and not (
+                    archived or any(m in line for m in MARKERS)):
+                errors.append((rel, n, FREQ.findall(line)[0],
+                               "Fmax quoted on a line with negative WNS: "
+                               "this is a projection from a violated run"))
+            for val in PCT.findall(line):
+                if val in ALLOWED_PCT:
+                    ok += 1
+                elif val in RETIRED_PCT:
+                    if archived or any(m in line for m in MARKERS):
+                        ok += 1
+                    else:
+                        errors.append((rel, n, val + "%", RETIRED_PCT[val]))
 
     print(f"checked {len(tracked_markdown())} files, {ok} citations verified\n")
 
