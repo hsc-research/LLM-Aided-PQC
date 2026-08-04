@@ -79,8 +79,9 @@ DESIGNS = {
 
 def closure_search(ckpt, tag, lo, hi):
     r = subprocess.run([sys.executable, os.path.join(HERE, "fmax_search.py"),
-                        ckpt, tag, str(lo), str(hi),
-                        "Default", "Default", "Default"],
+                        ckpt, tag, str(lo), str(hi)],
+                       # fmax_search.py reads argv[1..4] only; the recipe
+                       # (ExtraTimingOpt/Explore/Explore) is fixed there.
                        capture_output=True, text=True)
     m = re.search(r'\{.*"closing_period_ns".*\}', r.stdout)
     return json.loads(m.group(0)) if m else None

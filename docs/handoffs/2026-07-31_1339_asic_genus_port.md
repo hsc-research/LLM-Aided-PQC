@@ -1,3 +1,8 @@
+> **NOTE 2026-08-03.** The ML-DSA figures in this handoff (82.7 MHz, +17.8%)
+> were pinned-flow and are retired. Current: M1 70.2 / M2 80.5 MHz, +14.7%,
+> OOC, in `docs/findings/INDEX.md`. Retained as a dated record of what was
+> known at the time; numbers below are not edited.
+
 # Handoff: LLM-Aided-PQC, ASIC/Genus Port, 2026-07-31
 
 Paste this at the start of a new chat. Attach or reference the findings docs in

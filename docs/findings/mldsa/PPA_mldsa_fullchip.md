@@ -69,12 +69,19 @@ level.
 
 ## Power / Energy
 
-Vectorless post-route power at each closure point: pristine 1.286 W
-(14.25 ns), optimized 1.480 W (12.73 ns). These are activity-blind
-estimates and scale with clock; energy-per-operation claims are HELD
-pending the SAIF/VCD-based flow (Eop = Pavg x Ncycles / f with real KAT
-switching activity) per advisor guidance. No energy numbers should be
-quoted from this table.
+No power figures are currently on record for the OOC closure points.
+`fmax_search.py` emits `report_utilization` only, so the M1/M2 runs of
+2026-08-03 produced no power data.
+
+The previous figures (pristine 1.286 W at 14.25 ns, optimized 1.480 W at
+12.73 ns) are retired: both are pinned-flow, and the optimized figure was
+taken at 12.73 ns, which matches neither the retired 12.09 ns closure nor
+the current M2 closure at 12.43 ns.
+
+Power and energy-per-operation remain HELD pending the SAIF/VCD-based flow
+(Eop = Pavg x Ncycles / f with real KAT switching activity) per advisor
+guidance. Note that vectorless power in OOC excludes I/O entirely, so an OOC
+power number is not comparable to a pinned one even at the same period.
 
 ## Notes for reuse
 - Pipeline-register count per edit is documented in the corresponding
