@@ -49,7 +49,7 @@ and **HQC** (Yale/Deshpande codebase), both on Artix-7 `xc7a200tfbg676-1`.
 |---|---|---|
 | Baseline | 70.2 MHz | pristine |
 | Composed block edits | 69.0 MHz | accepted block wins alone regress chip closure |
-| Architectural rewrite | **82.7 MHz** | **+17.8% vs. baseline** |
+| Architectural rewrite | **80.5 MHz** | **+14.7% vs. baseline** |
 
 The composed-block-edits step is the key negative result: every individual
 edit passed its block-level gate, but composing them moved chip closure
@@ -60,16 +60,17 @@ resolving the binding path to the encoder's PISO register and dispatching to
 and the gates validated the result. **Targeting was autonomous; authoring was
 not.**
 
-The loop terminated at 82.7 MHz on a control cone ruled out of the agent's
-scope. Keccak/SHAKE256 bound the design at the intermediate 71.4 MHz closure
-step and remains the binding cone for HQC below.
+After the rewrite the design closes at 80.5 MHz and binds on the challenge
+sampler (`ctr0_reg[1]/C` -> `CHALLENGE_SAMPLER/C_SIPO_reg[426]/R`), no longer
+on the encoder cone. Keccak/SHAKE256 bound the design at the intermediate
+71.4 MHz closure step and remains the binding cone for HQC below.
 
 | | Baseline | Optimized | Delta |
 |---|---|---|---|
-| Closed Fmax | 70.2 MHz | 82.7 MHz | **+17.8%** |
-| Throughput | 5,003 ops/s | 5,813 ops/s | **+16.2%** |
-| LUT | 52,987 | 53,597 | +1.2% |
-| FF | 29,081 | 30,123 | +3.6% |
+| Closed Fmax | 70.2 MHz | 80.5 MHz | **+14.7%** |
+| Throughput | 5,003 ops/s | 5,659 ops/s | **+13.1%** |
+| LUT | 53,127 | 53,543 | +0.8% |
+| FF | 29,079 | 30,078 | +3.4% |
 | DSP / BRAM | 16 / 29 | 16 / 29 | unchanged |
 | KeyGen cycles (level V) | 14,033 | 14,226 | +1.4% |
 
@@ -155,13 +156,13 @@ autonomously? Not yet, and this is the honest boundary.** The chip-level loop
 reliably *localizes* the bottleneck cone: it correctly identified the
 encoder's PISO register as the binding path at 69.0 MHz and dispatched to the
 right file. It did not author the fix. The banked rewrite that closed the
-design to 82.7 MHz was hand-written and then validated by the same gates the
+design to 80.5 MHz was hand-written and then validated by the same gates the
 agent uses. The correct label for this result is **agent-localized,
 human-authored, gate-validated** — targeting is autonomous, architectural
 authorship is not.
 
-Chip-level absolute timing closure **is** claimed: 82.7 MHz, binary-searched,
-fully routed, non-negative slack. What is not claimed is that the agent
+Chip-level absolute timing closure **is** claimed: 80.5 MHz, binary-searched,
+fully routed, non-negative slack, out-of-context flow (WNS +0.029). What is not claimed is that the agent
 authored the edit that reached it.
 
 ---

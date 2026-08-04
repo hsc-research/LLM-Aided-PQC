@@ -1,3 +1,10 @@
+> **SUPERSEDED 2026-08-03.** The ML-DSA chip-level numbers in this document
+> (82.7 MHz optimized, +17.8%) were measured in Vivado's default pinned flow
+> before commit `23c5672` moved `regen_ckpt` to out-of-context mode. Both arms
+> were re-closed in OOC on 2026-08-03. Current canonical results are M1 (70.2
+> MHz) and M2 (80.5 MHz), +14.7%, in `docs/findings/INDEX.md`, ML-DSA
+> chip-level ledger. Commit `3edd76a`.
+
 # Findings: ML-DSA Chip Orchestrator Stage-2 Validation
 
 ## Summary
@@ -56,7 +63,11 @@ period should be re-pulled before it replaces the 78.6 MHz table entry.
   2026-07-24: reproduced exactly (12.09 ns, WNS +0.095) on the same
   post_synth_grade1.dcp. Pristine also re-closed on a tight bracket and
   reproduced exactly at 14.25 ns / 70.2 MHz (WNS +0.068), so the pair is
-  symmetric and the earlier wide-bracket concern is resolved. 82.7 MHz now
-  replaces 78.6 in all tables; headline is +17.8% vs pristine.
+  symmetric and the earlier wide-bracket concern is resolved.
+  ~~82.7 MHz now replaces 78.6 in all tables; headline is +17.8% vs
+  pristine.~~ RETIRED 2026-08-03: both figures are pinned-flow. Headline is
+  +14.7% (M1 70.2 -> M2 80.5 MHz, OOC). Note the pinned pristine re-close
+  reported WNS +0.068 at 14.25 ns where the OOC re-close reports +0.027, same
+  period, which is the flow-mode difference visible on the baseline arm.
 - Update advisor package with corrected framing (measurement precision, not
   autonomous fix).

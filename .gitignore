@@ -90,3 +90,6 @@ fv/
 # PDKs and external tutorials live outside the repo
 asap7/
 tutorial_innovus/
+
+# Closure and orchestrator logs cited by Results of Record are evidence, not noise
+!logs/**/*.log

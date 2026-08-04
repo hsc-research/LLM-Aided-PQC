@@ -29,7 +29,7 @@ reason. See [DOCUMENTATION_STANDARD.md](DOCUMENTATION_STANDARD.md).
 
 | Design | Baseline | Optimized | Delta | Measured |
 |---|---|---|---|---|
-| ML-DSA `combined_top` | 70.2 MHz | 82.7 MHz | +17.8% | post-route closure |
+| ML-DSA `combined_top` | 70.2 MHz | 80.5 MHz | +14.7% | post-route closure, OOC |
 | HQC joint KEM | 109.6 MHz | 116.0 MHz | +5.8% | post-route closure, OOC |
 
 Every frequency is a *closing* frequency: binary-searched period, fully placed

@@ -1,3 +1,10 @@
+> **SUPERSEDED 2026-08-03.** The ML-DSA chip-level numbers in this document
+> (82.7 MHz optimized, +17.8%) were measured in Vivado's default pinned flow
+> before commit `23c5672` moved `regen_ckpt` to out-of-context mode. Both arms
+> were re-closed in OOC on 2026-08-03. Current canonical results are M1 (70.2
+> MHz) and M2 (80.5 MHz), +14.7%, in `docs/findings/INDEX.md`, ML-DSA
+> chip-level ledger. Commit `3edd76a`.
+
 # ML-DSA Full-Chip PPA: Pristine vs Optimized (Post-Route, Measured)
 
 All numbers post-route at each build's own timing-closed operating point
@@ -24,10 +31,10 @@ per direction).
 
 | Build | LUT | FF | DSP | BRAM |
 |---|---|---|---|---|
-| Pristine | 52,987 | 29,081 | 16 | 29 |
-| Optimized | 53,597 | 30,123 | 16 | 29 |
+| Pristine | 53,127 | 29,079 | 16 | 29 |
+| Optimized | 53,543 | 30,078 | 16 | 29 |
 
-Delta: +1.2% LUT, +3.6% FF (pipeline and precompute registers), DSP and
+Delta: +0.8% LUT, +3.4% FF (pipeline and precompute registers), DSP and
 BRAM identical. UPDATED 2026-07-24: area re-pulled at the confirmed 12.09 ns
 closure point (was 12.73 ns / 53,309 / 30,034).
 
@@ -48,13 +55,17 @@ precompute registers (latency-preserving by construction; contribute 0).
 
 | Level | Pristine | Optimized | Net |
 |---|---|---|---|
-| II | 69.4 us | 60.3 us | -13.1% time (+15.0% throughput) |
-| III | 118.1 us | 101.9 us | -13.8% time (+15.9% throughput) |
-| V | 199.9 us | 172.0 us | -13.9% time (+16.2% throughput) |
+| II | 69.4 us | 62.0 us | -10.7% time (+12.0% throughput) |
+| III | 118.1 us | 104.6 us | -11.4% time (+12.9% throughput) |
+| V | 199.9 us | 176.7 us | -11.6% time (+13.1% throughput) |
 
-UPDATED 2026-07-24: recomputed at the confirmed optimized closure of 82.7 MHz
-(12.09 ns, reproduced twice). Prior rows used 78.6 MHz (12.73 ns), which a
-wide-bracket search had understated. Cycle counts are unchanged (measured).
+UPDATED 2026-08-03: recomputed at the OOC closure points M1 (70.2 MHz,
+14.25 ns) and M2 (80.5 MHz, 12.43 ns). Prior rows used the pinned-flow 82.7
+MHz figure, now retired; see the ML-DSA chip-level ledger in
+`docs/findings/INDEX.md`. Cycle counts are unchanged (measured from KAT runs,
+KeyGen only). The optimized arm executes more cycles per operation but closes
+at a high enough frequency that wall-clock time still falls at every security
+level.
 
 ## Power / Energy
 

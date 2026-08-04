@@ -1,3 +1,10 @@
+> **SUPERSEDED 2026-08-03.** The ML-DSA chip-level numbers in this document
+> (82.7 MHz optimized, +17.8%) were measured in Vivado's default pinned flow
+> before commit `23c5672` moved `regen_ckpt` to out-of-context mode. Both arms
+> were re-closed in OOC on 2026-08-03. Current canonical results are M1 (70.2
+> MHz) and M2 (80.5 MHz), +14.7%, in `docs/findings/INDEX.md`, ML-DSA
+> chip-level ledger. Commit `3edd76a`.
+
 # FINDINGS: full post-route PPA (advisor request — power + area, not just timing)
 
 Matched pair, identical settings: xc7a200tfbg676-1, 5.0 ns constraint

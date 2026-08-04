@@ -1,0 +1,7 @@
+[0] regen checkpoint from current tracked sources
+[1] closure baseline: combined_top
+{"tag": "chipv2_mldsa_5372", "closing_period_ns": 12.43, "closing_fmax_mhz": 80.5, "wns_at_close": 0.029}
+[2] worst path at closure (12.43ns):
+{"source": "ctr0_reg[1]/C", "dest": "CHALLENGE_SAMPLER/C_SIPO_reg[426]/R"}
+[3] DISPATCH RECOMMENDATION: instance=CHALLENGE_SAMPLER file=agent/mldsa/mldsa_src/gen_c.v
+[4] next (human): run agent/mldsa/orchestrator.py on the mapped block, re-integrate, then re-run this script; accept only if closing fmax rises.
