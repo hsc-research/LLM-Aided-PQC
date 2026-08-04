@@ -17,6 +17,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 DESIGNS = {
+    # Baseline arm. Same bracket and regen path as "mldsa" so the two are
+    # comparable; measurement only, no dispatch map.
+    "mldsa_baseline": {
+        "key": "combined_top_pristine",
+        "ckpt": "./synth_out/sweep_combined_top_pristine/post_synth_grade1.dcp",
+        "bracket": (12.0, 16.0),
+        "hier2file": {},
+        "orchestrator": None,
+        "kat_gate": ["python3", "agent/mldsa/full_kat_gate.py"],
+    },
     "mldsa": {
         "key": "combined_top",
         "ckpt": "./synth_out/sweep_combined_top/post_synth_grade1.dcp",

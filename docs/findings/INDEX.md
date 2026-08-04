@@ -74,18 +74,80 @@ negative, I = infrastructure/process. Full details in each file.
 *coeff_decomposer base shown post sign_select win (true pristine base predates
 current ledger; the earlier failed pipeline attempt measured -1.688).
 
-## Chip-level ledger (post-route closure, grade -1, ExtraTimingOpt/Explore/Explore recipe)
+## ML-DSA chip-level ledger (post-route closure, Artix-7 xc7a200tfbg676-1 grade -1)
 
-| Build | Closing fmax | LUT | FF | Power @ closure |
-|---|---|---|---|---|
-| combined_top pristine (14.25ns) | 70.2 MHz | 52987 | 29081 | 1.286 W |
-| combined_top optimized, pre-banked | 73.4 MHz | — | — | — |
-| combined_top banked encoder (12.09ns) | **82.7 MHz** | 53597 | 30123 | 1.480 W* |
+Recipe fixed in `fmax_search.py`: ExtraTimingOpt / Explore / Explore.
+Closure is binary search to minimum MET period. Never projected.
 
-Banked vs pristine: +17.8% fmax, +1.2% LUT, +3.6% FF.
-*Power for the banked build is still the 12.73 ns figure and needs a re-pull
-at 12.09 ns. Energy-per-operation claims remain HELD pending the SAIF/VCD
-flow (see PPA_mldsa_fullchip).
+### CANONICAL: out-of-context flow
+
+Measured 2026-08-03. Both arms: `-mode out_of_context`, regen period 8.600 ns,
+bracket 12.0-16.0 ns, same commit. Fmax and utilization from the same run.
+
+| ID | Arm | Closing period | Fmax | Slice LUT | LUT as Mem | Slice Reg | Slice | BRAM | DSP | WNS | Log |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| M1 | baseline (`combined_top_pristine`) | 14.25 ns | 70.2 MHz | 53127 | 1319 | 29079 | 16111 | 29 | 16 | +0.027 | `logs/closure/mldsa_ooc_20260803/fsrch_chipv2_mldsa_baseline_1244_14.25.rpt` |
+| M2 | optimized (`combined_top`, banked encoder) | 12.43 ns | 80.5 MHz | 53543 | 1363 | 30078 | 16205 | 29 | 16 | +0.029 | `logs/closure/mldsa_ooc_20260803/fsrch_chipv2_mldsa_5372_12.43.rpt` |
+
+**M2 vs M1: +14.7% Fmax, +0.8% LUT, +3.4% FF, BRAM and DSP unchanged.**
+
+Power is HELD for both arms. `fmax_search.py` emits `report_utilization` only,
+and vectorless power in OOC excludes I/O and assumes default switching
+activity. Energy-per-operation claims remain gated on the SAIF/VCD flow
+(see PPA_mldsa_fullchip).
+
+Binding path moves between arms, which is the mechanism:
+
+| Arm | Worst path at closure |
+|---|---|
+| M1 | `DECODER/encode_mode_reg[1]/C` -> `ENCODER/PISO_reg[117]/D` |
+| M2 | `ctr0_reg[1]/C` -> `CHALLENGE_SAMPLER/C_SIPO_reg[426]/R` |
+
+The baseline binds in the encoder cone. After the banked encoder rewrite the
+design binds on the challenge sampler instead.
+
+### RETIRED: pinned flow
+
+Not for citation. Retained to document flow-mode sensitivity.
+
+| Arm | Closing period | Fmax | Slice LUT | Slice Reg | Power |
+|---|---|---|---|---|---|
+| pristine | 14.25 ns | ~~70.2 MHz~~ | 52987 | 29081 | 1.286 W |
+| optimized, pre-banked | — | ~~73.4 MHz~~ | — | — | — |
+| optimized, banked encoder (12.09 ns) | | ~~82.7 MHz~~ | 53597 | 30123 | 1.480 W |
+
+~~Banked vs pristine: +17.8% fmax.~~
+
+These ran before commit `23c5672` put `regen_ckpt` into out-of-context mode,
+so the checkpoint was built in Vivado's default pinned mode: every top-level
+port assigned a package pin, I/O buffers inserted, placement constrained
+toward the die periphery.
+
+### Why the OOC numbers are canonical
+
+The pinned optimized figure is higher (82.7 vs 80.5), so this is a retraction
+to a smaller result. The reasons:
+
+1. **Both ML-DSA arms share one configuration only in OOC.** The pinned
+   baseline and pinned optimized closures were not run under a single verified
+   flow, and the pinned optimized run reported a different binding cone
+   (`FSM_sequential_cstate2_reg[0]_rep__0_replica/C` -> `start_op_reg[0]/D`,
+   verdict NO_TARGET, out-of-scope cone) than either OOC arm.
+2. **HQC is measured in OOC and cannot be measured otherwise.** The HQC joint
+   top has 1611 I/O, which overflows package pinning. Reporting ML-DSA pinned
+   and HQC OOC would mean the two designs in the same paper use different
+   flows.
+3. **Area is flow-mode-insensitive; only timing moved.** Pinned and OOC
+   utilization agree within 0.3% (53127 vs 52987 LUT, 29079 vs 29081 FF). The
+   ~3% Fmax gap is the flow mode, not a different design.
+4. **OOC is the correct mode for the claim being made.** These are accelerator
+   cores intended for integration, not standalone parts on this package.
+
+Minerva TP_Opt reports 83.33 MHz optimized and 70.42 MHz pristine in its own
+separate flow (LUT ~57.4k, materially different from both tables above). Both
+snapshots carry `is_complete="0"`. Minerva is a third measurement
+configuration and is not a Result of Record.
+
 ## HQC chip-level ledger (post-route closure, joint KEM, Artix-7 -1, OOC)
 
 **Canonical. Measured 2026-08-03 at commit 6351cac. Reproduce with:**
