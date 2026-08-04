@@ -1,3 +1,9 @@
+> **SUPERSEDED 2026-08-04** by `2026-08-04_ooc_correction_and_paper.md`.
+> The top-priority open problem in this doc (ML-DSA flow mode) is resolved:
+> 82.7 MHz was pinned-flow and is retired. Canonical pair is M1 70.2 / M2
+> 80.5 MHz, +14.7%, OOC. The "Reference: canonical numbers" ML-DSA table
+> below is invalid.
+
 # Handoff: number reconciliation and paper prep, 2026-08-03
 
 For a fresh conversation. Read this first, then
