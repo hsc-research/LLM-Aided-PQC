@@ -1,3 +1,4 @@
+import re
 #!/usr/bin/env python3
 # HQC Joint-Design KAT Gate
 # Validates build/joint_design tracked overrides (e.g. registered pm client
@@ -45,6 +46,8 @@ def stage():
     for f in ("pk_seed.in", "sk_seed.in"):
         shutil.move(f, os.path.join("build/joint_design/tb", f))
 
+CYCLES = {}   # (tb_top, level) -> {"total": int, "decode": int}
+
 def run_sim(tb_top, level, runtime_us, extra_files=()):
     adds = "\n".join(f"add_files -fileset sim_1 -norecurse {p}" for p in extra_files)
     tcl = f"""source ./build/joint_design/tb/joint_design.tcl
@@ -70,7 +73,12 @@ launch_simulation
         print(f"  WATCHDOG KILL: {tb_top} {level}"); return False, "timeout"
     if proc.returncode != 0:
         return False, out[-800:]
-    return True, "ok"
+    tot = re.findall(r"Total Clock Cycles:\s*(\d+)", out)
+    dec = re.findall(r"Decode Clock Cycles:\s*(\d+)", out)
+    if tot:
+        CYCLES[(tb_top, level)] = {"total": int(tot[-1]),
+                                   "decode": int(dec[-1]) if dec else None}
+    return True, out
 
 def seed_inputs(files):
     for f in files:
@@ -171,6 +179,12 @@ def main():
     dt = time.time() - t0
     print("=" * 50)
     print(f"JOINT KAT GATE: {'PASS' if overall else 'FAIL'} ({dt:.0f}s)")
+    if CYCLES:
+        import json as _j
+        _o = {f"{k[0]}@{k[1]}": v for k, v in CYCLES.items()}
+        open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "joint_kat_cycles.json"), "w").write(_j.dumps(_o, indent=2))
+        print("cycles:", _j.dumps(_o))
     sys.exit(0 if overall else 1)
 
 if __name__ == "__main__":
