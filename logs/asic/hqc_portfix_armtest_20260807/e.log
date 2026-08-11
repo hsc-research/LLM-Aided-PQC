@@ -1,0 +1,164 @@
+TMPDIR is being set to /tmp/genus_temp_280162_975a5797-4fe8-4ae9-a818-acc9e95dc57f_engr-r940s01.engr.uidaho.edu_alco9414_krliE6
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[21:01:22.481601] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -no_gui -files e.tcl 
+Date:    Fri Aug 07 21:01:22 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     280162
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[21:01:22.380817] Periodic Lic check successful
+[21:01:22.905123] Feature usage summary:
+[21:01:22.905128] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (15 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (32 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source e.tcl
+#@ Begin verbose source ./e.tcl
+@file(e.tcl) 1: set_db init_hdl_search_path /tmp/armtest
+  Setting attribute of root '/': 'init_hdl_search_path' = /tmp/armtest
+@file(e.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(e.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [list /tmp/armtest/clog2.v /tmp/armtest/encap.v]
+reg hash_processing =0;
+                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/encap.v' on line 243, column 23.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg fixed_weight_processing =0;
+                              |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/encap.v' on line 244, column 31.
+                    (encap_out_type ==1)?{0, d_out}:
+                                             |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'd_out' in file '/tmp/armtest/encap.v' on line 247, column 46.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+                                  u_v_int;  
+                                  |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'u_v_int' in file '/tmp/armtest/encap.v' on line 248, column 35.
+wire [`CLOG2(HASH_RAMDEPTH)-1:0] hash_addr;
+                          |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 261, column 27.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+wire [`CLOG2(HASH_RAMDEPTH)-1:0] hash_addr;
+                           |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 261, column 28.
+        : Illegal Verilog syntax is encountered.
+reg [`CLOG2(HASH_RAMDEPTH)-1:0] h_addr;
+                         |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 262, column 26.
+reg [`CLOG2(HASH_RAMDEPTH)-1:0] h_addr;
+                          |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 262, column 27.
+reg [`CLOG2(HASH_RAMDEPTH)-1:0] hash_in_addr;
+                         |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 263, column 26.
+reg [`CLOG2(HASH_RAMDEPTH)-1:0] hash_in_addr;
+                          |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 263, column 27.
+wire [`CLOG2((K+(32-K%32)%32)/32) -1:0] msg_addr;
+                                |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 266, column 33.
+wire [`CLOG2((K+(32-K%32)%32)/32) -1:0] msg_addr;
+                                  |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 266, column 35.
+reg [`CLOG2((K+(32-K%32)%32)/32) -1:0] m_addr_int;
+                               |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 267, column 32.
+reg [`CLOG2((K+(32-K%32)%32)/32) -1:0] m_addr_int;
+                                 |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 267, column 34.
+reg [`CLOG2(RAMDEPTH)-1:0] u_v_out_addr_int;
+                    |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 317, column 21.
+reg [`CLOG2(RAMDEPTH)-1:0] u_v_out_addr_int;
+                     |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 317, column 22.
+                       sel_uv? 1'b1:  
+                       |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'sel_uv' in file '/tmp/armtest/encap.v' on line 326, column 24.
+wire [`CLOG2(RAMDEPTH)-1:0] u_v_out_addr;
+                     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 331, column 22.
+wire [`CLOG2(RAMDEPTH)-1:0] u_v_out_addr;
+                      |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 331, column 23.
+reg hash_mem_wen =0;
+                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/encap.v' on line 495, column 20.
+                     (shake_in_type == 5)? {u_v_int[32-HASH_LB_SIZE-1:0], u_v_reg}:
+                                                                          |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'u_v_reg' in file '/tmp/armtest/encap.v' on line 504, column 75.
+                     (shake_in_type == 6)? {{(32-HASH_RAMBITS_8%32){1'b0}}, 8'h05, u_v_reg}:
+                                                                                   |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'u_v_reg' in file '/tmp/armtest/encap.v' on line 505, column 84.
+    if (last_block_capture) begin
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'last_block_capture' in file '/tmp/armtest/encap.v' on line 513, column 9.
+        u_v_reg <= u_v[HASH_LB_SIZE - 1:0];
+                     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found '<identifier>' in file '/tmp/armtest/encap.v' on line 514, column 22.
+    else if (block_capture) begin
+                          |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting a statement in file '/tmp/armtest/encap.v' on line 516, column 27.
+    else if (block_capture) begin
+                          |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting a statement in file '/tmp/armtest/encap.v' on line 516, column 27.
+#@ End verbose source ./e.tcl
+1
+Encountered problems processing file: e.tcl
+WARNING: This version of the tool is 263 days old.
+@genus:root: 2> 

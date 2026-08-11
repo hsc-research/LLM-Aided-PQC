@@ -1,0 +1,417 @@
+TMPDIR is being set to /tmp/genus_temp_283139_4b55fdd5-0912-41e9-ae57-f55b2dfcfccf_engr-r940s01.engr.uidaho.edu_alco9414_zUWDnQ
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[21:27:17.481697] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -no_gui -files a5.tcl 
+Date:    Fri Aug 07 21:27:18 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     283139
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[21:27:18.004003] Periodic Lic check successful
+[21:27:18.528315] Feature usage summary:
+[21:27:18.528315] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (16 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (32 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a5.tcl
+#@ Begin verbose source ./a5.tcl
+@file(a5.tcl) 1: set_db init_hdl_search_path /tmp/armtest
+  Setting attribute of root '/': 'init_hdl_search_path' = /tmp/armtest
+@file(a5.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(a5.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [glob /tmp/armtest/*.v]
+reg         [3:0]                     current_state=0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 82, column 54.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg         [3:0]                     next_state = 0;
+                                                    |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 83, column 53.
+reg         [1:0]                     counter_ctrl = 0;
+                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 85, column 28.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 86, column 55.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 88, column 61.
+reg                                   bof_internal_reg = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 90, column 55.
+reg                                   eof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 91, column 59.
+reg                                   eof_internal_reg = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 92, column 55.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 93, column 59.
+reg                                   absorb_data_reg = 0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 97, column 54.
+reg                                   extra_pad = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 98, column 58.
+reg                                   extra_pad_reg = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 99, column 52.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 100, column 56.
+reg         [`WIN-3:0]                requested_bytes_reg = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 102, column 56.
+  
+ |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 103, column 60.
+reg         [`RATE_WIDTH-1:0]         to_be_read = 0;
+                                  |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 105, column 35.
+  -1)-1:0]         data_length_reg = 0;            
+                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 106, column 39.
+reg         [`RATE_WIDTH-1:0]         to_be_read_reg = 0;
+                                 |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 107, column 34.
+reg         [`RATE_WIDTH-1:0]         to_be_absorbed_reg = 0;
+                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 108, column 38.
+  -1)-1:0]         to_be_absorbed = 0;
+                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 109, column 38.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-37'.
+    if (last_block_capture) begin
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'last_block_capture' in file '/tmp/armtest/encap.v' on line 516, column 9.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+    else if (block_capture) begin
+             |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'block_capture' in file '/tmp/armtest/encap.v' on line 519, column 14.
+        count_hash_inputs_test <= 0;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'count_hash_inputs_test' in file '/tmp/armtest/encap.v' on line 528, column 9.
+        count_hash_inputs_test <= count_hash_inputs_test + 1;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'count_hash_inputs_test' in file '/tmp/armtest/encap.v' on line 531, column 9.
+        count_hash_inputs_test <= count_hash_inputs_test + 1;
+                                  |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'count_hash_inputs_test' in file '/tmp/armtest/encap.v' on line 531, column 35.
+reg [12-1:0] count_hash_inputs;
+                              |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 558, column 31.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+reg [`CLOG2(HASH_RAMBITS_32/32)-1:0] count_hash_inputs_test;
+                              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 559, column 31.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+reg [`CLOG2(HASH_RAMBITS_32/32)-1:0] count_hash_inputs_test;
+                               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encap.v' on line 559, column 32.
+        : Illegal Verilog syntax is encountered.
+        total_shake_input_count <= 0;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'total_shake_input_count' in file '/tmp/armtest/encap.v' on line 597, column 9.
+                total_shake_input_count <= 2 + ((K+8)+(32-(K+8)%32)%32)/32; 
+                |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'total_shake_input_count' in file '/tmp/armtest/encap.v' on line 626, column 17.
+           total_shake_input_count <= HASH_RAMDEPTH;
+           |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'total_shake_input_count' in file '/tmp/armtest/encap.v' on line 847, column 12.
+        start_hash <= 0; 
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1102, column 9.
+        start_hash <= 0;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1118, column 9.
+        start_hash <= 0;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1133, column 9.
+        start_hash <= 1;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1173, column 9.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1186, column 9.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1213, column 9.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1223, column 9.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1240, column 9.
+        start_hash <= 1;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1252, column 9.
+        start_encrypt <= 0;
+                         |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1253, column 26.
+        init_msg_in <= 0;
+                       |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1254, column 24.
+        shift_msg_in <= 0;
+                        |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1255, column 25.
+        shake_force_done <= 0;
+                            |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1256, column 29.
+        d_wen <= 0;
+                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1257, column 18.
+        cap_uv <= 0;
+                  |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1258, column 19.
+        shift_uv <= 0;     
+                    |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1259, column 21.
+    s_save_d: begin
+            |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting a statement in file '/tmp/armtest/encap.v' on line 1262, column 13.
+        hash_mem_wen <= 0;
+                        |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1263, column 25.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1264, column 9.
+        start_hash <= 0;  
+                      |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1264, column 23.
+        start_encrypt <= 0;
+                         |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1265, column 26.
+        init_msg_in <= 0;
+                       |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1266, column 24.
+        shift_msg_in <= 0;
+                        |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1267, column 25.
+        shake_force_done <= 0;
+                            |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1268, column 29.
+        cap_uv <= 0;
+                  |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1269, column 19.
+        shift_uv <= 0;
+                    |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1270, column 21.
+        if (shake_dout_valid_h) begin
+                              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting a statement in file '/tmp/armtest/encap.v' on line 1271, column 31.
+        if (shake_dout_valid_h) begin
+                              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting a statement in file '/tmp/armtest/encap.v' on line 1271, column 31.
+            d_wen <= 1;
+                     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'number' in file '/tmp/armtest/encap.v' on line 1272, column 22.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-1'.
+    s_save_last_d: begin
+                 |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_save_last_d' in file '/tmp/armtest/encap.v' on line 1279, column 18.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1281, column 9.
+    s_load_u: begin
+            |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_load_u' in file '/tmp/armtest/encap.v' on line 1300, column 13.
+    s_save_u: begin
+            |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_save_u' in file '/tmp/armtest/encap.v' on line 1329, column 13.
+    s_load_dom_sep:begin
+                  |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_load_dom_sep' in file '/tmp/armtest/encap.v' on line 1351, column 19.
+        start_hash <= 0;  
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_hash' in file '/tmp/armtest/encap.v' on line 1353, column 9.
+    s_stall_0: begin
+             |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_stall_0' in file '/tmp/armtest/encap.v' on line 1371, column 14.
+    s_save_v: begin
+            |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_save_v' in file '/tmp/armtest/encap.v' on line 1420, column 13.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-20'.
+    s_load_dom_sep_v:begin
+                    |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_load_dom_sep_v' in file '/tmp/armtest/encap.v' on line 1442, column 21.
+    s_append_05: begin
+               |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_append_05' in file '/tmp/armtest/encap.v' on line 1463, column 16.
+    s_done: begin
+          |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of symbol 's_done' in file '/tmp/armtest/encap.v' on line 1501, column 11.
+        count_hash_inputs <= 0;
+        |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 605, column 9.
+        : A net cannot be assigned within an always block.  This situation may occur because an output port is not explicitly declared as a reg.
+            count_hash_inputs <= count_hash_inputs + 1;
+            |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 660, column 13.
+            count_hash_inputs <= count_hash_inputs + 1;
+            |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 676, column 13.
+                    count_hash_inputs <= count_hash_inputs + 1;
+                    |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 881, column 21.
+                       count_hash_inputs <= count_hash_inputs + 1;
+                       |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 915, column 24.
+           count_hash_inputs <= count_hash_inputs + 1;
+           |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 947, column 12.
+                    count_hash_inputs <= count_hash_inputs + 1;
+                    |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 976, column 21.
+                   count_hash_inputs <= count_hash_inputs + 1;    
+                   |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1014, column 20.
+           count_hash_inputs <= count_hash_inputs + 1;
+           |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1049, column 12.
+        if (count_hash_inputs%34 == 0) begin
+            |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1318, column 13.
+        : Error encountered during Verilog parsing.
+        else if (count_hash_inputs%34 != 0 && count_uv_blocks == 0) begin
+                                              |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'count_uv_blocks' in file '/tmp/armtest/encap.v' on line 1321, column 47.
+        if (count_hash_inputs%34 != 0) begin
+            |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1341, column 13.
+        if (count_hash_inputs%34 == 0 && count_hash_inputs < HASH_RAMBITS_32/32 - 1) begin
+            |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1390, column 13.
+        if (count_hash_inputs%34 == 0 && count_hash_inputs < HASH_RAMBITS_32/32 - 1) begin
+                                         |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1390, column 42.
+        else if (count_hash_inputs >= HASH_RAMBITS_32/32 -1) begin
+                                      |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'HASH_RAMBITS_32' in file '/tmp/armtest/encap.v' on line 1393, column 39.
+        if (count_hash_inputs%34 == 0) begin
+            |
+Error   : Unresolved subprogram reference. [VLOGPT-203] [read_hdl]
+        : Call to subprogram 'count_hash_inputs' in file '/tmp/armtest/encap.v' on line 1409, column 13.
+#@ End verbose source ./a5.tcl
+1
+Encountered problems processing file: a5.tcl
+WARNING: This version of the tool is 263 days old.
+@genus:root: 2> 

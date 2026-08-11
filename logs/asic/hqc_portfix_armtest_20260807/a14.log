@@ -1,0 +1,276 @@
+TMPDIR is being set to /tmp/genus_temp_285609_ff99db42-6d9e-42bb-96d1-1a46fc8e8a33_engr-r940s01.engr.uidaho.edu_alco9414_e8fum4
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[21:45:16.481689] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -no_gui -files a5.tcl 
+Date:    Fri Aug 07 21:45:16 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     285609
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[21:45:16.007009] Periodic Lic check successful
+[21:45:16.531321] Feature usage summary:
+[21:45:16.531322] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (15 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (32 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a5.tcl
+#@ Begin verbose source ./a5.tcl
+@file(a5.tcl) 1: set_db init_hdl_search_path /tmp/armtest
+  Setting attribute of root '/': 'init_hdl_search_path' = /tmp/armtest
+@file(a5.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(a5.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [glob /tmp/armtest/*.v]
+reg         [3:0]                     current_state=0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 82, column 54.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg         [3:0]                     next_state = 0;
+                                                    |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 83, column 53.
+reg         [1:0]                     counter_ctrl = 0;
+                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 85, column 28.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 86, column 55.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 88, column 61.
+reg                                   bof_internal_reg = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 90, column 55.
+reg                                   eof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 91, column 59.
+reg                                   eof_internal_reg = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 92, column 55.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 93, column 59.
+reg                                   absorb_data_reg = 0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 97, column 54.
+reg                                   extra_pad = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 98, column 58.
+reg                                   extra_pad_reg = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 99, column 52.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 100, column 56.
+reg         [`WIN-3:0]                requested_bytes_reg = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 102, column 56.
+  
+ |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 103, column 60.
+reg         [`RATE_WIDTH-1:0]         to_be_read = 0;
+                                  |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 105, column 35.
+  -1)-1:0]         data_length_reg = 0;            
+                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 106, column 39.
+reg         [`RATE_WIDTH-1:0]         to_be_read_reg = 0;
+                                 |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 107, column 34.
+reg         [`RATE_WIDTH-1:0]         to_be_absorbed_reg = 0;
+                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 108, column 38.
+  -1)-1:0]         to_be_absorbed = 0;
+                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/tmp/armtest/control_path.v' on line 109, column 38.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-37'.
+ reg wen_fw, sel_fw, rd_fw;
+                   |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'sel_fw' in file '/tmp/armtest/encrypt_parallel.v' on line 209, column 20.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+         .wr_en(wen_fw & en_r1),
+                         |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'en_r1' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 366, column 26.
+        : An implicit wire is declared for an undeclared symbol occurring within a module instance or within the target of an assign statement.  If an undeclared symbol occurs within a subexpression in one of these contexts, it may be a coding error.
+    .wren_0(wen_fw & en_r2),
+                     |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'en_r2' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 387, column 22.
+wire [M-1:0] r1_internal; 
+                        |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'r1_internal' in file '/tmp/armtest/encrypt_parallel.v' on line 410, column 25.
+wire [M-1:0] r2_internal_hr2;
+                            |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'r2_internal_hr2' in file '/tmp/armtest/encrypt_parallel.v' on line 412, column 29.
+wire [M-1:0] r2_internal_sr2;
+                            |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'r2_internal_sr2' in file '/tmp/armtest/encrypt_parallel.v' on line 413, column 29.
+wire [LOG_WEIGHT_ENC-1:0] loc_addr_sr2;
+                                      |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'loc_addr_sr2' in file '/tmp/armtest/encrypt_parallel.v' on line 415, column 39.
+reg  [`CLOG2(X)-1:0] h_addr_0_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 432, column 15.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+reg  [`CLOG2(X)-1:0] h_addr_0_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 432, column 16.
+        : Illegal Verilog syntax is encountered.
+reg  [`CLOG2(X)-1:0] h_addr_1_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 433, column 15.
+reg  [`CLOG2(X)-1:0] h_addr_1_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 433, column 16.
+reg  [`CLOG2(X)-1:0] s_addr_0_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 434, column 15.
+reg  [`CLOG2(X)-1:0] s_addr_0_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 434, column 16.
+reg  [`CLOG2(X)-1:0] s_addr_1_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 435, column 15.
+reg  [`CLOG2(X)-1:0] s_addr_1_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 435, column 16.
+    assign pm_rd_dout    = (u_v_out_en|pm_rd_en)? 1'b1: 1'b0;
+                                       |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pm_rd_en' in file '/tmp/armtest/encrypt_parallel.v' on line 459, column 40.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+    assign pm_addr_result= u_v_out_en? u_v_out_addr: pm_rd_addr;
+                                                     |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pm_rd_addr' in file '/tmp/armtest/encrypt_parallel.v' on line 460, column 54.
+    assign pm_add_wr_en  = (u_v_in_wen && sel_uv==0)? 1'b1: add_out_valid;
+                                                            |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'add_out_valid' in file '/tmp/armtest/encrypt_parallel.v' on line 461, column 61.
+    assign pm_add_addr   = u_v_in_wen? u_v_in_addr :add_out_addr;
+                                                    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'add_out_addr' in file '/tmp/armtest/encrypt_parallel.v' on line 462, column 53.
+    assign pm_add_in     = u_v_in_wen? u_v_in :add_out;
+                                               |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'add_out' in file '/tmp/armtest/encrypt_parallel.v' on line 463, column 48.
+		.addr_result(xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr_sr2),
+		                         |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'xor_add_addr' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 541, column 28.
+		.addr_result(xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr_sr2),
+		                                                                  |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'pm_rd_addr_sr2' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 541, column 69.
+		.rd_dout((u_v_out_en|xor_add_en|pm_rd_en_sr2)? 1'b1: 1'b0),
+		                                |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'pm_rd_en_sr2' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 542, column 35.
+        .add_in(u_v_in_wen? u_v_in: xor_add_en? xor_add_out : add_out_sr2),
+                                                |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'xor_add_out' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 545, column 49.
+        .add_in(u_v_in_wen? u_v_in: xor_add_en? xor_add_out : add_out_sr2),
+                                                              |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'add_out_sr2' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 545, column 63.
+		.add_addr(u_v_in_wen? u_v_in_addr: xor_add_en? xor_add_out_addr : add_out_addr_sr2),
+		                                               |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'xor_add_out_addr' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 546, column 50.
+		.add_addr(u_v_in_wen? u_v_in_addr: xor_add_en? xor_add_out_addr : add_out_addr_sr2),
+		                                                                  |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'add_out_addr_sr2' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 546, column 69.
+		.add_wr_en((u_v_in_wen && sel_uv==1)? 1'b1:xor_add_en? xor_add_out_valid: add_out_valid_sr2)
+		                                                       |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'xor_add_out_valid' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 547, column 58.
+		.add_wr_en((u_v_in_wen && sel_uv==1)? 1'b1:xor_add_en? xor_add_out_valid: add_out_valid_sr2)
+		                                                                          |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'add_out_valid_sr2' declared as a 1-bit wire in file '/tmp/armtest/encrypt_parallel.v' on line 547, column 77.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 551, column 30.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
+                               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/tmp/armtest/encrypt_parallel.v' on line 551, column 32.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
+                                    |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting identifier in file '/tmp/armtest/encrypt_parallel.v' on line 551, column 37.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
+                                               |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found '<identifier>' in file '/tmp/armtest/encrypt_parallel.v' on line 551, column 48.
+#@ End verbose source ./a5.tcl
+1
+Encountered problems processing file: a5.tcl
+WARNING: This version of the tool is 263 days old.
+@genus:root: 2> 
