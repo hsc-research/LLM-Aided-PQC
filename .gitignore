@@ -60,7 +60,9 @@ agent/flight_2*.log
 agent/last_raw_reply.txt
 synth_out/
 agent/mldsa/fullkat_vectors.json
-agent/mldsa/fullkat_run.log
+# fullkat_run.log backs the KeyGen cycle counts in the ML-DSA ledger;
+# tracked deliberately. Large lockstep traces stay ignored.
+!agent/mldsa/fullkat_run.log
 agent/mldsa/dbglog_*.log
 .Xil/
 clockInfo.txt
@@ -88,8 +90,12 @@ fv/
 **/anthropic_env
 
 # PDKs and external tutorials live outside the repo
-asap7/
+asic/asap7/run/
+asic/asap7/out/
+asic/asap7/work/
 tutorial_innovus/
 
 # Closure and orchestrator logs cited by Results of Record are evidence, not noise
 !logs/**/*.log
+
+# ASAP7: keep scripts and constraints, exclude run output
