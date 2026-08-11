@@ -1,0 +1,10 @@
+{
+  "top": "butterfly2x2",
+  "src": "/home/alco9414/pqc/hqc/asic/arms/bf2x2_optimized",
+  "period_ps": 572.65625,
+  "fmax_mhz": 1746.2482946793998,
+  "effort": "high",
+  "library": "ASAP7 7nm LVT+SLVT TT",
+  "sdc": "/home/alco9414/pqc/hqc/asic/asap7/sdc/butterfly2x2.sdc",
+  "stage": "pre_layout"
+}
