@@ -1,0 +1,276 @@
+TMPDIR is being set to /tmp/genus_temp_758635_5b41bea6-0a56-4282-8b58-f6a08f61dc92_engr-r940s01.engr.uidaho.edu_alco9414_lI0k6u
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[13:05:57.481705] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -batch -files a7_ordered.tcl 
+Date:    Tue Aug 11 13:05:57 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     758635
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[13:05:57.003282] Periodic Lic check successful
+[13:05:57.527593] Feature usage summary:
+[13:05:57.527594] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (15 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (32 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a7_ordered.tcl
+#@ Begin verbose source ./a7_ordered.tcl
+@file(a7_ordered.tcl) 1: set_db init_hdl_search_path /home/alco9414/pqc/hqc/asic/portfix_wip
+  Setting attribute of root '/': 'init_hdl_search_path' = /home/alco9414/pqc/hqc/asic/portfix_wip
+@file(a7_ordered.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(a7_ordered.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [concat [list /home/alco9414/pqc/hqc/asic/portfix_wip/clog2.v] [lsort [glob /home/alco9414/pqc/hqc/asic/portfix_wip/*.v]]]
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 82, column 54.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg         [`COUNTER_WIDTH-1:0]      counter = 0;
+                                                 |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 83, column 53.
+  -1)-1:0]      counter = 0;
+                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 85, column 28.
+reg         [1:0]                     counter_ctrl = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 86, column 55.
+reg                                   din_ready_internal = 0;
+                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 88, column 61.
+reg                                   bof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 90, column 55.
+reg                                   bof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 91, column 59.
+reg                                   eof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 92, column 55.
+reg                                   eof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 93, column 59.
+reg                                   absorb_data = 0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 97, column 54.
+reg                                   absorb_data_reg = 0;
+                                                         |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 98, column 58.
+reg                                   extra_pad = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 99, column 52.
+reg                                   extra_pad_reg = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 100, column 56.
+reg         [32-3:0]                requested_bytes = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 102, column 56.
+reg         [32-3:0]                requested_bytes_reg = 0;
+                                                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 103, column 60.
+reg         [`RATE_WIDTH-1:0]         data_length_reg = 0;            
+                                  |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 105, column 35.
+reg         [`RATE_WIDTH-1:0]         to_be_read_reg = 0;
+                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 106, column 39.
+  -1)-1:0]         to_be_read = 0;
+                                 |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 107, column 34.
+reg         [`RATE_WIDTH-1:0]         to_be_absorbed = 0;
+                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 108, column 38.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 109, column 38.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-37'.
+assign rd_error_loc = (rd_fw|sel_e)? 1'b1: 1'b0;
+                       |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'rd_fw' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 212, column 24.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+assign rd_error_loc = (rd_fw|sel_e)? 1'b1: 1'b0;
+                             |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'sel_e' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 212, column 30.
+assign rd_addr_error_loc = sel_fw? fw_addr: 
+                                   |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'fw_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 214, column 36.
+                           sel_e? r1_e_rd_addr: 
+                           |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'sel_e' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 215, column 28.
+                           sel_e? r1_e_rd_addr: 
+                                  |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'r1_e_rd_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 215, column 35.
+assign u_v_out = (sel_uv)? pm_out : u_out;
+                           |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pm_out' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 338, column 28.
+assign u_v_out = (sel_uv)? pm_out : u_out;
+                                    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'u_out' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 338, column 37.
+         .address(rd_fw?fw_addr_reg:r1_e_rd_addr),
+                  |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'rd_fw' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 363, column 19.
+        : An implicit wire is declared for an undeclared symbol occurring within a module instance or within the target of an assign statement.  If an undeclared symbol occurs within a subexpression in one of these contexts, it may be a coding error.
+         .address(rd_fw?fw_addr_reg:r1_e_rd_addr),
+                        |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'fw_addr_reg' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 363, column 25.
+         .address(rd_fw?fw_addr_reg:r1_e_rd_addr),
+                                    |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'r1_e_rd_addr' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 363, column 37.
+         .wr_en(wen_fw & en_r1),
+                |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'wen_fw' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 364, column 17.
+         .wr_en(wen_fw & en_r1),
+                         |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'en_r1' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 364, column 26.
+         .address(rd_fw?fw_addr_reg:loc_addr),
+                                    |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'loc_addr' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 372, column 37.
+         .wr_en(wen_fw & en_r2),
+                         |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'en_r2' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 373, column 26.
+         .data(u_v_in_wen ? u_v_in : pm_out),
+                                     |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'pm_out' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 381, column 38.
+         .address(u_v_out_en? u_v_out_addr : u_v_in_wen? u_v_in_addr : u_cpy_addr_reg),
+                                                                       |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'u_cpy_addr_reg' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 382, column 72.
+         .wr_en((u_v_in_wen && sel_uv == 0)? 1: wen_u),
+                                                |
+Warning : Suspicious implicit wire declaration. [VLOGPT-21]
+        : Operand 'wen_u' declared as a 1-bit wire in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 383, column 49.
+wire [M-1:0] r1_internal; 
+                        |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'r1_internal' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 392, column 25.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+wire [M-1:0] r2_internal;
+                        |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'r2_internal' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 393, column 25.
+wire [LOG_WEIGHT_ENC-1:0] loc_addr, r1_e_rd_addr;
+                                  |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'loc_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 395, column 35.
+wire [LOG_WEIGHT_ENC-1:0] loc_addr, r1_e_rd_addr;
+                                                |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'r1_e_rd_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 395, column 49.
+wire [RAMWIDTH-1:0] pm_out;
+                          |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'pm_out' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 396, column 27.
+reg  [`CLOG2(X)-1:0] hs_addr_0_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 418, column 15.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+reg  [`CLOG2(X)-1:0] hs_addr_0_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 418, column 16.
+        : Illegal Verilog syntax is encountered.
+reg  [`CLOG2(X)-1:0] hs_addr_1_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 419, column 15.
+reg  [`CLOG2(X)-1:0] hs_addr_1_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 419, column 16.
+    assign pm_rd_dout    = (copy_u|u_v_out_en|xor_add_en|pm_rd_en)? 1'b1: 1'b0;
+                            |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'copy_u' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 434, column 29.
+    assign pm_rd_dout    = (copy_u|u_v_out_en|xor_add_en|pm_rd_en)? 1'b1: 1'b0;
+                                                         |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pm_rd_en' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 434, column 58.
+    assign pm_addr_result= copy_u? u_cpy_addr: xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr;
+                           |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'copy_u' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 435, column 28.
+    assign pm_addr_result= copy_u? u_cpy_addr: xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr;
+                                   |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'u_cpy_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 435, column 36.
+    assign pm_addr_result= copy_u? u_cpy_addr: xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr;
+                                                           |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 435, column 60.
+    assign pm_addr_result= copy_u? u_cpy_addr: xor_add_en? xor_add_addr : u_v_out_en? u_v_out_addr: pm_rd_addr;
+                                                                                                    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pm_rd_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 435, column 101.
+#@ End verbose source ./a7_ordered.tcl
+1
+Encountered problems processing file: a7_ordered.tcl
+
+Lic Summary:
+[13:06:29.363346] Cdslmd servers: ece-cadence-lic
+[13:06:29.887664] Feature usage summary:
+[13:06:29.887665] Genus_Synthesis  
+Normal exit.

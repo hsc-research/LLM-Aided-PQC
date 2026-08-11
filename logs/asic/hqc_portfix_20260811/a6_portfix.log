@@ -1,0 +1,166 @@
+TMPDIR is being set to /tmp/genus_temp_751814_6a0b85d5-70a4-48d9-9dfb-95630f634925_engr-r940s01.engr.uidaho.edu_alco9414_tPkYQP
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[12:49:20.481681] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -batch -files a6_portfix.tcl 
+Date:    Tue Aug 11 12:49:20 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     751814
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[12:49:20.002082] Periodic Lic check successful
+[12:49:20.526393] Feature usage summary:
+[12:49:20.526394] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (15 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (30 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a6_portfix.tcl
+#@ Begin verbose source ./a6_portfix.tcl
+@file(a6_portfix.tcl) 1: set_db init_hdl_search_path /home/alco9414/pqc/hqc/asic/portfix_wip
+  Setting attribute of root '/': 'init_hdl_search_path' = /home/alco9414/pqc/hqc/asic/portfix_wip
+@file(a6_portfix.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(a6_portfix.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [glob /home/alco9414/pqc/hqc/asic/portfix_wip/*.v]
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [0:DEPTH-1] /* synthesis ramstyle = "M20K" */;
+                                                                                           |
+Warning : Unrecognized Synthesis pragma_name found in HDL. [VLOGPT-502]
+        : Pragma 'synthesis ramstyle = "M20K"' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 27, column 92.
+        : Synthesis pragmas are specially-formatted comments or attributes in the HDL that tell Genus how to synthesize the HDL.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [0:DEPTH-1] /* synthesis ramstyle = "M20K" */;
+    |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 27, column 5.
+  initial
+        |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 34, column 9.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+assign uv_addr_0 = (sel_uv)? xor_add_addr: uv_addr_0_mul;
+                             |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 145, column 30.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+reg  [`CLOG2(X)-1:0] uv_addr_0_mul_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 152, column 15.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+reg  [`CLOG2(X)-1:0] uv_addr_0_mul_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 152, column 16.
+        : Illegal Verilog syntax is encountered.
+reg  [`CLOG2(X)-1:0] uv_addr_1_reg;
+              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 153, column 15.
+reg  [`CLOG2(X)-1:0] uv_addr_1_reg;
+               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 153, column 16.
+assign pm_rd_dout    = out_en? 1'b1 :xor_add_en;
+                                     |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_en' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 168, column 38.
+assign pm_addr_result= out_en? out_addr : xor_add_addr;
+                                          |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 169, column 43.
+assign pm_add_wr_en  = xor_add_out_valid;
+                       |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_out_valid' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 170, column 24.
+assign pm_add_addr   = xor_add_out_addr;
+                       |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_out_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 171, column 24.
+assign pm_add_in     = xor_add_out;
+                       |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'xor_add_out' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 172, column 24.
+ wire [RAMWIDTH-1:0] pm_out;
+                           |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'pm_out' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 219, column 28.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr;
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 220, column 30.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr;
+                               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 220, column 32.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr;
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 224, column 30.
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr;
+                               |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 224, column 32.
+reg [3:0] state = 0;
+                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 264, column 20.
+	parameter LOG_WEIGHT_ENC = `CLOG2(WEIGHT_ENC),
+	                                            |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 63, column 46.
+	parameter LOG_N1_BYTES = `CLOG2(N1_BYTES),
+	                                        |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 64, column 42.
+    parameter LOGX = `CLOG2(X), 
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 81, column 30.
+	parameter LOGW = `CLOG2(W),
+	                         |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 83, column 27.
+	parameter ADDR_WIDTH = `CLOG2(RAMSIZE),
+	                                     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 87, column 39.
+    parameter LOG_MAX_WEIGHT = `CLOG2(WEIGHT_ENC),
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found '=' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 88, column 30.
+#@ End verbose source ./a6_portfix.tcl
+1
+Encountered problems processing file: a6_portfix.tcl
+
+Lic Summary:
+[12:49:51.521587] Cdslmd servers: ece-cadence-lic
+[12:49:51.521611] Feature usage summary:
+[12:49:51.521611] Genus_Synthesis  
+Normal exit.
