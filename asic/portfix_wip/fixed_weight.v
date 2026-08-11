@@ -86,7 +86,10 @@ module fixed_weight
                                                                        24'hffdb89,
 																	   
 	
-	parameter LOG_WEIGHT = `CLOG2(WEIGHT),
+	parameter LOG_WEIGHT = (parameter_set == "hqc128")? 7:
+	                       (parameter_set == "hqc192")? 7:
+	                       (parameter_set == "hqc256")? 8:
+	                                                    7,
     parameter E0_WIDTH = 32,
     parameter E1_WIDTH = 32,
     parameter SEED_SIZE = 320
@@ -227,6 +230,8 @@ assign dout_shake_3 = dout_shake_reg[23:0];
 
 wire [23:0] dout_shake_sel;
 reg [31:0] shake_output_counter;
+reg [1:0] sel_ctx;
+reg start_red =0;
 
 
 
@@ -235,13 +240,13 @@ assign dout_shake_sel = (sel_ctx == 2'b00)? dout_shake_0:
                         (sel_ctx == 2'b10)? dout_shake_2: 
                                             dout_shake_3;
 
-wire [`CLOG2(WEIGHT)-1:0] addr_ctx_0,addr_ctx_1;
-reg [`CLOG2(WEIGHT):0] wr_addr_ctx, rd_addr_ctx;
+wire [LOG_WEIGHT-1:0] addr_ctx_0,addr_ctx_1;
+reg [LOG_WEIGHT:0] wr_addr_ctx, rd_addr_ctx;
 reg wr_en_shake_ctx;
 wire [23:0] shake_ctx_out;
 
-assign addr_ctx_0 = wr_addr_ctx[`CLOG2(WEIGHT)-1:0];
-assign addr_ctx_1 = rd_addr_ctx[`CLOG2(WEIGHT)-1:0];
+assign addr_ctx_0 = wr_addr_ctx[LOG_WEIGHT-1:0];
+assign addr_ctx_1 = rd_addr_ctx[LOG_WEIGHT-1:0];
 
 wire rejection_threshold_pass;
  
@@ -382,7 +387,6 @@ parameter s_ctx_done				   =   5;
 
 reg  [31:0] count_reg = 0;
 
-reg [1:0] sel_ctx;
 
 always@(posedge clk)
 begin
@@ -556,7 +560,6 @@ begin
 
 end 
 
-reg start_red =0;
 reg [4:0] red_state = 0;
 reg squeeze_ctrl = 0;
 // Below are states

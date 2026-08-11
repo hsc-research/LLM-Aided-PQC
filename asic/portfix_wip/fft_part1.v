@@ -51,6 +51,9 @@ wire            round_en, last_round, cnt_en, last_cnt, k_en;
 reg             done;
 
 
+wire    [7:0]   gf_in1, gf_in2, gf_out;
+reg     [7:0]   gf_out_d1, gf_out_d2, gf_out_d3;
+
 //Radix calculation
 //Radix4
 //Input: A0, A1, A2, A3
@@ -132,8 +135,6 @@ assign next_buff_214 = {buff[27*8 +: 4*8], radix_b0, radix_b1, radix_b2, radix_b
 assign next_buff_211 = {buff[24*8 +: 7*8], buff[31*8 +: 8], buff[0 +: 24*8]};
 
 reg     [223:0] bm_pow_R;
-wire    [7:0]   gf_in1, gf_in2, gf_out;
-reg     [7:0]   gf_out_d1, gf_out_d2, gf_out_d3;
 
 //GF Mult
 gfmul #(.REG_IN  (0),

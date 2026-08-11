@@ -1,0 +1,260 @@
+TMPDIR is being set to /tmp/genus_temp_788384_6a0b552a-ce5f-4493-9ff5-5749785ac2a0_engr-r940s01.engr.uidaho.edu_alco9414_j5qCX7
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[15:24:26.481697] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -batch -no_gui -files a7_ordered.tcl 
+Date:    Tue Aug 11 15:24:26 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     788384
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[15:24:26.449536] Periodic Lic check successful
+[15:24:26.973842] Feature usage summary:
+[15:24:26.973843] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (14 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (31 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a7_ordered.tcl
+#@ Begin verbose source ./a7_ordered.tcl
+@file(a7_ordered.tcl) 1: set_db init_hdl_search_path /home/alco9414/pqc/hqc/asic/portfix_wip
+  Setting attribute of root '/': 'init_hdl_search_path' = /home/alco9414/pqc/hqc/asic/portfix_wip
+@file(a7_ordered.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(a7_ordered.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [concat [list /home/alco9414/pqc/hqc/asic/portfix_wip/clog2.v] [lsort [glob /home/alco9414/pqc/hqc/asic/portfix_wip/*.v]]]
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 82, column 54.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg         [`COUNTER_WIDTH-1:0]      counter = 0;
+                                                 |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 83, column 53.
+  -1)-1:0]      counter = 0;
+                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 85, column 28.
+reg         [1:0]                     counter_ctrl = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 86, column 55.
+reg                                   din_ready_internal = 0;
+                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 88, column 61.
+reg                                   bof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 90, column 55.
+reg                                   bof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 91, column 59.
+reg                                   eof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 92, column 55.
+reg                                   eof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 93, column 59.
+reg                                   absorb_data = 0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 97, column 54.
+reg                                   absorb_data_reg = 0;
+                                                         |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 98, column 58.
+reg                                   extra_pad = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 99, column 52.
+reg                                   extra_pad_reg = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 100, column 56.
+reg         [32-3:0]                requested_bytes = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 102, column 56.
+reg         [32-3:0]                requested_bytes_reg = 0;
+                                                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 103, column 60.
+reg         [`RATE_WIDTH-1:0]         data_length_reg = 0;            
+                                  |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 105, column 35.
+reg         [`RATE_WIDTH-1:0]         to_be_read_reg = 0;
+                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 106, column 39.
+  -1)-1:0]         to_be_read = 0;
+                                 |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 107, column 34.
+reg         [`RATE_WIDTH-1:0]         to_be_absorbed = 0;
+                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 108, column 38.
+
+|
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 109, column 38.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-37'.
+function [32*8-1:0] rolbyte32;
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 214, column 10.
+        : Use the 'automatic' keyword for declaring functions and tasks.
+function [32*8-1:0] perm;
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 223, column 10.
+                    start_red <= 1'b0;
+                    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 468, column 21.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+					start_red <= 1'b0;
+					|
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 481, column 6.
+					start_red <= 1'b0;
+					|
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 499, column 6.
+                    start_red <= 1'b0;
+                    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 518, column 21.
+						start_red <= 1'b0;
+						|
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 525, column 7.
+					start_red <= 1'b1;
+					|
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 532, column 6.
+				start_red <= 1'b0;
+				|
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'start_red' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_ct.v' on line 539, column 5.
+        n_minus_i <= N; 
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'n_minus_i' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 236, column 9.
+        n_minus_i <= n_minus_i - 1;
+        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'n_minus_i' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 239, column 9.
+        n_minus_i <= n_minus_i - 1;
+                     |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'n_minus_i' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 239, column 22.
+wire [LOG_N-1:0] dout_shake_reduced;
+                                   |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'dout_shake_reduced' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 277, column 36.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+  assign mem_in_0 = WEIGHT - count;
+                             |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'count' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 279, column 30.
+  mem_dual #(.WIDTH(`CLOG2(N)), .DEPTH(WEIGHT), .FILE("test_input.inn")) loca_mem (
+                              |
+Error   : Instance name required for module instance. [VLOGPT-58] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 284, column 31.
+        : According to Verilog IEEE standard it is mandatory to give instance name while instantiating a module. For more details see the 'module instantiation syntax' section in the Verilog IEEE Reference manual.
+  mem_dual #(.WIDTH(`CLOG2(N)), .DEPTH(WEIGHT), .FILE("test_input.inn")) loca_mem (
+                              |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Bad declaration using undeclared type 'mem_dual' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 284, column 31.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+reg [LOG_N-1:0] n_minus_i, n_minus_i_reg;  
+                         |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'n_minus_i' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 316, column 26.
+wire dout_reduced_valid;
+                       |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'dout_reduced_valid' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 329, column 24.
+  function [7:0] mul;
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gf_mul.v' on line 40, column 12.
+  function [7:0] v_temp_rearrange; //1 + x^2 + x^3 + x^4 + x^8
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gf_mul.v' on line 51, column 12.
+  function [7:0] mul;
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gfmul.v' on line 40, column 12.
+  function [7:0] v_temp_rearrange; //1 + x^2 + x^3 + x^4 + x^8
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gfmul.v' on line 66, column 12.
+(* use_dsp48 = "no" *)
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'use_dsp48' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_barrett_red.v' on line 47, column 4.
+	parameter LOG_WEIGHT = `CLOG2(WEIGHT),
+	                                    |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 57, column 38.
+    parameter LOGX = `CLOG2(X), 
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 79, column 30.
+	parameter LOGW = `CLOG2(W),
+	                         |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 81, column 27.
+	parameter ADDR_WIDTH = `CLOG2(RAMSIZE),
+	                                     |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 85, column 39.
+    parameter LOG_MAX_WEIGHT = `CLOG2(MAX_WEIGHT),
+                             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found '=' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 86, column 30.
+#@ End verbose source ./a7_ordered.tcl
+1
+Encountered problems processing file: a7_ordered.tcl
+
+Lic Summary:
+[15:24:58.023250] Cdslmd servers: ece-cadence-lic
+[15:24:58.023274] Feature usage summary:
+[15:24:58.023275] Genus_Synthesis  
+Normal exit.

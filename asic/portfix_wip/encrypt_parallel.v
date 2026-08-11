@@ -186,6 +186,22 @@ wire [M-1:0]error_loc;
 wire [M-1:0] r1_internal;
 wire [M-1:0] r2_internal_hr2;
 wire [M-1:0] r2_internal_sr2;
+  wire xor_add_en;
+reg en_r1;
+reg en_r2;
+ reg start_fw_transfer;
+ reg done_fw_transfer;
+reg r2_done =0;
+wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
+wire pm_rd_en, pm_rd_en_sr2;
+wire [MEM_WIDTH-1:0] add_out, add_out_sr2;
+wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr, add_out_addr_sr2;
+wire add_out_valid, add_out_valid_sr2;
+wire [LOG_RAMDEPTH-1:0] xor_add_addr;
+wire [RAMWIDTH-1:0]  xor_add_out;
+wire [LOG_RAMDEPTH-1:0] xor_add_out_addr;
+wire xor_add_out_valid;
+wire [LOG_WEIGHT_ENC-1:0] loc_addr_sr2;
 
 wire shake_din_valid_fw; 
 wire shake_din_ready_fw;
@@ -412,7 +428,6 @@ reg sel_r1 = 0;
 reg sel_r2 = 0;
 wire [M-1:0] r2_internal;
 wire [M-1:0] error;
-wire [LOG_WEIGHT_ENC-1:0] loc_addr_sr2;
 reg start_poly_mult_r2h;
 reg start_poly_mult_sr2;
 wire done_poly_mult, done_poly_mult_sr2;
@@ -548,12 +563,7 @@ assign error = r2_internal_hr2;
   );
 
 
- wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr, pm_rd_addr_sr2;
- wire pm_rd_en, pm_rd_en_sr2;
  
- wire [MEM_WIDTH-1:0] add_out, add_out_sr2;
- wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr, add_out_addr_sr2;
- wire add_out_valid, add_out_valid_sr2;
  
  reg start_adder_r1r2h;
  reg start_adder_sr2_plus_e;
@@ -611,12 +621,7 @@ assign error = r2_internal_hr2;
   wire done_xor_adder;
   wire [RAMWIDTH-1:0] add_in_1;
   wire [RAMWIDTH-1:0] add_in_2;
-  wire xor_add_en;
-  wire [LOG_RAMDEPTH-1:0] xor_add_addr;
   
-  wire [RAMWIDTH-1:0]  xor_add_out;
-  wire [LOG_RAMDEPTH-1:0] xor_add_out_addr;
-  wire xor_add_out_valid;
   
   assign add_in_1 = pm_out_sr2;
   assign add_in_2 = cdw_out;
@@ -652,8 +657,6 @@ parameter s_done   =   4;
 parameter s_wait_r1_transfer = 5;
 parameter s_wait_r2_transfer = 6;
 
-reg en_r1;
-reg en_r2;
 reg en_e;
 
 
@@ -673,7 +676,7 @@ begin
         if (state == s_wait_start) begin
             en_r1 <= 0;
             en_r2 <= 0;
-            en_e <= 0;;
+            en_e <= 0;
             r2_done <= 0;
             done_fixed_weight <= 0;
             request_another_vector <= 2'b00;
@@ -854,8 +857,6 @@ begin
 end 
 
 
- reg start_fw_transfer;
- reg done_fw_transfer;
  reg [3:0] trx_state = 0;
  parameter trx_wait_start  =   0;
  parameter trx_tranfer =   1;
@@ -956,7 +957,6 @@ parameter u_r2_mul_h    =   1;
 parameter u_r1_plus_r2h  =   2;   
 parameter u_move_u_bram = 3;
 
-reg r2_done =0;
 reg u_done =0;
 reg [LOG_RAMDEPTH-1:0] u_cpy_addr, u_cpy_addr_reg;
 reg wen_u;
