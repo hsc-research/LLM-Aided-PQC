@@ -24,6 +24,10 @@ set_db hdl_error_on_blackbox false
 # glob silently blackboxes it. VHDL packages must be analysed before their
 # users, so alphabetical glob order fails.
 set vhd [glob -nocomplain $RTL_DIR/*.vhd]
+# Verilog-only arms get strict blackbox checking: a missing module source is a
+# silent measurement error, not a tolerable condition. Mixed-language arms keep
+# the tolerant setting because the VHDL read order above needs it.
+if {[llength $vhd] == 0} { set_db hdl_error_on_blackbox true }
 if {[llength $vhd] > 0} {
   set pkgs {}
   set rest {}
