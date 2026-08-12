@@ -16,6 +16,7 @@ TOP_OVERRIDE = {
     "sampler_s_pristine": "sampler_s",     "sampler_s_opt": "sampler_s",
     "sampler_y_pristine": "sampler_y_ext", "sampler_y_opt": "sampler_y_ext",
     "sampler_a_pristine": "sampler_a_ext", "sampler_a_opt": "sampler_a_ext",
+    "bf2x2_baseline": "butterfly2x2", "bf2x2_optimized": "butterfly2x2",
 }
 
 MODULE_SOURCES = {
@@ -306,6 +307,16 @@ MODULE_SOURCES["encap"] = [
 MODULE_SOURCES["butterfly"] = [
     "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/Barrett_8380417.v",
     "./agent/mldsa/mldsa_src/butterfly.v",
+]
+MODULE_SOURCES["bf2x2_baseline"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/Barrett_8380417.v",
+    "./asic/arms/bf2x2_baseline/butterfly.v",
+    "./asic/arms/bf2x2_baseline/butterfly2x2.v",
+]
+MODULE_SOURCES["bf2x2_optimized"] = [
+    "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src/Barrett_8380417.v",
+    "./asic/arms/bf2x2_optimized/butterfly.v",
+    "./asic/arms/bf2x2_optimized/butterfly2x2.v",
 ]
 
 MODULE_SOURCES["expandmask_ext"] = [
