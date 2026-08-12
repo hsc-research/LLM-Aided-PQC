@@ -1,0 +1,742 @@
+TMPDIR is being set to /tmp/genus_temp_896804_47ec0d02-0eb8-4c8c-8733-ac56bc06eb5a_engr-r940s01.engr.uidaho.edu_alco9414_dgMHMO
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[14:19:11.481673] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -batch -no_gui -files a9_elab.tcl 
+Date:    Wed Aug 12 14:19:11 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     896804
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[14:19:11.374274] Periodic Lic check successful
+[14:19:11.898585] Feature usage summary:
+[14:19:11.898586] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (15 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (32 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a9_elab.tcl
+#@ Begin verbose source ./a9_elab.tcl
+@file(a9_elab.tcl) 1: set TUT   "/home/alco9414/pqc/tutorial_innovus"
+@file(a9_elab.tcl) 2: set LIB_PATH   "$TUT/lib/"
+@file(a9_elab.tcl) 3: set LEF_PATH   "$TUT/lef/scaled/"
+@file(a9_elab.tcl) 4: set TLEF_PATH  "$TUT/techlef/"
+@file(a9_elab.tcl) 5: set RTL_DIR "/home/alco9414/pqc/hqc/asic/portfix_wip"
+@file(a9_elab.tcl) 6: set LIB_LIST {  asap7sc7p5t_AO_LVT_TT_nldm_211120.lib   asap7sc7p5t_INVBUF_LVT_TT_nldm_220122.lib   asap7sc7p5t_OA_LVT_TT_nldm_211120.lib   asap7sc7p5t_SEQ_LVT_TT_nldm_220123.lib   asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.lib \
+                asap7sc7p5t_AO_SLVT_TT_nldm_211120.lib  asap7sc7p5t_INVBUF_SLVT_TT_nldm_220122.lib  asap7sc7p5t_OA_SLVT_TT_nldm_211120.lib  asap7sc7p5t_SEQ_SLVT_TT_nldm_220123.lib  asap7sc7p5t_SIMPLE_SLVT_TT_nldm_211120.lib}
+@file(a9_elab.tcl) 8: set LEF_LIST { asap7_tech_4x_201209.lef asap7sc7p5t_28_L_4x_220121a.lef asap7sc7p5t_28_SL_4x_220121a.lef}
+@file(a9_elab.tcl) 9: set_db init_lib_search_path "$LIB_PATH $LEF_PATH $TLEF_PATH"
+  Setting attribute of root '/': 'init_lib_search_path' = /home/alco9414/pqc/tutorial_innovus/lib/ /home/alco9414/pqc/tutorial_innovus/lef/scaled/ /home/alco9414/pqc/tutorial_innovus/techlef/
+@file(a9_elab.tcl) 10: set_db init_hdl_search_path $RTL_DIR
+  Setting attribute of root '/': 'init_hdl_search_path' = /home/alco9414/pqc/hqc/asic/portfix_wip
+@file(a9_elab.tcl) 11: set_db / .library "$LIB_LIST"
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_AO_LVT_TT_nldm_211120.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_INVBUF_LVT_TT_nldm_220122.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_OA_LVT_TT_nldm_211120.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_SEQ_LVT_TT_nldm_220123.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_AO_SLVT_TT_nldm_211120.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_INVBUF_SLVT_TT_nldm_220122.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_OA_SLVT_TT_nldm_211120.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_SEQ_SLVT_TT_nldm_220123.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.700000, 25.000000) in library 'asap7sc7p5t_SIMPLE_SLVT_TT_nldm_211120.lib'.
+  Setting attribute of root '/': 'library' =   asap7sc7p5t_AO_LVT_TT_nldm_211120.lib   asap7sc7p5t_INVBUF_LVT_TT_nldm_220122.lib   asap7sc7p5t_OA_LVT_TT_nldm_211120.lib   asap7sc7p5t_SEQ_LVT_TT_nldm_220123.lib   asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.lib  asap7sc7p5t_AO_SLVT_TT_nldm_211120.lib  asap7sc7p5t_INVBUF_SLVT_TT_nldm_220122.lib  asap7sc7p5t_OA_SLVT_TT_nldm_211120.lib  asap7sc7p5t_SEQ_SLVT_TT_nldm_220123.lib  asap7sc7p5t_SIMPLE_SLVT_TT_nldm_211120.lib
+@file(a9_elab.tcl) 12: set_db lef_library "$LEF_LIST"
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA9Pad' has no resistance value.
+        : If this is the expected behavior, this message can be ignored.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA89' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA78' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA67' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA56' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA45' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA34' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA23' has no resistance value.
+Info    : Via with no resistance will have a value of '0.0' assigned for resistance value. [PHYS-129]
+        : Via 'VIA12' has no resistance value.
+Warning : Site already defined before, duplicated site will be ignored. [PHYS-106]
+        : Site 'asap7sc7p5t' read already, this site in file '/home/alco9414/pqc/tutorial_innovus/lef/scaled//asap7sc7p5t_28_SL_4x_220121a.lef' is ignored.
+
+  According to lef_library, there are total 10 routing layers [ V(5) / H(5) ]
+
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M1' [line 144 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+        : Check the wire parameter in LEF technology files.
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M2' [line 215 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M3' [line 279 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M4' [line 375 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M5' [line 476 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M6' [line 581 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M7' [line 679 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M8' [line 707 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'M9' [line 734 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'EDGECAPACITANCE' parameter is missing for layer 'Pad' [line 761 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M1' [line 144 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M2' [line 215 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M3' [line 279 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M4' [line 375 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M5' [line 476 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M6' [line 581 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M7' [line 679 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M8' [line 707 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'M9' [line 734 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Missing wire parameter. [PHYS-15]
+        : 'CPERSQDIST' parameter is missing for layer 'Pad' [line 761 in file /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef]
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'PHYS-15'.
+Warning : The variant range of wire parameters is too large. An example of wire parameters are, a WIDTH for layer, PITCH for layer, MINSPACING for layers, etc. [PHYS-12]
+        : The variant range (0.072, 8) of 'WIDTH' for layers 'M3' and 'Pad' is too large.
+        : Check the consistency of the parameters, and see if you can ignore this message or you're using different LEF file with wrong parameters.
+Warning : The value of the wire parameter is too big. [PHYS-13]
+        : The 'WIDTH: 8' of layer 'Pad' is much bigger than others.
+        : Check the consistency of the specified wire parameter.
+Warning : The variant range of wire parameters is too large. An example of wire parameters are, a WIDTH for layer, PITCH for layer, MINSPACING for layers, etc. [PHYS-12]
+        : The variant range (0.144, 16) of 'PITCH' for layers 'M1' and 'Pad' is too large.
+Warning : The value of the wire parameter is too big. [PHYS-13]
+        : The 'PITCH: 16' of layer 'Pad' is much bigger than others.
+Warning : The variant range of wire parameters is too large. An example of wire parameters are, a WIDTH for layer, PITCH for layer, MINSPACING for layers, etc. [PHYS-12]
+        : The variant range (0.012, 8) of 'OFFSET' for layers 'M4' and 'Pad' is too large.
+Warning : The value of the wire parameter is too big. [PHYS-13]
+        : The 'OFFSET: 8' of layer 'Pad' is much bigger than others.
+Warning : The value of the wire parameter is too small. [PHYS-14]
+        : The 'OFFSET: 0.012' of layer 'M4' is much less than others.
+        : Check the consistency of the specified wire parameter.
+Warning : The value of the wire parameter is too small. [PHYS-14]
+        : The 'OFFSET: 0.012' of layer 'M4' is much less than others.
+Warning : The value of the wire parameter is too small. [PHYS-14]
+        : The 'OFFSET: 0.012' of layer 'M4' is much less than others.
+Warning : The value of the wire parameter is too small. [PHYS-14]
+        : The 'OFFSET: 0.012' of layer 'M4' is much less than others.
+Warning : The variant range of wire parameters is too large. An example of wire parameters are, a WIDTH for layer, PITCH for layer, MINSPACING for layers, etc. [PHYS-12]
+        : The variant range (0.072, 8) of 'MINSPACING' for layers 'M1' and 'Pad' is too large.
+Warning : The value of the wire parameter is too big. [PHYS-13]
+        : The 'MINSPACING: 8' of layer 'Pad' is much bigger than others.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx10_ASAP7_75t_L cannot be found in library.
+        : Ensure that the proper library files are available and have been imported.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx1_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx2_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx2b_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx4_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx6_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILLER_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILLERxp5_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell TAPCELL_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell TAPCELL_WITH_FILLER_ASAP7_75t_L cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx10_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx1_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx2_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx2b_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx4_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell DECAPx6_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILLER_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell FILLERxp5_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell TAPCELL_ASAP7_75t_SL cannot be found in library.
+Warning : Physical cell not defined in library. [PHYS-279]
+        : The physical (LEF) cell TAPCELL_WITH_FILLER_ASAP7_75t_SL cannot be found in library.
+  Setting attribute of root '/': 'lef_library' = /home/alco9414/pqc/tutorial_innovus/techlef//asap7_tech_4x_201209.lef /home/alco9414/pqc/tutorial_innovus/lef/scaled//asap7sc7p5t_28_L_4x_220121a.lef /home/alco9414/pqc/tutorial_innovus/lef/scaled//asap7sc7p5t_28_SL_4x_220121a.lef
+@file(a9_elab.tcl) 13: set_db hdl_error_on_blackbox true
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = true
+@file(a9_elab.tcl) 14: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [concat [list $RTL_DIR/clog2.v] [lsort [glob $RTL_DIR/*.v]]]
+reg         [3:0]                     current_state=0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 82, column 54.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg         [3:0]                     next_state = 0;
+                                                    |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 83, column 53.
+reg         [`CLOG2(1344/32*32/32 ? 1 : $clog2(1344/32*32/32-1+1))-1:0]      counter = 0;
+                                                                                        |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 85, column 89.
+reg         [1:0]                     counter_ctrl = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 86, column 55.
+reg                                   din_ready_internal = 0;
+                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 88, column 61.
+reg                                   bof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 90, column 55.
+reg                                   bof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 91, column 59.
+reg                                   eof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 92, column 55.
+reg                                   eof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 93, column 59.
+reg                                   absorb_data = 0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 97, column 54.
+reg                                   absorb_data_reg = 0;
+                                                         |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 98, column 58.
+reg                                   extra_pad = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 99, column 52.
+reg                                   extra_pad_reg = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 100, column 56.
+reg         [32-3:0]                requested_bytes = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 102, column 56.
+reg         [32-3:0]                requested_bytes_reg = 0;
+                                                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 103, column 60.
+reg         [`CLOG2(1) ? 1 : $clog2(1344+1))-1:0]         data_length = 0;
+                                                                         |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 105, column 74.
+reg         [4+1 <= 1) ? 1 : $clog2(1344+1))-1:0]         data_length_reg = 0;            
+                                                                             |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 106, column 78.
+reg         [4+1 <= 1) ? 1 : $clog2(1344+1))-1:0]         to_be_read = 0;
+                                                                        |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 107, column 73.
+reg         [`CLOG2(1344 1 : $clog2(1344+1))-1:0]         to_be_read_reg = 0;
+                                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 108, column 77.
+reg         [`CLOG2(1344 1 : $clog2(1344+1))-1:0]         to_be_absorbed = 0;
+                                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 109, column 77.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-37'.
+function [32*8-1:0] rolbyte32;
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 214, column 10.
+        : Use the 'automatic' keyword for declaring functions and tasks.
+function [32*8-1:0] perm;
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 223, column 10.
+  function [7:0] mul;
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gf_mul.v' on line 40, column 12.
+  function [7:0] v_temp_rearrange; //1 + x^2 + x^3 + x^4 + x^8
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gf_mul.v' on line 51, column 12.
+  function [7:0] mul;
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gfmul.v' on line 40, column 12.
+  function [7:0] v_temp_rearrange; //1 + x^2 + x^3 + x^4 + x^8
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gfmul.v' on line 66, column 12.
+(* use_dsp48 = "no" *)
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'use_dsp48' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_barrett_red.v' on line 47, column 4.
+function [7:0] xor_byte(input [8*PARAM_DELTA-1:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_elp.v' on line 207, column 10.
+function [7:0] I(input [7:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_elp.v' on line 217, column 10.
+function [7:0] I(input [7:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_err_val.v' on line 326, column 10.
+function [7:0] P(input [6:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_err_val.v' on line 368, column 10.
+(* clock_buffer_type="BUFG" *)  input  wire            clk,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'clock_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 38, column 4.
+(* io_buffer_type="IBUF" *)  input  wire            rst,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 39, column 4.
+(* io_buffer_type="IBUF" *)  input  wire            din_valid,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 40, column 4.
+(* io_buffer_type="OBUF" *)  output wire            din_ready,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 41, column 4.
+(* io_buffer_type="IBUF" *)  input  wire [32-1:0]  din,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 42, column 4.
+(* io_buffer_type="OBUF" *)  output wire            dout_valid,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 43, column 4.
+(* io_buffer_type="IBUF" *)  input  wire            dout_ready,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 44, column 4.
+(* io_buffer_type="OBUF" *)  output wire [32-1:0] dout,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 45, column 4.
+(* io_buffer_type="IBUF" *)  input wire  force_done,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 47, column 4.
+(* io_buffer_type="IBUF" *)  output reg  force_done_ack
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 48, column 4.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [0:DEPTH-1] /* synthesis ramstyle = "M20K" */;
+                                                                                           |
+Warning : Unrecognized Synthesis pragma_name found in HDL. [VLOGPT-502]
+        : Pragma 'synthesis ramstyle = "M20K"' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 27, column 92.
+        : Synthesis pragmas are specially-formatted comments or attributes in the HDL that tell Genus how to synthesize the HDL.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [0:DEPTH-1] /* synthesis ramstyle = "M20K" */;
+    |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 27, column 5.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [DEPTH-1:0]/* synthesis ramstyle = "M20K" */;
+                                                                                          |
+Warning : Unrecognized Synthesis pragma_name found in HDL. [VLOGPT-502]
+        : Pragma 'synthesis ramstyle = "M20K"' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_single.v' on line 16, column 91.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [DEPTH-1:0]/* synthesis ramstyle = "M20K" */;
+    |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_single.v' on line 16, column 5.
+(* use_dsp48 = "no" *)
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'use_dsp48' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mod34.v' on line 25, column 4.
+(* ram_style = "block" *) reg [1599:0] rc_const_all = {
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 38, column 4.
+@file(a9_elab.tcl) 15: puts ARM_READ_OK
+ARM_READ_OK
+@file(a9_elab.tcl) 16: elaborate hqc_kem_joint_design
+  Libraries have 334 usable logic and 46 usable sequential lib-cells.
+Info    : Elaborating Design. [ELAB-1]
+        : Elaborating top-level block 'hqc_kem_joint_design' from file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v'.
+Warning : Using default parameter value for module elaboration. [CDFG-818]
+        : Elaborating block 'hqc_kem_joint_design' with default parameters value.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'wren_1' (1) of instance 'rand_mem' of module 'mem_dual_WIDTH128_DEPTH139' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 153.
+        : This may cause simulation mismatches between the original and synthesized designs.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'pk_rand_addr_reg' in module 'vect_set_random_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_MEM_WIDTH128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 202.
+        : Genus removes the flip-flop or latch inferred for an unused signal or variable. To preserve the flip-flop or latch, set the hdl_preserve_unused_registers attribute to true or use a pragma in the RTL.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'shake_dout_valid_reg' in module 'vect_set_random_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_MEM_WIDTH128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 236.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'sel_rmem_reg' in module 'vect_set_random_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_MEM_WIDTH128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 291.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'shake_result_ready' in module 'vect_set_random_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_MEM_WIDTH128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 368.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'gen_one_reg' in module 'loc_based_adder_parameter_set48h687163313238_WIDTH128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/loc_based_adder.v' on line 114.
+Warning : Ignored redundant case item. [CDFG-480]
+        : If branch '0001' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 737.
+        : When multiple case item expressions match the case condition, only the statements associated with the first matching item are considered.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : If branch '2' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 737.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'request_another_vector' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 571.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'rd_x' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 558.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'rd_y' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 557.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused latch register 'start_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 687.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused latch register 'sel_x' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 784.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused latch register 'rd_x' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 783.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'KEYGEN_MODULE' of module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 353.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'wr_en' (1) of instance 'B_CONST' of module 'mem_single_WIDTH32_DEPTH75_FILE152h626172726574745f6871635f3132382e6d656d' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 206.
+Warning : Module port is wider than connected signal. [CDFG-465]
+        : Signal width (18) does not match width of output port 'q' (32) of instance 'B_CONST' of module 'mem_single_WIDTH32_DEPTH75_FILE152h626172726574745f6871635f3132382e6d656d' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 206.
+        : This may cause simulation mismatches between the original and synthesized designs.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (50) does not match width of input port 'b_in' (32) of instance 'KM_1' of module 'karatsuba_small_A_WIDTH32_B_WIDTH32' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/barrett_red_gen.v' on line 102.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (64) does not match width of input port 'a_in' (32) of instance 'KM_2' of module 'karatsuba_small_A_WIDTH32_B_WIDTH32' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/barrett_red_gen.v' on line 118.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (50) does not match width of input port 'b_in' (32) of instance 'KM_2' of module 'karatsuba_small_A_WIDTH32_B_WIDTH32' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/barrett_red_gen.v' on line 118.
+Warning : Module port is wider than connected signal. [CDFG-465]
+        : Signal width (15) does not match width of output port 'a_in_reg_out' (32) of instance 'KM_2' of module 'karatsuba_small_A_WIDTH32_B_WIDTH32' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/barrett_red_gen.v' on line 118.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'mem_comp' in module 'fixed_weight_cww_parameter_set48h687163313238_N17669_M15_WEIGHT75_FILE_SKSEED8h00' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 432.
+        : Add missing reference signals in the sensitivity list or use '*' to add all the signals in the sensitivity list. Example : always @(a or b) (OR) always (*))
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'swap' in module 'fixed_weight_cww_parameter_set48h687163313238_N17669_M15_WEIGHT75_FILE_SKSEED8h00' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 421.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'seed_is_loaded_in_shake' in module 'fixed_weight_cww_parameter_set48h687163313238_N17669_M15_WEIGHT75_FILE_SKSEED8h00' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 617.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'shake_result_ready' in module 'fixed_weight_cww_parameter_set48h687163313238_N17669_M15_WEIGHT75_FILE_SKSEED8h00' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 533.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[32].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[31].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[30].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[29].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[28].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[27].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[26].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[25].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[24].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[23].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[22].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[21].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[20].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Connected signal is wider than module port. [CDFG-464]
+        : Signal width (32) does not match width of input port 'start' (1) of instance 'GF_MUL_SERIES[19].GFMUL' of module 'gf_mul' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_solomon_encode.v' on line 109.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'CDFG-464'.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'gen_one_reg' in module 'loc_based_adder_parameter_set48h687163313238_N17669_WEIGHT75_WIDTH128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/loc_based_adder.v' on line 114.
+Warning : Ignored redundant case item. [CDFG-480]
+        : If branch '0001' in module 'encrypt_parameter_set48h687163313238_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 973.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : If branch '2' in module 'encrypt_parameter_set48h687163313238_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 973.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'en_e' in module 'encrypt_parameter_set48h687163313238_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encrypt.v' on line 846.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 21.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 29.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 32.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 21.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 14.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 14.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 14.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 14.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 14.
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/tools/cadence/installs/DDI251/GENUS251/tools.lnx86/lib/chipware/syn/CW/CW_div_k_arch_3.v' on line 1, column 14.
+Warning : Assignment to input port. [CDFG-380]
+        : Assignment to input port 'c_o' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mod34.v' on line 57.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'count_hash_inputs_test' in module 'encap_parameter_set48h687163313238_FILE_THETA8h00_CT_DESIGN2h2_PARALLEL_ENCRYPT0' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encap.v' on line 537.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'sel_uv_int' in module 'encap_parameter_set48h687163313238_FILE_THETA8h00_CT_DESIGN2h2_PARALLEL_ENCRYPT0' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encap.v' on line 861.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'done_hash_load' in module 'encap_parameter_set48h687163313238_FILE_THETA8h00_CT_DESIGN2h2_PARALLEL_ENCRYPT0' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/encap.v' on line 1594.
+Warning : Assignment to input port. [CDFG-380]
+        : Assignment to input port 'y_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/v_minus_uy.v' on line 179.
+Warning : Module port is wider than connected signal. [CDFG-465]
+        : Signal width (8) does not match width of output port 'dout_o' (32) of instance 'FFT_PART1' of module 'fft_part1_DIN_W256_DOUT_W32' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/add_fft.v' on line 72.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : Case item 'default' in module 'fft_part2_round_ROUND0_DIN_W8_DOUT_W8' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part2.v' on line 238.
+Warning : Removing unused register. [CDFG-508]
+        : Removing unused flip-flop register 'start_d' in module 'fft_part2_round_ROUND0_DIN_W8_DOUT_W8' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part2.v' on line 172.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : Case item 'default' in module 'fft_part2_round_ROUND1_DIN_W8_DOUT_W8' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part2.v' on line 251.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'CDFG-508'.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : Case item 'default' in module 'fft_part2_round_ROUND2_DIN_W8_DOUT_W8' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part2.v' on line 268.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : Case item 'default' in module 'fft_part2_round_ROUND3_DIN_W8_DOUT_W8' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part2.v' on line 293.
+Warning : Unreachable statements for case item. [CDFG-472]
+        : Case item 'default' in module 'fft_retrieve_error_poly_PARAM_SECURITY128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_retrieve_error_poly.v' on line 109.
+Warning : Module port is wider than connected signal. [CDFG-465]
+        : Signal width (1) does not match width of input port 'decap_in_addr' (8) of instance 'DECAP_MODULE' of module 'decap_parameter_set48h687163313238' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 473.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'start_addr' in module 'control_path' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 1294.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'requested_bytes' in module 'control_path' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 1294.
+Warning : Referenced signals are not added in sensitivity list. This may cause simulation mismatches between the original and the synthesized design. [CDFG-360]
+        : Signal 'prev_start_addr' in module 'control_path' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 1294.
+Warning : Signal referenced before it is assigned. This may cause simulation mismatches between the original and synthesized designs. [CDFG-381]
+        : Signal 'prev_start_addr' in module 'control_path' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 2186.
+        : Inside an always block of the verilog file or the process statement of the vhdl file, a signal is referred before it is assigned. Modify the RTL to assign the signal before referring it inside the always block of the verilog or the process statement of the vhdl.
+Warning : Undriven module input port. [ELABUTL-127]
+        : Undriven bits of port 'data' of instance 'x_mem' of module 'mem_single_WIDTH15_DEPTH66' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 321, column 2, hid = 0.
+        : Run check_design to check 'Undriven Port(s)/Pin(s)' section for all undriven module input ports. It is better to double confirm with designer if these undriven ports are expected. During syn_gen the undriven ports are controlled by attribute 'hdl_unconnected_value', the default value is 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'done_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 622, column 13, hid = 0.
+        : The undriven signal handling can be controlled by setting the attribute 'hdl_unconnected_value' before syn_generic command.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'done_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 606, column 13, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'done_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 500, column 16, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'shake_din_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 204, column 9, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'shake_din_valid_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 204, column 9, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'shake_dout_ready_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 214, column 28, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'error_loc' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 198, column 30, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'done_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 606, column 13, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'done_fw' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 606, column 13, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'error_loc' in module 'keygen_parameter_set48h687163313238_N17669_FILE_PKSEED8h00_FILE_SKSEED8h00_MEM_WIDTH128_CT_DESIGN2h2' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keygen.v' on line 113, column 26, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'valid_vector' in module 'fixed_weight_cww_parameter_set48h687163313238_N17669_M15_WEIGHT75_FILE_SKSEED8h00' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fixed_weight_cww.v' on line 108, column 24, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'done' in module 'rm_encoder' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rm_encoder.v' on line 51, column 19, hid = 0.
+Warning : Unconnected instance input port detected. [ELABUTL-124]
+        : Unconnected input port 'rst' of instance 'ENCODER' of module 'rm_encoder' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/reed_muller_encode.v' on line 82, column 1, hid = 0.
+        : Run check_design to check 'Undriven Port(s)/Pin(s)' section for all unconnected instance input ports. It is better to double confirm with designer these unconnected instance input port are expected. During syn_gen the unconnected instance input ports are controlled by attribute 'hdl_unconnected_value', the default value is 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'dout_valid_o' in module 'fft_part1_DIN_W256_DOUT_W32' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 31, column 5, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'start_o' in module 'add_fft_DIN_W256_AW8_DW8' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/add_fft.v' on line 23, column 36, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'busy_o' in module 'hqc_rsdecod_roots_PARAM_SECURITY128' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_roots.v' on line 36, column 35, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'shake_din_valid' in module 'decap_parameter_set48h687163313238' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/decap.v' on line 237, column 33, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'shake_din' in module 'decap_parameter_set48h687163313238' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/decap.v' on line 239, column 34, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'shake_dout_ready' in module 'decap_parameter_set48h687163313238' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/decap.v' on line 240, column 34, hid = 0.
+Warning : Undriven module output port. [ELABUTL-123]
+        : Undriven bits of output port 'shake_force_done' in module 'decap_parameter_set48h687163313238' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/decap.v' on line 242, column 28, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Undriven signal detected. [ELABUTL-125]
+        : Undriven bits of signal 'rc_const_all' in module 'rc' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 91, column 14, hid = 0.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'ELABUTL-125'.
+Warning : Unconnected instance input port detected. [ELABUTL-124]
+        : Unconnected input port 'shake_force_done_ack' of instance 'ENCAP_MODULE' of module 'encap_parameter_set48h687163313238_FILE_THETA8h00_CT_DESIGN2h2_PARALLEL_ENCRYPT0' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 404, column 19, hid = 0.
+Warning : Undriven module input port. [ELABUTL-127]
+        : Undriven bits of port 'decap_in_addr' of instance 'DECAP_MODULE' of module 'decap_parameter_set48h687163313238' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_kem_joint_design.v' on line 473, column 3, hid = 0.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][0]' in module 'mem_dual_WIDTH128_DEPTH139'.
+        : This may cause simulation mismatches between the original and synthesized designs.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][1]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][2]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][3]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][4]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][5]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][6]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][7]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][8]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][9]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][10]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][11]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][12]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][13]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][14]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][15]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][16]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][17]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][18]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Signal or variable has multiple drivers. [CDFG2G-622]
+        : 'mem[138][19]' in module 'mem_dual_WIDTH128_DEPTH139'.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'CDFG2G-622'.
+Info    : Done Elaborating Design. [ELAB-3]
+        : Done elaborating 'hqc_kem_joint_design'.
+Checking for source RTL...
+Check completed for source RTL.
+Running Unified Mux Engine Tricks...
+Completed Unified Mux Engine Tricks
+
+Stage: post_elab
+-------------------------------------------------------
+| Trick             | Accepts | Rejects | Runtime (s) | 
+-------------------------------------------------------
+| ume_constant_bmux |       2 |       0 |        0.09 | 
+| ume_merge         |       0 |       0 |        0.01 | 
+| ume_ssm           |       0 |       0 |        0.15 | 
+| ume_cse           |       1 |       0 |        1.58 | 
+| ume_shrink        |       7 |       0 |        0.06 | 
+| ume_sweep         |       2 |       0 |        0.94 | 
+| ume_constant_bmux |       0 |       0 |        0.02 | 
+| ume_merge         |       0 |       0 |        0.01 | 
+| ume_ssm           |       0 |       0 |        0.17 | 
+| ume_cse           |       0 |       0 |        1.36 | 
+| ume_shrink        |       0 |       0 |        0.04 | 
+| ume_sweep         |       0 |       0 |        0.93 | 
+-------------------------------------------------------
+Starting optimize datapath shifters [v1.0] (stage: post_elab, startdef: hqc_kem_joint_design, recur: true)
+Completed optimize datapath shifters (accepts: 0, rejects: 0, runtime: 0.012s)
+Starting clip mux common data inputs [v1.0] (stage: post_elab, startdef: hqc_kem_joint_design, recur: true)
+Completed clip mux common data inputs (accepts: 0, rejects: 0, runtime: 0.048s)
+Starting clip the non-user hierarchies [v2.0] (stage: post_elab, startdef: hqc_kem_joint_design, recur: true)
+Completed clip the non-user hierarchies (accepts: 0, rejects: 0, runtime: 0.018s)
+Starting basic netlist cleanup [v1.0] (stage: post_elab, startdef: hqc_kem_joint_design, recur: true)
+Completed basic netlist cleanup (accepts: 0, rejects: 0, runtime: 0.016s)
+
+Stage: post_elab
+--------------------------------------------------------------------
+| Transform                      | Accepts | Rejects | Runtime (s) | 
+--------------------------------------------------------------------
+| hlo_optimize_datapath_shifters |       0 |       0 |        0.01 | 
+| hlo_clip_mux_input             |       0 |       0 |        0.05 | 
+| hlo_clip                       |       0 |       0 |        0.02 | 
+| hlo_cleanup                    |       0 |       0 |        0.02 | 
+--------------------------------------------------------------------
+UM:   flow.cputime  flow.realtime  timing.setup.tns  timing.setup.wns  snapshot
+UM:*                                                                   elaborate
+@file(a9_elab.tcl) 17: puts ARM_ELAB_OK
+ARM_ELAB_OK
+@file(a9_elab.tcl) 18: check_design -unresolved > /tmp/hqc_unresolved.rpt
+
+@file(a9_elab.tcl) 19: report_hierarchy > /tmp/hqc_hier.rpt
+@file(a9_elab.tcl) 20: exit
+
+Lic Summary:
+[14:21:07.070987] Cdslmd servers: ece-cadence-lic
+[14:21:07.595305] Feature usage summary:
+[14:21:07.595306] Genus_Synthesis  
+Normal exit.

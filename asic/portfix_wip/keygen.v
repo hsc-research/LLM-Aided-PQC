@@ -184,6 +184,15 @@ wire [MEM_WIDTH-1:0] rand_out_0;
 wire [`CLOG2(X) - 1:0]rand_out_addr_1;
 reg [`CLOG2(X) - 1:0]rand_out_addr_1_reg;
 wire [MEM_WIDTH-1:0] rand_out_1;
+ wire [MEM_WIDTH-1:0] pm_out;
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr;
+ wire pm_rd_en;
+ wire [MEM_WIDTH-1:0] add_out;
+ wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr;
+ wire add_out_valid;
+wire [LOG_WEIGHT-1:0] y_addr;
+reg [LOG_WEIGHT-1:0] x_addr, x_addr_reg = 0;
+reg x_transfer_done;
 
 assign keygen_out =(keygen_out_type == 2'b00)? {{(MEM_WIDTH-M){1'b0}},x_internal}:
             (keygen_out_type == 2'b01)? {{(MEM_WIDTH-M){1'b0}},error_loc}:
@@ -320,7 +329,6 @@ vect_set_random #(.parameter_set(parameter_set), .N(N), .MEM_WIDTH(MEM_WIDTH), .
  
 wire done_poly_mult;
 reg start_poly_mult = 0;
-wire [LOG_WEIGHT-1:0] y_addr;
 wire [MEM_WIDTH-1:0] mux_word_0, mux_word_1;
 
 
@@ -393,13 +401,7 @@ assign mux_word_1 = (rand_out_addr_1_reg> (X + X%2)/2 - 1)? 0: rand_out_1;
   );
 `endif  
  
- wire [MEM_WIDTH-1:0] pm_out;
- wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] pm_rd_addr;
- wire pm_rd_en;
  
- wire [MEM_WIDTH-1:0] add_out;
- wire [`CLOG2(N_MEM/MEM_WIDTH) - 1:0] add_out_addr;
- wire add_out_valid;
  
  reg start_adder;
  wire done_adder;
@@ -697,8 +699,6 @@ reg [3:0] trx_state = 0;
 parameter trx_wait_start  =   0;
 parameter trx_tranfer =   1;
 parameter trx_done =   2;
-reg [LOG_WEIGHT-1:0] x_addr, x_addr_reg = 0;
-reg x_transfer_done;
 always@(posedge clk)
 begin
     x_addr_reg <= x_addr;

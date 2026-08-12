@@ -60,6 +60,10 @@ reg [N1-1:0] cdw_in;
 wire[7:0] gate_value;
 reg [N1-1:0] cdw_bytes;
 wire [N1-K-1:0] cdw_out_int;
+reg init;
+reg shift_cdw;
+reg wr_en;
+reg [LOG_N1_BYTES-1:0] count_cdw_bytes = 0;
 
 
 always@(posedge clk)
@@ -96,11 +100,7 @@ assign addr = (cdw_out_en)? cdw_out_addr : count_cdw_bytes;
 
 
      
-reg init;
-reg shift_cdw;
-reg wr_en;
 
-reg [LOG_N1_BYTES-1:0] count_cdw_bytes = 0;
 reg [3:0] state = 0;
 parameter s_wait_start      =   0;
 parameter s_encode         =   1;

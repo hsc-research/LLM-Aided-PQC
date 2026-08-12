@@ -213,6 +213,10 @@ wire [k_WIDTH-1:0] k_in;
 
 reg dout_valid_sh_internal_reg;
 reg [31:0]dout_shake_reg;
+reg [LOG_N-1:0] n_minus_i, n_minus_i_reg;  
+reg [LOG_WEIGHT-1 : 0] count;
+wire [LOG_N-1:0] dout_shake_reduced;
+wire dout_reduced_valid;
 
 always@(posedge clk) 
 begin
@@ -274,14 +278,13 @@ assign addr_1 = rd_addr;
 wire [LOG_N-1:0]  mem_in_0, mem_in_1;
 wire [LOG_N-1:0]  mem_out_0, mem_out_1;
 wire [LOG_N-1:0]  mem_comp;
-wire [LOG_N-1:0] dout_shake_reduced;
 
   assign mem_in_0 = WEIGHT - count;
   assign mem_in_1 = addr_1 + dout_shake_reduced;
 //  assign mem_in_1 = addr_1 + dout_shake % n_minus_i;
  
  
-  mem_dual #(.WIDTH(`CLOG2(N)), .DEPTH(WEIGHT), .FILE("test_input.inn")) loca_mem (
+  mem_dual #(.WIDTH(LOG_N), .DEPTH(WEIGHT), .FILE("test_input.inn")) loca_mem (
     .clock(clk),
     .data_0(mem_in_0),
     .data_1(mem_in_1),
@@ -310,10 +313,8 @@ reg dout_shake_sel_red;
 
 
 reg [LOG_WEIGHT-1 : 0] wr_addr_ms_reg_0,wr_addr_ms_reg_1;
-reg [LOG_WEIGHT-1 : 0] count;
 
 
-reg [LOG_N-1:0] n_minus_i, n_minus_i_reg;  
 
 reg [4:0] state = 0;
 // Below are states
@@ -326,7 +327,6 @@ parameter s_wait_onegen            =   5;
 parameter s_stall_first            =   6;
 parameter s_done                   =  7;
 
-wire dout_reduced_valid;
 
  always@(posedge clk)
  begin

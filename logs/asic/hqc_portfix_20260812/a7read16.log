@@ -1,0 +1,342 @@
+TMPDIR is being set to /tmp/genus_temp_891986_0f2af620-5299-4570-bd78-6c758673c726_engr-r940s01.engr.uidaho.edu_alco9414_herbEw
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+[14:00:20.481593] Configured Lic search path (25.01-s002): 5280@ece-cadence-lic.ece.uidaho.edu
+
+Version: 25.12-s067_1, built Mon Nov 17 13:10:10 PST 2025
+Options: -batch -no_gui -files a7_ordered.tcl 
+Date:    Wed Aug 12 14:00:20 2026
+Host:    engr-r940s01.engr.uidaho.edu (x86_64 w/Linux 5.14.0-687.33.1.el9_8.x86_64) (20cores*80cpus*4physical cpus*Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz 28160KB) (1055594532KB)
+PID:     891986
+OS:      Red Hat Enterprise Linux 9.8 (Plow)
+
+Checking out license: Genus_Synthesis
+[14:00:20.003051] Periodic Lic check successful
+[14:00:20.527370] Feature usage summary:
+[14:00:20.527371] Genus_Synthesis  
+License checkout complete (0 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (16 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (32 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source a7_ordered.tcl
+#@ Begin verbose source ./a7_ordered.tcl
+@file(a7_ordered.tcl) 1: set_db init_hdl_search_path /home/alco9414/pqc/hqc/asic/portfix_wip
+  Setting attribute of root '/': 'init_hdl_search_path' = /home/alco9414/pqc/hqc/asic/portfix_wip
+@file(a7_ordered.tcl) 2: set_db hdl_error_on_blackbox false
+  Setting attribute of root '/': 'hdl_error_on_blackbox' = false
+@file(a7_ordered.tcl) 3: read_hdl -define {SHARED=1 SHARED_ENCAP=1} [concat [list /home/alco9414/pqc/hqc/asic/portfix_wip/clog2.v] [lsort [glob /home/alco9414/pqc/hqc/asic/portfix_wip/*.v]]]
+reg         [3:0]                     current_state=0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 82, column 54.
+        : For example, the following constructs will be ignored:
+    - initial block
+    - final block
+    - program block
+    - property block
+    - sequence block
+    - covergroup
+    - checker block
+    - gate drive strength
+    - system task enable
+    - reg declaration with initial value
+    - specify block.
+reg         [3:0]                     next_state = 0;
+                                                    |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 83, column 53.
+reg         [`CLOG2(1344/32*32/32 ? 1 : $clog2(1344/32*32/32-1+1))-1:0]      counter = 0;
+                                                                                        |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 85, column 89.
+reg         [1:0]                     counter_ctrl = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 86, column 55.
+reg                                   din_ready_internal = 0;
+                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 88, column 61.
+reg                                   bof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 90, column 55.
+reg                                   bof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 91, column 59.
+reg                                   eof_internal = 0;
+                                                      |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 92, column 55.
+reg                                   eof_internal_reg = 0;
+                                                          |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 93, column 59.
+reg                                   absorb_data = 0;
+                                                     |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 97, column 54.
+reg                                   absorb_data_reg = 0;
+                                                         |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 98, column 58.
+reg                                   extra_pad = 0;
+                                                   |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 99, column 52.
+reg                                   extra_pad_reg = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 100, column 56.
+reg         [32-3:0]                requested_bytes = 0;
+                                                       |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 102, column 56.
+reg         [32-3:0]                requested_bytes_reg = 0;
+                                                           |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 103, column 60.
+reg         [`CLOG2(1) ? 1 : $clog2(1344+1))-1:0]         data_length = 0;
+                                                                         |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 105, column 74.
+reg         [4+1 <= 1) ? 1 : $clog2(1344+1))-1:0]         data_length_reg = 0;            
+                                                                             |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 106, column 78.
+reg         [4+1 <= 1) ? 1 : $clog2(1344+1))-1:0]         to_be_read = 0;
+                                                                        |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 107, column 73.
+reg         [`CLOG2(1344 1 : $clog2(1344+1))-1:0]         to_be_read_reg = 0;
+                                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 108, column 77.
+reg         [`CLOG2(1344 1 : $clog2(1344+1))-1:0]         to_be_absorbed = 0;
+                                                                            |
+Warning : Ignoring unsynthesizable construct. [VLOGPT-37]
+        : Initial value assignment to reg in file '/home/alco9414/pqc/hqc/asic/portfix_wip/control_path.v' on line 109, column 77.
+Warning : Maximum message print count reached. [MESG-11]
+        : Maximum print count of '20' reached for message 'VLOGPT-37'.
+function [32*8-1:0] rolbyte32;
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 214, column 10.
+        : Use the 'automatic' keyword for declaring functions and tasks.
+function [32*8-1:0] perm;
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/fft_part1.v' on line 223, column 10.
+  function [7:0] mul;
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gf_mul.v' on line 40, column 12.
+  function [7:0] v_temp_rearrange; //1 + x^2 + x^3 + x^4 + x^8
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gf_mul.v' on line 51, column 12.
+  function [7:0] mul;
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gfmul.v' on line 40, column 12.
+  function [7:0] v_temp_rearrange; //1 + x^2 + x^3 + x^4 + x^8
+           |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/gfmul.v' on line 66, column 12.
+(* use_dsp48 = "no" *)
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'use_dsp48' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_barrett_red.v' on line 47, column 4.
+function [7:0] xor_byte(input [8*PARAM_DELTA-1:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_elp.v' on line 207, column 10.
+function [7:0] I(input [7:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_elp.v' on line 217, column 10.
+function [7:0] I(input [7:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_err_val.v' on line 326, column 10.
+function [7:0] P(input [6:0] x);
+         |
+Warning : Usage of non-static tasks or functions might result in simulation-synthesis mismatch. [VLOGPT-692]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/hqc_rsdecod_err_val.v' on line 368, column 10.
+(* clock_buffer_type="BUFG" *)  input  wire            clk,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'clock_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 38, column 4.
+(* io_buffer_type="IBUF" *)  input  wire            rst,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 39, column 4.
+(* io_buffer_type="IBUF" *)  input  wire            din_valid,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 40, column 4.
+(* io_buffer_type="OBUF" *)  output wire            din_ready,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 41, column 4.
+(* io_buffer_type="IBUF" *)  input  wire [32-1:0]  din,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 42, column 4.
+(* io_buffer_type="OBUF" *)  output wire            dout_valid,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 43, column 4.
+(* io_buffer_type="IBUF" *)  input  wire            dout_ready,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 44, column 4.
+(* io_buffer_type="OBUF" *)  output wire [32-1:0] dout,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 45, column 4.
+(* io_buffer_type="IBUF" *)  input wire  force_done,
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 47, column 4.
+(* io_buffer_type="IBUF" *)  output reg  force_done_ack
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'io_buffer_type' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/keccak_top.v' on line 48, column 4.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [0:DEPTH-1] /* synthesis ramstyle = "M20K" */;
+                                                                                           |
+Warning : Unrecognized Synthesis pragma_name found in HDL. [VLOGPT-502]
+        : Pragma 'synthesis ramstyle = "M20K"' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 27, column 92.
+        : Synthesis pragmas are specially-formatted comments or attributes in the HDL that tell Genus how to synthesize the HDL.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [0:DEPTH-1] /* synthesis ramstyle = "M20K" */;
+    |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_dual.v' on line 27, column 5.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [DEPTH-1:0]/* synthesis ramstyle = "M20K" */;
+                                                                                          |
+Warning : Unrecognized Synthesis pragma_name found in HDL. [VLOGPT-502]
+        : Pragma 'synthesis ramstyle = "M20K"' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_single.v' on line 16, column 91.
+ (* ram_style = "block" *) reg [WIDTH-1:0] mem [DEPTH-1:0]/* synthesis ramstyle = "M20K" */;
+    |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mem_single.v' on line 16, column 5.
+(* use_dsp48 = "no" *)
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'use_dsp48' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/mod34.v' on line 25, column 4.
+(* ram_style = "block" *) reg [1599:0] rc_const_all = {
+   |
+Warning : Unused attribute. [VLOGPT-506]
+        : Attribute 'ram_style' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/rc.v' on line 38, column 4.
+assign rmem_data = (pk_rand_addr == N_32/32 - 1)?{mask & dout_shake}: dout_shake;
+                    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pk_rand_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 146, column 21.
+        : Verilog module is using a parameter that is not defined in the module. You will get a notification for this, if you read the verilog file using the read_hdl command.
+wire [MEM_WIDTH-1:0] rand_mem_in;
+                                |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'rand_mem_in' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 167, column 33.
+        : A variable cannot be redeclared in the same scope. Check the reported RTL file and remove duplicate declarations.
+reg wr_en_rand;
+              |
+Error   : Redeclared variable. [VLOGPT-22] [read_hdl]
+        : Redeclaration of non-interface variable 'wr_en_rand' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 168, column 15.
+    pk_rand_addr_reg <= pk_rand_addr;
+    |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pk_rand_addr_reg' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 200, column 5.
+    pk_rand_addr_reg <= pk_rand_addr;
+                        |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pk_rand_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 200, column 25.
+    rmem_addr_rev <= (pk_rand_addr[`CLOG2(N_32/32)-1:LOG_BIM]);
+                                                 |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 201, column 50.
+        : Invalid Verilog syntax is parsed, or unsupported Verilog syntax is encountered.
+    rmem_addr_rev <= (pk_rand_addr[`CLOG2(N_32/32)-1:LOG_BIM]);
+                                                  |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 201, column 51.
+        : Illegal Verilog syntax is encountered.
+    rmem_addr_rev <= (pk_rand_addr[`CLOG2(N_32/32)-1:LOG_BIM]);
+                      |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'pk_rand_addr' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 201, column 23.
+reg [`CLOG2(N_32/32)-1:0]pk_rand_addr = 0;
+                   |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 239, column 20.
+reg [`CLOG2(N_32/32)-1:0]pk_rand_addr = 0;
+                    |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 239, column 21.
+reg [`CLOG2(N_32/32)-1:0]pk_rand_addr_reg = 0;
+                   |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 240, column 20.
+reg [`CLOG2(N_32/32)-1:0]pk_rand_addr_reg = 0;
+                    |
+Error   : Bad argument for operator. [VLOGPT-117] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 240, column 21.
+                wr_en_rand <= 1'b1;
+                |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'wr_en_rand' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 209, column 17.
+        : A net cannot be assigned within an always block.  This situation may occur because an output port is not explicitly declared as a reg.
+                wr_en_rand <= 1'b0;
+                |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'wr_en_rand' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 212, column 17.
+                wr_en_rand <= 1'b1;
+                |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'wr_en_rand' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 220, column 17.
+                wr_en_rand <= 1'b0;
+                |
+Error   : Net not allowed in this context. [VLOGPT-86] [read_hdl]
+        : Net 'wr_en_rand' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/vect_set_random.v' on line 223, column 17.
+    parameter LOG_DEPTH = `CLOG2(DEPTH),    
+                                      |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/xor_based_adder.v' on line 52, column 39.
+    parameter LOG_WEIGHT   = `CLOG2(WEIGHT)
+                                          |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : in file '/home/alco9414/pqc/hqc/asic/portfix_wip/xor_based_adder.v' on line 53, column 43.
+    output reg [LOG_DEPTH-1:0] in_addr,
+                |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'LOG_DEPTH' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/xor_based_adder.v' on line 63, column 17.
+    output reg [LOG_DEPTH-1:0] add_out_addr,
+                |
+Error   : Reference to undeclared variable. A variable/parameter must be declared before it is referenced. [VLOGPT-20] [read_hdl]
+        : Symbol 'LOG_DEPTH' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/xor_based_adder.v' on line 69, column 17.
+    output reg add_out_valid,
+             |
+Error   : Parsing error. [VLOGPT-1] [read_hdl]
+        : Expecting token ';', found 'reg' in file '/home/alco9414/pqc/hqc/asic/portfix_wip/xor_based_adder.v' on line 70, column 14.
+#@ End verbose source ./a7_ordered.tcl
+1
+Encountered problems processing file: a7_ordered.tcl
+
+Lic Summary:
+[14:00:52.405579] Cdslmd servers: ece-cadence-lic
+[14:00:52.929896] Feature usage summary:
+[14:00:52.929898] Genus_Synthesis  
+Normal exit.

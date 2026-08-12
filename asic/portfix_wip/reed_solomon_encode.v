@@ -67,6 +67,8 @@ wire[7:0] gate_value;
 reg [N1-1:0] cdw_bytes;
 wire [N1-K-1:0] cdw_out_int;
 reg capture_cdw;
+reg init_msg;
+reg shift_msg;
 
 assign cdw_out = {msg,cdw_bytes[N1-K-1:0]};
 
@@ -123,8 +125,6 @@ endgenerate
     .cdw_out(cdw_out_int)
     );  
     
-reg init_msg;
-reg shift_msg;
 
 reg [4:0] count_msg_bytes = 0;
 reg [3:0] state = 0;
