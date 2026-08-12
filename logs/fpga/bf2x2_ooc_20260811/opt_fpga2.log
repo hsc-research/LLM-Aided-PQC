@@ -1,0 +1,6 @@
+iter 0: 10.0ns -> WNS 0.092 (MET)
+iter 1: 9.0ns -> WNS 0.047 (MET)
+iter 2: 8.5ns -> WNS -0.111 (VIOL)
+iter 3: 8.75ns -> WNS 0.004 (MET)
+iter 4: 8.62ns -> WNS -0.174 (VIOL)
+{"tag": "bf2x2_opt_fpga2", "closing_period_ns": 8.75, "closing_fmax_mhz": 114.3, "wns_at_close": 0.004}
