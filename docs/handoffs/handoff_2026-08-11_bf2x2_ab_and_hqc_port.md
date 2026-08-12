@@ -1,3 +1,10 @@
+> **SUPERSEDED 2026-08-12.** Every ASAP7 butterfly2x2 number below was measured
+> with `Barrett_8380417.v` missing from the arm directory, leaving four modules
+> blackboxed (`Unresolved 4` in every gates report). Do not quote 578 ps,
+> 573 ps, the E-series head-to-head, or anything derived from them. See the
+> banner on `docs/findings/asic/2026-08-10_bf2x2_ooc_fmax.md` and F27 in
+> `docs/findings/mldsa/2026-08-12_bf2x2_fpga_ooc_closure.md`.
+
 # Handoff: bf2x2 optimized A/B, determinism, HQC Genus port, 2026-08-11
 
 Paste this at the start of a new chat. It assumes the reader knows the project

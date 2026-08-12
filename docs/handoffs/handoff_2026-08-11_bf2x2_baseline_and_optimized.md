@@ -1,3 +1,10 @@
+> **SUPERSEDED 2026-08-12.** Every ASAP7 butterfly2x2 number below was measured
+> with `Barrett_8380417.v` missing from the arm directory, leaving four modules
+> blackboxed (`Unresolved 4` in every gates report). Do not quote 578 ps,
+> 573 ps, the E-series head-to-head, or anything derived from them. See the
+> banner on `docs/findings/asic/2026-08-10_bf2x2_ooc_fmax.md` and F27 in
+> `docs/findings/mldsa/2026-08-12_bf2x2_fpga_ooc_closure.md`.
+
 # HANDOFF: bf2x2 ASAP7 baseline closure, findings doc, optimized sweep
 
 Session: 2026-08-10 evening through 2026-08-11 early morning. Continues: `docs/handoffs/handoff_2026-08-10_bf2x2_ooc_session.md` Findings of record: `docs/findings/asic/2026-08-10_bf2x2_ooc_fmax.md` Commits this session: `0465d11`, `21a976c`, `0c93891`, `24e370d`, plus the optimized sweep below, not yet committed.
