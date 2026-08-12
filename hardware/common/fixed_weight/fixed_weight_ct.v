@@ -75,8 +75,14 @@ module fixed_weight_ct
                                                                        24'hffdb89,
 																	   
 	
-	parameter LOG_WEIGHT = `CLOG2(WEIGHT),
-	parameter LOG_W_CTX = `CLOG2(WEIGHT*NO_OF_CTX*NUM_OF_FW_VEC),
+	parameter LOG_WEIGHT = (parameter_set == "hqc128")? 7:
+	                       (parameter_set == "hqc192")? 7:
+	                       (parameter_set == "hqc256")? 8:
+	                                                    7,
+	parameter LOG_W_CTX = (parameter_set == "hqc128")? 9:
+	                      (parameter_set == "hqc192")? 9:
+	                      (parameter_set == "hqc256")? 10:
+	                                                   9,
     parameter E0_WIDTH = 32,
     parameter E1_WIDTH = 32,
     parameter SEED_SIZE = 320
@@ -215,7 +221,9 @@ assign dout_shake_2 = {dout_shake_reg[15:0], dout_shake[31:24]};
 assign dout_shake_3 = dout_shake_reg[23:0];
 
 wire [23:0] dout_shake_sel;
+reg start_red =0;
 reg [31:0] shake_output_counter;
+reg [1:0] sel_ctx;
 
 
 
@@ -356,7 +364,6 @@ parameter s_ctx_reset                  =   6;
 
 reg  [31:0] count_reg = 0;
 
-reg [1:0] sel_ctx;
 
 always@(posedge clk)
 begin
@@ -537,7 +544,6 @@ begin
 
 end 
 
-reg start_red =0;
 reg [4:0] red_state = 0;
 reg squeeze_ctrl = 0;
 parameter s_red_wait	             =   0;

@@ -44,7 +44,6 @@ wire            fft_start_out;
 wire            fft_busy, fft_done;
 wire    [32*8-1:0]  fft_din;
 
-wire            fft_done;
 wire    [7:0]   ram_din;
 wire            ram_wr;
 wire    [7:0]   ram_wr_addr;

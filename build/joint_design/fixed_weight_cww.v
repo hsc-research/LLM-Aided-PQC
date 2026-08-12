@@ -70,7 +70,14 @@ module fixed_weight_cww
                                                                        24'hffdb89,
 																	   
 	
-	parameter LOG_WEIGHT = `CLOG2(WEIGHT),
+	parameter LOG_WEIGHT = (parameter_set == "hqc128")? 7:
+	                       (parameter_set == "hqc192")? 7:
+	                       (parameter_set == "hqc256")? 8:
+	                                                    7,
+	parameter LOG_N = (parameter_set == "hqc128")? 15:
+	                  (parameter_set == "hqc192")? 16:
+	                  (parameter_set == "hqc256")? 16:
+	                                                15,
     parameter E0_WIDTH = 32,
     parameter E1_WIDTH = 32,
     parameter SEED_SIZE = 320,
@@ -193,7 +200,7 @@ parameter BARRETT_CONSTANTS = (parameter_set == "hqc128")? "barrett_hqc_128.mem"
                                                           "barrett_hqc_128.mem";
                               
 
-reg [`CLOG2(WEIGHT)-1:0] addr_bc;
+reg [LOG_WEIGHT-1:0] addr_bc;
 wire [k_WIDTH-1:0] k_in;
  mem_single #(.WIDTH(32), .DEPTH(WEIGHT), .FILE(BARRETT_CONSTANTS) ) B_CONST
  (
@@ -206,6 +213,10 @@ wire [k_WIDTH-1:0] k_in;
 
 reg dout_valid_sh_internal_reg;
 reg [31:0]dout_shake_reg;
+reg [LOG_N-1:0] n_minus_i, n_minus_i_reg;  
+reg [LOG_WEIGHT-1 : 0] count;
+wire [LOG_N-1:0] dout_shake_reduced;
+wire dout_reduced_valid;
 
 always@(posedge clk) 
 begin
@@ -249,8 +260,8 @@ B_RED
 reg [31:0] shake_output_counter;
 
 
-wire [`CLOG2(WEIGHT)-1:0] addr_0,addr_1;
-reg [`CLOG2(WEIGHT):0]  wr_addr, rd_addr;
+wire [LOG_WEIGHT-1:0] addr_0,addr_1;
+reg [LOG_WEIGHT:0]  wr_addr, rd_addr;
 reg wr_en_0, wr_en_1;
 wire wr_en_1_reg;
 reg swap;
@@ -264,17 +275,16 @@ reg duplicate_detected;
 assign addr_0 = (rd_error_loc)? rd_addr_error_loc: wr_addr;
 assign addr_1 = rd_addr;
 
-wire [`CLOG2(N)-1:0]  mem_in_0, mem_in_1;
-wire [`CLOG2(N)-1:0]  mem_out_0, mem_out_1;
-wire [`CLOG2(N)-1:0]  mem_comp;
-wire [`CLOG2(N)-1:0] dout_shake_reduced;
+wire [LOG_N-1:0]  mem_in_0, mem_in_1;
+wire [LOG_N-1:0]  mem_out_0, mem_out_1;
+wire [LOG_N-1:0]  mem_comp;
 
   assign mem_in_0 = WEIGHT - count;
   assign mem_in_1 = addr_1 + dout_shake_reduced;
 //  assign mem_in_1 = addr_1 + dout_shake % n_minus_i;
  
  
-  mem_dual #(.WIDTH(`CLOG2(N)), .DEPTH(WEIGHT), .FILE("test_input.inn")) loca_mem (
+  mem_dual #(.WIDTH(LOG_N), .DEPTH(WEIGHT), .FILE("test_input.inn")) loca_mem (
     .clock(clk),
     .data_0(mem_in_0),
     .data_1(mem_in_1),
@@ -303,10 +313,8 @@ reg dout_shake_sel_red;
 
 
 reg [LOG_WEIGHT-1 : 0] wr_addr_ms_reg_0,wr_addr_ms_reg_1;
-reg [LOG_WEIGHT-1 : 0] count;
 
 
-reg [`CLOG2(N)-1:0] n_minus_i, n_minus_i_reg;  
 
 reg [4:0] state = 0;
 // Below are states
@@ -319,7 +327,6 @@ parameter s_wait_onegen            =   5;
 parameter s_stall_first            =   6;
 parameter s_done                   =  7;
 
-wire dout_reduced_valid;
 
  always@(posedge clk)
  begin

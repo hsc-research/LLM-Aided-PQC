@@ -128,6 +128,7 @@ reg     [DOUT_W-1:0]    peak_pos;
 wire    [DIN_W-1:0]     prev_value, next_value, din_value;
 wire    [DIN_W-2:0]     prev_abs, next_abs, din_abs;
 wire    [DOUT_W-1:0]    prev_pos, next_pos, din_pos;
+wire                    last_din;
 wire					check_abs;
 
 //Input values

@@ -142,6 +142,9 @@ reg shift_shake_op       = 1'b0;
 wire bml_not; //not of beyond_max_limit
 
 reg [4:0] state = 0;
+reg  [31:0] count_reg = 0;
+reg [1:0] sel_ctx;
+reg start_red =0;
 // Below are states
 parameter s_initialize             =   0;
 parameter s_wait_start             =   1;
@@ -382,9 +385,7 @@ parameter s_ctx_third	               =   3;
 parameter s_ctx_fourth				   =   4;
 parameter s_ctx_done				   =   5;
 
-reg  [31:0] count_reg = 0;
 
-reg [1:0] sel_ctx;
 
 always@(posedge clk)
 begin
@@ -558,7 +559,6 @@ begin
 
 end 
 
-reg start_red =0;
 reg [4:0] red_state = 0;
 reg squeeze_ctrl = 0;
 // Below are states

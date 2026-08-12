@@ -216,6 +216,8 @@ assign dout_shake_3 = dout_shake_reg[23:0];
 
 wire [23:0] dout_shake_sel;
 reg [31:0] shake_output_counter;
+reg [1:0] sel_ctx;
+reg start_red =0;
 
 
 
@@ -365,7 +367,6 @@ parameter s_ctx_reset                  =   6;
 
 reg  [31:0] count_reg = 0;
 
-reg [1:0] sel_ctx;
 
 always@(posedge clk)
 begin
@@ -567,7 +568,6 @@ begin
 
 end 
 
-reg start_red =0;
 reg [4:0] red_state = 0;
 reg squeeze_ctrl = 0;
 parameter s_red_wait	             =   0;

@@ -139,6 +139,10 @@ assign dout_shake = {shake_dout_scram[7:0], shake_dout_scram[15:8], shake_dout_s
  wire [32 - 1:0] rmem_data, rmem_data_rearrange;
  
  wire [MEM_WIDTH-1:0] rmem_out_0, rmem_out_1;
+wire [MEM_WIDTH-1:0] rand_mem_in;
+reg wr_en_rand;
+reg [`CLOG2(N_32/32)-1:0]pk_rand_addr = 0;
+reg [`CLOG2(N_32/32)-1:0]pk_rand_addr_reg = 0;
 
  
 
@@ -164,8 +168,6 @@ assign rand_out_1 = rmem_out_1;
 assign rmem_data_rearrange = {rmem_data[7:0], rmem_data[15:8], rmem_data[23:16], rmem_data[31:24]};
 
 reg [MEM_WIDTH-1:0] rand_out_rearrange, rand_out_rearrange_reg;
-wire [MEM_WIDTH-1:0] rand_mem_in;
-reg wr_en_rand;
 reg shake_dout_valid_reg;
 
 always@(posedge clk)
@@ -236,8 +238,6 @@ end
 
 
 
-reg [`CLOG2(N_32/32)-1:0]pk_rand_addr = 0;
-reg [`CLOG2(N_32/32)-1:0]pk_rand_addr_reg = 0;
 reg [3:0] pk_state = 0;
 parameter pk_wait_start  =   0;
 parameter pk_load_rand =   1;
