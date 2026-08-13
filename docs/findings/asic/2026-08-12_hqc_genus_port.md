@@ -580,3 +580,166 @@ both runs so H6 through H9 have log paths rather than transcript quotes.
    test and flow actually reads. That has now caused two silent reversions in
    this project. Is collapsing the trees worth doing before the paper, or
    after?
+---
+
+# APPENDIX A: both ASAP7 arms ported, verified and synthesizing
+
+Added 2026-08-12 evening. Commits `3347a5d`, `2d8c644`, merged to main at
+`a5e8c7a`.
+
+## RESULTS OF RECORD, continued
+
+| # | Metric | Value | Log |
+|---|---|---|---|
+| H11 | Optimized arm parse, full tree | `ARM_READ_OK`, 0 errors | `logs/asic/hqc_optarm_elab_20260812/a9elab_opt.log` |
+| H12 | Optimized arm elaborate, `hqc_kem_joint_design` | `ARM_ELAB_OK`, 0 errors, `hdl_error_on_blackbox true` | as H11 |
+| H13 | Unresolved references, optimized arm | none | `logs/asic/hqc_optarm_elab_20260812/hqc_opt_unresolved.rpt` |
+| H14 | Empty modules, optimized arm | none | as H13 |
+| H15 | Files differing between the two ASAP7 arms | 9, plus `mem_single_dist.v` optimized-only | `logs/asic/hqc_arm_verify_20260812/arm_override_verify.txt` |
+| H16 | Override tokens, ASAP7 optimized arm against FPGA optimized arm | all 10 match | as H15 |
+
+H15 and H16 are the vacuity controls. H16 is the one that matters: it
+establishes that the ASIC A/B compares the same design the FPGA ledger does.
+
+## The optimized arm port, file by file
+
+22 files differed from the ported `portfix_wip/` tree. Three categories.
+
+### Straight copy, 14 files, pure repair only
+
+`clog2.v`, `decrypt.v`, `fft_part1.v`, `fixed_weight.v`, `fixed_weight_cww.v`,
+`hqc_rmdecod_findpeaks.v`, `hqc_rsdecod_elp.v`, `hqc_rsdecod_roots.v`,
+`keygen.v`, `reed_muller_encode.v`, `state_ram.v`, `vect_set_random.v`,
+`encap.v`, and the baseline arm's 19 equivalents.
+
+Each was diffed against the ported version first and confirmed to contain only
+hoists, `always @*` conversions, or parameter substitutions. None carried
+optimization content.
+
+### Left untouched, 3 files, override only and no repair needed
+
+| File | Override |
+|---|---|
+| `xor_based_adder.v` | `in_addr_div` precomputed division: added output port, `DIV_CDW` localparam, `in_addr_rem` counter and its update logic |
+| `syncfifo.v` | `(* ram_style = "distributed" *)` on the FIFO array |
+| `hqc_rsdecod_err_val.v` | `(* rom_style = "distributed" *)` on `inv_buf` |
+
+These differ from the ported tree by exactly their override and nothing else,
+so copying would have reverted an optimization for no gain. **The diff for two
+of them is a single line**, which is why a size-based classification would have
+missed them.
+
+### Repaired in place, 4 files, override preserved
+
+| File | Override preserved | Repairs applied |
+|---|---|---|
+| `decap.v` | `// AGENT FIX` shake tie-off under `SHARED_ENCAP`, 4 assigns | 11 declaration hoists above first use at 332, anchored on `wire [ADDR_WIDTH-1:0]pm_addr_1_d;`, plus `localparam LOG_M_WORDS = \`CLOG2((K+(32-K%32)%32)/32);` extracted and `m_addr` narrowed to use it. `\`CLOG2(X)` replaced by the existing `LOGX` parameter in the two `uv_addr_*_dec` declarations |
+| `encrypt.v` | `xor_add_addr_div`, 3 references | ported version copied, then the override reapplied as three insertions: `wire [LOG_RAMDEPTH-1:0] xor_add_addr_div;` after the `xor_add_addr` declaration, `assign cdw_out_addr = xor_add_addr_div;` after `assign add_in_2 = cdw_out;`, and `.in_addr_div(xor_add_addr_div),` after `.in_addr(xor_add_addr),` |
+| `encrypt_parallel.v` | `xor_add_addr_div`, 3 references | same three sites, except the assign is a **replacement**: the ported version has `assign cdw_out_addr = xor_add_addr/COPIES_OF_CDW;` and the override substitutes the precomputed value, removing a divide from the datapath |
+| `fixed_weight_ct.v` | 25-bit `shake_ctx` memory packing `dout_shake_pass` alongside 24-bit data, plus `wr_in_range`, `rd_at_last`, `cr_lt_lim` | `LOG_WEIGHT` and `LOG_W_CTX` parameter defaults converted from `\`CLOG2` to `parameter_set` ternaries (7/7/8 and 9/9/10), and `sel_ctx` and `start_red` hoisted above first use at 222, anchored on `reg [31:0] shake_output_counter;` |
+
+### Needed nothing
+
+`v_minus_uy.v` and `hqc_kem_joint_design.v`. Both carry overrides (the
+`flag_precompute` registered oob flags from commit `12d930d`, and the
+`// AGENT EDIT` registered one-hot POLY_MULT client select respectively) and
+neither had a use-before-declaration or macro defect. `v_minus_uy.v` is
+byte-identical to `build/joint_design/v_minus_uy.v`.
+
+## H16 in full: override tokens, ASIC arm against FPGA optimized arm
+
+| File | Token | ASIC opt arm | `build/joint_design/` |
+|---|---|---|---|
+| `encrypt.v` | `xor_add_addr_div` | 3 | 3 |
+| `encrypt_parallel.v` | `xor_add_addr_div` | 3 | 3 |
+| `fixed_weight_ct.v` | `shake_ctx_q` | 4 | 4 |
+| `v_minus_uy.v` | `uv_addr_0_mul_oob` | 3 | 3 |
+| `fixed_weight.v` | `rejection_threshold_pass` | 8 | 8 |
+| `xor_based_adder.v` | `in_addr_div` | 4 | 4 |
+| `syncfifo.v` | `ram_style` | 1 | 1 |
+| `hqc_rsdecod_err_val.v` | `rom_style` | 1 | 1 |
+| `decap.v` | `AGENT` | 1 | 1 |
+| `hqc_kem_joint_design.v` | `AGENT` | 2 | 2 |
+
+## F43. The empirical read test beats diff classification
+
+Classifying 22 files by reading diffs took several rounds and produced two
+wrong calls, both caught. Copying the whole arm to a scratch directory and
+running `read_hdl` answered the question directly: the frontier file is the
+only one that needs work, and fixing it exposes the next.
+
+`v_minus_uy.v` and `hqc_kem_joint_design.v` were both on the in-place list from
+diff inspection and both turned out to need nothing. The read test found that in
+one run.
+
+**Implication.** For a port of this shape, read first and classify second. The
+tool knows which files are broken; a diff only knows which files are different.
+
+## F44. The manifest's file count reconciles, and the arms are now tracked
+
+`asic/arms/MANIFEST.txt` states the arms differ in 15 files plus
+`mem_single_dist.v`, broken into 9 SWAP block wins, 4 declaration-hoist
+portability repairs, 1 registered pm client select, and 1 decap SHAKE tie-off.
+
+Measured at commit `f74be66`, `hardware/` and `build/joint_design/` differed in
+14 files. Tonight the portability repairs were applied to **both** arms, which
+collapses the repair-only differences, leaving 9. That reconciles.
+
+**Neither HQC arm was tracked in git before this session.** Both are now, at
+`asic/arms/hqc_baseline/` (58 files) and `asic/arms/hqc_optimized/` (59 files).
+The manifest described a comparison that existed only on the server for five
+days.
+
+## F45. The read configuration is now enforced by the synthesis script
+
+`genus_asap7_v2.tcl` previously had a bare `read_hdl [glob $RTL_DIR/*.v]` with
+no defines and no ordering, so an HQC run through it would have synthesized a
+configuration no KAT validated. It now reads:
+
+```tcl
+if {[info exists env(GENUS_HDL_DEFINES)]} {
+  read_hdl -define $env(GENUS_HDL_DEFINES) [concat [list $RTL_DIR/clog2.v] [lsort [glob $RTL_DIR/*.v]]]
+} else {
+  read_hdl [glob $RTL_DIR/*.v]
+}
+```
+
+Gated on the environment variable so ML-DSA arms are unaffected. Verified: the
+HQC baseline run's log shows `hdl_error_on_blackbox` set to `true` by the F28
+guard, zero errors, and elaborate completing.
+
+## Synthesis in flight
+
+Both arms launched 2026-08-12 evening at 1000 ps, SDC
+`asic/asap7/sdc/hqc_joint.sdc`, `GENUS_HDL_DEFINES="SHARED=1 SHARED_ENCAP=1"`,
+`hdl_error_on_blackbox true`, `nice -n 19`.
+
+| Arm | Run directory | Output directory |
+|---|---|---|
+| baseline | `asic/asap7/run_hqc_base_p1000/` | `asic/asap7/out/hqc_base_p1000/` |
+| optimized | `asic/asap7/run_hqc_opt_p1000/` | `asic/asap7/out/hqc_opt_p1000/` |
+
+Both are in generic synthesis and datapath mapping at time of writing. No
+reports written yet. **No number from these runs exists and none may be quoted
+until the reports are pulled and committed.**
+
+When they complete, note F39 in
+`docs/findings/asic/2026-08-12_bf2x2_asap7_complete.md`: do not follow these
+with a closure search. Use fixed-period comparisons.
+
+## Corrections to the main document
+
+1. The "Readiness for an HQC ASAP7 run" section lists three prerequisites. All
+   three are now satisfied: the read configuration carries the defines and
+   ordering (F45), `hdl_error_on_blackbox` is `true` via the F28 guard, and
+   `asic/asap7/sdc/hqc_joint.sdc` exists.
+2. The "What is still missing for true ASIC PPA" section says only one source
+   tree exists. Both arms now exist, are ported, elaborate clean, and are
+   tracked in git.
+3. That section also says the arms differ in 15 files. See F44: the current
+   figure is 9, and the difference is accounted for.
+4. H10 cites `/tmp/epread3.log` with the pull pending. Still pending.
+5. The main document attributes a registered `rejection_threshold_pass` to
+   `fixed_weight.v` as an override. All three trees carry the unregistered
+   `wire` plus `assign` form with 8 occurrences each. Whatever that file's
+   override is, it is not that registration.
