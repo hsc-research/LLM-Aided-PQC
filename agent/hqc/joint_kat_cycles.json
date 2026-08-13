@@ -1,0 +1,14 @@
+{
+  "hqc_joint_design_decap_tb@hqc128": {
+    "total": 45599,
+    "decode": 4611
+  },
+  "hqc_joint_design_decap_tb@hqc192": {
+    "total": 117619,
+    "decode": 5485
+  },
+  "hqc_joint_design_decap_tb@hqc256": {
+    "total": 232743,
+    "decode": 9199
+  }
+}
