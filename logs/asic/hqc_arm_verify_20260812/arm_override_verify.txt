@@ -1,0 +1,25 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+=== ASIC arms: files differing ===
+decap.v
+encrypt_parallel.v
+encrypt.v
+fixed_weight_ct.v
+hqc_kem_joint_design.v
+hqc_rsdecod_err_val.v
+syncfifo.v
+v_minus_uy.v
+xor_based_adder.v
+
+=== override tokens, ASIC opt vs FPGA opt ===
+encrypt.v                  xor_add_addr_div         asic=3 fpga=3
+encrypt_parallel.v         xor_add_addr_div         asic=3 fpga=3
+fixed_weight_ct.v          shake_ctx_q              asic=4 fpga=4
+v_minus_uy.v               uv_addr_0_mul_oob        asic=3 fpga=3
+fixed_weight.v             rejection_threshold_pass asic=8 fpga=8
+xor_based_adder.v          in_addr_div              asic=4 fpga=4
+syncfifo.v                 ram_style                asic=1 fpga=1
+hqc_rsdecod_err_val.v      rom_style                asic=1 fpga=1
+decap.v                    AGENT                    asic=1 fpga=1
+hqc_kem_joint_design.v     AGENT                    asic=2 fpga=2
