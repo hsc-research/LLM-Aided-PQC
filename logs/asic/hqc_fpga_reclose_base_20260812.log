@@ -1,0 +1,6 @@
+iter 0: 9.0ns -> WNS -0.081 (VIOL)
+iter 1: 9.25ns -> WNS 0.215 (MET)
+iter 2: 9.12ns -> WNS 0.072 (MET)
+iter 3: 9.06ns -> WNS 0.043 (MET)
+iter 4: 9.03ns -> WNS -0.346 (VIOL)
+{"tag": "hqc_reclose_base", "closing_period_ns": 9.06, "closing_fmax_mhz": 110.4, "wns_at_close": 0.043}
