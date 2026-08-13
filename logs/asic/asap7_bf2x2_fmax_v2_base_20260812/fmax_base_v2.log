@@ -1,0 +1,11 @@
+ASAP7 Fmax: butterfly2x2  src=/home/alco9414/pqc/hqc/asic/arms/bf2x2_baseline  bracket [400, 700] ps
+  period=700ps  MET  slack=0ps  (1639s)
+  period=400ps  VIOLATED  slack=-159ps  (2941s)
+  period=550ps  VIOLATED  slack=-25ps  (2435s)
+  period=625ps  MET  slack=0ps  (1623s)
+  period=588ps  MET  slack=0ps  (1762s)
+  period=569ps  VIOLATED  slack=-8ps  (2436s)
+  period=578ps  VIOLATED  slack=-1ps  (2133s)
+  period=583ps  MET  slack=-0ps  (1853s)
+
+RESULT butterfly2x2: min period 583 ps -> Fmax 1715.8 MHz

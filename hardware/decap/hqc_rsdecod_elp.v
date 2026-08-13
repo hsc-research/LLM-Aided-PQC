@@ -50,6 +50,7 @@ reg     [5:0]   cnt;
 wire    [5:0]   mu;
 reg     [2:0]   cnt_en_buf;
 reg             busy, dout_valid;
+wire            last_cnt;
 
 
 //syndrome = {m[2D-1],m[2D-2],...,m[1],m[0]} with m[i] in byte

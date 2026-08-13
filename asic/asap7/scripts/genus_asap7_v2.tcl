@@ -41,7 +41,15 @@ if {[llength $vhd] > 0} {
   read_hdl -language vhdl [list $RTL_DIR/sha3_pkg.vhd $RTL_DIR/keccak_pkg.vhd]
   read_hdl -language vhdl [lsort $rest]
 }
-read_hdl [glob $RTL_DIR/*.v]
+# HQC needs SHARED defines and clog2 read first: the CLOG2 macro has no include
+# guard and no `include in its consumers, so a bare glob leaves it undefined for
+# files sorting before clog2.v. Gated on GENUS_HDL_DEFINES so ML-DSA arms are
+# unaffected.
+if {[info exists env(GENUS_HDL_DEFINES)]} {
+  read_hdl -define $env(GENUS_HDL_DEFINES) [concat [list $RTL_DIR/clog2.v] [lsort [glob $RTL_DIR/*.v]]]
+} else {
+  read_hdl [glob $RTL_DIR/*.v]
+}
 if {[info exists env(GENUS_PARAMS)]} {
   elaborate $DESIGN -parameters $env(GENUS_PARAMS)
 } else {
