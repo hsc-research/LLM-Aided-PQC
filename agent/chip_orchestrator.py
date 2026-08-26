@@ -75,6 +75,33 @@ DESIGNS = {
         "joint_orchestrator": "agent/hqc/joint_top_orchestrator.py",
         "kat_gate": ["python3", "agent/hqc/joint_kat_gate.py"],
     },
+    # SLH-DSA (SPHINCSLET, TECS 2025). First design where the rule book
+    # predates the work. Bracket proven both directions 2026-08-25:
+    # 10.0 ns VIOLATED (-1.584), 13.0 ns MET (+0.504).
+    # NOTE: regen_ckpt() above CANNOT build this design. SPHINCSLET needs
+    # setting.v and clog2.v as global includes; a bare read_verilog leaves
+    # PARAM_* undefined and elaboration fails. Use the "regen" hook.
+    "slh_dsa": {
+        "key": "top",
+        "ckpt": "/mnt/c/PQC/slh_test/slh_128f_sha2_synth.dcp",
+        "bracket": (10.0, 13.0),
+        "regen": ["python3", "agent/slh_dsa/regen_slh_ckpt.py"],
+        "hier2file": {
+            # Chip binds inside the SHA-256 message schedule at 11.98 ns:
+            # hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+            #   -> hash_tile_md0/HASH_BM/SHA256/a_reg_reg[29]/D
+            # 16 levels, CARRY4=8, logic 46.1% / route 53.9%.
+            # sha256_core and sha256_w_mem are borrowed Secworks code, not
+            # SPHINCSLET-authored.
+            # Deepest-first. A HASH_TILE_MD0 entry would short-circuit
+            # pass 1 of map_to_file and mask the real target, so the outer
+            # wrapper is deliberately NOT mapped.
+            "W_MEM_INST": "/mnt/c/PQC/slh-dsa/rtl/sphincslet/sha/sha256_w_mem.v",
+            "SHA256": "/mnt/c/PQC/slh-dsa/rtl/sphincslet/sha/sha256_core.v",
+        },
+        "orchestrator": None,
+        "kat_gate": ["python3", "agent/slh_dsa/slh_kat_gate.py"],
+    },
 }
 
 def closure_search(ckpt, tag, lo, hi):
@@ -97,11 +124,23 @@ def worst_path_at_close(tag, period):
     return {"source": m.group(1), "dest": m.group(2)} if m else None
 
 def map_to_file(path_rec, hier2file):
+    # Pass 1: original behaviour, first hierarchy component only. Unchanged
+    # so ML-DSA and HQC mapping stays byte-identical.
     for endpoint in (path_rec["dest"], path_rec["source"]):
         top_inst = endpoint.split("/")[0].upper()
         for k, f in hier2file.items():
             if k in top_inst:
                 return top_inst, f
+    # Pass 2: deeper components, longest key first. SLH-DSA binds three
+    # levels down (hash_tile_md0/HASH_BM/SHA256/w_mem_inst), so a
+    # first-component match would return hash_tile.v when the real target
+    # is sha256_w_mem.v. Only reached when pass 1 found nothing.
+    for endpoint in (path_rec["dest"], path_rec["source"]):
+        comps = [c.split("[")[0].upper() for c in endpoint.split("/")[:-1]]
+        for k in sorted(hier2file, key=len, reverse=True):
+            for c in reversed(comps):
+                if k in c:
+                    return c, hier2file[k]
     return None, None
 
 def regen_ckpt(cfg):
