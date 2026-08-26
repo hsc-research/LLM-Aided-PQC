@@ -1,0 +1,874 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Tue Aug 25 20:04:15 2026
+| Host         : MSI running 64-bit Ubuntu 26.04 LTS
+| Command      : report_timing -max_paths 10 -sort_by slack -file /tmp/slh_board.rpt
+| Design       : top
+| Device       : 7a200t-fbg676
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.180ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[29]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.747ns  (logic 5.420ns (46.141%)  route 6.327ns (53.859%))
+  Logic Levels:           16  (CARRY4=8 LUT3=1 LUT5=4 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X72Y132        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y132        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/Q
+                         net (fo=8, routed)           0.845     2.336    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[30]
+    SLICE_X71Y132        LUT5 (Prop_lut5_I1_O)        0.124     2.460 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0/O
+                         net (fo=2, routed)           0.588     3.049    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0_n_0
+    SLICE_X68Y133        LUT5 (Prop_lut5_I4_O)        0.124     3.173 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0/O
+                         net (fo=2, routed)           0.404     3.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0_n_0
+    SLICE_X67Y134        LUT6 (Prop_lut6_I0_O)        0.124     3.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0/O
+                         net (fo=1, routed)           0.000     3.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0_n_0
+    SLICE_X67Y134        CARRY4 (Prop_carry4_S[0]_O[3])
+                                                      0.606     4.307 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2__0/O[3]
+                         net (fo=2, routed)           0.473     4.780    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[7]
+    SLICE_X68Y134        LUT6 (Prop_lut6_I3_O)        0.306     5.086 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_26__0/O
+                         net (fo=2, routed)           0.733     5.819    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[7]
+    SLICE_X68Y138        LUT3 (Prop_lut3_I0_O)        0.124     5.943 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0/O
+                         net (fo=2, routed)           0.669     6.612    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0_n_0
+    SLICE_X66Y138        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     7.162 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.162    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0_n_0
+    SLICE_X66Y139        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.477 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0/O[3]
+                         net (fo=2, routed)           0.456     7.933    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0_n_4
+    SLICE_X65Y139        LUT5 (Prop_lut5_I0_O)        0.307     8.240 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0/O
+                         net (fo=2, routed)           0.580     8.820    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0_n_0
+    SLICE_X64Y139        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     9.370 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.370    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0_n_0
+    SLICE_X64Y140        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     9.589 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_1__0/O[0]
+                         net (fo=4, routed)           0.448    10.037    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[22][0]
+    SLICE_X63Y140        LUT5 (Prop_lut5_I4_O)        0.295    10.332 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0/O
+                         net (fo=2, routed)           0.825    11.157    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0_n_0
+    SLICE_X61Y137        CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.664 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.664    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0_n_0
+    SLICE_X61Y138        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.778 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.778    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0_n_0
+    SLICE_X61Y139        CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    12.112 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[31]_i_2__0/O[1]
+                         net (fo=1, routed)           0.305    12.417    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[29]
+    SLICE_X59Y140        LUT6 (Prop_lut6_I0_O)        0.303    12.720 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[29]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.720    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_6
+    SLICE_X59Y140        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X59Y140        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[29]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X59Y140        FDCE (Setup_fdce_C_D)        0.031    12.900    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[29]
+  -------------------------------------------------------------------
+                         required time                         12.900    
+                         arrival time                         -12.720    
+  -------------------------------------------------------------------
+                         slack                                  0.180    
+
+Slack (MET) :             0.194ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][30]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[31]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.733ns  (logic 5.239ns (44.652%)  route 6.494ns (55.348%))
+  Logic Levels:           17  (CARRY4=7 LUT3=1 LUT4=1 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X73Y138        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][30]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y138        FDCE (Prop_fdce_C_Q)         0.456     1.429 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][30]/Q
+                         net (fo=8, routed)           0.970     2.399    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[23]
+    SLICE_X70Y136        LUT5 (Prop_lut5_I2_O)        0.124     2.523 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_16__0/O
+                         net (fo=2, routed)           0.773     3.297    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_16__0_n_0
+    SLICE_X68Y136        LUT5 (Prop_lut5_I3_O)        0.124     3.421 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_6__0/O
+                         net (fo=2, routed)           0.573     3.993    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_6__0_n_0
+    SLICE_X67Y136        LUT6 (Prop_lut6_I0_O)        0.124     4.117 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_10__0/O
+                         net (fo=1, routed)           0.000     4.117    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_10__0_n_0
+    SLICE_X67Y136        CARRY4 (Prop_carry4_S[1]_O[3])
+                                                      0.640     4.757 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][15]_i_2__0/O[3]
+                         net (fo=2, routed)           0.757     5.515    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[15]
+    SLICE_X68Y139        LUT6 (Prop_lut6_I3_O)        0.306     5.821 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_26__0/O
+                         net (fo=2, routed)           0.441     6.262    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[15]
+    SLICE_X68Y140        LUT3 (Prop_lut3_I0_O)        0.124     6.386 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_18__0/O
+                         net (fo=2, routed)           0.466     6.852    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_18__0_n_0
+    SLICE_X66Y140        LUT4 (Prop_lut4_I3_O)        0.124     6.976 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_22__0/O
+                         net (fo=1, routed)           0.000     6.976    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_22__0_n_0
+    SLICE_X66Y140        CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.489 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.489    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_13__0_n_0
+    SLICE_X66Y141        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.606 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.606    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_13__0_n_0
+    SLICE_X66Y142        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     7.825 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___26_i_12__0/O[0]
+                         net (fo=2, routed)           0.324     8.149    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___26_i_12__0_n_7
+    SLICE_X66Y144        LUT5 (Prop_lut5_I0_O)        0.295     8.444 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_4__0/O
+                         net (fo=2, routed)           0.705     9.149    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_4__0_n_0
+    SLICE_X64Y141        LUT6 (Prop_lut6_I0_O)        0.124     9.273 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_8__0/O
+                         net (fo=1, routed)           0.000     9.273    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_8__0_n_0
+    SLICE_X64Y141        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     9.806 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.806    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_1__0_n_0
+    SLICE_X64Y142        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    10.025 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___26_i_1__0/O[0]
+                         net (fo=4, routed)           0.340    10.365    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[29][0]
+    SLICE_X63Y142        LUT5 (Prop_lut5_I4_O)        0.295    10.660 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[31]_i_4__0/O
+                         net (fo=2, routed)           0.849    11.509    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[31]_i_4__0_n_0
+    SLICE_X61Y139        CARRY4 (Prop_carry4_DI[1]_O[3])
+                                                      0.596    12.105 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[31]_i_2__0/O[3]
+                         net (fo=1, routed)           0.295    12.400    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[31]
+    SLICE_X58Y139        LUT6 (Prop_lut6_I0_O)        0.306    12.706 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[31]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.706    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_4
+    SLICE_X58Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X58Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[31]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X58Y139        FDCE (Setup_fdce_C_D)        0.031    12.900    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[31]
+  -------------------------------------------------------------------
+                         required time                         12.900    
+                         arrival time                         -12.706    
+  -------------------------------------------------------------------
+                         slack                                  0.194    
+
+Slack (MET) :             0.247ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][30]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[30]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.728ns  (logic 5.176ns (44.132%)  route 6.552ns (55.868%))
+  Logic Levels:           17  (CARRY4=7 LUT3=1 LUT4=1 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X73Y138        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][30]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y138        FDCE (Prop_fdce_C_Q)         0.456     1.429 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][30]/Q
+                         net (fo=8, routed)           0.970     2.399    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[23]
+    SLICE_X70Y136        LUT5 (Prop_lut5_I2_O)        0.124     2.523 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_16__0/O
+                         net (fo=2, routed)           0.773     3.297    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_16__0_n_0
+    SLICE_X68Y136        LUT5 (Prop_lut5_I3_O)        0.124     3.421 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_6__0/O
+                         net (fo=2, routed)           0.573     3.993    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_6__0_n_0
+    SLICE_X67Y136        LUT6 (Prop_lut6_I0_O)        0.124     4.117 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_10__0/O
+                         net (fo=1, routed)           0.000     4.117    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][15]_i_10__0_n_0
+    SLICE_X67Y136        CARRY4 (Prop_carry4_S[1]_O[3])
+                                                      0.640     4.757 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][15]_i_2__0/O[3]
+                         net (fo=2, routed)           0.757     5.515    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[15]
+    SLICE_X68Y139        LUT6 (Prop_lut6_I3_O)        0.306     5.821 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_26__0/O
+                         net (fo=2, routed)           0.441     6.262    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[15]
+    SLICE_X68Y140        LUT3 (Prop_lut3_I0_O)        0.124     6.386 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_18__0/O
+                         net (fo=2, routed)           0.466     6.852    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_18__0_n_0
+    SLICE_X66Y140        LUT4 (Prop_lut4_I3_O)        0.124     6.976 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_22__0/O
+                         net (fo=1, routed)           0.000     6.976    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_22__0_n_0
+    SLICE_X66Y140        CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513     7.489 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.489    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_13__0_n_0
+    SLICE_X66Y141        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.606 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.606    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_13__0_n_0
+    SLICE_X66Y142        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     7.825 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___26_i_12__0/O[0]
+                         net (fo=2, routed)           0.324     8.149    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___26_i_12__0_n_7
+    SLICE_X66Y144        LUT5 (Prop_lut5_I0_O)        0.295     8.444 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_4__0/O
+                         net (fo=2, routed)           0.705     9.149    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_4__0_n_0
+    SLICE_X64Y141        LUT6 (Prop_lut6_I0_O)        0.124     9.273 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_8__0/O
+                         net (fo=1, routed)           0.000     9.273    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_8__0_n_0
+    SLICE_X64Y141        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     9.806 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.806    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___29_i_1__0_n_0
+    SLICE_X64Y142        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    10.025 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___26_i_1__0/O[0]
+                         net (fo=4, routed)           0.340    10.365    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[29][0]
+    SLICE_X63Y142        LUT5 (Prop_lut5_I4_O)        0.295    10.660 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[31]_i_4__0/O
+                         net (fo=2, routed)           0.849    11.509    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[31]_i_4__0_n_0
+    SLICE_X61Y139        CARRY4 (Prop_carry4_DI[1]_O[2])
+                                                      0.537    12.046 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[31]_i_2__0/O[2]
+                         net (fo=1, routed)           0.353    12.399    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[30]
+    SLICE_X60Y139        LUT6 (Prop_lut6_I0_O)        0.302    12.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[30]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_5
+    SLICE_X60Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[30]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X60Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[30]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X60Y139        FDCE (Setup_fdce_C_D)        0.079    12.948    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[30]
+  -------------------------------------------------------------------
+                         required time                         12.948    
+                         arrival time                         -12.701    
+  -------------------------------------------------------------------
+                         slack                                  0.247    
+
+Slack (MET) :             0.315ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_SM/SHA256/a_reg_reg[27]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.612ns  (logic 5.516ns (47.501%)  route 6.096ns (52.499%))
+  Logic Levels:           19  (CARRY4=9 LUT3=1 LUT4=1 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/clk
+    SLICE_X42Y107        FDCE                                         r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X42Y107        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9][5]/Q
+                         net (fo=4, routed)           0.825     2.316    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9]_5[5]
+    SLICE_X42Y109        LUT5 (Prop_lut5_I0_O)        0.124     2.440 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_12/O
+                         net (fo=2, routed)           0.588     3.028    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_12_n_0
+    SLICE_X43Y110        LUT5 (Prop_lut5_I4_O)        0.124     3.152 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_3/O
+                         net (fo=2, routed)           0.718     3.870    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_3_n_0
+    SLICE_X42Y113        LUT6 (Prop_lut6_I0_O)        0.124     3.994 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_7/O
+                         net (fo=1, routed)           0.000     3.994    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_7_n_0
+    SLICE_X42Y113        CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376     4.370 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2/CO[3]
+                         net (fo=1, routed)           0.000     4.370    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2_n_0
+    SLICE_X42Y114        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     4.589 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[15][11]_i_2/O[0]
+                         net (fo=2, routed)           0.588     5.177    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_new[8]
+    SLICE_X47Y114        LUT6 (Prop_lut6_I3_O)        0.295     5.472 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_25/O
+                         net (fo=2, routed)           0.276     5.749    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_data[8]
+    SLICE_X47Y114        LUT3 (Prop_lut3_I0_O)        0.124     5.873 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_17/O
+                         net (fo=2, routed)           0.655     6.527    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_17_n_0
+    SLICE_X51Y110        LUT4 (Prop_lut4_I3_O)        0.124     6.651 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_21/O
+                         net (fo=1, routed)           0.000     6.651    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_21_n_0
+    SLICE_X51Y110        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     7.201 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_13/CO[3]
+                         net (fo=1, routed)           0.000     7.201    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_13_n_0
+    SLICE_X51Y111        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222     7.423 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___37_i_13/O[0]
+                         net (fo=2, routed)           0.308     7.731    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___37_i_13_n_7
+    SLICE_X53Y111        LUT5 (Prop_lut5_I0_O)        0.299     8.030 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_4/O
+                         net (fo=2, routed)           0.504     8.533    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_4_n_0
+    SLICE_X52Y110        LUT6 (Prop_lut6_I0_O)        0.124     8.657 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_8/O
+                         net (fo=1, routed)           0.000     8.657    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_8_n_0
+    SLICE_X52Y110        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     9.190 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_1/CO[3]
+                         net (fo=1, routed)           0.000     9.190    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_1_n_0
+    SLICE_X52Y111        CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323     9.513 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___37_i_1/O[1]
+                         net (fo=4, routed)           0.341     9.855    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/e_reg_reg[18][1]
+    SLICE_X55Y111        LUT5 (Prop_lut5_I4_O)        0.306    10.161 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg[19]_i_4/O
+                         net (fo=2, routed)           0.855    11.016    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg[19]_i_4_n_0
+    SLICE_X47Y107        CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    11.414 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[19]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    11.414    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[19]_i_2_n_0
+    SLICE_X47Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.528 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[23]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    11.528    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[23]_i_2_n_0
+    SLICE_X47Y109        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.841 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[27]_i_2/O[3]
+                         net (fo=1, routed)           0.439    12.279    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_new0[27]
+    SLICE_X49Y111        LUT6 (Prop_lut6_I0_O)        0.306    12.585 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg[27]_i_1/O
+                         net (fo=1, routed)           0.000    12.585    hash_tile_md0/HASH_SM/SHA256/w_mem_inst_n_9
+    SLICE_X49Y111        FDCE                                         r  hash_tile_md0/HASH_SM/SHA256/a_reg_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_SM/SHA256/clk
+    SLICE_X49Y111        FDCE                                         r  hash_tile_md0/HASH_SM/SHA256/a_reg_reg[27]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X49Y111        FDCE (Setup_fdce_C_D)        0.031    12.900    hash_tile_md0/HASH_SM/SHA256/a_reg_reg[27]
+  -------------------------------------------------------------------
+                         required time                         12.900    
+                         arrival time                         -12.585    
+  -------------------------------------------------------------------
+                         slack                                  0.315    
+
+Slack (MET) :             0.316ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[28]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.611ns  (logic 5.304ns (45.680%)  route 6.307ns (54.320%))
+  Logic Levels:           16  (CARRY4=8 LUT3=1 LUT5=4 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X72Y132        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y132        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/Q
+                         net (fo=8, routed)           0.845     2.336    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[30]
+    SLICE_X71Y132        LUT5 (Prop_lut5_I1_O)        0.124     2.460 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0/O
+                         net (fo=2, routed)           0.588     3.049    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0_n_0
+    SLICE_X68Y133        LUT5 (Prop_lut5_I4_O)        0.124     3.173 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0/O
+                         net (fo=2, routed)           0.404     3.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0_n_0
+    SLICE_X67Y134        LUT6 (Prop_lut6_I0_O)        0.124     3.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0/O
+                         net (fo=1, routed)           0.000     3.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0_n_0
+    SLICE_X67Y134        CARRY4 (Prop_carry4_S[0]_O[3])
+                                                      0.606     4.307 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2__0/O[3]
+                         net (fo=2, routed)           0.473     4.780    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[7]
+    SLICE_X68Y134        LUT6 (Prop_lut6_I3_O)        0.306     5.086 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_26__0/O
+                         net (fo=2, routed)           0.733     5.819    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[7]
+    SLICE_X68Y138        LUT3 (Prop_lut3_I0_O)        0.124     5.943 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0/O
+                         net (fo=2, routed)           0.669     6.612    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0_n_0
+    SLICE_X66Y138        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     7.162 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.162    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0_n_0
+    SLICE_X66Y139        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.477 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0/O[3]
+                         net (fo=2, routed)           0.456     7.933    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0_n_4
+    SLICE_X65Y139        LUT5 (Prop_lut5_I0_O)        0.307     8.240 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0/O
+                         net (fo=2, routed)           0.580     8.820    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0_n_0
+    SLICE_X64Y139        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     9.370 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.370    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0_n_0
+    SLICE_X64Y140        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     9.589 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_1__0/O[0]
+                         net (fo=4, routed)           0.448    10.037    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[22][0]
+    SLICE_X63Y140        LUT5 (Prop_lut5_I4_O)        0.295    10.332 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0/O
+                         net (fo=2, routed)           0.825    11.157    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0_n_0
+    SLICE_X61Y137        CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.664 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.664    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0_n_0
+    SLICE_X61Y138        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.778 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.778    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0_n_0
+    SLICE_X61Y139        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    12.000 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[31]_i_2__0/O[0]
+                         net (fo=1, routed)           0.286    12.285    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[28]
+    SLICE_X59Y139        LUT6 (Prop_lut6_I0_O)        0.299    12.584 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[28]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.584    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_7
+    SLICE_X59Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[28]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X59Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[28]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X59Y139        FDCE (Setup_fdce_C_D)        0.031    12.900    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[28]
+  -------------------------------------------------------------------
+                         required time                         12.900    
+                         arrival time                         -12.584    
+  -------------------------------------------------------------------
+                         slack                                  0.316    
+
+Slack (MET) :             0.321ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[26]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.652ns  (logic 5.210ns (44.713%)  route 6.442ns (55.287%))
+  Logic Levels:           15  (CARRY4=7 LUT3=1 LUT5=4 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X72Y132        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y132        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/Q
+                         net (fo=8, routed)           0.845     2.336    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[30]
+    SLICE_X71Y132        LUT5 (Prop_lut5_I1_O)        0.124     2.460 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0/O
+                         net (fo=2, routed)           0.588     3.049    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0_n_0
+    SLICE_X68Y133        LUT5 (Prop_lut5_I4_O)        0.124     3.173 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0/O
+                         net (fo=2, routed)           0.404     3.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0_n_0
+    SLICE_X67Y134        LUT6 (Prop_lut6_I0_O)        0.124     3.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0/O
+                         net (fo=1, routed)           0.000     3.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0_n_0
+    SLICE_X67Y134        CARRY4 (Prop_carry4_S[0]_O[3])
+                                                      0.606     4.307 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2__0/O[3]
+                         net (fo=2, routed)           0.473     4.780    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[7]
+    SLICE_X68Y134        LUT6 (Prop_lut6_I3_O)        0.306     5.086 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_26__0/O
+                         net (fo=2, routed)           0.733     5.819    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[7]
+    SLICE_X68Y138        LUT3 (Prop_lut3_I0_O)        0.124     5.943 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0/O
+                         net (fo=2, routed)           0.669     6.612    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0_n_0
+    SLICE_X66Y138        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     7.162 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.162    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0_n_0
+    SLICE_X66Y139        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.477 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0/O[3]
+                         net (fo=2, routed)           0.456     7.933    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0_n_4
+    SLICE_X65Y139        LUT5 (Prop_lut5_I0_O)        0.307     8.240 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0/O
+                         net (fo=2, routed)           0.580     8.820    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0_n_0
+    SLICE_X64Y139        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     9.370 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.370    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0_n_0
+    SLICE_X64Y140        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     9.589 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_1__0/O[0]
+                         net (fo=4, routed)           0.448    10.037    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[22][0]
+    SLICE_X63Y140        LUT5 (Prop_lut5_I4_O)        0.295    10.332 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0/O
+                         net (fo=2, routed)           0.825    11.157    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0_n_0
+    SLICE_X61Y137        CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.664 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.664    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0_n_0
+    SLICE_X61Y138        CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    11.903 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0/O[2]
+                         net (fo=1, routed)           0.421    12.323    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[26]
+    SLICE_X60Y139        LUT6 (Prop_lut6_I0_O)        0.302    12.625 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[26]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.625    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_9
+    SLICE_X60Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[26]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X60Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[26]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X60Y139        FDCE (Setup_fdce_C_D)        0.077    12.946    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[26]
+  -------------------------------------------------------------------
+                         required time                         12.946    
+                         arrival time                         -12.625    
+  -------------------------------------------------------------------
+                         slack                                  0.321    
+
+Slack (MET) :             0.323ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[27]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.604ns  (logic 5.288ns (45.569%)  route 6.316ns (54.431%))
+  Logic Levels:           15  (CARRY4=7 LUT3=1 LUT5=4 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X72Y132        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y132        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/Q
+                         net (fo=8, routed)           0.845     2.336    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[30]
+    SLICE_X71Y132        LUT5 (Prop_lut5_I1_O)        0.124     2.460 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0/O
+                         net (fo=2, routed)           0.588     3.049    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0_n_0
+    SLICE_X68Y133        LUT5 (Prop_lut5_I4_O)        0.124     3.173 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0/O
+                         net (fo=2, routed)           0.404     3.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0_n_0
+    SLICE_X67Y134        LUT6 (Prop_lut6_I0_O)        0.124     3.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0/O
+                         net (fo=1, routed)           0.000     3.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0_n_0
+    SLICE_X67Y134        CARRY4 (Prop_carry4_S[0]_O[3])
+                                                      0.606     4.307 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2__0/O[3]
+                         net (fo=2, routed)           0.473     4.780    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[7]
+    SLICE_X68Y134        LUT6 (Prop_lut6_I3_O)        0.306     5.086 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_26__0/O
+                         net (fo=2, routed)           0.733     5.819    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[7]
+    SLICE_X68Y138        LUT3 (Prop_lut3_I0_O)        0.124     5.943 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0/O
+                         net (fo=2, routed)           0.669     6.612    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0_n_0
+    SLICE_X66Y138        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     7.162 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.162    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0_n_0
+    SLICE_X66Y139        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.477 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0/O[3]
+                         net (fo=2, routed)           0.456     7.933    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0_n_4
+    SLICE_X65Y139        LUT5 (Prop_lut5_I0_O)        0.307     8.240 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0/O
+                         net (fo=2, routed)           0.580     8.820    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0_n_0
+    SLICE_X64Y139        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     9.370 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.370    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0_n_0
+    SLICE_X64Y140        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     9.589 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_1__0/O[0]
+                         net (fo=4, routed)           0.448    10.037    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[22][0]
+    SLICE_X63Y140        LUT5 (Prop_lut5_I4_O)        0.295    10.332 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0/O
+                         net (fo=2, routed)           0.825    11.157    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0_n_0
+    SLICE_X61Y137        CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.664 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.664    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0_n_0
+    SLICE_X61Y138        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.977 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0/O[3]
+                         net (fo=1, routed)           0.295    12.271    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[27]
+    SLICE_X58Y138        LUT6 (Prop_lut6_I0_O)        0.306    12.577 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[27]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_8
+    SLICE_X58Y138        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X58Y138        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[27]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X58Y138        FDCE (Setup_fdce_C_D)        0.031    12.900    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[27]
+  -------------------------------------------------------------------
+                         required time                         12.900    
+                         arrival time                         -12.577    
+  -------------------------------------------------------------------
+                         slack                                  0.323    
+
+Slack (MET) :             0.326ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[24]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.651ns  (logic 5.190ns (44.544%)  route 6.461ns (55.456%))
+  Logic Levels:           15  (CARRY4=7 LUT3=1 LUT5=4 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X72Y132        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y132        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/Q
+                         net (fo=8, routed)           0.845     2.336    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[30]
+    SLICE_X71Y132        LUT5 (Prop_lut5_I1_O)        0.124     2.460 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0/O
+                         net (fo=2, routed)           0.588     3.049    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0_n_0
+    SLICE_X68Y133        LUT5 (Prop_lut5_I4_O)        0.124     3.173 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0/O
+                         net (fo=2, routed)           0.404     3.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0_n_0
+    SLICE_X67Y134        LUT6 (Prop_lut6_I0_O)        0.124     3.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0/O
+                         net (fo=1, routed)           0.000     3.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0_n_0
+    SLICE_X67Y134        CARRY4 (Prop_carry4_S[0]_O[3])
+                                                      0.606     4.307 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2__0/O[3]
+                         net (fo=2, routed)           0.473     4.780    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[7]
+    SLICE_X68Y134        LUT6 (Prop_lut6_I3_O)        0.306     5.086 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_26__0/O
+                         net (fo=2, routed)           0.733     5.819    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[7]
+    SLICE_X68Y138        LUT3 (Prop_lut3_I0_O)        0.124     5.943 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0/O
+                         net (fo=2, routed)           0.669     6.612    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0_n_0
+    SLICE_X66Y138        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     7.162 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.162    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0_n_0
+    SLICE_X66Y139        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.477 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0/O[3]
+                         net (fo=2, routed)           0.456     7.933    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0_n_4
+    SLICE_X65Y139        LUT5 (Prop_lut5_I0_O)        0.307     8.240 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0/O
+                         net (fo=2, routed)           0.580     8.820    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0_n_0
+    SLICE_X64Y139        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     9.370 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.370    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0_n_0
+    SLICE_X64Y140        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     9.589 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_1__0/O[0]
+                         net (fo=4, routed)           0.448    10.037    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[22][0]
+    SLICE_X63Y140        LUT5 (Prop_lut5_I4_O)        0.295    10.332 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0/O
+                         net (fo=2, routed)           0.825    11.157    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0_n_0
+    SLICE_X61Y137        CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.664 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.664    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0_n_0
+    SLICE_X61Y138        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    11.886 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0/O[0]
+                         net (fo=1, routed)           0.440    12.325    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[24]
+    SLICE_X60Y138        LUT6 (Prop_lut6_I0_O)        0.299    12.624 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[24]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.624    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_11
+    SLICE_X60Y138        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[24]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X60Y138        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[24]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X60Y138        FDCE (Setup_fdce_C_D)        0.081    12.950    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[24]
+  -------------------------------------------------------------------
+                         required time                         12.950    
+                         arrival time                         -12.624    
+  -------------------------------------------------------------------
+                         slack                                  0.326    
+
+Slack (MET) :             0.341ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_SM/SHA256/a_reg_reg[31]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.587ns  (logic 5.630ns (48.587%)  route 5.957ns (51.413%))
+  Logic Levels:           20  (CARRY4=10 LUT3=1 LUT4=1 LUT5=4 LUT6=4)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/clk
+    SLICE_X42Y107        FDCE                                         r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X42Y107        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9][5]/Q
+                         net (fo=4, routed)           0.825     2.316    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[9]_5[5]
+    SLICE_X42Y109        LUT5 (Prop_lut5_I0_O)        0.124     2.440 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_12/O
+                         net (fo=2, routed)           0.588     3.028    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_12_n_0
+    SLICE_X43Y110        LUT5 (Prop_lut5_I4_O)        0.124     3.152 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_3/O
+                         net (fo=2, routed)           0.718     3.870    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_3_n_0
+    SLICE_X42Y113        LUT6 (Prop_lut6_I0_O)        0.124     3.994 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_7/O
+                         net (fo=1, routed)           0.000     3.994    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem[15][7]_i_7_n_0
+    SLICE_X42Y113        CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376     4.370 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2/CO[3]
+                         net (fo=1, routed)           0.000     4.370    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2_n_0
+    SLICE_X42Y114        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     4.589 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_mem_reg[15][11]_i_2/O[0]
+                         net (fo=2, routed)           0.588     5.177    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_new[8]
+    SLICE_X47Y114        LUT6 (Prop_lut6_I3_O)        0.295     5.472 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_25/O
+                         net (fo=2, routed)           0.276     5.749    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/w_data[8]
+    SLICE_X47Y114        LUT3 (Prop_lut3_I0_O)        0.124     5.873 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_17/O
+                         net (fo=2, routed)           0.655     6.527    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_17_n_0
+    SLICE_X51Y110        LUT4 (Prop_lut4_I3_O)        0.124     6.651 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_21/O
+                         net (fo=1, routed)           0.000     6.651    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_21_n_0
+    SLICE_X51Y110        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550     7.201 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_13/CO[3]
+                         net (fo=1, routed)           0.000     7.201    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_13_n_0
+    SLICE_X51Y111        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222     7.423 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___37_i_13/O[0]
+                         net (fo=2, routed)           0.308     7.731    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___37_i_13_n_7
+    SLICE_X53Y111        LUT5 (Prop_lut5_I0_O)        0.299     8.030 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_4/O
+                         net (fo=2, routed)           0.504     8.533    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_4_n_0
+    SLICE_X52Y110        LUT6 (Prop_lut6_I0_O)        0.124     8.657 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_8/O
+                         net (fo=1, routed)           0.000     8.657    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_8_n_0
+    SLICE_X52Y110        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     9.190 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_1/CO[3]
+                         net (fo=1, routed)           0.000     9.190    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___41_i_1_n_0
+    SLICE_X52Y111        CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323     9.513 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/i___37_i_1/O[1]
+                         net (fo=4, routed)           0.341     9.855    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/e_reg_reg[18][1]
+    SLICE_X55Y111        LUT5 (Prop_lut5_I4_O)        0.306    10.161 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg[19]_i_4/O
+                         net (fo=2, routed)           0.855    11.016    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg[19]_i_4_n_0
+    SLICE_X47Y107        CARRY4 (Prop_carry4_DI[2]_CO[3])
+                                                      0.398    11.414 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[19]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    11.414    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[19]_i_2_n_0
+    SLICE_X47Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.528 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[23]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    11.528    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[23]_i_2_n_0
+    SLICE_X47Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    11.642 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[27]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    11.642    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[27]_i_2_n_0
+    SLICE_X47Y110        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.955 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg_reg[31]_i_2/O[3]
+                         net (fo=1, routed)           0.300    12.254    hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_new0[31]
+    SLICE_X47Y112        LUT6 (Prop_lut6_I0_O)        0.306    12.560 r  hash_tile_md0/HASH_SM/SHA256/w_mem_inst/a_reg[31]_i_1/O
+                         net (fo=1, routed)           0.000    12.560    hash_tile_md0/HASH_SM/SHA256/w_mem_inst_n_5
+    SLICE_X47Y112        FDCE                                         r  hash_tile_md0/HASH_SM/SHA256/a_reg_reg[31]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_SM/SHA256/clk
+    SLICE_X47Y112        FDCE                                         r  hash_tile_md0/HASH_SM/SHA256/a_reg_reg[31]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X47Y112        FDCE (Setup_fdce_C_D)        0.032    12.901    hash_tile_md0/HASH_SM/SHA256/a_reg_reg[31]
+  -------------------------------------------------------------------
+                         required time                         12.901    
+                         arrival time                         -12.560    
+  -------------------------------------------------------------------
+                         slack                                  0.341    
+
+Slack (MET) :             0.343ns  (required time - arrival time)
+  Source:                 hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Destination:            hash_tile_md0/HASH_BM/SHA256/a_reg_reg[25]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@5.990ns period=11.980ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            11.980ns  (clk rise@11.980ns - clk rise@0.000ns)
+  Data Path Delay:        11.634ns  (logic 5.306ns (45.606%)  route 6.328ns (54.394%))
+  Logic Levels:           15  (CARRY4=7 LUT3=1 LUT5=4 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 12.904 - 11.980 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=6980, unset)         0.973     0.973    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/clk
+    SLICE_X72Y132        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y132        FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/Q
+                         net (fo=8, routed)           0.845     2.336    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/p_2_in[30]
+    SLICE_X71Y132        LUT5 (Prop_lut5_I1_O)        0.124     2.460 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0/O
+                         net (fo=2, routed)           0.588     3.049    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_18__0_n_0
+    SLICE_X68Y133        LUT5 (Prop_lut5_I4_O)        0.124     3.173 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0/O
+                         net (fo=2, routed)           0.404     3.577    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_6__0_n_0
+    SLICE_X67Y134        LUT6 (Prop_lut6_I0_O)        0.124     3.701 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0/O
+                         net (fo=1, routed)           0.000     3.701    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem[15][7]_i_10__0_n_0
+    SLICE_X67Y134        CARRY4 (Prop_carry4_S[0]_O[3])
+                                                      0.606     4.307 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[15][7]_i_2__0/O[3]
+                         net (fo=2, routed)           0.473     4.780    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_new[7]
+    SLICE_X68Y134        LUT6 (Prop_lut6_I3_O)        0.306     5.086 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_26__0/O
+                         net (fo=2, routed)           0.733     5.819    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_data[7]
+    SLICE_X68Y138        LUT3 (Prop_lut3_I0_O)        0.124     5.943 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0/O
+                         net (fo=2, routed)           0.669     6.612    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_18__0_n_0
+    SLICE_X66Y138        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     7.162 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0/CO[3]
+                         net (fo=1, routed)           0.000     7.162    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___41_i_13__0_n_0
+    SLICE_X66Y139        CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.477 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0/O[3]
+                         net (fo=2, routed)           0.456     7.933    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_13__0_n_4
+    SLICE_X65Y139        LUT5 (Prop_lut5_I0_O)        0.307     8.240 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0/O
+                         net (fo=2, routed)           0.580     8.820    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_5__0_n_0
+    SLICE_X64Y139        CARRY4 (Prop_carry4_DI[0]_CO[3])
+                                                      0.550     9.370 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0/CO[3]
+                         net (fo=1, routed)           0.000     9.370    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___37_i_1__0_n_0
+    SLICE_X64Y140        CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219     9.589 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/i___33_i_1__0/O[0]
+                         net (fo=4, routed)           0.448    10.037    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/e_reg_reg[22][0]
+    SLICE_X63Y140        LUT5 (Prop_lut5_I4_O)        0.295    10.332 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0/O
+                         net (fo=2, routed)           0.825    11.157    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[23]_i_5__0_n_0
+    SLICE_X61Y137        CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.507    11.664 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0/CO[3]
+                         net (fo=1, routed)           0.000    11.664    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[23]_i_2__0_n_0
+    SLICE_X61Y138        CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.998 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg_reg[27]_i_2__0/O[1]
+                         net (fo=1, routed)           0.307    12.304    hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_new0[25]
+    SLICE_X60Y139        LUT6 (Prop_lut6_I0_O)        0.303    12.607 r  hash_tile_md0/HASH_BM/SHA256/w_mem_inst/a_reg[25]_i_1__0/O
+                         net (fo=1, routed)           0.000    12.607    hash_tile_md0/HASH_BM/SHA256/w_mem_inst_n_10
+    SLICE_X60Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       11.980    11.980 r  
+                                                      0.000    11.980 r  clk (IN)
+                         net (fo=6980, unset)         0.924    12.904    hash_tile_md0/HASH_BM/SHA256/clk
+    SLICE_X60Y139        FDCE                                         r  hash_tile_md0/HASH_BM/SHA256/a_reg_reg[25]/C
+                         clock pessimism              0.000    12.904    
+                         clock uncertainty           -0.035    12.869    
+    SLICE_X60Y139        FDCE (Setup_fdce_C_D)        0.081    12.950    hash_tile_md0/HASH_BM/SHA256/a_reg_reg[25]
+  -------------------------------------------------------------------
+                         required time                         12.950    
+                         arrival time                         -12.607    
+  -------------------------------------------------------------------
+                         slack                                  0.343    
+
+
+
+

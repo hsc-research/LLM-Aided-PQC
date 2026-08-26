@@ -361,6 +361,9 @@ module sha256_core(
     begin : t1_logic
       reg [31 : 0] sum1;
       reg [31 : 0] ch;
+      reg [31 : 0] csa1_s, csa1_c;
+      reg [31 : 0] csa2_s, csa2_c;
+      reg [31 : 0] csa3_s, csa3_c;
 
       sum1 = {e_reg[5  : 0], e_reg[31 :  6]} ^
              {e_reg[10 : 0], e_reg[31 : 11]} ^
@@ -368,7 +371,20 @@ module sha256_core(
 
       ch = (e_reg & f_reg) ^ ((~e_reg) & g_reg);
 
-      t1 = h_reg + sum1 + ch + w_data + k_data;
+      // CSA stage 1: reduce (h_reg, sum1, ch) -> (csa1_s, csa1_c)
+      csa1_s = h_reg ^ sum1 ^ ch;
+      csa1_c = ((h_reg & sum1) | (h_reg & ch) | (sum1 & ch)) << 1;
+
+      // CSA stage 2: reduce (csa1_s, csa1_c, w_data) -> (csa2_s, csa2_c)
+      csa2_s = csa1_s ^ csa1_c ^ w_data;
+      csa2_c = ((csa1_s & csa1_c) | (csa1_s & w_data) | (csa1_c & w_data)) << 1;
+
+      // CSA stage 3: reduce (csa2_s, csa2_c, k_data) -> (csa3_s, csa3_c)
+      csa3_s = csa2_s ^ csa2_c ^ k_data;
+      csa3_c = ((csa2_s & csa2_c) | (csa2_s & k_data) | (csa2_c & k_data)) << 1;
+
+      // Final carry-propagate add of two operands
+      t1 = csa3_s + csa3_c;
     end // t1_logic
 
 

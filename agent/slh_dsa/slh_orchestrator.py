@@ -155,7 +155,7 @@ def classify(detail):
     return out
 
 
-def call_llm(block, rtl, ctx, tags):
+def call_llm(block, rtl, ctx, tags, extra=""):
     client = anthropic.Anthropic()
     prompt = (f"BLOCK: {block} (SLH-DSA / SPHINCSLET, Artix-7 xc7a200tfbg676-1, "
               f"whole-design OOC, judged at chip closure).\n"
@@ -175,7 +175,7 @@ def call_llm(block, rtl, ctx, tags):
     usage = {}
     for attempt in range(2):
         r = client.messages.create(model=MODEL, max_tokens=2000,
-            system=POLICY + rules_prompt_block("slh_dsa"),
+            system=POLICY + rules_prompt_block("slh_dsa") + extra,
             messages=[{"role": "user", "content": prompt}])
         usage = {"in": r.usage.input_tokens, "out": r.usage.output_tokens}
         txt = r.content[0].text
@@ -191,6 +191,84 @@ def call_llm(block, rtl, ctx, tags):
         prompt += (f"\n\nYOUR PREVIOUS REPLY WAS NOT VALID JSON ({err}). Reply "
                    "with ONLY the JSON object, no prose, no code fences.")
     raise SystemExit("LLM failed to produce valid JSON twice; aborting.")
+
+
+RULES = os.path.join(REPO, "agent", "learned_rules.jsonl")
+
+
+def put_rule(rec):
+    with open(RULES, "a") as f:
+        f.write(json.dumps(rec) + "\n")
+    return rec
+
+
+def proposed_rules(design="slh_dsa"):
+    """Candidate rules not yet refuted, newest last."""
+    if not os.path.exists(RULES):
+        return []
+    recs = [json.loads(l) for l in open(RULES) if l.strip()]
+    out = {}
+    for r in recs:
+        if r.get("design") in (design, "all"):
+            out[r["rule_id"]] = r          # later records supersede earlier
+    return [r for r in out.values() if r.get("status") != "refuted"]
+
+
+def propose_rule(block, rtl, ctx, tags, decline_reason):
+    """One call: given that no menu entry applied, what rule would have?"""
+    client = anthropic.Anthropic()
+    prompt = (
+        "You maintain an optimization rulebook for FPGA PPA agents. The "
+        "existing menu returned no_action on this cone for this reason:\n"
+        f"{decline_reason}\n\n"
+        f"CLASSIFICATION: {tags}\n"
+        f"BINDING PATH: {json.dumps(ctx.get('worst_path'))}\n\n"
+        f"RTL:\n{rtl}\n\n"
+        "Propose EXACTLY ONE new candidate strategy that WOULD address this "
+        "structure, in the same form as the existing menu entries. It must be "
+        "latency-neutral (no added or removed cycles), must not change the "
+        "module interface, and must be a standard, well-understood hardware "
+        "transformation rather than a speculative one. State the PRECONDITIONS "
+        "under which it applies, not just the transformation. If no sound "
+        "latency-neutral transformation exists for this structure, say so.\n\n"
+        'JSON only: {"rule_id":"<short_snake_name>","rule":"<<=60 words, '
+        'conditions first>","applies_when":"<precondition test>",'
+        '"expected_effect":"<what should improve>"} '
+        'or {"rule_id":null,"reason":"<why nothing applies>"}')
+    r = client.messages.create(model=MODEL, max_tokens=600,
+                               messages=[{"role": "user", "content": prompt}])
+    txt = r.content[0].text
+    i, j = txt.find("{"), txt.rfind("}")
+    if i == -1 or j <= i:
+        return None
+    try:
+        d = json.loads(txt[i:j+1])
+    except json.JSONDecodeError:
+        return None
+    if not d.get("rule_id"):
+        print("no candidate rule proposed:", d.get("reason", ""))
+        return None
+    return put_rule({
+        "ts": time.strftime("%F %T"), "design": "slh_dsa",
+        "rule_id": d["rule_id"], "rule": d["rule"],
+        "applies_when": d.get("applies_when"),
+        "expected_effect": d.get("expected_effect"),
+        "status": "proposed",
+        "evidence": {"block": block, "cone": ctx.get("dispatch_instance"),
+                     "closure": ctx.get("closure"),
+                     "declined_by_menu": decline_reason},
+        "source_model": MODEL,
+        "usage": {"in": r.usage.input_tokens, "out": r.usage.output_tokens},
+    })
+
+
+def resolve_rule(rule_id, status, note, closure_after=None):
+    """Record the outcome of a candidate. Both directions get written:
+    a refuted rule stays in the file with status=refuted and the reason."""
+    return put_rule({"ts": time.strftime("%F %T"), "design": "slh_dsa",
+                     "rule_id": rule_id, "rule": "(resolution record)",
+                     "status": status, "note": note,
+                     "closure_after": closure_after})
 
 
 def apply_edits(src, edits):
@@ -235,7 +313,22 @@ def main():
     print(f"classification: {tags}")
 
     rtl = open(src).read()
-    verdict, usage = call_llm(block, rtl, ctx, tags)
+    extra = ""
+    if "--use-proposed" in sys.argv:
+        cands = proposed_rules()
+        if cands:
+            extra = ("\n\nUNVALIDATED CANDIDATE RULES. These are UNTESTED "
+                     "HYPOTHESES with zero supporting measurements. They are "
+                     "NOT validated, NOT evidence-backed, and may well be "
+                     "wrong. Never describe them as validated. The menu above "
+                     "wins on conflict. If you use one, name its rule_id in "
+                     "\"strategy\" and state in \"reason\" that it is "
+                     "untested:\n" +
+                     "\n".join(f"- [{c['rule_id']}] {c['rule']}\n"
+                                f"  applies_when: {c.get('applies_when')}"
+                                for c in cands))
+            print(f"injecting {len(cands)} candidate rule(s)")
+    verdict, usage = call_llm(block, rtl, ctx, tags, extra)
     rec = {"block": block, "design": "slh_dsa", "src": src,
            "closure_before": ctx["closure"], "path_detail": detail,
            "tags": tags, "usage": usage, "model": MODEL}
@@ -244,6 +337,12 @@ def main():
     if verdict.get("verdict") != "experiment":
         log(rec)
         print("no_action: rule book offered no strategy for this cone.")
+        # The menu had nothing. Ask what rule WOULD have applied, and record
+        # it as a candidate. Candidates are proposals, not results: they carry
+        # status=proposed until a gate and a closure verdict resolve them.
+        prop = propose_rule(block, rtl, ctx, tags, verdict.get("reason", ""))
+        if prop:
+            print(f"CANDIDATE RULE: {prop['rule']}")
         return
     if dry:
         rec["verdict"] = "dry_run"
