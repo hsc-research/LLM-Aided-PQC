@@ -1,0 +1,6 @@
+iter 0: 11.5ns -> WNS -0.239 (VIOL)
+iter 1: 12.25ns -> WNS 0.171 (MET)
+iter 2: 11.88ns -> WNS -0.018 (VIOL)
+iter 3: 12.07ns -> WNS 0.1 (MET)
+iter 4: 11.98ns -> WNS 0.18 (MET)
+{"tag": "slh_128f_sha2", "closing_period_ns": 11.98, "closing_fmax_mhz": 83.5, "wns_at_close": 0.18}
