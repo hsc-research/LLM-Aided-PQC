@@ -173,7 +173,15 @@ def main():
     cfg = DESIGNS[design]
     tag = f"chipv2_{design}_{int(time.time())%100000}"
     print(f"[0] regen checkpoint from current tracked sources")
-    regen_ckpt(cfg)
+    if cfg.get("regen"):
+        # Design-specific regen. SLH-DSA needs global includes, which the
+        # shared regen_ckpt() does not emit.
+        import subprocess as _sp
+        _r = _sp.run(cfg["regen"], capture_output=True, text=True, timeout=7200)
+        print(_r.stdout[-400:])
+        assert _r.returncode == 0, "design-specific checkpoint regen failed"
+    else:
+        regen_ckpt(cfg)
     print(f"[1] closure baseline: {cfg['key']}")
     base = closure_search(cfg["ckpt"], tag, *cfg["bracket"])
     assert base and base["closing_fmax_mhz"], f"closure search failed: {base}"
