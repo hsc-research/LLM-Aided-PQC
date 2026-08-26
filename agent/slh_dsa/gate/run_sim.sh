@@ -1,6 +1,6 @@
 #!/bin/bash
 set -u
-R=/mnt/c/PQC/slh-dsa/rtl
+R=${SLH_RTL:-/mnt/c/PQC/hqc/agent/slh_dsa/slh_src}
 rm -rf xsim.dir 2>/dev/null
 # Files that set `default_nettype none and never restore it are compiled LAST
 # so the directive does not leak into SPHINCSLET sources, which rely on

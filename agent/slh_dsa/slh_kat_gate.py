@@ -26,7 +26,7 @@ DATA    = "/mnt/c/PQC/slh_sim/TECS_v8.srcs/sources_1/imports/data_sha2"
 PRODUCED = os.path.join(DATA, "SIG_file0_128f_w.hex")
 GOLDEN   = os.path.join(REPO, "agent", "slh_dsa", "gate", "SIG_file0_128f_w.hex")
 
-DEFAULT_RTL = "/mnt/c/PQC/slh-dsa/rtl"
+DEFAULT_RTL = "/mnt/c/PQC/hqc/agent/slh_dsa/slh_src"
 
 
 def run_equiv(rtl_dir=DEFAULT_RTL):

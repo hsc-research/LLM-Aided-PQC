@@ -11,7 +11,7 @@ Usage: python3 agent/slh_dsa/regen_slh_ckpt.py [rtl_dir] [out_dcp]
 """
 import os, sys, glob, subprocess
 
-RTL   = sys.argv[1] if len(sys.argv) > 1 else "/mnt/c/PQC/slh-dsa/rtl"
+RTL   = sys.argv[1] if len(sys.argv) > 1 else "/mnt/c/PQC/hqc/agent/slh_dsa/slh_src"
 CKPT  = sys.argv[2] if len(sys.argv) > 2 else "/mnt/c/PQC/slh_test/slh_128f_sha2_synth.dcp"
 PART  = "xc7a200tfbg676-1"
 PROJ  = "/mnt/c/PQC/slh_test/slh_regen"
