@@ -96,8 +96,8 @@ DESIGNS = {
             # Deepest-first. A HASH_TILE_MD0 entry would short-circuit
             # pass 1 of map_to_file and mask the real target, so the outer
             # wrapper is deliberately NOT mapped.
-            "W_MEM_INST": "/mnt/c/PQC/slh-dsa/rtl/sphincslet/sha/sha256_w_mem.v",
-            "SHA256": "/mnt/c/PQC/slh-dsa/rtl/sphincslet/sha/sha256_core.v",
+            "W_MEM_INST": "agent/slh_dsa/slh_src/sphincslet/sha/sha256_w_mem.v",
+            "SHA256": "agent/slh_dsa/slh_src/sphincslet/sha/sha256_core.v",
         },
         "orchestrator": None,
         "kat_gate": ["python3", "agent/slh_dsa/slh_kat_gate.py"],

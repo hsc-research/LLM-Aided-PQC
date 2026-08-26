@@ -37,9 +37,9 @@ def main():
     nl = chr(10)
     files = nl.join(f"  {s}" for s in srcs)
     tcl = f"""create_project slh_regen {PROJ} -part {PART} -force
-add_files [list
+add_files {{
 {files}
-]
+}}
 set_property include_dirs {{{RTL}/sphincslet {RTL}/imports/global_include}} [current_fileset]
 set_property is_global_include true [get_files {RTL}/sphincslet/setting.v]
 set_property is_global_include true [get_files {RTL}/imports/global_include/clog2.v]
