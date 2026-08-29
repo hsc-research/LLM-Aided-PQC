@@ -1,3 +1,8 @@
+> **PARTIALLY SUPERSEDED 2026-08-27** by `docs/findings/slh-dsa/2026-08-27_slh_dsa_csa_win.md`. The baseline
+> measurement (83.5 MHz) stands and is restated there as S1. The
+> "what does not exist yet" section is stale: an optimized arm now
+> exists at 95.4 MHz with an iso-frequency PPA pair.
+
 # SLH-DSA (SPHINCSLET) bring-up, 2026-08-25
 
 Status: FPGA baseline measured, functional gate working, single configuration.

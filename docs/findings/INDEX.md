@@ -210,6 +210,13 @@ regen is pessimistic for the baseline, or whether the two measure meaningfully
 different netlists. Reproducing the earlier configuration would settle it and
 has not been done.
 
+## SLH-DSA (docs/findings/slh-dsa/)
+
+| Doc | Tag | Summary |
+|---|---|---|
+| 2026-08-25_slh_dsa_bringup | I | **PARTIALLY SUPERSEDED 2026-08-27.** SPHINCSLET brought up on Artix-7 from a cold repo. Three read-configuration requirements, no source edits: global includes for setting.v and clog2.v; --relax for xvlog; default_nettype-none files compiled last. Same class as HQC F31, third codebase exhibiting it. Retracts an earlier five-file defect catalogue as xvlog compilation-unit artifacts. Baseline 83.5 MHz stands (restated as S1) |
+| 2026-08-27_slh_dsa_csa_win | **W** | **CURRENT.** First agent win on a third scheme, and the first time the rule book grew rather than only being applied. F46 ML-DSA POLICY transferred verbatim declined twice, all five preconditions unmet, verified with the steering note removed; top-10 board shows all paths in SHA-256, zero applicable targets. F47 agent proposed carry_chain_csa_reduction, applied to sha256_core t1_logic five-operand sum, gate PASS bit-identical signature, S1 83.5 -> S2 95.4 MHz (+14.3%); iso-frequency at 11.98 ns gives -1.3% LUT and flat power, so the gain is not bought with area; binding path moved HASH_BM -> HASH_SM. Prediction that CSA loses to CARRY4 on FPGA was wrong and is recorded as such. F48 candidate rules need explicit unvalidated framing in prompt text, not only in the record. Target file is borrowed Secworks SHA-256, not SPHINCSLET-authored |
+
 ## ASIC (docs/findings/asic/)
 
 | Doc | Tag | Summary |
