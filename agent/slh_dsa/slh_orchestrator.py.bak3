@@ -207,29 +207,15 @@ def put_rule(rec):
 
 
 def proposed_rules(design="slh_dsa"):
-    """Rules not yet refuted, newest last. A resolution record carries the
-    outcome but not the rule text, so the text is inherited from the record
-    that proposed it and the status from the latest record."""
+    """Candidate rules not yet refuted, newest last."""
     if not os.path.exists(RULES):
         return []
+    recs = [json.loads(l) for l in open(RULES) if l.strip()]
     out = {}
-    for l in open(RULES):
-        if not l.strip():
-            continue
-        r = json.loads(l)
-        if r.get("design") not in (design, "all"):
-            continue
-        rid = r["rule_id"]
-        if rid in out:
-            prev = out[rid]
-            merged = dict(prev)
-            merged.update({k: v for k, v in r.items()
-                           if v and not (k == "rule" and v.startswith("("))})
-            out[rid] = merged
-        else:
-            out[rid] = r
-    return [r for r in out.values()
-            if r.get("status") not in ("refuted", "superseded")]
+    for r in recs:
+        if r.get("design") in (design, "all"):
+            out[r["rule_id"]] = r          # later records supersede earlier
+    return [r for r in out.values() if r.get("status") != "refuted"]
 
 
 def propose_rule(block, rtl, ctx, tags, decline_reason):
@@ -408,23 +394,16 @@ def main():
     if "--use-proposed" in sys.argv:
         cands = proposed_rules()
         if cands:
-            def render(c):
-                st = c.get("status", "proposed")
-                if st == "validated":
-                    head = (f"- [{c['rule_id']}] VALIDATED. Measured evidence: "
-                            f"{c.get('note', '')}")
-                else:
-                    head = (f"- [{c['rule_id']}] UNVALIDATED HYPOTHESIS, zero "
-                            f"supporting measurements. May be wrong.")
-                return (f"{head}\n  rule: {c.get('rule')}\n"
-                        f"  applies_when: {c.get('applies_when')}")
-            extra = ("\n\nRULES UNDER EVALUATION. Each is marked VALIDATED or "
-                     "UNVALIDATED. A VALIDATED rule has passed a correctness "
-                     "gate and improved a measured closure, and may be applied "
-                     "on the same terms as the menu above. An UNVALIDATED rule "
-                     "is a hypothesis. The menu above wins on conflict. Name "
-                     "the rule_id in \"strategy\" and state its status in "
-                     "\"reason\":\n" + "\n".join(render(c) for c in cands))
+            extra = ("\n\nUNVALIDATED CANDIDATE RULES. These are UNTESTED "
+                     "HYPOTHESES with zero supporting measurements. They are "
+                     "NOT validated, NOT evidence-backed, and may well be "
+                     "wrong. Never describe them as validated. The menu above "
+                     "wins on conflict. If you use one, name its rule_id in "
+                     "\"strategy\" and state in \"reason\" that it is "
+                     "untested:\n" +
+                     "\n".join(f"- [{c['rule_id']}] {c['rule']}\n"
+                                f"  applies_when: {c.get('applies_when')}"
+                                for c in cands))
             print(f"injecting {len(cands)} candidate rule(s)")
     verdict, usage = call_llm(block, rtl, ctx, tags, extra)
     rec = {"block": block, "design": "slh_dsa", "src": src, "cfg": cfg,

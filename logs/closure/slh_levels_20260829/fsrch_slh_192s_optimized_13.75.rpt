@@ -1,0 +1,386 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Sat Aug 29 15:44:10 2026
+| Host         : MSI running 64-bit Ubuntu 26.04 LTS
+| Command      : report_timing_summary -file /tmp/fsrch_slh_192s_optimized_13.75.rpt
+| Design       : top
+| Device       : 7a200t-fbg676
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+No report available as report_methodology has not been run prior. Run report_methodology on the current design for the summary of methodology violations.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (4)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (1)
+5. checking no_input_delay (170)
+6. checking no_output_delay (80)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (4)
+------------------------
+ There is 1 register/latch pin with no clock driven by root clock pin: wots_xmss_fsm_md0/md0/XMSS_start_reg/Q (HIGH)
+
+ There is 1 register/latch pin with no clock driven by root clock pin: wots_xmss_fsm_md0/md0/cnt_reg[1]/Q (HIGH)
+
+ There is 1 register/latch pin with no clock driven by root clock pin: wots_xmss_fsm_md0/md0/cnt_reg[2]/Q (HIGH)
+
+ There is 1 register/latch pin with no clock driven by root clock pin: wots_xmss_fsm_md0/md0/cnt_reg[3]/Q (HIGH)
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (1)
+------------------------------------------------
+ There is 1 pin that is not constrained for maximum delay. (HIGH)
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (170)
+--------------------------------
+ There are 156 input ports with no input delay specified. (HIGH)
+
+ There are 14 input ports with no input delay but user has a false path constraint. (MEDIUM)
+
+
+6. checking no_output_delay (80)
+--------------------------------
+ There are 80 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      0.011        0.000                      0                36835        0.028        0.000                      0                36835        5.625        0.000                       0                 16330  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock  Waveform(ns)       Period(ns)      Frequency(MHz)
+-----  ------------       ----------      --------------
+clk    {0.000 6.875}      13.750          72.727          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+clk                 0.011        0.000                      0                36835        0.028        0.000                      0                36835        5.625        0.000                       0                 16330  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk
+  To Clock:  clk
+
+Setup :            0  Failing Endpoints,  Worst Slack        0.011ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.028ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        5.625ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.011ns  (required time - arrival time)
+  Source:                 hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[14][25]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@6.875ns period=13.750ns})
+  Destination:            hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/a_reg_reg[61]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@6.875ns period=13.750ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            13.750ns  (clk rise@13.750ns - clk rise@0.000ns)
+  Data Path Delay:        13.686ns  (logic 6.814ns (49.789%)  route 6.872ns (50.211%))
+  Logic Levels:           27  (CARRY4=15 LUT3=2 LUT4=1 LUT5=5 LUT6=4)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 14.674 - 13.750 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=16329, unset)        0.973     0.973    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/clk
+    SLICE_X150Y107       FDCE                                         r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[14][25]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X150Y107       FDCE (Prop_fdce_C_Q)         0.518     1.491 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[14][25]/Q
+                         net (fo=8, routed)           0.797     2.288    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/p_2_in[6]
+    SLICE_X145Y106       LUT3 (Prop_lut3_I1_O)        0.124     2.412 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_26/O
+                         net (fo=1, routed)           0.639     3.051    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_update_logic.d1__0[6]
+    SLICE_X145Y107       LUT5 (Prop_lut5_I4_O)        0.124     3.175 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_18__1/O
+                         net (fo=2, routed)           0.577     3.752    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_18__1_n_0
+    SLICE_X149Y109       LUT3 (Prop_lut3_I2_O)        0.124     3.876 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_6__1/O
+                         net (fo=2, routed)           0.591     4.467    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_6__1_n_0
+    SLICE_X147Y109       LUT4 (Prop_lut4_I3_O)        0.124     4.591 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_10__1/O
+                         net (fo=1, routed)           0.000     4.591    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem[15][11]_i_10__1_n_0
+    SLICE_X147Y109       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     5.123 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][11]_i_2__1/CO[3]
+                         net (fo=1, routed)           0.000     5.123    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][11]_i_2__1_n_0
+    SLICE_X147Y110       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.237 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][15]_i_2__1/CO[3]
+                         net (fo=1, routed)           0.000     5.237    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][15]_i_2__1_n_0
+    SLICE_X147Y111       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.351 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][19]_i_2__1/CO[3]
+                         net (fo=1, routed)           0.000     5.351    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][19]_i_2__1_n_0
+    SLICE_X147Y112       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.465 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][23]_i_2__1/CO[3]
+                         net (fo=1, routed)           0.000     5.465    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][23]_i_2__1_n_0
+    SLICE_X147Y113       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.579 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][27]_i_2__1/CO[3]
+                         net (fo=1, routed)           0.000     5.579    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][27]_i_2__1_n_0
+    SLICE_X147Y114       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114     5.693 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][31]_i_2__1/CO[3]
+                         net (fo=1, routed)           0.000     5.693    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][31]_i_2__1_n_0
+    SLICE_X147Y115       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313     6.006 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_mem_reg[15][35]_i_2/O[3]
+                         net (fo=2, routed)           0.477     6.483    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_new[35]
+    SLICE_X143Y115       LUT5 (Prop_lut5_I3_O)        0.306     6.789 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_26/O
+                         net (fo=2, routed)           0.590     7.379    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/w_data[35]
+    SLICE_X139Y119       LUT5 (Prop_lut5_I3_O)        0.124     7.503 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_18/O
+                         net (fo=2, routed)           0.666     8.169    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_18_n_0
+    SLICE_X138Y120       LUT6 (Prop_lut6_I0_O)        0.124     8.293 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_22/O
+                         net (fo=1, routed)           0.000     8.293    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_22_n_0
+    SLICE_X138Y120       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     8.825 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_13/CO[3]
+                         net (fo=1, routed)           0.000     8.825    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_13_n_0
+    SLICE_X138Y121       CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334     9.159 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___44_i_13/O[1]
+                         net (fo=2, routed)           0.598     9.757    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___44_i_13_n_6
+    SLICE_X134Y123       LUT5 (Prop_lut5_I0_O)        0.303    10.060 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_3/O
+                         net (fo=2, routed)           0.509    10.570    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_3_n_0
+    SLICE_X130Y123       LUT6 (Prop_lut6_I0_O)        0.124    10.694 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_7/O
+                         net (fo=1, routed)           0.000    10.694    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_7_n_0
+    SLICE_X130Y123       CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398    11.092 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.092    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___48_i_1_n_0
+    SLICE_X130Y124       CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    11.405 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/i___44_i_1/O[3]
+                         net (fo=4, routed)           0.507    11.912    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/e_reg_reg[46][3]
+    SLICE_X128Y126       LUT5 (Prop_lut5_I4_O)        0.306    12.218 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg[51]_i_6/O
+                         net (fo=2, routed)           0.572    12.790    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg[51]_i_6_n_0
+    SLICE_X126Y127       LUT6 (Prop_lut6_I0_O)        0.124    12.914 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg[51]_i_10/O
+                         net (fo=1, routed)           0.000    12.914    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg[51]_i_10_n_0
+    SLICE_X126Y127       CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    13.446 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[51]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    13.446    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[51]_i_2_n_0
+    SLICE_X126Y128       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    13.560 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[55]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    13.560    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[55]_i_2_n_0
+    SLICE_X126Y129       CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    13.674 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[59]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    13.674    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[59]_i_2_n_0
+    SLICE_X126Y130       CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    14.008 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg_reg[63]_i_2/O[1]
+                         net (fo=1, routed)           0.348    14.356    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_new0[61]
+    SLICE_X127Y130       LUT6 (Prop_lut6_I0_O)        0.303    14.659 r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/w_mem_inst/a_reg[61]_i_1/O
+                         net (fo=1, routed)           0.000    14.659    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/a_new[61]
+    SLICE_X127Y130       FDCE                                         r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/a_reg_reg[61]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       13.750    13.750 r  
+                                                      0.000    13.750 r  clk (IN)
+                         net (fo=16329, unset)        0.924    14.674    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/clk
+    SLICE_X127Y130       FDCE                                         r  hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/a_reg_reg[61]/C
+                         clock pessimism              0.000    14.674    
+                         clock uncertainty           -0.035    14.639    
+    SLICE_X127Y130       FDCE (Setup_fdce_C_D)        0.031    14.670    hash_tile_md0/DUT_SHA512/HASH_SM/SHA512/a_reg_reg[61]
+  -------------------------------------------------------------------
+                         required time                         14.670    
+                         arrival time                         -14.659    
+  -------------------------------------------------------------------
+                         slack                                  0.011    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.028ns  (arrival time - required time)
+  Source:                 mti_md0/indices_in0_reg[13]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@6.875ns period=13.750ns})
+  Destination:            INDICES_MEM/mem_reg/DIADI[13]
+                            (rising edge-triggered cell RAMB18E1 clocked by clk  {rise@0.000ns fall@6.875ns period=13.750ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.292ns  (logic 0.128ns (43.899%)  route 0.164ns (56.101%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.022ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.432ns
+    Source Clock Delay      (SCD):    0.410ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=16329, unset)        0.410     0.410    mti_md0/clk
+    SLICE_X43Y56         FDCE                                         r  mti_md0/indices_in0_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X43Y56         FDCE (Prop_fdce_C_Q)         0.128     0.538 r  mti_md0/indices_in0_reg[13]/Q
+                         net (fo=1, routed)           0.164     0.702    INDICES_MEM/mem_reg_0[13]
+    RAMB18_X2Y22         RAMB18E1                                     r  INDICES_MEM/mem_reg/DIADI[13]
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=16329, unset)        0.432     0.432    INDICES_MEM/clk
+    RAMB18_X2Y22         RAMB18E1                                     r  INDICES_MEM/mem_reg/CLKARDCLK
+                         clock pessimism              0.000     0.432    
+    RAMB18_X2Y22         RAMB18E1 (Hold_ramb18e1_CLKARDCLK_DIADI[13])
+                                                      0.242     0.674    INDICES_MEM/mem_reg
+  -------------------------------------------------------------------
+                         required time                         -0.674    
+                         arrival time                           0.702    
+  -------------------------------------------------------------------
+                         slack                                  0.028    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk
+Waveform(ns):       { 0.000 6.875 }
+Period(ns):         13.750
+Sources:            { clk }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location      Pin
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         13.750      10.806     RAMB36_X4Y16  hash_tile_md0/DUT_SHA256/BIG_MEM/mem_reg/CLKARDCLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         6.875       5.625      SLICE_X74Y80  hash_tile_md0/DUT_SHA256/B_FIFO_INSTANCE/fifo_mem_reg_0_7_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         6.875       5.625      SLICE_X74Y80  hash_tile_md0/DUT_SHA256/B_FIFO_INSTANCE/fifo_mem_reg_0_7_0_5/RAMA/CLK
+
+
+

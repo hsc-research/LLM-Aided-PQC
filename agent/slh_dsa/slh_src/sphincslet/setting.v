@@ -5,9 +5,9 @@
 
 //-- Select target parameter --//
 //`define PARAM_128S
-`define PARAM_128F
+//`define PARAM_128F
 //`define PARAM_192S
-//`define PARAM_192F
+`define PARAM_192F
 //`define PARAM_256S
 //`define PARAM_256F
 

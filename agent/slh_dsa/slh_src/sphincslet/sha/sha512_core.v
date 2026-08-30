@@ -391,6 +391,9 @@ module sha512_core(
     begin : t1_logic
       reg [63 : 0] sum1;
       reg [63 : 0] ch;
+      reg [63 : 0] csa1_s, csa1_c;
+      reg [63 : 0] csa2_s, csa2_c;
+      reg [63 : 0] csa3_s, csa3_c;
 
       sum1 = {e_reg[13 : 0], e_reg[63 : 14]} ^
              {e_reg[17 : 0], e_reg[63 : 18]} ^
@@ -398,7 +401,21 @@ module sha512_core(
 
       ch = (e_reg & f_reg) ^ ((~e_reg) & g_reg);
 
-      t1 = h_reg + sum1 + ch + k_data + w_data;
+      // CSA tree: reduce 5 operands (h_reg, sum1, ch, k_data, w_data)
+      // Level 1: CSA(h_reg, sum1, ch) -> csa1_s, csa1_c
+      csa1_s = h_reg ^ sum1 ^ ch;
+      csa1_c = ((h_reg & sum1) | (h_reg & ch) | (sum1 & ch)) << 1;
+
+      // Level 2: CSA(csa1_s, csa1_c, k_data) -> csa2_s, csa2_c
+      csa2_s = csa1_s ^ csa1_c ^ k_data;
+      csa2_c = ((csa1_s & csa1_c) | (csa1_s & k_data) | (csa1_c & k_data)) << 1;
+
+      // Level 3: CSA(csa2_s, csa2_c, w_data) -> csa3_s, csa3_c
+      csa3_s = csa2_s ^ csa2_c ^ w_data;
+      csa3_c = ((csa2_s & csa2_c) | (csa2_s & w_data) | (csa2_c & w_data)) << 1;
+
+      // Final carry-propagate add of two operands
+      t1 = csa3_s + csa3_c;
     end // t1_logic
 
 

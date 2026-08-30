@@ -44,8 +44,6 @@ BLOCKS = {
     "sha256_w_mem":  "agent/slh_dsa/slh_src/sphincslet/sha/sha256_w_mem.v",
     "sha512_core":   "agent/slh_dsa/slh_src/sphincslet/sha/sha512_core.v",
     "sha512_w_mem":  "agent/slh_dsa/slh_src/sphincslet/sha/sha512_w_mem.v",
-    "sha512_core":   "agent/slh_dsa/slh_src/sphincslet/sha/sha512_core.v",
-    "sha512_w_mem":  "agent/slh_dsa/slh_src/sphincslet/sha/sha512_w_mem.v",
     "hash_tile":     "agent/slh_dsa/slh_src/sphincslet/hash_tile/hash_tile.v",
     "FSM":           "agent/slh_dsa/slh_src/sphincslet/fsm/FSM.v",
     "WOTS_FSM":      "agent/slh_dsa/slh_src/sphincslet/fsm/WOTS_FSM.v",
@@ -207,29 +205,15 @@ def put_rule(rec):
 
 
 def proposed_rules(design="slh_dsa"):
-    """Rules not yet refuted, newest last. A resolution record carries the
-    outcome but not the rule text, so the text is inherited from the record
-    that proposed it and the status from the latest record."""
+    """Candidate rules not yet refuted, newest last."""
     if not os.path.exists(RULES):
         return []
+    recs = [json.loads(l) for l in open(RULES) if l.strip()]
     out = {}
-    for l in open(RULES):
-        if not l.strip():
-            continue
-        r = json.loads(l)
-        if r.get("design") not in (design, "all"):
-            continue
-        rid = r["rule_id"]
-        if rid in out:
-            prev = out[rid]
-            merged = dict(prev)
-            merged.update({k: v for k, v in r.items()
-                           if v and not (k == "rule" and v.startswith("("))})
-            out[rid] = merged
-        else:
-            out[rid] = r
-    return [r for r in out.values()
-            if r.get("status") not in ("refuted", "superseded")]
+    for r in recs:
+        if r.get("design") in (design, "all"):
+            out[r["rule_id"]] = r          # later records supersede earlier
+    return [r for r in out.values() if r.get("status") != "refuted"]
 
 
 def propose_rule(block, rtl, ctx, tags, decline_reason):
@@ -303,72 +287,9 @@ def apply_edits(src, edits):
     return True, "applied"
 
 
-CFGS = ["128s", "128f", "192s", "192f", "256s", "256f"]
-# SHA-512 is instantiated only at 192 and 256. setting.v defines HASH2 =
-# "SHA512" for PARAM_192 and PARAM_256 and leaves it undefined at PARAM_128,
-# so a gate run at 128 would never elaborate sha512_core and would pass on
-# unedited code.
-NEEDS_SHA512 = ("sha512_core", "sha512_w_mem")
-SHA512_CFGS = ("192s", "192f", "256s", "256f")
-
-
-def set_cfg(rtl_dir, cfg):
-    """Rewrite setting.v in place so exactly one parameter set is enabled."""
-    p = os.path.join(rtl_dir, "sphincslet", "setting.v")
-    s = open(p).read()
-    for c in CFGS:
-        tok = "`define PARAM_" + c.upper()
-        s = s.replace("//" + tok + "\n", tok + "\n").replace(tok + "\n", "//" + tok + "\n")
-    tok = "`define PARAM_" + cfg.upper()
-    assert s.count("//" + tok + "\n") == 1, f"{cfg}: expected one commented {tok}"
-    s = s.replace("//" + tok + "\n", tok + "\n")
-    enabled = [c for c in CFGS if re.search(r"^`define PARAM_" + c.upper() + r"$", s, re.M)]
-    assert enabled == [cfg], f"{cfg}: enabled set is {enabled}"
-    open(p, "w").write(s)
-    return p
-
-
-def gate_at(cfg):
-    """Run the vendor testbench at cfg and diff against that cfg's golden,
-    which level_sweep.py froze from the pristine arm."""
-    gold = os.path.join(REPO, "agent/slh_dsa/gate/levels", f"SIG_{cfg}.hex")
-    if not os.path.exists(gold):
-        return {"status": "ERROR", "reason": f"no golden for {cfg}; run level_sweep first"}
-    data = "/mnt/c/PQC/slh_sim/TECS_v8.srcs/sources_1/imports/data_sha2"
-    produced = os.path.join(data, f"SIG_file0_{cfg}_w.hex")
-    if os.path.exists(produced):
-        os.remove(produced)
-    simd = "/mnt/c/PQC/slh_sim/a/b/c/d"
-    env = dict(os.environ, SLH_RTL=SRC_ROOT)
-    r = subprocess.run(["bash", os.path.join(simd, "run_sim.sh")], cwd=simd,
-                       env=env, capture_output=True, text=True, timeout=7200)
-    if "xvlog errors: 0" not in r.stdout or "xelab errors: 0" not in r.stdout:
-        return {"status": "ERROR", "reason": "compile or elaboration errors"}
-    if not os.path.exists(produced):
-        return {"status": "FAIL", "reason": "no signature produced"}
-    if open(gold, "rb").read() != open(produced, "rb").read():
-        return {"status": "FAIL", "reason": "signature differs from golden"}
-    if "The signature is matched" not in r.stdout:
-        return {"status": "FAIL", "reason": "verify did not report match"}
-    return {"status": "PASS", "reason": f"signature matches {cfg} golden"}
-
-
 def main():
     block = sys.argv[1] if len(sys.argv) > 1 else None
     dry   = "--dry" in sys.argv
-    cfg = None
-    if "--cfg" in sys.argv:
-        i = sys.argv.index("--cfg")
-        if i + 1 < len(sys.argv):
-            cfg = sys.argv[i + 1]
-    if cfg is not None and cfg not in CFGS:
-        print(f"--cfg must be one of {CFGS}")
-        sys.exit(1)
-    if block in NEEDS_SHA512 and cfg not in SHA512_CFGS:
-        print(f"{block} requires --cfg from {SHA512_CFGS}. SHA-512 is not "
-              "instantiated at 128, so a 128 gate would pass without "
-              "elaborating the edited core.")
-        sys.exit(1)
     if block not in BLOCKS:
         print(f"block {block!r} not in scope. In scope: {sorted(BLOCKS)}")
         sys.exit(1)
@@ -380,22 +301,12 @@ def main():
              "reason": "no SLH-DSA chip closure record; run chip_orchestrator first"})
         sys.exit(1)
 
-    if cfg:
-        set_cfg(SRC_ROOT, cfg)
-        print(f"tracked tree set to {cfg}")
-
     # Pre-edit gate self-check: never edit a tree that is already failing.
-    if cfg:
-        g = gate_at(cfg)
-        ok = g["status"] == "PASS"
-        detail = g["reason"]
-    else:
-        r = subprocess.run(["python3", "agent/slh_dsa/slh_kat_gate.py"],
-                           capture_output=True, text=True, timeout=7200)
-        ok, detail = r.returncode == 0, r.stdout.strip()[-200:]
-    if not ok:
-        log({"block": block, "cfg": cfg, "verdict": "abort",
-             "reason": "pre-edit gate self-check FAIL: " + detail})
+    g = subprocess.run(["python3", "agent/slh_dsa/slh_kat_gate.py"],
+                       capture_output=True, text=True, timeout=7200)
+    if g.returncode != 0:
+        log({"block": block, "verdict": "abort",
+             "reason": "pre-edit gate self-check FAIL: " + g.stdout.strip()[-200:]})
         sys.exit(1)
     print("Pre-edit gate self-check: PASS")
 
@@ -408,26 +319,19 @@ def main():
     if "--use-proposed" in sys.argv:
         cands = proposed_rules()
         if cands:
-            def render(c):
-                st = c.get("status", "proposed")
-                if st == "validated":
-                    head = (f"- [{c['rule_id']}] VALIDATED. Measured evidence: "
-                            f"{c.get('note', '')}")
-                else:
-                    head = (f"- [{c['rule_id']}] UNVALIDATED HYPOTHESIS, zero "
-                            f"supporting measurements. May be wrong.")
-                return (f"{head}\n  rule: {c.get('rule')}\n"
-                        f"  applies_when: {c.get('applies_when')}")
-            extra = ("\n\nRULES UNDER EVALUATION. Each is marked VALIDATED or "
-                     "UNVALIDATED. A VALIDATED rule has passed a correctness "
-                     "gate and improved a measured closure, and may be applied "
-                     "on the same terms as the menu above. An UNVALIDATED rule "
-                     "is a hypothesis. The menu above wins on conflict. Name "
-                     "the rule_id in \"strategy\" and state its status in "
-                     "\"reason\":\n" + "\n".join(render(c) for c in cands))
+            extra = ("\n\nUNVALIDATED CANDIDATE RULES. These are UNTESTED "
+                     "HYPOTHESES with zero supporting measurements. They are "
+                     "NOT validated, NOT evidence-backed, and may well be "
+                     "wrong. Never describe them as validated. The menu above "
+                     "wins on conflict. If you use one, name its rule_id in "
+                     "\"strategy\" and state in \"reason\" that it is "
+                     "untested:\n" +
+                     "\n".join(f"- [{c['rule_id']}] {c['rule']}\n"
+                                f"  applies_when: {c.get('applies_when')}"
+                                for c in cands))
             print(f"injecting {len(cands)} candidate rule(s)")
     verdict, usage = call_llm(block, rtl, ctx, tags, extra)
-    rec = {"block": block, "design": "slh_dsa", "src": src, "cfg": cfg,
+    rec = {"block": block, "design": "slh_dsa", "src": src,
            "closure_before": ctx["closure"], "path_detail": detail,
            "tags": tags, "usage": usage, "model": MODEL}
     rec.update(verdict)
@@ -453,16 +357,9 @@ def main():
         log(rec); sys.exit(1)
     print(f"edits applied to {src} (.bak written)")
 
-    if cfg:
-        gg = gate_at(cfg)
-        print(f"gate: {gg['status']} ({gg['reason']})")
-        class _R: pass
-        g = _R(); g.returncode = 0 if gg["status"] == "PASS" else 1
-        g.stdout = gg["reason"]
-    else:
-        g = subprocess.run(["python3", "agent/slh_dsa/slh_kat_gate.py"],
-                           capture_output=True, text=True, timeout=7200)
-        print(g.stdout.strip()[-300:])
+    g = subprocess.run(["python3", "agent/slh_dsa/slh_kat_gate.py"],
+                       capture_output=True, text=True, timeout=7200)
+    print(g.stdout.strip()[-300:])
     if g.returncode != 0:
         shutil.copy(src + ".bak", src)
         rec["verdict"] = "gate_fail"
