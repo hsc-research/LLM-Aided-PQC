@@ -1,3 +1,9 @@
+> **PARTIALLY SUPERSEDED 2026-08-29** by
+> `docs/findings/slh-dsa/2026-08-29_slh_dsa_level_sweep.md`. S1 to S11
+> remain valid measurements. They are no longer the SLH-DSA figures of
+> record: 128f was re-measured under the sweep harness at a different
+> bracket, and a second accepted edit now covers SHA-512.
+
 # FINDINGS: SLH-DSA first agent win, rule book extended by the agent
 
 Date: 2026-08-27
