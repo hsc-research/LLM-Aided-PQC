@@ -1,0 +1,145 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Aug 29 23:36:47 2026
+# Process ID         : 3782116
+# Current directory  : /mnt/c/PQC/slh_sim/a/b/c/d
+# Command line       : xsim -mode tcl -source {xsim.dir/tb_sim/xsim_script.tcl}
+# Log file           : /mnt/c/PQC/slh_sim/a/b/c/d/xsim.log
+# Journal file       : /mnt/c/PQC/slh_sim/a/b/c/d/xsim.jou
+# Running On         : MSI
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04 LTS
+# Processor Detail   : Intel(R) Core(TM) i7-14650HX
+# CPU Frequency      : 2419.199 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 12538 MB
+# Swap memory        : 8589 MB
+# Total Virtual      : 21128 MB
+# Available Virtual  : 20403 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_sim/xsim_script.tcl
+# xsim {tb_sim} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+start fors_sign(), mode 1
+FORS tree #           1/          35
+FORS tree #           2/          35
+FORS tree #           3/          35
+FORS tree #           4/          35
+FORS tree #           5/          35
+FORS tree #           6/          35
+FORS tree #           7/          35
+FORS tree #           8/          35
+FORS tree #           9/          35
+FORS tree #          10/          35
+FORS tree #          11/          35
+FORS tree #          12/          35
+FORS tree #          13/          35
+FORS tree #          14/          35
+FORS tree #          15/          35
+FORS tree #          16/          35
+FORS tree #          17/          35
+FORS tree #          18/          35
+FORS tree #          19/          35
+FORS tree #          20/          35
+FORS tree #          21/          35
+FORS tree #          22/          35
+FORS tree #          23/          35
+FORS tree #          24/          35
+FORS tree #          25/          35
+FORS tree #          26/          35
+FORS tree #          27/          35
+FORS tree #          28/          35
+FORS tree #          29/          35
+FORS tree #          30/          35
+FORS tree #          31/          35
+FORS tree #          32/          35
+FORS tree #          33/          35
+FORS tree #          34/          35
+FORS tree #          35/          35
+start thash(), mode 3
+start tree_hash(), mode 0
+HT tree #           1/          17
+HT tree #           2/          17
+HT tree #           3/          17
+HT tree #           4/          17
+HT tree #           5/          17
+HT tree #           6/          17
+HT tree #           7/          17
+HT tree #           8/          17
+HT tree #           9/          17
+HT tree #          10/          17
+HT tree #          11/          17
+HT tree #          12/          17
+HT tree #          13/          17
+HT tree #          14/          17
+HT tree #          15/          17
+HT tree #          16/          17
+HT tree #          17/          17
+sig gen done
+start fors_pk_from_sig(), mode 1
+FORS tree #           1/          35
+FORS tree #           2/          35
+FORS tree #           3/          35
+FORS tree #           4/          35
+FORS tree #           5/          35
+FORS tree #           6/          35
+FORS tree #           7/          35
+FORS tree #           8/          35
+FORS tree #           9/          35
+FORS tree #          10/          35
+FORS tree #          11/          35
+FORS tree #          12/          35
+FORS tree #          13/          35
+FORS tree #          14/          35
+FORS tree #          15/          35
+FORS tree #          16/          35
+FORS tree #          17/          35
+FORS tree #          18/          35
+FORS tree #          19/          35
+FORS tree #          20/          35
+FORS tree #          21/          35
+FORS tree #          22/          35
+FORS tree #          23/          35
+FORS tree #          24/          35
+FORS tree #          25/          35
+FORS tree #          26/          35
+FORS tree #          27/          35
+FORS tree #          28/          35
+FORS tree #          29/          35
+FORS tree #          30/          35
+FORS tree #          31/          35
+FORS tree #          32/          35
+FORS tree #          33/          35
+FORS tree #          34/          35
+FORS tree #          35/          35
+start thash(), mode 3
+start compute_root(), mode 0
+HT tree #           1/          17
+HT tree #           2/          17
+HT tree #           3/          17
+HT tree #           4/          17
+HT tree #           5/          17
+HT tree #           6/          17
+HT tree #           7/          17
+HT tree #           8/          17
+HT tree #           9/          17
+HT tree #          10/          17
+HT tree #          11/          17
+HT tree #          12/          17
+HT tree #          13/          17
+HT tree #          14/          17
+HT tree #          15/          17
+HT tree #          16/          17
+HT tree #          17/          17
+sig verification done
+The signature is matched!
+$finish called at time : 157900545 ns : File "/mnt/c/PQC/slh_sweep/256f_optimized/sphincslet/tb.v" Line 493
+run: Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:49 . Memory (MB): peak = 1413.656 ; gain = 0.000 ; free physical = 9841 ; free virtual = 19317
+exit
+INFO: xsimkernel Simulation Memory Usage: 273796 KB (Peak: 339072 KB), Simulation CPU Usage: 49220 ms
+INFO: [Common 17-206] Exiting xsim at Sat Aug 29 23:37:38 2026...

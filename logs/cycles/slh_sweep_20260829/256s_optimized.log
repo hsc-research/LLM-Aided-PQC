@@ -1,0 +1,101 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Aug 29 22:32:39 2026
+# Process ID         : 3010382
+# Current directory  : /mnt/c/PQC/slh_sim/a/b/c/d
+# Command line       : xsim -mode tcl -source {xsim.dir/tb_sim/xsim_script.tcl}
+# Log file           : /mnt/c/PQC/slh_sim/a/b/c/d/xsim.log
+# Journal file       : /mnt/c/PQC/slh_sim/a/b/c/d/xsim.jou
+# Running On         : MSI
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04 LTS
+# Processor Detail   : Intel(R) Core(TM) i7-14650HX
+# CPU Frequency      : 2419.199 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 12538 MB
+# Swap memory        : 8589 MB
+# Total Virtual      : 21128 MB
+# Available Virtual  : 20405 MB
+#-----------------------------------------------------------
+source xsim.dir/tb_sim/xsim_script.tcl
+# xsim {tb_sim} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+start fors_sign(), mode 1
+FORS tree #           1/          22
+FORS tree #           2/          22
+FORS tree #           3/          22
+FORS tree #           4/          22
+FORS tree #           5/          22
+FORS tree #           6/          22
+FORS tree #           7/          22
+FORS tree #           8/          22
+FORS tree #           9/          22
+FORS tree #          10/          22
+FORS tree #          11/          22
+FORS tree #          12/          22
+FORS tree #          13/          22
+FORS tree #          14/          22
+FORS tree #          15/          22
+FORS tree #          16/          22
+FORS tree #          17/          22
+FORS tree #          18/          22
+FORS tree #          19/          22
+FORS tree #          20/          22
+FORS tree #          21/          22
+FORS tree #          22/          22
+start thash(), mode 3
+start tree_hash(), mode 0
+HT tree #           1/           8
+HT tree #           2/           8
+HT tree #           3/           8
+HT tree #           4/           8
+HT tree #           5/           8
+HT tree #           6/           8
+HT tree #           7/           8
+HT tree #           8/           8
+sig gen done
+start fors_pk_from_sig(), mode 1
+FORS tree #           1/          22
+FORS tree #           2/          22
+FORS tree #           3/          22
+FORS tree #           4/          22
+FORS tree #           5/          22
+FORS tree #           6/          22
+FORS tree #           7/          22
+FORS tree #           8/          22
+FORS tree #           9/          22
+FORS tree #          10/          22
+FORS tree #          11/          22
+FORS tree #          12/          22
+FORS tree #          13/          22
+FORS tree #          14/          22
+FORS tree #          15/          22
+FORS tree #          16/          22
+FORS tree #          17/          22
+FORS tree #          18/          22
+FORS tree #          19/          22
+FORS tree #          20/          22
+FORS tree #          21/          22
+FORS tree #          22/          22
+start thash(), mode 3
+start compute_root(), mode 0
+HT tree #           1/           8
+HT tree #           2/           8
+HT tree #           3/           8
+HT tree #           4/           8
+HT tree #           5/           8
+HT tree #           6/           8
+HT tree #           7/           8
+HT tree #           8/           8
+sig verification done
+The signature is matched!
+$finish called at time : 1450269585 ns : File "/mnt/c/PQC/slh_sweep/256s_optimized/sphincslet/tb.v" Line 493
+run: Time (s): cpu = 00:00:00.09 ; elapsed = 00:07:42 . Memory (MB): peak = 1365.660 ; gain = 0.000 ; free physical = 9852 ; free virtual = 19326
+exit
+INFO: xsimkernel Simulation Memory Usage: 273812 KB (Peak: 339088 KB), Simulation CPU Usage: 462840 ms
+INFO: [Common 17-206] Exiting xsim at Sat Aug 29 22:40:24 2026...
