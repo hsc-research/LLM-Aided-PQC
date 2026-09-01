@@ -12,7 +12,7 @@ The language model proposes an optimization, but it does not control the timing 
 > **Artifact status.** The FPGA results and experiment ledgers are included. The ASIC scripts provide pre-layout ASAP7 synthesis support and require a licensed Cadence installation plus a local ASAP7 library. Some ML-DSA and SLH-DSA verification scripts also require separately obtained upstream source or simulation trees; these requirements are identified below.
 
 <p align="center">
-  <img src="docs/assets/pqc_agent_fpga_asic_framework.jpg" width="1000" alt="Closed-loop LLM-aided RTL optimization framework for PQC hardware across FPGA and ASIC flows">
+  <img src="docs/assets/pqc_agent_fpga_asic_framework.svg" width="1000" alt="Closed-loop LLM-aided RTL optimization framework for PQC hardware across FPGA and ASIC flows">
 </p>
 
 ## What this repository provides
@@ -292,19 +292,6 @@ GitHub's **Cite this repository** menu reads the accompanying [`CITATION.cff`](C
 ## Licensing and third-party RTL
 
 The repository-level software is distributed under the [GNU General Public License v3.0](LICENSE). Included and modified third-party RTL may carry Apache-2.0, MIT, GPL, or other source-specific terms. Preserve all original headers and review [NOTICE](NOTICE) before redistribution. Do not assume that the repository-level license replaces a third-party file's original notice.
-
-## Contributing
-
-Issues and pull requests are welcome for:
-
-- reproducibility fixes and portable path configuration;
-- new FPGA or ASIC backends;
-- additional PQC cores;
-- typed optimization rules with explicit admissibility conditions;
-- stronger functional, schedule, or formal verification; and
-- independently reproduced results.
-
-A contribution that changes RTL should include the baseline and candidate configuration, exact tool version, functional evidence, cycle or schedule evidence, implementation reports, and a clear accept/revert decision.
 
 ## Acknowledgments
 
