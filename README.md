@@ -1,246 +1,298 @@
 # LLM-Aided-PQC
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![HDL](https://img.shields.io/badge/RTL-Verilog%20%7C%20VHDL-6f42c1.svg)](#supported-pqc-cores)
+[![FPGA](https://img.shields.io/badge/FPGA-Artix--7-1f6feb.svg)](#results-at-a-glance)
+[![ASIC](https://img.shields.io/badge/ASIC-ASAP7%20%2F%20Genus-b45309.svg)](#asic-flow)
 
+**A correctness-gated, implementation-driven agent for optimizing post-quantum cryptographic RTL across FPGA and ASIC backends.**
 
-A correctness-gated optimization agent for post-quantum cryptographic (PQC)
-hardware. An LLM proposes equivalence-preserving RTL edits; deterministic code
-verifies every change; a cryptographic correctness check gates every accepted
-edit. The agent also decides when a bottleneck is not addressable at the RTL
-level at all, and says so rather than forcing an edit.
+The language model proposes an optimization, but it does not control the timing target, edit the accepted baseline directly, or decide whether a result is correct. Deterministic code maps implementation reports to RTL, applies typed edits, runs functional and schedule checks, measures post-implementation PPA, and accepts or reverts each candidate.
 
-Two NIST-standardized designs are studied: **ML-DSA** (GMU/Beckwith codebase)
-and **HQC** (Yale/Deshpande codebase), both on Artix-7 `xc7a200tfbg676-1`.
+> **Artifact status.** The FPGA results and experiment ledgers are included. The ASIC scripts provide pre-layout ASAP7 synthesis support and require a licensed Cadence installation plus a local ASAP7 library. Some ML-DSA and SLH-DSA verification scripts also require separately obtained upstream source or simulation trees; these requirements are identified below.
 
----
+<p align="center">
+  <img src="docs/assets/pqc_agent_fpga_asic_framework.svg" width="1000" alt="Closed-loop LLM-aided RTL optimization framework for PQC hardware across FPGA and ASIC flows">
+</p>
 
-## The contribution, in five sentences
+## What this repository provides
 
-1. **The model is structurally untrusted.** Deterministic code makes every
-   checkable decision, and a broken edit cannot be accepted, because acceptance
-   is gated on a check the model cannot touch.
+- A **top-down, two-tier optimization flow** that starts from the integrated design, identifies its worst timing-path clusters, and descends to block-level analysis only when more internal detail is needed.
+- A **typed RTL edit interface**. The model returns a structured operation rather than unrestricted Verilog.
+- Independent **functional, timing-schedule, and PPA checks** before a candidate may replace the accepted baseline.
+- FPGA synthesis, critical-path extraction, placement-and-route closure search, and result logging for AMD Artix-7.
+- Pre-layout ASIC synthesis scripts for Cadence Genus and the ASAP7 predictive technology.
+- Reproducible experiment records, including accepted changes, rejected changes, abstentions, superseded measurements, and negative results.
+- Three PQC case studies spanning lattice-, code-, and hash-based cryptography.
 
-2. **The gates themselves are validated by corruption before being trusted.**
-   Each gate must reject an injected boundary fault and a live-branch
-   arithmetic fault before it is used autonomously. This caught a real hole in
-   a Fisher-Yates comparison; after repair, the gate correctly rejected the
-   same unsafe precomputation when the agent proposed it.
+## How the optimization loop works
 
-3. **The contribution is not a new transformation.** It is an evidence-tagged
-   rulebook, learned from 59 gated proposals across two NIST standards, with
-   every negative result documented, describing when each transformation
-   helps, fails, or inverts.
+1. **Implement the full design.** Run the selected FPGA or ASIC backend on the current accepted RTL.
+2. **Parse and map reports.** Extract the top timing paths, PPA data, hierarchy, and source-level cones.
+3. **Cluster critical paths.** Group related paths by source, destination, hierarchy, and logic structure.
+4. **Select the analysis tier.** Work from the top-level cone when possible; synthesize a submodule only when the integrated report lacks sufficient detail.
+5. **Plan a typed edit.** The LLM selects an admissible rule or proposes a new rule for review.
+6. **Apply the edit deterministically.** Source locations, declarations, widths, driver relationships, and replacement counts are checked before the RTL is changed.
+7. **Rebuild and admit or revert.** The full design is rerun. A candidate is retained only after functional, timing-schedule, and implementation-quality checks pass.
 
-4. **Chip-level closure is claimed, and it is measured, not projected.**
-   Every frequency below is a true closing frequency: binary-searched period,
-   fully routed, non-negative slack. Block-level acceptance does not predict
-   chip-level outcome, so post-route closure is the only valid judge.
+Block-level results are diagnostic. **Only an integrated top-level rerun can establish a reported optimization.**
 
-5. **The rules learned on ML-DSA transferred to HQC with zero retuning**:
-   correct refusals, two gate-caught false positives, and an autonomous win,
-   for $0.52 of API spend.
+## Supported PQC cores
 
----
+| Scheme | Family | RTL used in this artifact | Verification scope | FPGA scope |
+|---|---|---|---|---|
+| **ML-DSA** | Lattice-based signature | GMU/Beckwith unified core with tracked overrides in `agent/mldsa/mldsa_src/` | Full key-generation KAT flow, 25 vectors at each of three security levels; block-level lockstep gates | Unified `combined_top` and selected submodules |
+| **HQC** | Code-based KEM | Yale/Deshpande RTL under `hardware/`, with accepted build overrides | Full keygen → encapsulation → decapsulation chain at HQC-128/192/256; shared secrets must match | Joint KEM top and keygen/encap/decap blocks |
+| **SLH-DSA** | Hash-based signature | SPHINCSLET-based pristine and accepted trees under `agent/slh_dsa/` | Differential sign/verify check against frozen pristine signatures for the evaluated parameter sets | Full `top`, SHA-256, and SHA-512 cones |
 
-## Headline results
+The SLH-DSA gate is differential: a pass means that the accepted RTL reproduces the frozen pristine signature and the vendor testbench reports successful verification. It is not an independent proof of the upstream implementation.
 
-### Full-chip, post-route (ML-DSA, `combined_top`)
+## Results at a glance
 
-| Stage | Closing Fmax | Note |
-|---|---|---|
-| Baseline | 70.2 MHz | pristine |
-| Composed block edits | 69.0 MHz | accepted block wins alone regress chip closure |
-| Architectural rewrite | **80.5 MHz** | **+14.7% vs. baseline** |
+The table reports the best observed non-negative-WNS closing point from the bounded post-route search. These values are measured closure points under the recorded flow, not proofs of a global maximum frequency.
 
-The composed-block-edits step is the key negative result: every individual
-edit passed its block-level gate, but composing them moved chip closure
-*down*. The true bottleneck was a 256-bit variable-shift serializer invisible
-to block-level runs. The agent's chip-level loop localized this cone itself,
-resolving the binding path to the encoder's PISO register and dispatching to
-`encoder.v`; the banked, word-aligned rewrite that fixed it was hand-authored,
-and the gates validated the result. **Targeting was autonomous; authoring was
-not.**
+| Design | Baseline | Accepted | Change | Role of the agent |
+|---|---:|---:|---:|---|
+| ML-DSA `combined_top` | 70.2 MHz | **80.5 MHz** | **+14.7%** | Agent-localized critical cone; human-authored architectural replacement; gate-validated |
+| HQC joint KEM | 109.6 MHz | **116.0 MHz** | **+5.8%** | Agent selected and applied a transferred typed rule |
+| SLH-DSA 256f, SHA-2 | 75.5 MHz | **90.9 MHz** | **+20.4%** | Agent-proposed, human-approved carry-save rule; deterministic application and verification |
 
-After the rewrite the design closes at 80.5 MHz and binds on the challenge
-sampler (`ctr0_reg[1]/C` -> `CHALLENGE_SAMPLER/C_SIPO_reg[426]/R`), no longer
-on the encoder cone. Keccak/SHAKE256 bound the design at the intermediate
-71.4 MHz closure step and remains the binding cone for HQC below.
+For SLH-DSA, all six evaluated parameter sets improve, from 4.4% to 20.4%. For ML-DSA, the frequency gain is partly offset by a constant 193-cycle increase over the evaluated key-generation vectors; the measured key-generation throughput gain is 13.1%. Canonical values, exact commands, commit identifiers, caveats, and superseded measurements are maintained in [`docs/findings/INDEX.md`](docs/findings/INDEX.md).
 
-| | Baseline | Optimized | Delta |
-|---|---|---|---|
-| Closed Fmax | 70.2 MHz | 80.5 MHz | **+14.7%** |
-| Throughput | 5,003 ops/s | 5,659 ops/s | **+13.1%** |
-| LUT | 53,127 | 53,543 | +0.8% |
-| FF | 29,079 | 30,078 | +3.4% |
-| DSP / BRAM | 16 / 29 | 16 / 29 | unchanged |
-| KeyGen cycles (level V) | 14,033 | 14,226 | +1.4% |
+## Repository map
 
-### Block-level board, ML-DSA (out-of-context, 200 MHz target)
-
-| Block | Baseline WNS | Final WNS | Status |
-|---|---|---|---|
-| `makehint` | -3.511 | **-0.485** | flag-precompute + fanout N=8 (biggest single win, +51% fmax) |
-| `gen_c` | -5.233 | **-1.264** | +58% fmax, cumulative across 3 edits (autonomous fanout, hand-guided precompute, fanout) |
-| `rejection_s` | -4.013 | -2.486 | constant-LUT win, +1.53 ns |
-| `rejection_y` | -4.470 | -4.230 | sign-select win, WNS-neutral, -251 LUTs |
-| `coeff_decomposer` | -1.247 | -1.196 | width-narrowing win, threshold-bound |
-| `butterfly` | -3.802 | -2.793 | pipeline cut, hand-authored, DSP floor closed |
-| `usehint` | -2.542 | -2.542 | closed: ctr self-loop, no win |
-| `decoder` | — | — | sign-select regressed at 13-20 b; strategy excluded on this profile |
-| `encoder` | see chip trajectory above | — | the actual chip bottleneck; hand-authored architectural rewrite |
-
-`rejection_a` is not independently re-verified in this pass; see
-`docs/findings/mldsa/` before citing it.
-
-### The funnel, both designs
-
-| Stage | Count | Note |
-|---|---|---|
-| Proposed | 59 | 65 raw log records minus 6 `retries_exhausted` (retries within one proposal, not distinct proposals) |
-| Applied | 33 | 26 not applied (refused / synth-fail / apply-fail) |
-| Functionally correct | 19 | 14 of the 33 applied were functionally incorrect, caught only by the gate |
-| Committed | 4 | 15 of the 19 correct edits showed no gain and reverted with a recorded boundary |
-
-By lane: latency-preserving, 4 of 23 incorrect. Latency-changing, **10 of 10
-functionally incorrect** and none committed.
-
-### Pipelining insertion-point rule
-
-A mid-tier model went 0/12 on selecting where to cut a pipeline stage.
-Encoding a rendezvous rubric moved it to **4/4** on insertion-point selection,
-but all four still failed downstream (3 anchor mismatches, 1 gate failure).
-Structural judgment is rule-transferable; cross-file consequence tracking is
-not.
-
-### HQC
-
-`agent/hqc/transfer_orchestrator.py` imports the ML-DSA rulebook verbatim and
-applies it to HQC blocks under the HQC KAT, with zero retuning.
-
-- 15 logged transfer attempts, **1 accepted**: `decap`, flag-precompute,
-  **+0.726 ns for $0.037**. Total transfer spend across all 15 attempts:
-  **$0.52**.
-- 2 gate-caught false positives (`decap` flag-precompute, `fixed_weight`
-  max_fanout), both structurally plausible and both caught only by the KAT.
-- Chip-level: a closing frequency of 114.3 MHz was reached with the binding
-  path resolved to `SHAKE256/data_path_instance/state_ram_instance`,
-  confirming Keccak as HQC's binding cone.
-
-Full experiment-by-experiment detail is in `docs/findings/hqc/`; this section
-states only what is directly reconciled against `agent/hqc/transfer_log.jsonl`
-and the chip-level log as of 2026-07-24. Older summary numbers in
-`docs/01_results.md` (dated 2026-06-12) predate this work and should not be
-cited without re-verification.
-
----
-
-## Can this agent optimize PQC cores? The honest answer
-
-Split into the three things people actually mean by that question.
-
-**1. Can it find and verify latency-preserving optimizations autonomously?
-Yes, demonstrated.** It re-derived our best hand-tuned result (`makehint`)
-from pristine RTL with no knowledge of the solution, landing within 7 ps of
-the hand-authored version — independently confirmed as a real netlist
-difference and not tool jitter (three synthesis runs, bit-identical). It
-found new wins on blocks nobody had touched. It correctly rejected unsound
-proposals.
-
-**2. Can it verify latency-changing optimizations autonomously? Yes.** The
-full-KAT gate reliably caught every one of the 10 latency-changing edits the
-agent produced, all of which were functionally incorrect. This is arguably
-the strongest engineering result in the project: the assurance layer works
-even where the proposal layer does not.
-
-**3. Can it *design* pipelining or chip-level architectural rewrites
-autonomously? Not yet, and this is the honest boundary.** The chip-level loop
-reliably *localizes* the bottleneck cone: it correctly identified the
-encoder's PISO register as the binding path at 69.0 MHz and dispatched to the
-right file. It did not author the fix. The banked rewrite that closed the
-design to 80.5 MHz was hand-written and then validated by the same gates the
-agent uses. The correct label for this result is **agent-localized,
-human-authored, gate-validated** — targeting is autonomous, architectural
-authorship is not.
-
-Chip-level absolute timing closure **is** claimed: 80.5 MHz, binary-searched,
-fully routed, non-negative slack, out-of-context flow (WNS +0.029). What is not claimed is that the agent
-authored the edit that reached it.
-
----
-
-## Navigating this repository
-
-### Start here
-
-| Document | What it gives you |
+| Path | Purpose |
 |---|---|
-| **[docs/REPRODUCE.md](docs/REPRODUCE.md)** | The full step-by-step playbook, from a fresh machine (WSL + Vivado, or native Linux) through correctness checks, timing, and a full agent flight. Sections 0-7 cover HQC; Part II (sections 8-10) covers ML-DSA. |
-| **[docs/01_results.md](docs/01_results.md)** | ⚠ Dated 2026-06-12, predates the chip-closure trajectory above. Do not cite HQC or chip-level numbers from this file without cross-checking `agent/*.jsonl` first. |
-| **[docs/02_optimization_taxonomy.md](docs/02_optimization_taxonomy.md)** | The rulebook. Transformation classes and the fingerprints that predict when each helps, fails, or inverts. |
-| **[docs/04_agent_architecture.md](docs/04_agent_architecture.md)** | The agent pipeline, the gate catalog, and the flight-log narrative. |
-| **[docs/03_asic_ppa_analysis.md](docs/03_asic_ppa_analysis.md)** | How each optimization class is expected to translate to an ASIC flow. ASIC flows are in progress; no ASIC results exist for this agent yet. |
+| `agent/` | Shared optimization infrastructure, typed edit operations, path analysis, closure search, dashboards, and logs |
+| `agent/mldsa/` | ML-DSA gates, orchestrators, block tools, and accepted override sources |
+| `agent/hqc/` | HQC KAT gates, transfer experiments, joint-top orchestration, and cycle measurement |
+| `agent/slh_dsa/` | SLH-DSA pristine/accepted trees, differential gate, orchestrator, and six-configuration sweep |
+| `agent/backends/` | Vivado and Genus backend abstractions |
+| `hardware/` | HQC source RTL and testbench support |
+| `build/` | Elaborated HQC build trees used by simulation and synthesis |
+| `asic/` | ASAP7/Genus arms, scripts, constraints, and result records |
+| `logs/` | Closure and implementation logs used by results of record |
+| `docs/findings/` | Dated experiment records, including negative and superseded results |
+| `docs/REPRODUCE.md` | Extended reproduction notes and historical troubleshooting |
+| `docs/archive/README_RESEARCH_LOG_2026-08-30.md` | Archived version of the former root README |
 
-### The primary sources
+## Quick start
 
-**[docs/findings/](docs/findings/)** holds the dated lab notes, split by
-scheme. These are the primary-source records: every experiment, including
-every negative result and every reverted edit. **If a claim in this README or
-in any summary document matters to you, the dated findings file is the source
-of truth, not the summary.**
+### 1. Requirements
 
-- **[docs/findings/mldsa/](docs/findings/mldsa/)** — dated findings files,
-  including the encoder campaign, the rejection/makehint session, the fanout
-  load-profile study, and the pipelining insertion-point rubric.
-- **[docs/findings/hqc/](docs/findings/hqc/)** — HQC lab notes, including the
-  cross-design transfer experiment writeup.
+For the FPGA and agent flows:
 
-### Code
+- Linux or WSL2
+- Python 3.10 or newer
+- AMD Vivado **2025.2** with Artix-7 device support
+- Git
+- `anthropic` only when running the LLM proposal step
+- `flask` only when running the dashboard
 
-- **`agent/`** — the optimization agent and tooling.
-  - `chip_orchestrator_log.jsonl` — the chip-level closure trajectory: closing
-    frequency, worst-path resolution, and dispatch target at each step. This is
-    the primary source for every chip-level number in this README.
-  - `flight_log.jsonl`, `mldsa/orchestrator_log.jsonl`,
-    `mldsa/latency_log.jsonl`, `hqc/transfer_log.jsonl` — every proposal, every
-    verdict, including no-actions, refusals, and negative results. This is the
-    primary source for the funnel numbers above.
-  - `synthesizer.py`, `path_extractor.py`, `impl_runner.py` — synthesis,
-    critical-path extraction, post-route implementation.
-  - `kat_gate.py` — the HQC correctness gate.
-  - `optimizer_v2.py`, `loop_v21.py`, `edit_ops.py` — the proposal loop and the
-    typed-edit harness that verifies it.
-  - **`agent/hqc/`** — the HQC tier, including `transfer_orchestrator.py`.
-  - **`agent/mldsa/`** — the ML-DSA tier: `full_kat_gate.py`, `orchestrator.py`
-    / `orchestrator_latency.py`, the per-block equivalence gates
-    (`*_equiv_gate.py`), and `mldsa_src/` (the tracked override sources — every
-    committed ML-DSA win lives here, never in the pristine tree).
+For the ASIC flow:
 
-- **`build/{keygen,encap,decap}/`** — the three elaborated HQC build trees that
-  are synthesized and simulated.
-- **`hardware/`** — the HQC RTL (Yale/Deshpande).
-- **`synth_out/`** — synthesis reports and extracted critical paths.
+- Cadence Genus **25.12** or a compatible release
+- A local ASAP7 Liberty/LEF installation
+- Sufficient memory and runtime for large full-design synthesis jobs
 
-### A note on measurement validity
+### 2. Clone and create a Python environment
 
-`agent/flow_sweep_log.jsonl` contains exploratory sweep records using a
-projected-fmax formula, `1/(period - WNS)`, computed under heavy
-over-constraint. **This formula has been formally retracted as a measurement
-method** and produces unreliable numbers under the conditions in that file.
-Nothing in this README derives from it. The only valid closing-frequency
-method used anywhere in this repository is the binary-search procedure in
-`fmax_search.py`, OOC synthesis mode, accepting only `Slack (MET)` results.
+```bash
+git clone https://github.com/hsc-research/LLM-Aided-PQC.git
+cd LLM-Aided-PQC
 
-### A note on the pristine trees
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install anthropic flask
+```
 
-Optimized RTL **never** lives in a pristine reference tree. ML-DSA overrides
-live in `agent/mldsa/mldsa_src/` and are applied by basename at compile time.
-A `.bak` file appearing next to a pristine source is a contamination signal —
-it means an edit was applied in the wrong place. This rule exists because it
-was violated once, caught, and documented
-(`FINDINGS_mldsa_repro_and_pristine_integrity.md`).
+The hardware checks do not require an API key. The `anthropic` package is needed only for model-backed proposals, and `flask` is needed only for the optional dashboard.
 
----
+### 3. Make Vivado available
 
-## Reproducing anything here
+```bash
+source /tools/Xilinx/2025.2/Vivado/settings64.sh
+vivado -version
+```
 
-Start with **[docs/REPRODUCE.md](docs/REPRODUCE.md)**. It assumes no prior
-familiarity with the codebase and has been verified from a fresh clone.
+Adjust the installation path for your machine. The scripts invoke `vivado`, `xvlog`, `xvhdl`, `xelab`, and `xsim` from the active environment.
+
+## Run the HQC flow
+
+HQC is the most self-contained case study in this repository.
+
+### Full three-level functional check
+
+```bash
+python3 agent/hqc/joint_kat_gate.py --all
+```
+
+A successful run ends with:
+
+```text
+[hqc128] SS MATCH ... PASS
+[hqc192] SS MATCH ... PASS
+[hqc256] SS MATCH ... PASS
+JOINT KAT GATE: PASS
+```
+
+The gate runs standalone key generation and encapsulation, then exercises the joint decapsulation design and compares the recovered shared secret with the encapsulation output.
+
+### Extract and cluster critical paths
+
+```bash
+python3 agent/path_extractor.py hqc_joint_opt hqc128 20
+```
+
+For a block-level view, replace `hqc_joint_opt` with `keygen`, `encap`, `decap`, `fixed_weight`, or another registered module. The generated report is written under `synth_out/paths/`.
+
+### Run one typed-edit flight
+
+```bash
+export ANTHROPIC_API_KEY=your_key_here
+python3 agent/loop_v21.py keygen hqc192
+```
+
+A flight selects one non-exhausted critical-path cluster, asks the model for a typed proposal, checks and stages the edit, reruns synthesis, and reverts candidates that fail correctness or the improvement threshold. Review the resulting Git diff before committing anything.
+
+### Run the top-level closure loop
+
+Analysis and dispatch recommendation:
+
+```bash
+python3 agent/chip_orchestrator.py hqc
+```
+
+Automatic block dispatch, KAT, checkpoint regeneration, and top-level remeasurement:
+
+```bash
+python3 agent/chip_orchestrator.py hqc --dispatch
+```
+
+Top-level closure searches are expensive. The first command is the safer starting point because it shows the selected cone and target file before an edit is attempted.
+
+## Run the ML-DSA flow
+
+The repository stores accepted ML-DSA overrides, but the full gate expects a separately obtained pristine GMU/Beckwith tree containing `ref_combined/`, `common/`, and `KAT/`.
+
+Before running the gate, set the local `ROOT` and, when needed, `VIVADO_BIN` values near the top of `agent/mldsa/full_kat_gate.py` to match your installation. This legacy path configuration is intentionally called out rather than hidden.
+
+Pristine baseline:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py
+```
+
+Accepted override tree:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src
+```
+
+A shorter smoke run may be selected with `--vectors N`; the complete paper check uses all configured vectors and security levels.
+
+Block-level path extraction follows the shared interface:
+
+```bash
+python3 agent/path_extractor.py decoder mldsa 20
+```
+
+The detailed ML-DSA setup, source ordering, mixed Verilog/VHDL handling, and pristine-tree rules are documented in [`docs/REPRODUCE.md`](docs/REPRODUCE.md) and [`docs/AGENT_ARCHITECTURE.md`](docs/AGENT_ARCHITECTURE.md).
+
+## Run the SLH-DSA flow
+
+The committed repository contains pristine and accepted SLH-DSA RTL trees. The current vendor simulation wrapper still expects a local simulation workspace and data directory. Configure `SIM_DIR`, `DATA`, and `DEFAULT_RTL` near the top of `agent/slh_dsa/slh_kat_gate.py` before running:
+
+```bash
+python3 agent/slh_dsa/slh_kat_gate.py agent/slh_dsa/slh_src
+```
+
+The six-configuration FPGA sweep is driven by:
+
+```bash
+python3 agent/slh_dsa/level_sweep.py
+```
+
+The sweep is compute-intensive and regenerates closure data. Read [`docs/findings/slh-dsa/2026-08-29_slh_dsa_level_sweep.md`](docs/findings/slh-dsa/2026-08-29_slh_dsa_level_sweep.md) before replacing results of record.
+
+## ASIC flow
+
+The ASAP7 flow is under `asic/asap7/`. The main Genus script reads the following environment variables:
+
+```bash
+export GENUS_TOP=<top_module>
+export GENUS_SRCDIR=<absolute_or_relative_rtl_directory>
+export GENUS_PERIOD_PS=<clock_period_in_ps>
+export GENUS_OUTDIR=<empty_output_directory>
+# Optional:
+export GENUS_SDC=<constraint_file>
+export GENUS_PARAMS=<elaboration_parameters>
+export GENUS_HDL_DEFINES=<verilog_defines>
+```
+
+Set `TUT` at the top of `asic/asap7/scripts/genus_asap7_v2.tcl` to the directory containing your ASAP7 `lib/`, `lef/`, and `techlef/` trees, then run:
+
+```bash
+mkdir -p "$GENUS_OUTDIR"
+genus -batch -files asic/asap7/scripts/genus_asap7_v2.tcl
+```
+
+The script writes mapped/final databases, netlists, and timing, area, gate, and power reports into `GENUS_OUTDIR`. Current ASIC results are pre-layout, and inferred memories may map to flip-flop arrays; they should be interpreted as matched comparative synthesis results rather than final macro-aware chip PPA.
+
+## Optional dashboard
+
+```bash
+python3 agent/dashboard.py
+```
+
+Open `http://localhost:5000`. The dashboard is read-only and summarizes proposal logs, gate outcomes, closure records, and recorded API cost.
+
+## Acceptance and measurement rules
+
+- The LLM proposes; deterministic code applies and verifies.
+- A source edit is not a result until the relevant functional gate passes.
+- A block-level gain is not a chip-level gain.
+- Frequency is reported only from a routed run with non-negative WNS.
+- Projected frequency from a violated timing report is not a valid result.
+- Schedule-changing edits require stronger review than cycle-preserving edits.
+- A correct candidate with no measurable backend benefit is reverted.
+- Negative and superseded results remain recorded so they are not repeated or silently reused.
+
+The primary source for current numbers is [`docs/findings/INDEX.md`](docs/findings/INDEX.md). Older summaries may describe superseded experiments and should not be cited without checking the index.
+
+## Reproducing the paper artifact
+
+Start with these documents:
+
+1. [`docs/findings/INDEX.md`](docs/findings/INDEX.md): canonical ledgers and status of each experiment.
+2. [`docs/REPRODUCE.md`](docs/REPRODUCE.md): detailed setup and command history.
+3. [`docs/02_optimization_taxonomy.md`](docs/02_optimization_taxonomy.md): typed transformation rules and exclusions.
+4. [`docs/AGENT_ARCHITECTURE.md`](docs/AGENT_ARCHITECTURE.md): top-level and block-level orchestration.
+5. [`docs/DOCUMENTATION_STANDARD.md`](docs/DOCUMENTATION_STANDARD.md): measurement, supersession, and evidence policy.
+
+## Citation
+
+The archival paper citation will be added after publication. Until then, cite the software artifact:
+
+```bibtex
+@software{alcorn2026llmaidedpqc,
+  author  = {Lloyd Alcorn and Sanjay Deshpande and Malik Imran and
+             Christine L. Page and Jakub Szefer and Zain Ul Abideen},
+  title   = {{LLM-Aided-PQC}: Correctness-Gated RTL Optimization for
+             Post-Quantum Hardware},
+  year    = {2026},
+  url     = {https://github.com/hsc-research/LLM-Aided-PQC},
+  note    = {Research software and reproducibility artifact}
+}
+```
+
+GitHub's **Cite this repository** menu reads the accompanying [`CITATION.cff`](CITATION.cff).
+
+## Licensing and third-party RTL
+
+The repository-level software is distributed under the [GNU General Public License v3.0](LICENSE). Included and modified third-party RTL may carry Apache-2.0, MIT, GPL, or other source-specific terms. Preserve all original headers and review [NOTICE](NOTICE) before redistribution. Do not assume that the repository-level license replaces a third-party file's original notice.
+
+## Acknowledgments
+
+This artifact builds on published open-source PQC accelerators and third-party hash cores. See [NOTICE](NOTICE) and the source headers for attribution. The repository preserves both successful and unsuccessful optimization attempts because the failure boundaries are part of the research result.

@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software or its experimental artifacts, please cite this repository and the associated paper when available."
+title: "LLM-Aided-PQC: Correctness-Gated RTL Optimization for Post-Quantum Hardware"
+type: software
+authors:
+  - family-names: Alcorn
+    given-names: Lloyd
+  - family-names: Deshpande
+    given-names: Sanjay
+  - family-names: Imran
+    given-names: Malik
+  - family-names: Page
+    given-names: Christine L.
+  - family-names: Szefer
+    given-names: Jakub
+  - family-names: Abideen
+    given-names: Zain Ul
+repository-code: "https://github.com/hsc-research/LLM-Aided-PQC"
+license: GPL-3.0-only
+version: "0.1.0"
+date-released: 2026-09-01
+keywords:
+  - post-quantum cryptography
+  - RTL optimization
+  - hardware design
+  - large language models
+  - FPGA
+  - ASIC
+  - ML-DSA
+  - HQC
+  - SLH-DSA
