@@ -4,16 +4,29 @@ ML-DSA (CRYSTALS-Dilithium) RTL
   Portions Copyright (c) 2021 Cryptographic Engineering Research Group (CERG),
   ECE Department, George Mason University. Author: Luke Beckwith.
   Licensed under the Apache License, Version 2.0.
-  Source: https://eprint.iacr.org/2021/1451
+  Source publication: https://eprint.iacr.org/2021/1451
 
   Portions Copyright (c) 2025 KU Leuven - COSIC. Licensed under the MIT License.
 
-These files have been MODIFIED by the authors of this repository for the purpose
-of research into LLM-driven PPA optimization. Modified files are tracked under
-agent/mldsa/mldsa_src/ and agent/hqc/. All original copyright notices and license
-headers are preserved in the modified files. A record of each modification, with
-rationale and measured results, is maintained in docs/findings/.
-
 HQC RTL
-  Portions derived from the HQC hardware implementation (Yale, SAC 2023).
-  See original source headers for applicable license terms.
+  Portions are derived from the HQC hardware implementation developed at Yale
+  and published at SAC 2023. See the original source headers for the applicable
+  copyright and license terms.
+
+SLH-DSA / SPHINCSLET RTL
+  Portions are derived from the SPHINCSLET hardware implementation. The design
+  also incorporates third-party SHA-2 components, including Secworks-derived
+  SHA-256/SHA-512 RTL. See the original source headers in
+  agent/slh_dsa/pristine/ and agent/slh_dsa/slh_src/ for the applicable
+  copyright and license terms.
+
+The authors of this repository modified selected files for research on
+LLM-guided RTL optimization. Accepted ML-DSA overrides are tracked under
+agent/mldsa/mldsa_src/, accepted HQC variants under build/ and agent/hqc/, and
+SLH-DSA variants under agent/slh_dsa/. Original copyright and license headers
+must be preserved. Dated records of modifications, measurements, negative
+results, and superseded results are maintained under docs/findings/.
+
+The repository-level GPL-3.0 license does not replace source-specific licenses
+or notices attached to third-party files. Users are responsible for reviewing
+and complying with all applicable terms before redistribution.
