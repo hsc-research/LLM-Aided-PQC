@@ -1,3 +1,10 @@
+> **PARTIALLY SUPERSEDED 2026-08-13.** The "Synthesis in flight" section is
+> stale: both arms completed and the reports were pulled and committed
+> (`ca8efba`). The prohibition in that section was conditional on the reports
+> being committed and that condition is met. Numbers are in
+> `docs/findings/asic/2026-08-13_hqc_asap7_p1000.md`. The port and KAT findings
+> in this document (H1 to H16, F43 to F45) stand.
+
 # FINDINGS: HQC Genus portability port, complete and KAT-validated
 
 Date: 2026-08-12
@@ -64,11 +71,12 @@ equivalence checking.
   Artix-7. The control to reproduce is 9.12 ns, 109.6 MHz, WNS +0.072,
   mirroring the `cd92639` control that validated the earlier portability
   fixes.
-- **No HQC ASAP7 synthesis.** Elaborate succeeds; synthesis has never been
-  run.
+- ~~**No HQC ASAP7 synthesis.** Elaborate succeeds; synthesis has never been
+  run.~~ **RESOLVED 2026-08-13.** Both arms completed at 1000 ps; see
+  `docs/findings/asic/2026-08-13_hqc_asap7_p1000.md`.
 - **No validation of `encrypt_parallel.v`.** `PARALLEL_ENCRYPT` defaults to 0
   everywhere, so no test at the default setting elaborates that file.
-- **No baseline/optimized HQC ASIC arms.** Only one source tree exists.
+- ~~**No baseline/optimized HQC ASIC arms.** Only one source tree exists.~~ **RESOLVED 2026-08-13.** Both arms are tracked and both were synthesized at 1000 ps; see `docs/findings/asic/2026-08-13_hqc_asap7_p1000.md`.
 
 ---
 
