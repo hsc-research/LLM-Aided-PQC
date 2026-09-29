@@ -1,250 +1,267 @@
 #!/usr/bin/env python3
-"""Chip-aware orchestrator (v2): closure-first, top-down target selection.
+"""Top-down FPGA optimization with transactional candidate acceptance.
 
-Loop: closure baseline -> post-route critical cone -> map to RTL file ->
-dispatch block orchestrator -> re-integrate -> re-judge at closure ->
-accept/revert -> repeat. Acceptance judge = TRUE CLOSING FMAX, never
-block WNS, never projections.
-
-Usage: python3 agent/chip_orchestrator.py <design> [--max-rounds N] [--dry]
-  design in: mldsa (combined_top), hqc (hqc_joint_opt)
-Stage 1 (this version): steps 1-2 + dispatch RECOMMENDATION, human runs the
-block orchestrator and re-judge explicitly. Full auto in stage 2 after the
-mapping is validated.
+Default: measure and recommend. --dispatch runs ONE supported proposal round.
+ASIC fixed-period measurement uses asic_synthesis.py. KATs are not formal proofs.
 """
-import sys, os, re, json, subprocess, time
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
+import argparse
+import importlib
+import json
+import math
+import os
+from pathlib import Path
+import re
+import sys
+import tempfile
+import time
+import uuid
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parent
+sys.path.insert(0, str(HERE))
+from run_safety import RunLock, SourceTransaction, hashes, run_process, gate_passed, proposal_accepted
 
 DESIGNS = {
-    # Baseline arm. Same bracket and regen path as "mldsa" so the two are
-    # comparable; measurement only, no dispatch map.
-    "mldsa_baseline": {
-        "key": "combined_top_pristine",
-        "ckpt": "./synth_out/sweep_combined_top_pristine/post_synth_grade1.dcp",
-        "bracket": (12.0, 16.0),
-        "hier2file": {},
-        "orchestrator": None,
-        "kat_gate": ["python3", "agent/mldsa/full_kat_gate.py"],
+    'mldsa_baseline': {
+        'key': 'combined_top_pristine',
+        'ckpt': './synth_out/sweep_combined_top_pristine/post_synth_grade1.dcp',
+        'bracket': (12.0, 16.0), 'hier2file': {}, 'orchestrator': None,
+        'kat_gate': ['python3', 'agent/mldsa/full_kat_gate.py'],
+        'scopes': ['agent/mldsa/mldsa_src'],
     },
-    "mldsa": {
-        "key": "combined_top",
-        "ckpt": "./synth_out/sweep_combined_top/post_synth_grade1.dcp",
-        "bracket": (12.0, 13.5),
-        "hier2file": {
-            "ENCODER": "agent/mldsa/mldsa_src/encoder.v",
-            "DECODER": "agent/mldsa/mldsa_src/decoder.v",
-            "GEN_C":   "agent/mldsa/mldsa_src/gen_c.v",
-            "CHALLENGE_SAMPLER": "agent/mldsa/mldsa_src/gen_c.v",
-            "MAKEHINT": "agent/mldsa/mldsa_src/makehint.v",
-            "USEHINT": "agent/mldsa/mldsa_src/usehint.v",
-            "DECOMPOSER": "agent/mldsa/mldsa_src/coeff_decomposer.v",
-            "BUTTERFLY": "agent/mldsa/mldsa_src/butterfly.v",
-            "REJ": "agent/mldsa/mldsa_src/rejection_s.v",
+    'mldsa': {
+        'key': 'combined_top', 'ckpt': './synth_out/sweep_combined_top/post_synth_grade1.dcp',
+        'bracket': (12.0, 13.5),
+        'hier2file': {
+            'ENCODER': 'agent/mldsa/mldsa_src/encoder.v',
+            'DECODER': 'agent/mldsa/mldsa_src/decoder.v',
+            'GEN_C': 'agent/mldsa/mldsa_src/gen_c.v',
+            'CHALLENGE_SAMPLER': 'agent/mldsa/mldsa_src/gen_c.v',
+            'MAKEHINT': 'agent/mldsa/mldsa_src/makehint.v',
+            'USEHINT': 'agent/mldsa/mldsa_src/usehint.v',
+            'DECOMPOSER': 'agent/mldsa/mldsa_src/coeff_decomposer.v',
+            'BUTTERFLY': 'agent/mldsa/mldsa_src/butterfly.v',
+            'REJ': 'agent/mldsa/mldsa_src/rejection_s.v',
         },
-        "orchestrator": "agent/mldsa/orchestrator.py",
-        "kat_gate": ["python3", "agent/mldsa/full_kat_gate.py", "agent/mldsa/mldsa_src"],
+        'orchestrator': 'agent/mldsa/orchestrator.py',
+        'kat_gate': ['python3', 'agent/mldsa/full_kat_gate.py', 'agent/mldsa/mldsa_src'],
+        'scopes': ['agent/mldsa/mldsa_src'],
     },
-    # Baseline arm. Same bracket and regen path as "hqc" so the two are
-    # comparable; no orchestrator or dispatch map, it is measurement only.
-    "hqc_baseline": {
-        "key": "hqc_joint_pristine",
-        "ckpt": "./synth_out/sweep_hqc_joint_pristine/post_synth_grade1.dcp",
-        "bracket": (6.0, 10.0),
-        "hier2file": {},
-        "orchestrator": None,
-        "kat_gate": ["python3", "agent/hqc/joint_kat_gate.py"],
+    'hqc_baseline': {
+        'key': 'hqc_joint_pristine', 'ckpt': './synth_out/sweep_hqc_joint_pristine/post_synth_grade1.dcp',
+        'bracket': (6.0, 10.0), 'hier2file': {}, 'orchestrator': None,
+        'kat_gate': ['python3', 'agent/hqc/joint_kat_gate.py', '--all'],
+        'scopes': ['build/keygen', 'build/encap', 'build/decap', 'build/joint_design'],
     },
-    "hqc": {
-        "key": "hqc_joint_opt",
-        "ckpt": "./synth_out/sweep_hqc_joint_opt/post_synth_grade1.dcp",
-        "bracket": (6.0, 10.0),
-        "hier2file": {
-            "FIXEDWEIGHT": "build/keygen/fixed_weight_ct.v",
-            "ENCAP": "build/encap/encap.v",
-            "DECAP": "build/decap/decap.v",
-            "POLY_MULT": "build/joint_design/hqc_kem_joint_design.v",  # input cones = shared-mux fan-in, joint-top scope
-            "V_MINUS_UY": "build/decap/v_minus_uy.v",
-            "VECTSETRAND": "build/keygen/vect_set_random.v",
-            "KECCAK": "build/keygen/keccak_top.v",
-            "ENCRYPT": "build/encap/encrypt.v",
+    'hqc': {
+        'key': 'hqc_joint_opt', 'ckpt': './synth_out/sweep_hqc_joint_opt/post_synth_grade1.dcp',
+        'bracket': (6.0, 10.0),
+        'hier2file': {
+            'FIXEDWEIGHT': 'build/keygen/fixed_weight_ct.v',
+            'ENCAP': 'build/encap/encap.v', 'DECAP': 'build/decap/decap.v',
+            'POLY_MULT': 'build/joint_design/hqc_kem_joint_design.v',
+            'V_MINUS_UY': 'build/decap/v_minus_uy.v',
+            'VECTSETRAND': 'build/keygen/vect_set_random.v',
+            'KECCAK': 'build/keygen/keccak_top.v', 'ENCRYPT': 'build/encap/encrypt.v',
         },
-        "orchestrator": "agent/hqc/transfer_orchestrator.py",
-        # joint-top cones (hier2file -> hqc_kem_joint_design.v) use the bounded-
-        # autonomous joint orchestrator instead of the block-transfer one:
-        "joint_orchestrator": "agent/hqc/joint_top_orchestrator.py",
-        "kat_gate": ["python3", "agent/hqc/joint_kat_gate.py"],
+        'orchestrator': 'agent/hqc/transfer_orchestrator.py',
+        'joint_orchestrator': 'agent/hqc/joint_top_orchestrator.py',
+        'kat_gate': ['python3', 'agent/hqc/joint_kat_gate.py', '--all'],
+        'scopes': ['build/keygen', 'build/encap', 'build/decap', 'build/joint_design'],
     },
-    # SLH-DSA (SPHINCSLET, TECS 2025). First design where the rule book
-    # predates the work. Bracket proven both directions 2026-08-25:
-    # 10.0 ns VIOLATED (-1.584), 13.0 ns MET (+0.504).
-    # NOTE: regen_ckpt() above CANNOT build this design. SPHINCSLET needs
-    # setting.v and clog2.v as global includes; a bare read_verilog leaves
-    # PARAM_* undefined and elaboration fails. Use the "regen" hook.
-    "slh_dsa": {
-        "key": "top",
-        "ckpt": "/mnt/c/PQC/slh_test/slh_128f_sha2_synth.dcp",
-        "bracket": (10.0, 13.0),
-        "regen": ["python3", "agent/slh_dsa/regen_slh_ckpt.py"],
-        "hier2file": {
-            # Chip binds inside the SHA-256 message schedule at 11.98 ns:
-            # hash_tile_md0/HASH_BM/SHA256/w_mem_inst/w_mem_reg[1][5]/C
-            #   -> hash_tile_md0/HASH_BM/SHA256/a_reg_reg[29]/D
-            # 16 levels, CARRY4=8, logic 46.1% / route 53.9%.
-            # sha256_core and sha256_w_mem are borrowed Secworks code, not
-            # SPHINCSLET-authored.
-            # Deepest-first. A HASH_TILE_MD0 entry would short-circuit
-            # pass 1 of map_to_file and mask the real target, so the outer
-            # wrapper is deliberately NOT mapped.
-            "W_MEM_INST": "agent/slh_dsa/slh_src/sphincslet/sha/sha256_w_mem.v",
-            "SHA256": "agent/slh_dsa/slh_src/sphincslet/sha/sha256_core.v",
+    'slh_dsa': {
+        'key': 'top', 'ckpt': '/mnt/c/PQC/slh_test/slh_128f_sha2_synth.dcp',
+        'bracket': (10.0, 13.0), 'regen': ['python3', 'agent/slh_dsa/regen_slh_ckpt.py'],
+        'hier2file': {
+            'W_MEM_INST': 'agent/slh_dsa/slh_src/sphincslet/sha/sha256_w_mem.v',
+            'SHA256': 'agent/slh_dsa/slh_src/sphincslet/sha/sha256_core.v',
         },
-        "orchestrator": None,
-        "kat_gate": ["python3", "agent/slh_dsa/slh_kat_gate.py"],
+        'orchestrator': None, 'kat_gate': ['python3', 'agent/slh_dsa/slh_kat_gate.py'],
+        'scopes': ['agent/slh_dsa/slh_src'],
     },
 }
 
+
+def log_record(record):
+    with (HERE / 'chip_orchestrator_log.jsonl').open('a') as stream:
+        stream.write(json.dumps(record) + '\n')
+
+
+def validate_closure(value):
+    for key in ('closing_fmax_mhz', 'closing_period_ns'):
+        number = value.get(key) if isinstance(value, dict) else None
+        if isinstance(number, bool) or not isinstance(number, (int, float)) or not math.isfinite(number) or number <= 0:
+            raise RuntimeError(f'Invalid closure field: {key}')
+    slack = value.get('wns_at_close')
+    if isinstance(slack, bool) or not isinstance(slack, (int, float)) or not math.isfinite(slack) or slack < 0:
+        raise RuntimeError('Missing finite nonnegative setup slack at the reported closing point')
+
+
 def closure_search(ckpt, tag, lo, hi):
-    r = subprocess.run([sys.executable, os.path.join(HERE, "fmax_search.py"),
-                        ckpt, tag, str(lo), str(hi)],
-                       # fmax_search.py reads argv[1..4] only; the recipe
-                       # (ExtraTimingOpt/Explore/Explore) is fixed there.
-                       capture_output=True, text=True)
-    m = re.search(r'\{.*"closing_period_ns".*\}', r.stdout)
-    return json.loads(m.group(0)) if m else None
+    result = run_process([sys.executable, str(HERE / 'fmax_search.py'), ckpt,
+                          tag, str(lo), str(hi)], cwd=REPO)
+    if result.returncode or 'NO RESULT after retry' in result.stdout:
+        raise RuntimeError('Closure runner failed: ' + result.stdout[-1000:])
+    for line in reversed(result.stdout.splitlines()):
+        try:
+            value = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(value, dict) and 'closing_period_ns' in value:
+            validate_closure(value)
+            return value
+    raise RuntimeError('Closure runner produced no valid result')
+
 
 def worst_path_at_close(tag, period):
-    # read the MET report closest to closing period: worst path start/end
-    rpt = f"/tmp/fsrch_{tag}_{period}.rpt"
-    if not os.path.exists(rpt):
+    path = Path(f'/tmp/fsrch_{tag}_{period}.rpt')
+    if not path.is_file():
         return None
-    txt = open(rpt).read()
-    m = re.search(r"Slack \((?:MET|VIOLATED)\)\s*:.*?Source:\s*(\S+).*?Destination:\s*(\S+)",
-                  txt, re.S)
-    return {"source": m.group(1), "dest": m.group(2)} if m else None
+    match = re.search(r'Slack \((?:MET|VIOLATED)\)\s*:.*?Source:\s*(\S+).*?Destination:\s*(\S+)',
+                      path.read_text(), re.S)
+    return {'source': match[1], 'dest': match[2]} if match else None
+
 
 def map_to_file(path_rec, hier2file):
-    # Pass 1: original behaviour, first hierarchy component only. Unchanged
-    # so ML-DSA and HQC mapping stays byte-identical.
-    for endpoint in (path_rec["dest"], path_rec["source"]):
-        top_inst = endpoint.split("/")[0].upper()
-        for k, f in hier2file.items():
-            if k in top_inst:
-                return top_inst, f
-    # Pass 2: deeper components, longest key first. SLH-DSA binds three
-    # levels down (hash_tile_md0/HASH_BM/SHA256/w_mem_inst), so a
-    # first-component match would return hash_tile.v when the real target
-    # is sha256_w_mem.v. Only reached when pass 1 found nothing.
-    for endpoint in (path_rec["dest"], path_rec["source"]):
-        comps = [c.split("[")[0].upper() for c in endpoint.split("/")[:-1]]
-        for k in sorted(hier2file, key=len, reverse=True):
-            for c in reversed(comps):
-                if k in c:
-                    return c, hier2file[k]
+    # Preserve the established mapping precedence before inspecting deeper hierarchy.
+    for endpoint in (path_rec['dest'], path_rec['source']):
+        top = endpoint.split('/')[0].upper()
+        for key, path in hier2file.items():
+            if key in top:
+                return top, path
+    for endpoint in (path_rec['dest'], path_rec['source']):
+        comps = [c.split('[')[0].upper() for c in endpoint.split('/')[:-1]]
+        for key in sorted(hier2file, key=len, reverse=True):
+            for component in reversed(comps):
+                if key in component:
+                    return component, hier2file[key]
     return None, None
 
+
+def source_state(cfg):
+    import synthesizer
+    module = importlib.reload(synthesizer)
+    sources = module.ordered_sources(cfg['key']) + module.VHDL_SOURCES.get(cfg['key'], [])
+    include_files = []
+    for directory in module.INCLUDE_DIRS.split():
+        for ext in ('*.v', '*.vh', '*.svh'):
+            include_files.extend(str(p) for p in Path(directory).glob(ext))
+    return {'sources': hashes(sources), 'includes': hashes(include_files),
+            'read_order': [str(Path(p).resolve()) for p in sources]}
+
+
 def regen_ckpt(cfg):
-    """Re-synthesize the chip from current tracked sources into cfg['ckpt'].
-    Required between dispatch and re-judge: closure_search judges a post-synth
-    checkpoint, so a block edit is invisible until the dcp is rebuilt."""
-    import subprocess
-    sys.path.insert(0, os.path.join(HERE, ".."))
-    from synthesizer import MODULE_SOURCES, VHDL_SOURCES, PART, TOP_OVERRIDE, ordered_sources, synth_flags
-    key = cfg["key"]
-    srcs = ordered_sources(key); vhdl = VHDL_SOURCES.get(key, [])
-    top = TOP_OVERRIDE.get(key, key)
-    period = cfg.get("regen_period_ns", 8.600)
-    vb = "read_vhdl {\n  " + "\n  ".join(vhdl) + "\n}\n" if vhdl else ""
-    nl = chr(10)
-    tcl = (vb + "read_verilog {" + nl + "  " + nl.join(srcs) + nl + "}" + nl +
-           f"synth_design -top {top} -part {PART} -mode out_of_context{synth_flags(key)}" + nl +
-           "set clk_port [lindex [get_ports -quiet {clk clk_i}] 0]" + nl +
-           'if {$clk_port eq ""} { set clk_port [lindex [get_ports -quiet *clk*] 0] }' + nl +
-           "create_clock -period " + f"{period:.3f}" + " -name clk [get_ports $clk_port]" + nl +
-           f"write_checkpoint -force {cfg['ckpt']}" + nl + 'puts "REGEN DONE"' + nl)
-    tf = "/tmp/regen_ckpt.tcl"
-    open(tf, "w").write(tcl)
-    r = subprocess.run(["vivado","-mode","batch","-source",tf,"-nojournal","-nolog"],
-                       capture_output=True, text=True)
-    assert "REGEN DONE" in r.stdout, "checkpoint regen failed"
+    if cfg.get('regen'):
+        result = run_process(cfg['regen'], cwd=REPO)
+        if result.returncode:
+            raise RuntimeError('Design-specific checkpoint generation failed')
+        return
+    import synthesizer
+    module = importlib.reload(synthesizer)
+    key = cfg['key']
+    sources = module.ordered_sources(key)
+    vhdl = module.VHDL_SOURCES.get(key, [])
+    top = module.TOP_OVERRIDE.get(key, key)
+    period = cfg.get('regen_period_ns', 8.600)
+    checkpoint = Path(cfg['ckpt'])
+    checkpoint.parent.mkdir(parents=True, exist_ok=True)
+    vb = 'read_vhdl {\n' + '\n'.join(vhdl) + '\n}\n' if vhdl else ''
+    tcl = (vb + 'read_verilog {\n' + '\n'.join(sources) + '\n}\n'
+           + f'synth_design -top {top} -part {module.PART} -mode out_of_context{module.synth_flags(key)}\n'
+           + 'set clk_port [lindex [get_ports -quiet {clk clk_i}] 0]\n'
+           + 'if {$clk_port eq ""} { set clk_port [lindex [get_ports -quiet *clk*] 0] }\n'
+           + 'if {$clk_port eq ""} { error "No clock port found" }\n'
+           + f'create_clock -period {period:.3f} -name clk [get_ports $clk_port]\n'
+           + f'write_checkpoint -force {{{checkpoint}}}\nputs {{REGEN DONE}}\n')
+    with tempfile.TemporaryDirectory(prefix='pqc-regen-') as work:
+        script = Path(work) / 'regen.tcl'
+        script.write_text(tcl)
+        result = run_process(['vivado', '-mode', 'batch', '-source', str(script),
+                              '-nojournal', '-nolog'], cwd=REPO)
+    if result.returncode or 'REGEN DONE' not in result.stdout or not checkpoint.is_file():
+        raise RuntimeError('Checkpoint generation failed: ' + result.stdout[-1000:])
 
-def main():
-    design = sys.argv[1]
-    cfg = DESIGNS[design]
-    tag = f"chipv2_{design}_{int(time.time())%100000}"
-    print(f"[0] regen checkpoint from current tracked sources")
-    if cfg.get("regen"):
-        # Design-specific regen. SLH-DSA needs global includes, which the
-        # shared regen_ckpt() does not emit.
-        import subprocess as _sp
-        _r = _sp.run(cfg["regen"], capture_output=True, text=True, timeout=7200)
-        print(_r.stdout[-400:])
-        assert _r.returncode == 0, "design-specific checkpoint regen failed"
-    else:
+
+def evaluate_candidate(cfg, source_file, base, tag, record, timeout=86400):
+    block = Path(source_file).stem
+    command, arguments = cfg.get('orchestrator'), [block]
+    if block == 'hqc_kem_joint_design' and cfg.get('joint_orchestrator'):
+        command, arguments = cfg['joint_orchestrator'], []
+    if not command or not cfg.get('kat_gate'):
+        record['verdict'] = 'NO_TARGET (no supported optimizer and checker pair)'
+        return False
+    scopes = [*cfg['scopes'], cfg['ckpt']]
+    with SourceTransaction(REPO, scopes) as transaction:
+        original = source_state(cfg)
+        result = run_process([sys.executable, command, *arguments], cwd=REPO, timeout=timeout)
+        print(result.stdout[-2000:])
+        if not proposal_accepted(result):
+            record['verdict'] = 'NO_ACCEPTED_CANDIDATE (restored)'
+            return False
+        candidate = source_state(cfg)
+        if candidate == original:
+            record['verdict'] = 'NO_EFFECTIVE_SOURCE_CHANGE (restored)'
+            return False
+        record['candidate_sources'] = candidate
+        checked = run_process(cfg['kat_gate'], cwd=REPO, timeout=timeout)
+        print(checked.stdout[-1000:])
+        if not gate_passed(checked):
+            record['verdict'] = 'KAT_FAIL (restored)'
+            return False
+        if source_state(cfg) != candidate:
+            raise RuntimeError('RTL changed during verification; refusing PPA comparison')
         regen_ckpt(cfg)
-    print(f"[1] closure baseline: {cfg['key']}")
-    base = closure_search(cfg["ckpt"], tag, *cfg["bracket"])
-    assert base and base["closing_fmax_mhz"], f"closure search failed: {base}"
-    print(json.dumps(base))
-    print(f"[2] worst path at closure ({base['closing_period_ns']}ns):")
-    p = worst_path_at_close(tag, base["closing_period_ns"])
-    assert p, "no path parsed from closing report"
-    print(json.dumps(p))
-    inst, f = map_to_file(p, cfg["hier2file"])
-    print(f"[3] DISPATCH RECOMMENDATION: instance={inst} file={f}")
-    rec = {"design": design, "closure": base, "worst_path": p,
-           "dispatch_instance": inst, "dispatch_file": f,
-           "orchestrator": cfg["orchestrator"], "ts": time.strftime("%F %T")}
-    open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+"\n")
-    if "--dispatch" not in sys.argv:
-        print(f"[4] next (human): run {cfg['orchestrator']} on the mapped block, "
-              f"re-integrate, then re-run this script; accept only if closing fmax rises.")
-        return
-    # ---- stage 2: auto-dispatch ----
-    import subprocess
-    if f is None:
-        print("[4] no dispatch target: worst-path instance is outside the block-orchestrator "
-              "scope (e.g. shared Keccak, interconnect). Chip loop ends; architectural tier owns this cone.")
-        rec["verdict"] = "NO_TARGET (out-of-scope cone)"
-        open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+chr(10))
-        return
-    blk = os.path.splitext(os.path.basename(f))[0]
-    orch = cfg["orchestrator"]
-    orch_args = [blk]
-    if blk == "hqc_kem_joint_design" and cfg.get("joint_orchestrator"):
-        orch = cfg["joint_orchestrator"]; orch_args = []
-    print(f"[4] AUTO-DISPATCH: {orch} {' '.join(orch_args)}")
-    r = subprocess.run(["python3", orch] + orch_args,
-                       capture_output=True, text=True, timeout=7200)
-    print(r.stdout[-2000:])
-    if "ACCEPTED" not in r.stdout:
-        print("[5] block orchestrator produced no accepted edit -- chip loop ends.")
-        return
-    gate = cfg.get("kat_gate")
-    if gate:
-        print(f"[5a] functional KAT gate: {' '.join(gate)}")
-        g = subprocess.run(gate, capture_output=True, text=True, timeout=7200)
-        print(g.stdout[-800:])
-        out = g.stdout or ""
-        # accept either convention: '"status": "PASS"' (mldsa json) or 'GATE: PASS' (hqc)
-        gate_pass = (g.returncode == 0) and ('"status": "PASS"' in out or "GATE: PASS" in out) and '"status": "FAIL"' not in out and "GATE: FAIL" not in out
-        if not gate_pass:
-            print("[5a] KAT GATE FAILED — edit is functionally broken; reverting tracked sources and ending chip loop.")
-            subprocess.run(["git", "checkout", "--", f], capture_output=True, text=True)  # revert only the dispatched file
-            rec["verdict"] = "KAT_FAIL (edit reverted)"
-            open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+chr(10))
-            return
-        print("[5a] KAT gate PASS")
-    print("[5] re-synth chip checkpoint (updated tracked sources)")
-    regen_ckpt(cfg)
-    print("[6] re-judge at closure")
-    tag2 = tag + "_r2"
-    post = closure_search(cfg["ckpt"], tag2, *cfg["bracket"])
-    print(json.dumps(post))
-    verdict = "ACCEPT" if post["closing_fmax_mhz"] > base["closing_fmax_mhz"] else "REJECT (revert block edit)"
-    print(f"[7] CHIP VERDICT: {base['closing_fmax_mhz']} -> {post['closing_fmax_mhz']} MHz : {verdict}")
-    rec["post"] = post; rec["verdict"] = verdict
-    open(os.path.join(HERE, "chip_orchestrator_log.jsonl"), "a").write(json.dumps(rec)+"\n")
+        post = closure_search(cfg['ckpt'], tag + '_candidate', *cfg['bracket'])
+        validate_closure(post)
+        if source_state(cfg) != candidate:
+            raise RuntimeError('RTL changed during implementation; candidate not retained')
+        record['post'] = post
+        if post['closing_fmax_mhz'] <= base['closing_fmax_mhz']:
+            record['verdict'] = 'REJECT_PPA (all scoped files restored)'
+            return False
+        record['verdict'] = 'ACCEPT'
+        log_record(record)  # Logging failure must not retain the candidate.
+        transaction.accept()
+        return True
 
-if __name__ == "__main__":
-    main()
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('design', choices=DESIGNS)
+    parser.add_argument('--dispatch', action='store_true')
+    parser.add_argument('--timeout', type=float, default=86400)
+    args = parser.parse_args(argv)
+    if not math.isfinite(args.timeout) or args.timeout <= 0:
+        parser.error('--timeout must be finite and positive')
+    os.chdir(REPO)
+    cfg = DESIGNS[args.design]
+    tag = 'chip_' + args.design + '_' + uuid.uuid4().hex[:12]
+    record = {'design': args.design, 'ts': time.strftime('%F %T'), 'tag': tag}
+    try:
+        with RunLock(REPO):
+            regen_ckpt(cfg)
+            base = closure_search(cfg['ckpt'], tag, *cfg['bracket'])
+            path = worst_path_at_close(tag, base['closing_period_ns'])
+            if path is None:
+                raise RuntimeError('No worst path in the closing report')
+            inst, source = map_to_file(path, cfg['hier2file'])
+            record.update(closure=base, worst_path=path, dispatch_instance=inst, dispatch_file=source)
+            print(json.dumps(record, indent=2))
+            if not args.dispatch or source is None:
+                record['verdict'] = 'RECOMMENDATION' if source else 'NO_TARGET'
+                log_record(record)
+                return 0
+            accepted = evaluate_candidate(cfg, source, base, tag, record, args.timeout)
+            if not accepted:
+                log_record(record)
+            print('CHIP VERDICT:', record['verdict'])
+            return 0
+    except (Exception, KeyboardInterrupt) as error:
+        record.update(verdict='ERROR (see transaction journal if recovery failed)', reason=str(error))
+        log_record(record)
+        print('ERROR:', error, file=sys.stderr)
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

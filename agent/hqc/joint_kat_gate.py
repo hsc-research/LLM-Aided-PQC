@@ -1,191 +1,164 @@
-import re
 #!/usr/bin/env python3
-# HQC Joint-Design KAT Gate
-# Validates build/joint_design tracked overrides (e.g. registered pm client
-# select) through the FULL joint design: keygen TB -> encap TB -> decap TB,
-# then compares encap ss_output vs decap test_ss_output.
-# PASS only if shared secrets match exactly. Watchdog kills hung Vivado.
-#
-# Usage: python3 agent/hqc/joint_kat_gate.py [--all]
-#   default: hqc128 only (inner loop). --all: 128/192/256 (pre-commit).
-import subprocess, os, sys, glob, shutil, signal, time
+"""HQC joint-design shared-secret consistency check in a private workspace.
 
-REPO = "."
-VIVADO = "vivado"
-SIMDIR = "test_joint_design/test_joint_design.sim/sim_1/behav/xsim"
-TIMEOUT_S = 3600  # per sim
-LEVELS = ["hqc128", "hqc192", "hqc256"] if "--all" in sys.argv else ["hqc128"]
-SUF = {"hqc128": "128", "hqc192": "192", "hqc256": "256"}
-
-def stage():
-    os.makedirs("build/joint_design/tb", exist_ok=True)
-    srcs = ["hardware/joint_design/*.v", "hardware/keygen/*.v",
-            "hardware/decap/*.v", "hardware/encap/*.v",
-            "hardware/common/fixed_weight/*", "hardware/common/memory/*",
-            "hardware/common/clog2.v", "hardware/common/poly_mult/poly_mult.v",
-            "hardware/common/shake256/rtl/*", "hardware/common/adders/*",
-            "hardware/common/barrett_reduction/*"]
-    for pat in srcs:
-        for p in glob.glob(pat):
-            if os.path.isfile(p):
-                shutil.copy(p, "build/joint_design/")
-    shutil.copy("hardware/joint_design/tcl/joint_design.tcl", "build/joint_design/tb/")
-    for p in glob.glob("hardware/joint_design/tb/*"):
-        shutil.copy(p, "build/joint_design/tb/")
-    shutil.copy("hardware/encap/memory_files/seed_align.py", "build/joint_design/")
-    # tracked overrides win over pristine copies
-    r = subprocess.run(["git", "checkout", "--", "build/joint_design/"],
-                       capture_output=True, text=True)
-    if r.returncode != 0:
-        print("git checkout of overrides failed:", r.stderr); sys.exit(2)
-    # seeds
-    subprocess.run(["python3", "build/joint_design/seed_align.py", "seed_align",
-                    "0", "40", "pk_seed.in", "yes"], check=True)
-    subprocess.run(["python3", "build/joint_design/seed_align.py", "seed_align",
-                    "0", "40", "sk_seed.in", "yes"], check=True)
-    for f in ("pk_seed.in", "sk_seed.in"):
-        shutil.move(f, os.path.join("build/joint_design/tb", f))
-
-CYCLES = {}   # (tb_top, level) -> {"total": int, "decode": int}
-
-def run_sim(tb_top, level, runtime_us, extra_files=()):
-    adds = "\n".join(f"add_files -fileset sim_1 -norecurse {p}" for p in extra_files)
-    tcl = f"""source ./build/joint_design/tb/joint_design.tcl
-{adds}
-set_property top {tb_top} [get_filesets sim_1]
-set_property generic parameter_set=\\"{level}\\" [get_filesets sim_1]
-set_property -name {{xsim.simulate.runtime}} -value {{{runtime_us}us}} -objects [get_filesets sim_1]
-launch_simulation
+Default hqc128; --all checks 128/192/256. This is not an independent NIST
+response-vector oracle. Never restore Git HEAD or stage over live candidate RTL.
 """
-    path = f"/tmp/jkg_{tb_top}_{level}.tcl"
-    open(path, "w").write(tcl)
-    shutil.rmtree("test_joint_design", ignore_errors=True)
-    print(f"  [{level}] {tb_top} (watchdog {TIMEOUT_S}s)...")
-    proc = subprocess.Popen(
-        [VIVADO, "-mode", "batch", "-nojournal", "-nolog", "-notrace",
-         "-source", path],
-        cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        text=True, preexec_fn=os.setsid)
+import argparse
+import importlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import sys
+import tempfile
+import time
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parent.parent
+sys.path.insert(0, str(HERE.parent))
+from run_safety import hashes, run_process, stage_sources
+
+SIMDIR = Path('test_joint_design/test_joint_design.sim/sim_1/behav/xsim')
+KEYGEN_SIM = Path('test_keygen/test_keygen.sim/sim_1/behav/xsim')
+ENCAP_SIM = Path('test_encap/test_encap.sim/sim_1/behav/xsim')
+TIMEOUT_S = 3600
+CYCLES = {}
+
+
+def stage(work):
+    import synthesizer
+    synthesis = importlib.reload(synthesizer)
+    sources = synthesis.ordered_sources('hqc_joint_opt')
+    origin_hashes = hashes(sources)
+    target = work / 'build/joint_design'
+    manifest = stage_sources(sources, target)
+    # Supporting operation trees are copied, not rebuilt over live edits.
+    for op in ('keygen', 'encap'):
+        source = REPO / 'build' / op
+        if not (source / 'tb' / (op + '.tcl')).is_file():
+            raise RuntimeError(f'Missing standalone build tree: {source}')
+        shutil.copytree(source, work / 'build' / op)
+    (target / 'tb').mkdir(parents=True, exist_ok=True)
+    for source in (REPO / 'hardware/joint_design/tb').iterdir():
+        if source.is_file():
+            shutil.copy2(source, target / 'tb')
+    for directory in ('hardware/common/fixed_weight', 'hardware/common/memory',
+                      'hardware/common/shake256/rtl', 'hardware/common/adders',
+                      'hardware/common/barrett_reduction'):
+        for source in (REPO / directory).iterdir():
+            if source.is_file() and source.suffix != '.v' and not (target / source.name).exists():
+                shutil.copy2(source, target / source.name)
+    shutil.copy2(REPO / 'hardware/encap/memory_files/seed_align.py', target)
+    for name in ('pk_seed.in', 'sk_seed.in'):
+        result = run_process([sys.executable, str(target / 'seed_align.py'),
+                              'seed_align', '0', '40', name, 'yes'], cwd=work)
+        if result.returncode:
+            raise RuntimeError('Seed staging failed: ' + result.stdout[-500:])
+        shutil.move(str(work / name), str(target / 'tb' / name))
+    record = {'sources': origin_hashes, 'staged_basenames': manifest,
+              'scope': 'joint decapsulation; standalone keygen/encap provide stimuli'}
+    (HERE / 'joint_kat_sources.json').write_text(json.dumps(record, indent=2))
+    return manifest, origin_hashes
+
+
+def verify_sources(manifest, origin_hashes, work):
+    if hashes(origin_hashes) != origin_hashes:
+        raise RuntimeError('Live candidate changed during verification')
+    for name, expected in manifest.items():
+        path = (work / 'build/joint_design' / name).resolve()
+        if hashes([path])[str(path)] != expected:
+            raise RuntimeError(f'Staged candidate changed: {name}')
+
+
+def joint_tcl(top, level, extra_files, manifest):
+    source_list = ' '.join('{./build/joint_design/' + name + '}' for name in manifest)
+    inputs = ' '.join('{' + str(p) + '}' for p in extra_files)
+    return f'''create_project test_joint_design ./test_joint_design -part xc7a200tfbg676-1
+set_property target_language Verilog [current_project]
+add_files -norecurse [list {source_list}]
+set_property include_dirs {{./build/joint_design}} [get_filesets sources_1]
+set_property include_dirs {{./build/joint_design}} [get_filesets sim_1]
+set_property verilog_define {{SHARED=1 SHARED_ENCAP=1}} [get_filesets sources_1]
+set_property verilog_define {{SHARED=1 SHARED_ENCAP=1}} [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse [glob ./build/joint_design/tb/*.v]
+add_files -fileset sim_1 -norecurse [list {inputs}]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+set_property top {top} [get_filesets sim_1]
+set_property generic parameter_set=\\"{level}\\" [get_filesets sim_1]
+set_property -name {{xsim.simulate.runtime}} -value {{100000us}} -objects [get_filesets sim_1]
+launch_simulation
+'''
+
+
+def run_sim(top, level, inputs, work, manifest):
+    script = work / (level + '.tcl')
+    script.write_text(joint_tcl(top, level, inputs, manifest))
+    shutil.rmtree(work / 'test_joint_design', ignore_errors=True)
+    result = run_process(['vivado', '-mode', 'batch', '-nojournal', '-nolog',
+                          '-notrace', '-source', str(script)], cwd=work, timeout=TIMEOUT_S)
+    if result.returncode:
+        raise RuntimeError('Joint simulation failed: ' + result.stdout[-800:])
+    total = re.findall(r'Total Clock Cycles:\s*(\d+)', result.stdout)
+    decode = re.findall(r'Decode Clock Cycles:\s*(\d+)', result.stdout)
+    if total:
+        CYCLES[f'{top}@{level}'] = {'total': int(total[-1]), 'decode': int(decode[-1]) if decode else None}
+
+
+def run_standalone(script, work):
+    result = run_process(['vivado', '-mode', 'batch', '-nojournal', '-nolog',
+                          '-notrace', '-source', script], cwd=work, timeout=TIMEOUT_S)
+    if result.returncode:
+        raise RuntimeError('Standalone simulation failed: ' + result.stdout[-800:])
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--all', action='store_true')
+    args = parser.parse_args(argv)
+    levels = ['hqc128', 'hqc192', 'hqc256'] if args.all else ['hqc128']
+    os.chdir(REPO)
+    CYCLES.clear()
+    started = time.monotonic()
     try:
-        out, _ = proc.communicate(timeout=TIMEOUT_S)
-    except subprocess.TimeoutExpired:
-        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-        print(f"  WATCHDOG KILL: {tb_top} {level}"); return False, "timeout"
-    if proc.returncode != 0:
-        return False, out[-800:]
-    tot = re.findall(r"Total Clock Cycles:\s*(\d+)", out)
-    dec = re.findall(r"Decode Clock Cycles:\s*(\d+)", out)
-    if tot:
-        CYCLES[(tb_top, level)] = {"total": int(tot[-1]),
-                                   "decode": int(dec[-1]) if dec else None}
-    return True, out
+        with tempfile.TemporaryDirectory(prefix='pqc-joint-kat-') as directory:
+            work = Path(directory)
+            manifest, original = stage(work)
+            run_standalone('./build/keygen/tb/keygen.tcl', work)
+            for level in levels:
+                suffix = level[3:]
+                for kind in ('s', 'h', 'x', 'y'):
+                    name = f'{kind}_{suffix}.in'
+                    shutil.copy2(work / KEYGEN_SIM / name, work / 'build/encap/tb')
+                    shutil.copy2(work / KEYGEN_SIM / name, work / name)
+            run_standalone('./build/encap/tb/encap.tcl', work)
+            for level in levels:
+                suffix = level[3:]
+                for name in ([f'{kind}_{suffix}.in' for kind in ('u', 'v', 'd', 's')]
+                             + [f'ss_output_{suffix}.out']):
+                    shutil.copy2(work / ENCAP_SIM / name, work / name)
+            for level in levels:
+                verify_sources(manifest, original, work)
+                suffix = level[3:]
+                inputs = list((work / 'build/joint_design').glob('*.mem'))
+                inputs += [work / 'build/joint_design/tb' / name for name in ('pk_seed.in', 'sk_seed.in')]
+                inputs += [work / f'{kind}_{suffix}.in' for kind in ('s', 'h', 'x', 'y', 'u', 'v', 'd')]
+                run_sim('hqc_joint_design_decap_tb', level, inputs, work, manifest)
+                produced = work / SIMDIR / f'test_ss_output_{suffix}.out'
+                expected = (work / f'ss_output_{suffix}.out').read_text().strip()
+                if not produced.is_file() or not expected or produced.read_text().strip() != expected:
+                    raise RuntimeError(f'{level}: missing or mismatched shared secret')
+                print(f'[{level}] SS MATCH')
+            verify_sources(manifest, original, work)
+        (HERE / 'joint_kat_cycles.json').write_text(json.dumps(CYCLES, indent=2))
+        print(f'JOINT KAT GATE: PASS ({time.monotonic()-started:.0f}s)')
+        return 0
+    except (Exception, KeyboardInterrupt) as error:
+        print('JOINT KAT GATE: FAIL -', error)
+        return 1
 
-def seed_inputs(files):
-    for f in files:
-        src = os.path.join(SIMDIR, f)
-        # outputs of prior stage live in SIMDIR of the *previous* project;
-        # we saved them to /tmp/jkg_stash before rmtree
-        stash = os.path.join("/tmp/jkg_stash", f)
-        if os.path.isfile(stash):
-            shutil.copy(stash, os.path.join(SIMDIR))
 
-def stash_outputs(patterns):
-    os.makedirs("/tmp/jkg_stash", exist_ok=True)
-    for pat in patterns:
-        for p in glob.glob(os.path.join(SIMDIR, pat)):
-            shutil.copy(p, "/tmp/jkg_stash/")
-
-def place_stash():
-    # decap/encap sims read .in files from xsim cwd == SIMDIR;
-    # but SIMDIR only exists after launch... so instead we drop the files
-    # in repo root fallback AND SIMDIR post-create is impossible pre-launch.
-    # xsim also searches the parent of xsim.dir; joint_design.tcl project cwd
-    # covers repo root. Simplest robust choice: copy stash into repo root.
-    for p in glob.glob("/tmp/jkg_stash/*"):
-        shutil.copy(p, ".")
-
-def run_standalone(tcl, label):
-    print(f"  standalone {label} sim...")
-    proc = subprocess.Popen(
-        [VIVADO, "-mode", "batch", "-nojournal", "-nolog", "-notrace",
-         "-source", tcl],
-        cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        text=True, preexec_fn=os.setsid)
-    try:
-        out, _ = proc.communicate(timeout=TIMEOUT_S)
-    except subprocess.TimeoutExpired:
-        os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-        return False, "timeout"
-    return (proc.returncode == 0), out[-800:]
-
-KEYGEN_SIM = "test_keygen/test_keygen.sim/sim_1/behav/xsim"
-ENCAP_SIM  = "test_encap/test_encap.sim/sim_1/behav/xsim"
-
-def main():
-    t0 = time.time()
-    stage()
-    shutil.rmtree("/tmp/jkg_stash", ignore_errors=True)
-    os.makedirs("/tmp/jkg_stash", exist_ok=True)
-    overall = True
-    # Stage A/B: standalone keygen + encap generate binary .in stimulus
-    # (requires build/keygen and build/encap staged; reuse existing artifacts
-    # if present, else fail loudly)
-    for d in ("build/keygen/tb/keygen.tcl", "build/encap/tb/encap.tcl"):
-        if not os.path.isfile(d):
-            print(f"missing {d}: run the standalone build staging first"); sys.exit(2)
-    for proj in ("test_keygen", "test_encap", "test_decap", "test_joint_design"):
-        shutil.rmtree(proj, ignore_errors=True)
-    ok, msg = run_standalone("./build/keygen/tb/keygen.tcl", "keygen")
-    if not ok: print("KEYGEN FAIL:", msg); sys.exit(1)
-    # keygen outputs -> encap tb dir (binary .in, per Makefile flow)
-    for lv in LEVELS:
-        sfx = SUF[lv]
-        for name in (f"s_{sfx}.in", f"h_{sfx}.in", f"x_{sfx}.in", f"y_{sfx}.in"):
-            p = os.path.join(KEYGEN_SIM, name)
-            if not os.path.isfile(p):
-                print("keygen output missing:", name); sys.exit(1)
-            shutil.copy(p, "build/encap/tb/")
-            shutil.copy(p, "/tmp/jkg_stash/")
-    ok, msg = run_standalone("./build/encap/tb/encap.tcl", "encap")
-    if not ok: print("ENCAP FAIL:", msg); sys.exit(1)
-    for lv in LEVELS:
-        sfx = SUF[lv]
-        for name in (f"u_{sfx}.in", f"v_{sfx}.in", f"d_{sfx}.in",
-                     f"s_{sfx}.in", f"ss_output_{sfx}.out"):
-            p = os.path.join(ENCAP_SIM, name)
-            if not os.path.isfile(p):
-                print("encap output missing:", name); sys.exit(1)
-            shutil.copy(p, "/tmp/jkg_stash/")
-    # Stage C: joint decap TB (DUT with tracked overrides incl. registered
-    # pm client select; exercises decap + encap_inside_decap mux arms)
-    for lv in LEVELS:
-        sfx = SUF[lv]
-        ins = [os.path.abspath(p) for p in glob.glob("build/joint_design/*.mem")] + \
-              [os.path.join("/tmp/jkg_stash", n) for n in
-               (f"s_{sfx}.in", f"h_{sfx}.in", f"x_{sfx}.in", f"y_{sfx}.in",
-                f"u_{sfx}.in", f"v_{sfx}.in", f"d_{sfx}.in")]
-        ok, msg = run_sim("hqc_joint_design_decap_tb", lv, 100000, ins)
-        if not ok: print("JOINT DECAP FAIL:", msg); overall = False; break
-        dec = os.path.join(SIMDIR, f"test_ss_output_{sfx}.out")
-        enc = os.path.join("/tmp/jkg_stash", f"ss_output_{sfx}.out")
-        if not os.path.isfile(dec):
-            print(f"[{lv}] joint decap wrote no ss output"); overall = False; break
-        e, d = open(enc).read().strip(), open(dec).read().strip()
-        if e and e == d:
-            print(f"[{lv}] SS MATCH ({len(e)} hex chars) — PASS")
-        else:
-            print(f"[{lv}] SS MISMATCH — FAIL (enc {len(e)} vs dec {len(d)})")
-            overall = False; break
-    dt = time.time() - t0
-    print("=" * 50)
-    print(f"JOINT KAT GATE: {'PASS' if overall else 'FAIL'} ({dt:.0f}s)")
-    if CYCLES:
-        import json as _j
-        _o = {f"{k[0]}@{k[1]}": v for k, v in CYCLES.items()}
-        open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          "joint_kat_cycles.json"), "w").write(_j.dumps(_o, indent=2))
-        print("cycles:", _j.dumps(_o))
-    sys.exit(0 if overall else 1)
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    sys.exit(main())
