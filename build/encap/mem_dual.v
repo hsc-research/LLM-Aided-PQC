@@ -52,10 +52,7 @@ module mem_dual
       end
     else
       q_0 <= mem[address_0];
-  end
 
-  always @ (posedge clock)
-  begin
     if (wren_1)
       begin
         mem[address_1] <= data_1;

@@ -555,7 +555,6 @@ begin
             request_another_vector <= 2'b00;
             shake_force_done <= 1'b0;
             rd_y <= 1'b0;
-            rd_x <= 1'b0;
             rand_out_rd <= 1'b0;
             if (done_adder) begin
                 state <= s_done;
