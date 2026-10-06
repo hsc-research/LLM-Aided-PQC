@@ -545,7 +545,6 @@ assign hs_in_1 = (hs_addr_1_reg> (X + X%2)/2 - 1)? 0: hs_1;
   assign add_in_1 = pm_out;
   assign add_in_2 = cdw_out;
   assign cdw_out_addr = xor_add_addr_div;
-  assign cdw_out_addr = xor_add_addr/COPIES_OF_CDW;
    
   xor_based_adder #(.parameter_set(parameter_set), .N(N) , .WIDTH(RAMWIDTH))
   XOR_BASED_ADDER
