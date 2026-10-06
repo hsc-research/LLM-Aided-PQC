@@ -69,6 +69,8 @@ reg [`CLOG2(N):0] c_plus_n_in;
 wire [63:0]  ak;
 wire [31:0]  a_in_reg;
 wire [`CLOG2(N)-1:0]  n_in_reg;
+wire [31:0]  n_in_reg_w;
+assign n_in_reg = n_in_reg_w[`CLOG2(N)-1:0];
 reg [`CLOG2(N)-1:0]  n_in_reg_reg;
 wire [63:0]  tn;
 
@@ -119,10 +121,10 @@ KM_2(
     .clk(clk),
     .start(done_0),
     .done(done_1),
-    .a_in({0,n_in_reg_3}),
+    .a_in(n_in_reg_3),
     .b_in({0,t_shift_32}),
     .ab_out(tn),
-    .a_in_reg_out(n_in_reg) 
+    .a_in_reg_out(n_in_reg_w) 
 );
 
 always@(posedge clk) 
