@@ -169,7 +169,7 @@ always @(dout_ram or dout_idx or dout_ram_idx or dout_reg) begin:hash_output
     */
     end
     else begin
-      dout_internal <= dout_ram[dout_ram_idx * `PARALLEL_SLICES + dout_idx * `WOUT + `PARALLEL_SLICES - 1 -:
+      dout_internal = dout_ram[dout_ram_idx * `PARALLEL_SLICES + dout_idx * `WOUT + `PARALLEL_SLICES - 1 -:
                                 `PARALLEL_SLICES];
 
     /*

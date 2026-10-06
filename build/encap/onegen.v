@@ -282,7 +282,7 @@ begin
                 end
              end
             else begin 
-                state = s_wait_start;
+                state <= s_wait_start;
                 count_reg <= count_reg - 1;
 				ready_s <= 1'b1;
             end 
