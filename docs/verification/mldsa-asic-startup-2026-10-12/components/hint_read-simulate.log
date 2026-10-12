@@ -1,0 +1,2 @@
+ASIC_HINT_READ_VIEW_PASS exhaustive_control_cases=12288
+/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_makehint_read_view.sv:43: $finish called at 12288000 (1ps)

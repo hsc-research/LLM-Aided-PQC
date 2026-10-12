@@ -1,0 +1,14 @@
+[
+  {
+    "mutation": "empty_logs",
+    "result": "REJECTED: ML-DSA startup evidence lacks the exact complete simulation/compile/mapping logs"
+  },
+  {
+    "mutation": "failed_structure",
+    "result": "REJECTED: ML-DSA startup generic structural evidence is missing or overclaims target qualification"
+  },
+  {
+    "mutation": "false_component",
+    "result": "REJECTED: ML-DSA startup component evidence is incomplete"
+  }
+]

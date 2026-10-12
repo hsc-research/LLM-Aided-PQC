@@ -1,0 +1,77 @@
+This repository contains modified versions of third-party hardware source code.
+
+ML-DSA (CRYSTALS-Dilithium) RTL
+  Portions Copyright (c) 2021 Cryptographic Engineering Research Group (CERG),
+  ECE Department, George Mason University. Author: Luke Beckwith.
+  Licensed under the Apache License, Version 2.0.
+  Source publication: https://eprint.iacr.org/2021/1451
+
+  Portions Copyright (c) 2025 KU Leuven - COSIC. Licensed under the MIT License.
+
+HQC RTL
+  Portions are derived from the HQC hardware implementation developed at Yale
+  and published at SAC 2023. See the original source headers for the applicable
+  copyright and license terms.
+
+SLH-DSA / SPHINCSLET RTL
+  Portions are derived from the SPHINCSLET hardware implementation. The design
+  also incorporates third-party SHA-2 components, including Secworks-derived
+  SHA-256/SHA-512 RTL. See the original source headers in
+  agent/slh_dsa/pristine/ and agent/slh_dsa/slh_src/ for the applicable
+  copyright and license terms.
+
+The authors of this repository modified selected files for research on
+LLM-guided RTL optimization. Accepted ML-DSA overrides are tracked under
+agent/mldsa/mldsa_src/, accepted HQC variants under build/ and agent/hqc/, and
+SLH-DSA variants under agent/slh_dsa/. Original copyright and license headers
+must be preserved. Dated records of modifications, measurements, negative
+results, and superseded results are maintained under docs/findings/.
+
+Additional source headers identify Secworks Sweden AB (SHA-256/SHA-512,
+BSD-style two-clause terms), Josh Moles (Keccak, MIT), and Ma'muri (Keccak,
+MIT). These notices remain in the affected source files. Apache-2.0 license
+text is included in LICENSES/Apache-2.0.txt. This inventory is not a complete
+redistribution clearance; see docs/RELEASE_CHECKLIST.md for open review items.
+
+The repository-level GPL-3.0 license text does not replace source-specific licenses
+or notices attached to third-party files. Users are responsible for reviewing
+and complying with all applicable terms before redistribution.
+
+Adam's Bridge unified ML-KEM-1024 / ML-DSA-87 reference
+  The unmodified source subset under third_party/adams_bridge/upstream/ is
+  pinned to chipsalliance/adams-bridge v2.0.3, commit
+  b77e3d899e828d626cfc2a0d26a6b5704cc121e0, under Apache-2.0.
+  Original source copyright notices and the upstream license remain in place.
+  Locally authored integration and verification files are identified separately.
+  See third_party/adams_bridge/README.md and upstream/SOURCE_MANIFEST.json.
+
+NIST ACVP ML-KEM verification data
+  Official FIPS 203 vectors are derived from the pinned usnistgov/ACVP-Server
+  source identified in third_party/adams_bridge/test_vectors/.
+  Original notices and the exact vector provenance are included there.
+  These public test inputs must not be used as production cryptographic keys.
+
+ML-DSA-OSH reference inputs
+  The unmodified source subset under third_party/mldsa_osh/upstream/ is
+  pinned to KULeuven-COSIC/ML-DSA-OSH, commit
+  751009199ac081091a9059805e6921453bde0154.
+  Copyright (c) 2025 KU Leuven - COSIC, under the MIT License, with
+  Apache-2.0 portions and original source-specific notices preserved.
+  Upstream LICENSE, NOTICE, README.md and CITATION are retained in the bundle.
+  See third_party/mldsa_osh/README.md for scope and provenance.
+
+HQC SAC 2026 source-only baseline
+  The unmodified source/test/input bundle under third_party/hqc_sac2026/upstream/
+  is pinned to dbroy-iitk/HQC_SAC, commit
+  4be1fe99c677d6a3ff055d380a386f65184544f1, associated with
+  Performance Analysis of Parameterizable HQC Hardware Architecture (SAC 2026),
+  https://eprint.iacr.org/2026/592.
+  The upstream GNU GPL version 3 license is retained. Sampled source headers
+  allow version 3 or later; original component-specific author and copyright
+  notices remain unchanged. No separate upstream NOTICE exists at this pin.
+  The snapshot includes all upstream tracked files except three .DS_Store
+  metadata files. Local provenance and documentation are identified separately.
+  Importing this source does not qualify its functionality or replace the
+  separate SAC 2023-derived execution gates or historical hardware evidence.
+  See third_party/hqc_sac2026/README.md and SOURCE_MANIFEST.json for inventory,
+  attribution, static copy-integrity evidence, and qualification limits.

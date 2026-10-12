@@ -19,7 +19,7 @@ import shutil
 import sys
 import uuid
 
-from . import edit_ops
+from . import edit_ops, target_profiles
 from .run_safety import RunLock, SourceTransaction, hashes, run_process
 
 
@@ -86,6 +86,7 @@ def load_config(filename):
     filename = Path(filename).resolve()
     cfg = json.loads(filename.read_text())
     require(isinstance(cfg, dict), 'Configuration must be an object')
+    require('_target_profile' not in cfg, 'Reserved normalized target profile field')
     require(cfg.get('schema_version') == 1, 'Expected schema_version 1')
     root = (filename.parent / cfg.get('root', '.')).resolve()
     require(root.is_dir(), 'Missing design root')
@@ -162,6 +163,16 @@ def load_config(filename):
     integer(cfg.get('max_changed_bytes', 16384), 'max_changed_bytes', maximum=262144)
     integer(cfg.get('max_context_bytes', 262144), 'max_context_bytes', maximum=1048576)
     finite(cfg.get('timeout_seconds', 86400), 'timeout_seconds', True)
+    if cfg.get('target_profile') is not None:
+        profile_path = local_path(cfg['target_profile'], root)
+        require(profile_path in immutable, 'Target profile must be an immutable input')
+        require(cfg.get('verification_profile') != 'mldsa_keygen_75',
+                'KeyGen-only coverage cannot qualify a full-selected-design target profile')
+        require(cfg.get('verification_scope') == 'full_selected_design',
+                'Target-profile optimization requires full_selected_design verification_scope')
+        controls = strings(cfg.get('required_negative_controls'), 'required_negative_controls')
+        require(set(controls) <= set(checks), 'Negative controls must belong to required_checks')
+        cfg['_target_profile'] = target_profiles.load_profile(profile_path, root, cfg, sources, immutable)
     return {**cfg, 'root': str(root), 'config_path': str(filename), 'sources': sources,
             'immutable_inputs': sorted(set(immutable)), 'editable_files': editable,
             'instance_to_file': resolved_mapping, 'required_checks': checks, 'operations': operations}
@@ -171,6 +182,11 @@ def configuration(cfg):
     """Comparable measurement and checker contract; source bytes vary separately."""
     return {'target': cfg['target'], 'backend': cfg['backend'], 'top': cfg['top'],
             'scope': 'full_design', 'measurement': cfg['measurement'],
+            'target_profile': cfg.get('_target_profile'),
+            'target_include_inventory': target_profiles.include_inventory(cfg.get('_target_profile')),
+            'verification_scope': cfg.get('verification_scope',
+                'keygen_only' if cfg.get('verification_profile') == 'mldsa_keygen_75' else 'declared_checks_only'),
+            'required_negative_controls': cfg.get('required_negative_controls', []),
             'source_read_order': cfg['sources'], 'immutable_hashes': hashes(cfg['immutable_inputs']),
             'commands': cfg['commands'], 'required_checks': cfg['required_checks'],
             'operations': cfg['operations'], 'instance_to_file': cfg['instance_to_file'],
@@ -193,6 +209,7 @@ def make_plan(filename):
         return {'status': 'BLOCKED' if missing else 'CONFIGURED_NOT_RUN',
                 'blockers': [f'Missing executable for {phase}' for phase in missing],
                 'backend': cfg['backend'], 'top': cfg['top'], 'configuration': contract,
+                'qualification_mode': 'target_bound' if cfg.get('_target_profile') else 'legacy_not_target_qualified',
                 'candidate_budget': cfg.get('candidate_budget', 5), 'commands': cfg['commands'],
                 'note': 'Adapter semantics and site qualification must be reviewed. No EDA, simulation, or LLM ran.'}
     except (OSError, ValueError, TypeError, KeyError, RuntimeError) as error:
@@ -213,9 +230,16 @@ def validate_reports(response, directory, required):
     return result
 
 
-def validate_gate(response, cfg):
+def validate_gate(response, cfg, expected=None, contract=None):
     require(response.get('status') == 'PASS' and response.get('scope') == 'full_design',
             'Full-design functional verification did not pass')
+    if cfg.get('_target_profile') is not None:
+        require(contract is not None and expected is not None, 'Target gate needs source/configuration binding')
+        validate_target_evidence(response, expected, contract)
+        require(response.get('coverage_scope') == 'full_selected_design',
+                'Partial-operation gate cannot qualify the selected target design')
+        require(response.get('covered_operations') == cfg['_target_profile']['required_operations'],
+                'Missing full-selected-operation target coverage')
     checked = response.get('checks')
     require(isinstance(checked, dict) and all(checked.get(x) == 'PASS' for x in cfg['required_checks'])
             and all(value == 'PASS' for value in checked.values()), 'Required functional checks are missing or failed')
@@ -227,10 +251,40 @@ def validate_gate(response, cfg):
     return cycles
 
 
-def validate_measurement(response, cfg, contract):
+def validate_target_evidence(response, expected, contract):
+    profile = contract['target_profile']
+    require(response.get('target_profile_fingerprint') == profile['profile_fingerprint'],
+            'Evidence belongs to a different target profile')
+    require(response.get('configuration') == contract, 'Target evidence configuration mismatch')
+    require(response.get('source_hashes') == expected and
+            response.get('source_read_order') == contract['source_read_order'],
+            'Target evidence does not bind the full selected source manifest')
+
+
+def validate_measurement(response, cfg, contract, expected=None):
     require(response.get('status') == 'MEASURED' and response.get('scope') == 'full_design',
             'Missing full-design measurement')
     require(response.get('configuration') == contract, 'Measurement configuration mismatch')
+    if cfg.get('_target_profile') is not None:
+        require(expected is not None, 'Target measurement needs exact source binding')
+        validate_target_evidence(response, expected, contract)
+        require(response.get('structural_checks_verified') is True and
+                response.get('memory_implementation_verified') is True,
+                'Target structural/memory implementation admission is unverified')
+        require(response.get('memory_implementation') ==
+                cfg['_target_profile']['target']['memory_implementation'],
+                'Measured memory implementation differs from selected target')
+        require({'structural', 'memory'} <= set(response.get('reports', {})),
+                'Missing structural/memory target admission evidence')
+        require(response.get('memory_semantics_verified') is True and
+                response.get('memory_semantics_scope') == 'mapped_implementation',
+                'Mapped memory startup/read/write/collision semantics are unverified')
+        require({'memory_semantics', 'implementation_netlist'} <= set(response.get('reports', {})),
+                'Missing mapped memory semantics report or exact implementation netlist')
+        if cfg['target'] == 'asic':
+            require(response.get('admission_passed') is True and
+                    response.get('admission_policy') == 'strict-rtl-flops-v1',
+                    'Strict ASIC admission did not pass')
     metrics = response.get('metrics', {})
     finite(metrics.get('worst_setup_slack_ns'), 'worst setup slack')
     finite(metrics.get(cfg['area_metric']), 'primary area metric', True)
@@ -290,6 +344,8 @@ def choose_targets(measurement, cfg):
 
 def acceptance(before, after, before_cycles, after_cycles, cfg):
     require(before['configuration'] == after['configuration'], 'Configuration changed during comparison')
+    require(before['configuration'] == configuration(cfg),
+            'Acceptance evidence belongs to a different target/configuration')
     require(before['area_unit'] == after['area_unit'], 'Area units changed')
     if any(after_cycles[key] > before_cycles[key] for key in before_cycles):
         return False, 'LATENCY_REGRESSION'
@@ -369,18 +425,20 @@ class Controller:
 
     def verify(self, expected):
         value = self.command('verify', expected)
-        validate_gate(value, self.cfg)
+        validate_gate(value, self.cfg, expected, self.contract)
         return value
 
     def measure(self, expected):
         value = self.command('measure', expected)
-        return validate_measurement(value, self.cfg, self.contract)
+        return validate_measurement(value, self.cfg, self.contract, expected)
 
     def candidate(self, number, current_sources, current_gate, current_measurement):
         event = {'history_schema': 1, 'candidate_id': f'{self.directory.name}-{number}',
                  'history_state': 'chip_rejected', 'evidence_stage': 'full_design',
                  'correctness_status': 'NOT_RUN', 'baseline_sources': current_sources,
-                 'configuration': self.contract, 'verdict': 'ERROR'}
+                 'configuration': self.contract, 'verdict': 'ERROR',
+                 'target': self.cfg['target'], 'configuration_sha256': digest(self.contract),
+                 'target_profile_fingerprint': (self.contract['target_profile'] or {}).get('profile_fingerprint')}
         self.pending_event = event
         self.pending_backups = None
         backups = None
@@ -411,6 +469,9 @@ class Controller:
             preview = edit_ops.preview_experiment(experiment, allowed_paths=targets['allowed_files'])
             changed_bytes = 0
             for before, after in preview.values():
+                if self.cfg.get('_target_profile') is not None:
+                    require(target_profiles.unchanged_directives(before, after),
+                            'Candidate changes frozen compilation directives')
                 changed_bytes += sum(len(line[1:].encode()) for line in
                                      difflib.ndiff(before.splitlines(True), after.splitlines(True))
                                      if line.startswith(('+ ', '- ')))
@@ -459,7 +520,10 @@ class Controller:
                                                    'baseline_sources': self.baseline_sources})
             result = {'status': 'BLOCKED', 'run_dir': str(self.directory), 'accepted': 0,
                       'baseline_sources': self.baseline_sources, 'timing_signoff': False,
-                      'workload_power_validated': False}
+                      'workload_power_validated': False,
+                      'qualification_mode': 'target_bound' if self.cfg.get('_target_profile') else 'legacy_not_target_qualified',
+                      'target_profile_fingerprint': (self.contract['target_profile'] or {}).get('profile_fingerprint'),
+                      'hardware_learning_claim': False}
             try:
                 self.unchanged(self.baseline_sources)
                 gate = self.verify(self.baseline_sources)
@@ -521,6 +585,15 @@ def asic_measurement_response(result, request_path, response_path, critical_path
     request = json.loads(request_path.read_text())
     contract = request['configuration']
     spec = contract['measurement']
+    profile = contract.get('target_profile')
+    if profile is not None:
+        require(contract.get('target') == 'asic', 'ASIC result cannot qualify an FPGA target')
+        target_profiles.validate_asic_plan(spec.get('asic_effective_config'), profile)
+        require(result.get('admission_passed') is True and result.get('structural_checks_verified') is True
+                and result.get('memory_implementation_verified') is True
+                and result.get('memory_implementation') == 'flops'
+                and result.get('admission_policy') == 'strict-rtl-flops-v1',
+                'ASIC target implementation admission did not pass')
     require(result.get('status') == 'MEASURED' and result.get('tool') in ('genus', 'dc'),
             'ASIC measurement did not complete')
     require(result['tool'] == contract['backend'] and result.get('stage') == spec['stage']
@@ -570,6 +643,22 @@ def asic_measurement_response(result, request_path, response_path, critical_path
                 'critical_paths': critical_paths, 'reports': reports,
                 'asic_result': str(directory / 'result.json'), 'timing_signoff': False,
                 'workload_power_validated': False}
+    if profile is not None:
+        admission = reports.get('admission_post_synth')
+        require(admission is not None, 'Missing ASIC post-synthesis admission report')
+        reports['structural'] = reports['memory'] = admission
+        netlist = directory / 'netlist.v'
+        require(netlist.is_file() and not netlist.is_symlink(), 'Missing fresh ASIC implementation netlist')
+        reports['implementation_netlist'] = {'path': str(netlist), 'sha256': hashes([netlist])[str(netlist)]}
+        # FF inventory does not prove initial state, read latency, or collision
+        # semantics survived synthesis. A separate qualified mapped checker is
+        # needed; the built-in ASIC runner explicitly reports this as false.
+        response.update(memory_semantics_verified=result.get('memory_semantics_verified', False),
+                        memory_semantics_scope=result.get('memory_semantics_scope'))
+        response.update(target_profile_fingerprint=profile['profile_fingerprint'],
+                        source_hashes=request['source_hashes'], source_read_order=contract['source_read_order'],
+                        **{key: result[key] for key in ('admission_passed', 'admission_policy',
+                           'structural_checks_verified', 'memory_implementation_verified', 'memory_implementation')})
     save(response_path, response)
     return response
 

@@ -1,0 +1,356 @@
+{
+  "artifacts": {
+    "docs.txt": "1bc29eafe4e876bfda5297df10a6ec3ad5c914aaba04d61107656c0393f7cd3e",
+    "extra-asic-doc-links.json": "b480b7acc67eb0662db6cb7b5e41c86cc08de5a70b4506f5678e9a059e382705",
+    "frozen-inputs-after.json": "df1f00bab1ac29cd9639a814f4037130e312cb4b160380e97243523eda9e6f74",
+    "frozen-inputs-before.json": "aae487114daaed67fb5b47fef56215e851f394079cb8d5bde46d40edf1a31dd7",
+    "git-diff-check.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "independent/mldsa-deliverable-hash-review.json": "ef0139c7badfbf45c94c009cbcc1413420c0bb35ecd30bb60afe2afbdac2e062",
+    "independent/mldsa-export-negative-recheck.json": "ce2d61ee152f96658608c65685bd1713b4c38f54f572d81ca5c4f221cf2019d5",
+    "independent/mldsa-export-negative-review.json": "e8f792e82a6c4bfad6e34ea91e17d311ec55febfa85967a27bd889386a7894fa",
+    "independent/mldsa-final-review.json": "4193c0ca86e176b2e43ace03cd356c6e9907aef16675e3d81c137b5cbf5d5308",
+    "independent/mldsa-release-ff-inspection.json": "44584e9729275e0760060ba95c9913b0e5b4124471c7f40019c3ba26a1bf1a6b",
+    "independent/mldsa-release-functional-inspection.json": "052b0c781daaf5d82073af579dc4ac101af0a83b4abdcadbea3490067ab4eb3d",
+    "independent/slh-deliverable-hash-review.json": "5e76c269d2d2a0113e4fd56df1268e3d6f2dc5ba43b928a9ae43be8ed962b16a",
+    "independent/slh-final-functional-inspection.json": "7047143ed7c3cb36d26caee384e515b019e5914fb5d46f2df8cb3fe76087ba34",
+    "independent/slh-final-mapped-inspection.json": "d53d56f4e37ade9bdb873ef430da162c888dc1e6deb32d8a320d60a894a4c2a3",
+    "index-review/docs.txt": "1bc29eafe4e876bfda5297df10a6ec3ad5c914aaba04d61107656c0393f7cd3e",
+    "index-review/index-source-inventory.json": "722603089f33e070778a0eee12bb7e523952e2e505704e03afdeb64659db2495",
+    "index-review/index-stage-before.bin": "379fbf357a3cab000612f09cf2f9916099c064a27d3cac83d68ac71bff3e3033",
+    "index-review/index-stage-final.json": "90734e4884f0109e07354e95f312ba111fd2bddb8d392e032791ba66ea191b35",
+    "index-review/mldsa-integrity.json": "6db189f3e73f02b2abd32995e98895d0e0e11e218d5f37d3bd54ae37568361bd",
+    "index-review/mlkem-integrity.txt": "1672c20b46a9ef8e5af0e063b22bcdd9355d2942ca0e967ff6afaeee7fa31005",
+    "index-review/profile-rebuild-review.json": "a0fc7b551795867ea975bfbbe9b42771b4cd9984c57d90bc1185f56ad44a71bb",
+    "index-review/profile-rebuild.log.txt": "5e8b3022f21d629b132a711cca2c03b48b2d9bc5742e5bef973285f6ecb16d64",
+    "index-review/profiles/mldsa-asic-startup-baseline-asic.json": "618e5b500593a5af4ac8c81fc90ff4ee2ba0779ef7dbe5ec782adfb1e3a58d1b",
+    "index-review/profiles/mldsa-asic-startup-candidate-asic.json": "ce26497d12fc969999409f0bb487c7f3e9e8a31eb39627e55997e0eb430581f0",
+    "index-review/profiles/mldsa-corrected-candidate-asic.json": "1d2e84927f3d7dabb4a8e5062583897fda3af127d3941db0fbb76b9fa635e0b6",
+    "index-review/profiles/mldsa-corrected-candidate-fpga.json": "f059728affdf75ad8811afd4a36dccd77468e087780b01f68940a7f3c23eacdf",
+    "index-review/profiles/mldsa-guarded-baseline-asic.json": "2a1d40c8843eb8aecc726812fcc382b00d7ac150cca807d69c0ad6fbc03dda0b",
+    "index-review/profiles/mldsa-guarded-baseline-fpga.json": "8f06444d21e526b696f16497a7311b21c286cf68b19c8fc6c86cc7864d59d5d2",
+    "index-review/profiles/mlkem-baseline-asic.json": "633d0964955dec37a2419306748861dc5d4dd08136ae62d2bf013975385250a5",
+    "index-review/profiles/mlkem-baseline-fpga.json": "b4991b95478468f6bb1d984e9bb61c2d07d8ae7abde4eb3c84de63fb931f72ba",
+    "index-review/profiles/slh-asic-startup-baseline-128f-asic.json": "b7816cda2db4fbbc37de8003d0cc21ceb0c059548c3f788c52c3c6d9ff386005",
+    "index-review/profiles/slh-asic-startup-baseline-192f-asic.json": "67e6095ea75aec24184d3fa331b6a9c66673757cf4922a9feab9fd085268dfb7",
+    "index-review/profiles/slh-asic-startup-candidate-128f-asic.json": "9b6243a06f3cdec94669ebb8c256d69ac922281e1c8ba61d209f844f37221039",
+    "index-review/profiles/slh-asic-startup-candidate-192f-asic.json": "1e5660cc7509d68bce96960d222db11e8d73fbf1b4bff0ae3c0767dfd3d2e174",
+    "index-review/profiles/slh-corrected-baseline-128f-asic.json": "bc6f46bb44495ff38b113a896a6d84b50317fb066867d0295eb3448ce3f2bd4e",
+    "index-review/profiles/slh-corrected-baseline-128f-fpga.json": "5cbe5efc5e38a6037c896d92023d034b864103d64aceaa3af749098d3b8fc431",
+    "index-review/profiles/slh-corrected-baseline-192f-asic.json": "bc302b7c21312f3a5d423df89cad6225582a1cab3cd46c194fe578d742e8a0da",
+    "index-review/profiles/slh-corrected-baseline-192f-fpga.json": "891c3098a039e128e035554f21d18ca3482bdb7e45a4fcae5c05ad9cdf1fede6",
+    "index-review/profiles/slh-corrected-candidate-128f-asic.json": "68a1bade7ca76ad216da0826a0337fe13018bef7bb0f06a9b35655ff3fdbe2d6",
+    "index-review/profiles/slh-corrected-candidate-128f-fpga.json": "6997ad67baf09b5c1b26c7f8e031a5a9d91e106f2067a99c22d6cc0df18481d0",
+    "index-review/profiles/slh-corrected-candidate-192f-asic.json": "46a60bf3929285e6578e3b3a811ea6b3d5ebd8522e5c8606ee2240abd0a04d5f",
+    "index-review/profiles/slh-corrected-candidate-192f-fpga.json": "98715c86ab2495af18486c5c33ace3db8ec084111caded04274171a8afcb80ad",
+    "index-review/publication-check.json": "9f3a2716543a5fdedff76bd5e113118b2c5e40651d51540f586e4fe714699886",
+    "index-review/rebuild_exports.py": "2c30d6b4459416128fba24ffe44a5b8dfe62c324bad6a224912496434d1f2b3f",
+    "index-review/staged-diff-check-analysis.json": "4023fc61a2f908dcd31def918cc2681b5b7ca879f3d8b5d5ed206d2d101efb8e",
+    "index-review/staged-diff-check.txt": "2efb5dadaeb42c70f7cf18688decaecaeec57a948326a9094fd4979ba7aee999",
+    "integrated-package-hash-review.json": "4aa9bd52b02c70f8a35af70fa8bbd78667dc298d5c55fba8114aaff4164ded87",
+    "mldsa-integrity.json": "6db189f3e73f02b2abd32995e98895d0e0e11e218d5f37d3bd54ae37568361bd",
+    "mlkem-integrity.txt": "1672c20b46a9ef8e5af0e063b22bcdd9355d2942ca0e967ff6afaeee7fa31005",
+    "prior_permitted_runner.py.txt": "09dc6ff89f60ec0c4aac553e6e63f450aa9ba6530e88762916b19e1c931335f9",
+    "profile-rebuild-review.json": "869b03b4fc1344ef713d61541825c8f60c67535ea1ea474ff3dc6ab5c148f00f",
+    "profile-rebuild.log.txt": "5e8b3022f21d629b132a711cca2c03b48b2d9bc5742e5bef973285f6ecb16d64",
+    "profiles/mldsa-asic-startup-baseline-asic.json": "618e5b500593a5af4ac8c81fc90ff4ee2ba0779ef7dbe5ec782adfb1e3a58d1b",
+    "profiles/mldsa-asic-startup-candidate-asic.json": "ce26497d12fc969999409f0bb487c7f3e9e8a31eb39627e55997e0eb430581f0",
+    "profiles/mldsa-corrected-candidate-asic.json": "1d2e84927f3d7dabb4a8e5062583897fda3af127d3941db0fbb76b9fa635e0b6",
+    "profiles/mldsa-corrected-candidate-fpga.json": "f059728affdf75ad8811afd4a36dccd77468e087780b01f68940a7f3c23eacdf",
+    "profiles/mldsa-guarded-baseline-asic.json": "2a1d40c8843eb8aecc726812fcc382b00d7ac150cca807d69c0ad6fbc03dda0b",
+    "profiles/mldsa-guarded-baseline-fpga.json": "8f06444d21e526b696f16497a7311b21c286cf68b19c8fc6c86cc7864d59d5d2",
+    "profiles/mlkem-baseline-asic.json": "633d0964955dec37a2419306748861dc5d4dd08136ae62d2bf013975385250a5",
+    "profiles/mlkem-baseline-fpga.json": "b4991b95478468f6bb1d984e9bb61c2d07d8ae7abde4eb3c84de63fb931f72ba",
+    "profiles/slh-asic-startup-baseline-128f-asic.json": "b7816cda2db4fbbc37de8003d0cc21ceb0c059548c3f788c52c3c6d9ff386005",
+    "profiles/slh-asic-startup-baseline-192f-asic.json": "67e6095ea75aec24184d3fa331b6a9c66673757cf4922a9feab9fd085268dfb7",
+    "profiles/slh-asic-startup-candidate-128f-asic.json": "9b6243a06f3cdec94669ebb8c256d69ac922281e1c8ba61d209f844f37221039",
+    "profiles/slh-asic-startup-candidate-192f-asic.json": "1e5660cc7509d68bce96960d222db11e8d73fbf1b4bff0ae3c0767dfd3d2e174",
+    "profiles/slh-corrected-baseline-128f-asic.json": "bc6f46bb44495ff38b113a896a6d84b50317fb066867d0295eb3448ce3f2bd4e",
+    "profiles/slh-corrected-baseline-128f-fpga.json": "5cbe5efc5e38a6037c896d92023d034b864103d64aceaa3af749098d3b8fc431",
+    "profiles/slh-corrected-baseline-192f-asic.json": "bc302b7c21312f3a5d423df89cad6225582a1cab3cd46c194fe578d742e8a0da",
+    "profiles/slh-corrected-baseline-192f-fpga.json": "891c3098a039e128e035554f21d18ca3482bdb7e45a4fcae5c05ad9cdf1fede6",
+    "profiles/slh-corrected-candidate-128f-asic.json": "68a1bade7ca76ad216da0826a0337fe13018bef7bb0f06a9b35655ff3fdbe2d6",
+    "profiles/slh-corrected-candidate-128f-fpga.json": "6997ad67baf09b5c1b26c7f8e031a5a9d91e106f2067a99c22d6cc0df18481d0",
+    "profiles/slh-corrected-candidate-192f-asic.json": "46a60bf3929285e6578e3b3a811ea6b3d5ebd8522e5c8606ee2240abd0a04d5f",
+    "profiles/slh-corrected-candidate-192f-fpga.json": "98715c86ab2495af18486c5c33ace3db8ec084111caded04274171a8afcb80ad",
+    "rebuild_exports.py": "b4950ba69b30745148d4a0fdc83c4602571f22e88d3a277b7f220fdc55c4ffa1",
+    "result-before-index-check.json": "015a22782392b121a7a55b1e60fcf7de940361f02284a74c1134389619989e3a",
+    "run_permitted_subset-first-attempt.py.txt": "28db55556913126d8f4f1c716e099b1662aafdd09845e07066ee6ae051a18304",
+    "run_permitted_subset.py": "6d5c4ef56647122150e45143996fa2d94546f72c4b217d71a1db63ee5596fef1",
+    "snapshot_inputs.py": "3870894dfbb31dada816905f1b292494f0327963e804ac9759317eb9608bb877",
+    "startup-compile-review.json": "4df4583c0a37970b99ac20749104b6311401225c12c597e0d76a3b8fb2ab06ed",
+    "startup-compile/mldsa-44-65-87-asic-startup-baseline/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "startup-compile/mldsa-44-65-87-asic-startup-baseline/result.json": "a7971141483d816e277478833838c9bdd37e7a8f0793aca1e41654b16dde7842",
+    "startup-compile/mldsa-44-65-87-asic-startup-candidate/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "startup-compile/mldsa-44-65-87-asic-startup-candidate/result.json": "c40fdd05822b6d35727541b7656cba8c8bd6c023b63726e047721fd03f3665f9",
+    "startup-compile/slh-128f-asic-startup-baseline/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "startup-compile/slh-128f-asic-startup-baseline/result.json": "1ae352c2392a6170a5a91b891c9464cd04ea28baf9079796cde45268fd2463ce",
+    "startup-compile/slh-128f-asic-startup-candidate/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "startup-compile/slh-128f-asic-startup-candidate/result.json": "000567e39aee3d2f9ac898fc9c4ad100c8ef99cc2a1e8a15f673d1f8c59a8ef2",
+    "startup-compile/slh-192f-asic-startup-baseline/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "startup-compile/slh-192f-asic-startup-baseline/result.json": "fb50c99e0cc87c85e5635440bc7b4e18ca10961b27c9aa7fc1a751678483a9ab",
+    "startup-compile/slh-192f-asic-startup-candidate/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "startup-compile/slh-192f-asic-startup-candidate/result.json": "9c5ddeeaa1eeeb2e8d70555d0532b23c7836a8d262ffd795ea7920c793ef7aac",
+    "unittest-O0-first-attempt.log.txt": "d0945a7b0947dba15b90543462ff535d9f14eac9d7fb87b1208a47c1b3eed774",
+    "unittest-O0.json": "1e2e6ca61b198797db5b56cc17c636f1c491617c4b417475237478c30c112fe6",
+    "unittest-O0.log.txt": "764d81be505767a894f4cd9d067012509ad49667e4936b9ddafb2bcba88d3b7c",
+    "unittest-O1.json": "42cbd44a1d5a188493a4bf549f7e4502eaad1d8f7239bfec26c19428ba714336",
+    "unittest-O1.log.txt": "f77a77b686d49d0c4f82826897cfb9740255b217f0b260adde1666130c9432e1"
+  },
+  "base_commit": "d92df84e8d7d1d6be373b0119f8e3d8ddc1e0d8f",
+  "date_utc": "2026-10-12",
+  "exports": {
+    "byte_identical_outputs": true,
+    "compile_records_match_independent_rebuild_fingerprints": true,
+    "compiler_rerun_by_reviewer": false,
+    "ordered_source_hashes_match": true,
+    "profiles": 20,
+    "standalone_relocated_verification": true,
+    "startup_compile_records": 6,
+    "startup_profiles": 6,
+    "target_tool_qualified": false,
+    "two_independent_rebuilds_each": true
+  },
+  "independent_source_findings": [
+    "Explicit boot reset/ready contracts reviewed; pre-ready start/valid/write gating includes SLH seed inputs. Ordinary reset storage semantics preserved.",
+    "RAM scrub exact depth: ML one4096x96 and six1024x96; SLH inclusive vendor DEPTH+1 gives81/172 cycles.",
+    "Constant ROM data preserved; initial/declaration power-up state removed or replaced by explicit boot initialization/static logic.",
+    "ML gen_c latch cleanup only defines unsupported security levels; valid-level behavior unchanged. ML hint read-only padding retains80 stored bytes, defining only inactive out-of-range reads.",
+    "SLH hash illegal-state defaults and XMSS previous-value/bypass reviewed under synchronous settled-cycle contract; exhaustive sampled decoder controls passed.",
+    "SLH invalid read view adds no storage and preserves simulation X; consumed-address monitor guards source-derived, with correct registered-read timing. Overbroad opcode0 monitor failure preserved and corrected without RTL alteration.",
+    "All six final whole mapped netlists independently parsed and hash checked: zero residual memories, latches, initialization attributes, tri-state cells or blackboxes.",
+    "Fresh functional source/binary/test/log bindings verified. Export fail-closed gaps for missing log inventory, stale structural/component status, restart ordering and incomplete focused evidence were corrected and negatively tested."
+  ],
+  "input_freeze": {
+    "after_check": "frozen-inputs-after.json",
+    "files": 2550,
+    "path": "frozen-inputs-before.json",
+    "post_test_nonexecutable_change": {
+      "after_sha256": "68a1b8b468c01c1395d21da3dac75e20fbe5bd2058d4f68e95a83be5ce586bed",
+      "before_sha256": "5ad639bdadf21691f39ac755681e0a7069a2e5fde8b2f7c22e8d6fb989d1dd28",
+      "change": "Add exactly /build/profiles/ ignore pattern",
+      "no_executable_or_evidence_change": true,
+      "path": ".gitignore"
+    },
+    "repository_inputs_unchanged": true,
+    "sha256": "aae487114daaed67fb5b47fef56215e851f394079cb8d5bde46d40edf1a31dd7"
+  },
+  "limits": [
+    "No licensed EDA, paid API, Actions, HQC execution or HQC repair was performed. Exact19 HQC-related tests omitted; not a full repository-suite or HQC pass.",
+    "No standard-cell library mapping, mapped functional equivalence, place/route, PPA, timing closure, side-channel or cryptographic certification claim.",
+    "Startup profiles retain whole_algorithm_qualified=false, target_tool_qualified=false and technology_mapping_verified=false.",
+    "Finite vectors/control tests do not prove all inputs, asynchronous changes or arbitrary resets/aborts.",
+    "SLH external signature memory remains outside the design top; matching implementations must supply it identically.",
+    "Undefined simultaneous same-address dual writes remain outside the qualified contract. Invalid/unconsumed address definitions are not guarantees for consumed invalid reads.",
+    "ML boot_ready means boot initialization complete; original operation reset/start remains required. The pre-existing cstate2 normal-reset omission is preserved.",
+    "SLH INIT=0 RAM/FIFO data is not scrubbed. Boot is not a qualified secure-erasure operation.",
+    "Full staged git whitespace check reports preserved whitespace in99 exact-inventoried source/notices/evidence files. These formatting diagnostics are disclosed, not a hardware structural waiver; bytes remain bound to fresh tests."
+  ],
+  "other_checks": {
+    "additional_recursive_asic_markdown": {
+      "errors": 0,
+      "files": 3,
+      "local_links": 26
+    },
+    "documentation": {
+      "errors": 0,
+      "local_links": 657,
+      "markdown_files": 99,
+      "status": "PASS"
+    },
+    "full_staged_diff_check": {
+      "diagnostics": 4654,
+      "exit_code": 2,
+      "files": 99,
+      "interpretation": "Git formatting diagnostics in byte-preserved tested RTL/notices and raw evidence; no executable/source rewrite performed. Not a structural RTL waiver.",
+      "kinds": {
+        "new blank line at EOF.": 13,
+        "trailing whitespace.": 4641
+      },
+      "outside_verified_inventory": [],
+      "status": "WHITESPACE_DIAGNOSTICS_IN_FROZEN_INVENTORIED_ARTIFACTS"
+    },
+    "index_only_documentation_and_source_integrity": "PASS",
+    "mldsa_snapshot": {
+      "files": 106,
+      "status": "PASS"
+    },
+    "mlkem_snapshot": {
+      "acvp_cases_present": 80,
+      "compile_entries": 175,
+      "files": 220,
+      "status": "PASS"
+    },
+    "pre_stage_modified_tracked_file_diff_check": "PASS"
+  },
+  "packages": [
+    {
+      "files_checked": 179,
+      "inventory_sha256": "12be9f008bf04b8b154800e6d5529c2fd6d1fb8256f27dbac6901ca6e50af58c",
+      "mismatches": [],
+      "package": "mldsa"
+    },
+    {
+      "files_checked": 102,
+      "inventory_sha256": "ca5de62dd485fd37aba775ed18aedf7dbf67a2c5ad6e47a51f5c2bc084f0cfa8",
+      "mismatches": [],
+      "package": "slh"
+    }
+  ],
+  "publication": "Review artifacts are prepared for parent spot-check/copy; this report itself authorizes no merge or target admission.",
+  "publication_check": {
+    "all_worktree_and_index_profile_fingerprints_match": true,
+    "index_snapshot_sha256": "cf1359266ad80f11264aae1cf62976cecad0865626f897ce74b7223c1ea56fc0",
+    "index_source_inventory": "index-source-inventory.json",
+    "only_change_after_software_freeze": {
+      "after_sha256": "68a1b8b468c01c1395d21da3dac75e20fbe5bd2058d4f68e95a83be5ce586bed",
+      "before_sha256": "5ad639bdadf21691f39ac755681e0a7069a2e5fde8b2f7c22e8d6fb989d1dd28",
+      "change": "Add exactly /build/profiles/ ignore pattern",
+      "no_executable_or_evidence_change": true,
+      "path": ".gitignore"
+    },
+    "profile_rebuilds": 20,
+    "scope": "Index-only checkout; no ignored or untracked worktree artifact available to source exporters. All20 profile outputs match working-tree review fingerprints.",
+    "staged_files": 2638,
+    "status": "PASS"
+  },
+  "rtl_evidence_review": {
+    "mldsa": {
+      "aggregate_sha256": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de",
+      "final_manifests": {
+        "corrected-candidate": "2a00b5a082922fa4f85d1afd937bfed1ce8fb5886b5839125451a2065a32273c",
+        "guarded-baseline": "3589892c8a6f577f7e0165138214a0de487243e0f2448019e3a4ad132403bec8"
+      },
+      "fresh_kat_completions_per_arm": 630,
+      "fullcore_simulation": "two-state randomized initialization; separate four-state component tests",
+      "generic_ff_bits": {
+        "baseline": 1040535,
+        "candidate": 1041731
+      },
+      "observed_in_operation_boot_aborts_per_arm": 30,
+      "postboot_cycles_match_own_reference": true,
+      "ram_banks": {
+        "1024x96": 6,
+        "4096x96": 1
+      }
+    },
+    "slh": {
+      "control_checks_per_CH_len_2_and_4": 12294,
+      "exact_arm_parameter_configurations": 4,
+      "full_signature_positive_and_live_corruption_cases": 8,
+      "functional_scope": "historical vendor differential, not independent full-algorithm FIPS205 qualification",
+      "generic_ff_bits_per_arm": {
+        "128f": 85243,
+        "192f": 129594
+      },
+      "output_words": {
+        "128f": 2141,
+        "192f": 4463
+      },
+      "reboot_scope": "inactive repeated boot and interrupted scrub; active-operation abort/recovery unqualified",
+      "release_report_sha256": "ce6299508063a25407d3d51a0ce0336a9bdc55c052938007b0e2427520c65484"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Independent bounded review of final integrated ML-DSA/SLH explicit ASIC startup source derivatives, fresh exact-source evidence, offline exports and permitted software regression; not target implementation qualification",
+  "software_tests": {
+    "discovered": 436,
+    "excluded": [
+      {
+        "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction",
+        "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument"
+      },
+      {
+        "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction",
+        "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries"
+      },
+      {
+        "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction",
+        "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched"
+      }
+    ],
+    "excluded_hqc_related": 19,
+    "first_attempt": "417 tests passed with five tool-PATH skips; archived runner failed serializing skip objects. First attempt log/code preserved. Local reviewer runner fixed, existing open-source tools added to child-process PATH, both final runs passed without skips. No repository repair was required.",
+    "new_hqc_related_exclusions": [],
+    "normal": {
+      "elapsed_seconds": 26.905,
+      "errors": 0,
+      "failures": 0,
+      "ran": 417,
+      "skipped": []
+    },
+    "optimized": {
+      "elapsed_seconds": 28.033,
+      "errors": 0,
+      "failures": 0,
+      "ran": 417,
+      "skipped": []
+    },
+    "permitted": 417,
+    "runner_sha256": "6d5c4ef56647122150e45143996fa2d94546f72c4b217d71a1db63ee5596fef1"
+  },
+  "status": "PASS"
+}

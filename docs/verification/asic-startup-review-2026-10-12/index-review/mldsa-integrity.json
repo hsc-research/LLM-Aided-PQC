@@ -1,0 +1,8 @@
+{
+  "source_integrity": "PASS",
+  "commit": "751009199ac081091a9059805e6921453bde0154",
+  "files": 106,
+  "bytes": 3300503,
+  "keygen_cases_present": 75,
+  "qualification": "NOT RUN: RTL compilation/simulation, Sign/Verify, FIPS certification, or PPA"
+}

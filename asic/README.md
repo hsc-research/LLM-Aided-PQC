@@ -10,6 +10,13 @@
 
 Offline tests cover execution failures, malformed reports, units, clock-period mismatches, input changes, and Tcl control flow with stubs. **Neither commercial tool has been run to qualify this revision.** Tcl stubs cannot validate vendor commands, RTL synthesis, cryptographic correctness, power accuracy, or place-and-route. `MEASURED` means the configured process produced supported reports; it does not mean publication-ready, equivalent, or signoff-clean.
 
+The dual-target ASIC arm selects **generic RTL memories intended for FF/logic mapping,
+without a macro compiler**. Use `memory_model: "flops"` and the strict admission
+contract below. The older `macros` setting remains a separate legacy runner
+option; it is not the selected dual-target policy. Merely setting `flops` does
+not establish mapped storage. Actual DC/Genus runs remain user-owned work on the
+licensed machine.
+
 ## Four-scheme readiness
 
 | Scheme | Tracked source evidence | ASIC readiness |
@@ -17,7 +24,7 @@ Offline tests cover execution failures, malformed reports, units, clock-period m
 | ML-KEM | Pinned Adam's Bridge v2.0.3 unified ML-KEM-1024 / ML-DSA-87 source and generic memories; baseline passed 80 official ACVP cases under Verilator | [Whole-wrapper example](../configs/mlkem_adams_bridge_asic.example.json) covers the unified design, not ML-KEM-only area. Licensed synthesis, site constraints and library/memory qualification remain open |
 | ML-DSA | Pinned mixed-Verilog/VHDL ML-DSA-OSH inputs under `third_party/mldsa_osh/upstream`, including `common/zetas.txt`; existing ASIC arms and butterfly arms retained | [Full-design example](../configs/mldsa_osh_asic.example.json) supplies ordered source/data inputs. The historical baseline retains two portability edits. Separate guarded baseline/corrected candidate variants now pass 210 portable functional cases each. [Export those exact sources](../docs/HARDWARE_HANDOFF.md#ml-dsa-export-the-passing-derivatives) before replacing this older arm's configuration; no new licensed elaboration/synthesis or PPA result |
 | HQC | [Preferred SAC 2026 source-only snapshot](../third_party/hqc_sac2026/README.md); older baseline/optimized arms remain in `asic/arms/hqc_*` | No SAC 2026 executable integration or synthesis qualification. Older archived Genus reports apply only to their SAC 2023-derived sources; reviewed manifests, memory treatment, correctness and licensed runs remain required |
-| SLH-DSA | All 62 pristine files match pinned SPHINCSLET upstream; baseline/candidate remain in `agent/slh_dsa/{pristine,slh_src}` | No qualified ASIC manifest. The selected-mode gate covers all six SHA2 sets using pinned vendor streams, including the unchanged 192f candidate and 128f pristine baseline; Vivado simulation is unrun and SHAKE is unsupported. The separately corrected portable 128f/192f derivatives have functional evidence only, not ASIC qualification. Review global `setting.v`/`clog2.v` compilation, algorithm variants, data paths and memory inference; the existing regeneration script is FPGA-specific |
+| SLH-DSA | All 62 pristine files match pinned SPHINCSLET upstream; corrected baseline/candidate pairs have portable 128f/192f functional evidence | Exact-source target profiles are available, but ASIC startup, external signature storage, compilation-unit semantics and licensed mapping remain unqualified. The legacy selected-mode gate supports six SHA2 sets; only the four named corrected 128f/192f portable combinations have the recorded passes. SHAKE is unsupported |
 
 These are source/flow facts, not four verified ASIC implementations. The shared butterfly block is not a complete ML-DSA accelerator, nor an ML-KEM implementation. Do not substitute it for a scheme-level result. Do not invent missing twiddle/ROM data or silently blackbox absent modules.
 
@@ -27,7 +34,11 @@ Preserve third-party source headers. HQC includes GPL notices; ML-DSA includes A
 
 Start from [the example JSON](../configs/butterfly_asic.example.json), [site shell template](../configs/asic_site.example.sh), and [site Tcl template](../configs/asic_site.example.tcl). Copy configuration locally and fill it with actual approved paths, installed version, corner, and interface assumptions. No EDA software or proprietary PDK is downloaded by this flow.
 
-For scheme-level work, select the
+For new dual-target work, start with the
+[profile preparation commands](../docs/HARDWARE_HANDOFF.md#prepare-explicit-target-profiles-without-eda)
+and the generated ASIC launch configuration. It retains source/startup blockers
+and requires strict site admission before execution. For historical manual
+scheme-level configurations, select the
 [ML-DSA full-design example](../configs/mldsa_osh_asic.example.json) or the
 [ML-KEM/ML-DSA unified example](../configs/mlkem_adams_bridge_asic.example.json)
 rather than the butterfly block config. The
@@ -49,14 +60,18 @@ tool inferred or mapped that ROM correctly.
 | `top`, `scope` | Exact elaborated module and reported hierarchy scope |
 | `files` | Explicit ordered `{path, language}` entries, including VHDL packages before their users |
 | `include_dirs`, `defines`, `parameters` | Compilation configuration; no inferred dependency glob |
+| `compilation_unit` | Explicit profile semantics identifier, matched by the strict site's qualification record |
+| `language_standard` | Profile HDL standard, also matched by the strict site's qualification record |
 | `period_ns` | Requested period, not measured Fmax |
 | `sdc` | Reviewed single-clock timing constraints |
 | `memory_model` | `flops` or `macros`; declaration alone does not validate inferred memory implementation |
+| `admission` | Opt-in `strict-rtl-flops-v1` policy and exact reviewed diagnostic waivers; required by the dual-target ASIC profile |
 | `data_files` | Required ROM/memory data, staged by unique basename and hashed |
 | `tools.*.time_unit` | Native library unit: `ps`, `ns`, or `us` |
 | `tools.*.target_libraries` | Genus `.lib`/`.lib.gz`; DC compiled `.db` |
 | `tools.*.link_libraries` | Additional modeled macro libraries |
 | `tools.*.setup_tcl` | Trusted site initialization; dependencies/data must be declared for hashing |
+| `tools.*.admission_adapter` | Hash-pinned site Tcl, qualification record and dependencies for the exact installed tool release |
 | `tools.*.version`, `corner` | Record actual installed tool release and loaded PVT |
 | `tools.*.power_activity` | Explicit description such as `vectorless`; no validated workload-power flow is provided |
 | `tools.genus.effort` | `generic`, `map`, and `opt` settings |
@@ -81,6 +96,62 @@ License-free regression checks:
 python3 -m unittest discover -s tests -v
 ```
 
+## Strict RTL and FF-memory admission
+
+The ASIC configuration selects the policy explicitly:
+
+```json
+{
+  "memory_model": "flops",
+  "admission": {"policy": "strict-rtl-flops-v1", "waivers": []}
+}
+```
+
+This fragment is not a complete run configuration. Under the selected
+`tools.genus` or `tools.dc`, provide `admission_adapter` with `tcl`,
+`qualification` and `inputs` paths. The site adapter must be qualified against
+the exact installed release and preserve native full-hierarchy reports. No
+bundled adapter is claimed DC/Genus-qualified. A dry-run with no adapter reports
+`admission_qualification: "site_qualification_required"`; execution refuses to
+launch a tool until the reviewed adapter is supplied.
+
+The adapter procedure `pqc_admission_snapshot` is called after elaboration/link
+and again after mapping. It returns the documented interchange counts in
+`agent/asic_synthesis.py`, backed by nonempty native reports. Admission requires:
+
+- Zero missing/empty modules, port-width or connection errors, multiple drivers,
+  latches, implicit/undriven nets, combinational loops and unreviewed diagnostics.
+- A complete memory inventory with zero macro cells or memory blackboxes.
+- After mapping, zero unmapped memory bits and equal mapped-memory and FF-memory
+  bit counts. Review optimized-away and constant storage in the native evidence;
+  a generic RAM declaration or an FF count without memory ownership is insufficient.
+- Matching tool/version/top/phase, adapter hashes and qualification controls.
+  The qualification record must demonstrate a known-good pass and rejection of
+  each supported structural fault and a memory-macro control.
+
+The [site admission reference](../docs/ASIC_ADMISSION.md) lists the concrete
+procedure/count/qualification schema and a deliberately fail-closed template.
+Qualification records are reviewed site assertions; hashes bind their bytes
+but cannot independently prove the licensed tests or their interpretation.
+
+Structural/fatal findings cannot be waived. Reviewed non-structural diagnostics
+may have exact waivers recording `diagnostic_id`, `line_sha256`, `reason` and
+`approved_by`. Ordinary warnings are not all automatically fatal; the qualified
+site policy must classify them rather than hide them. Unknown/missing evidence
+fails closed. Python/Tcl fixtures exercise this contract, not vendor diagnostics.
+
+Only a completed strict run can set `admission_passed`,
+`structural_checks_verified` and `memory_implementation_verified` to true and
+`memory_implementation` to `flops`. `DRY_RUN` leaves them false. A legacy
+`MEASURED` result without this evidence cannot qualify the target-bound optimizer.
+Even a strict admission pass is not functional correctness, physical timing
+signoff, or proof that simulation initialization is implementable. Review the
+[memory behavior checklist](../docs/HARDWARE_HANDOFF.md#preserve-memory-behavior).
+The runner therefore leaves `memory_semantics_verified` false. The target-bound
+optimizer additionally needs separately qualified mapped-implementation startup,
+read/write and collision evidence; the built-in measurement bridge by itself
+remains blocked for that purpose.
+
 ## Outputs and interpretation
 
 Runs use `runs/asic/<tool>-<uuid>/`, with generated Tcl, manifest, log, reports, netlist, exported SDC, checkpoint, and `result.json`. Inputs are hashed before and after execution. Generated Tcl and reports are hashed. The three allowlisted site-constraint environment values are recorded and checked for changes; license credentials and the general environment are not collected. A failed run retains its error and logs; stale reports from another run cannot be reused.
@@ -104,3 +175,13 @@ Historical Tcl, RTL, and measured logs are preserved as evidence. They are not c
 ## Before a paper result
 
 Qualify the installed tool with a small known baseline, a controlled candidate, deliberately invalid RTL, and a missing-module test. Check hierarchy/parameters, ROM contents, macro models, clocks, units, IO coverage, unconstrained paths, hold, synthesis warnings, and native report values. Record the correctness-gate evidence and exact source/config/tool/library fingerprints. For power, add a separately validated workload/activity flow. For physical PPA, run and label place-and-route separately.
+
+## File map
+
+| Location | Purpose |
+|---|---|
+| [ASIC runner](../agent/asic_synthesis.py) | Fixed-period synthesis and strict admission interchange |
+| [Site shell](../configs/asic_site.example.sh), [site Tcl](../configs/asic_site.example.tcl) | Local tool and constraint settings |
+| [Hardware handoff](../docs/HARDWARE_HANDOFF.md) | Source profiles, matched target runs and memory caveats |
+| [Whole-design controller](../docs/WHOLE_DESIGN.md) | Separate functional, implementation and candidate-acceptance gates |
+| `runs/asic/<tool>-<uuid>/` | Local run artifacts; licensed libraries remain site-owned inputs |

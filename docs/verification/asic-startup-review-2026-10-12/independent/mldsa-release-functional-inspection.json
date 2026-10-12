@@ -1,0 +1,26 @@
+[
+  {
+    "arm": "baseline",
+    "manifest_sha256": "3589892c8a6f577f7e0165138214a0de487243e0f2448019e3a4ad132403bec8",
+    "result_sha256": "925bcf31016812c4ca4a2af3cac4365e40ded21335f62dc7ceffb1b06177648a",
+    "exact_hdl_source_files": 36,
+    "complete_cases": 630,
+    "checks": "all5 operations/sets\u00d73 initialization settings, source/TB/executable hash binding, status and unchanged flags",
+    "status": "PASS",
+    "issues": [],
+    "two_state_simulation": true,
+    "four_state_fullcore_qualified": false
+  },
+  {
+    "arm": "candidate",
+    "manifest_sha256": "2a00b5a082922fa4f85d1afd937bfed1ce8fb5886b5839125451a2065a32273c",
+    "result_sha256": "9680dcc7510a3c5ef3b51e934d1e1aefdf0dd6d094416aea57f14c9e8eb9b38a",
+    "exact_hdl_source_files": 36,
+    "complete_cases": 630,
+    "checks": "all5 operations/sets\u00d73 initialization settings, source/TB/executable hash binding, status and unchanged flags",
+    "status": "PASS",
+    "issues": [],
+    "two_state_simulation": true,
+    "four_state_fullcore_qualified": false
+  }
+]

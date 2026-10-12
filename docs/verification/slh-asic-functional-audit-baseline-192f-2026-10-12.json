@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "parameter_set": "SHA2-192f",
+  "functional_report_sha256": "b9e3097ae65e86f91a6f3974fa929951da8e0fab83f1870da7054b76aa62d30c",
+  "executed_binary_sha256": "a6806dec2ff10af3cb227f309b13c930b4709b1fd88576150d413b8cf41511fe",
+  "auditor_sha256": "3a72959f0bb2d9051d7199abcea9f7386dae12082a3761a8d4762ce45a4df063",
+  "checker_sha256": "e63cbbad0bee9cb70c9e0990ff836e9280a75689cdd6c405e832bf0945bb1b36",
+  "portable_files_sha256": {
+    "docs/verification/slh-asic-logs/baseline-192f/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/verification/slh-asic-logs/baseline-192f/compile-command.json": "ee9253b4761c749d2b71c8adf83feff4119c04a77f7c68e0f2784fe69db21a87",
+    "docs/verification/slh-asic-logs/baseline-192f/baseline.log": "a172ed3fb385d738ca9e746a84e25342f6c76b258376e2c1ab128ad0e5e1224f",
+    "docs/verification/slh-asic-logs/baseline-192f/baseline-command.json": "14ed2a4550ff57031676bd69ae48f05a8040c1917565d3152830077a67439d1c",
+    "docs/verification/slh-asic-logs/baseline-192f/baseline-produced.hex": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+    "docs/verification/slh-asic-logs/baseline-192f/signature-memory-bitflip.log": "e490ecc3933bbb8ecbeb4317a01afd9b70bdf93427d70d2e3c42d3a4c1923a1b",
+    "docs/verification/slh-asic-logs/baseline-192f/signature-memory-bitflip-command.json": "4689b3484ceee68c893e87cb6b9e59a88404d82df36ea07194b5f99399054288",
+    "docs/verification/slh-asic-logs/baseline-192f/signature-memory-bitflip-produced.hex": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3"
+  },
+  "cases": [
+    {
+      "case": "baseline",
+      "status": "PASS",
+      "log_sha256": "a172ed3fb385d738ca9e746a84e25342f6c76b258376e2c1ab128ad0e5e1224f",
+      "produced_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+      "rtl_verification_flag": [
+        "0"
+      ],
+      "address_reports": [
+        "SLH_ASIC_ADDRESS_REPORT tile0_small writes=421548 consumed=541766 invalid_unconsumed=4 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile0_big writes=421548 consumed=541766 invalid_unconsumed=1127846 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_small writes=72996 consumed=72902 invalid_unconsumed=26140 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_big writes=72902 consumed=72902 invalid_unconsumed=7920781 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT W_MEM writes=2340 consumed=8175538 invalid_unconsumed=3186412 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0"
+      ]
+    },
+    {
+      "case": "signature-memory-bitflip",
+      "status": "PASS",
+      "log_sha256": "e490ecc3933bbb8ecbeb4317a01afd9b70bdf93427d70d2e3c42d3a4c1923a1b",
+      "produced_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+      "rtl_verification_flag": [
+        "1"
+      ],
+      "address_reports": [
+        "SLH_ASIC_ADDRESS_REPORT tile0_small writes=423068 consumed=544046 invalid_unconsumed=4 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile0_big writes=423068 consumed=544046 invalid_unconsumed=1127846 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_small writes=72996 consumed=72902 invalid_unconsumed=26140 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_big writes=72902 consumed=72902 invalid_unconsumed=7951181 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT W_MEM writes=2340 consumed=8236338 invalid_unconsumed=3186412 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0"
+      ]
+    }
+  ],
+  "scope": "raw artifact recheck and portable provenance; historical vendor differential, not independent algorithm validation"
+}

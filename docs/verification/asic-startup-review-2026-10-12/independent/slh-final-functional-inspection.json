@@ -1,0 +1,118 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "arm": "baseline",
+      "parameter": "128f",
+      "report_sha256": "5be25d5d9a1bf8c80eb49dbaf109608eff6662079f7c2152c6a31f6d621aae21",
+      "source_and_binary_hashes_match": true,
+      "cases": [
+        {
+          "case": "baseline",
+          "output_words": 2141,
+          "output_sha256": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+          "verification_flag": [
+            "0"
+          ],
+          "log_sha256": "ec2960c1c8d227d8157c3e5b10e9a6407a6098c163a1324dd41e71d6023e55b9",
+          "memory_monitors": 3
+        },
+        {
+          "case": "signature-memory-bitflip",
+          "output_words": 2141,
+          "output_sha256": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+          "verification_flag": [
+            "1"
+          ],
+          "log_sha256": "c1e465dd08271364e7122b8456d9918fe922f34770a787bf6a4b09a5e4ee8623",
+          "memory_monitors": 3
+        }
+      ]
+    },
+    {
+      "arm": "baseline",
+      "parameter": "192f",
+      "report_sha256": "b9e3097ae65e86f91a6f3974fa929951da8e0fab83f1870da7054b76aa62d30c",
+      "source_and_binary_hashes_match": true,
+      "cases": [
+        {
+          "case": "baseline",
+          "output_words": 4463,
+          "output_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+          "verification_flag": [
+            "0"
+          ],
+          "log_sha256": "a172ed3fb385d738ca9e746a84e25342f6c76b258376e2c1ab128ad0e5e1224f",
+          "memory_monitors": 5
+        },
+        {
+          "case": "signature-memory-bitflip",
+          "output_words": 4463,
+          "output_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+          "verification_flag": [
+            "1"
+          ],
+          "log_sha256": "e490ecc3933bbb8ecbeb4317a01afd9b70bdf93427d70d2e3c42d3a4c1923a1b",
+          "memory_monitors": 5
+        }
+      ]
+    },
+    {
+      "arm": "candidate",
+      "parameter": "128f",
+      "report_sha256": "d87af2ec3bf5dcb55806b3a09a585301bc775a29d6f208153943b57eca18fac0",
+      "source_and_binary_hashes_match": true,
+      "cases": [
+        {
+          "case": "baseline",
+          "output_words": 2141,
+          "output_sha256": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+          "verification_flag": [
+            "0"
+          ],
+          "log_sha256": "d75a1fa759fabf6709de0b49c0dfa556434d73e854a0a221ad7f7e499c26567e",
+          "memory_monitors": 3
+        },
+        {
+          "case": "signature-memory-bitflip",
+          "output_words": 2141,
+          "output_sha256": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+          "verification_flag": [
+            "1"
+          ],
+          "log_sha256": "2ccb6bb3442fe9c3512d5095fd5a53f0d7e1197d486eba251558ad03325e9256",
+          "memory_monitors": 3
+        }
+      ]
+    },
+    {
+      "arm": "candidate",
+      "parameter": "192f",
+      "report_sha256": "1b7eb6ba90b55c3cbcb8c0b0801fa8ee7c1eb527182ce4244434b5be5a907f71",
+      "source_and_binary_hashes_match": true,
+      "cases": [
+        {
+          "case": "baseline",
+          "output_words": 4463,
+          "output_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+          "verification_flag": [
+            "0"
+          ],
+          "log_sha256": "3fa932e7223e3564e8038d835ecc40354c6fc8d533e518ae1be95ee5945e2857",
+          "memory_monitors": 5
+        },
+        {
+          "case": "signature-memory-bitflip",
+          "output_words": 4463,
+          "output_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+          "verification_flag": [
+            "1"
+          ],
+          "log_sha256": "fdbe595af2f93978b86d42566cc5302e2370a0b77ca83c38bfe5d7d050935c99",
+          "memory_monitors": 5
+        }
+      ]
+    }
+  ],
+  "scope": "Exact final source/binary/log/output recheck, historical vendor differential only"
+}

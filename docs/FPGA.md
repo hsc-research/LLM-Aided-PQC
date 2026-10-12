@@ -16,6 +16,13 @@ For newly corrected ML-DSA/SLH variants, use the [hardware handoff](HARDWARE_HAN
 first. Legacy commands do not automatically select the staged corrections.
 Current portable functional evidence is separate from vendor-tool qualification.
 
+The dual-target policy prefers inferred BRAM for compatible FPGA memories and
+keeps a separate ASIC FF/logic arm. Preserve read latency, collision behavior and
+startup semantics when selecting a target profile. A RAM attribute is a request,
+not utilization evidence; inspect Vivado's mapped primitives and fallback logic.
+See the [memory checklist](HARDWARE_HANDOFF.md#preserve-memory-behavior). Licensed
+Vivado qualification and measurements remain user-run work.
+
 ## Prepare the environment
 
 1. Follow [installation](REPRODUCE.md) and run the offline checks.

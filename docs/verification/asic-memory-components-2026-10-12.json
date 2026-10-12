@@ -1,0 +1,194 @@
+{
+  "generic_ff_mappings": {
+    "abr_1r1w_512x4_ram": {
+      "cell_types": {
+        "$_AND_": 2062,
+        "$_DFFE_PP_": 2052,
+        "$_MUX_": 9762,
+        "$_NOT_": 522,
+        "$_OR_": 2048,
+        "$_XOR_": 8
+      },
+      "defines": [],
+      "ff_bits": 2052,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "107dac5b444b5de5c6557a6824665abb27318ae99efeb65fa6a0d6bff4f1bbbe",
+      "parameters": "source defaults",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "abr_1r1w_512x4_ram"
+    },
+    "abr_1r1w_be_ram": {
+      "cell_types": {
+        "$_AND_": 608,
+        "$_DFFE_PP_": 2080,
+        "$_MUX_": 2132,
+        "$_NOT_": 24
+      },
+      "defines": [],
+      "ff_bits": 2080,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "292ef009ad493a56bb6ca26e2876dc87c346ca80d99bcfe6502896ff488bb6ca",
+      "parameters": "source defaults",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "abr_1r1w_be_ram"
+    },
+    "abr_1r1w_ram": {
+      "cell_types": {
+        "$_AND_": 2057,
+        "$_DFFE_PP_": 2080,
+        "$_MUX_": 8515,
+        "$_NOT_": 71,
+        "$_OR_": 2048,
+        "$_XOR_": 5
+      },
+      "defines": [],
+      "ff_bits": 2080,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "257c3c76e47f52f41fd366bb90b453cdd0b1193beeecf410746140f7a6e7a01c",
+      "parameters": "source defaults",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "abr_1r1w_ram"
+    },
+    "abr_ram_regout": {
+      "cell_types": {
+        "$_AND_": 2057,
+        "$_DFFE_PP_": 32,
+        "$_MUX_": 8515,
+        "$_NOT_": 71,
+        "$_OR_": 2048,
+        "$_SDFFE_PP0P_": 2048,
+        "$_XOR_": 5
+      },
+      "defines": [],
+      "ff_bits": 2080,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "859cae36bf97c2c74e60cfd867b7d34f37741f96bd90cdc4260c79fe21e8d5f8",
+      "parameters": "source defaults",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "abr_ram_regout"
+    },
+    "mldsa-zetas-rom": {
+      "cell_types": {
+        "$_DFFE_PP_": 46,
+        "$_MUX_": 1896,
+        "$_NOT_": 6
+      },
+      "defines": [],
+      "ff_bits": 46,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "12c974ac0d7f2f7a9216ecd0d44312481cdbccb5db67afe28e92f7400d000864",
+      "parameters": "-set WIDTH 24 -set LENGTH 256 -set INIT_FILE \"zetas.txt\"",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "dual_port_rom"
+    },
+    "slh-mem_dual-uninitialized": {
+      "cell_types": {
+        "$_AND_": 40,
+        "$_DFFE_PP_": 64,
+        "$_DFF_P_": 16,
+        "$_MUX_": 278,
+        "$_NOT_": 6,
+        "$_OR_": 8
+      },
+      "defines": [],
+      "ff_bits": 80,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "73f65377b9013257dcd70cf37831ddee93158a7200b52a6611323d0ec0919b52",
+      "parameters": "-set WIDTH 8 -set DEPTH 7 -set INIT 0",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "mem_dual"
+    },
+    "slh-mem_single-uninitialized": {
+      "cell_types": {
+        "$_AND_": 20,
+        "$_DFFE_PP_": 64,
+        "$_DFF_P_": 8,
+        "$_MUX_": 67,
+        "$_NOT_": 3
+      },
+      "defines": [],
+      "ff_bits": 72,
+      "mapping": "generic one-bit FF and logic cells, no technology library",
+      "netlist_sha256": "ac9d9d7720e1410031e9fbbee4981d90a68504c853a6990ad4aaa7f547c90c68",
+      "parameters": "-set WIDTH 8 -set DEPTH 8 -set INIT 0",
+      "power_up_init_attributes": 0,
+      "remaining_latches": 0,
+      "remaining_memories": 0,
+      "status": "PASS",
+      "top": "mem_single"
+    }
+  },
+  "limits": [
+    "No standard-cell library mapping, timing, area, power or full-design synthesis.",
+    "No full MLDSA target KAT after ROM substitution; portable qualification is not inherited.",
+    "SLH INIT=0 mappings exclude power-up initialized hash-tile RAMs and FIFO pointers.",
+    "MLDSA RAM/control-state and SLH initialization still block a complete ASIC-ready baseline.",
+    "No HQC source execution or repair."
+  ],
+  "schema_version": 1,
+  "scope": "selected-memory-components-only",
+  "simulations": {
+    "abr-asic": {
+      "details": "PASS ABR: 1200 cycles; old-data collisions, read hold, byte mask, 512x4 boundaries, zeroize and highest-port write priority\n/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/asic_memory/tb_abr_memories.sv:62: $finish called at 12006000 (1ps)",
+      "status": "PASS"
+    },
+    "abr-fpga": {
+      "details": "PASS ABR: 1200 cycles; old-data collisions, read hold, byte mask, 512x4 boundaries, zeroize and highest-port write priority\n/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/asic_memory/tb_abr_memories.sv:62: $finish called at 12006000 (1ps)",
+      "status": "PASS"
+    },
+    "mldsa-rom": {
+      "details": "WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/asic-memory-components/reference_rom.v:44: $readmemh: The behaviour for reg[...] mem[N:0]; $readmemh(\"...\", mem); changed in the 1364-2005 standard. To avoid ambiguity, use mem[0:N] or explicit range parameters $readmemh(\"...\", mem, start, stop);. Defaulting to 1364-2005 behavior.\nPASS ROM: 256 constants, paired ports, 768 cycles, enable/hold, zero ROM, out-of-range and X addresses\n/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/asic_memory/tb_mldsa_rom.sv:34: $finish called at 7696000 (1ps)",
+      "status": "PASS"
+    },
+    "slh-original": {
+      "details": "PASS SLH: 600 cycles; dual write-first, cross-port old-data, single read-first, extra DEPTH element, INIT-zero behavior; dual-write collision excluded\n/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/asic_memory/tb_slh_memories.sv:36: $finish called at 6006000 (1ps)",
+      "status": "PASS"
+    },
+    "unsupported-rom": {
+      "details": "unsupported nonempty INIT_FILE fails elaboration",
+      "status": "PASS"
+    }
+  },
+  "source_sha256": {
+    "agent/slh_dsa/pristine/imports/global_include/clog2.v": "f40e6c004af2039624ee34fe8896861d0dbd755f867a5413280c65b2fe22c119",
+    "agent/slh_dsa/pristine/imports/mem_dual.v": "cc473dbdda4f8b27b3cc2f1ba4f63a89906151898d64c361d916085c06cc469b",
+    "agent/slh_dsa/pristine/imports/mem_single.v": "f685a74dc32dfc9275984a8f4e7bb921b3427d6841a4f4d12a54c5fc8a2e1d50",
+    "asic/rtl/mldsa_zetas/dual_port_rom.v": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7",
+    "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_1r1w_512x4_ram.sv": "1062a08615864e0ddbebc5a1203213e27651e8c96770ca18f2460c867f867e09",
+    "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_1r1w_be_ram.sv": "a61a8485906ce4c08ed9fb771239c3b1112ee68887292a70b2bdb3198d06a2a0",
+    "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_1r1w_ram.sv": "8004ce742a6ea66c54330035e387c4831db36ef1b9ee376abf3ff0275f8aacb5",
+    "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_ram_regout.sv": "5b56dd11588f0f5ee5082462f61406a35bb98b52144d9105524d62be503360a6",
+    "third_party/mldsa_osh/upstream/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+    "third_party/mldsa_osh/upstream/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "tools/check_asic_memory_components.py": "a98a61a9aa99dc4d916fa51cd221e22cdb87cb1e93332e4e262c1c195b7251ec",
+    "verification/asic_memory/tb_abr_memories.sv": "9a1465e970a737c04954ae994533bdb808544a86381830780254b9a9a1ccbc8c",
+    "verification/asic_memory/tb_mldsa_rom.sv": "4670e9d1e5c03901223c8eaf25ed2d389658524f25d899fef2a96f03f4c9e7e0",
+    "verification/asic_memory/tb_slh_memories.sv": "5b18a941db865d6c5ecb64a25e41d4a46faee0e56aa57525a418136f2cd436b0"
+  },
+  "status": "PASS",
+  "tool_versions": {
+    "iverilog": "Icarus Verilog version 12.0 (stable) ()",
+    "vvp": "Icarus Verilog runtime version 12.0 (stable) ()",
+    "yosys": "Yosys 0.69 (git sha1 9f75ca1f9, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)"
+  },
+  "whole_design_asic_qualification": "NOT_RUN",
+  "work_dir": ".pqc_runs/asic-memory-components"
+}

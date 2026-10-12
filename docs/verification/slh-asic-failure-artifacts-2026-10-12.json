@@ -1,0 +1,75 @@
+{
+  "scope": "preserved earlier failures only, excluded from final qualification",
+  "artifacts": [
+    {
+      "source": ".pqc_runs/structure-final-candidate-192f/mapping.ys",
+      "path": "docs/verification/slh-asic-failures/structure-final-candidate-192f/mapping.ys",
+      "sha256": "c2b6675b22c5eb787f6f46f4aba0e1d3a7149723fbebe22b82e0ec2928124199"
+    },
+    {
+      "source": ".pqc_runs/structure-final-candidate-192f/mapping.log",
+      "path": "docs/verification/slh-asic-failures/structure-final-candidate-192f/mapping.log",
+      "sha256": "8339bd6b93459a33edc93700cc31c9619209230526510534c72504ca23bf5426"
+    },
+    {
+      "source": ".pqc_runs/structure-final-baseline-192f/mapping.ys",
+      "path": "docs/verification/slh-asic-failures/structure-final-baseline-192f/mapping.ys",
+      "sha256": "bc00e35e7fadadcc5e93fe3051a04f2a2071532ee70c16e2f28e4516330dc312"
+    },
+    {
+      "source": ".pqc_runs/structure-final-baseline-192f/mapping.log",
+      "path": "docs/verification/slh-asic-failures/structure-final-baseline-192f/mapping.log",
+      "sha256": "ad76f859b418d21bab4ac164cd5165654ce40f888822b4ceac5d0c1c10fe3a61"
+    },
+    {
+      "source": ".pqc_runs/structure-final-baseline-128f/mapping.ys",
+      "path": "docs/verification/slh-asic-failures/structure-final-baseline-128f/mapping.ys",
+      "sha256": "a21b767681ae7351ed56ad558d3218df8637c8aa74a9b716b4e57bb8e146bf80"
+    },
+    {
+      "source": ".pqc_runs/structure-final-baseline-128f/mapping.log",
+      "path": "docs/verification/slh-asic-failures/structure-final-baseline-128f/mapping.log",
+      "sha256": "c6b9abee7726103aeefa2b737cb51c062860052040ae7fa1a7d4ef1eaba9824c"
+    },
+    {
+      "source": ".pqc_runs/structure-final-candidate-128f/mapping.ys",
+      "path": "docs/verification/slh-asic-failures/structure-final-candidate-128f/mapping.ys",
+      "sha256": "11f664faa098fd5f765ec717575e9681051ea16f7324851612a22e74586cc667"
+    },
+    {
+      "source": ".pqc_runs/structure-final-candidate-128f/mapping.log",
+      "path": "docs/verification/slh-asic-failures/structure-final-candidate-128f/mapping.log",
+      "sha256": "497a5899160078a19e83845e435e5f37c419028bf412741432c5afb90e8a651c"
+    },
+    {
+      "source": "/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/.pqc_runs/slh-portable-3xgpz090/signature-memory-bitflip/sim.log",
+      "path": "docs/verification/slh-asic-failures/monitor-baseline-128f/signature-memory-bitflip/sim.log",
+      "sha256": "bc9736bbc7ad20ab975ba43ea57ba62dfa635f56f6ea6ff26fc14b773804a3e6"
+    },
+    {
+      "source": "/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/.pqc_runs/slh-portable-3xgpz090/baseline/sim.log",
+      "path": "docs/verification/slh-asic-failures/monitor-baseline-128f/baseline/sim.log",
+      "sha256": "bc9736bbc7ad20ab975ba43ea57ba62dfa635f56f6ea6ff26fc14b773804a3e6"
+    },
+    {
+      "source": "/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/.pqc_runs/slh-portable-_av0zrz1/signature-memory-bitflip/sim.log",
+      "path": "docs/verification/slh-asic-failures/monitor-candidate-128f/signature-memory-bitflip/sim.log",
+      "sha256": "1a2f1f88ccbffeda31e1af23a32cc25353170fa99808bafb7048db05b8476668"
+    },
+    {
+      "source": "/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/.pqc_runs/slh-portable-_av0zrz1/baseline/sim.log",
+      "path": "docs/verification/slh-asic-failures/monitor-candidate-128f/baseline/sim.log",
+      "sha256": "1a2f1f88ccbffeda31e1af23a32cc25353170fa99808bafb7048db05b8476668"
+    },
+    {
+      "source": ".pqc_runs/startup-components-v5/128f-whole-ff.log",
+      "path": "docs/verification/slh-asic-failures/initial-read-map-128f/mapping.log",
+      "sha256": "8e0982b0bf0625772276bcfb8c5fa545759a4460237f44ee6bb4a1133c1f4ae7"
+    },
+    {
+      "source": ".pqc_runs/startup-components-v5/192f-whole-ff.log",
+      "path": "docs/verification/slh-asic-failures/initial-read-map-192f/mapping.log",
+      "sha256": "3a40e116b641b4a4c0068d7b01dc3eddb473c26ca67af4dfe00fd5952b3f0e41"
+    }
+  ]
+}

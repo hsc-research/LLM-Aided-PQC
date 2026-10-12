@@ -42,11 +42,16 @@ replace the full-design gate or full-design measurement used for admission.
 
 ## Plan first
 
+For the dual-target handoff, use the
+[target-bound template and requirements](#bind-a-target-profile-before-optimizing).
+The older example below remains available for its narrower declared coverage.
+
 Copy [the deliberately blocked template](../configs/whole_design.example.json)
 to `configs/whole_design.local.json`, then supply the actual source closure,
 immutable inputs, mapping, complete checks, and reviewed adapter commands.
 The template wires the built-in adapters for the supported ML-DSA KeyGen-only
 profile; change the verification adapter for a different design.
+It is the legacy configuration route, not full-operation dual-target admission.
 The example period and improvement threshold are illustrative configuration,
 not measured PPA or a qualified noise margin.
 
@@ -106,6 +111,77 @@ adapters against known failures, complete source manifests, and real tool output
 A reported `PASS` remains the configured test scope, never a formal-equivalence,
 cryptographic conformance, side-channel, or timing-signoff claim.
 
+### Bind a target profile before optimizing
+
+Start from the deliberately incomplete
+[target-bound template](../configs/whole_design.target.example.json).
+It requires a qualified full-selected-design verifier and site implementation
+evidence; both verification and measurement commands are site-adapter placeholders.
+It is expected to report `BLOCKED` until those inputs exist.
+
+For a prepared dual-target source bundle, set `target_profile` to its
+`profile.json` and include that file in `immutable_inputs`. The controller binds
+the initial baseline bytes and source order to the profile, plus its top,
+languages, includes, data files, defines, parameters and compilation-unit
+semantics and HDL standard. Freeze all referenced inputs. FPGA and ASIC profiles are separate;
+the controller refuses a profile from the other target.
+
+Set `verification_scope: "full_selected_design"`, list explicit
+`required_negative_controls` within `required_checks`, and supply a functional
+adapter for all of the profile's `required_operations` and the configured cycle
+checks. A profile records source provenance and required coverage; it does not
+replace a fresh baseline or candidate gate. The existing `mldsa_keygen_75`
+profile and `verify-mldsa-keygen` adapter are deliberately refused here: KeyGen
+alone cannot qualify the selected KeyGen/Sign/Verify ML-DSA design.
+For the ML-KEM profile, the selected top is the shared ML-KEM/ML-DSA accelerator,
+so its required operation list includes both algorithms. The existing 80-case
+ML-KEM-only record does not qualify this complete boundary. The SLH fixture's
+sign/verify coverage likewise cannot be relabeled independent complete-algorithm
+coverage merely to satisfy the profile.
+The operation names are mandatory coverage labels, not proof of adequate vectors.
+Case selection, independent references and negative-control sufficiency remain
+part of qualifying the trusted verifier; no invented minimum case count is used
+to promote an incomplete test suite.
+
+The measurement must also match the profile:
+
+- FPGA uses `memory_model: "fpga_inferred_ram"` and an exact `part`. A qualified
+  site adapter must report actual structural and memory implementation evidence.
+  BRAM preference does not guarantee all storage maps to BRAM.
+- ASIC uses `memory_model: "flops"`, the exact `asic_effective_config`, and
+  [strict RTL/FF admission](../asic/README.md#strict-rtl-and-ff-memory-admission).
+  Source order, libraries, includes, defines, data files and parameters must
+  agree with the effective tool plan. A declaration alone cannot prove FF mapping.
+
+Every baseline and candidate verification/measurement response must bind the
+request's exact `source_hashes`, `source_read_order`, `configuration` and
+`target_profile_fingerprint`. Verification also supplies
+`coverage_scope: "full_selected_design"` and the exact `covered_operations`.
+Measurement supplies hashed `structural` and `memory` reports,
+`structural_checks_verified: true`, `memory_implementation_verified: true` and
+the selected `memory_implementation`. ASIC additionally requires
+`admission_passed: true` and `admission_policy: "strict-rtl-flops-v1"`.
+All ordinary functional, latency, path, timing and area checks still apply.
+
+Both targets also require `memory_semantics_verified: true`,
+`memory_semantics_scope: "mapped_implementation"`, and hashed
+`memory_semantics` and `implementation_netlist` reports. A qualified mapped-design
+checker must establish startup, read/write latency and collision behavior against
+that exact implementation. An RTL KAT plus FF/BRAM inventory is insufficient.
+The built-in ASIC runner leaves `memory_semantics_verified: false`, so its
+measurement bridge alone cannot admit a target-bound run. This separate mapped
+checker is still site work; do not manufacture the flags or reuse RTL-only tests
+as mapped evidence. Until both the full-operation verifier and mapped-memory
+checker are available, the strict optimization path remains blocked.
+
+Keep FPGA and ASIC searches in separate workspaces and journals. Compilation
+directives are frozen during bounded edits. An accepted edit's measurements
+apply only to its exact target/configuration; retest the idea independently
+before transferring it. Existing configurations without a target profile remain
+usable within their declared coverage and are labeled
+`qualification_mode: "legacy_not_target_qualified"`. Target-bound runs report
+`qualification_mode: "target_bound"`; neither label alone is a hardware pass.
+
 ## Built-in adapters, without hand-written glue
 
 The template already supplies real `python3 -m agent.whole_design_adapters`
@@ -127,6 +203,12 @@ The candidate budget bounds these calls; it is not a currency spending limit.
 Only strict JSON with allowlisted `replace_exact` edits or `STOP` is accepted.
 Truncated/tool-directed replies, command operations, and unallowlisted files are
 refused. The adapter previews edits; the controller owns all RTL writes.
+
+Its target-specific context favors FPGA LUT/carry/DSP and inferred-memory
+behavior, or ASIC standard-cell logic, FF/mux memory and fanout. The model may
+propose an idea; only the matching full-design checks and real measurement can
+admit it. No cross-target PPA transfer or learned-hardware claim is established
+by the prompt or the offline tests.
 
 ### ASIC measurement CLI
 
@@ -357,6 +439,16 @@ chip journals are not overwritten. A final acceptance is valid only while the
 recorded source and immutable-input hashes match the currently applied files.
 The older chip-driver prompt path does not automatically ingest these separate
 per-run journals.
+Any history consumer reusing target-bound results must match both the exact
+target-profile fingerprint and configuration fingerprint; a similar module name
+or strategy does not make another target's result applicable.
+
+An accepted target-bound candidate may continue as the incumbent within the same
+run. A fresh run checks its initial sources against the frozen profile again;
+edited bytes no longer match the old baseline. There is no automatic rebaseline
+or controller-result exporter. Starting a new run from accepted RTL requires a
+newly reviewed, qualified baseline profile and supporting evidence. Recomputing
+hashes or editing the old profile does not establish that qualification.
 
 Normal bounded completion can contain zero accepted proposals. `BLOCKED` is not
 an optimization result. A baseline or configuration failure prevents proposal
@@ -381,7 +473,9 @@ small local Python fixtures and provide no hardware PPA or cryptographic result.
 | [agent/whole_design_adapters.py](../agent/whole_design_adapters.py) | Built-in opt-in LLM, ASIC and exact ML-DSA KeyGen adapters |
 | [tests/test_whole_design_adapters.py](../tests/test_whole_design_adapters.py) | Offline adapter tests with all paid/EDA/simulator calls mocked |
 | [agent/whole_design.py](../agent/whole_design.py) | Controller, strict adapter contract, ASIC result bridge |
+| [agent/target_profiles.py](../agent/target_profiles.py) | Source/elaboration/target binding and frozen directives |
 | [configs/whole_design.example.json](../configs/whole_design.example.json) | Deliberately incomplete site configuration template |
+| [configs/whole_design.target.example.json](../configs/whole_design.target.example.json) | Deliberately blocked full-selected-design target template |
 | [tests/test_whole_design.py](../tests/test_whole_design.py) | Offline synthetic subprocess regressions |
 | [agent/edit_ops.py](../agent/edit_ops.py) | Existing typed edit and atomic per-file write/restore helpers |
 | [agent/run_safety.py](../agent/run_safety.py) | Existing input hashing, checkout locking and command/transaction helpers |

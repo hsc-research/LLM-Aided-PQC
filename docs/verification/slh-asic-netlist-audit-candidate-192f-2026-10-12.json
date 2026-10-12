@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "variant": "corrected-candidate",
+  "parameter_set": "SHA2-192f",
+  "portable_artifacts_sha256": {
+    "docs/verification/slh-asic-logs/candidate-192f/mapping.ys": "5fe6412ff002c214a1377a1ab9560d9e69d10614827fcfe54643dabbffa7f765",
+    "docs/verification/slh-asic-logs/candidate-192f/mapping.log": "263a06125e4abb2e34336bd809315d5db584da4f877ecb60dbcb9b4878955169"
+  },
+  "structural_report_sha256": "95a27092cb8a634fde6422ed1f30ae4cb130377d95a06da864c8c6ed9b84c93c",
+  "netlist_sha256": "a89481631cdfd5c1e8be78c4e1630bdde7afb28a9714c11bebc89b2a617f771c",
+  "auditor_sha256": "c2a6eb4bb35fd32c116d44509c8627ec9cd19458c26db9334ae062d0df2a7a60",
+  "blackbox_or_whitebox_modules": 0,
+  "tri_state_cells": 0,
+  "unmapped_cells": 0,
+  "remaining_memories": 0,
+  "remaining_latches": 0,
+  "power_up_init_attributes": 0,
+  "scope": "exact generic netlist structural audit only; no standard-cell mapping, timing, PPA or undefined-address hardware claim"
+}

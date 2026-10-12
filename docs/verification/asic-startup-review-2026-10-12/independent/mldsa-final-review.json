@@ -1,0 +1,43 @@
+{
+  "review_scope": "ML-DSA explicit ASIC startup derivative; final source/evidence package, before target-export gate follow-up",
+  "status": "SOURCE_AND_EVIDENCE_ACCEPTED_WITH_STATED_LIMITS",
+  "final_manifest_sha256": {
+    "guarded-baseline": "3589892c8a6f577f7e0165138214a0de487243e0f2448019e3a4ad132403bec8",
+    "corrected-candidate": "2a00b5a082922fa4f85d1afd937bfed1ce8fb5886b5839125451a2065a32273c"
+  },
+  "aggregate_sha256": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de",
+  "independent_checks": [
+    "179 delivered file hashes match inventory and each delivered HDL/manifest byte matches tested release",
+    "All 15 case/initialization combinations per arm are complete; 630 KAT completions per arm, exact source/testbench/executable bindings",
+    "Full generic mapped JSON inspected for both release arms; no init, latch, memory, tristate or blackbox residue",
+    "Preserved ordinary event controls and normal-state branches; boot initialization distinct from original operation reset",
+    "All 256 zeta values and 56 generated Keccak constant assignments preserved",
+    "RAM scrub depth/timing exact: one 4096x96 bank, six 1024x96 banks, shell releases after longest bank",
+    "Valid-level gen_c outputs assigned already; new defaults only define unsupported security levels",
+    "makehint storage remains 80 bytes; padded read-only tail only defines inactive out-of-range reads; supported controls bounded to valid indices"
+  ],
+  "limits": [
+    "Generic FF/logic evidence is not standard-cell or physical qualification",
+    "Finite randomized two-state whole-core tests; four-state evidence is component-level",
+    "Boot_ready means initialization complete; original operation-reset/start protocol still required",
+    "Original cstate2 ordinary-reset omission retained; arbitrary ordinary mid-operation reset recovery not claimed",
+    "Undefined same-address simultaneous writes excluded and monitored",
+    "Formal/all-input/side-channel/cryptographic certification absent"
+  ],
+  "pending": [
+    "SLH independent acceptance remains pending full functional and all four structural reports"
+  ],
+  "child_reports": [
+    "mldsa-release-ff-inspection.json",
+    "mldsa-release-functional-inspection.json",
+    "mldsa-deliverable-hash-review.json",
+    "mldsa-export-negative-review.json",
+    "mldsa-export-negative-recheck.json"
+  ],
+  "export_followup": {
+    "status": "PASS",
+    "independent_tests": "21 target source export tests passed in 8.887 seconds",
+    "negative_mutations": "omitted log inventory, failed structural/latch evidence and removed component evidence now rejected",
+    "live_restart_order": "rederived from immutable log text via check_restart_evidence; tested late-marker mutation"
+  }
+}

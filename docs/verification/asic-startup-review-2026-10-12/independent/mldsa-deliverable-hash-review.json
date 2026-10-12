@@ -1,0 +1,20 @@
+{
+  "inventory_sha256": "12be9f008bf04b8b154800e6d5529c2fd6d1fb8256f27dbac6901ca6e50af58c",
+  "files_checked": 179,
+  "errors": [],
+  "release_equality": [
+    {
+      "arm": "guarded-baseline",
+      "checked": 37,
+      "differences": [],
+      "manifest_sha256": "3589892c8a6f577f7e0165138214a0de487243e0f2448019e3a4ad132403bec8"
+    },
+    {
+      "arm": "corrected-candidate",
+      "checked": 37,
+      "differences": [],
+      "manifest_sha256": "2a00b5a082922fa4f85d1afd937bfed1ce8fb5886b5839125451a2065a32273c"
+    }
+  ],
+  "aggregate_sha256": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de"
+}

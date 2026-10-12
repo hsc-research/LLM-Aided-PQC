@@ -1,0 +1,2 @@
+PASS: 220 upstream files are byte-identical; 175 compile entries exist; 80 ACVP cases present.
+NOT RUN: RTL compile, RTL simulation, equivalence, synthesis, PPA, side-channel tests.

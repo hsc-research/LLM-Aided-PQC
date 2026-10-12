@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "profile_rebuilds": 20,
+  "all_worktree_and_index_profile_fingerprints_match": true,
+  "staged_files": 2638,
+  "index_snapshot_sha256": "cf1359266ad80f11264aae1cf62976cecad0865626f897ce74b7223c1ea56fc0",
+  "only_change_after_software_freeze": {
+    "path": ".gitignore",
+    "change": "Add exactly /build/profiles/ ignore pattern",
+    "before_sha256": "5ad639bdadf21691f39ac755681e0a7069a2e5fde8b2f7c22e8d6fb989d1dd28",
+    "after_sha256": "68a1b8b468c01c1395d21da3dac75e20fbe5bd2058d4f68e95a83be5ce586bed",
+    "no_executable_or_evidence_change": true
+  },
+  "index_source_inventory": "index-source-inventory.json"
+}

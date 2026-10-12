@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "evidence": "exhaustive binary decoder tuples plus hold-entry/hold-exit transitions at settled clock cycles",
+  "assumptions": "cnt/ch_cnt/XMSS_start/LR_flag2 change only via existing posedge registers; no arbitrary asynchronous-input equivalence claim",
+  "reference_sha256": "9afd281ee04338911c265674cbb6f47e5151bffeb91f4349e098394ed3fd3e26",
+  "derivative_sha256": "edd693bb2fa2321ae84534c64a315ae5fc71ccf8dfce8be59d7aa04cf77afb09",
+  "transform_sha256": "41bf644a87b33ae27138f955c02ccf20c7cde500e1f0002e3183375257cabf1b",
+  "test_inputs_sha256": {
+    "tools/check_slh_asic_control.py": "7c521b06c766284f11e43b4b8cf3ca3899303894c94cad4a306b43f07b356f74",
+    "verification/slh_asic_startup/tb_control.sv": "c4cbf03aa3e478f19e73540fddcbb4919c63aa1001d8327e23968f4a80be2973"
+  },
+  "cases": [
+    {
+      "CH_len": 2,
+      "status": "PASS",
+      "checks": 12294,
+      "output": "SLH_ASIC_CONTROL_PASS CH_len=2 checks=12294\n/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/verification/slh_asic_startup/tb_control.sv:47: $finish called at 122990000 (1ps)"
+    },
+    {
+      "CH_len": 4,
+      "status": "PASS",
+      "checks": 12294,
+      "output": "SLH_ASIC_CONTROL_PASS CH_len=4 checks=12294\n/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/verification/slh_asic_startup/tb_control.sv:47: $finish called at 122990000 (1ps)"
+    }
+  ]
+}

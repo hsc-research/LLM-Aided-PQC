@@ -1,0 +1,3860 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "design_manifest_sha256": "3589892c8a6f577f7e0165138214a0de487243e0f2448019e3a4ad132403bec8",
+  "variant": "guarded-baseline+explicit-asic-startup",
+  "tool": "rev vUNKNOWN-built20260516-4e853d8",
+  "source_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/Barrett_8380417.v": "040bc64022eb5a07813dc470f3673a28f62e5ca880f65c28adbee56152ae0c43",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_unit.v": "dfdd2e65ef50ec6984ab13c835646d391a10ff16dd438ccc4366db7b827e15c7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly.v": "918da4ce37c3c2534b6437c494ef3175fce8ec6b02c0e2ac36fda00f02415b98",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly2x2.v": "135ef023529d16efdb0160427c40e0de011342bf3f50a2a9ea881b050796cc76",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/coeff_decomposer.v": "65dd302dffb728b1bf610154c2de366191b184e46437eca32c12eb0e89f9911d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top.v": "a72c882e3426dc20aff5a451748a6a980d7e1f9a94dbe09c91c6d5133acb30de",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v": "1b8502fcf988ea636d1d32cada63a809fd60d4846a4c6f3f8739a188873c92a0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decoder.v": "2ce8fe5d2c4749de62c9d1c908cd06e2406a3c7f8b5b3bf249b012e84c98c967",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomposer_unit.v": "b92ebdb6efef1d5a64856466b638bdfeda1fe3204c68f5e50f8e728032de7198",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/dual_port_rom.v": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/encoder.v": "a5bff6c6bad322aa478d12042efceeddb496a959d47684afbe0338e459dc2379",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/expandmask_ext.v": "350522b39eafece869e2bacf3e604105def31933ad2e67906ce51c054f048fd4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_a_ext.v": "661c4827d21014ffe0c8f60cbb3e2bdefeebb69f6746e20f258db5e0b7e9d983",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_c.v": "ec160c6144c7f987da64a14ee2a514a383c477989953101744049cdb7cfe3b73",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_s.v": "46b224b5422f353fe05423f9cce14cec58b3fb5a274cf63044abe75403d17904",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/keccak_top_ghdl.v": "36ef919d8338ba2d86c6a9c46157acf0834a5da31923337834aed377d8f965ae",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v": "4302c86a9ca9cc57908cbea57a3fdf7bb7b94b29cac55109cf1b8b124cd502c1",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v": "6fbeb77e89893f125fe39ecda9f17bd3da780eedee5dd343abd18bd3a65efb20",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo.v": "cd8ecb9f233b1a5f1112e8fb4653f2801e0d9889e12f40cebcdff3ea5e6c8134",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo_piso.v": "2a6d24bebcb004d9b9affb8898a083d0d6101ff4c4a84074fcc812c7ac4bde24",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_pipo.v": "3cf45311ce7f1a7c373f273e473baf5a5fc46539957fb697655cb7411fe28df2",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/operation_module.v": "4c820813497cfdc107c143156248e0ab39d118b30c349344ba945310acc45eed",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_a.v": "ff2126f6ee64652b15d3e676be8de31f9ef48e5b1733e584f9ba3bb708ac5b6c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_s.v": "c14f1ae32aa625c03ac44e1ab1ee513305121704fe59a52ea5fa810f0c5ae026",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_y.v": "26f974b761f47c2d3a6ced414fa0a30c05d894016879e7eab26e96df3f5ac45d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_a_ext.v": "8f05dc289328c9ab05cedb4317f0cd15b8c04ec69f6361e8ae82a63799a5804b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_s.v": "6942f550875093a5a597a87b273cd7eacbfc9876863dcf8a80c69c5f8207bc5f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_y_ext.v": "86688d9f04cfe65174c8b94de09f26e501078b73ace7c9a7a1898f04c568c9b7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/twiddle_resolver.v": "c3a404b23ce717f10bb911997f17d3164fdbba5942488d4a74ce9837f833ec42",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_mlen_44.txt": "be794637aa863ce024cfdc1a08b97a67d28044d01d0ca0a1f6f8c376dbb8b7bc",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_seed_65.txt": "703b2ad801a993dde730a00efdbd827574c4c42c3407c5da5b541f0611edcf25",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_seed_44.txt": "03b4c0dd54a959176ae64618918f7b6a5455c88db2ad98c6f4f55f1741d77948",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_result_87.txt": "4d15489b4ae9acf609c0173cc92fbb2b9b99ccfc48418a586a0a59ab755fc2d6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_signature_87.txt": "65080c994ff92fc510b405e08a19cc0ca59354f292b18c8bafeb87864f15e2c3",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctx_44.txt": "a38ef43b319ea86cec1a4e2f532bc0937618dd330a79661ef1cf5e6eead0605a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_sk_65.txt": "1b3bae6fbf6a7b7352a2d8c1dda80c802413139d2748bdb098d43c14b2dbd543",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctx_65.txt": "8a0425907b16821c9706ad6fc703bcc183a0ba8d62134b9fbac14f5d06e596e6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_mlen_44.txt": "3737eb3f3d909112f01189bd211e4a661898f78ec457222f94a7e0ea73c7759b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctx_87.txt": "6874f864f8020959f3ed23bf524943773184674a11d0c4dfd16d7e4b47ee619b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_message_65.txt": "6655c2e53d45be31e969818de9e6afe819b211d4eb644cc7931abded0010f6f3",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_signature_87.txt": "9c958f1df1dc45e6c3863f68150cb6385aad9edcfb282ed6975134fc85df72fa",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_pk_65.txt": "01eea5e31427f45c76cc24474a5779260c55dcb6f75e368c9bad0fac5b41e9a8",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_message_44.txt": "51f2d4c9f367199715c657606bfcbf80fb8377a0378598c0f934d89c086d3912",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_result_44.txt": "22ae0a2259ef410a1e7cb56e68050b9fcc164438c5f8f269c13cfd3f93bf2ba6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctxlen_44.txt": "fc444c18fba8be0e8982da2a4eafddcba59ebc94ad8bdd40e048fcfa361a2abf",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_message_87.txt": "d0ef0be275c9779a61ee713a0d5c003f3152051ca6d937a0ff01e92ad12f2977",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_mlen_65.txt": "3664300b5dd4befdb297b4e5e7f4c319dd830fc8bf301f49614d1371aac598e4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_seed_87.txt": "d7c5d6445978fe338c295dc1d4d47837c0221be69e231a17cdcbd382d3e4f832",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_signature_44.txt": "c8bddd4f28e4a15fb884a4c0f7295372c8f271d00a4363aa81fb7dc32621a20c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_message_87.txt": "7c49fc93f3b3af3906081a8d823a0a84744e9e686eb8c0bc817d5138049e324c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_mlen_65.txt": "6fccea8eef892ed93c309a19e0c101bce6ea47bf0b1cbc71e7dfc78ec0658849",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_mlen_87.txt": "c47751390ed4f15218bb37ed2e02ec19b1016e1ba3be07b9b20927c224961f88",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_pk_87.txt": "77be1bbf80505517af1dbef1d050d8421c095211eb51f14bdb1a19f65a827237",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_pk_44.txt": "9eb5b0c900dd249409f56599a4d752086e2b30e0951ce8f347af91511ae80014",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_sk_44.txt": "cc43a2fdf8d966c6ca8f462d2e96520ba5446cf2e81e285455b6a0ece33455ef",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_pk_87.txt": "e445d1ed3ca3df6018e24466ca9d346dbfb59e56b97de001835ee403477817a8",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctxlen_87.txt": "28b2624f6766ea37aa93c38c04242c654b6f70bbebdcfb92c253ff977dcd4f79",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_message_65.txt": "714736e8686dbb792b7f43f150601fd5202a7b3ef2050b02bf9a656ae3b33cd6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctx_65.txt": "8c518801015b3b8e620eefcbfea7e0212ddefd1410a1e650b72c34453e931e3a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_result_65.txt": "13f16b3a5c0471270b9b893d164f611a9743c249ac1faed80aaeb63f62e8ac1e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_pk_44.txt": "db917346fcc89cf052a3f267fea98c7931021419b5fa7ce1737491a5e20a5899",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctxlen_65.txt": "1f521ff9fd63b31c15f985b281966f5feb09db855409c67f08dec2a43b9d1037",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctx_87.txt": "270135bf4ee5986a2419dff6127d092bcb9d9eca44ba04cf5474908bb3037087",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctxlen_87.txt": "9bb0a280ccc7d0b5d98d0dcfc75dedfcafabe15d3735260bcc3c6a171442a332",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_pk_65.txt": "aa4a323392bf08ecb556af035422a872934647450343540bfe04b215a88f5e83",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctxlen_65.txt": "f7fd020923ddfa5767b0ad0c9e25b57cf2a0f80ea45be740f1d1e7576c85e9d0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctx_44.txt": "9a8050aee90909ee6d821d70caa2cba3a8e1c2b9851f8b5ec85cae80c7c90e7a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_signature_44.txt": "4e5ec7714e6aca405e3047ba3e2f1bf496f81337fe15c81f15098531897a064f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_sk_87.txt": "9bcb921bf505f0aac49b83ac957c00b3f6db6b71084732fd9441e9a7163f263c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctxlen_44.txt": "6181d730186994f8910395b8a172d4db95bfac52ee0e792ef0c7cfb1a7d7481c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_sk_44.txt": "88987fcdaf96436e9fa91c6e30a42287188ac6bf49210bc5fbe06e8ea7e9870b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_signature_65.txt": "9e47f9b1ce64eb5d1fc9d713ae84411aebcd30ac77a59cd387ea345b9a11786c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_mlen_87.txt": "f9dd0a60c93c83caf43c4e22f92299736260465548526d95582517f24a098279",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_sk_87.txt": "eb134858a7c6653a2e051b8929dc511b8551208465d3e6db001d94b9804a2727",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_signature_65.txt": "d247c180079b92a11e5cae3a98226b7dc6e036f2d665529bd8542883b6917368",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_sk_65.txt": "4d1ac3df6f87037cd81941496fb4de94340e7a9ab7c6af4d9e34609f8fc7b2b6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_message_44.txt": "97ca547196da8f62060c09e9513499cad41c5bce89487730ecf70e872a10a53d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src_tb/tb_keygen_top.v": "0abfcf9eba6671f9e9fd9ac8ce04d94e628548bd344987eeebfc4aa2eac25de4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src_tb/tb_verify_top.v": "e96584b3468f7f3c04cb7a228a872206f6bd3b4fcb452e2c2407a594913b65db",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src_tb/tb_sign_top.v": "8799c2a8cf59437102382319c89c8e258aeea7aafda3c27f635833200961878f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208"
+  },
+  "coverage": {
+    "keygen:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "keygen",
+      "expected": 75,
+      "completed": 75,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 4878
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 4865
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 4877
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 15,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 16,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 17,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 18,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 19,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 20,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 21,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 22,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 23,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 24,
+          "cycles": 4874
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 8300
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 8297
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 15,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 16,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 17,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 18,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 19,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 20,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 21,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 22,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 23,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 24,
+          "cycles": 8289
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14032
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14034
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14035
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 15,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 16,
+          "cycles": 14026
+        },
+        {
+          "level": "V",
+          "kat": 17,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 18,
+          "cycles": 14025
+        },
+        {
+          "level": "V",
+          "kat": 19,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 20,
+          "cycles": 14045
+        },
+        {
+          "level": "V",
+          "kat": 21,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 22,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 23,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 24,
+          "cycles": 14035
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 26.68
+    },
+    "keygen:seed-11": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "keygen",
+      "expected": 75,
+      "completed": 75,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 4878
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 4865
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 4877
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 15,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 16,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 17,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 18,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 19,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 20,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 21,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 22,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 23,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 24,
+          "cycles": 4874
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 8300
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 8297
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 15,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 16,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 17,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 18,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 19,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 20,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 21,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 22,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 23,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 24,
+          "cycles": 8289
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14032
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14034
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14035
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 15,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 16,
+          "cycles": 14026
+        },
+        {
+          "level": "V",
+          "kat": 17,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 18,
+          "cycles": 14025
+        },
+        {
+          "level": "V",
+          "kat": 19,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 20,
+          "cycles": 14045
+        },
+        {
+          "level": "V",
+          "kat": 21,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 22,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 23,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 24,
+          "cycles": 14035
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 11,
+      "runtime_s": 13.1
+    },
+    "keygen:seed-29": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "keygen",
+      "expected": 75,
+      "completed": 75,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 4878
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 4865
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 4877
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 15,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 16,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 17,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 18,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 19,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 20,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 21,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 22,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 23,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 24,
+          "cycles": 4874
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 8300
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 8297
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 15,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 16,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 17,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 18,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 19,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 20,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 21,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 22,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 23,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 24,
+          "cycles": 8289
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14032
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14034
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14035
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 15,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 16,
+          "cycles": 14026
+        },
+        {
+          "level": "V",
+          "kat": 17,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 18,
+          "cycles": 14025
+        },
+        {
+          "level": "V",
+          "kat": 19,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 20,
+          "cycles": 14045
+        },
+        {
+          "level": "V",
+          "kat": 21,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 22,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 23,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 24,
+          "cycles": 14035
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 29,
+      "runtime_s": 15.89
+    },
+    "sign:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "sign",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 29272
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 35090
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 41065
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 29028
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 22904
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 12047
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 17842
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 29412
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 12429
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 23305
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 53034
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 12189
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 10970
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 29410
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 18224
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 97833
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 16291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 16190
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 48636
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 32394
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 40525
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 24301
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 25142
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 16579
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 16180
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 24984
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 65313
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 57200
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 37574
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 49454
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 108916
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 49473
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 97017
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 85125
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 97012
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 25672
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 73244
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 37592
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 37599
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 37578
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 25691
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 32.07
+    },
+    "sign:seed-11": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "sign",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 29272
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 35090
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 41065
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 29028
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 22904
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 12047
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 17842
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 29412
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 12429
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 23305
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 53034
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 12189
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 10970
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 29410
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 18224
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 97833
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 16291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 16190
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 48636
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 32394
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 40525
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 24301
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 25142
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 16579
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 16180
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 24984
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 65313
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 57200
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 37574
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 49454
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 108916
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 49473
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 97017
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 85125
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 97012
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 25672
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 73244
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 37592
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 37599
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 37578
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 25691
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 11,
+      "runtime_s": 26.25
+    },
+    "sign:seed-29": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "sign",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 29272
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 35090
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 41065
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 29028
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 22904
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 12047
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 17842
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 29412
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 12429
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 23305
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 53034
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 12189
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 10970
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 29410
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 18224
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 97833
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 16291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 16190
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 48636
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 32394
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 40525
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 24301
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 25142
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 16579
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 16180
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 24984
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 65313
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 57200
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 37574
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 49454
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 108916
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 49473
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 97017
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 85125
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 97012
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 25672
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 73244
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 37592
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 37599
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 37578
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 25691
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 29,
+      "runtime_s": 29.59
+    },
+    "verify:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6716
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6668
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6908
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 6584
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14640
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14632
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14646
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14655
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14648
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14634
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14642
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 7.75,
+      "known_valid": 9,
+      "known_invalid": 36
+    },
+    "verify:seed-11": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6716
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6668
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6908
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 6584
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14640
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14632
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14646
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14655
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14648
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14634
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14642
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 11,
+      "runtime_s": 8.04,
+      "known_valid": 9,
+      "known_invalid": 36
+    },
+    "verify:seed-29": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6716
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6668
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6908
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 6584
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14640
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14632
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14646
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14655
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14648
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14634
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14642
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 29,
+      "runtime_s": 9.2,
+      "known_valid": 9,
+      "known_invalid": 36
+    },
+    "verify_mutations:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 12,
+      "completed": 12,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 2.78,
+      "known_valid": 0,
+      "known_invalid": 12
+    },
+    "verify_mutations:seed-11": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 12,
+      "completed": 12,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 11,
+      "runtime_s": 2.62,
+      "known_valid": 0,
+      "known_invalid": 12
+    },
+    "verify_mutations:seed-29": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 12,
+      "completed": 12,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 29,
+      "runtime_s": 2.71,
+      "known_valid": 0,
+      "known_invalid": 12
+    },
+    "verify_canonical:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 33,
+      "completed": 33,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 10.02,
+      "known_valid": 18,
+      "known_invalid": 15
+    },
+    "verify_canonical:seed-11": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 33,
+      "completed": 33,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 11,
+      "runtime_s": 6.04,
+      "known_valid": 18,
+      "known_invalid": 15
+    },
+    "verify_canonical:seed-29": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 33,
+      "completed": 33,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 29,
+      "runtime_s": 5.84,
+      "known_valid": 18,
+      "known_invalid": 15
+    }
+  },
+  "commands": [
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_keygen_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/obj",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/ref_combined/src_tb/tb_keygen_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/obj/Vtb_keygen_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/obj/Vtb_keygen_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+11"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/obj/Vtb_keygen_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+29"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_sign_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/obj",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/ref_combined/src_tb/tb_sign_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/obj/Vtb_sign_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/obj/Vtb_sign_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+11"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/obj/Vtb_sign_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+29"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/obj",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/obj/Vtb_verify_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+11"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/obj/Vtb_verify_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+29"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/obj",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/obj/Vtb_verify_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+11"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/obj/Vtb_verify_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+29"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/obj",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/obj/Vtb_verify_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+11"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/obj/Vtb_verify_top",
+        "+verilator+rand+reset+2",
+        "+verilator+seed+29"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/ref_combined/src_tb"
+    }
+  ],
+  "boot_restarts_per_process": 2,
+  "collision_assertions": true,
+  "two_state_simulation": true,
+  "four_state_fullcore_qualified": false,
+  "normal_reset_contract": "Original per-operation reset semantics retained; arbitrary abort/reset recovery is not claimed.",
+  "testbench_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/ref_combined/src_tb/tb_keygen_top.v": "a18ff72faf558b86f0f9eb0b57984943927ba7cb1ccdc15448803cd87d1604fb",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/ref_combined/src_tb/tb_sign_top.v": "dba8fde96bb3685d0bebd700e636fafe85bbc9f7ff7fc00a7225e35444e38d97",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/ref_combined/src_tb/tb_verify_top.v": "8094479ce42bf37d675822ae0fb01969aec17ae24534451831c4156b3ebb6ac4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/ref_combined/src_tb/tb_verify_top.v": "cc81d277f6f365644235bf641ff2ade7cca5b9686de42d54a018623a353d96f6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/ref_combined/src_tb/tb_verify_top.v": "38b95d3f459390456fb8963fd9c791b589fabe2e69f3fd52df5450c70a2d0f20"
+  },
+  "executable_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/keygen/obj/Vtb_keygen_top": "1cf6301e3fc7acd2daedeb9ea60d2893320d37933cfff9790f4776817b761a0e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/sign/obj/Vtb_sign_top": "26f1cdf505b8eef97cdb2d73aaaa860777e9ae56c06f64038a56b4f767e0f00b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify/obj/Vtb_verify_top": "73e97e6228cdd2f70d6deea3dd28924d09efaa4e734724e104bae27766eeb4c0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_mutations/obj/Vtb_verify_top": "4fa60a14ae2aeb28d635196282b0c61d803be9f456caf28acb4a45ebe412c2d0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-baseline/verify_canonical/obj/Vtb_verify_top": "25edb566aa5834fbbe33f81124c818006d258b58f5489fbb9c7bda9873871275"
+  },
+  "source_hashes_unchanged": true,
+  "full_210_case_coverage": true
+}

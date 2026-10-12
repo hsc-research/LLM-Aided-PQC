@@ -21,9 +21,11 @@ model API to understand the repo or run its Python checks.
 | Guide | Use it for |
 |---|---|
 | [Install and run](REPRODUCE.md) | A staged route from a clean checkout to source checks, RTL simulation and EDA runs |
-| [Hardware handoff](HARDWARE_HANDOFF.md) | Export exact passing derivatives and prepare matched FPGA/ASIC source/constraint configurations |
+| [Hardware handoff](HARDWARE_HANDOFF.md) | Prepare separate FPGA/ASIC baselines, preserve memory behavior, then measure matched candidates |
 | [FPGA](FPGA.md) | Vivado setup, design selection, functional checks and timing measurement |
+| [ASIC startup sources](ASIC_STARTUP.md) | Explicit ML-DSA/SLH baseline/candidate paths, boot protocols, evidence and remaining target gates |
 | [ASIC synthesis](../asic/README.md) | Genus/DC manifests, libraries, constraints, output reports and qualification |
+| [ASIC site admission](ASIC_ADMISSION.md) | Qualified adapter contract for structural checks and FF-memory evidence |
 | [Whole-design controller](WHOLE_DESIGN.md) | Multi-path targeting, small edits, full-design rechecks and acceptance/rollback |
 | [Existing agent workflows](../agent/README.md) | CLI entry points and the older one-round FPGA driver |
 | [Local dashboard](DASHBOARD.md) | Read existing experiment logs in a local browser |

@@ -1,0 +1,38 @@
+{
+  "status": "EXPECTED_FAIL_BEFORE_MEMORY_OPTIMIZATION",
+  "cases": [
+    {
+      "work_directory": ".pqc_runs/structure-final-baseline-128f",
+      "mapping_script_sha256": "a21b767681ae7351ed56ad558d3218df8637c8aa74a9b716b4e57bb8e146bf80",
+      "mapping_log_sha256": "c6b9abee7726103aeefa2b737cb51c062860052040ae7fa1a7d4ef1eaba9824c",
+      "exit": "Wasm exception before strict checker completion",
+      "script": "proc; opt; memory_map; opt; techmap; opt; check -assert",
+      "reason": "explicit full-address read view produces too many temporary static-read muxes without normal memory optimization"
+    },
+    {
+      "work_directory": ".pqc_runs/structure-final-baseline-192f",
+      "mapping_script_sha256": "bc00e35e7fadadcc5e93fe3051a04f2a2071532ee70c16e2f28e4516330dc312",
+      "mapping_log_sha256": "ad76f859b418d21bab4ac164cd5165654ce40f888822b4ceac5d0c1c10fe3a61",
+      "exit": "Wasm exception before strict checker completion",
+      "script": "proc; opt; memory_map; opt; techmap; opt; check -assert",
+      "reason": "explicit full-address read view produces too many temporary static-read muxes without normal memory optimization"
+    },
+    {
+      "work_directory": ".pqc_runs/structure-final-candidate-128f",
+      "mapping_script_sha256": "11f664faa098fd5f765ec717575e9681051ea16f7324851612a22e74586cc667",
+      "mapping_log_sha256": "497a5899160078a19e83845e435e5f37c419028bf412741432c5afb90e8a651c",
+      "exit": "Wasm exception before strict checker completion",
+      "script": "proc; opt; memory_map; opt; techmap; opt; check -assert",
+      "reason": "explicit full-address read view produces too many temporary static-read muxes without normal memory optimization"
+    },
+    {
+      "work_directory": ".pqc_runs/structure-final-candidate-192f",
+      "mapping_script_sha256": "c2b6675b22c5eb787f6f46f4aba0e1d3a7149723fbebe22b82e0ec2928124199",
+      "mapping_log_sha256": "8339bd6b93459a33edc93700cc31c9619209230526510534c72504ca23bf5426",
+      "exit": "Wasm exception before strict checker completion",
+      "script": "proc; opt; memory_map; opt; techmap; opt; check -assert",
+      "reason": "explicit full-address read view produces too many temporary static-read muxes without normal memory optimization"
+    }
+  ],
+  "resolution": "Use standard memory -nomap before memory_map; never global setundef or warning suppression"
+}

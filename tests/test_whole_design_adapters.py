@@ -77,6 +77,41 @@ class AdapterTests(unittest.TestCase):
                 self.assertFalse(self.response_path.exists())
                 self.assertNotIn('flag2', self.source.read_text())
 
+    def test_proposer_uses_target_specific_policy_without_transferred_evidence(self):
+        for target in ('asic', 'fpga'):
+            with self.subTest(target=target):
+                self.response_path.unlink(missing_ok=True)
+                self.config['target'] = target
+                self.save_request()
+                with patch.object(adapters.llm_client, 'create_client', return_value=self.mock_model()):
+                    adapters.propose_llm(self.request_path, self.response_path, 'fixture-model')
+                sent = json.loads((self.run / 'llm_request.json').read_text())
+                self.assertIn('Selected target: ' + target.upper(), sent['system'])
+                self.assertIn('no SRAM compiler' if target == 'asic' else 'BRAM-capable', sent['system'])
+                self.assertFalse(sent['user']['hardware_learning_claim'])
+                self.assertEqual(sent['user']['evidence_scope'], 'only_this_exact_target_configuration')
+
+    def test_proposer_rejects_cross_target_measurement_before_model(self):
+        self.config['target_profile'] = {'profile_fingerprint': 'fixture'}
+        self.request['measurement']['configuration'] = dict(self.config, target='fpga')
+        self.save_request()
+        with patch.object(adapters.llm_client, 'create_client', side_effect=AssertionError('must not run')):
+            with self.assertRaisesRegex(wd.ContractError, 'different target'):
+                adapters.propose_llm(self.request_path, self.response_path, 'fixture-model')
+
+    def test_keygen_adapter_cannot_claim_full_target_coverage(self):
+        profile = adapters.mldsa_profile()
+        self.config.update({key: profile[key] for key in ('top', 'required_checks', 'operations')})
+        self.config['target_profile'] = {'profile_fingerprint': 'fixture'}
+        self.request['phase'] = 'verify'
+        self.save_request()
+        from agent.mldsa import full_kat_gate
+        with patch.object(full_kat_gate, 'run_full_kat', side_effect=AssertionError('must not run')):
+            with self.assertRaisesRegex(wd.ContractError, 'cannot qualify'):
+                adapters.verify_mldsa_keygen(self.request_path, self.response_path, self.root, self.root)
+        self.assertEqual(profile['coverage_scope'], 'keygen_only')
+        self.assertEqual(profile['covered_operations'], ['keygen'])
+
     def prepare_asic(self):
         library = self.root / 'cells.lib'
         library.write_text('library (fixture) { time_unit : "1ns"; }\n')

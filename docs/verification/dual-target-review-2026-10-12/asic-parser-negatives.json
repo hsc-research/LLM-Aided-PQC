@@ -1,0 +1,457 @@
+{
+  "status": "PASS",
+  "scope": "Synthetic strict-admission parser adversarial controls, not licensed RTL qualification",
+  "negative_controls": 90,
+  "controls": [
+    {
+      "field": "missing_modules",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "missing_modules",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "missing_modules",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "missing_modules",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "missing_modules",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "missing_modules",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "empty_modules",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "empty_modules",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "empty_modules",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "empty_modules",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "empty_modules",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "empty_modules",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_width_mismatches",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_width_mismatches",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_width_mismatches",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_width_mismatches",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_width_mismatches",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_width_mismatches",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_connection_errors",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_connection_errors",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_connection_errors",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_connection_errors",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_connection_errors",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "port_connection_errors",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "multiple_drivers",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "multiple_drivers",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "multiple_drivers",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "multiple_drivers",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "multiple_drivers",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "multiple_drivers",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "latches",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "latches",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "latches",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "latches",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "latches",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "latches",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "implicit_nets",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "implicit_nets",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "implicit_nets",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "implicit_nets",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "implicit_nets",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "implicit_nets",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "undriven_nets",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "undriven_nets",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "undriven_nets",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "undriven_nets",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "undriven_nets",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "undriven_nets",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "combinational_loops",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "combinational_loops",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "combinational_loops",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "combinational_loops",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "combinational_loops",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "combinational_loops",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unreviewed_diagnostics",
+      "value": "1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unreviewed_diagnostics",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unreviewed_diagnostics",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unreviewed_diagnostics",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unreviewed_diagnostics",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unreviewed_diagnostics",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_inventory_complete",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_inventory_complete",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_inventory_complete",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_inventory_complete",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_inventory_complete",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_macro_cells",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_macro_cells",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_macro_cells",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_macro_cells",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_macro_cells",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_blackboxes",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_blackboxes",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_blackboxes",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_blackboxes",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "memory_blackboxes",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unmapped_memory_bits",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unmapped_memory_bits",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unmapped_memory_bits",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unmapped_memory_bits",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "unmapped_memory_bits",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "mapped_memory_bits",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "mapped_memory_bits",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "mapped_memory_bits",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "mapped_memory_bits",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "mapped_memory_bits",
+      "value": "01",
+      "observed": "REJECT"
+    },
+    {
+      "field": "flip_flop_memory_bits",
+      "value": "NaN",
+      "observed": "REJECT"
+    },
+    {
+      "field": "flip_flop_memory_bits",
+      "value": "true",
+      "observed": "REJECT"
+    },
+    {
+      "field": "flip_flop_memory_bits",
+      "value": "-1",
+      "observed": "REJECT"
+    },
+    {
+      "field": "flip_flop_memory_bits",
+      "value": "1.0",
+      "observed": "REJECT"
+    },
+    {
+      "field": "flip_flop_memory_bits",
+      "value": "01",
+      "observed": "REJECT"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 import sys
 
-from . import edit_ops, llm_client
+from . import edit_ops, llm_client, target_profiles
 from .run_safety import hashes, run_process
 from .whole_design import (asic_measurement_response, integer, require, save,
                            validate_gate, validate_reports)
@@ -33,7 +33,29 @@ uninitialized state, or introduce secret-dependent timing/control/memory access.
 Use the reported worst whole-design paths. Local resource estimates are not
 acceptance evidence; the controller reruns the whole-design gate and measurement.
 Avoid repeated failed edits; feedback about one edit does not ban its strategy.
+The target profile, compile directives, memory policy, part/libraries, constraints,
+and external-memory boundary are frozen. Never change these to claim an RTL win.
+An idea may be retested independently on another target, but a measured gain,
+acceptance, or failed experiment applies only to this exact target configuration.
+Do not claim learned hardware knowledge or transfer FPGA PPA to ASIC or vice versa.
 '''
+
+TARGET_SYSTEM = {
+    'fpga': '''Selected target: FPGA. Optimize for the exact declared FPGA part,
+LUT/carry/DSP mapping and inferred BRAM-capable memories. Preserve RAM inference
+and the selected memory read/write latency, initialization, and collision behavior.
+Do not replace memories with ASIC SRAM macros or assume ASIC cell-area gains.
+BRAM inference is an intent until target implementation reports verify it.
+''',
+    'asic': '''Selected target: ASIC with RTL flip-flop memories, no SRAM compiler
+and no memory macros. Optimize standard-cell logic, mux depth, fanout, enables and
+FF-based memory access under the exact frozen libraries/corner and fixed period.
+Do not instantiate FPGA BRAM/LUT/DSP/carry primitives or infer unprovided SRAM
+macros. Preserve memory/reset/read-during-write behavior and account for every FF.
+Only the qualified full-design ASIC flow can establish area or timing benefit.
+''',
+}
+
 
 
 def read_request(request_path, response_path, phase):
@@ -63,17 +85,26 @@ def propose_llm(request_path, response_path, model, max_tokens=4096):
     integer(max_tokens, 'LLM max_tokens', maximum=16384)
     require(isinstance(model, str) and model, 'Select an explicit model')
     cfg = request['configuration']
+    require(cfg.get('target') in TARGET_SYSTEM, 'Unknown proposal target')
+    if cfg.get('target_profile') is not None:
+        require(request.get('measurement', {}).get('configuration') == cfg,
+                'Proposer measurement belongs to a different target/configuration')
+    system = SYSTEM + TARGET_SYSTEM[cfg['target']]
     context = {'target': cfg['target'], 'top': cfg['top'], 'measurement_configuration': cfg['measurement'],
                'critical_paths': request['critical_paths'], 'allowed_files': request['allowed_files'],
                'rtl': request['rtl'], 'metrics': request['measurement']['metrics'],
-               'feedback': request['feedback'], 'admission_policy': cfg.get('admission', {})}
+               'feedback': request['feedback'], 'admission_policy': cfg.get('admission', {}),
+               'target_profile': cfg.get('target_profile'),
+               'source_read_order': cfg.get('source_read_order'),
+               'evidence_scope': 'only_this_exact_target_configuration',
+               'hardware_learning_claim': False}
     message = json.dumps(context, allow_nan=False)
     require(len(message.encode()) <= 2 * 1024 * 1024, 'LLM proposal context exceeds 2 MiB')
     # This is the only paid boundary and uses the repository's existing opt-in.
     client = llm_client.create_client()
     save(Path(response_path).parent / 'llm_request.json', {'model': model, 'max_tokens': max_tokens,
-                                                        'system': SYSTEM, 'user': context})
-    reply = client.messages.create(model=model, max_tokens=max_tokens, system=SYSTEM,
+                                                        'system': system, 'user': context})
+    reply = client.messages.create(model=model, max_tokens=max_tokens, system=system,
                                    messages=[{'role': 'user', 'content': message}])
     require(getattr(reply, 'stop_reason', None) == 'end_turn', 'LLM response incomplete or tool-directed')
     blocks = getattr(reply, 'content', [])
@@ -122,6 +153,8 @@ def measure_asic(request_path, response_path, site_config, extractor_config, tim
                        ('tool_version', plan['tool_version_declared']), ('corner', plan['library_corner_declared']),
                        ('effort', plan['effort'])):
         require(spec.get(key) == value, f'ASIC declared {key} differs from effective configuration')
+    if request['configuration'].get('target_profile') is not None:
+        target_profiles.validate_asic_plan(plan, request['configuration']['target_profile'])
     expected = verify_inputs(request)
     require(all(expected.get(path) == sha for path, sha in plan['input_hashes'].items()),
             'ASIC plan reads an input outside the frozen request')
@@ -161,7 +194,7 @@ def describe_asic(site_config, tool=None):
 
 def mldsa_profile():
     from .mldsa.full_kat_gate import LEVELS
-    return {'top': 'combined_top',
+    return {'top': 'combined_top', 'coverage_scope': 'keygen_only', 'covered_operations': ['keygen'],
             'required_checks': [f'mldsa_keygen_{level}_25' for level in LEVELS],
             'operations': [f'mldsa_keygen_{level}_kat_{kat}' for level in LEVELS for kat in range(25)],
             'coverage': 'Only 25 KeyGen vectors at each of II/III/V; no Sign/Verify or extra handshake proof.'}
@@ -174,6 +207,8 @@ def verify_mldsa_keygen(request_path, response_path, source_dir, reference_root,
     cfg = request['configuration']
     require(cfg['top'] == profile['top'] and cfg['required_checks'] == profile['required_checks']
             and cfg['operations'] == profile['operations'], 'ML-DSA adapter supports the exact KeyGen-only profile')
+    require(cfg.get('target_profile') is None,
+            'Legacy KeyGen-only adapter cannot qualify target-specific compilation or full selected operation coverage')
     expected = verify_inputs(request)
     reference_root, source_dir = Path(reference_root).resolve(), Path(source_dir).resolve()
     require({str(Path(path).parent) for path in request['source_hashes']} == {str(source_dir)},
@@ -212,7 +247,9 @@ def verify_mldsa_keygen(request_path, response_path, source_dir, reference_root,
         path = Path(path).resolve()
         reports[name] = {'path': str(path), 'sha256': hashes([path])[str(path)]}
     response.update(status='PASS', scope='full_design', checks={key: 'PASS' for key in profile['required_checks']},
-                    latency_cycles=cycles, reports=reports, coverage=profile['coverage'])
+                    latency_cycles=cycles, reports=reports, coverage=profile['coverage'],
+                    coverage_scope=profile['coverage_scope'], covered_operations=profile['covered_operations'],
+                    target_implementation_qualified=False)
     validate_reports(response, Path(response_path).resolve().parent, ('functional',))
     validate_gate(response, profile)
     verify_inputs(request)

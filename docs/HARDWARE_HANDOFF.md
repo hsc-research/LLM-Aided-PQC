@@ -7,6 +7,13 @@ stage is to run the FPGA/ASIC tools on the chosen machine. **No new commercial
 synthesis, place-and-route or PPA result is supplied by this handoff.** Keep
 baseline and candidate source versions separate and use identical constraints.
 
+The intended sequence is **qualify one baseline for each target, then optimize
+that target separately**. FPGA prefers inferred block RAM where the existing
+interface permits it. ASIC selects generic RTL storage intended for standard-cell
+FF/logic mapping; no SRAM macro compiler is assumed. These are implementation
+policies to check in reports, not proof of the mapped result. Vivado and
+DC/Genus qualification runs are performed by the user on their licensed machine.
+
 ## Choose the actual design being measured
 
 | Design | Source/verification boundary | What must not be assumed |
@@ -16,7 +23,111 @@ baseline and candidate source versions separate and use identical constraints.
 | SLH-DSA | Explicit sensitivity-corrected baseline/candidate pairs at SHA2-128f and SHA2-192f, with frozen vendor-stream evidence | Match the same SHA2 parameter set across both arms; these functional source pairs do not provide new PPA measurements |
 | HQC SAC 2026 | Pinned source-only import | **Blocked/unverified for this handoff:** no executable qualification or verified implementation configuration. Older SAC 2023 tests/PPA do not qualify it |
 
+## Prepare explicit target profiles without EDA
+
+Use [the target-profile exporter](../tools/export_target_profiles.py) to bind
+an exact source bundle to either target. For new ML-DSA/SLH ASIC work, select
+[the explicit startup derivatives](ASIC_STARTUP.md). Preserve the original FPGA
+selection separately, for example:
+
+```bash
+python3 tools/export_target_profiles.py --design mldsa \
+  --variant guarded-baseline --target fpga --out build/profiles/mldsa-baseline-fpga
+python3 tools/export_target_profiles.py --design mldsa \
+  --variant asic-startup-baseline --target asic --out build/profiles/mldsa-baseline-asic
+python3 tools/export_target_profiles.py \
+  --verify build/profiles/mldsa-baseline-asic/profile.json
+```
+
+Every output directory must be absent or empty. Supported selections are:
+
+| `--design` | `--variant` | `--parameter-set` |
+|---|---|---|
+| `mlkem` | `baseline` | Optional `1024`; unified core boundary retained |
+| `mldsa` | `guarded-baseline`, `corrected-candidate` | Optional `44-65-87`; runtime selection retained |
+| `slh` | `corrected-baseline`, `corrected-candidate` | Required `128f` or `192f`; both arms must match |
+| `mldsa` | `asic-startup-baseline`, `asic-startup-candidate` (**ASIC only**) | Optional `44-65-87`; explicit boot interface, runtime selection retained |
+| `slh` | `asic-startup-baseline`, `asic-startup-candidate` (**ASIC only**) | Required `128f` or `192f`; same-mode boot-enabled pair |
+
+Use a fresh destination for each selected baseline/candidate. Original portable
+variants remain available for both targets; the recommended ML-DSA/SLH ASIC
+selection is the separately tested startup variant, which rejects `--target fpga`. HQC is deliberately unsupported. ML-KEM has no
+separately qualified optimized source export yet; create and requalify candidates
+through the controlled optimization workflow.
+
+The output contains `profile.json`, the unchanged qualified `source-bundle/`,
+source/include lists, `sources.tcl`, a portable `verify_profile.py`, and
+`site.<target>.example.json`. The profile records source/evidence hashes,
+elaboration settings, memory intent, external boundaries and
+`compatibility_blockers`. Target preparation itself does not rewrite RTL. Explicit
+startup variants select the separately tested boot-enabled source ports and their
+fresh evidence. In particular:
+
+- ML-KEM selects upstream target-specific defines; equivalence of those target
+  compile settings is not established by the previous generic-source test.
+  Generic clock-gate mapping still needs review. Full-selected-design admission
+  requires both ML-KEM and ML-DSA operations of the unified core; the existing
+  ML-KEM-only record cannot satisfy that requirement.
+- Original portable ML-DSA/SLH variants retain initialization-dependent state.
+  New `asic-startup-*` variants instead declare explicit boot/reset and memory
+  contracts. Their finite RTL and generic FF evidence does not qualify licensed
+  standard-cell mapping or mapped startup/collision behavior.
+- SLH retains its external signature-memory boundary and limited sign/verify
+  fixture coverage; it is not a complete independently qualified algorithm.
+
+Export reports `SOURCE_EXPORTED_TARGET_UNQUALIFIED`; verification reports
+`SOURCE_PROFILE_VERIFIED` while `target_tool_qualified` remains false. Neither
+status proves simulation under the target defines, synthesis, BRAM/FF mapping,
+or startup equivalence.
+
+### Prepare a local launch configuration
+
+Copy the chosen profile's `site.<target>.example.json` to `site.local.json` and
+fill its actual tool/version, period, constraints and fresh output location.
+FPGA also requires the exact part/speed grade. ASIC requires approved standard-cell
+libraries, units, corner and site Tcl; DC needs genuine `.db` libraries.
+Keep the profile fingerprint unchanged. Then, for the ASIC example above:
+
+```bash
+python3 tools/export_target_profiles.py --prepare \
+  --profile build/profiles/mldsa-baseline-asic/profile.json \
+  --site build/profiles/mldsa-baseline-asic/site.local.json \
+  --out build/launch/mldsa-baseline-asic
+python3 tools/export_target_profiles.py \
+  --verify-preparation build/launch/mldsa-baseline-asic/preparation.json
+python3 -m agent.run --target asic --synth-tool genus \
+  --config build/launch/mldsa-baseline-asic/launch-config.json --dry-run
+```
+
+`site.local.json` is a user-created input, not generated by these commands.
+Preparation rejects unresolved site values and writes `launch-config.json` and
+`preparation.json`; its status is `SOURCE_PREPARED_NOT_RUN`. It never starts EDA.
+ASIC preparation may omit an admission adapter, but a real strict run then
+refuses to start. Supply and qualify the [site admission adapter](ASIC_ADMISSION.md)
+before removing `--dry-run` on the licensed machine. Select `dc` consistently in
+the site file and command when using Design Compiler.
+
+For an FPGA profile, the same preparation command writes `launch_vivado.tcl`
+and its reviewed launch command in `README.txt`. It prepares OOC synthesis,
+not place-and-route or a qualified optimization adapter. Review the actual
+clock in the XDC against the declared period and inspect the resulting hierarchy,
+memory, timing and DRC reports. Source preparation cannot validate a Tcl/XDC's
+meaning or prove hardware compatibility.
+
+Preserve this prepared baseline; use the
+[matched-run procedure](#record-a-fair-comparison) before starting the
+[target-bound controller](WHOLE_DESIGN.md#bind-a-target-profile-before-optimizing).
+Missing full-operation verification, startup fixes, structural/memory evidence
+or a qualified adapter remains a blocker, even when the source profile verifies.
+The target-bound optimizer requires a separate mapped-memory semantics report
+and exact implementation netlist. The built-in ASIC runner's strict FF inventory
+does not provide that startup/behavior proof.
+
 ## ML-DSA: export the passing derivatives
+
+The commands below preserve the original portable/FPGA source selection. For
+new ASIC startup work, use [the explicit startup pair](ASIC_STARTUP.md) instead
+of substituting the historical `asic/arms/` sources.
 
 From the repository root, use the [no-EDA exporter](../tools/export_mldsa_verified.py):
 
@@ -68,7 +179,8 @@ list, top and ROM data. Supply the exact FPGA part and reviewed XDC. The legacy
 historical source tree and KeyGen-only gate; it is not a launcher for these
 new exports.
 
-For Genus/DC, copy the [existing configuration example](../configs/mldsa_osh_asic.example.json)
+For Genus/DC, prefer the explicit target-profile preparation above. For a manual
+integration, copy the [existing configuration example](../configs/mldsa_osh_asic.example.json)
 to two local configurations. That example selects an older ASIC arm, so it
 must be changed before measuring the new derivatives:
 
@@ -112,6 +224,10 @@ Do not synthesize only `abr_top` and exclude its memory wrapper. Shared-block
 edits need separate ML-DSA behavior checks in addition to the ML-KEM samples.
 
 ## SLH-DSA: keep mode and derivative together
+
+The portable pair below is preserved for FPGA and historical reproduction.
+For new ASIC work, use [the startup pair](ASIC_STARTUP.md) with the same mode;
+its boot-enabled source and evidence are separately identified.
 
 The passing portable results concern explicitly staged sensitivity corrections;
 tracked pristine/candidate RTL remains unchanged. Select the corrected source
@@ -164,7 +280,8 @@ from different modes. The bundle records no external defines or parameter
 overrides. Both corrected arms have the same control correction; the same-mode
 candidate differs in its two SHA carry-save-adder cores.
 
-No qualified generic SLH ASIC configuration is supplied. Review global
+The target exporter supplies source-preparation configurations, not a qualified
+SLH ASIC implementation. Review global
 `setting.v`/`clog2.v` handling, source order, memory inference and the external
 signature-memory boundary. The top exposes signature-memory ports; `SIG_MEM`
 inside `tb.v` is testbench-only and excluded from the design list. Supply and
@@ -185,8 +302,22 @@ The [read-only rejection review](verification/hqc-readonly-review-2026-10-12.jso
 concerns only an older tracked SAC 2023-derived joint-design file. Its static
 finding and inconclusive dynamic probes do not establish a repaired baseline
 or a result for SAC 2026. New HQC execution/repair is not part of this handoff.
+The prior security restriction remains in force: keep SAC 2026 blocked and
+unqualified rather than substituting the legacy source or inventing evidence.
 
 ## Record a fair comparison
+
+Use a fresh, separate baseline/candidate workspace for each target. Start both
+arms from the same declared functional derivative and parameter set. First
+qualify the target-specific baseline with its complete functional gate and
+licensed-tool elaboration/mapping reports. Only then enable proposals against
+that target's measured baseline. A corrected derivative is an explicit baseline
+choice; it is not a claim that the unmodified upstream version passed.
+
+An FPGA candidate and an ASIC candidate may diverge. Recheck a change from one
+target on the other target before adopting it there, and retain separate
+histories. A portable source export, a Python regression pass, and an open-source
+simulation do not establish Vivado, DC or Genus qualification.
 
 Before launching either arm, record and match:
 
@@ -196,6 +327,43 @@ Before launching either arm, record and match:
 - Runtime/static mode settings, memories, macros, initialization and excluded logic
 - Synthesis/implementation effort, placement/routing settings and analysis stage
 - Functional coverage and per-operation cycle counts, including backpressure assumptions
+
+### Preserve memory behavior
+
+The target policy must not silently change the memory contract:
+
+- Preserve read latency, output registers, clock/read enables, write strobes,
+  depth/width, address bounds and reset/zeroization behavior. In particular,
+  inserting a read register merely to infer BRAM changes cycle behavior.
+- Check same-port read-during-write and cross-port same-address collisions.
+  Do not assume one collision mode across all arrays. The retained SLH
+  `mem_dual` forwards write data on its writing port; `mem_single` has a later
+  unconditional nonblocking read assignment, so its output uses the old array
+  value. Two writes to one address require a documented, tested assumption.
+- Keep ROM/data-file hashes and working-directory requirements. Simulation
+  `initial` blocks and `$readmemh`/`$readmemb` do not establish ASIC power-up
+  contents. If startup depends on them, implement and verify the approved
+  reset/load/constant-ROM behavior before calling the ASIC design usable.
+- Keep the full memory boundary. ML-KEM includes its upstream memory wrapper.
+  SLH signature storage is external to the exported design top; use equivalent
+  storage and report its inclusion or exclusion identically in both arms.
+
+FPGA BRAM preference does not mean every FIFO/register bank can or should
+become BRAM. Inspect RAM primitive counts, warnings and any distributed/FF
+fallback. ASIC FF policy does not mean a declaration proves FF mapping: inspect
+the mapped cells and reject unmodeled memories/blackboxes. Compare resource
+usage only within a matched target configuration.
+
+The [memory-component checks](../verification/asic_memory/README.md) and
+[recorded evidence](verification/asic-memory-components-2026-10-12.json) provide
+bounded open-source progress: existing Adam's Bridge RAM components map to
+generic Yosys FF/logic cells, and a separately tested
+[ML-DSA constant zetas ROM](../asic/rtl/mldsa_zetas/README.md) avoids a
+file-initialized table. The ROM replacement is optional and is not selected by
+the qualified default export. Its component pass cannot inherit the whole-core
+KAT. Representative SLH `INIT=0` mappings do not resolve the production
+`INIT=1` hash memories or FIFO startup. These checks are not full-design
+DC/Genus standard-cell mapping or a completed ASIC baseline port.
 
 Inspect elaboration, unresolved/empty modules, inferred memories, warnings,
 unconstrained paths and actual clock units before trusting a timing/area
@@ -207,3 +375,14 @@ Keep each run's command, source/config hashes, tool version, exit status,
 original reports and functional evidence in a fresh directory. Use
 [results rules](RESULTS.md#fair-comparisons) and the
 [documentation standard](DOCUMENTATION_STANDARD.md) when reporting the pair.
+
+## File map
+
+| Location | Purpose |
+|---|---|
+| [Target-profile exporter](../tools/export_target_profiles.py) | Explicit source/target policy binding and no-EDA launch preparation |
+| [ML-DSA exporter](../tools/export_mldsa_verified.py), [SLH exporter](../tools/export_slh_verified.py) | Exact-source portable evidence bundles |
+| [Adam's Bridge integration](../third_party/adams_bridge/README.md) | Unified-core source boundary and inputs |
+| [ASIC guide](../asic/README.md), [FPGA guide](FPGA.md) | Site-specific licensed measurement setup |
+| [Whole-design controller](WHOLE_DESIGN.md) | Functional/latency gates, measured candidate admission and rollback |
+| [Project status](PROJECT_STATUS.md) | Current scope, retained failures and blocked designs |

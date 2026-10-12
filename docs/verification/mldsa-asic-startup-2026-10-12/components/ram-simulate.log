@@ -1,0 +1,2 @@
+ASIC_RAM_PASS checked_cycles=10096 depths=4096,1024 width=96 boot_count=2
+/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_sameclock_ff_ram.sv:65: $finish called at 182930000 (1ps)

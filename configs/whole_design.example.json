@@ -17,6 +17,7 @@
     "REPLACE_WITH_QUALIFIED_PATH_EXTRACTOR.py",
     "agent/whole_design_adapters.py",
     "agent/whole_design.py",
+    "agent/target_profiles.py",
     "agent/asic_synthesis.py",
     "agent/mldsa/full_kat_gate.py",
     "agent/llm_client.py",

@@ -119,3 +119,7 @@ configs/*.local.json
 # Deterministic local hardware source handoffs (regenerate with exporters)
 /build/slh-handoff/
 /build/mldsa-handoff/
+/build/target-profile-test/
+/build/target-profiles/
+/build/profiles/
+/build/target-launch/
