@@ -1,5 +1,7 @@
 # Project status
 
+[Project home](../README.md) · [Documentation](README.md) · [Run guide](REPRODUCE.md) · [Results](RESULTS.md)
+
 Status of the portable software update, 2026-10-12. Historical measurements
 remain tied to their original source versions and tool configurations.
 A Python test pass, a prepared Tcl script, and a successful hardware run are
@@ -7,12 +9,12 @@ three different results.
 
 ## Design coverage
 
-| Design | Sources in this checkout | Functional evidence and current limits | ASIC status |
-|---|---|---|---|
-| ML-KEM | Pinned Apache-2.0 Adam's Bridge v2.0.3; full ML-KEM-1024 operations in a unified ML-KEM/ML-DSA-87 engine, with memories | Upstream KAT/formal evidence; 80 independent official FIPS203 ACVP cases and a fail-closed local simulation gate. Pinned baseline passed all 80 cases / 39,840 checks under Verilator 5.032, including five implicit rejections. Two-state simulation; not NIST certification or ML-DSA verification. Icarus rejects upstream SystemVerilog | Whole-unified-design example configuration for Genus/DC and baseline Vivado synthesis Tcl; no licensed synthesis or PPA result |
-| ML-DSA | Pinned ML-DSA-OSH Verilog/VHDL, testbenches, KAT and common data, including `zetas.txt`; modified FPGA and ASIC snapshots remain separate | Full-design gate defaults to 25 KeyGen vectors at each of II/III/V (75 total). The bundled baseline has not been simulated in this update. Signing, verification and independent FIPS 204 conformance are not established by a KeyGen pass | Full-design example now declares ordered sources and stages the pinned `zetas.txt`. The historical ASIC baseline retains two portability edits; licensed elaboration, memory review and synthesis remain open |
-| SLH-DSA | 62 pristine SPHINCSLET files match a pinned upstream commit; modified candidate, SHA-2/SHAKE inputs and historical golden streams are retained | The standalone gate selects the matching pinned vendor-output stream for all six SHA2 sets, including the unchanged 192f candidate and pristine 128f baseline. Testbench and inputs are pinned; SHAKE is unsupported. Vivado simulation is unrun; Icarus/Verilator reject vendor duplicate declarations. No independent FIPS 205 oracle or new RTL pass is claimed | No validated complete ASIC run; FPGA RTL requires ASIC-specific input and memory review |
-| HQC | Reference RTL, testbenches, and tracked operation/joint-design source snapshots | Shared-secret consistency across keygen, encapsulation and decapsulation. Top-level candidate checks request all three levels; direct joint-gate calls default to HQC-128 unless `--all` is supplied | ASIC source snapshots and historical zero-unresolved Genus reports exist; no qualified full-design DC configuration |
+| Design | Baseline and current functional evidence | Current hardware-tool boundary |
+|---|---|---|
+| ML-KEM | Pinned Adam's Bridge v2.0.3 shared ML-KEM-1024 / ML-DSA-87 core, with memories. **80 official samples / 39,840 checks passed** for the ML-KEM API only. [Scope and commands](#ml-kem-entry-points) | Whole-wrapper Vivado and Genus/DC configurations exist; no new licensed synthesis/PPA result |
+| ML-DSA | Pinned mixed-language ML-DSA-OSH inputs. A separate 400-vector block test passed. Full-design portable **165-case + 12-mutation run is pending**; no new Sign/Verify pass. [Entry points](#ml-dsa-entry-points) | Full-design ASIC example declares source order and ROM data; elaboration, memory treatment and synthesis need qualification |
+| SLH-DSA | Original SPHINCSLET trees preserved. **Corrected portable 128f/192f derivatives passed** one fixture plus live corruption rejection each. Syntax-only variants failed; the other four SHA2 modes were not run. [Exact variants and evidence](#slh-dsa-baseline-boundary) | No new Vivado or ASIC run. Six SHA2 runner selections are supported, not all qualified; SHAKE unsupported |
+| HQC | Preferred **SAC 2026 snapshot is source-only and unverified**. [New baseline](#hqc-preferred-source-baseline). Older SAC 2023 consistency coverage and rejection review are [separate](#hqc-legacy-verification-boundary) | No SAC 2026 executable adapter or qualified synthesis manifest. Historical SAC 2023 Genus records do not qualify it |
 
 ML-KEM, ML-DSA, and SLH-DSA are the three initial final NIST PQC standards.
 HQC was [selected for standardization in March 2025](https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption).
@@ -81,6 +83,7 @@ simply exercising only ML-KEM does not remove ML-DSA hardware from area.
 
 ## ML-DSA entry points
 
+- [Portable KeyGen/Sign/Verify runner and qualification boundary](../verification/mldsa_osh/README.md): GHDL plus Icarus or Verilator; end-to-end execution pending
 - [Pinned ML-DSA-OSH inputs, provenance and coverage](../third_party/mldsa_osh/README.md)
 - `python3 tools/check_mldsa_sources.py`: source-integrity and compatibility
   check only; no simulation or synthesis
@@ -100,6 +103,49 @@ with the historical ASIC baseline, 48 are byte-identical. The existing
 are documented in the [portability findings](findings/asic/2026-07-31_mldsa_genus_port.md)
 and are not replaced by this import. Source correspondence does not prove
 functional equivalence; a KeyGen-only gate does not qualify Sign/Verify.
+
+## HQC preferred source baseline
+
+The selected newer HQC baseline is
+[`dbroy-iitk/HQC_SAC`, SAC 2026](../third_party/hqc_sac2026/README.md), pinned to
+`4be1fe99c677d6a3ff055d380a386f65184544f1`. The source-only snapshot retains
+126 unchanged upstream files (1,459,138 bytes), with Git blob/SHA-256 inventory
+and upstream licensing. **Imported and byte-checked does not mean functionally
+qualified.** No upstream scripts, RTL simulation or synthesis were executed
+for this import.
+
+The existing `hqc` design key, tests and ASIC configurations are not redirected
+to the new snapshot. It has no qualified runnable adapter yet. Before an
+executable integration can be claimed, source order, defines, parameter/width
+selection, inputs, independent expected outputs, rejection behavior and memory
+treatment need review. The [import notes](../third_party/hqc_sac2026/README.md#static-findings-and-qualification-still-required)
+record static issues in upstream recipes without repairing them. Historical
+SAC 2023 functional/PPA evidence must not be transferred to this source release.
+
+## HQC legacy verification boundary
+
+The existing `hqc` / `hqc_baseline` flow and
+`agent/hqc/joint_kat_gate.py` use the older SAC 2023-era experiment trees.
+The legacy gate runs standalone KeyGen and encapsulation before checking the
+joint decapsulation/re-encryption path. It does not test all joint API
+operations, nor establish independent standardized known-answer coverage.
+
+A static review of the tracked
+[`build/joint_design/decap.v`](../build/joint_design/decap.v#L392-L429)
+found that `u_neq`, `v_neq` and `d_neq` are assigned comparison results but
+never read. [`decap_out` is assigned directly from `encap_dout`](../build/joint_design/decap.v#L457).
+This is a static rejection-path defect in that specific legacy source tree;
+it is not evidence about a different HQC source release.
+
+The attempted dynamic rejection check is **inconclusive**. Changed input files
+and equal output files did not establish that the DUT loaded the changed
+ciphertext. A later instrumented attempt reported unknown loaded data and
+failed its valid-decapsulation control. It establishes neither successful
+rejection nor a confirmed live invalid-ciphertext acceptance. No repaired
+variant is qualified; unfinished harness/repair additions are not published
+as supported run paths. A legacy consistency-gate pass must not be presented
+as resolving this issue. The [read-only rejection review](verification/hqc-readonly-review-2026-10-12.json)
+records source hashes, exact static occurrences and the limits of the attempted probes.
 
 ## SLH-DSA baseline boundary
 
@@ -132,10 +178,26 @@ The [selected-mode gate](../agent/slh_dsa/README.md) compares all bytes,
 including this tail, and its positive/negative harness tests reject mismatched
 parameters, truncated output, changed inputs and stale evidence. These mocked
 tests are not RTL simulation. Existing Icarus 12 and Verilator both reject
-`FSM.v` duplicate declarations (`WOTS_FSM_start`, `WOTS_s_in_0_wr_en`); no
-portability edits were made. Fresh Vivado simulation and Vivado/DC/Genus
-implementation qualification remain pending. Never regenerate an expected
-stream from the candidate or switch its parameter set merely to obtain a pass.
+`FSM.v` duplicate declarations (`WOTS_FSM_start`, `WOTS_s_in_0_wr_en`). The
+original tracked RTL remains unchanged. Fresh Vivado simulation and
+Vivado/DC/Genus implementation qualification remain pending. The [portable runner](../verification/slh_portable/README.md) stages
+explicit, hash-recorded Icarus changes without editing the tracked reference,
+candidate, input or frozen-output files.
+
+| Portable variant | Result | Evidence and exact scope |
+|---|---|---|
+| Pristine 128f, syntax adaptations only | **FAIL** | [Record](verification/slh-portable-syntax-128f-2026-10-12.json): 2,133 rather than 2,141 words; RTL verifier mismatch |
+| Pristine 128f plus explicit sensitivity correction | **PASS** | [Record](verification/slh-portable-corrected-128f-2026-10-12.json): all 2,141 words match, valid verification flag 0, one-bit captured-signature corruption rejected with flag 1 |
+| Selected optimized 192f, syntax adaptations only | **FAIL** | [Record](verification/slh-portable-syntax-192f-2026-10-12.json): all 4,463 words match, but the untampered signature is rejected (flag 1); its negative control is unqualified |
+| Selected optimized 192f plus explicit sensitivity correction | **PASS** | [Record](verification/slh-portable-corrected-192f-2026-10-12.json): all 4,463 words match, valid verification flag 0, one-bit captured-signature corruption rejected with flag 1 |
+
+`--fix-auth-sensitivity` adds a missing `leaf_idx` dependency to a hash-pinned
+RTL sensitivity list in the staged copy. It is an explicit corrected derivative,
+not an unchanged-pristine or unmodified Vivado result. Each passing derivative
+covers one deterministic fixture and its live bit-flip control. The other four
+SHA2 modes were not executed; neither result establishes all-mode coverage or independent FIPS 205 conformance. A negative control is unqualified
+when the untampered positive control fails. Never regenerate expected output
+or switch a candidate's parameter set merely to obtain a pass.
 
 ## Public-release boundary
 

@@ -1,9 +1,19 @@
 # Verification record
 
+[Project home](../README.md) · [Documentation](README.md) · [Run guide](REPRODUCE.md) · [Results](RESULTS.md)
+
 Verified locally on 2026-10-12 using Python 3.12.14. These checks validate
 software safeguards, one bundled ML-DSA RTL block, and the ML-KEM-1024 API
-of the pinned unified Adam's Bridge accelerator. They do not establish new
-FPGA/ASIC PPA results or complete cryptographic compliance.
+of the pinned unified Adam's Bridge accelerator, plus separately corrected
+SLH-DSA 128f/192f portable derivatives. They do not establish new FPGA/ASIC PPA results
+or complete cryptographic compliance.
+
+## Find the evidence
+
+- [Machine-readable records and simulator output](verification/README.md)
+- [Checker source and instructions](../verification/README.md)
+- [Current design coverage and open limits](PROJECT_STATUS.md)
+- [Staged reproduction commands](REPRODUCE.md)
 
 ## Portable software checks
 
@@ -21,26 +31,40 @@ node --check agent/dashboard_static/app.js
 git diff --check -- . \
   ":!third_party/adams_bridge/upstream" \
   ":!third_party/mldsa_osh/upstream" \
-  ":!third_party/adams_bridge/test_vectors/NIST_ACVP_README.upstream.md"
+  ":!third_party/hqc_sac2026/upstream" \
+  ":!third_party/adams_bridge/test_vectors/NIST_ACVP_README.upstream.md" \
+  ":!docs/verification/*.txt"
 ```
 
-- Final normal and optimized Python: **321 tests passed, zero skipped** in
-  each run with Icarus and Verilator available on the test environment's `PATH`.
+- Latest normal and optimized (`python3 -O`) Python suite: **339 tests passed,
+  zero skipped** in each run, with the available simulator tools on `PATH`.
   Many tests use mocked EDA processes and Tcl syntax checks. These counts are
-  software/harness evidence, not 321 independent cryptographic or vendor-tool runs.
-- Final documentation check: **214 local links passed** across 92 Markdown files.
-- Compilation, installed CLI smoke, JavaScript syntax and first-party diff checks passed.
-  Pinned upstream files retain their original whitespace for byte-for-byte provenance;
-  they are excluded from the whitespace check above.
-  JavaScript syntax was checked with Node.js v24.19.0.
-- The strict historical-number inventory exited 0: **271 classified citations**
-  across **90 files**, with **157 warning-only unclassified frequency citations**.
-  This is an inventory check, not independent reproduction of those measurements.
+  software/harness evidence, not 339 independent cryptographic or vendor-tool runs.
+- Repository documentation checker: **486 local links passed** across **94
+  Markdown files**. A separate expanded audit also included scheme harness and
+  imported-package READMEs: **538 local links across 100 files**, zero errors.
+  External URLs and unmodified upstream documentation were not network-validated.
+- The five focused documentation-checker tests passed. Python compilation,
+  CLI smoke and first-party documentation whitespace checks passed.
+  Pinned upstream files and saved simulator output retain their original whitespace
+  for provenance; they are excluded from the first-party whitespace check above.
+- The strict historical-number inventory exited 0: **280 classified citations**
+  across **105 tracked Markdown files**, with **163 warning-only unclassified
+  frequency citations**. This is an inventory check, not independent reproduction
+  of those measurements. It does not scan newly untracked files.
+- Read-only command checks passed for CLI help, `doctor`, `list`, `smoke`, both
+  ML-KEM/ML-DSA source-integrity checks, gate help and the FPGA command preview.
+  The unconfigured whole-design example correctly returned `BLOCKED`, exit 1,
+  with no adapter execution.
 - `doctor` completed its audit; missing tools and unsupported scheme/configuration
   combinations remain explicitly blocked. Audit completion does not mean all
   prerequisites are available.
 
-Editable installation was also tested in a local virtual environment with
+This is the final recorded software/documentation snapshot for this update.
+Any subsequent code change needs the relevant rerun. JavaScript syntax was
+rechecked with Node.js v24.19.0; no dashboard JavaScript was changed.
+
+The earlier editable installation was tested in a local virtual environment with
 preinstalled setuptools, without dependency downloads:
 
 ```sh
@@ -136,20 +160,55 @@ Any eventual area figure must identify the whole unified engine and memories.
   Git blob, SHA-256, byte count and the shape of 75 KeyGen vectors. The default
   uses this bundle; `MLDSA_ROOT` remains an override. `zetas.txt` is present and
   staged by the new ASIC example. Existing ASIC portability edits are retained.
-  No new full-design ML-DSA simulation ran; the local driver covers KeyGen only,
-  not the bundled but unexecuted SigGen/SigVer tests or FIPS 204 conformance.
-- The [SLH selected-mode gate](../agent/slh_dsa/README.md) selects the existing
-  pinned vendor-output reference for each of the six SHA2 parameter sets.
-  The 192f candidate and 128f pristine configuration remain unchanged. Tests
-  cover reference/input/testbench/configuration tampering, stale or incomplete
-  outputs and source changes. These are harness tests. Real gate invocations
-  passed setup checks then stopped at missing `xvlog`; Icarus and Verilator
-  rejected duplicate declarations in unchanged vendor RTL. No fresh SLH RTL
-  pass is claimed. SHAKE remains unsupported; golden streams include the
-  padded message tail and are not independent FIPS 205 KATs.
-- HQC retains its legacy 128/192/256 shared-secret consistency gates. These are
-  not independent standardized known-answer responses, and no new full-design
-  HQC simulation ran for this update.
+  No new full-design ML-DSA pass is recorded. The existing Vivado driver covers
+  KeyGen only. A separate [portable full-design runner](../verification/mldsa_osh/README.md)
+  requests all 165 upstream KeyGen/Sign/Verify cases plus 12 optional negative
+  controls through GHDL and Icarus/Verilator; its end-to-end execution remains
+  pending. Software tests and source integrity do not qualify those operations.
+- The [SLH selected-mode gate](../agent/slh_dsa/README.md) supports six pinned
+  SHA2 vendor references. Original tracked sources, testbench, inputs and
+  expected streams remain unchanged. Vivado execution is unrun. Actual
+  portable-variant results are [separately recorded below](#real-slh-dsa-portable-variants);
+  support for six modes is not evidence of six completed runs.
+- The preferred [HQC SAC 2026 snapshot](../third_party/hqc_sac2026/README.md)
+  contains 126 unchanged upstream files / 1,459,138 bytes with a pinned manifest.
+  This is source-copy integrity only. No upstream program, simulation, synthesis,
+  executable adapter or functional/PPA result is supplied for it.
+- HQC retains its separate legacy SAC 2023-derived 128/192/256 consistency gates. These are
+  not independent standardized known-answer responses. Static review found
+  unused rejection-check flags. The staged dynamic rejection probe is
+  **inconclusive**: a changed input file and unchanged output did not establish
+  that the DUT loaded the mutation; an instrumented attempt produced unknown
+  values. Do not cite this as a confirmed live rejection failure or a pass.
+  Repair and complete qualification remain unfinished. No repaired derivative
+  is a verified baseline. See the [exact legacy source finding](PROJECT_STATUS.md#hqc-legacy-verification-boundary);
+  the [read-only review record](verification/hqc-readonly-review-2026-10-12.json) preserves the diagnostic evidence.
+  Unfinished harness/repair additions are not supported published commands.
+
+## Real SLH-DSA portable variants
+
+The [Icarus runner](../verification/slh_portable/README.md) stages explicit,
+hash-recorded adaptations and requires both complete frozen-stream comparison
+and successful RTL verification. It then corrupts one bit in captured signature
+memory before the real RTL verifier consumes it. It does not regenerate the
+reference or replace the verifier with a Python comparison.
+
+| Variant | Completed result |
+|---|---|
+| Syntax-only pristine SHA2-128f | [FAIL](verification/slh-portable-syntax-128f-2026-10-12.json): 2,133/2,141 words and valid-signature mismatch |
+| Sensitivity-corrected pristine SHA2-128f | [PASS](verification/slh-portable-corrected-128f-2026-10-12.json): 2,141 exact words; valid verification flag 0, one-bit signature-memory corruption rejected with flag 1 |
+| Syntax-only selected optimized SHA2-192f | [FAIL](verification/slh-portable-syntax-192f-2026-10-12.json): all 4,463 words match, but valid verification fails with flag 1; negative control is unqualified |
+| Sensitivity-corrected selected optimized SHA2-192f | [PASS](verification/slh-portable-corrected-192f-2026-10-12.json): 4,463 exact words; valid verification flag 0, one-bit signature-memory corruption rejected with flag 1 |
+
+The correction is opt-in `--fix-auth-sensitivity`, which includes `leaf_idx`
+in an incomplete authentication-path sensitivity list. A corrected pass
+qualifies the particular staged derivative and one deterministic 33-byte
+message fixture. The other four SHA2 modes were not executed. It does not qualify unchanged pristine RTL, an unmodified
+Vivado build, all six SHA2 modes, the unsupported SHAKE family, independent
+FIPS 205 conformance or physical PPA. Streams include the padded message tail.
+A negative control is unqualified if its ordinary positive baseline fails.
+See [reproduction commands](REPRODUCE.md#slh-dsa) and the
+[evidence index](verification/README.md) for complete logs.
 
 ## Whole-design controller evidence
 
@@ -170,7 +229,7 @@ A trusted adapter's declaration does not prove complete source or test coverage.
 
 ## Not run and remaining limits
 
-- No Vivado synthesis, place-and-route, or full-design HQC/ML-DSA/SLH simulation
+- No Vivado synthesis, place-and-route, or new Vivado full-design HQC/ML-DSA/SLH simulation
 - No licensed Genus or Design Compiler run; no ASIC physical/signoff run
 - No paid model/API calls or hosted GitHub Actions
 - No ML-DSA Sign/Verify qualification or unified Adam's Bridge ML-DSA-87 qualification

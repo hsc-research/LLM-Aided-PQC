@@ -1,9 +1,16 @@
 # FPGA reproduction
 
+[Project home](../README.md) · [Documentation](README.md) · [Run guide](REPRODUCE.md) · [Results](RESULTS.md)
+
 The historical FPGA studies use AMD Vivado 2025.2 with Artix-7
 `xc7a200tfbg676-1`. Vendor software, supported OS libraries, device support,
 and any required licensing are separate prerequisites. This guide does not
 claim that hardware runs were repeated during the portable Python update.
+
+The `hqc` / `hqc_baseline` design keys and legacy joint gate below still use
+SAC 2023-derived sources. The preferred [SAC 2026 HQC snapshot](../third_party/hqc_sac2026/README.md)
+is a separate source-only import with no qualified executable adapter. These
+commands and historical results do not verify that newer snapshot.
 
 ## Prepare the environment
 
@@ -67,8 +74,10 @@ message tail; do not treat a stream match as an independently checked bare
 standard signature. The gate supports all six SHA2 modes with fixed hashes,
 unchanged vendor inputs and complete byte comparison; SHAKE is unsupported.
 Both selected candidate and pristine setup reach missing `xvlog` here. Icarus
-and Verilator reject vendor duplicate declarations in `FSM.v`; no RTL edits
-were made. Fresh Vivado simulation and Vivado/DC/Genus qualification remain
+and Verilator reject vendor duplicate declarations in the unchanged `FSM.v`.
+A separate [portable Icarus route](REPRODUCE.md#slh-dsa) has passing,
+explicitly sensitivity-corrected 128f/192f derivatives; those are not unchanged
+Vivado results. Fresh Vivado simulation and Vivado/DC/Genus qualification remain
 pending. See the [gate contract](../agent/slh_dsa/README.md).
 
 ## Timing and reports

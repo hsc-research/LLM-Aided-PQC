@@ -1,5 +1,7 @@
 # Local experiment dashboard
 
+[Project home](../README.md) · [Documentation](README.md) · [Run guide](REPRODUCE.md)
+
 The dashboard reads recorded proposal logs, selected simulation output, and
 local process status. It is a convenience view, not an independent checker.
 A historical `ACCEPTED` label does not mean the current checkout was rerun.

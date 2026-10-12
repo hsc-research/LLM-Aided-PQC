@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-12",
+  "review_kind": "read_only_source_and_existing_artifact_review",
+  "checkout_commit": "16e3bbc3a4839e5b4475a4e5d40ee8a9178ed0f5",
+  "status": "STATIC_FINDING_DYNAMIC_INCONCLUSIVE",
+  "summary": "Unused ciphertext-mismatch flags are confirmed by source inspection. Existing dynamic probes do not establish that the changed ciphertext word was loaded into the DUT. No corrected design or full HQC verification pass is established.",
+  "publication_boundary": "This is a diagnostic review, not a Results of Record performance measurement, an independently reproduced functional pass, or a cryptographic conformance claim. The incomplete new HQC runner, repair, oracle and associated tests are withheld from this repository update.",
+  "static_finding": {
+    "id": "HQC-REVIEW-F1",
+    "source": {
+      "path": "build/joint_design/decap.v",
+      "bytes": 26409,
+      "sha256": "3bb79aa78cf7b03c5267ae499346b1333fc06b49aa23b32cc21aa40c481f70d0"
+    },
+    "method": "Read every textual occurrence of the three mismatch flags and the decapsulation output assignment. No RTL or simulator execution was performed during this review.",
+    "mismatch_flag_occurrences": [
+      {
+        "line": 392,
+        "text": "reg u_neq = 0;"
+      },
+      {
+        "line": 397,
+        "text": "u_neq <= 0;"
+      },
+      {
+        "line": 400,
+        "text": "u_neq <= 1;"
+      },
+      {
+        "line": 406,
+        "text": "reg v_neq = 0;"
+      },
+      {
+        "line": 411,
+        "text": "v_neq <= 0;"
+      },
+      {
+        "line": 414,
+        "text": "v_neq <= 1;"
+      },
+      {
+        "line": 419,
+        "text": "reg d_neq = 0;"
+      },
+      {
+        "line": 424,
+        "text": "d_neq <= 0;"
+      },
+      {
+        "line": 427,
+        "text": "d_neq <= 1;"
+      }
+    ],
+    "output_assignment": {
+      "line": 457,
+      "text": "assign decap_out = encap_dout;"
+    },
+    "finding": "The three flags are declared and assigned, but none is read by the design. Their values cannot control the decapsulation output or a rejection status. Each assignment replaces the previous comparison outcome rather than accumulating it.",
+    "scope": "Current tracked build/joint_design/decap.v only; this review does not establish the behavior of another source tree or external integration."
+  },
+  "early_probe": {
+    "id": "HQC-REVIEW-F2",
+    "input_word_counts": [
+      16,
+      16
+    ],
+    "input_changes": [
+      {
+        "word_index": 0,
+        "before_hex": "4df0c353",
+        "after_hex": "4df0c352",
+        "differing_bits": 1
+      }
+    ],
+    "observations": [
+      {
+        "directory": ".pqc_runs/hqc-portable-explore/joint_design",
+        "files": [
+          {
+            "path": ".pqc_runs/hqc-portable-explore/joint_design/d_128.in",
+            "bytes": 542,
+            "sha256": "42ddf4f76b9c81832258900280a3a0093a7c463fee643cacb88188431f47790b"
+          },
+          {
+            "path": ".pqc_runs/hqc-portable-explore/joint_design/test_ss_output_128.out",
+            "bytes": 128,
+            "sha256": "4c4c2388585663db1cecf86cebf8265eea0c535968a5706b65bffdc84f68d557"
+          },
+          {
+            "path": ".pqc_runs/hqc-portable-explore/joint_design/run128.log",
+            "bytes": 976,
+            "sha256": "1d499be6360e3ae0f4a0a2d357b3df10c3aca80c989c3c1a554764f78180fbe8"
+          }
+        ],
+        "observed_total_cycles": [
+          "45599"
+        ],
+        "observed_decode_cycles": [
+          "4611"
+        ],
+        "output_bytes": 64,
+        "output_is_all_zero": false,
+        "decoded_output_sha256": "d96aa6137c86ee3d14e058819ac478043524c8b8dce7a703ff6f50398c31d94f",
+        "dut_input_load_observation": false,
+        "rejection_status_observation": false
+      },
+      {
+        "directory": ".pqc_runs/hqc-portable-explore/joint-d-bitflip128",
+        "files": [
+          {
+            "path": ".pqc_runs/hqc-portable-explore/joint-d-bitflip128/d_128.in",
+            "bytes": 542,
+            "sha256": "d4c91434c48d8885393d865d62bfbc7168ceaf422b2264d1f8b2af836a2b9a64"
+          },
+          {
+            "path": ".pqc_runs/hqc-portable-explore/joint-d-bitflip128/test_ss_output_128.out",
+            "bytes": 128,
+            "sha256": "4c4c2388585663db1cecf86cebf8265eea0c535968a5706b65bffdc84f68d557"
+          },
+          {
+            "path": ".pqc_runs/hqc-portable-explore/joint-d-bitflip128/run128.log",
+            "bytes": 976,
+            "sha256": "1d499be6360e3ae0f4a0a2d357b3df10c3aca80c989c3c1a554764f78180fbe8"
+          }
+        ],
+        "observed_total_cycles": [
+          "45599"
+        ],
+        "observed_decode_cycles": [
+          "4611"
+        ],
+        "output_bytes": 64,
+        "output_is_all_zero": false,
+        "decoded_output_sha256": "d96aa6137c86ee3d14e058819ac478043524c8b8dce7a703ff6f50398c31d94f",
+        "dut_input_load_observation": false,
+        "rejection_status_observation": false
+      }
+    ],
+    "supported": "Input files differ by one bit; output files and reported cycle counts are equal.",
+    "not_established": [
+      "Whether the altered d word was loaded into or consumed by the DUT.",
+      "A durable exact-argv and process-exit record tying these logs to a particular compiled executable.",
+      "Confirmed live acceptance or rejection of malformed ciphertext."
+    ],
+    "compilation_artifacts_present_but_not_authoritatively_bound_to_logs": [
+      {
+        "path": ".pqc_runs/hqc-portable-explore/joint_design/compile128.log",
+        "bytes": 46079,
+        "sha256": "ee789a2d989c778cf0cf1b4bcca37a288a561d25c76698aaf2cb6dd4e675b31f"
+      },
+      {
+        "path": ".pqc_runs/hqc-portable-explore/joint_design/joint_design128.vvp",
+        "bytes": 4273112,
+        "sha256": "bc8f9338ce5da3e9afe0bac998f16d6904125f41e1b20d94c735f2c388a5efe6"
+      }
+    ]
+  },
+  "later_probes": {
+    "id": "HQC-REVIEW-F3",
+    "records": [
+      {
+        "record": {
+          "path": ".pqc_runs/hqc-portable-baseline128-a/report.json",
+          "bytes": 44835,
+          "sha256": "3ec14c1da87d610c16be9493c5f5787669948373acaa29505da5a6465d4f3b53"
+        },
+        "status": "FAIL",
+        "error": null,
+        "profile": "SAC2023 fixed-budget FNB, independently modeled; differs from official 2021 seed mapping",
+        "variant": null,
+        "keygen_exercised": null,
+        "completed_case_records": [
+          {
+            "level": 128,
+            "case": 0,
+            "checks": [
+              {
+                "name": "keygen_h",
+                "pass": true
+              },
+              {
+                "name": "keygen_s",
+                "pass": true
+              },
+              {
+                "name": "keygen_x",
+                "pass": true
+              },
+              {
+                "name": "keygen_y",
+                "pass": true
+              },
+              {
+                "name": "encap_u",
+                "pass": false
+              },
+              {
+                "name": "encap_v",
+                "pass": false
+              },
+              {
+                "name": "encap_d",
+                "pass": true
+              },
+              {
+                "name": "encap_ss",
+                "pass": false
+              },
+              {
+                "name": "valid_decap_ss",
+                "pass": false
+              },
+              {
+                "name": "invalid_d_rejected_zero_ss",
+                "pass": false,
+                "actual_equals_valid_secret": false,
+                "actual_sha256": "b5f7af8bc68494c43c4a5882f06529a02ba93280dd85a601d6f9b6b85c5218c8"
+              }
+            ]
+          }
+        ],
+        "logs": [
+          {
+            "record": {
+              "path": ".pqc_runs/hqc-portable-baseline128-a/hqc128-case0/joint_design.log",
+              "bytes": 1006,
+              "sha256": "068db545d3bfef3e2a692b49502068271c8d6cc2b7e3929eb7ec448fa91ab888"
+            },
+            "observations": [
+              "Decode Clock Cycles:       4611",
+              "Total Clock Cycles:      45599"
+            ]
+          },
+          {
+            "record": {
+              "path": ".pqc_runs/hqc-portable-baseline128-a/hqc128-case0/invalid-d/decap.log",
+              "bytes": 1006,
+              "sha256": "068db545d3bfef3e2a692b49502068271c8d6cc2b7e3929eb7ec448fa91ab888"
+            },
+            "observations": [
+              "Decode Clock Cycles:       4611",
+              "Total Clock Cycles:      45599"
+            ]
+          }
+        ],
+        "qualification": "Abandoned diagnostic FNB-model hypothesis; its KeyGen checks are not official-profile evidence."
+      },
+      {
+        "record": {
+          "path": ".pqc_runs/hqc-portable-official-baseline/report.json",
+          "bytes": 44363,
+          "sha256": "86cb12c91f019c1f533da5c60c692b21f087e204b35c7833be47e1466d2e41af"
+        },
+        "status": "ERROR",
+        "error": "Mutated d[0] was not observed in DUT memory at completion",
+        "profile": "HQC-2021-06-06 official deterministic sampler and explicit rejection",
+        "variant": "baseline",
+        "keygen_exercised": false,
+        "completed_case_records": [
+          {
+            "level": 128,
+            "case": 0,
+            "checks": [
+              {
+                "name": "encap_u",
+                "pass": true
+              },
+              {
+                "name": "encap_v",
+                "pass": true
+              },
+              {
+                "name": "encap_d",
+                "pass": true
+              },
+              {
+                "name": "encap_ss",
+                "pass": true
+              },
+              {
+                "name": "valid_decap_ss",
+                "pass": false
+              }
+            ]
+          }
+        ],
+        "logs": [
+          {
+            "record": {
+              "path": ".pqc_runs/hqc-portable-official-baseline/hqc128-case0/joint_design.log",
+              "bytes": 1255,
+              "sha256": "ff9550f208e50fd5e26f814e768035d0942013ddff3b1d7ad2271daf0fb16db9"
+            },
+            "observations": [
+              "Decode Clock Cycles:       4611",
+              "Total Clock Cycles:      45599",
+              "D0_LOADED xxxxxxxx"
+            ]
+          },
+          {
+            "record": {
+              "path": ".pqc_runs/hqc-portable-official-baseline/hqc128-case0/invalid-d/decap.log",
+              "bytes": 1255,
+              "sha256": "ff9550f208e50fd5e26f814e768035d0942013ddff3b1d7ad2271daf0fb16db9"
+            },
+            "observations": [
+              "Decode Clock Cycles:       4611",
+              "Total Clock Cycles:      45599",
+              "D0_LOADED xxxxxxxx"
+            ]
+          }
+        ],
+        "qualification": "Partial HQC-128 encapsulation checks only; valid decapsulation failed, and malformed-input delivery was not established. No rejection qualification."
+      },
+      {
+        "record": {
+          "path": ".pqc_runs/hqc-portable-official-rejection-v1/report.json",
+          "bytes": 44504,
+          "sha256": "183095c9fc7cf0d45e087bb4d3e5e95fcf59d0bfa2e8d2284e74acfc2a8f17f4"
+        },
+        "status": "ERROR",
+        "error": "Mutated d[0] was not observed in DUT memory at completion",
+        "profile": "HQC-2021-06-06 official deterministic sampler and explicit rejection",
+        "variant": "rejection-v1",
+        "keygen_exercised": false,
+        "completed_case_records": [
+          {
+            "level": 128,
+            "case": 0,
+            "checks": [
+              {
+                "name": "encap_u",
+                "pass": true
+              },
+              {
+                "name": "encap_v",
+                "pass": true
+              },
+              {
+                "name": "encap_d",
+                "pass": true
+              },
+              {
+                "name": "encap_ss",
+                "pass": true
+              },
+              {
+                "name": "valid_decap_ss",
+                "pass": false
+              }
+            ]
+          }
+        ],
+        "logs": [
+          {
+            "record": {
+              "path": ".pqc_runs/hqc-portable-official-rejection-v1/hqc128-case0/joint_design.log",
+              "bytes": 1290,
+              "sha256": "8da166029005eed06003291261f9a3987641c6aa61ba838e9ca4ee090c4cb6ef"
+            },
+            "observations": [
+              "Decode Clock Cycles:       4611",
+              "Total Clock Cycles:      46478",
+              "D0_LOADED xxxxxxxx",
+              "REJECTION_STATUS 1"
+            ]
+          },
+          {
+            "record": {
+              "path": ".pqc_runs/hqc-portable-official-rejection-v1/hqc128-case0/invalid-d/decap.log",
+              "bytes": 1290,
+              "sha256": "8da166029005eed06003291261f9a3987641c6aa61ba838e9ca4ee090c4cb6ef"
+            },
+            "observations": [
+              "Decode Clock Cycles:       4611",
+              "Total Clock Cycles:      46478",
+              "D0_LOADED xxxxxxxx",
+              "REJECTION_STATUS 1"
+            ]
+          }
+        ],
+        "qualification": "Partial HQC-128 encapsulation checks only; valid decapsulation failed, and malformed-input delivery was not established. No rejection qualification."
+      }
+    ],
+    "interpretation": "The instrumented official-profile attempts observed D0_LOADED xxxxxxxx and ended ERROR. This fails to establish mutation delivery and does not identify its cause. The repair attempt also failed its valid-decapsulation check, so its rejection status cannot qualify the repair."
+  },
+  "file_map": {
+    "tracked_source": "build/joint_design/decap.v",
+    "this_review": "docs/verification/hqc-readonly-review-2026-10-12.json",
+    "raw_logs_and_outputs": "Listed .pqc_runs paths are retained local artifacts, not bundled published logs. Originals were not modified. Hashes and relevant observation excerpts are preserved here.",
+    "unfinished_hqc_additions": "Held outside the repository and excluded from publication; no runnable replacement is provided by this review."
+  },
+  "not_run": [
+    "No new HQC simulation, compilation, oracle execution or repair.",
+    "No synthesis, timing, area, power, constant-time, side-channel or standard-conformance qualification."
+  ]
+}

@@ -2,6 +2,11 @@
 
 [Project](../README.md) · [Agent](../agent/README.md) · [ASIC](../asic/README.md)
 
+This page records the earlier candidate-safety/ASIC-selection update. Its test
+counts and unrun stages are a historical snapshot. For the current checkout,
+use [design status](PROJECT_STATUS.md), the [verification record](VERIFICATION.md)
+and the [run guide](REPRODUCE.md).
+
 ## Changes
 
 The FPGA top-level PPA-rejection branch previously printed a revert verdict without restoring the source. It now wraps candidate evaluation in a transaction covering the configured source directories and checkpoint. Failed tests, insufficient timing gain, exceptions, and timeouts restore the pre-run working state, including uncommitted files and paired edits. Accepted RTL remains uncommitted for review.

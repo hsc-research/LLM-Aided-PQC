@@ -1,9 +1,75 @@
-# Reading and reproducing results
+# Results: what was measured and what was tested
+
+[Project home](../README.md) · [Documentation](README.md) · [Learn](LEARN.md) · [Run](REPRODUCE.md)
 
 The repository includes historical experiments, later corrections, and
 portable software improvements. Keep each result attached to its actual
 source revision, configuration, and report. The current test suite does not
 rerun historical FPGA or ASIC measurements.
+
+## Current local verification
+
+These checks were recorded on 2026-10-12. They establish functional or software
+behavior within the listed scope; they do not establish new PPA improvements.
+The [verification record](VERIFICATION.md) holds the detailed commands, versions,
+source hashes and negative controls. [Design status](PROJECT_STATUS.md) is the
+entry point for current full-design coverage across the four schemes.
+
+| Check | Recorded result | Scope and evidence |
+|---|---|---|
+| ML-KEM-1024 on Adam's Bridge | 80 official ACVP sample cases; 39,840 exact word/status checks passed | [Machine-readable result](verification/mlkem-adams-bridge-acvp-2026-10-12.json); shared ML-KEM/ML-DSA core, ML-KEM API only, two-state Verilator simulation |
+| Faulty ML-KEM candidate | Compiled, then rejected on its first mismatched key output | [RTL-fault record](verification/mlkem-adams-bridge-rtl-fault-2026-10-12.json); proves detection of this particular injected fault |
+| ML-DSA `coeff_decomposer` block | 400 vectors passed; two arithmetic faults rejected | [HDL smoke record](verification/hdl-smoke-2026-10-12.json); a block test, not full ML-DSA verification |
+| SLH-DSA syntax-only Icarus 128f variant | Failed: 2,133 words instead of 2,141, with RTL verification mismatch | [Recorded failure](verification/slh-portable-syntax-128f-2026-10-12.json); a staged portable derivative, not an unmodified Vivado result. Failure is retained independently of the corrected variant below |
+| SLH-DSA syntax-only Icarus 192f variant | Failed despite all 4,463 frozen words matching: RTL rejects the untampered signature | [Recorded failure](verification/slh-portable-syntax-192f-2026-10-12.json); its negative control cannot qualify a failed positive baseline |
+| SLH-DSA sensitivity-corrected Icarus 128f variant | Passed: all 2,141 frozen words; valid signature accepted and one-bit captured-signature corruption rejected | [Corrected-variant record](verification/slh-portable-corrected-128f-2026-10-12.json); one deterministic fixture, not unchanged pristine RTL or independent FIPS 205 validation. |
+| SLH-DSA sensitivity-corrected Icarus 192f variant | Passed: all 4,463 frozen words; valid signature accepted and one-bit captured-signature corruption rejected | [Corrected-variant record](verification/slh-portable-corrected-192f-2026-10-12.json); the selected optimized derivative, one deterministic fixture. Other four SHA2 modes unexecuted; no independent FIPS 205 validation |
+| Python flows and whole-design controller | Software checks recorded; includes temporary files, mock tools and synthetic measurements | [Software record](VERIFICATION.md#portable-software-checks); not vendor EDA qualification |
+
+The preferred [HQC SAC 2026 baseline](../third_party/hqc_sac2026/README.md) is a
+new, source-only import with no functional or PPA result. A
+[read-only rejection review](verification/hqc-readonly-review-2026-10-12.json)
+concerns only the earlier tracked joint-design source: unused mismatch flags
+are a static finding; the attempted dynamic probe is inconclusive. No repaired
+HQC variant is qualified. Do not attach either the older FPGA numbers or that
+legacy-source finding to the newer SAC 2026 snapshot.
+
+A source-integrity check, an RTL simulation pass and a synthesis result answer
+different questions. None is a substitute for the others. No new Genus/DC
+optimization, ASIC place-and-route, signoff or measured power result is claimed.
+
+## Historical FPGA results
+
+The following are selected **previously recorded** full-core measurements,
+not reruns of the current checkout. Each baseline/candidate pair uses the
+recorded Artix-7 `xc7a200tfbg676-1`, out-of-context, post-route flow. Do not
+compare different schemes' frequencies as equivalent workloads or security
+levels. Frequency is the reciprocal of an observed passing period in a
+bounded search, not proof of a global maximum.
+
+| Design and record | Recorded baseline → candidate | What changed and what to learn |
+|---|---|---|
+| ML-DSA, M1/M2, 2026-08-03 | 14.25 ns / 70.2 MHz → 12.43 ns / 80.5 MHz; reported +14.7% frequency, +0.8% LUT, +3.4% FF | A human-authored banked encoder removed the top-level bottleneck; the worst path moved to the challenge sampler. [Corrected ledger](findings/INDEX.md#canonical-out-of-context-flow), [baseline report](../logs/closure/mldsa_ooc_20260803/fsrch_chipv2_mldsa_baseline_1244_14.25.rpt), [candidate report](../logs/closure/mldsa_ooc_20260803/fsrch_chipv2_mldsa_5372_12.43.rpt) |
+| HQC joint KEM, 2026-08-03 | 9.12 ns / 109.6 MHz → 8.62 ns / 116.0 MHz; reported +5.8% frequency, +2.2% LUT, −7.1% BRAM | The accepted flag edit lies on the original binding path; the optimized design binds on shared Keccak memory. The combined result includes earlier edits. [Corrected HQC ledger](findings/INDEX.md#hqc-chip-level-ledger-post-route-closure-joint-kem-artix-7--1-ooc) |
+| SLH-DSA SHA2, S12–S17, 2026-08-29 | Six parameter sets; reported frequency gains from +4.4% (128s) to +20.4% (256f) | Carry-save changes to SHA-256/SHA-512 adders; finite five-iteration searches, differential correctness evidence, and external signature memory excluded. [Six-set report, source commit and logs](findings/slh-dsa/2026-08-29_slh_dsa_level_sweep.md) |
+
+The reports also record rejected changes and limitations. In particular:
+
+- **ML-DSA:** the earlier pinned-IO timing figures were retired. Cite the
+  corrected OOC M1/M2 pair. Power/energy claims are not established by that pair.
+- **HQC:** the superseded 114.8 MHz was a silently reverted optimized tree, not the canonical
+  baseline. The superseded 117.1 MHz pristine run has an unresolved configuration
+  difference; use the matched 109.6/116.0 MHz pair with its recorded limits.
+- **SLH-DSA:** standalone and sweep 128f baselines differ under different search
+  brackets. The six-set report retains that unresolved limitation; it does not
+  claim exhaustive timing search or independent FIPS 205 validation.
+- **ASIC:** earlier blackboxed butterfly results and ASIC binary-search
+  “closure” claims were retracted. The [complete butterfly study](findings/asic/2026-08-12_bf2x2_asap7_complete.md)
+  records matched fixed-period measurements and non-monotonic synthesis behavior.
+  FPGA improvements do not automatically transfer to ASIC.
+
+For every numerical claim, follow the dated report and its correction history.
+Do not promote an older favorable number over a later corrected comparison.
 
 ## Where to find a result
 

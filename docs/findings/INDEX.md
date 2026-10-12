@@ -1,4 +1,16 @@
-# Findings Index
+# Findings index
+
+[Project home](../../README.md) · [Documentation](../README.md) · [Results guide](../RESULTS.md) · [Current verification](../VERIFICATION.md)
+
+This is a **historical experiment index**. Its measurements and “current” labels
+refer to the recorded experiment/revision, not a fresh run of today's checkout.
+For an introduction, read the [results guide](../RESULTS.md). The tables below
+retain earlier measurements, later corrections, negative results and their context.
+
+Quick links: [ML-DSA corrected ledger](#canonical-out-of-context-flow) ·
+[HQC corrected ledger](#hqc-chip-level-ledger-post-route-closure-joint-kem-artix-7--1-ooc) ·
+[SLH-DSA six-set report](slh-dsa/2026-08-29_slh_dsa_level_sweep.md) ·
+[ASIC correction](asic/2026-08-12_bf2x2_asap7_complete.md)
 
 One-line map of every findings document. W = accepted win, N = documented
 negative, I = infrastructure/process. Full details in each file.
@@ -7,54 +19,54 @@ negative, I = infrastructure/process. Full details in each file.
 
 | Doc | Tag | Summary |
 |---|---|---|
-| fullkat_gate | I | Full-design 75-vector NIST KAT outer gate via xsim; corruption-validated; per-vector logging; 600s timeout handling |
-| pipelining_coeff_decomposer | N/I | Block pipeline cut regressed (-1.247→-1.688); latency-tolerant block gate validated (reusable); redirected to sub_val lead |
-| coeff_decomposer_decomp_map1 | N | Placement-coupled restructurings failed 5 ways; block closed for restructuring |
-| cd_width_narrowing | W | 56b→28b reg narrowing: WNS -1.247→-1.196, LUT -21%; refined narrowing policy rule (logic-bound + written bound proof) |
-| butterfly_dsp_pipeline | W | Round-1 mult_p PREG stage: -3.802→-3.280; first latency-changing win; MULT drain root cause |
-| butterfly_round2_areg | W | Round-2 INTT sub_r AREG: -3.280→-2.793 (+12.9% cumulative fmax); chained-stage ×2 retap rule |
-| latency_orchestrator_v0 | I/N | Autonomous latency tier: divergence-guided repair steers tap derivation but not insertion-point choice; Sonnet 12 calls no win vs Opus 1 call correct refusal ($0.245); butterfly closed |
-| gen_c_autonomous | W | Autonomous max_fanout win on gen_c (orchestrator-discovered) |
-| gen_c_sample_addr | W | sample_addr precompute 1 cycle ahead: -5.029→-3.307 (+20.8% fmax) |
-| fanout_load_profile | W/N | gen_c FSM fanout -3.307→-1.264 (project record +2.043ns) + makehint N=8; load-profile rule: narrow reg + homogeneous CE bank pays, wide/heterogeneous loses |
-| precompute_boundaries | W/N | decoder ENCODE_LVL_r + rejection_y ge-flag wins; 4 negatives incl. loop-endpoint rule (usehint ctr) |
-| gate_catch_rate | I/W | 59 LLM calls -> 33 applied -> 14 functionally incorrect; 4/23 latency-preserving vs 10/10 latency-changing; the measured case for correctness gating |
-| policy_v2_insertion_point | I/N | POLICY v2 rendezvous rubric: insertion-point selection 0/12 to 4/4 post-rule (log-verified); all 4 edits still failed downstream (3 anchor, 1 gate) |
-| decoder_usehint_autonomous | W | Autonomous decoder win; usehint characterization |
-| decoder_s_lut_negative | N | S-mode constant-LUT regressed; binding mode is T0/Z; constant_lut excluded for domain width |
-| decoder_signselect_negative | N | T0/Z sign-select regressed at 13-20b; strategy excluded on explicit-compare ternaries at ALL widths; board closed under taxonomy |
-| composition | W/N | Structural rewrites compose intact (+1.53ns transfers exactly); fanout attribute inverted in composition and was reverted |
-| rejection_makehint_session | W | rejection_s/y + makehint latency-preserving wins |
-| board_closure | I | Latency-preserving tier closure rationale per block |
-| repro_and_pristine_integrity | I | Synthesis determinism (3× bit-identical, 7ps delta real); pristine-tree contamination found/fixed, no results invalidated |
-| fullchip_integration | I | First combined_top synthesis (39 V + 11 VHDL); chip critical path = encoder PISO merge, invisible to block OOC; GMU 116MHz methodology comparison |
-| postroute_acceptance | I | Measurement law: post-synth chip compares mislead (sign errors); post-route is the only chip judge; optimized beats pristine at every corner post-route |
-| postroute_ppa | I/W | Post-route chip PPA flow (impl_runner power/util); iso-frequency power at 15.31ns, both MET: 1.198W vs 1.213W (+1.3%) at ~66 MHz. **PARTIALLY SUPERSEDED 2026-08-03.** The projected Fmax figures are retired (struck through in the doc); measured WNS retained. Power figures retired as pinned-flow. Use the ML-DSA chip-level ledger, M1/M2 |
-| flow_directive_sweep | W/I | Tier-3 flow-space search: directive sweep infra; agent autonomously found new-best (101.5) at $0.016 |
-| encoder_campaign | W/N | 4-angle encoder RTL campaign: mode/lvl precompute kept (-2.900→-2.837); piso_len fanout regressed; insert-delay gate-caught occupancy-unsafe; skid excluded by capacity measurement |
-| encoder_insert_delay | N | stripped_r insert delay: occupancy-unsafe under backpressure (unbounded AXI stall); occupancy-probe method established |
-| DESIGN_encoder_banked_piso | I | Vector 2 design doc: banked word-aligned ACC+FIFO replacing 256b variable-shift PISO; 200MHz verdict (not reachable on -1; ~140-165 ceiling on -3); advisor sign-off doc |
-| precompute_boundaries | W/N | (see above) |
+| [fullkat_gate](mldsa/FINDINGS_mldsa_fullkat_gate.md) | I | Full-design 75-vector NIST KAT outer gate via xsim; corruption-validated; per-vector logging; 600s timeout handling |
+| [pipelining_coeff_decomposer](mldsa/FINDINGS_mldsa_pipelining_coeff_decomposer.md) | N/I | Block pipeline cut regressed (-1.247→-1.688); latency-tolerant block gate validated (reusable); redirected to sub_val lead |
+| [coeff_decomposer_decomp_map1](mldsa/FINDINGS_mldsa_coeff_decomposer_decomp_map1.md) | N | Placement-coupled restructurings failed 5 ways; block closed for restructuring |
+| [cd_width_narrowing](mldsa/FINDINGS_mldsa_cd_width_narrowing.md) | W | 56b→28b reg narrowing: WNS -1.247→-1.196, LUT -21%; refined narrowing policy rule (logic-bound + written bound proof) |
+| [butterfly_dsp_pipeline](mldsa/FINDINGS_mldsa_butterfly_dsp_pipeline.md) | W | Round-1 mult_p PREG stage: -3.802→-3.280; first latency-changing win; MULT drain root cause |
+| [butterfly_round2_areg](mldsa/FINDINGS_mldsa_butterfly_round2_areg.md) | W | Round-2 INTT sub_r AREG: -3.280→-2.793 (+12.9% cumulative fmax); chained-stage ×2 retap rule |
+| [latency_orchestrator_v0](mldsa/FINDINGS_mldsa_latency_orchestrator_v0.md) | I/N | Autonomous latency tier: divergence-guided repair steers tap derivation but not insertion-point choice; Sonnet 12 calls no win vs Opus 1 call correct refusal ($0.245); butterfly closed |
+| [gen_c_autonomous](mldsa/FINDINGS_mldsa_gen_c_autonomous.md) | W | Autonomous max_fanout win on gen_c (orchestrator-discovered) |
+| [gen_c_sample_addr](mldsa/FINDINGS_mldsa_gen_c_sample_addr.md) | W | sample_addr precompute 1 cycle ahead: -5.029→-3.307 (+20.8% fmax) |
+| [fanout_load_profile](mldsa/FINDINGS_mldsa_fanout_load_profile.md) | W/N | gen_c FSM fanout -3.307→-1.264 (project record +2.043ns) + makehint N=8; load-profile rule: narrow reg + homogeneous CE bank pays, wide/heterogeneous loses |
+| [precompute_boundaries](mldsa/FINDINGS_mldsa_precompute_boundaries.md) | W/N | decoder ENCODE_LVL_r + rejection_y ge-flag wins; 4 negatives incl. loop-endpoint rule (usehint ctr) |
+| [gate_catch_rate](FINDINGS_gate_catch_rate.md) | I/W | 59 LLM calls -> 33 applied -> 14 functionally incorrect; 4/23 latency-preserving vs 10/10 latency-changing; the measured case for correctness gating |
+| [policy_v2_insertion_point](mldsa/FINDINGS_mldsa_policy_v2_insertion_point.md) | I/N | POLICY v2 rendezvous rubric: insertion-point selection 0/12 to 4/4 post-rule (log-verified); all 4 edits still failed downstream (3 anchor, 1 gate) |
+| [decoder_usehint_autonomous](mldsa/FINDINGS_mldsa_decoder_usehint_autonomous.md) | W | Autonomous decoder win; usehint characterization |
+| [decoder_s_lut_negative](mldsa/FINDINGS_mldsa_decoder_s_lut_negative.md) | N | S-mode constant-LUT regressed; binding mode is T0/Z; constant_lut excluded for domain width |
+| [decoder_signselect_negative](mldsa/FINDINGS_mldsa_decoder_signselect_negative.md) | N | T0/Z sign-select regressed at 13-20b; strategy excluded on explicit-compare ternaries at ALL widths; board closed under taxonomy |
+| [composition](mldsa/FINDINGS_mldsa_composition.md) | W/N | Structural rewrites compose intact (+1.53ns transfers exactly); fanout attribute inverted in composition and was reverted |
+| [rejection_makehint_session](mldsa/FINDINGS_mldsa_rejection_makehint_session.md) | W | rejection_s/y + makehint latency-preserving wins |
+| [board_closure](mldsa/FINDINGS_mldsa_board_closure.md) | I | Latency-preserving tier closure rationale per block |
+| [repro_and_pristine_integrity](mldsa/FINDINGS_mldsa_repro_and_pristine_integrity.md) | I | Synthesis determinism (3× bit-identical, 7ps delta real); pristine-tree contamination found/fixed, no results invalidated |
+| [fullchip_integration](mldsa/FINDINGS_mldsa_fullchip_integration.md) | I | First combined_top synthesis (39 V + 11 VHDL); chip critical path = encoder PISO merge, invisible to block OOC; GMU 116MHz methodology comparison |
+| [postroute_acceptance](mldsa/FINDINGS_mldsa_postroute_acceptance.md) | I | Measurement law: post-synth chip compares mislead (sign errors); post-route is the only chip judge; optimized beats pristine at every corner post-route |
+| [postroute_ppa](mldsa/FINDINGS_mldsa_postroute_ppa.md) | I/W | Post-route chip PPA flow (impl_runner power/util); iso-frequency power at 15.31ns, both MET: 1.198W vs 1.213W (+1.3%) at ~66 MHz. **PARTIALLY SUPERSEDED 2026-08-03.** The projected Fmax figures are retired (struck through in the doc); measured WNS retained. Power figures retired as pinned-flow. Use the ML-DSA chip-level ledger, M1/M2 |
+| [flow_directive_sweep](mldsa/FINDINGS_flow_directive_sweep.md) | W/I | Tier-3 flow-space search: directive sweep infra; agent autonomously found new-best (101.5) at $0.016 |
+| [encoder_campaign](mldsa/FINDINGS_mldsa_encoder_campaign.md) | W/N | 4-angle encoder RTL campaign: mode/lvl precompute kept (-2.900→-2.837); piso_len fanout regressed; insert-delay gate-caught occupancy-unsafe; skid excluded by capacity measurement |
+| [encoder_insert_delay](mldsa/FINDINGS_mldsa_encoder_insert_delay.md) | N | stripped_r insert delay: occupancy-unsafe under backpressure (unbounded AXI stall); occupancy-probe method established |
+| [DESIGN_encoder_banked_piso](mldsa/DESIGN_encoder_banked_piso.md) | I | Vector 2 design doc: banked word-aligned ACC+FIFO replacing 256b variable-shift PISO; 200MHz verdict (not reachable on -1; ~140-165 ceiling on -3); advisor sign-off doc |
+| [precompute_boundaries](mldsa/FINDINGS_mldsa_precompute_boundaries.md) | W/N | (see above) |
 
 ## HQC (docs/findings/hqc/)
 
 | Doc | Tag | Summary |
 |---|---|---|
-| fixed_weight_pipeline | W | Showpiece: fixed_weight -2.064→+0.122 (141→205 MHz) |
-| barrett_dsp | W/N | Barrett reduction DSP findings |
-| poly_mult_ramwidth | W | Memory-retarget family win |
-| decap_encap_crossmodule | I | Cross-module characterization |
-| decap_topN_recon | I | Decap path recon; decap closed (placement-bound) |
-| hqc_transfer_v0 | I/N | Transfer orchestrator v0: ML-DSA POLICY verbatim on HQC; correct rule application, honest marginal reverts, gate-caught false positive |
-| transfer_v1_and_policy_v2 | W/I | First autonomous cross-design win (decap flag_precompute +0.726ns, $0.037); POLICY v2 rendezvous rubric closed insertion-point gap; CE-pin prior refinement |
-| joint_propagation | I/W | a1a7ad2 silently reverted the joint composition to pristine for 3 days (untracked build tree + stage() regeneration); restored, 114.8 -> 116.0 MHz true closure; HQC now binds on shared Keccak state RAM, 4 of 5 worst paths |
-| keccak_transfer | I | Keccak symmetric-primitive transfer experiments (Malik datapoint) |
+| [fixed_weight_pipeline](hqc/FINDINGS_fixed_weight_pipeline.md) | W | Showpiece: fixed_weight -2.064→+0.122 (141→205 MHz) |
+| [barrett_dsp](hqc/FINDINGS_barrett_dsp.md) | W/N | Barrett reduction DSP findings |
+| [poly_mult_ramwidth](hqc/FINDINGS_poly_mult_ramwidth.md) | W | Memory-retarget family win |
+| [decap_encap_crossmodule](hqc/FINDINGS_decap_encap_crossmodule.md) | I | Cross-module characterization |
+| [decap_topN_recon](hqc/FINDINGS_decap_topN_recon.md) | I | Decap path recon; decap closed (placement-bound) |
+| [hqc_transfer_v0](hqc/FINDINGS_hqc_transfer_v0.md) | I/N | Transfer orchestrator v0: ML-DSA POLICY verbatim on HQC; correct rule application, honest marginal reverts, gate-caught false positive |
+| [transfer_v1_and_policy_v2](hqc/FINDINGS_transfer_v1_and_policy_v2.md) | W/I | First autonomous cross-design win (decap flag_precompute +0.726ns, $0.037); POLICY v2 rendezvous rubric closed insertion-point gap; CE-pin prior refinement |
+| [joint_propagation](hqc/FINDINGS_hqc_joint_propagation.md) | I/W | a1a7ad2 silently reverted the joint composition to pristine for 3 days (untracked build tree + stage() regeneration); restored, 114.8 -> 116.0 MHz true closure; HQC now binds on shared Keccak state RAM, 4 of 5 worst paths |
+| [keccak_transfer](hqc/FINDINGS_keccak_transfer.md) | I | Keccak symmetric-primitive transfer experiments (Malik datapoint) |
 
 ## Cross-design (docs/findings/)
 
 | Doc | Tag | Summary |
 |---|---|---|
-| crossdesign_closure | I/W | True-closure A/B: HQC joint win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't. NUMBERS SUPERSEDED, see HQC chip ledger below (+5.8%) |
+| [crossdesign_closure](FINDINGS_crossdesign_closure.md) | I/W | True-closure A/B: HQC joint win vs ML-DSA block-first null; thesis: top-down target selection composes, block-first doesn't. NUMBERS SUPERSEDED, see HQC chip ledger below (+5.8%) |
 
 ## Current WNS ledger (Artix-7 OOC, 200 MHz) — measured 2026-07-11, all deterministic (3×-verified flow)
 
@@ -214,21 +226,31 @@ has not been done.
 
 | Doc | Tag | Summary |
 |---|---|---|
-| 2026-08-25_slh_dsa_bringup | I | **PARTIALLY SUPERSEDED 2026-08-27.** SPHINCSLET brought up on Artix-7 from a cold repo. Three read-configuration requirements, no source edits: global includes for setting.v and clog2.v; --relax for xvlog; default_nettype-none files compiled last. Same class as HQC F31, third codebase exhibiting it. Retracts an earlier five-file defect catalogue as xvlog compilation-unit artifacts. Baseline 83.5 MHz stands (restated as S1) |
-| 2026-08-27_slh_dsa_csa_win | W | **CURRENT.** First agent win on a third scheme, and the first time the rule book grew rather than only being applied. F46 ML-DSA POLICY transferred verbatim declined twice, all five preconditions unmet, verified with the steering note removed; top-10 board shows all paths in SHA-256, zero applicable targets. F47 agent proposed carry_chain_csa_reduction, applied to sha256_core t1_logic five-operand sum, gate PASS bit-identical signature, S1 83.5 -> S2 95.4 MHz (+14.3%); iso-frequency at 11.98 ns gives -1.3% LUT and flat power, so the gain is not bought with area; binding path moved HASH_BM -> HASH_SM. Prediction that CSA loses to CARRY4 on FPGA was wrong and is recorded as such. F48 candidate rules need explicit unvalidated framing in prompt text, not only in the record. Target file is borrowed Secworks SHA-256, not SPHINCSLET-authored |
+| [2026-08-25_slh_dsa_bringup](slh-dsa/2026-08-25_slh_dsa_bringup.md) | I | **PARTIALLY SUPERSEDED 2026-08-27.** SPHINCSLET brought up on Artix-7 from a cold repo. Three read-configuration requirements, no source edits: global includes for setting.v and clog2.v; --relax for xvlog; default_nettype-none files compiled last. Same class as HQC F31, third codebase exhibiting it. Retracts an earlier five-file defect catalogue as xvlog compilation-unit artifacts. Baseline 83.5 MHz stands (restated as S1) |
+| [2026-08-27_slh_dsa_csa_win](slh-dsa/2026-08-27_slh_dsa_csa_win.md) | W | **CURRENT.** First agent win on a third scheme, and the first time the rule book grew rather than only being applied. F46 ML-DSA POLICY transferred verbatim declined twice, all five preconditions unmet, verified with the steering note removed; top-10 board shows all paths in SHA-256, zero applicable targets. F47 agent proposed carry_chain_csa_reduction, applied to sha256_core t1_logic five-operand sum, gate PASS bit-identical signature, S1 83.5 -> S2 95.4 MHz (+14.3%); iso-frequency at 11.98 ns gives -1.3% LUT and flat power, so the gain is not bought with area; binding path moved HASH_BM -> HASH_SM. Prediction that CSA loses to CARRY4 on FPGA was wrong and is recorded as such. F48 candidate rules need explicit unvalidated framing in prompt text, not only in the record. Target file is borrowed Secworks SHA-256, not SPHINCSLET-authored |
 
-| 2026-08-29_slh_dsa_level_sweep | **W** | **CURRENT.** All six SLH-DSA parameter sets, both arms, twelve closures. Every configuration gains, 4.4 pct at 128s to 20.4 pct at 256f, S12 to S17; utilization S18 to S24, LUT cost -0.3 to +2.4 pct with BRAM and DSP unchanged. F49 the carry-save rule transferred unmodified from the 32-bit SHA-256 adder to the 64-bit SHA-512 adder, matching all four preconditions, gate PASS, two model calls. F50 256f gained 20.4 pct from an edit to a core it does not bind on, via congestion relief inside hash_tile, so the edited structure ceasing to bind is not a necessary condition for a gain. F51 a validated rule silently reverted to unvalidated in the prompt because the resolution record replaced its rule text; extends F48 in the opposite direction. S25 and S26 determinism: every baseline and both 256f arms reproduced exactly across two independent sweeps |
+| [2026-08-29_slh_dsa_level_sweep](slh-dsa/2026-08-29_slh_dsa_level_sweep.md) | **W** | **CURRENT.** All six SLH-DSA parameter sets, both arms, twelve closures. Every configuration gains, 4.4 pct at 128s to 20.4 pct at 256f, S12 to S17; utilization S18 to S24, LUT cost -0.3 to +2.4 pct with BRAM and DSP unchanged. F49 the carry-save rule transferred unmodified from the 32-bit SHA-256 adder to the 64-bit SHA-512 adder, matching all four preconditions, gate PASS, two model calls. F50 256f gained 20.4 pct from an edit to a core it does not bind on, via congestion relief inside hash_tile, so the edited structure ceasing to bind is not a necessary condition for a gain. F51 a validated rule silently reverted to unvalidated in the prompt because the resolution record replaced its rule text; extends F48 in the opposite direction. S25 and S26 determinism: every baseline and both 256f arms reproduced exactly across two independent sweeps |
 
 ## ASIC (docs/findings/asic/)
 
 | Doc | Tag | Summary |
 |---|---|---|
-| 2026-07-30_genus_asic_port | I | **SUPERSEDED (GPDK045).** Genus bring-up, F1 use-before-declaration, F2 memory blackboxing (later reversed), F3 effort sensitivity 10.9% |
-| 2026-07-31_defect_survey | I | 13 of 59 HQC files carry cross-tool RTL portability defects, confirmed by Genus and an independent static checker; 102 instances |
-| 2026-07-31_vmu_arm_comparison | N | **SUPERSEDED (GPDK045).** F6 the one accepted HQC edit does not transfer at ASIC block level; arms invert with constraint tightness |
-| 2026-07-31_mldsa_genus_port | I | F8 same defect class in ML-DSA (different codebase), F9 mixed blocking/non-blocking, F10 mixed-language design, VHDL package read order is load-bearing |
-| 2026-08-02_asap7_transition | I | **CURRENT.** A1-A4 retracted (library change to ASAP7 7nm); F11 memories now flip-flop arrays; F12 a search must prove its lower bound violates; F13 unconstrained static inputs capture the critical path; F14 reference flow validated |
-| 2026-08-10_bf2x2_ooc_fmax | I/N | **SUPERSEDED 2026-08-12 by 2026-08-12_bf2x2_asap7_complete: four modules blackboxed, and the closure search is unsound (F39). No number valid.** First block-level ASAP7 closure, butterfly2x2 OOC min period 578 ps, 8-point sweep with area and power. F15 only VIOLATED points reveal the limiter (Barrett), MET endpoints carry no information; F16 ripple-carry adder on path at 600 ps only; F17 578 vs 581 area inversion sets the measurement floor; F18 flop count invariant; F21 v1 script writes no .db |
-| 2026-08-12_bf2x2_asap7_complete | N/I | **CURRENT.** butterfly2x2 on ASAP7 with Barrett present. Same-period head-to-head P1 to P4 at 540/555/569/583 ps; arms cross. At 583 ps both MET and the optimized arm costs +7.7 pct area, +4.0 pct power for no timing benefit. Full PPA at 22 measured points (J and K series). F38 v1 and v2 scripts identical; **F39 RETRACTS all ASIC closure figures, the search assumes monotonicity and 583 MET while 588 VIOLATED on the same arm**; F40 area non-monotonic in period; F41 endpoint split reproduces with Barrett present; F42 power was understated 5x by the blackbox |
-| 2026-08-12_hqc_genus_port (Appendix A) | W/I | **CURRENT.** Both HQC ASAP7 arms ported, tracked and elaborating clean. H11 to H14 optimized arm ARM_READ_OK / ARM_ELAB_OK / no unresolved / no empty modules; H15 arms differ in 9 files; H16 all 10 override tokens match the FPGA optimized arm. F43 read-first beats diff classification; F44 manifest count reconciles and neither arm was tracked before this session; F45 genus_asap7_v2.tcl now enforces the HQC read configuration. Synthesis in flight at 1000 ps |
-| 2026-08-12_bf2x2_fpga_ooc_closure (mldsa/) | W/I | **CURRENT.** Artix-7 OOC post-route closure pair, butterfly2x2: G1 baseline 9.50 ns, G2 optimized 8.75 ns, 7.9 pct period reduction. Blackbox status verified zero. F27 diagnoses the ASAP7 blackbox defect; F28 the Genus guard; F29 the gain is pipelining (FF +26.4 pct, LUT +4); F30 one point reproduced across searches |
+| [2026-07-30_genus_asic_port](asic/2026-07-30_genus_asic_port.md) | I | **SUPERSEDED (GPDK045).** Genus bring-up, F1 use-before-declaration, F2 memory blackboxing (later reversed), F3 effort sensitivity 10.9% |
+| [2026-07-31_defect_survey](asic/2026-07-31_defect_survey.md) | I | 13 of 59 HQC files carry cross-tool RTL portability defects, confirmed by Genus and an independent static checker; 102 instances |
+| [2026-07-31_vmu_arm_comparison](asic/2026-07-31_vmu_arm_comparison.md) | N | **SUPERSEDED (GPDK045).** F6 the one accepted HQC edit does not transfer at ASIC block level; arms invert with constraint tightness |
+| [2026-07-31_mldsa_genus_port](asic/2026-07-31_mldsa_genus_port.md) | I | F8 same defect class in ML-DSA (different codebase), F9 mixed blocking/non-blocking, F10 mixed-language design, VHDL package read order is load-bearing |
+| [2026-08-02_asap7_transition](asic/2026-08-02_asap7_transition.md) | I | **CURRENT.** A1-A4 retracted (library change to ASAP7 7nm); F11 memories now flip-flop arrays; F12 a search must prove its lower bound violates; F13 unconstrained static inputs capture the critical path; F14 reference flow validated |
+| [2026-08-10_bf2x2_ooc_fmax](asic/2026-08-10_bf2x2_ooc_fmax.md) | I/N | **SUPERSEDED 2026-08-12 by 2026-08-12_bf2x2_asap7_complete: four modules blackboxed, and the closure search is unsound (F39). No number valid.** First block-level ASAP7 closure, butterfly2x2 OOC min period 578 ps, 8-point sweep with area and power. F15 only VIOLATED points reveal the limiter (Barrett), MET endpoints carry no information; F16 ripple-carry adder on path at 600 ps only; F17 578 vs 581 area inversion sets the measurement floor; F18 flop count invariant; F21 v1 script writes no .db |
+| [2026-08-12_bf2x2_asap7_complete](asic/2026-08-12_bf2x2_asap7_complete.md) | N/I | **CURRENT.** butterfly2x2 on ASAP7 with Barrett present. Same-period head-to-head P1 to P4 at 540/555/569/583 ps; arms cross. At 583 ps both MET and the optimized arm costs +7.7 pct area, +4.0 pct power for no timing benefit. Full PPA at 22 measured points (J and K series). F38 v1 and v2 scripts identical; **F39 RETRACTS all ASIC closure figures, the search assumes monotonicity and 583 MET while 588 VIOLATED on the same arm**; F40 area non-monotonic in period; F41 endpoint split reproduces with Barrett present; F42 power was understated 5x by the blackbox |
+| [2026-08-12_hqc_genus_port (Appendix A)](asic/2026-08-12_hqc_genus_port.md) | W/I | **CURRENT.** Both HQC ASAP7 arms ported, tracked and elaborating clean. H11 to H14 optimized arm ARM_READ_OK / ARM_ELAB_OK / no unresolved / no empty modules; H15 arms differ in 9 files; H16 all 10 override tokens match the FPGA optimized arm. F43 read-first beats diff classification; F44 manifest count reconciles and neither arm was tracked before this session; F45 genus_asap7_v2.tcl now enforces the HQC read configuration. Synthesis in flight at 1000 ps |
+| [2026-08-12_bf2x2_fpga_ooc_closure (mldsa/)](mldsa/2026-08-12_bf2x2_fpga_ooc_closure.md) | W/I | **CURRENT.** Artix-7 OOC post-route closure pair, butterfly2x2: G1 baseline 9.50 ns, G2 optimized 8.75 ns, 7.9 pct period reduction. Blackbox status verified zero. F27 diagnoses the ASAP7 blackbox defect; F28 the Genus guard; F29 the gain is pipelining (FF +26.4 pct, LUT +4); F30 one point reproduced across searches |
+
+## Additional experiment records
+
+These reports provide supporting coverage, integration or portability details.
+
+- [FINDINGS: HQC cross-toolchain portability repair for Genus elaboration](asic/2026-08-07_genus_portability_repair.md)
+- [FINDINGS: first completed ASAP7 full-chip synthesis, ML-DSA `combined_top` baseline](asic/2026-08-08_asap7_chip_base_complete.md)
+- [Findings: HQC Joint-Design KAT Gate — First Functional Verification of the Joint Configuration](hqc/FINDINGS_hqc_joint_kat_gate.md)
+- [Findings: ML-DSA Chip Orchestrator Stage-2 Validation](mldsa/FINDINGS_mldsa_chip_orchestrator_stage2.md)
+- [ML-DSA Full-Chip PPA: Pristine vs Optimized (Post-Route, Measured)](mldsa/PPA_mldsa_fullchip.md)
