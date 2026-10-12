@@ -96,12 +96,15 @@ working tests, tool access, and model opt-in. They are not newly measured wins.
    timing-only acceptance. The new controller supplies explicit area/latency
    limits and fixed-configuration comparison; it does not silently change the
    behavior of all historical scripts.
-3. **Verification coverage:** HQC uses shared-secret consistency, the existing
-   ML-DSA driver covers KeyGen, and the SLH gate selects a pinned vendor-output
-   stream for all six SHA2 sets; SHAKE is unsupported and fresh RTL simulation
-   is unrun. Imported ML-KEM has a separate official-vector qualification flow.
-   No generic wrapper expands these checks into untested operations or formal
-   equivalence, constant-time security, or leakage resistance.
+3. **Verification coverage:** legacy HQC uses shared-secret consistency; the
+   SAC 2026 import is still source-only. Legacy ML-DSA dispatch and the built-in
+   controller adapter declare KeyGen-only coverage. Separate guarded/corrected
+   ML-DSA variants now pass 210 portable cases, and corrected SLH variants have
+   pinned vendor-stream evidence; consult [current status](PROJECT_STATUS.md)
+   for exact source/mode coverage. These are not automatic source-routing or
+   coverage upgrades for legacy dispatch. ML-KEM has separate official-vector
+   sample evidence. No wrapper creates formal equivalence, constant-time or
+   leakage proof, and SHAKE-family SLH remains unsupported.
 4. **Learning:** only final accepted, source-matching legacy outcomes qualify
    applied-edit history. More precise reuse across equivalent tool/library/
    constraint settings and richer first-failing-cycle diagnostics remain useful.

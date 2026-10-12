@@ -143,3 +143,25 @@ SHA2-192f compared all 4,463 words. Both verified valid signatures and rejected
 a real one-bit signature-memory corruption. Syntax-only variants failed and
 are retained in the record. The other four SHA2 parameter sets have not been
 executed by this portable qualification.
+
+
+## Deterministic source handoff and same-mode comparisons
+
+[Export exact qualified sources](../../tools/export_slh_verified.py) with
+`--variant corrected-baseline|corrected-candidate`, `--parameter-set 128f|192f`
+and `--out <empty-or-new-directory>`. The exporter runs no EDA tool. It emits
+ordered synthesis/simulation lists, top and configuration metadata, generic
+memory/interface details, fixture manifests, copied qualification evidence,
+source hashes and bundle checksums.
+
+Additional corrected candidate128f and baseline192f runs passed, completing
+same-parameter baseline/candidate functional pairs at both 128f and 192f.
+Within a matched pair, only the optimized SHA-256/SHA-512 core files differ;
+control corrections, configuration and source ordering match. The original
+pristine128f and candidate192f runs alone were not a matched PPA pair.
+
+See the [handoff guide](../../verification/slh_portable/README.md#source-only-fpga--asic-handoff)
+and [four-bundle audit](../../docs/verification/slh-source-handoff-2026-10-12.json).
+FPGA/ASIC clocks, constraints, wrappers and memory mapping remain user-owned.
+These functional results do not establish implementation timing, area, power
+or any new PPA improvement.

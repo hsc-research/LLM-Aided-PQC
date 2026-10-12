@@ -21,6 +21,7 @@ model API to understand the repo or run its Python checks.
 | Guide | Use it for |
 |---|---|
 | [Install and run](REPRODUCE.md) | A staged route from a clean checkout to source checks, RTL simulation and EDA runs |
+| [Hardware handoff](HARDWARE_HANDOFF.md) | Export exact passing derivatives and prepare matched FPGA/ASIC source/constraint configurations |
 | [FPGA](FPGA.md) | Vivado setup, design selection, functional checks and timing measurement |
 | [ASIC synthesis](../asic/README.md) | Genus/DC manifests, libraries, constraints, output reports and qualification |
 | [Whole-design controller](WHOLE_DESIGN.md) | Multi-path targeting, small edits, full-design rechecks and acceptance/rollback |

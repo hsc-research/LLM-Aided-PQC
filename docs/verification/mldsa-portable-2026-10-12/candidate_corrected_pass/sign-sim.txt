@@ -1,0 +1,52 @@
+ML-DSA-II.Sign, KAT # 0 completed in                30264 clock cycles
+ML-DSA-II.Sign, KAT # 1 completed in                36302 clock cycles
+ML-DSA-II.Sign, KAT # 2 completed in                42497 clock cycles
+ML-DSA-II.Sign, KAT # 3 completed in                30020 clock cycles
+ML-DSA-II.Sign, KAT # 4 completed in                23676 clock cycles
+ML-DSA-II.Sign, KAT # 5 completed in                12379 clock cycles
+ML-DSA-II.Sign, KAT # 6 completed in                18394 clock cycles
+ML-DSA-II.Sign, KAT # 7 completed in                30404 clock cycles
+ML-DSA-II.Sign, KAT # 8 completed in                12761 clock cycles
+ML-DSA-II.Sign, KAT # 9 completed in                24077 clock cycles
+ML-DSA-II.Sign, KAT #10 completed in                54906 clock cycles
+ML-DSA-II.Sign, KAT #11 completed in                12521 clock cycles
+ML-DSA-II.Sign, KAT #12 completed in                11302 clock cycles
+ML-DSA-II.Sign, KAT #13 completed in                30402 clock cycles
+ML-DSA-II.Sign, KAT #14 completed in                18776 clock cycles
+Moving to ML-DSA-III.Sign. ML-DSA-II completed in avg.       25912 clock cycles
+ML-DSA-III.Sign, KAT # 0 completed in               101398 clock cycles
+ML-DSA-III.Sign, KAT # 1 completed in                16766 clock cycles
+ML-DSA-III.Sign, KAT # 2 completed in                16625 clock cycles
+ML-DSA-III.Sign, KAT # 3 completed in                50336 clock cycles
+ML-DSA-III.Sign, KAT # 4 completed in                33447 clock cycles
+ML-DSA-III.Sign, KAT # 5 completed in                41887 clock cycles
+ML-DSA-III.Sign, KAT # 6 completed in                16614 clock cycles
+ML-DSA-III.Sign, KAT # 7 completed in                25045 clock cycles
+ML-DSA-III.Sign, KAT # 8 completed in                25926 clock cycles
+ML-DSA-III.Sign, KAT # 9 completed in                16614 clock cycles
+ML-DSA-III.Sign, KAT #10 completed in                17054 clock cycles
+ML-DSA-III.Sign, KAT #11 completed in                16615 clock cycles
+ML-DSA-III.Sign, KAT #12 completed in                25768 clock cycles
+ML-DSA-III.Sign, KAT #13 completed in                67642 clock cycles
+ML-DSA-III.Sign, KAT #14 completed in                59220 clock cycles
+Moving to ML-DSA-V.Sign. ML-DSA-III completed in avg.       35397 clock cycles
+ML-DSA-V.Sign, KAT # 0 completed in                26130 clock cycles
+ML-DSA-V.Sign, KAT # 1 completed in                26130 clock cycles
+ML-DSA-V.Sign, KAT # 2 completed in                38268 clock cycles
+ML-DSA-V.Sign, KAT # 3 completed in                50403 clock cycles
+ML-DSA-V.Sign, KAT # 4 completed in               111140 clock cycles
+ML-DSA-V.Sign, KAT # 5 completed in                50422 clock cycles
+ML-DSA-V.Sign, KAT # 6 completed in                98986 clock cycles
+ML-DSA-V.Sign, KAT # 7 completed in                86839 clock cycles
+ML-DSA-V.Sign, KAT # 8 completed in                98981 clock cycles
+ML-DSA-V.Sign, KAT # 9 completed in                26111 clock cycles
+ML-DSA-V.Sign, KAT #10 completed in                74703 clock cycles
+ML-DSA-V.Sign, KAT #11 completed in                38286 clock cycles
+ML-DSA-V.Sign, KAT #12 completed in                38293 clock cycles
+ML-DSA-V.Sign, KAT #13 completed in                38272 clock cycles
+ML-DSA-V.Sign, KAT #14 completed in                26130 clock cycles
+ML-DSA.Sign testbench done. ML-DSA-V completed in avg.       55272 clock cycles
+- /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_sign_top.v:869: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.49
+- Verilator: $finish at 17ms; walltime 10.317 s; speed 1.696 ms/s
+- Verilator: cpu 10.312 s on 1 threads; allocated 8 MB

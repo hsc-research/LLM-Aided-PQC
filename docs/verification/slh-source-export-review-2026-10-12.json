@@ -1,0 +1,121 @@
+{
+  "date_utc": "2026-10-12",
+  "review_kind": "Independent preserved-evidence and no-EDA export audit",
+  "eda_invoked": false,
+  "exporter_sha256": "39422f1b5ef2ff71255804ec3de41873f2fe6f53db809d0bedf2bc92fad92d0a",
+  "exports": [
+    {
+      "variant": "corrected-baseline",
+      "parameter_set": "SHA2-128f",
+      "top": "top",
+      "design_sources": 29,
+      "simulation_sources": 30,
+      "qualification_report": {
+        "path": "evidence/qualification.json",
+        "repository_path": "docs/verification/slh-portable-corrected-128f-2026-10-12.json",
+        "sha256": "2c98eea2944bae48c85937b92cb6bec521233f11552f8af8455a586511f58392"
+      },
+      "manifest_sha256": "3750ec55609c27fdca88012cf045cd094f1f68d8927bd6b82573b7cb1d3a2e74",
+      "sha256sums_sha256": "edd535f3e695f9e161ae9cbbfdf0a10d6843b77784355c6ba71d27b70db61cd0",
+      "partner_qualified": true,
+      "independent_reexport_byte_identical": true
+    },
+    {
+      "variant": "corrected-candidate",
+      "parameter_set": "SHA2-128f",
+      "top": "top",
+      "design_sources": 29,
+      "simulation_sources": 30,
+      "qualification_report": {
+        "path": "evidence/qualification.json",
+        "repository_path": "docs/verification/slh-portable-corrected-candidate-128f-2026-10-12.json",
+        "sha256": "8ccfa17c4bc2aeb1a852f1c27d748c4c43ae87b530a84d779476419d504e3a88"
+      },
+      "manifest_sha256": "e1f2527e345d635dc59c2665d5fdf3e35e293cdedb55f0086a195a248a05e199",
+      "sha256sums_sha256": "f201d239a652637ff6ce251e28d3d8639f35cc5115e1dd499a0976aabe1925c2",
+      "partner_qualified": true,
+      "independent_reexport_byte_identical": true
+    },
+    {
+      "variant": "corrected-baseline",
+      "parameter_set": "SHA2-192f",
+      "top": "top",
+      "design_sources": 29,
+      "simulation_sources": 30,
+      "qualification_report": {
+        "path": "evidence/qualification.json",
+        "repository_path": "docs/verification/slh-portable-corrected-baseline-192f-2026-10-12.json",
+        "sha256": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343"
+      },
+      "manifest_sha256": "03531699945f52b8c52e7d63e7db01cb8a166e32d682ff3544ac164fd4392ac6",
+      "sha256sums_sha256": "f8c15e2f4724d87ac910c0a9a255b7079721ff1e1f973c9db92b44961ec32477",
+      "partner_qualified": true,
+      "independent_reexport_byte_identical": true
+    },
+    {
+      "variant": "corrected-candidate",
+      "parameter_set": "SHA2-192f",
+      "top": "top",
+      "design_sources": 29,
+      "simulation_sources": 30,
+      "qualification_report": {
+        "path": "evidence/qualification.json",
+        "repository_path": "docs/verification/slh-portable-corrected-192f-2026-10-12.json",
+        "sha256": "00c182f676170e28c33f6d258e4f768044c0f5ebdb2918bff81f25cb228f1f4a"
+      },
+      "manifest_sha256": "1ae47dd3f80483114f43f629e4b825a7781c7641fd79143df9e48f8cff3521bc",
+      "sha256sums_sha256": "a3d6febefc17634fb51464f2658f4dca7be3372f3d670bf6bbf49d812e15906e",
+      "partner_qualified": true,
+      "independent_reexport_byte_identical": true
+    }
+  ],
+  "qualification_scope": "One fixed historical vendor differential fixture per source/parameter selection, each with a live signature-memory bit flip; not independent FIPS 205 validation or measured PPA.",
+  "pair_differences": [
+    "sphincslet/sha/sha256_core.v",
+    "sphincslet/sha/sha512_core.v"
+  ],
+  "reviewed_new_runs": [
+    {
+      "record": "docs/verification/slh-portable-corrected-candidate-128f-2026-10-12.json",
+      "expected_words": 2141,
+      "report_sha256": "8ccfa17c4bc2aeb1a852f1c27d748c4c43ae87b530a84d779476419d504e3a88",
+      "raw_evidence_rechecked": [
+        "Original and transformed RTL hashes",
+        "Both staged fixture sets",
+        "Shared simulator executable hash",
+        "Complete fresh output bytes/word counts/golden hashes",
+        "Exact flags 0 then 1, one tamper marker in negative only, one sign and verify terminal marker per case",
+        "Reported compile/simulator exits zero and no error/fatal lines"
+      ]
+    },
+    {
+      "record": "docs/verification/slh-portable-corrected-baseline-192f-2026-10-12.json",
+      "expected_words": 4463,
+      "report_sha256": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343",
+      "raw_evidence_rechecked": [
+        "Original and transformed RTL hashes",
+        "Both staged fixture sets",
+        "Shared simulator executable hash",
+        "Complete fresh output bytes/word counts/golden hashes",
+        "Exact flags 0 then 1, one tamper marker in negative only, one sign and verify terminal marker per case",
+        "Reported compile/simulator exits zero and no error/fatal lines"
+      ]
+    }
+  ],
+  "export_checks": [
+    "Exact source/parameter/fixture/golden binding",
+    "Positive and qualified live-negative cases both required",
+    "Strict integer return-code and word-count schema",
+    "Source ordering and include directories retained; only tb.v excluded from design list",
+    "Qualified partner report copied and hash-pinned; missing partner explicit, failed partner refused",
+    "Absent/empty output destination; no protected source overlap or overwriting",
+    "All final bundle checksums validated; all four independent reexports byte-identical"
+  ],
+  "implementation_boundary": [
+    "Top top; 29 design sources and 30 simulation sources in each arm",
+    "No preprocessor or top-level parameter override may replace the selected setting.v mode",
+    "External signature storage must be supplied equally in both arms",
+    "Generic RAM/FIFO inference, initialization, DEPTH+1 dual-port array, clocks and constraints need target-specific review",
+    "No FPGA/ASIC tool, physical implementation or PPA executed by export"
+  ]
+}

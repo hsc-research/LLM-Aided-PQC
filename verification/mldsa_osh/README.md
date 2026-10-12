@@ -1,99 +1,211 @@
-# Portable ML-DSA RTL verification
+# ML-DSA verified derivatives and hardware handoff
 
-The runner is [`agent/mldsa/portable_kat_gate.py`](../../agent/mldsa/portable_kat_gate.py).
-It stages the pinned KULeuven-COSIC ML-DSA-OSH design, synthesizes its VHDL Keccak
-hierarchy to Verilog using GHDL, and runs the resulting netlist together with the
-actual Verilog design and upstream testbenches. It does not substitute a software
-SHAKE implementation or a behavioral cryptographic oracle for the RTL.
+## Results of this verification
 
-## Current qualification
+The original sources are preserved. The newly passing results belong to explicit
+functional derivatives, **not** the unmodified upstream design or the old
+fourteen-file optimization candidate.
 
-**Pending execution:** the runner and its fail-closed control tests have been
-implemented, but an end-to-end GHDL-plus-simulator run has not yet been completed.
-Do not treat the Python unit tests, source-integrity check, historical logs, or
-Verilog syntax checks as new ML-DSA functional results.
+| Source selection | Upstream KeyGen | Upstream Sign | Upstream Verify | Added tests | Overall |
+|---|---:|---:|---:|---|---|
+| Pinned baseline, portable testbenches | 75 pass | 45 pass | 45 pass | 11/12 one-bit negatives rejected | **FAIL**: accepts one noncanonical hint |
+| Existing 14-file candidate | 75 pass | 0 complete, cycle watchdog | 45 pass in a separate run | Same noncanonical hint accepted | **FAIL** |
+| Baseline + canonical hint guard | 75 pass | 45 pass | 45 pass | 12 mutation + 33 canonical/control cases pass | **210/210 PASS** |
+| Candidate + encoder fallthrough + canonical guard | 75 pass | 45 pass | 45 pass | 12 mutation + 33 canonical/control cases pass | **210/210 PASS** |
 
-## Prerequisites and commands
+All three security levels are covered. Upstream Verify contains **9 valid and
+36 invalid** cases: the hardware returns an active-high failure flag, where
+`0` means valid and `1` means invalid. The 33 additional cases alternate a valid
+control with count overflow, decreasing counts, duplicate indices, descending
+indices, and nonzero padding, across all three levels. They cover reset-based
+recovery; the upstream testbench resets before each operation.
 
-Use Python 3.10+, GHDL with synthesis and Verilog output support, and either
-Icarus Verilog (`iverilog` and `vvp`) or Verilator with a C++ compiler and make.
-Put the selected tools on `PATH`. See [GHDL synthesis documentation](https://ghdl.github.io/ghdl/using/Synthesis.html).
+Permanent reports and raw simulation logs:
 
-From the repository root:
+- [Guarded baseline](../../docs/verification/mldsa-portable-2026-10-12/baseline_canonical_pass/result.json)
+- [Corrected candidate](../../docs/verification/mldsa-portable-2026-10-12/candidate_corrected_pass/result.json)
+- [Retained baseline failure](../../docs/verification/mldsa-portable-2026-10-12/baseline_upstream_failure/result.json)
+- [Retained original candidate Sign failure](../../docs/verification/mldsa-portable-2026-10-12/candidate_sign_failure/result.json)
+- [Retained original candidate Verify/negative failure](../../docs/verification/mldsa-portable-2026-10-12/candidate_verify_failure/result.json)
+- [Toolchain/package provenance](../../docs/verification/mldsa-portable-2026-10-12/toolchain.json)
+
+These are actual Verilog RTL plus GHDL-synthesized VHDL-netlist simulations under
+the preserved Verilator build (launcher `vUNKNOWN-built20260516-4e853d8`, runtime
+5.49). They are two-state simulations. Full-design Icarus four-state simulation
+**did not pass**: a reduced KeyGen run timed out while the event scheduler remained
+at 106 time steps. Its [failure record](../../docs/verification/mldsa-portable-2026-10-12/icarus_full_datapath_timeout/result.json)
+and scheduler diagnostic are retained.
+
+Complementary four-state Icarus checks passed for the added guard and repaired
+encoder, with their narrower scopes stated below.
+
+## What was fixed
+
+### Canonical hint validation
+
+The original `usehint.v` expands indices into a bitmap without enforcing all
+canonical encoding requirements. In ML-DSA-87 positive control index 4, changing
+the last hint-count byte from `0x32` to `0x33` adds a duplicate index zero after
+`0xb3` in the final polynomial. The bitmap is unchanged, so the original design
+accepts the modified signature. This byte is inside the signature, not transport
+padding.
+
+[FIPS 204, Algorithm 21, HintBitUnpack](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf)
+requires bounded, nondecreasing cumulative counts, strictly increasing indices
+within each polynomial, and zero unused index bytes. Empty polynomials and index
+zero remain valid.
+
+The separate [`mldsa_hint_guard.v`](mldsa_hint_guard.v) checks all those conditions.
+The staged `usehint.v` latches an invalid-encoding flag until reset or a new start;
+the staged top ORs it into the final active-high Verify failure result. This is a
+semantic hardening variant, selected by `--canonical-hints`, and never edits the
+pinned source or original candidate.
+
+The standalone four-state checker passes 1,350 encodings (198 valid, 1,152 invalid).
+An [independent four-state review](../../docs/verification/mldsa-portable-2026-10-12/independent-hint-guard-review.json)
+passes a separate 9,371 encodings, including empty groups, the omega boundary,
+all padding positions, ordering reset between polynomials, and index 255.
+
+### Encoder output timing
+
+The old banked encoder adds a FIFO output cycle while the surrounding controller
+uses fixed drain deadlines. In the first failing Sign case, the controller resets
+the encoder with two words still queued and loses the final challenge-input word.
+A one-cycle change to only one controller deadline is insufficient and remains a
+failed diagnostic experiment.
+
+[`encoder_fallthrough.v`](encoder_fallthrough.v) preserves banked storage but
+exposes an accumulator word directly when the output FIFO is empty. This restores
+the reference output timing. The correction is selected by `--encoder-fallthrough`
+with an explicit candidate override directory. The original fourteen files remain
+unchanged.
+
+[Encoder diagnosis, exact patch, controls and evidence](../../docs/verification/mldsa-portable-2026-10-12/encoder-fallthrough.md)
+include 11,659 checked cycles and 2,278 accepted words over 18 configurations and
+two mode-switch sequences. The repaired and pinned encoders pass; the old banked
+encoder fails. Explicit both-valid-X and both-data-X injections fail the knownness
+checks. This is finite cycle/stream testing with the documented buffer envelope,
+not unconstrained formal equivalence.
+
+## Export the exact sources for FPGA/ASIC work
+
+The exporter runs **no EDA tools**. Both comparison arms include the canonical
+guard and use the same interface and memory boundary:
 
 ```sh
-# Four-state simulation; all 165 upstream cases plus 12 deliberate negatives.
-python3 agent/mldsa/portable_kat_gate.py --verify-mutations
+python3 tools/export_mldsa_verified.py --variant guarded-baseline \
+  --out build/mldsa-handoff/guarded-baseline
+python3 tools/export_mldsa_verified.py --variant corrected-candidate \
+  --out build/mldsa-handoff/corrected-candidate
+```
 
-# Faster two-state simulation of the same actual design.
-python3 agent/mldsa/portable_kat_gate.py --simulator verilator --verify-mutations
+Each output directory must be absent or empty. The default export contains 35
+Verilog source files, including the exact GHDL-generated Keccak netlist bytes from
+the passing run. Export checks every reconstructed source against that run's
+recorded hashes before producing a manifest.
 
-# Separately qualify the 14 committed candidate overrides.
+Each directory contains:
+
+- `manifest.json`: ordered source languages/hashes, top, runtime controls,
+  parameter overrides, defines, memory input, and the qualifying report/hash
+- `sources.f`: relative source paths, with `combined_top` last
+- `sources.tcl`: source-list variables only; it invokes no EDA commands
+- `zetas.txt`: ROM data; run tools from the export directory so `$readmemh` resolves
+- `common/mldsa_params.v`: reference testbench parameter definitions
+- License and notice files
+
+Top: `combined_top`; no top-level parameter overrides or extra preprocessor defines.
+Mode is runtime-selected: 0 KeyGen, 1 Verify, 2 Sign. Security level is 2, 3, or 5
+for ML-DSA-44, -65, or -87. Memories are generic RTL/inferred structures; technology
+mapping, memory treatment, clocks, constraints and implementation settings remain
+the hardware flow's responsibility.
+
+For a tool that will compile the original VHDL instead of the captured netlist:
+
+```sh
+python3 tools/export_mldsa_verified.py --variant corrected-candidate --format mixed \
+  --out build/mldsa-handoff/corrected-candidate-mixed
+```
+
+The mixed export has 16 dependency-ordered VHDL files and 34 Verilog files. These
+VHDL bytes are the inputs to the passing GHDL conversion. Direct mixed-language
+simulation/source-to-netlist equivalence has **not** been established. Do not
+compile both the VHDL and generated Verilog `keccak_top` definitions together.
+Do not use an old unguarded baseline/old-candidate ASIC example as a qualified
+comparison arm by mistake.
+
+No FPGA/ASIC synthesis or PPA is supplied by this handoff. Both the canonical guard
+and encoder fallthrough mux change logic and timing paths. Historical PPA cannot
+be attributed to these sources; measure both exported arms under the same flow.
+
+## Reproduce functional verification
+
+Requirements: Python 3.10+, GHDL with synthesis/Verilog output and its Synopsys
+compatibility packages, Verilator plus a C++ compiler/make, and Icarus for the
+standalone four-state checks. The verified local Linux x86-64 GHDL setup is:
+
+```sh
+python3 tools/bootstrap_mldsa_ghdl.py --prefix /tmp/pqc-ghdl
+export PATH=/tmp/pqc-ghdl/bin:$PATH
+```
+
+The explicit setup helper downloads SHA-256-pinned official Debian packages,
+extracts them locally, and builds the two legacy compatibility units locally.
+It does not run apt, require root, or modify system settings. GHDL 6 packages omit
+those legacy sources, so exact source bytes are taken from the pinned GHDL 5
+common package. The initial GHDL 5 emitter failure is retained in the toolchain
+record. No GHDL 5 executable/libgnat runtime is needed by the successful setup.
+
+Run the passing arms:
+
+```sh
 python3 agent/mldsa/portable_kat_gate.py --simulator verilator \
-  --override agent/mldsa/mldsa_src --verify-mutations
+  --canonical-hints --verify-mutations
+python3 agent/mldsa/portable_kat_gate.py --simulator verilator \
+  --override agent/mldsa/mldsa_src --encoder-fallthrough \
+  --canonical-hints --verify-mutations
+```
 
-# Explicit reduced-coverage smoke test: 1 vector per level and operation.
-python3 agent/mldsa/portable_kat_gate.py --vectors 1
+The preserved Verilator wheel in the recorded environment needed
+`MAKEFLAGS='CFG_CXXFLAGS_PCH_I=-include'` to correct its missing GCC precompiled-header
+include switch. This is a compiler configuration repair, not an RTL change. Exact
+commands, wrappers, executable/package hashes and versions are in the toolchain
+and bootstrap records.
 
-# Harness/source checks only, not simulation evidence.
-python3 -m unittest tests.test_mldsa_portable_gate tests.test_mldsa_source_integration
+For block/control checks:
+
+```sh
+python3 tools/check_mldsa_hint_guard.py
+python3 tools/check_mldsa_encoder_fallthrough.py
+python3 -m unittest tests.test_mldsa_portable_gate tests.test_mldsa_source_integration tests.test_mldsa_export
 python3 tools/check_mldsa_sources.py
 ```
 
-`--operations keygen sign verify` selects operations (all by default).
-`--vectors N` limits the number **per security level** and must be labeled reduced
-coverage. `--timeout` bounds each external process; `--cycle-limit` adds an explicit
-hardware-simulation watchdog. A fresh run directory under `.pqc_runs/` contains
-commands, versions, original and actual staged input hashes, logs, and `result.json`.
-`PQC_RUN_DIR` can select a different output directory. No packages are installed
-by the runner.
+Original-source failures remain reproducible by omitting the semantic fix flags.
+`--vectors N` is reduced coverage. It cannot be combined with `--verify-mutations`,
+because the chosen unchanged positive controls must be covered first. The full
+runner stages private inputs under `.pqc_runs/` (or `PQC_RUN_DIR`), records exact
+coverage/return codes/input and executable hashes, applies cycle and wall-time
+watchdogs, and fails on missing/duplicate results, errors or changed files.
 
-## Coverage and acceptance
+## Testbench portability and remaining boundaries
 
-The bundled upstream corpus supplies:
+The original benches read/write 64-bit slices that extend beyond the final
+3–5 signature hint bytes. This Verilator build zeros the whole out-of-range dynamic
+slice. The runner packs/captures those words bytewise while retaining every
+original signature-byte comparison. An [independent minimal simulator diagnostic](../../docs/verification/mldsa-portable-oob-diagnostic-2026-10-12.json)
+confirms the behavior. `--raw-sign-capture` and `--raw-verify-hint-read` retain the
+original behavior for diagnosis. Upstream Verify's original failure-message
+argument labels are reversed; compare its actual failure bit with the expected
+fixture bit, rather than trusting the printed “Expected/received” labels.
 
-| Operation | ML-DSA-44 | ML-DSA-65 | ML-DSA-87 | Total |
-|---|---:|---:|---:|---:|
-| KeyGen, byte-exact public and secret keys | 25 | 25 | 25 | 75 |
-| Deterministic Sign, byte-exact signatures | 15 | 15 | 15 | 45 |
-| Verify, known valid inputs | 12 | 12 | 12 | 36 |
-| Verify, known invalid inputs | 3 | 3 | 3 | 9 |
-| Optional one-bit Verify mutations | 4 | 4 | 4 | 12 |
+The runner also hoists forward declarations in the staged top, adds testbench
+watchdogs, and selects leading fixture records for reduced runs. The optional
+`--fifo-nonblocking` semantic variant was not needed for the passing results.
+All 106 pinned upstream files remain unchanged.
 
-The optional mutations change one bit of each of the signature, message, context,
-and public key, using an upstream valid vector with nonempty message/context as
-the control. Each mutated case must be rejected. The corresponding unchanged
-positive control must first pass the ordinary Verify test. These are added
-negative tests; they are not new official ACVP vectors.
-
-Acceptance requires the exact expected set of unique operation/level/vector
-completions, positive cycle counts, the final testbench marker, successful process
-exit, and no mismatch/error/watchdog output. The original testbenches compare
-results with four-state `!==`. The runner validates staged copies before changing
-them, records each intentional transformation, and rechecks both original inputs
-and exact simulator inputs after execution. Missing tools, missing data, changed
-inputs, a timeout, a truncated log, and duplicate completion markers cannot pass.
-
-## Transformations and evidence boundary
-
-- `third_party/mldsa_osh/upstream/` is never edited. Its manifest is verified first.
-- Forward-referenced declarations in the staged `combined_top.v` are hoisted,
-  matching the existing vendor runner's declaration-only portability treatment.
-- The original VHDL hierarchy is synthesized by GHDL. This verifies the combined
-  Verilog/GHDL-netlist variant, not a formal equivalence result between the VHDL
-  source and its synthesized representation.
-- Testbench capacities may be explicitly reduced, and watchdogs are appended.
-- `--fifo-nonblocking` explicitly opts into eight blocking-to-nonblocking changes
-  in the staged `ntt_fifo_piso.v`. This changes simulation semantics and is a
-  separately named variant, never a silent repair of the pinned source. It is
-  not enabled by default.
-- Verilator is two-state. Passing there does not establish absence of X/Z
-  initialization bugs; a four-state simulation provides complementary evidence.
-- The oracles are the pinned **upstream KAT files**. The upstream repository
-  identifies NIST/ACVP inputs, but this runner does not independently retrieve or
-  authenticate the corresponding official ACVP corpus. Passing is not FIPS 204
-  certification, a proof of cryptographic correctness, side-channel qualification,
-  ASIC timing closure, licensed synthesis, or measured PPA.
-
-The existing Vivado-only KeyGen runner remains available separately at
-[`agent/mldsa/full_kat_gate.py`](../../agent/mldsa/full_kat_gate.py).
+Oracles are the pinned **upstream KAT files**. Their reported NIST/ACVP origin is
+not independently authenticated by this runner. These results do not establish
+FIPS certification, universal cryptographic correctness, formal VHDL/netlist or
+RTL equivalence, side-channel resistance, arbitrary backpressure correctness,
+physical timing closure, or measured PPA.

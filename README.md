@@ -18,6 +18,7 @@ or an EDA license.
 | Understand the project and the hardware flow | [Learn the project](docs/LEARN.md) |
 | See what worked and what was actually tested | [Results](docs/RESULTS.md) → [verification record](docs/VERIFICATION.md) |
 | Install and run it step by step | [Run guide](docs/REPRODUCE.md) or the [quick start](#quick-start) below |
+| Run the next FPGA/ASIC stage on verified source versions | [Hardware handoff](docs/HARDWARE_HANDOFF.md) |
 | Find RTL, testbenches, scripts or logs | [Repository map](docs/REPOSITORY_LAYOUT.md) |
 | Choose a design and check its limits | [Four-design status](docs/PROJECT_STATUS.md) |
 | Browse all documentation | [Documentation index](docs/README.md) |
@@ -31,9 +32,9 @@ operation, parameter set or hardware flow has passed.
 | Design | Source to start with | Recorded local verification |
 |---|---|---|
 | ML-KEM | [Adam's Bridge v2.0.3](third_party/adams_bridge/README.md), a **shared ML-KEM-1024 / ML-DSA-87 core with memories** | 80 official ACVP sample cases and 39,840 word/status checks passed with Verilator 5.032; [evidence and limits](docs/VERIFICATION.md#real-ml-kem-baseline-and-rtl-fault-rejection) |
-| ML-DSA | [Pinned ML-DSA-OSH source and test data](third_party/mldsa_osh/README.md) | A separate arithmetic-block test passed 400 vectors; see [current full-design coverage](docs/PROJECT_STATUS.md#ml-dsa-entry-points) |
+| ML-DSA | [Pinned ML-DSA-OSH source and explicit corrected variants](verification/mldsa_osh/README.md) | Guarded baseline and guarded, encoder-corrected candidate each passed **210 cases**. Original malformed-hint acceptance and candidate signing failure remain recorded. [Evidence and limits](docs/VERIFICATION.md#real-ml-dsa-portable-variants) |
 | HQC | [Pinned SAC 2026 source](third_party/hqc_sac2026/README.md) | Source-only import; no functional/PPA qualification or runner integration. [Earlier SAC 2023 flows and review](docs/PROJECT_STATUS.md#hqc-legacy-verification-boundary) remain separate |
-| SLH-DSA | [Pristine SPHINCSLET baseline](agent/slh_dsa/pristine/) and [selected-mode test guide](agent/slh_dsa/README.md) | Explicit sensitivity-corrected Icarus 128f and 192f variants passed one frozen fixture and live bit-flip rejection each. Syntax-only variants failed; the other four SHA2 sets were not run. See [current simulation limits](docs/PROJECT_STATUS.md#slh-dsa-baseline-boundary) |
+| SLH-DSA | [Preserved SPHINCSLET sources and corrected-variant guide](verification/slh_portable/README.md) | Corrected baseline/candidate pairs at **SHA2-128f and SHA2-192f** passed one frozen fixture and live bit-flip rejection per run. Syntax-only variants failed; the other four SHA2 sets were not run. See [current simulation limits](docs/PROJECT_STATUS.md#slh-dsa-baseline-boundary) |
 
 The ML-KEM test exercises only the ML-KEM API of the shared core. It does not
 verify that core's ML-DSA function, or make its area a standalone ML-KEM result.

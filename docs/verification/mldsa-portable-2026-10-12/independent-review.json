@@ -1,0 +1,100 @@
+{
+  "date_utc": "2026-10-12",
+  "review_kind": "Independent source and preserved-evidence audit; no duplicated full-design simulations",
+  "reviewed_artifact_sha256": {
+    "baseline_canonical_pass/result.json": "b547875ecf00548547f7a9afde60fdd08a9d030d0b168863d450619fe2c9066b",
+    "candidate_corrected_pass/result.json": "3a13da09035d63493b961ab360d8aa7b569b5d38fd70d19c29f60e6a758fa341",
+    "baseline_upstream_failure/result.json": "38b7ecbe9ea96ee19cf1320b6e4275648098478488055358990cb943075a3088",
+    "candidate_verify_failure/result.json": "4f0412aff7e95bfba10865add5254e6c8edc94ddc6773e34e49a4a7c7f933727",
+    "candidate_sign_failure/result.json": "8adbb048c87fd13bcfb2caf007e2c633b553e493d60993ecfbeca79304a708cd",
+    "encoder-fallthrough-cycle-result.json": "830598e316340964aad146f96ca80bc28daf80944674e7dd217a70c1d20480bd",
+    "encoder-original-cycle-result.json": "2eb62474b0c71fc02e4404a97a19d1d48df27a7c26381d1c25165dd33e9bbfbb",
+    "encoder-pinned-cycle-control.json": "ed463c892c80fc678450fcf9a140579de2e0e5d5b9d193afd6d0ded55a0d1eb3",
+    "encoder-knownness-negative-controls.json": "c985b842848d39e7133d34919510c05a4718f9cb5c8ab799ccedd7fc1f395393",
+    "independent-hint-guard-review.json": "3b3a621a99cf50d1817e4499f0d6db4928df00252a7039ecec4857bffd44f3d9"
+  },
+  "full_design_results": [
+    {
+      "record": "baseline_canonical_pass/result.json",
+      "variant": "pinned-baseline+canonical-hints",
+      "status": "PASS",
+      "exact_cases": 210,
+      "rehash_unique_files": 259
+    },
+    {
+      "record": "candidate_corrected_pass/result.json",
+      "variant": "candidate+encoder-fallthrough+canonical-hints",
+      "status": "PASS",
+      "exact_cases": 210,
+      "rehash_unique_files": 260
+    }
+  ],
+  "checks": [
+    "Exact operation/level/vector completion sets with no duplicates or omissions",
+    "Positive reported cycle counts, terminal markers, and zero simulator return codes for each of five operation suites",
+    "No mismatch/error/fatal/watchdog markers",
+    "Selected inputs, staged design, testbenches, and executable hashes independently rechecked",
+    "Original candidate overrides and pinned upstream files retained unchanged"
+  ],
+  "coverage": {
+    "keygen": 75,
+    "sign": 45,
+    "verify": {
+      "total": 45,
+      "accepted": 9,
+      "rejected": 36
+    },
+    "one_bit_mutations": {
+      "total": 12,
+      "accepted": 0,
+      "rejected": 12
+    },
+    "canonical_encoding_sequence": {
+      "total": 33,
+      "accepted": 18,
+      "rejected": 15,
+      "reset_between_cases": true
+    }
+  },
+  "flag_polarity": "combined_top verification data_o is active-high failure: 0=accepted, 1=rejected. Upstream mismatch display swaps Expected/received labels, but !== comparator is correct.",
+  "original_failures": {
+    "malformed_hint": "ML-DSA-87 valid-vector index 4 final hint count changes50->51, appending duplicate index0 after179 within final polynomial. Original baseline and candidate accepted; finite mutation suite fails. Canonical-hints variant rejects.",
+    "candidate_encoder": "Original banked encoder delays an empty-FIFO output word relative to reference, stalls Sign under the existing drain schedule; watchdog failure preserved. Pinned-encoder substitution is diagnostic only."
+  },
+  "encoder_review": {
+    "repaired_status": "PASS",
+    "cycles": 11659,
+    "stream_words": 2278,
+    "configurations": 18,
+    "drained_mode_switch_sequences": 2,
+    "unknown_valid": 0,
+    "unknown_data": 0,
+    "original_cycle_mismatches": 3628,
+    "both_valid_x_control": "FAIL as expected",
+    "both_data_x_control": "FAIL as expected",
+    "raw_logs_and_binaries_rehashed": true
+  },
+  "canonical_guard_independent_check": {
+    "record": "independent-hint-guard-review.json",
+    "cases": 9371,
+    "accepted_encodings": 3788,
+    "rejected_encodings": 5583,
+    "oracle": "FIPS 204 Algorithm 21, independently implemented encoding predicates"
+  },
+  "oracle_source": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf",
+  "evidence_limits": [
+    "Full design uses GHDL6-generated Keccak netlist plus Verilator5.49 two-state simulation; no formal source/netlist equivalence.",
+    "Pinned upstream KAT expected outputs are byte-compared; official ACVP provenance is not independently authenticated here.",
+    "Full-design Icarus attempt times out without completion; guard and encoder four-state results are narrower checks.",
+    "Encoder check uses default parameters and bounded legal-envelope input/backpressure; no reset-pending, arbitrary-backpressure or exhaustive proof.",
+    "Canonical full-design cases reset between vectors; no no-reset reuse claim.",
+    "No side-channel, FIPS certification, FPGA/ASIC timing or PPA claim."
+  ],
+  "legacy_acceptance_scope": "chip_orchestrator metadata now labels mldsa_keygen_75 explicitly and excludes Sign/Verify; no portable profile is inferred from the historical75 cases.",
+  "export_review": {
+    "validator": "Exact named variant, five suite keys, unique vectors and integer counts/indices/cycles/return codes; bool/float metadata rejected",
+    "sources": "Both default Verilog exports reconstruct the tested RTL/netlist hashes exactly; mixed exports explicitly retain unqualified direct VHDL-source equivalence",
+    "exporter_sha256": "fa33ab8780e924570c3e610e817b8e3cb743ef55fef1cd290f76a730670b92a7",
+    "focused_tests": "28 normal portable/source/export/legacy-scope tests; 5 export tests under Python -O"
+  }
+}

@@ -12,19 +12,19 @@ three different results.
 | Design | Baseline and current functional evidence | Current hardware-tool boundary |
 |---|---|---|
 | ML-KEM | Pinned Adam's Bridge v2.0.3 shared ML-KEM-1024 / ML-DSA-87 core, with memories. **80 official samples / 39,840 checks passed** for the ML-KEM API only. [Scope and commands](#ml-kem-entry-points) | Whole-wrapper Vivado and Genus/DC configurations exist; no new licensed synthesis/PPA result |
-| ML-DSA | Pinned mixed-language ML-DSA-OSH inputs. A separate 400-vector block test passed. Full-design portable **165-case + 12-mutation run is pending**; no new Sign/Verify pass. [Entry points](#ml-dsa-entry-points) | Full-design ASIC example declares source order and ROM data; elaboration, memory treatment and synthesis need qualification |
-| SLH-DSA | Original SPHINCSLET trees preserved. **Corrected portable 128f/192f derivatives passed** one fixture plus live corruption rejection each. Syntax-only variants failed; the other four SHA2 modes were not run. [Exact variants and evidence](#slh-dsa-baseline-boundary) | No new Vivado or ASIC run. Six SHA2 runner selections are supported, not all qualified; SHAKE unsupported |
+| ML-DSA | **210 cases passed per corrected variant:** guarded baseline and guarded candidate with an encoder repair. Original malformed-hint acceptance and candidate Sign stall are retained failures. [Entry points](#ml-dsa-entry-points) | Export the exact passing derivatives; existing ASIC examples select older source arms. FPGA/ASIC measurements remain the next stage, with no new PPA claim |
+| SLH-DSA | Original SPHINCSLET trees preserved. **Corrected baseline/candidate pairs at 128f and 192f passed** one fixture plus live corruption rejection per run. Syntax-only variants failed; the other four SHA2 modes were not run. [Exact variants and evidence](#slh-dsa-baseline-boundary) | Exact same-mode source exports are available for the next FPGA/ASIC stage; no new PPA run. SHAKE unsupported |
 | HQC | Preferred **SAC 2026 snapshot is source-only and unverified**. [New baseline](#hqc-preferred-source-baseline). Older SAC 2023 consistency coverage and rejection review are [separate](#hqc-legacy-verification-boundary) | No SAC 2026 executable adapter or qualified synthesis manifest. Historical SAC 2023 Genus records do not qualify it |
 
 ML-KEM, ML-DSA, and SLH-DSA are the three initial final NIST PQC standards.
 HQC was [selected for standardization in March 2025](https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption).
 These descriptions concern the algorithms; they do not certify this RTL.
 
-The standalone SLH-DSA check stages a private workspace. For the unchanged
-SHA2-128f baseline, select the pristine RTL with the command below; its data
-are selected automatically. The no-argument command preserves the current
-192f candidate and selects its own pinned golden. Both now reach simulator
-setup and report missing `xvlog` in this environment, without a false pass.
+The legacy Vivado SLH-DSA gate stages a private workspace and requires the
+Vivado simulator. Select the pristine tree for its tracked SHA2-128f mode;
+the no-argument command selects the current SHA2-192f candidate and its own
+pinned golden. The separately corrected Icarus results below do not qualify
+an unchanged Vivado run.
 
 Run `python3 -m agent doctor --json` and `python3 -m agent list --json` to inspect
 inputs and entry points in your checkout. See [FPGA setup](FPGA.md), the
@@ -83,26 +83,44 @@ simply exercising only ML-KEM does not remove ML-DSA hardware from area.
 
 ## ML-DSA entry points
 
-- [Portable KeyGen/Sign/Verify runner and qualification boundary](../verification/mldsa_osh/README.md): GHDL plus Icarus or Verilator; end-to-end execution pending
-- [Pinned ML-DSA-OSH inputs, provenance and coverage](../third_party/mldsa_osh/README.md)
-- `python3 tools/check_mldsa_sources.py`: source-integrity and compatibility
-  check only; no simulation or synthesis
-- `python3 agent/mldsa/full_kat_gate.py`: bundled baseline KeyGen check with
-  Vivado's `xvhdl`, `xvlog`, `xelab` and `xsim`; `MLDSA_ROOT` overrides the
-  default source tree
-- `python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src`: the same gate
-  with the 14 matching-basename candidate overrides
-- [Full-design ASIC example](../configs/mldsa_osh_asic.example.json): ordered
-  mixed-language sources and staged ROM input; requires approved local
-  libraries, site constraints and licensed-tool qualification
+The [portable full-design guide](../verification/mldsa_osh/README.md) identifies
+the exact variants, commands, toolchain and retained failures. The full runs
+use GHDL-translated Keccak RTL with Verilator, not an independently substituted
+software SHAKE model.
 
-The source bundle is pinned to KULeuven-COSIC/ML-DSA-OSH commit
-`751009199ac081091a9059805e6921453bde0154`. Of 50 source/common files compared
-with the historical ASIC baseline, 48 are byte-identical. The existing
-`combined_top.v` declaration reorder and `ntt_fifo_piso.v` assignment changes
-are documented in the [portability findings](findings/asic/2026-07-31_mldsa_genus_port.md)
-and are not replaced by this import. Source correspondence does not prove
-functional equivalence; a KeyGen-only gate does not qualify Sign/Verify.
+| Source variant | Recorded result |
+|---|---|
+| Pinned baseline with portability/testbench adaptations | All 165 upstream cases pass, but an added malformed-hint case is accepted; the stronger suite [fails](verification/mldsa-portable-2026-10-12/baseline_upstream_failure/result.json) |
+| Original 14-file candidate | KeyGen and upstream Verify pass in their runs, but Sign stalls and malformed-hint rejection also fails; [signing failure](verification/mldsa-portable-2026-10-12/candidate_sign_failure/result.json), [rejection failure](verification/mldsa-portable-2026-10-12/candidate_verify_failure/result.json) |
+| Baseline plus canonical-hint guard | [PASS: 210 cases](verification/mldsa-portable-2026-10-12/baseline_canonical_pass/result.json) |
+| Candidate plus encoder fallthrough repair and canonical-hint guard | [PASS: 210 cases](verification/mldsa-portable-2026-10-12/candidate_corrected_pass/result.json) |
+
+Each 210-case run completes 75 KeyGen, 45 Sign, 45 upstream Verify, 12 one-bit
+tamper cases and 33 canonical-encoding controls/negatives. Upstream Verify has
+**9 accepted and 36 rejected** cases; the RTL flag is 0 for accept, 1 for reject.
+The 33 added checks contain 18 valid controls and 15 invalid cases and use
+reset-based sequences. These are finite tests, not FIPS 204 certification,
+full four-state qualification, formal equivalence or PPA measurements.
+
+- [No-EDA source exporter](../tools/export_mldsa_verified.py): select
+  `guarded-baseline` or `corrected-candidate`, then use its checked source
+  manifest. [Hardware handoff](HARDWARE_HANDOFF.md#ml-dsa-export-the-passing-derivatives)
+  gives exact commands and comparison requirements.
+- [Pinned input provenance](../third_party/mldsa_osh/README.md) and
+  `python3 tools/check_mldsa_sources.py`: source checks only.
+- `python3 agent/mldsa/full_kat_gate.py`: the separate legacy Vivado KeyGen-only
+  gate, requiring `xvhdl`, `xvlog`, `xelab`, `xsim`; `MLDSA_ROOT` overrides its
+  reference tree. This does not silently select either corrected derivative.
+- `configs/mldsa_osh_asic.example.json` still describes a historical ASIC arm,
+  not the newly tested guarded derivatives. Replace its source selection with
+  the exact export and review all site inputs before measuring.
+
+The 106 pinned upstream files remain unchanged. The historical ASIC arm still
+contains its earlier `combined_top.v` declaration and `ntt_fifo_piso.v`
+[portability edits](findings/asic/2026-07-31_mldsa_genus_port.md). Neither those
+older files nor the original candidate becomes qualified by a separate
+corrected variant's pass. Whole-design controller adapters and legacy dispatch
+remain subject to their explicitly declared verification coverage.
 
 ## HQC preferred source baseline
 
@@ -190,12 +208,18 @@ candidate, input or frozen-output files.
 | Pristine 128f plus explicit sensitivity correction | **PASS** | [Record](verification/slh-portable-corrected-128f-2026-10-12.json): all 2,141 words match, valid verification flag 0, one-bit captured-signature corruption rejected with flag 1 |
 | Selected optimized 192f, syntax adaptations only | **FAIL** | [Record](verification/slh-portable-syntax-192f-2026-10-12.json): all 4,463 words match, but the untampered signature is rejected (flag 1); its negative control is unqualified |
 | Selected optimized 192f plus explicit sensitivity correction | **PASS** | [Record](verification/slh-portable-corrected-192f-2026-10-12.json): all 4,463 words match, valid verification flag 0, one-bit captured-signature corruption rejected with flag 1 |
+| Candidate selected as 128f plus explicit sensitivity correction | **PASS** | [Record](verification/slh-portable-corrected-candidate-128f-2026-10-12.json): all 2,141 words match and valid/corrupted signatures are distinguished; a same-mode functional pair with the corrected 128f baseline |
+| Baseline selected as 192f plus explicit sensitivity correction | **PASS** | [Record](verification/slh-portable-corrected-baseline-192f-2026-10-12.json): all 4,463 words match and valid/corrupted signatures are distinguished; a same-mode functional pair with the corrected 192f candidate |
 
 `--fix-auth-sensitivity` adds a missing `leaf_idx` dependency to a hash-pinned
 RTL sensitivity list in the staged copy. It is an explicit corrected derivative,
 not an unchanged-pristine or unmodified Vivado result. Each passing derivative
-covers one deterministic fixture and its live bit-flip control. The other four
-SHA2 modes were not executed; neither result establishes all-mode coverage or independent FIPS 205 conformance. A negative control is unqualified
+covers one deterministic fixture and its live bit-flip control. Baseline and
+candidate have now both passed at each of 128f and 192f. The [hardware handoff](HARDWARE_HANDOFF.md#slh-dsa-keep-mode-and-derivative-together)
+exports exact same-mode source pairs; their only source differences are the
+two SHA-core changes. No new timing/area measurement is supplied. The other four
+SHA2 modes were not executed; these results do not establish all-mode coverage
+or independent FIPS 205 conformance. A negative control is unqualified
 when the untampered positive control fails. Never regenerate expected output
 or switch a candidate's parameter set merely to obtain a pass.
 

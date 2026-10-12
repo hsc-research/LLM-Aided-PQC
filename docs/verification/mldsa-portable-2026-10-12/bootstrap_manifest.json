@@ -1,0 +1,62 @@
+{
+  "packages": [
+    {
+      "name": "ghdl-mcode",
+      "version": "6.0.0+dfsg3-1",
+      "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-mcode_6.0.0+dfsg3-1_amd64.deb",
+      "sha256": "f78203381ee4ca00210f245bbb7dfb0c7dea44ec2cbdd7bfbfae669fa1c4f921",
+      "bytes": 2170940
+    },
+    {
+      "name": "ghdl-common",
+      "version": "6.0.0+dfsg3-1",
+      "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-common_6.0.0+dfsg3-1_amd64.deb",
+      "sha256": "399a4bec476e3edb2b51c76c460bc5bb835fe69257b67f34097815c46c8b8c15",
+      "bytes": 158224
+    },
+    {
+      "name": "ghdl-common",
+      "version": "5.0.1+dfsg-1+b1",
+      "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-common_5.0.1+dfsg-1+b1_amd64.deb",
+      "sha256": "f205ba98df92d34ee8ee05fc5f071d51c9503626879f0d5dc225510f5c2810e9",
+      "bytes": 171596
+    }
+  ],
+  "commands": [
+    [
+      "dpkg-deb",
+      "-x",
+      "/tmp/pqc-ghdl-repro/packages/ghdl-mcode_6.0.0+dfsg3-1_amd64.deb",
+      "/tmp/pqc-ghdl-repro/root"
+    ],
+    [
+      "dpkg-deb",
+      "-x",
+      "/tmp/pqc-ghdl-repro/packages/ghdl-common_6.0.0+dfsg3-1_amd64.deb",
+      "/tmp/pqc-ghdl-repro/root"
+    ],
+    [
+      "dpkg-deb",
+      "-x",
+      "/tmp/pqc-ghdl-repro/packages/ghdl-common_5.0.1+dfsg-1+b1_amd64.deb",
+      "/tmp/pqc-ghdl-repro/compat"
+    ],
+    [
+      "/tmp/pqc-ghdl-repro/bin/ghdl",
+      "-a",
+      "--std=08",
+      "-fsynopsys",
+      "--work=ieee",
+      "--workdir=/tmp/pqc-ghdl-repro/root/usr/lib/ghdl/mcode/vhdl/ieee/v08",
+      "/tmp/pqc-ghdl-repro/compat/usr/lib/ghdl/src/synopsys/std_logic_arith.vhdl",
+      "/tmp/pqc-ghdl-repro/compat/usr/lib/ghdl/src/synopsys/std_logic_unsigned.vhdl"
+    ]
+  ],
+  "source_and_executable_hashes": {
+    "/tmp/pqc-ghdl-repro/root/usr/bin/ghdl-mcode": "93da2a1fcfebd364e05072f16ad71e9a2721295fe87604fb52c1ae114fdc4842",
+    "/tmp/pqc-ghdl-repro/bin/ghdl": "dcf3498952332b36c70e4505dd881ecf7285c4cb2af92d2a36fde76b67dc5120",
+    "/tmp/pqc-ghdl-repro/compat/usr/lib/ghdl/src/synopsys/std_logic_arith.vhdl": "0526b2af10bbfe5b04b96e76d1ef2befad5727ebf39ebf556e029c6189a0bd32",
+    "/tmp/pqc-ghdl-repro/compat/usr/lib/ghdl/src/synopsys/std_logic_unsigned.vhdl": "7d1e6c664ed5f697d248640144772bf8bbd1db2ec4d040518e6aa8bfd3b2ca5c"
+  },
+  "version": "GHDL 6.0.0 (Debian 6.0.0+dfsg3-1) [Dunoon edition]\n Compiled with GNAT Version: 14.3.0\n static elaboration, mcode JIT code generator\nWritten by Tristan Gingold.\n\nCopyright (C) 2003 - 2026 Tristan Gingold.\nGHDL is free software, covered by the GNU General Public License.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+}

@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "standalone canonical hint guard four-state RTL",
+  "run_dir": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4",
+  "cases": 1350,
+  "case_counts": {
+    "valid": 198,
+    "invalid": 1152
+  },
+  "input_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/tb_hint_guard.v": "2af3f7b7c4f01267d3a303d2651d49afab86e17b6c85485c11cbb90aee7c4b5a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/vectors.hex": "4c802f3b2642d0faa7efa3c31be8cbd1c9d1793d778aafd512050f6ba2f5aea5",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe"
+  },
+  "commands": [
+    [
+      "iverilog",
+      "-g2012",
+      "-s",
+      "tb_hint_guard",
+      "-o",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/guard.vvp",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/mldsa_hint_guard.v",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/tb_hint_guard.v"
+    ],
+    [
+      "vvp",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/guard.vvp"
+    ]
+  ],
+  "compile_returncode": 0,
+  "sim_returncode": 0,
+  "executable_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/guard.vvp": "ce84a524446c27a7592c65a90cb8cf1cbdbe317305d3cfe214285d91a4c6042d"
+  }
+}

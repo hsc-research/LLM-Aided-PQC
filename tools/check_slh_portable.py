@@ -105,6 +105,33 @@ def auth_sensitivity_variant(rtl):
                                                fromfile="vendor/" + name, tofile="auth-sensitivity-fix/" + name))}
 
 
+
+def select_parameter(rtl, parameter):
+    """Explicitly select a reviewed SHA2 mode in a disposable source copy."""
+    if parameter not in gate.REFERENCES:
+        raise ValueError('unsupported SHA2 parameter selection')
+    name = 'sphincslet/setting.v'
+    path = rtl / name
+    original = gate.check_configuration(path)
+    if original == parameter:
+        return None
+    before = path.read_bytes()
+    text, count = re.subn(r'^([ \t]*)`define PARAM_' + original.upper() + r'[ \t]*$',
+                         r'\1//`define PARAM_' + original.upper(), before.decode(), flags=re.M)
+    if count != 1:
+        raise ValueError('original parameter-selection anchor changed')
+    text, count = re.subn(r'^([ \t]*)//`define PARAM_' + parameter.upper() + r'[ \t]*$',
+                         r'\1`define PARAM_' + parameter.upper(), text, flags=re.M)
+    if count != 1:
+        raise ValueError('requested parameter-selection anchor changed')
+    path.write_bytes(text.encode())
+    if gate.check_configuration(path) != parameter:
+        raise ValueError('staged parameter selection did not take effect')
+    return {'path': name, 'before_sha256': digest(before), 'after_sha256': digest(path.read_bytes()),
+            'diff': ''.join(difflib.unified_diff(before.decode().splitlines(True), text.splitlines(True),
+                                                fromfile='original/' + name, tofile='selected/' + name))}
+
+
 def check_case(expected, produced, output, returncode, parameter, tamper=False):
     ordinary = gate.check_signature(expected, produced, output, returncode, parameter)
     fresh = produced.is_file()
@@ -146,7 +173,7 @@ def qualify_cases(cases):
     return cases
 
 
-def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_base=None, timeout=3600, jobs=2, fix_auth_sensitivity=False):
+def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_base=None, timeout=3600, jobs=2, fix_auth_sensitivity=False, parameter_set=None):
     report = {"schema_version": 1, "status": "ERROR", "evidence_kind": "portable_vendor_rtl_differential",
               "independent_fips_205_validation": False, "algorithm_version": "historical SPHINCSLET vendor SHA2 fixture; FIPS 205 conformance not established",
               "reference_commit": gate.REFERENCE_COMMIT, "pristine_upstream_commit": "a1adc2b324483d0f95ae42b3119997d3a61c77b6",
@@ -161,7 +188,12 @@ def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_b
         rtl = Path(rtl_dir).resolve()
         report["selected_rtl_root"] = str(rtl)
         report["runner_sha256"] = digest(Path(__file__).read_bytes())
-        parameter = gate.check_configuration(rtl / "sphincslet/setting.v")
+        original_parameter = gate.check_configuration(rtl / "sphincslet/setting.v")
+        parameter = original_parameter if parameter_set is None else parameter_set
+        if not isinstance(parameter, str) or parameter not in gate.REFERENCES:
+            raise ValueError("unsupported SHA2 parameter selection")
+        report["original_parameter_set"] = "SHA2-" + original_parameter
+        report["explicit_parameter_override"] = parameter_set is not None
         _, expected = gate.load_reference(parameter)
         inputs = gate.check_harness(rtl, parameter, rtl / "imports")
         report.update(parameter_set="SHA2-" + parameter, golden_sha256=digest(expected),
@@ -193,7 +225,8 @@ def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_b
         if rtl_hashes(staged) != before:
             raise RuntimeError("source bytes changed while staging")
         gate.check_harness(staged, parameter, rtl / "imports")
-        changes = portability_variant(staged)
+        selection_change = select_parameter(staged, parameter)
+        changes = ([selection_change] if selection_change else []) + portability_variant(staged)
         if fix_auth_sensitivity:
             changes.append(auth_sensitivity_variant(staged))
         report["portability_changes"] = [{k: v for k, v in c.items() if k != "diff"} for c in changes]
@@ -272,6 +305,8 @@ def main():
     parser.add_argument("--timeout", type=float, default=3600)
     parser.add_argument("--jobs", type=int, choices=(1, 2), default=2)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--parameter-set", choices=tuple(gate.REFERENCES),
+                        help="Explicitly select a SHA2 parameter in the disposable staged copy only")
     parser.add_argument("--fix-auth-sensitivity", action="store_true",
                         help="Explicitly add leaf_idx to the vendor authentication-path sensitivity list")
     args = parser.parse_args()

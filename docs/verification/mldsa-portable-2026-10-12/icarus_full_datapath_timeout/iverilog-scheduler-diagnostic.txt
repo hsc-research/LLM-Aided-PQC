@@ -1,0 +1,51 @@
+ ... Linking
+ ... Removing symbol tables
+ ... Compiletf functions
+Compiling VVP ...
+ ... VVP file version 12.0 (stable)
+Compile cleanup...
+ ...    10302 functors (net_fun pool=786432 bytes)
+               4531 logic
+                  0 bufif
+                  0 resolv
+               1361 signals
+ ...     8541 filters (net_fil pool=1048576 bytes)
+ ...    40600 opcodes (983040 bytes)
+ ...     8740 nets
+ ...    10380 vvp_nets (1048544 bytes)
+ ...       11 arrays (26 words)
+ ...       79 memories
+                 79 logic (12331 words)
+                  0 real (0 words)
+ ...      198 scopes
+ ... 0.137848 seconds, 24592.0/14884.0/3284.0 KBytes size/rss/shared
+Running ...
+ ...execute EndOfCompile callbacks
+ ...propagate initialization events
+ ...execute StartOfSim callbacks
+ ...run scheduler
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src/dual_port_rom.v:44: $readmemh: The behaviour for reg[...] mem[N:0]; $readmemh("...", mem); changed in the 1364-2005 standard. To avoid ambiguity, use mem[0:N] or explicit range parameters $readmemh("...", mem, start, stop);. Defaulting to 1364-2005 behavior.
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src/dual_port_rom.v:44: $readmemh: The behaviour for reg[...] mem[N:0]; $readmemh("...", mem); changed in the 1364-2005 standard. To avoid ambiguity, use mem[0:N] or explicit range parameters $readmemh("...", mem, start, stop);. Defaulting to 1364-2005 behavior.
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src/dual_port_rom.v:44: $readmemh: The behaviour for reg[...] mem[N:0]; $readmemh("...", mem); changed in the 1364-2005 standard. To avoid ambiguity, use mem[0:N] or explicit range parameters $readmemh("...", mem, start, stop);. Defaulting to 1364-2005 behavior.
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src/dual_port_rom.v:44: $readmemh: The behaviour for reg[...] mem[N:0]; $readmemh("...", mem); changed in the 1364-2005 standard. To avoid ambiguity, use mem[0:N] or explicit range parameters $readmemh("...", mem, start, stop);. Defaulting to 1364-2005 behavior.
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:124: $readmemh(KeyGen_seed_44.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:125: $readmemh(KeyGen_seed_65.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:126: $readmemh(KeyGen_seed_87.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:129: $readmemh(KeyGen_pk_44.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:130: $readmemh(KeyGen_pk_65.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:131: $readmemh(KeyGen_pk_87.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:133: $readmemh(KeyGen_sk_44.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:134: $readmemh(KeyGen_sk_65.txt): Too many words in the file for the requested range [0:0].
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-3zx526w9/ref_combined/src_tb/tb_keygen_top.v:135: $readmemh(KeyGen_sk_87.txt): Too many words in the file for the requested range [0:0].
+ ...execute Postsim callbacks
+ ... 7.84848 seconds, 24592.0/14968.0/3368.0 KBytes size/rss/shared
+Event counts:
+         106 time steps (pool=113)
+     1518458 thread schedule events
+       47575 assign events
+             ...assign(vec4) pool=18724
+             ...assign(vec8) pool=204
+             ...assign(real) pool=256
+             ...assign(word) pool=256
+             ...assign(word/r) pool=204
+      521738 other events (pool=4096)
