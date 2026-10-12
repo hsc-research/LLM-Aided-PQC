@@ -91,23 +91,35 @@ def sources_match(state):
         return False
 
 
-def applied_proposals(design, block, path=None):
+def target_context_matches(record, target_profile_fingerprint=None, configuration_sha256=None):
+    """Target-bound outcomes are never reusable without their exact context."""
+    bound = record.get('target_profile_fingerprint')
+    if bound is None:
+        return target_profile_fingerprint is None and configuration_sha256 is None
+    return (bound == target_profile_fingerprint and
+            isinstance(configuration_sha256, str) and
+            record.get('configuration_sha256') == configuration_sha256)
+
+
+def applied_proposals(design, block, path=None, *, target_profile_fingerprint=None, configuration_sha256=None):
     result = []
     for record in latest_records(path):
         proposal = record.get('proposal', {})
-        if (is_final_acceptance(record) and proposal.get('design') == design
+        if (target_context_matches(record, target_profile_fingerprint, configuration_sha256)
+                and is_final_acceptance(record) and proposal.get('design') == design
                 and proposal.get('block', proposal.get('module')) == block
                 and sources_match(record['candidate_sources'])):
             result.append(proposal)
     return result
 
 
-def history_prompt(design, block, path=None, limit=5):
+def history_prompt(design, block, path=None, limit=5, *, target_profile_fingerprint=None, configuration_sha256=None):
     """Final outcomes are diagnostic context, never a blanket strategy ban."""
     rows = []
     for record in latest_records(path):
         proposal = record.get('proposal', {})
-        if (not isinstance(proposal, dict) or proposal.get('design') != design
+        if (not target_context_matches(record, target_profile_fingerprint, configuration_sha256)
+                or not isinstance(proposal, dict) or proposal.get('design') != design
                 or proposal.get('block', proposal.get('module')) != block
                 or record.get('history_state') not in ('finally_accepted', 'chip_rejected')):
             continue

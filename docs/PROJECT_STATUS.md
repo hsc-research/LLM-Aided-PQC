@@ -7,6 +7,27 @@ remain tied to their original source versions and tool configurations.
 A Python test pass, a prepared Tcl script, and a successful hardware run are
 three different results.
 
+The current goal is separate FPGA and ASIC baseline qualification followed by
+target-specific optimization. FPGA memory inference prefers BRAM where compatible;
+ASIC uses generic RTL storage intended for standard-cell FF/logic mapping without
+a macro compiler. Neither intent is a measured mapping result. The
+[hardware handoff](HARDWARE_HANDOFF.md) keeps source preparation, portable
+functional evidence and user-run licensed qualification separate. **The four
+algorithms are not all target-qualified; HQC SAC 2026 remains blocked.**
+
+The [target-profile exporter](HARDWARE_HANDOFF.md#prepare-explicit-target-profiles-without-eda)
+now prepares explicit ML-KEM, corrected ML-DSA and corrected SLH source bundles
+for both targets. `SOURCE_EXPORTED_TARGET_UNQUALIFIED` and
+`SOURCE_PREPARED_NOT_RUN` are preparation states. The profiles retain real
+compatibility blockers, including ASIC startup semantics and clock-gate mapping;
+they do not complete the RTL port or authorize an optimization claim.
+
+[Bounded memory-component checks](../verification/asic_memory/README.md) add
+generic Yosys FF/logic mapping evidence for selected existing RAMs and a tested,
+optional ML-DSA zetas constant-ROM derivative. They do not substitute that ROM
+into the default export or qualify whole-design ASIC startup, standard-cell
+mapping, functional behavior or PPA.
+
 ## Design coverage
 
 | Design | Baseline and current functional evidence | Current hardware-tool boundary |
@@ -45,17 +66,21 @@ relevant commands.
   A prepared script, a missing metric, or a blackboxed path is not a PPA result.
 - None of these checks proves resistance to timing, power, or EM leakage.
 
-## Still needed for four-scheme ASIC results
+## Still needed for dual-target results
 
 1. Preserve the imported ML-KEM baseline’s recorded 80-case evidence and rerun
    the gate on every candidate. Retain the unified ML-KEM/ML-DSA area scope;
    shared-block changes need separate ML-DSA checks to preserve both functions.
 2. Reviewed source lists, defines, parameters, ROM data, and memory treatment
    for each full design and configuration.
-3. Access to the selected licensed tool and permitted target libraries.
+3. User-owned licensed Vivado or DC/Genus runs with the selected FPGA part or
+   permitted ASIC target libraries, reviewed constraints and mapped-memory evidence.
 4. Functional validation of the exact baseline/candidate sources being measured.
-5. Matched baseline/candidate synthesis reports and independent review of
+5. Separate matched FPGA and ASIC baseline/candidate reports and review of
    elaboration, timing constraints, units, and power assumptions.
+6. Resolution of the HQC SAC 2026 execution restriction and independent
+   qualification before it can enter either target's optimization loop. No new
+   HQC execution or RTL repair is authorized by this handoff.
 
 The standalone ASIC runner performs measurements. A separate [whole-design
 controller](WHOLE_DESIGN.md) now implements an offline-tested proposal/admission

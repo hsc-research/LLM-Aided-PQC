@@ -1,0 +1,32 @@
+import hashlib, json, os
+from pathlib import Path
+import sys, unittest
+ROOT=Path('/workspace/scratch/8c6eb979d526/pqc-project/integrated')
+os.chdir(ROOT)
+sys.path.insert(0,str(ROOT))
+sys.path.insert(0,str(ROOT/'tests'))
+EXCLUDE={
+    'test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key': 'Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction',
+    'test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer': 'Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction',
+    'test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries': 'Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction',
+}
+def flatten(suite):
+    for item in suite:
+        if isinstance(item,unittest.TestSuite): yield from flatten(item)
+        else: yield item
+all_tests=list(flatten(unittest.defaultTestLoader.discover(str(ROOT/'tests'))))
+selected=[]; excluded=[]
+for test in all_tests:
+    name=test.id()
+    reason=EXCLUDE.get(name)
+    if '.HQCSecrets.' in name or '.HQCPrivateWorkspace.' in name or name in ('test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set', 'test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument', 'test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest'):
+        reason='HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)'
+    if reason: excluded.append({'test':name,'reason':reason})
+    else: selected.append(test)
+print('EXCLUDED TESTS:',json.dumps(excluded,indent=2),flush=True)
+result=unittest.TextTestRunner(verbosity=2).run(unittest.TestSuite(selected))
+summary={'optimization':sys.flags.optimize,'discovered':len(all_tests),'selected':len(selected),'ran':result.testsRun,'failures':len(result.failures),'errors':len(result.errors),'skipped':result.skipped,'successful':result.wasSuccessful(),'excluded':excluded,'scope':'Permitted non-HQC subset; not a full suite pass, RTL algorithm requalification, or licensed EDA validation'}
+output=ROOT/'.pqc_runs/dual-target-review'/f'unittest-O{sys.flags.optimize}.json'
+output.write_text(json.dumps(summary,indent=2)+'\n')
+print(json.dumps(summary,indent=2),flush=True)
+sys.exit(not result.wasSuccessful())

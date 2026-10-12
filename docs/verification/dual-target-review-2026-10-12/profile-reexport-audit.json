@@ -1,0 +1,160 @@
+{
+  "status": "PASS",
+  "scope": "Independent deterministic reexport + hash audit of fourteen exact target profiles and recorded compile/lint evidence; no compiler or target tool rerun here",
+  "profiles": [
+    {
+      "design": "mlkem",
+      "variant": "baseline",
+      "parameter_set": "1024",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "f6f40e87544be7c5e710dddd795cfa4b96fb4174ad8bd8a86ef1f8e54f379ffc",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "mlkem",
+      "variant": "baseline",
+      "parameter_set": "1024",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "53ac71ebae3fd96f3c7da4ef3a15e90773326a33c7298e4041fdee7e869470eb",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "mldsa",
+      "variant": "guarded-baseline",
+      "parameter_set": "44-65-87",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED",
+      "profile_fingerprint": "9fc5100431c821b8d882ebe791f3fbdafaa56e3626d862f189c8327f66b77faa",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "mldsa",
+      "variant": "guarded-baseline",
+      "parameter_set": "44-65-87",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED",
+      "profile_fingerprint": "6e2eefd9531458ddabc5cab8fb8ce46eb192299adfe11ea8c39d7f121afef7f5",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "mldsa",
+      "variant": "corrected-candidate",
+      "parameter_set": "44-65-87",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED",
+      "profile_fingerprint": "bfd6f60ea80433ef7020cb107ea87afca312731324cc27c380c12d6c97cf2e2e",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "mldsa",
+      "variant": "corrected-candidate",
+      "parameter_set": "44-65-87",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED",
+      "profile_fingerprint": "60c1c581a70c805334c01f81aef079cedbead39fe9fce8a5972ddd62dabd68c6",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-baseline",
+      "parameter_set": "128f",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "d2867d8f812964b196f914612dff6fde681880e8c6ae150213239ba8abbff443",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-baseline",
+      "parameter_set": "128f",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "b5f2a7934107b23a900d59cb950349c713216340441350bdbe16e48b2c256716",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-baseline",
+      "parameter_set": "192f",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "c1119b7d183e560bbd6420d61995a7f6bc0c3a1de6a764465d7d0bf152fa5e2d",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-baseline",
+      "parameter_set": "192f",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "bf72c3262d464a683758d0ba2db4b7abaf5c8065bea6fe293c4ddf9d2d1ca8c7",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-candidate",
+      "parameter_set": "128f",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "16092ac2874967a997f75fd1c686b11e635468f3da26a353f2e6679860d4185e",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-candidate",
+      "parameter_set": "128f",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "b3a27a69f7b1429f04353ca32883bb13fa38f5896858a7a08e152bc96779b325",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-candidate",
+      "parameter_set": "192f",
+      "target": "fpga",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "c766f1c99ae268adc6d310297eb7153b071486fe3b66535d7df0d955e390d6a3",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    },
+    {
+      "design": "slh",
+      "variant": "corrected-candidate",
+      "parameter_set": "192f",
+      "target": "asic",
+      "status": "PASS",
+      "compile_status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "profile_fingerprint": "dd6b50c3c7f06adafcf3589d0650633f4d024cded0ea072a86aa63d660a8987c",
+      "qualification_and_raw_evidence_hashes_verified": true,
+      "reexport_exact_match": true
+    }
+  ]
+}

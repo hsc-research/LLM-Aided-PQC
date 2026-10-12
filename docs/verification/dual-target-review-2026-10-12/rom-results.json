@@ -1,0 +1,45 @@
+{
+  "scope": "Independent new ASIC constant-ROM component controls only, not full MLDSA retarget qualification",
+  "status": "PASS",
+  "controls": [
+    {
+      "control": "positive",
+      "returncode": 0,
+      "expected_verdict": "PASS",
+      "observed_verdict": "PASS",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/dual-target-review/memory-negative-controls/positive.log"
+    },
+    {
+      "control": "constant_corruption",
+      "returncode": 1,
+      "expected_verdict": "REJECT",
+      "observed_verdict": "REJECT",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/dual-target-review/memory-negative-controls/constant_corruption.log"
+    },
+    {
+      "control": "enable_bypass",
+      "returncode": 1,
+      "expected_verdict": "REJECT",
+      "observed_verdict": "REJECT",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/dual-target-review/memory-negative-controls/enable_bypass.log"
+    },
+    {
+      "control": "unsupported_zetas_width_23",
+      "returncode": 1,
+      "expected_verdict": "REJECT",
+      "observed_verdict": "REJECT"
+    },
+    {
+      "control": "unsupported_zetas_width_25",
+      "returncode": 1,
+      "expected_verdict": "REJECT",
+      "observed_verdict": "REJECT"
+    }
+  ],
+  "input_sha256": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/asic/rtl/mldsa_zetas/dual_port_rom.v": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/asic_memory/tb_mldsa_rom.sv": "4670e9d1e5c03901223c8eaf25ed2d389658524f25d899fef2a96f03f4c9e7e0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241"
+  }
+}

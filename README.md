@@ -18,7 +18,7 @@ or an EDA license.
 | Understand the project and the hardware flow | [Learn the project](docs/LEARN.md) |
 | See what worked and what was actually tested | [Results](docs/RESULTS.md) → [verification record](docs/VERIFICATION.md) |
 | Install and run it step by step | [Run guide](docs/REPRODUCE.md) or the [quick start](#quick-start) below |
-| Run the next FPGA/ASIC stage on verified source versions | [Hardware handoff](docs/HARDWARE_HANDOFF.md) |
+| Prepare separate FPGA/ASIC baselines, then optimize each | [Hardware handoff](docs/HARDWARE_HANDOFF.md) |
 | Find RTL, testbenches, scripts or logs | [Repository map](docs/REPOSITORY_LAYOUT.md) |
 | Choose a design and check its limits | [Four-design status](docs/PROJECT_STATUS.md) |
 | Browse all documentation | [Documentation index](docs/README.md) |
@@ -40,6 +40,15 @@ The ML-KEM test exercises only the ML-KEM API of the shared core. It does not
 verify that core's ML-DSA function, or make its area a standalone ML-KEM result.
 Tests with finite inputs are not certification, exhaustive equivalence, or
 side-channel validation.
+
+The dual-target goal is to qualify a baseline on each target before running its
+AI-guided optimization loop. FPGA prefers BRAM-compatible inference; ASIC uses
+generic RTL memory with standard-cell FF/logic mapping, without a macro compiler.
+Source preparation and portable tests do not prove either mapping or licensed
+Vivado/DC/Genus compatibility. **Four target-qualified baselines are not yet
+complete; HQC SAC 2026 remains blocked and unqualified.** See the
+[source-profile commands](docs/HARDWARE_HANDOFF.md#prepare-explicit-target-profiles-without-eda)
+and [matched-run procedure](docs/HARDWARE_HANDOFF.md#record-a-fair-comparison).
 
 Historical FPGA results are recorded for ML-DSA, HQC and SLH-DSA. **The new
 whole-design controller and Genus/DC flow have software-test coverage, but no
@@ -75,11 +84,13 @@ and troubleshooting, continue with the [staged run guide](docs/REPRODUCE.md).
 
 ## How an optimization is checked
 
-1. Test the baseline and measure the **complete design** under fixed constraints.
+1. Choose FPGA or ASIC, test that target's baseline, and measure the **complete
+   design** under fixed constraints.
 2. Read several worst timing paths and identify the RTL responsible for them.
 3. Propose a small edit to those blocks.
 4. Apply it in a controlled candidate tree and rerun the required functional tests.
-5. Rebuild the complete candidate with the same tool, constraints and source scope.
+5. Rebuild the complete candidate with the same target, tool, memory policy,
+   constraints and source scope.
 6. Keep the edit only if the measured result meets the timing, area and cycle
    requirements. Otherwise restore the previous source state.
 7. After an accepted edit, inspect the new full-design paths before continuing.
@@ -94,11 +105,12 @@ critical-path mapping, command adapters, bounded edits and rollback. Start
 with its read-only plan:
 
 ```bash
-python3 -m agent.whole_design --config configs/whole_design.example.json
+python3 -m agent.whole_design --config configs/whole_design.target.example.json
 ```
 
-The example intentionally reports `BLOCKED` and exits nonzero until real site
-inputs are supplied. Do not add `--execute` until sources, checks, libraries,
+The target-bound example intentionally reports `BLOCKED` and exits nonzero until
+qualified full-operation and mapped-memory adapters and real site inputs exist.
+Do not add `--execute` until sources, checks, libraries,
 constraints and adapters have been reviewed. The opt-in LLM proposer may send
 RTL and timing reports to an external provider and incur charges.
 

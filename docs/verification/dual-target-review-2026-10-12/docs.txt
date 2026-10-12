@@ -1,0 +1,1 @@
+Checked 625 local links in 98 Markdown files; 0 errors.

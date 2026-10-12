@@ -1,0 +1,3 @@
+WARNING: /workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/dual-target-review/memory-negative-controls/reference.v:44: $readmemh: The behaviour for reg[...] mem[N:0]; $readmemh("...", mem); changed in the 1364-2005 standard. To avoid ambiguity, use mem[0:N] or explicit range parameters $readmemh("...", mem, start, stop);. Defaulting to 1364-2005 behavior.
+FATAL: /workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/asic_memory/tb_mldsa_rom.sv:27: ROM mismatch cycle 258
+       Time: 2596000  Scope: tb_mldsa_rom
