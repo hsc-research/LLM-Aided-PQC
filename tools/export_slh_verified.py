@@ -55,12 +55,12 @@ def prepare_sources(source, destination, parameter):
     return before, changes
 
 
-def validate_qualification(report, *, parameter, original_hashes, staged_hashes, inputs):
+def validate_qualification(report, *, parameter, original_hashes, staged_hashes, inputs, expected_evidence_kind="portable_vendor_rtl_differential"):
     """Reject stale, wrong-mode, partial, or non-discriminating qualification."""
     requirements = (
         report.get('status') == 'PASS', report.get('auth_sensitivity_fix') is True,
         report.get('parameter_set') == 'SHA2-' + parameter,
-        report.get('evidence_kind') == 'portable_vendor_rtl_differential',
+        report.get('evidence_kind') == expected_evidence_kind,
         report.get('independent_fips_205_validation') is False,
         report.get('source_sha256') == original_hashes,
         report.get('staged_source_sha256') == staged_hashes,

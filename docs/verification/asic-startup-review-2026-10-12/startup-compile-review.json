@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "count": 6,
+  "independent_compiler_rerun": false,
+  "scope": "Integrator compiler records and all exact input/output hashes independently checked against reviewer deterministic source rebuilds",
+  "cases": [
+    {
+      "design": "mldsa",
+      "variant": "asic-startup-baseline",
+      "parameter_set": "44-65-87",
+      "profile_fingerprint": "6ca6ad3e9a3d8f21fba2abf834831bf17d9608be2e8b826c359fc4d77beda252",
+      "status": "ELABORATED",
+      "source_profile_matches_independent_rebuild": true,
+      "record": "startup-compile/mldsa-44-65-87-asic-startup-baseline/result.json",
+      "record_sha256": "a7971141483d816e277478833838c9bdd37e7a8f0793aca1e41654b16dde7842",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()"
+    },
+    {
+      "design": "mldsa",
+      "variant": "asic-startup-candidate",
+      "parameter_set": "44-65-87",
+      "profile_fingerprint": "f2650130b90efd3a00a7e0931ded471d10a002a33bcd06a82d4266123d6a42fe",
+      "status": "ELABORATED",
+      "source_profile_matches_independent_rebuild": true,
+      "record": "startup-compile/mldsa-44-65-87-asic-startup-candidate/result.json",
+      "record_sha256": "c40fdd05822b6d35727541b7656cba8c8bd6c023b63726e047721fd03f3665f9",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()"
+    },
+    {
+      "design": "slh",
+      "variant": "asic-startup-baseline",
+      "parameter_set": "128f",
+      "profile_fingerprint": "6426e5265c0f5d0d1232065b1906ebe211d86d784a2597422015c9f3904a82bf",
+      "status": "ELABORATED",
+      "source_profile_matches_independent_rebuild": true,
+      "record": "startup-compile/slh-128f-asic-startup-baseline/result.json",
+      "record_sha256": "1ae352c2392a6170a5a91b891c9464cd04ea28baf9079796cde45268fd2463ce",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()"
+    },
+    {
+      "design": "slh",
+      "variant": "asic-startup-candidate",
+      "parameter_set": "128f",
+      "profile_fingerprint": "62d771e0ab280c7aa9f8c465e34257f780f2825ace7cc405ad0974cf90f362c9",
+      "status": "ELABORATED",
+      "source_profile_matches_independent_rebuild": true,
+      "record": "startup-compile/slh-128f-asic-startup-candidate/result.json",
+      "record_sha256": "000567e39aee3d2f9ac898fc9c4ad100c8ef99cc2a1e8a15f673d1f8c59a8ef2",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()"
+    },
+    {
+      "design": "slh",
+      "variant": "asic-startup-baseline",
+      "parameter_set": "192f",
+      "profile_fingerprint": "cdb2f341ddce353377ff4ae0e08693cc100fbb8df77283cc4141621eeecbbf5f",
+      "status": "ELABORATED",
+      "source_profile_matches_independent_rebuild": true,
+      "record": "startup-compile/slh-192f-asic-startup-baseline/result.json",
+      "record_sha256": "fb50c99e0cc87c85e5635440bc7b4e18ca10961b27c9aa7fc1a751678483a9ab",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()"
+    },
+    {
+      "design": "slh",
+      "variant": "asic-startup-candidate",
+      "parameter_set": "192f",
+      "profile_fingerprint": "bb4a864d51c15866ebc71e094200284668b12ea3ae17e6412757761dc894d5a4",
+      "status": "ELABORATED",
+      "source_profile_matches_independent_rebuild": true,
+      "record": "startup-compile/slh-192f-asic-startup-candidate/result.json",
+      "record_sha256": "9c5ddeeaa1eeeb2e8d70555d0532b23c7836a8d262ffd795ea7920c793ef7aac",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()"
+    }
+  ]
+}

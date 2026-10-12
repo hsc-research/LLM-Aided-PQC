@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "parameter_set": "SHA2-192f",
+  "functional_report_sha256": "1b7eb6ba90b55c3cbcb8c0b0801fa8ee7c1eb527182ce4244434b5be5a907f71",
+  "executed_binary_sha256": "c912d247946910ffe5a086325682a7dc4e98f1178fd0ec91325b88bd817756a6",
+  "auditor_sha256": "3a72959f0bb2d9051d7199abcea9f7386dae12082a3761a8d4762ce45a4df063",
+  "checker_sha256": "e63cbbad0bee9cb70c9e0990ff836e9280a75689cdd6c405e832bf0945bb1b36",
+  "portable_files_sha256": {
+    "docs/verification/slh-asic-logs/candidate-192f/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/verification/slh-asic-logs/candidate-192f/compile-command.json": "2e7ea8e7d30cac392cdf6dab2048098743072c402f5c183ddfa3aabf37ce5c41",
+    "docs/verification/slh-asic-logs/candidate-192f/baseline.log": "3fa932e7223e3564e8038d835ecc40354c6fc8d533e518ae1be95ee5945e2857",
+    "docs/verification/slh-asic-logs/candidate-192f/baseline-command.json": "3f5961d4092ddf7646835789e2ed93c68a07865cfdffd236b6dc70640bf9bc2d",
+    "docs/verification/slh-asic-logs/candidate-192f/baseline-produced.hex": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+    "docs/verification/slh-asic-logs/candidate-192f/signature-memory-bitflip.log": "fdbe595af2f93978b86d42566cc5302e2370a0b77ca83c38bfe5d7d050935c99",
+    "docs/verification/slh-asic-logs/candidate-192f/signature-memory-bitflip-command.json": "cd612e227d18badada2bd9ecc4756df01a4e3888cd265f6a578fe5d13b37f3fe",
+    "docs/verification/slh-asic-logs/candidate-192f/signature-memory-bitflip-produced.hex": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3"
+  },
+  "cases": [
+    {
+      "case": "baseline",
+      "status": "PASS",
+      "log_sha256": "3fa932e7223e3564e8038d835ecc40354c6fc8d533e518ae1be95ee5945e2857",
+      "produced_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+      "rtl_verification_flag": [
+        "0"
+      ],
+      "address_reports": [
+        "SLH_ASIC_ADDRESS_REPORT tile0_small writes=421548 consumed=541766 invalid_unconsumed=4 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile0_big writes=421548 consumed=541766 invalid_unconsumed=1127846 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_small writes=72996 consumed=72902 invalid_unconsumed=26140 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_big writes=72902 consumed=72902 invalid_unconsumed=7920781 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT W_MEM writes=2340 consumed=8175538 invalid_unconsumed=3186412 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0"
+      ]
+    },
+    {
+      "case": "signature-memory-bitflip",
+      "status": "PASS",
+      "log_sha256": "fdbe595af2f93978b86d42566cc5302e2370a0b77ca83c38bfe5d7d050935c99",
+      "produced_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+      "rtl_verification_flag": [
+        "1"
+      ],
+      "address_reports": [
+        "SLH_ASIC_ADDRESS_REPORT tile0_small writes=423068 consumed=544046 invalid_unconsumed=4 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile0_big writes=423068 consumed=544046 invalid_unconsumed=1127846 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_small writes=72996 consumed=72902 invalid_unconsumed=26140 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile1_big writes=72902 consumed=72902 invalid_unconsumed=7951181 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT W_MEM writes=2340 consumed=8236338 invalid_unconsumed=3186412 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0"
+      ]
+    }
+  ],
+  "scope": "raw artifact recheck and portable provenance; historical vendor differential, not independent algorithm validation"
+}

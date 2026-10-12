@@ -173,11 +173,14 @@ def qualify_cases(cases):
     return cases
 
 
-def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_base=None, timeout=3600, jobs=2, fix_auth_sensitivity=False, parameter_set=None):
+def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_base=None, timeout=3600, jobs=2, fix_auth_sensitivity=False, parameter_set=None, asic_startup=False):
     report = {"schema_version": 1, "status": "ERROR", "evidence_kind": "portable_vendor_rtl_differential",
               "independent_fips_205_validation": False, "algorithm_version": "historical SPHINCSLET vendor SHA2 fixture; FIPS 205 conformance not established",
               "reference_commit": gate.REFERENCE_COMMIT, "pristine_upstream_commit": "a1adc2b324483d0f95ae42b3119997d3a61c77b6",
               "portability_variant": True, "auth_sensitivity_fix": fix_auth_sensitivity, "cases": []}
+    if asic_startup:
+        report["asic_startup"] = True
+        report["evidence_kind"] = "asic_boot_vendor_rtl_differential"
     stage = "setup"
     before = None
     try:
@@ -229,6 +232,28 @@ def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_b
         changes = ([selection_change] if selection_change else []) + portability_variant(staged)
         if fix_auth_sensitivity:
             changes.append(auth_sensitivity_variant(staged))
+        if asic_startup:
+            if not fix_auth_sensitivity or parameter not in ('128f', '192f'):
+                raise ValueError('ASIC startup supports only corrected SHA2-128f/192f')
+            import slh_asic_startup
+            changes += slh_asic_startup.boot_variant(staged)
+            import slh_asic_control
+            control_changes = slh_asic_control.control_variant(staged)
+            changes += control_changes
+            import slh_asic_widths
+            width_changes = slh_asic_widths.width_variant(staged)
+            changes += width_changes
+            import slh_asic_diagnostics
+            changes += slh_asic_diagnostics.diagnostics_variant(staged, parameter)
+            report['address_monitor_sha256'] = digest(Path(slh_asic_diagnostics.__file__).read_bytes())
+            report['asic_explicit_widths'] = True
+            report['width_transform_sha256'] = digest(Path(slh_asic_widths.__file__).read_bytes())
+            report['width_changes'] = [{k:v for k,v in c.items() if k != 'diff'} for c in width_changes]
+            report['asic_control_ff'] = True
+            report['control_transform_sha256'] = digest(Path(slh_asic_control.__file__).read_bytes())
+            report['control_changes'] = [{k:v for k,v in c.items() if k != 'diff'} for c in control_changes]
+            report['startup_transform_sha256'] = digest(Path(slh_asic_startup.__file__).read_bytes())
+            report['startup_template_sha256'] = {p.name: digest(p.read_bytes()) for p in sorted(slh_asic_startup.TEMPLATES.glob('*.v'))}
         report["portability_changes"] = [{k: v for k, v in c.items() if k != "diff"} for c in changes]
         (work / "portability.patch").write_text("".join(c["diff"] for c in changes))
         staged_before = rtl_hashes(staged)
@@ -274,6 +299,15 @@ def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_b
                 if digest((data / Path(source).name).read_bytes()) != wanted:
                     raise RuntimeError("staged fixture changed during simulation")
             checked = check_case(expected, produced, result.stdout, result.returncode, parameter, tamper)
+            if asic_startup:
+                checked['boot_ready_observed'] = result.stdout.count('SLH_ASIC_BOOT_READY') == 1
+                checked['consumed_address_reports'] = re.findall(r'^SLH_ASIC_ADDRESS_REPORT .*$', result.stdout, re.M)
+                checked['consumed_address_contract'] = (len(checked['consumed_address_reports']) == (3 if parameter == '128f' else 5)
+                    and all(line.endswith('consumed_invalid=0') for line in checked['consumed_address_reports']))
+                if not checked['consumed_address_contract']:
+                    checked.update(status='FAIL', reason='consumed-address diagnostics incomplete or failed')
+                if not checked['boot_ready_observed']:
+                    checked.update(status='FAIL', reason='missing unique boot-ready observation')
             checked["elapsed_seconds"] = round(time.monotonic() - started, 3)
             return checked
         stage = "simulation"
@@ -282,6 +316,14 @@ def run_check(rtl_dir=gate.DEFAULT_RTL, *, iverilog="iverilog", vvp="vvp", ivl_b
         report["tracked_inputs_unchanged"] = (rtl_hashes(rtl) == before and hashes(inputs) == inputs
                                               and gate.load_reference(parameter)[1] == expected)
         report["staged_inputs_unchanged"] = rtl_hashes(staged) == staged_before and digest(binary.read_bytes()) == binary_sha256
+        if asic_startup:
+            report['startup_inputs_unchanged'] = (
+                digest(Path(slh_asic_startup.__file__).read_bytes()) == report['startup_transform_sha256']
+                and digest(Path(slh_asic_control.__file__).read_bytes()) == report['control_transform_sha256']
+                and digest(Path(slh_asic_widths.__file__).read_bytes()) == report['width_transform_sha256']
+                and digest(Path(slh_asic_diagnostics.__file__).read_bytes()) == report['address_monitor_sha256']
+                and {p.name: digest(p.read_bytes()) for p in sorted(slh_asic_startup.TEMPLATES.glob('*.v'))} == report['startup_template_sha256'])
+            report['staged_inputs_unchanged'] = report['staged_inputs_unchanged'] and report['startup_inputs_unchanged']
         passed = (all(c["status"] == "PASS" for c in report["cases"])
                   and report["tracked_inputs_unchanged"] and report["staged_inputs_unchanged"])
         report.update(status="PASS" if passed else "FAIL", reason="baseline and live signature-corruption control passed" if passed else "verification failed")
@@ -307,6 +349,7 @@ def main():
     parser.add_argument("--output", type=Path)
     parser.add_argument("--parameter-set", choices=tuple(gate.REFERENCES),
                         help="Explicitly select a SHA2 parameter in the disposable staged copy only")
+    parser.add_argument("--asic-startup", action="store_true", help="Apply separate ASIC boot initialization derivative")
     parser.add_argument("--fix-auth-sensitivity", action="store_true",
                         help="Explicitly add leaf_idx to the vendor authentication-path sensitivity list")
     args = parser.parse_args()

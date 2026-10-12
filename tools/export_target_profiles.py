@@ -18,10 +18,11 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+ASIC_STARTUP_VARIANTS = ("asic-startup-baseline", "asic-startup-candidate")
 DESIGNS = {
     "mlkem": ("baseline",),
-    "mldsa": ("guarded-baseline", "corrected-candidate"),
-    "slh": ("corrected-baseline", "corrected-candidate"),
+    "mldsa": ("guarded-baseline", "corrected-candidate", *ASIC_STARTUP_VARIANTS),
+    "slh": ("corrected-baseline", "corrected-candidate", *ASIC_STARTUP_VARIANTS),
 }
 HDL_SUFFIXES = {".v", ".vh", ".sv", ".svh", ".vhd", ".vhdl"}
 
@@ -96,7 +97,228 @@ def qualified_mlkem(bundle):
     return manifest, report_path
 
 
+def validate_mldsa_startup(variant, deployment, original, report, full):
+    """Require fresh full-operation evidence bound to this exact boot derivative."""
+    from tools.export_mldsa_verified import validate_report
+    source_variant = {"asic-startup-baseline": "guarded-baseline",
+                      "asic-startup-candidate": "corrected-candidate"}[variant]
+    row = report.get("variants", {}).get(variant, {})
+    functional = row.get("functional", {})
+    if not (deployment.get("variant") == variant and deployment.get("source_variant") == source_variant
+            and deployment.get("top") == "combined_top_asic" and deployment.get("defines") == []
+            and deployment.get("parameter_overrides") == {} and deployment.get("include_dirs") == []
+            and report.get("status") == "PASS" and row.get("status") == "PASS"
+            and row.get("source_variant") == source_variant and row.get("top") == deployment["top"]
+            and row.get("sources") == deployment.get("sources")
+            and original.get("sources") == [{k: r[k] for k in ("path", "sha256")} for r in row["sources"]]
+            and original.get("source_variant") == source_variant and original.get("top") == deployment["top"]
+            and row.get("source_manifest_sha256") == deployment.get("immutable_source_manifest", {}).get("sha256")
+            and row.get("full_kat_report_sha256") == deployment.get("full_kat_report", {}).get("sha256")
+            and row.get("full_kat_report") == deployment["full_kat_report"].get("path")
+            and full.get("status") == "PASS" and full.get("full_210_case_coverage") is True
+            and full.get("source_hashes_unchanged") is True and full.get("collision_assertions") is True
+            and full.get("variant") == source_variant + "+explicit-asic-startup"
+            and full.get("design_manifest_sha256") == row["source_manifest_sha256"]
+            and type(full.get("boot_restarts_per_process")) is int and full["boot_restarts_per_process"] == 2
+            and functional.get("status") == "PASS" and functional.get("compile_status") == "PASS"
+            and functional.get("exact_source_bound") is True
+            and type(functional.get("completed_cases")) is int and functional["completed_cases"] == 630):
+        raise ValueError("ML-DSA startup evidence is incomplete, stale or belongs to another derivative")
+    source_rows = deployment["sources"]
+    paths = [r["path"] for r in source_rows]
+    if (len(paths) != 36 or len(set(paths)) != len(paths) or paths != sorted(paths)
+            or any(r.get("language") != "verilog2005" for r in source_rows)):
+        raise ValueError("ML-DSA startup source order/language differs from the frozen derivative")
+    # Original absolute paths are provenance labels, never paths opened here.
+    recorded = [("rtl/" + Path(p).name, h) for p, h in full.get("source_hashes", {}).items()
+                if Path(p).parent.name == "rtl"]
+    if len(recorded) != len(paths) or dict(recorded) != {r["path"]: r["sha256"] for r in source_rows}:
+        raise ValueError("ML-DSA startup full report is not bound to the exact derivative sources")
+    cases = ("keygen", "sign", "verify", "verify_mutations", "verify_canonical")
+    seeds = ("0", "11", "29")
+    if (set(functional.get("settings", {})) != set(seeds)
+            or set(full.get("coverage", {})) != {c + ":seed-" + s for c in cases for s in seeds}):
+        raise ValueError("ML-DSA startup evidence has missing or unexpected test settings")
+    evidence_name = {"guarded-baseline": "pinned-baseline+canonical-hints",
+                     "corrected-candidate": "candidate+encoder-fallthrough+canonical-hints"}[source_variant]
+    for seed in seeds:
+        setting = functional["settings"][seed]
+        validate_report({"status": setting.get("status"), "variant": evidence_name,
+                         "coverage": setting.get("coverage", {})}, source_variant)
+        for case in cases:
+            observed = full["coverage"][case + ":seed-" + seed]
+            qualified = setting["coverage"][case]
+            restart = qualified.get("restart_evidence", {})
+            if (any(qualified.get(k) != v for k, v in observed.items())
+                    or type(observed.get("seed")) is not int or observed["seed"] != int(seed)
+                    or restart.get("observed_aborts") != 2 or restart.get("marker_count") != 1
+                    or restart.get("marker_precedes_completed_kats") is not True
+                    or qualified.get("postboot_cycle_counts_match_reference") is not True):
+                raise ValueError("ML-DSA startup coverage or reboot evidence differs from full report")
+    short = variant.removeprefix("asic-startup-")
+    expected_logs = {"runs/release-" + short + "/" + c + "/simulate-seed-" + seed + ".log"
+                     for c in cases for seed in seeds}
+    expected_logs |= {"runs/release-" + short + "/" + c + "/compile.log" for c in cases}
+    expected_logs.add("mapping/release-" + short + "-ff.log")
+    if set(row.get("logs", {})) != expected_logs:
+        raise ValueError("ML-DSA startup evidence lacks the exact complete simulation/compile/mapping logs")
+    structural = row.get("structural", {})
+    if not (structural == deployment.get("generic_ff_structural_qualification")
+            and structural.get("status") == "PASS"
+            and structural.get("production_ram_banks") == {"4096x96": 1, "1024x96": 6}
+            and structural.get("production_storage_bits") == 983040
+            and structural.get("production_ram_output_ff_bits") == 1344
+            and structural.get("production_ram_total_ff_bits") == 984384
+            and all(type(structural.get(k)) is int and structural[k] == 0 for k in
+                    ("remaining_memory_cells", "remaining_latch_cells", "powerup_init_attributes", "tristate_cells", "blackboxes"))
+            and structural.get("standard_cell_mapped") is False
+            and structural.get("mapped_netlist_functional_equivalence") is False
+            and report.get("standard_cell_qualification") is False
+            and report.get("physical_timing_ppa_qualification") is False
+            and report.get("fullcore_fourstate_qualification") is False
+            and deployment.get("standard_cell_library_qualification") is False
+            and deployment.get("physical_ppa_qualification") is False):
+        raise ValueError("ML-DSA startup generic structural evidence is missing or overclaims target qualification")
+    components = report.get("components", {})
+    if (set(components) != {"ram", "shell", "hint_read", "knownness_negative_control"}
+            or not report.get("component_report", {}).get("path")
+            or not re.fullmatch(r"[0-9a-f]{64}", report.get("component_report", {}).get("sha256", ""))):
+        raise ValueError("ML-DSA startup component evidence is incomplete")
+    for name in ("ram", "shell", "hint_read"):
+        c = components[name]
+        if not (c.get("status") == "PASS" and c.get("input_hashes_unchanged") is True
+                and type(c.get("compile_returncode")) is int and c["compile_returncode"] == 0
+                and type(c.get("simulate_returncode")) is int and c["simulate_returncode"] == 0
+                and type(c.get("observed_marker_count")) is int and c["observed_marker_count"] == 1):
+            raise ValueError("ML-DSA startup component evidence failed: " + name)
+    if components["knownness_negative_control"].get("status") != "EXPECTED_FAILURE":
+        raise ValueError("ML-DSA startup negative knownness evidence is missing")
+    startup = row.get("startup", {})
+    if not (startup.get("status") == "PASS" and startup.get("observed_boot_aborts") == 30
+            and startup.get("abort_markers_before_first_completed_kat") is True
+            and startup.get("source_contract") == original.get("contract")):
+        raise ValueError("ML-DSA startup contract is not bound to passing reboot evidence")
+
+
+def qualified_mldsa_startup(variant, bundle):
+    """Copy frozen derivative sources and portable fresh evidence; never execute RTL."""
+    from agent.mldsa.portable_kat_gate import evaluate_log
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from tools.check_mldsa_startup_kats import check_restart_evidence
+    source_variant = {"asic-startup-baseline": "guarded-baseline",
+                      "asic-startup-candidate": "corrected-candidate"}[variant]
+    source = ROOT / "asic/rtl/mldsa_startup" / source_variant
+    deployment_path = source / "deployment.json"
+    deployment_bytes = deployment_path.read_bytes()
+    manifest = json.loads(deployment_bytes)
+    original_path = checked_path(source, manifest["immutable_source_manifest"]["path"])
+    report_path = checked_path(ROOT, manifest["qualification_report"]["path"])
+    full_path = checked_path(ROOT, manifest["full_kat_report"]["path"])
+    for path, record in ((original_path, manifest["immutable_source_manifest"]),
+                         (report_path, manifest["qualification_report"]),
+                         (full_path, manifest["full_kat_report"])):
+        if sha(path) != record["sha256"]:
+            raise ValueError("ML-DSA startup source/evidence hash mismatch: " + str(path))
+    original, report, full = [json.loads(p.read_text()) for p in (original_path, report_path, full_path)]
+    validate_mldsa_startup(variant, manifest, original, report, full)
+    rows = manifest["sources"]
+    if {str(p.relative_to(source)) for p in (source / "rtl").rglob("*") if p.is_file()} != {r["path"] for r in rows}:
+        raise ValueError("ML-DSA startup tree has missing or unbound source files")
+    bundle.mkdir()
+    copied = []
+    def copy_bound(src, dest, expected=None):
+        expected = expected or sha(src)
+        if sha(src) != expected:
+            raise ValueError("ML-DSA startup source/evidence changed: " + str(src))
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(src, dest)
+        if sha(dest) != expected or sha(src) != expected:
+            raise ValueError("ML-DSA startup source/evidence changed while copying: " + str(src))
+        copied.append((src, expected))
+    for row in rows:
+        copy_bound(checked_path(source, row["path"]), bundle / row["path"], row["sha256"])
+    copy_bound(original_path, bundle / "startup-source-manifest.json", manifest["immutable_source_manifest"]["sha256"])
+    copy_bound(deployment_path, bundle / "startup-deployment.json", hashlib.sha256(deployment_bytes).hexdigest())
+    copy_bound(full_path, bundle / "evidence/full-kat.json", manifest["full_kat_report"]["sha256"])
+    copy_bound(report_path, bundle / "evidence/qualification.json", manifest["qualification_report"]["sha256"])
+    record = report["variants"][variant]
+    short = variant.removeprefix("asic-startup-")
+    for name, digest in record["logs"].items():
+        prefix = "runs/release-" + short + "/"
+        if name.startswith(prefix):
+            relative = name.removeprefix(prefix)
+        elif name == "mapping/release-" + short + "-ff.log":
+            relative = "generic-ff-synthesis.log"
+        else:
+            raise ValueError("unknown ML-DSA startup log binding: " + name)
+        src = checked_path(full_path.parent, relative)
+        copy_bound(src, checked_path(bundle, "evidence/" + relative), digest)
+        if relative.startswith(("keygen/", "sign/", "verify/", "verify_mutations/", "verify_canonical/")) and "/simulate-seed-" in relative:
+            case, filename = relative.split("/")
+            seed = filename.removeprefix("simulate-seed-").removesuffix(".log")
+            coverage = record["functional"]["settings"][seed]["coverage"][case]
+            operation = "verify" if case.startswith("verify") else case
+            count = {"keygen": 25, "sign": 15, "verify": 15, "verify_mutations": 4, "verify_canonical": 11}[case]
+            text = src.read_text()
+            parsed = evaluate_log(text, operation, count, coverage["simulator_returncode"])
+            restart = check_restart_evidence(text)
+            if (parsed["status"] != "PASS" or parsed["vectors"] != coverage["vectors"]
+                    or restart != coverage["restart_evidence"]):
+                raise ValueError("ML-DSA startup live log does not match completed KAT/reboot evidence")
+        elif relative == "generic-ff-synthesis.log":
+            text = src.read_text()
+            if len(re.findall(r"Found and reported 0 problems\.", text)) != 2 or re.search(r"^ERROR:", text, re.MULTILINE):
+                raise ValueError("ML-DSA startup structural log lacks both passing checks")
+    component_row = report["component_report"]
+    component_path = checked_path(ROOT, component_row["path"])
+    copy_bound(component_path, bundle / "evidence/components/result.json", component_row["sha256"])
+    component = json.loads(component_path.read_text())
+    if not (component.get("status") == "PASS" and set(component.get("checks", {})) == {"ram", "shell", "hint_read"}
+            and component.get("design_manifest_sha256") == report["variants"]["asic-startup-baseline"]["source_manifest_sha256"]):
+        raise ValueError("ML-DSA startup component evidence is missing or stale")
+    for name, row in component["checks"].items():
+        if not (row == report.get("components", {}).get(name) and row.get("status") == "PASS"
+                and type(row.get("compile_returncode")) is int and row["compile_returncode"] == 0
+                and type(row.get("simulate_returncode")) is int and row["simulate_returncode"] == 0
+                and type(row.get("observed_marker_count")) is int and row["observed_marker_count"] == 1
+                and row.get("input_hashes_unchanged") is True):
+            raise ValueError("ML-DSA startup component check did not pass: " + name)
+        copy_bound(component_path.parent / (name + "-simulate.log"),
+                   bundle / "evidence/components" / (name + "-simulate.log"), row["simulate_log_sha256"])
+    negative = report.get("components", {}).get("knownness_negative_control", {})
+    fault = report_path.parent / "diagnostics/trials/hint-unknown-fault.log"
+    copy_bound(fault, bundle / "evidence/components/knownness-negative.log", negative["log_sha256"])
+    if (negative.get("status") != "EXPECTED_FAILURE" or "unknown observable output" not in fault.read_text()
+            or "ASIC_HINT_READ_VIEW_PASS" in fault.read_text()):
+        raise ValueError("ML-DSA startup knownness negative control did not fail as intended")
+    for name in ("LICENSES", "NOTICE", "UPSTREAM_NOTICE"):
+        item = source / name
+        if item.is_dir():
+            for path in sorted(item.rglob("*")):
+                if path.is_file():
+                    copy_bound(path, bundle / path.relative_to(source))
+        else:
+            copy_bound(item, bundle / name)
+    manifest["data_files"] = []
+    manifest["immutable_source_manifest"]["path"] = "startup-source-manifest.json"
+    manifest["qualification_report"] = {"path": "evidence/qualification.json",
+                                        "repository_path": str(report_path.relative_to(ROOT)), "sha256": sha(report_path)}
+    manifest["component_qualification_report"] = {"path": "evidence/components/result.json", "sha256": component_row["sha256"]}
+    manifest["full_kat_report"] = {"path": "evidence/full-kat.json", "sha256": sha(full_path)}
+    write_json(bundle / "manifest.json", manifest)
+    if any(sha(p) != h for p, h in copied):
+        raise ValueError("ML-DSA startup input changed during export")
+    return manifest, report_path
+
+
 def source_export(design, variant, parameter, bundle):
+    if variant in ASIC_STARTUP_VARIANTS:
+        if design == "mldsa":
+            return qualified_mldsa_startup(variant, bundle)
+        sys.path.insert(0, str(ROOT / "tools"))
+        from tools.export_slh_asic_verified import export_sources
+        manifest = export_sources(variant.replace("asic-startup-", "asic-boot-"), parameter, bundle)
+        return manifest, ROOT / manifest["qualification_report"]["repository_path"]
     if design == "mlkem":
         bundle.mkdir()
         return qualified_mlkem(bundle)
@@ -146,6 +368,37 @@ def profile_boundary(design):
     }
 
 
+def startup_boundary(design, manifest):
+    boundary = profile_boundary(design)
+    boundary["reset_ports"] += ["boot_rst" if design == "mldsa" else "i_boot_reset"]
+    boundary["ready_ports"] = ["boot_ready" if design == "mldsa" else "o_boot_ready"]
+    boundary["startup_contract"] = manifest["startup_contract"]
+    boundary["memories"] = manifest["memories"]
+    boundary["constants"] = manifest["constants"]
+    boundary["source_metadata_directory"] = "source-bundle"
+    if "memory_instances" in manifest:
+        boundary["memory_instances"] = manifest["memory_instances"]
+    if "generic_ff_lowering" in manifest:
+        boundary["generic_ff_lowering"] = manifest["generic_ff_lowering"]
+    boundary["notes"] = ([
+        "Runtime mode and sec_lvl retained; no specialization.",
+        "Explicit boot reset and serial RAM scrub replace FPGA power-up initialization.",
+        "Ordinary rst preserves storage; asserting boot_rst discards stored context.",
+        "Same-address simultaneous dual writes remain outside the qualified contract.",
+        "Constant zetas and Keccak tables are synthesizable logic; no runtime file load.",
+        "Exact generated Keccak Verilog is retained; original VHDL must not also be compiled.",
+    ] if design == "mldsa" else [
+        "The external signature store is excluded and must be supplied identically in both arms.",
+        "setting.v fixes widths and SHA cores; never override parameter_set alone.",
+        "INIT=1 mem_dual scrubs all DEPTH+1 words; INIT=0 storage and FIFO data are not zeroed.",
+        "Ordinary rstn does not rerun boot or clear FIFO pointers/storage.",
+        "Write/read latency is preserved; out-of-range reads and simultaneous same-address dual writes remain undefined.",
+        "Control-history/bypass lowering is qualified only for the stated synchronous, settled-cycle contract.",
+        "Repeated boot while inactive is covered; active-operation boot abort/recovery is unqualified.",
+    ])
+    return boundary
+
+
 def site_template(profile):
     target = profile["target"]["kind"]
     common = {"schema_version": 1, "profile_fingerprint": profile["profile_fingerprint"],
@@ -164,6 +417,9 @@ def export_profile(design, variant, parameter_set, target, out):
         raise ValueError("unsupported design/variant; HQC has no qualified export")
     if target not in ("fpga", "asic"):
         raise ValueError("target must be fpga or asic")
+    startup = variant in ASIC_STARTUP_VARIANTS
+    if startup and target != "asic":
+        raise ValueError("ASIC startup variants require target asic; original FPGA exports are separate")
     allowed = ("128f", "192f") if design == "slh" else (None, "1024") if design == "mlkem" else (None, "44-65-87")
     if parameter_set not in allowed:
         raise ValueError("select a supported exact parameter set (SLH requires 128f or 192f)")
@@ -175,11 +431,15 @@ def export_profile(design, variant, parameter_set, target, out):
         work.mkdir()
         bundle = work / "source-bundle"
         manifest, report_path = source_export(design, variant, parameter_set, bundle)
+        report_bytes = report_path.read_bytes()
+        report_digest = hashlib.sha256(report_bytes).hexdigest()
+        if startup and manifest["qualification_report"]["sha256"] != report_digest:
+            raise ValueError("startup qualification report changed after source validation")
         evidence = work / "evidence"
         evidence.mkdir()
-        shutil.copyfile(report_path, evidence / "source-qualification.json")
+        (evidence / "source-qualification.json").write_bytes(report_bytes)
         sources = [dict(row, path="source-bundle/" + row["path"],
-                        language="verilog" if row["language"] == "Verilog-2005" else row["language"])
+                        language="verilog" if row["language"] in ("Verilog-2005", "verilog2005") else row["language"])
                    for row in manifest["sources"]]
         includes = ["source-bundle/" + name for name in manifest.get("include_dirs", [])]
         # Freeze all possible HDL include inputs, even those already in the ordered file list.
@@ -203,12 +463,12 @@ def export_profile(design, variant, parameter_set, target, out):
                             "compilation_unit": "single_ordered_compilation_unit_with_persistent_preprocessor_state",
                             "global_include_files": ["source-bundle/rtl/imports/global_include/clog2.v", "source-bundle/rtl/sphincslet/setting.v"] if design == "slh" else [],
                             "data_files": data, "working_directory": "source-bundle"},
-            "boundary": profile_boundary(design),
+            "boundary": startup_boundary(design, manifest) if startup else profile_boundary(design),
             "compatibility_blockers": (["Generic clock-gate technology mapping and complete mapped-netlist checks remain pending."] if design == "mlkem" else
                                        ["RAM initial contents have no reset/scrub implementation in the current top.",
                                         "Control-state initializers require a target-specific reset/startup audit and full functional requalification."]) if target == "asic" else
                                       ["Selected FPGA part/tool elaboration, memory inference and collision/init semantics remain unqualified."],
-            "qualification": {"report": {"path": "evidence/source-qualification.json", "sha256": sha(report_path)},
+            "qualification": {"report": {"path": "evidence/source-qualification.json", "sha256": report_digest},
                               "source_qualified": True, "target_define_equivalence_qualified": False,
                               "target_tool_qualified": False, "whole_algorithm_qualified": design == "mldsa",
                               "required_operations": required,
@@ -226,6 +486,30 @@ def export_profile(design, variant, parameter_set, target, out):
                             "Flop mapping, blackbox absence, initialization semantics and constraints must be proven by mapped tool evidence.",
                             "No PPA, timing closure, power, side-channel, certification or whole-system claim."],
         }
+        if startup:
+            profile["compatibility_blockers"] = [
+                "Licensed DC/Genus elaboration, standard-cell FF/logic mapping and constraints remain unqualified.",
+                "Mapped-netlist startup, memory latency/collision behavior and implementation equivalence require separate qualification.",
+                "Finite RTL tests do not prove arbitrary reset/abort sequences, all input behaviors or cryptographic certification.",
+            ]
+            if design == "slh":
+                profile["compatibility_blockers"].append(
+                    "Historical sign/verify vendor fixtures are not independent full-algorithm FIPS 205 qualification.")
+                profile["compatibility_blockers"].append("Active-operation boot abort/recovery remains unqualified.")
+            profile["qualification"].update(
+                whole_algorithm_qualified=False,
+                startup_rtl_tested=True, secure_zeroization_qualified=False,
+                evidence_scope=("Fresh explicit-startup full-operation finite RTL tests; not certification"
+                                if design == "mldsa" else
+                                "Fresh explicit-startup historical vendor sign/verify differential; not independent FIPS validation"))
+            generic_report = (profile["qualification"]["report"] if design == "mldsa" else
+                              dict(manifest["structural_report"], path="source-bundle/" + manifest["structural_report"]["path"]))
+            profile["qualification"]["generic_ff_evidence"] = {
+                "report": generic_report, "scope": "generic FF/logic structural lowering only",
+                "standard_cell_mapping_qualified": False, "mapped_netlist_equivalence_qualified": False}
+            profile["provenance"]["source_derivative"] = manifest["variant"]
+            profile["limitations"][0] = (
+                "Explicit startup RTL derivative with fresh finite functional evidence; licensed target compatibility remains unqualified.")
         profile["bundle_files_sha256"] = {str(p.relative_to(work)): sha(p) for p in sorted(work.rglob("*")) if p.is_file()}
         profile["profile_fingerprint"] = fingerprint(profile)
         write_json(work / "profile.json", profile)
@@ -268,6 +552,8 @@ def verify_profile(path):
     target = profile.get("target", {})
     if target.get("kind") not in ("fpga", "asic") or target.get("memory_macros") != [] or target.get("memory_compiler_allowed") is not False:
         raise ValueError("invalid target/memory policy")
+    if profile["variant"] in ASIC_STARTUP_VARIANTS and target["kind"] != "asic":
+        raise ValueError("ASIC startup variant cannot be relabeled as an FPGA profile")
     expected_memory = "flops" if target["kind"] == "asic" else "fpga_inferred_ram"
     if target.get("memory_implementation") != expected_memory:
         raise ValueError("target and memory policy disagree")
@@ -277,7 +563,10 @@ def verify_profile(path):
         if not item.is_file() or sha(item) != digest:
             raise ValueError("bundle source/evidence hash mismatch: " + name)
     elab = profile["elaboration"]
-    for row in [*elab["sources"], *elab["include_files"], *elab["data_files"], profile["qualification"]["report"], profile["provenance"]["export_manifest"]]:
+    extra_evidence = ([profile["qualification"]["generic_ff_evidence"]["report"]]
+                      if "generic_ff_evidence" in profile["qualification"] else [])
+    for row in [*elab["sources"], *elab["include_files"], *elab["data_files"], profile["qualification"]["report"],
+                profile["provenance"]["export_manifest"], *extra_evidence]:
         if hashes.get(row["path"]) != row["sha256"]:
             raise ValueError("elaboration/evidence binding differs from bundle: " + row["path"])
     if not elab["sources"] or len({row["path"] for row in elab["sources"]}) != len(elab["sources"]):

@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "parameter_set": "SHA2-128f",
+  "functional_report_sha256": "d87af2ec3bf5dcb55806b3a09a585301bc775a29d6f208153943b57eca18fac0",
+  "executed_binary_sha256": "c53eeb8d3df9efc928d2d1691f4425d757f141fd115404b4e71cc34fbe1a5b1b",
+  "auditor_sha256": "3a72959f0bb2d9051d7199abcea9f7386dae12082a3761a8d4762ce45a4df063",
+  "checker_sha256": "e63cbbad0bee9cb70c9e0990ff836e9280a75689cdd6c405e832bf0945bb1b36",
+  "portable_files_sha256": {
+    "docs/verification/slh-asic-logs/candidate-128f/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/verification/slh-asic-logs/candidate-128f/compile-command.json": "24c8b362804c1644c9f0992d60041e117414d52d5c09d21584bdb0dd6c4953e4",
+    "docs/verification/slh-asic-logs/candidate-128f/baseline.log": "d75a1fa759fabf6709de0b49c0dfa556434d73e854a0a221ad7f7e499c26567e",
+    "docs/verification/slh-asic-logs/candidate-128f/baseline-command.json": "6816c11bb82b4bfc24ecbedf4e30af53fc231e3dd13448b99b3be5561d3359cc",
+    "docs/verification/slh-asic-logs/candidate-128f/baseline-produced.hex": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+    "docs/verification/slh-asic-logs/candidate-128f/signature-memory-bitflip.log": "2ccb6bb3442fe9c3512d5095fd5a53f0d7e1197d486eba251558ad03325e9256",
+    "docs/verification/slh-asic-logs/candidate-128f/signature-memory-bitflip-command.json": "da2ab9a83ff3fa852245e8b9f6aa725ca3fe7188f23e46a1c079c4b3ef13858d",
+    "docs/verification/slh-asic-logs/candidate-128f/signature-memory-bitflip-produced.hex": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8"
+  },
+  "cases": [
+    {
+      "case": "baseline",
+      "status": "PASS",
+      "log_sha256": "d75a1fa759fabf6709de0b49c0dfa556434d73e854a0a221ad7f7e499c26567e",
+      "produced_sha256": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+      "rtl_verification_flag": [
+        "0"
+      ],
+      "address_reports": [
+        "SLH_ASIC_ADDRESS_REPORT tile0_small writes=231480 consumed=318739 invalid_unconsumed=22972 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile0_big writes=231411 consumed=318739 invalid_unconsumed=262702 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT W_MEM writes=1620 consumed=5618248 invalid_unconsumed=1931191 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0"
+      ]
+    },
+    {
+      "case": "signature-memory-bitflip",
+      "status": "PASS",
+      "log_sha256": "2ccb6bb3442fe9c3512d5095fd5a53f0d7e1197d486eba251558ad03325e9256",
+      "produced_sha256": "10f35fcc0cc98680d87cf7aaef1479ba359303a84ba2553d69a8b77771bdf2a8",
+      "rtl_verification_flag": [
+        "1"
+      ],
+      "address_reports": [
+        "SLH_ASIC_ADDRESS_REPORT tile0_small writes=231309 consumed=318454 invalid_unconsumed=22972 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT tile0_big writes=231240 consumed=318454 invalid_unconsumed=262702 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0",
+        "SLH_ASIC_ADDRESS_REPORT W_MEM writes=1620 consumed=5609242 invalid_unconsumed=1931191 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0"
+      ]
+    }
+  ],
+  "scope": "raw artifact recheck and portable provenance; historical vendor differential, not independent algorithm validation"
+}

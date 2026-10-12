@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "packages": [
+    {
+      "package": "mldsa",
+      "inventory_sha256": "12be9f008bf04b8b154800e6d5529c2fd6d1fb8256f27dbac6901ca6e50af58c",
+      "files_checked": 179,
+      "mismatches": []
+    },
+    {
+      "package": "slh",
+      "inventory_sha256": "ca5de62dd485fd37aba775ed18aedf7dbf67a2c5ad6e47a51f5c2bc084f0cfa8",
+      "files_checked": 102,
+      "mismatches": []
+    }
+  ]
+}

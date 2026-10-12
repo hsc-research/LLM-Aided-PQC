@@ -1,0 +1,83 @@
+ASIC_RESTARTS_PASS count=2
+ML-DSA-II.KeyGen, KAT # 0 completed in                 4986 clock cycles
+ML-DSA-II.KeyGen, KAT # 1 completed in                 4990 clock cycles
+ML-DSA-II.KeyGen, KAT # 2 completed in                 4988 clock cycles
+ML-DSA-II.KeyGen, KAT # 3 completed in                 4991 clock cycles
+ML-DSA-II.KeyGen, KAT # 4 completed in                 4983 clock cycles
+ML-DSA-II.KeyGen, KAT # 5 completed in                 4993 clock cycles
+ML-DSA-II.KeyGen, KAT # 6 completed in                 4988 clock cycles
+ML-DSA-II.KeyGen, KAT # 7 completed in                 4986 clock cycles
+ML-DSA-II.KeyGen, KAT # 8 completed in                 4988 clock cycles
+ML-DSA-II.KeyGen, KAT # 9 completed in                 4989 clock cycles
+ML-DSA-II.KeyGen, KAT #10 completed in                 4986 clock cycles
+ML-DSA-II.KeyGen, KAT #11 completed in                 4980 clock cycles
+ML-DSA-II.KeyGen, KAT #12 completed in                 4984 clock cycles
+ML-DSA-II.KeyGen, KAT #13 completed in                 4992 clock cycles
+ML-DSA-II.KeyGen, KAT #14 completed in                 4988 clock cycles
+ML-DSA-II.KeyGen, KAT #15 completed in                 4989 clock cycles
+ML-DSA-II.KeyGen, KAT #16 completed in                 4984 clock cycles
+ML-DSA-II.KeyGen, KAT #17 completed in                 4990 clock cycles
+ML-DSA-II.KeyGen, KAT #18 completed in                 4985 clock cycles
+ML-DSA-II.KeyGen, KAT #19 completed in                 4983 clock cycles
+ML-DSA-II.KeyGen, KAT #20 completed in                 4989 clock cycles
+ML-DSA-II.KeyGen, KAT #21 completed in                 4985 clock cycles
+ML-DSA-II.KeyGen, KAT #22 completed in                 4985 clock cycles
+ML-DSA-II.KeyGen, KAT #23 completed in                 4991 clock cycles
+ML-DSA-II.KeyGen, KAT #24 completed in                 4989 clock cycles
+Moving to ML-DSA-III.KeyGen. ML-DSA-II completed in avg.        4987 clock cycles
+ML-DSA-III.KeyGen, KAT # 0 completed in                 8431 clock cycles
+ML-DSA-III.KeyGen, KAT # 1 completed in                 8422 clock cycles
+ML-DSA-III.KeyGen, KAT # 2 completed in                 8418 clock cycles
+ML-DSA-III.KeyGen, KAT # 3 completed in                 8418 clock cycles
+ML-DSA-III.KeyGen, KAT # 4 completed in                 8420 clock cycles
+ML-DSA-III.KeyGen, KAT # 5 completed in                 8428 clock cycles
+ML-DSA-III.KeyGen, KAT # 6 completed in                 8418 clock cycles
+ML-DSA-III.KeyGen, KAT # 7 completed in                 8430 clock cycles
+ML-DSA-III.KeyGen, KAT # 8 completed in                 8424 clock cycles
+ML-DSA-III.KeyGen, KAT # 9 completed in                 8420 clock cycles
+ML-DSA-III.KeyGen, KAT #10 completed in                 8422 clock cycles
+ML-DSA-III.KeyGen, KAT #11 completed in                 8420 clock cycles
+ML-DSA-III.KeyGen, KAT #12 completed in                 8426 clock cycles
+ML-DSA-III.KeyGen, KAT #13 completed in                 8418 clock cycles
+ML-DSA-III.KeyGen, KAT #14 completed in                 8418 clock cycles
+ML-DSA-III.KeyGen, KAT #15 completed in                 8420 clock cycles
+ML-DSA-III.KeyGen, KAT #16 completed in                 8426 clock cycles
+ML-DSA-III.KeyGen, KAT #17 completed in                 8422 clock cycles
+ML-DSA-III.KeyGen, KAT #18 completed in                 8424 clock cycles
+ML-DSA-III.KeyGen, KAT #19 completed in                 8422 clock cycles
+ML-DSA-III.KeyGen, KAT #20 completed in                 8424 clock cycles
+ML-DSA-III.KeyGen, KAT #21 completed in                 8430 clock cycles
+ML-DSA-III.KeyGen, KAT #22 completed in                 8430 clock cycles
+ML-DSA-III.KeyGen, KAT #23 completed in                 8420 clock cycles
+ML-DSA-III.KeyGen, KAT #24 completed in                 8420 clock cycles
+Moving to ML-DSA-V.KeyGen. ML-DSA-III completed in avg.        8422 clock cycles
+ML-DSA-V.KeyGen, KAT # 0 completed in                14230 clock cycles
+ML-DSA-V.KeyGen, KAT # 1 completed in                14228 clock cycles
+ML-DSA-V.KeyGen, KAT # 2 completed in                14227 clock cycles
+ML-DSA-V.KeyGen, KAT # 3 completed in                14223 clock cycles
+ML-DSA-V.KeyGen, KAT # 4 completed in                14224 clock cycles
+ML-DSA-V.KeyGen, KAT # 5 completed in                14220 clock cycles
+ML-DSA-V.KeyGen, KAT # 6 completed in                14218 clock cycles
+ML-DSA-V.KeyGen, KAT # 7 completed in                14225 clock cycles
+ML-DSA-V.KeyGen, KAT # 8 completed in                14226 clock cycles
+ML-DSA-V.KeyGen, KAT # 9 completed in                14230 clock cycles
+ML-DSA-V.KeyGen, KAT #10 completed in                14228 clock cycles
+ML-DSA-V.KeyGen, KAT #11 completed in                14227 clock cycles
+ML-DSA-V.KeyGen, KAT #12 completed in                14220 clock cycles
+ML-DSA-V.KeyGen, KAT #13 completed in                14224 clock cycles
+ML-DSA-V.KeyGen, KAT #14 completed in                14220 clock cycles
+ML-DSA-V.KeyGen, KAT #15 completed in                14224 clock cycles
+ML-DSA-V.KeyGen, KAT #16 completed in                14217 clock cycles
+ML-DSA-V.KeyGen, KAT #17 completed in                14218 clock cycles
+ML-DSA-V.KeyGen, KAT #18 completed in                14216 clock cycles
+ML-DSA-V.KeyGen, KAT #19 completed in                14228 clock cycles
+ML-DSA-V.KeyGen, KAT #20 completed in                14236 clock cycles
+ML-DSA-V.KeyGen, KAT #21 completed in                14218 clock cycles
+ML-DSA-V.KeyGen, KAT #22 completed in                14220 clock cycles
+ML-DSA-V.KeyGen, KAT #23 completed in                14227 clock cycles
+ML-DSA-V.KeyGen, KAT #24 completed in                14226 clock cycles
+ML-DSA.KeyGen testbench done. ML-DSA-V completed in avg.       14224 clock cycles
+- /workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-candidate/keygen/ref_combined/src_tb/tb_keygen_top.v:603: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.49
+- Verilator: $finish at 7ms; walltime 25.311 s; speed 619.430 us/s
+- Verilator: cpu 11.396 s on 1 threads; allocated 7 MB

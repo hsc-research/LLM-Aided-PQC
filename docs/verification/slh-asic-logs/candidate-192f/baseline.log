@@ -1,0 +1,127 @@
+SLH_ASIC_BOOT_READY
+start fors_sign(), mode 1
+FORS tree #           1/          33
+FORS tree #           2/          33
+FORS tree #           3/          33
+FORS tree #           4/          33
+FORS tree #           5/          33
+FORS tree #           6/          33
+FORS tree #           7/          33
+FORS tree #           8/          33
+FORS tree #           9/          33
+FORS tree #          10/          33
+FORS tree #          11/          33
+FORS tree #          12/          33
+FORS tree #          13/          33
+FORS tree #          14/          33
+FORS tree #          15/          33
+FORS tree #          16/          33
+FORS tree #          17/          33
+FORS tree #          18/          33
+FORS tree #          19/          33
+FORS tree #          20/          33
+FORS tree #          21/          33
+FORS tree #          22/          33
+FORS tree #          23/          33
+FORS tree #          24/          33
+FORS tree #          25/          33
+FORS tree #          26/          33
+FORS tree #          27/          33
+FORS tree #          28/          33
+FORS tree #          29/          33
+FORS tree #          30/          33
+FORS tree #          31/          33
+FORS tree #          32/          33
+FORS tree #          33/          33
+start thash(), mode 3
+start tree_hash(), mode 0
+HT tree #           1/          22
+HT tree #           2/          22
+HT tree #           3/          22
+HT tree #           4/          22
+HT tree #           5/          22
+HT tree #           6/          22
+HT tree #           7/          22
+HT tree #           8/          22
+HT tree #           9/          22
+HT tree #          10/          22
+HT tree #          11/          22
+HT tree #          12/          22
+HT tree #          13/          22
+HT tree #          14/          22
+HT tree #          15/          22
+HT tree #          16/          22
+HT tree #          17/          22
+HT tree #          18/          22
+HT tree #          19/          22
+HT tree #          20/          22
+HT tree #          21/          22
+HT tree #          22/          22
+sig gen done
+start fors_pk_from_sig(), mode 1
+FORS tree #           1/          33
+FORS tree #           2/          33
+FORS tree #           3/          33
+FORS tree #           4/          33
+FORS tree #           5/          33
+FORS tree #           6/          33
+FORS tree #           7/          33
+FORS tree #           8/          33
+FORS tree #           9/          33
+FORS tree #          10/          33
+FORS tree #          11/          33
+FORS tree #          12/          33
+FORS tree #          13/          33
+FORS tree #          14/          33
+FORS tree #          15/          33
+FORS tree #          16/          33
+FORS tree #          17/          33
+FORS tree #          18/          33
+FORS tree #          19/          33
+FORS tree #          20/          33
+FORS tree #          21/          33
+FORS tree #          22/          33
+FORS tree #          23/          33
+FORS tree #          24/          33
+FORS tree #          25/          33
+FORS tree #          26/          33
+FORS tree #          27/          33
+FORS tree #          28/          33
+FORS tree #          29/          33
+FORS tree #          30/          33
+FORS tree #          31/          33
+FORS tree #          32/          33
+FORS tree #          33/          33
+start thash(), mode 3
+start compute_root(), mode 0
+HT tree #           1/          22
+HT tree #           2/          22
+HT tree #           3/          22
+HT tree #           4/          22
+HT tree #           5/          22
+HT tree #           6/          22
+HT tree #           7/          22
+HT tree #           8/          22
+HT tree #           9/          22
+HT tree #          10/          22
+HT tree #          11/          22
+HT tree #          12/          22
+HT tree #          13/          22
+HT tree #          14/          22
+HT tree #          15/          22
+HT tree #          16/          22
+HT tree #          17/          22
+HT tree #          18/          22
+HT tree #          19/          22
+HT tree #          20/          22
+HT tree #          21/          22
+HT tree #          22/          22
+sig verification done
+SLH_VERIFY_FLAG=0
+The signature is matched!
+SLH_ASIC_ADDRESS_REPORT tile0_small writes=421548 consumed=541766 invalid_unconsumed=4 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0
+SLH_ASIC_ADDRESS_REPORT tile0_big writes=421548 consumed=541766 invalid_unconsumed=1127846 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0
+SLH_ASIC_ADDRESS_REPORT tile1_small writes=72996 consumed=72902 invalid_unconsumed=26140 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0
+SLH_ASIC_ADDRESS_REPORT tile1_big writes=72902 consumed=72902 invalid_unconsumed=7920781 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0
+SLH_ASIC_ADDRESS_REPORT W_MEM writes=2340 consumed=8175538 invalid_unconsumed=3186412 dual_write_collisions=0 unknown_consume=0 consumed_invalid=0
+/workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/.pqc_runs/slh-portable-b8r71e3t/rtl/sphincslet/tb.v:514: $finish called at 79807955000 (1ps)

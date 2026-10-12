@@ -121,4 +121,5 @@ configs/*.local.json
 /build/mldsa-handoff/
 /build/target-profile-test/
 /build/target-profiles/
+/build/profiles/
 /build/target-launch/

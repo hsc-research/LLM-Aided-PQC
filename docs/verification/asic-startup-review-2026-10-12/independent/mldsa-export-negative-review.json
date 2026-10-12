@@ -1,0 +1,14 @@
+[
+  {
+    "mutation": "empty_logs",
+    "result": "ACCEPTED"
+  },
+  {
+    "mutation": "failed_structure",
+    "result": "ACCEPTED"
+  },
+  {
+    "mutation": "false_component",
+    "result": "ACCEPTED"
+  }
+]

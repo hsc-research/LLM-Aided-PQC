@@ -19,22 +19,29 @@ The [target-profile exporter](HARDWARE_HANDOFF.md#prepare-explicit-target-profil
 now prepares explicit ML-KEM, corrected ML-DSA and corrected SLH source bundles
 for both targets. `SOURCE_EXPORTED_TARGET_UNQUALIFIED` and
 `SOURCE_PREPARED_NOT_RUN` are preparation states. The profiles retain real
-compatibility blockers, including ASIC startup semantics and clock-gate mapping;
-they do not complete the RTL port or authorize an optimization claim.
+compatibility blockers, including mapped startup/memory behavior and clock-gate
+mapping. New [ASIC startup source derivatives](ASIC_STARTUP.md) separately expose
+ML-DSA/SLH boot interfaces, exact source-bound functional reruns and generic FF
+structural evidence. They preserve all original FPGA selections and do not
+qualify licensed standard-cell mapping or admit target-bound optimization.
+ML-DSA tests include in-operation boot-abort recovery; SLH repeated boot is
+qualified while inactive only. ML-KEM retains its existing shared generic-memory
+baseline; HQC SAC 2026 remains blocked.
 
 [Bounded memory-component checks](../verification/asic_memory/README.md) add
 generic Yosys FF/logic mapping evidence for selected existing RAMs and a tested,
-optional ML-DSA zetas constant-ROM derivative. They do not substitute that ROM
-into the default export or qualify whole-design ASIC startup, standard-cell
-mapping, functional behavior or PPA.
+optional ML-DSA zetas constant-ROM derivative. The original portable export still does not substitute that ROM.
+The new explicit ML-DSA startup source separately uses constant logic and has its
+own full-core evidence. Component checks alone do not qualify whole-design
+startup, standard-cell mapping, functional behavior or PPA.
 
 ## Design coverage
 
 | Design | Baseline and current functional evidence | Current hardware-tool boundary |
 |---|---|---|
 | ML-KEM | Pinned Adam's Bridge v2.0.3 shared ML-KEM-1024 / ML-DSA-87 core, with memories. **80 official samples / 39,840 checks passed** for the ML-KEM API only. [Scope and commands](#ml-kem-entry-points) | Whole-wrapper Vivado and Genus/DC configurations exist; no new licensed synthesis/PPA result |
-| ML-DSA | **210 cases passed per corrected variant:** guarded baseline and guarded candidate with an encoder repair. Original malformed-hint acceptance and candidate Sign stall are retained failures. [Entry points](#ml-dsa-entry-points) | Export the exact passing derivatives; existing ASIC examples select older source arms. FPGA/ASIC measurements remain the next stage, with no new PPA claim |
-| SLH-DSA | Original SPHINCSLET trees preserved. **Corrected baseline/candidate pairs at 128f and 192f passed** one fixture plus live corruption rejection per run. Syntax-only variants failed; the other four SHA2 modes were not run. [Exact variants and evidence](#slh-dsa-baseline-boundary) | Exact same-mode source exports are available for the next FPGA/ASIC stage; no new PPA run. SHAKE unsupported |
+| ML-DSA | **210 cases passed per corrected variant:** guarded baseline and guarded candidate with an encoder repair. Original malformed-hint acceptance and candidate Sign stall are retained failures. [Entry points](#ml-dsa-entry-points) | Original portable and new explicit startup source pairs are separate; use the [startup guide](ASIC_STARTUP.md) for new ASIC work. Existing ASIC examples select older arms. Licensed mapping/PPA remain pending |
+| SLH-DSA | Original SPHINCSLET trees preserved. **Corrected baseline/candidate pairs at 128f and 192f passed** one fixture plus live corruption rejection per run. Syntax-only variants failed; the other four SHA2 modes were not run. [Exact variants and evidence](#slh-dsa-baseline-boundary) | Original portable and explicit startup exports retain exact same-mode pairs. Startup/reboot scope is limited; licensed mapping/PPA remain pending. SHAKE unsupported |
 | HQC | Preferred **SAC 2026 snapshot is source-only and unverified**. [New baseline](#hqc-preferred-source-baseline). Older SAC 2023 consistency coverage and rejection review are [separate](#hqc-legacy-verification-boundary) | No SAC 2026 executable adapter or qualified synthesis manifest. Historical SAC 2023 Genus records do not qualify it |
 
 ML-KEM, ML-DSA, and SLH-DSA are the three initial final NIST PQC standards.

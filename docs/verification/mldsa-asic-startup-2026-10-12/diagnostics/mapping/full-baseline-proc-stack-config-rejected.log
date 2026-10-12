@@ -1,0 +1,4 @@
+
+thread '<unnamed>' (6) panicked at crates/c-api/src/engine.rs:37:38:
+called `Result::unwrap()` on an `Err` value: max_wasm_stack size cannot exceed the async_stack_size
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

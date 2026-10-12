@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from tools.export_target_profiles import export_profile, verify_profile, prepare, verify_preparation, fingerprint
+from tools.export_target_profiles import export_profile, verify_profile, prepare, verify_preparation, fingerprint, ASIC_STARTUP_VARIANTS, validate_mldsa_startup
 from tools.check_target_profile_elaboration import check
 
 
@@ -67,6 +67,194 @@ class TargetSourceExportTests(unittest.TestCase):
                 if design == "slh":
                     self.assertFalse(profiles[0]["boundary"]["external_memories"][0]["included"])
                     self.assertEqual(profiles[0]["qualification"]["observed_operations"], ["sign", "verify"])
+
+    def test_startup_profiles_bind_new_evidence_and_explicit_boot_contract(self):
+        combinations = [("mldsa", v, None) for v in ASIC_STARTUP_VARIANTS]
+        combinations += [("slh", v, p) for v in ASIC_STARTUP_VARIANTS for p in ("128f", "192f")]
+        for design, variant, parameter in combinations:
+            with self.subTest(design=design, variant=variant, parameter=parameter), tempfile.TemporaryDirectory() as root:
+                out = Path(root) / "startup"
+                p = export_profile(design, variant, parameter, "asic", out)
+                self.assertEqual(verify_profile(out / "profile.json"), p)
+                self.assertEqual(p["elaboration"]["top"], "combined_top_asic" if design == "mldsa" else "top")
+                self.assertEqual(p["elaboration"]["language_standard"], "verilog2005")
+                self.assertEqual(p["elaboration"]["parameters"], {})
+                self.assertTrue(all(r["language"] == "verilog" for r in p["elaboration"]["sources"]))
+                self.assertIn("boot_rst" if design == "mldsa" else "i_boot_reset", p["boundary"]["reset_ports"])
+                self.assertEqual(p["boundary"]["ready_ports"], ["boot_ready" if design == "mldsa" else "o_boot_ready"])
+                self.assertTrue(p["boundary"]["startup_contract"])
+                self.assertTrue(p["boundary"]["memories"])
+                self.assertTrue(p["boundary"]["constants"])
+                self.assertEqual(p["elaboration"]["data_files"], [])
+                self.assertTrue(p["qualification"]["startup_rtl_tested"])
+                self.assertFalse(p["qualification"]["secure_zeroization_qualified"])
+                self.assertTrue(p["qualification"]["source_qualified"])
+                self.assertFalse(p["qualification"]["whole_algorithm_qualified"])
+                self.assertFalse(p["qualification"]["target_tool_qualified"])
+                self.assertFalse(p["qualification"]["generic_ff_evidence"]["standard_cell_mapping_qualified"])
+                self.assertFalse(p["qualification"]["generic_ff_evidence"]["mapped_netlist_equivalence_qualified"])
+                generic = p["qualification"]["generic_ff_evidence"]["report"]
+                self.assertEqual(p["bundle_files_sha256"][generic["path"]], generic["sha256"])
+                self.assertFalse(p["qualification"]["target_define_equivalence_qualified"])
+                self.assertFalse(p["target"]["technology_mapping_verified"])
+                self.assertEqual(p["target"]["memory_implementation"], "flops")
+                self.assertIn("asic", p["provenance"]["qualification_repository_path"])
+                if design == "mldsa":
+                    manifest = json.loads((out / "source-bundle/manifest.json").read_text())
+                    for key in ("immutable_source_manifest", "qualification_report", "full_kat_report", "component_qualification_report"):
+                        row = manifest[key]
+                        self.assertEqual(p["bundle_files_sha256"]["source-bundle/" + row["path"]], row["sha256"])
+                self.assertNotIn("RAM initial contents have no reset/scrub", str(p["compatibility_blockers"]))
+                # Export is an exact source copy/declared transform, not a target-time RTL edit.
+                self.assertFalse(p["provenance"]["source_bytes_modified_by_target_preparation"])
+
+    def test_startup_pair_has_identical_boot_and_memory_overhead(self):
+        for design, parameter in (("mldsa", None), ("slh", "128f"), ("slh", "192f")):
+            with self.subTest(design=design, parameter=parameter), tempfile.TemporaryDirectory() as root:
+                pairs = [export_profile(design, v, parameter, "asic", Path(root) / v) for v in ASIC_STARTUP_VARIANTS]
+                for field in ("startup_contract", "memories", "constants", "reset_ports", "ready_ports"):
+                    self.assertEqual(pairs[0]["boundary"][field], pairs[1]["boundary"][field])
+                sources = [{r["path"]: r["sha256"] for r in p["elaboration"]["sources"]} for p in pairs]
+                if design == "slh":
+                    changed = {n for n in sources[0] if sources[0][n] != sources[1][n]}
+                    self.assertEqual(changed, {"source-bundle/rtl/sphincslet/sha/sha256_core.v", "source-bundle/rtl/sphincslet/sha/sha512_core.v"})
+                else:
+                    for name in ("combined_top_asic.v", "mldsa_sameclock_ff_ram.v", "dual_port_rom.v"):
+                        self.assertEqual(sources[0]["source-bundle/rtl/" + name], sources[1]["source-bundle/rtl/" + name])
+
+    def test_mldsa_startup_rejects_reduced_stale_or_predecessor_evidence(self):
+        root = Path(__file__).resolve().parents[1]
+        source = root / "asic/rtl/mldsa_startup/guarded-baseline"
+        deployment = json.loads((source / "deployment.json").read_text())
+        original = json.loads((source / "manifest.json").read_text())
+        report = json.loads((root / deployment["qualification_report"]["path"]).read_text())
+        full = json.loads((root / deployment["full_kat_report"]["path"]).read_text())
+        variant = "asic-startup-baseline"
+        validate_mldsa_startup(variant, deployment, original, report, full)
+        for change in ("predecessor", "source", "missing_seed", "missing_case", "duplicate_vector", "reboot", "full_report", "logs", "structural", "components"):
+            with self.subTest(change=change):
+                r, f = copy.deepcopy(report), copy.deepcopy(full)
+                if change == "predecessor":
+                    r = json.loads((root / "docs/verification/mldsa-portable-2026-10-12/baseline_canonical_pass/result.json").read_text())
+                elif change == "source":
+                    name = next(p for p in f["source_hashes"] if "/rtl/" in p)
+                    f["source_hashes"][name] = "0" * 64
+                elif change == "missing_seed":
+                    del r["variants"][variant]["functional"]["settings"]["29"]
+                elif change == "missing_case":
+                    del f["coverage"]["sign:seed-11"]
+                elif change == "duplicate_vector":
+                    v = r["variants"][variant]["functional"]["settings"]["0"]["coverage"]["keygen"]["vectors"]
+                    v[-1] = dict(v[0])
+                elif change == "reboot":
+                    r["variants"][variant]["functional"]["settings"]["0"]["coverage"]["keygen"]["restart_evidence"]["marker_precedes_completed_kats"] = False
+                elif change == "logs":
+                    r["variants"][variant]["logs"] = {}
+                elif change == "structural":
+                    r["variants"][variant]["structural"]["remaining_latch_cells"] = 1
+                elif change == "components":
+                    r["components"] = {}
+                else:
+                    f["design_manifest_sha256"] = "0" * 64
+                with self.assertRaises(ValueError):
+                    validate_mldsa_startup(variant, deployment, original, r, f)
+
+    def test_mldsa_startup_export_uses_portable_inputs_and_rejects_missing_or_changed_files(self):
+        root = Path(__file__).resolve().parents[1]
+        source_name = "asic/rtl/mldsa_startup/guarded-baseline"
+        report_name = "docs/verification/mldsa-asic-startup-2026-10-12"
+        for change in (None, "missing", "stale", "source", "log"):
+            with self.subTest(change=change), tempfile.TemporaryDirectory() as folder:
+                relocated = Path(folder) / "relocated"
+                shutil.copytree(root / source_name, relocated / source_name)
+                shutil.copytree(root / report_name / "baseline", relocated / report_name / "baseline")
+                shutil.copytree(root / report_name / "components", relocated / report_name / "components")
+                shutil.copytree(root / report_name / "diagnostics/trials", relocated / report_name / "diagnostics/trials")
+                shutil.copyfile(root / report_name / "result.json", relocated / report_name / "result.json")
+                if change == "missing":
+                    (relocated / report_name / "result.json").unlink()
+                elif change is not None:
+                    item = (relocated / source_name / "rtl/combined_top_asic.v" if change == "source" else
+                            relocated / report_name / "baseline/keygen/simulate-seed-0.log" if change == "log" else
+                            relocated / report_name / "result.json")
+                    item.write_bytes(item.read_bytes() + b"\n")
+                with patch("tools.export_target_profiles.ROOT", relocated):
+                    out = Path(folder) / "export"
+                    if change is None:
+                        p = export_profile("mldsa", "asic-startup-baseline", None, "asic", out)
+                        self.assertEqual(verify_profile(out / "profile.json"), p)
+                    else:
+                        with self.assertRaises((ValueError, OSError)):
+                            export_profile("mldsa", "asic-startup-baseline", None, "asic", out)
+                        self.assertFalse(out.exists())
+
+    def test_mldsa_startup_live_log_rejects_late_restart_marker(self):
+        root = Path(__file__).resolve().parents[1]
+        name = root / "docs/verification/mldsa-asic-startup-2026-10-12/baseline/keygen/simulate-seed-0.log"
+        original = Path.read_text
+        def read(path, *args, **kwargs):
+            value = original(path, *args, **kwargs)
+            if path == name:
+                value = value.replace("ASIC_RESTARTS_PASS count=2\n", "") + "\nASIC_RESTARTS_PASS count=2\n"
+            return value
+        # Keep the bytes/hash intact, then corrupt only the parser's log view to
+        # ensure ordering is rederived rather than trusted from summary flags.
+        with tempfile.TemporaryDirectory() as folder, patch.object(Path, "read_text", read):
+            with self.assertRaisesRegex(ValueError, "KAT completed before"):
+                export_profile("mldsa", "asic-startup-baseline", None, "asic", Path(folder) / "profile")
+
+    def test_startup_variants_reject_fpga_before_export(self):
+        with tempfile.TemporaryDirectory() as root:
+            for design, parameter in (("mldsa", None), ("slh", "128f"), ("slh", "192f")):
+                for variant in ASIC_STARTUP_VARIANTS:
+                    with self.subTest(design=design, variant=variant, parameter=parameter):
+                        with self.assertRaisesRegex(ValueError, "require target asic"):
+                            export_profile(design, variant, parameter, "fpga", Path(root) / "forbidden")
+                        self.assertFalse((Path(root) / "forbidden").exists())
+
+    def test_startup_profiles_are_deterministic_relocatable_and_nonoverwriting(self):
+        for design, parameter in (("mldsa", None), ("slh", "128f"), ("slh", "192f")):
+            with self.subTest(design=design, parameter=parameter), tempfile.TemporaryDirectory() as root:
+                outs = [Path(root) / n for n in ("a", "b")]
+                for out in outs:
+                    export_profile(design, "asic-startup-candidate", parameter, "asic", out)
+                snapshots = [{str(p.relative_to(out)): p.read_bytes() for p in out.rglob("*") if p.is_file()} for out in outs]
+                self.assertEqual(*snapshots)
+                with self.assertRaisesRegex(ValueError, "never overwrite"):
+                    export_profile(design, "asic-startup-candidate", parameter, "asic", outs[0])
+                moved = Path(root) / "moved"
+                outs[0].rename(moved)
+                proc = subprocess.run([sys.executable, "-I", str(moved / "verify_profile.py"), "--verify", str(moved / "profile.json")],
+                                      cwd="/tmp", text=True, capture_output=True, timeout=30)
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+
+    def test_startup_manifest_report_and_source_tampering_fail_closed(self):
+        for design, parameter in (("mldsa", None), ("slh", "128f"), ("slh", "192f")):
+            for kind in ("source", "report", "manifest"):
+                with self.subTest(design=design, kind=kind), tempfile.TemporaryDirectory() as root:
+                    path, p = self.export(root, design=design, variant="asic-startup-baseline", parameter=parameter)
+                    row = (p["elaboration"]["sources"][0] if kind == "source" else
+                           p["qualification"]["report"] if kind == "report" else p["provenance"]["export_manifest"])
+                    item = path / row["path"]
+                    item.write_bytes(item.read_bytes() + b"\n")
+                    with self.assertRaisesRegex(ValueError, "hash mismatch"):
+                        verify_profile(path / "profile.json")
+
+    def test_startup_preparation_preserves_boot_boundary_and_stays_unqualified(self):
+        for design, parameter in (("mldsa", None), ("slh", "128f"), ("slh", "192f")):
+            with self.subTest(design=design), tempfile.TemporaryDirectory() as root:
+                path, p = self.export(root, design=design, variant="asic-startup-baseline", parameter=parameter)
+                site, _ = self.site(path, p, root)
+                out = Path(root) / "prepared"
+                result = prepare(path / "profile.json", site, out)
+                cfg = json.loads((out / "launch-config.json").read_text())
+                self.assertEqual(result["status"], "SOURCE_PREPARED_NOT_RUN")
+                self.assertEqual(cfg["design_boundary"], p["boundary"])
+                self.assertEqual(cfg["memory_model"], "flops")
+                self.assertEqual(cfg["admission"], {"policy": "strict-rtl-flops-v1", "waivers": []})
+                self.assertEqual(cfg["data_files"], [])
+                self.assertEqual(cfg["language_standard"], "verilog2005")
+                self.assertFalse(verify_preparation(out / "preparation.json")["target_tool_qualified"])
 
     def test_exact_profile_export_is_deterministic_and_nonoverwriting(self):
         with tempfile.TemporaryDirectory() as root:

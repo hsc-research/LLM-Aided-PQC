@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "variant": "asic-startup-candidate",
+  "source_variant": "corrected-candidate",
+  "top": "combined_top_asic",
+  "sources": [
+    {
+      "path": "rtl/Barrett_8380417.v",
+      "sha256": "040bc64022eb5a07813dc470f3673a28f62e5ca880f65c28adbee56152ae0c43",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/address_resolver.v",
+      "sha256": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/address_unit.v",
+      "sha256": "dfdd2e65ef50ec6984ab13c835646d391a10ff16dd438ccc4366db7b827e15c7",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/butterfly.v",
+      "sha256": "e6e5eb83394536a2dcd5e0bc9f0d48de5a1f99dd8298a440582063a9cca314e7",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/butterfly2x2.v",
+      "sha256": "b53ceabcff52c9e581ec7911bd6d956eedbbfe588e9a1e0bac903a8dd63e5700",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/coeff_decomposer.v",
+      "sha256": "1745413e9340d3efe78d8de1575f60934fb3065ddc3c0578c17e460d535d1f3a",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/combined_top.v",
+      "sha256": "a0ff3c5fb8c6771e5dc107f2d4ffa6b296def21b10dbda35e5fe4de82d88433a",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/combined_top_asic.v",
+      "sha256": "1b8502fcf988ea636d1d32cada63a809fd60d4846a4c6f3f8739a188873c92a0",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/decoder.v",
+      "sha256": "c1770f480f4c0565ffa4c1bb401a001769c219d17cedf2d17f62544b68ef3386",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/decomp_map1.v",
+      "sha256": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/decomposer_unit.v",
+      "sha256": "b92ebdb6efef1d5a64856466b638bdfeda1fe3204c68f5e50f8e728032de7198",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/dual_port_rom.v",
+      "sha256": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/encoder.v",
+      "sha256": "a433d2cf4b4da85732269970fda0a856ba2973201b32e3b0764bfbf3ff1264ea",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/expandmask_ext.v",
+      "sha256": "350522b39eafece869e2bacf3e604105def31933ad2e67906ce51c054f048fd4",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/gen_a_ext.v",
+      "sha256": "661c4827d21014ffe0c8f60cbb3e2bdefeebb69f6746e20f258db5e0b7e9d983",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/gen_c.v",
+      "sha256": "3d676511b7b5acfe3697c1455324a92d5444022817c88cb3ada01c4cc1fa953f",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/gen_s.v",
+      "sha256": "46b224b5422f353fe05423f9cce14cec58b3fb5a274cf63044abe75403d17904",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/keccak_top_ghdl.v",
+      "sha256": "6116edd240d1c21ee277b4e1aa7704c8c9c3c6cc3a06bb4e21667ffa15d71b27",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/makehint.v",
+      "sha256": "548171aa63df7dbf3c26e643cd7f23381f84c68f2d2cd42ed571eba7b56078a9",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/mldsa_hint_guard.v",
+      "sha256": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/mldsa_sameclock_ff_ram.v",
+      "sha256": "6fbeb77e89893f125fe39ecda9f17bd3da780eedee5dd343abd18bd3a65efb20",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/norm_check.v",
+      "sha256": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/ntt_fifo.v",
+      "sha256": "cd8ecb9f233b1a5f1112e8fb4653f2801e0d9889e12f40cebcdff3ea5e6c8134",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/ntt_fifo_piso.v",
+      "sha256": "2a6d24bebcb004d9b9affb8898a083d0d6101ff4c4a84074fcc812c7ac4bde24",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/ntt_pipo.v",
+      "sha256": "3cf45311ce7f1a7c373f273e473baf5a5fc46539957fb697655cb7411fe28df2",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/operation_module.v",
+      "sha256": "ab7943d9f694e066040cd66bee19859d0eb35a3550aa7f65755fe3090d5e6e3a",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/rejection_a.v",
+      "sha256": "ff2126f6ee64652b15d3e676be8de31f9ef48e5b1733e584f9ba3bb708ac5b6c",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/rejection_s.v",
+      "sha256": "bf21103abfcee9b2f23e748c36848d003a73be2807373cc0497e436ee68edc6c",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/rejection_y.v",
+      "sha256": "3c13a86b88c2c5ab19473e4e5bc5bc587888ce77995517f02ce302d009d0efbe",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/sampler_a_ext.v",
+      "sha256": "8f05dc289328c9ab05cedb4317f0cd15b8c04ec69f6361e8ae82a63799a5804b",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/sampler_s.v",
+      "sha256": "6942f550875093a5a597a87b273cd7eacbfc9876863dcf8a80c69c5f8207bc5f",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/sampler_y_ext.v",
+      "sha256": "86688d9f04cfe65174c8b94de09f26e501078b73ace7c9a7a1898f04c568c9b7",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/twiddle_resolver.v",
+      "sha256": "c3a404b23ce717f10bb911997f17d3164fdbba5942488d4a74ce9837f833ec42",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/uncenter_coeff.v",
+      "sha256": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/usehint.v",
+      "sha256": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+      "language": "verilog2005"
+    },
+    {
+      "path": "rtl/zero_strip.v",
+      "sha256": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+      "language": "verilog2005"
+    }
+  ],
+  "defines": [],
+  "include_dirs": [],
+  "parameter_overrides": {},
+  "parameter_defaults": {
+    "BUS_W": 4,
+    "SAMPLE_W": 23,
+    "W": 64
+  },
+  "clock_ports": [
+    "clk"
+  ],
+  "reset_ports": [
+    "rst",
+    "boot_rst"
+  ],
+  "immutable_source_manifest": {
+    "path": "manifest.json",
+    "sha256": "2a00b5a082922fa4f85d1afd937bfed1ce8fb5886b5839125451a2065a32273c"
+  },
+  "qualification_report": {
+    "path": "docs/verification/mldsa-asic-startup-2026-10-12/result.json",
+    "sha256": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de"
+  },
+  "full_kat_report": {
+    "path": "docs/verification/mldsa-asic-startup-2026-10-12/candidate/full-result.json",
+    "sha256": "9680dcc7510a3c5ef3b51e934d1e1aefdf0dd6d094416aea57f14c9e8eb9b38a"
+  },
+  "startup_contract": {
+    "boot_reset_port": "boot_rst",
+    "boot_ready_port": "boot_ready",
+    "boot_reset_active_high": true,
+    "boot_reset_synchronous": true,
+    "boot_reset_minimum_cycles": 1,
+    "scrub_cycles": 4096,
+    "ordinary_reset_port": "rst",
+    "ordinary_reset_clears_memory": false,
+    "host_sequence": "Assert boot_rst across at least one rising edge, deassert, wait boot_ready, then follow original per-operation rst/start protocol. Reboot destroys RAM/transaction state."
+  },
+  "memories": [
+    {
+      "instance": "CORE.BRAM_0",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 4096,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    },
+    {
+      "instance": "CORE.BRAM_1",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 1024,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    },
+    {
+      "instance": "CORE.BRAM_2",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 1024,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    },
+    {
+      "instance": "CORE.BRAM_3",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 1024,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    },
+    {
+      "instance": "CORE.BRAM_4",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 1024,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    },
+    {
+      "instance": "CORE.BRAM_5",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 1024,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    },
+    {
+      "instance": "CORE.BRAM_6",
+      "kind": "generic_same_clock_ff",
+      "width": 96,
+      "depth": 1024,
+      "registered_outputs": 2,
+      "read_latency_cycles": 1,
+      "disabled_read": "hold",
+      "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+      "initialization": "explicit boot-only serial scrub"
+    }
+  ],
+  "constants": {
+    "zetas": "256x24 constant logic with enabled registered outputs",
+    "keccak": "fixed net constants, no runtime loading",
+    "hint_read_view": "80 stored bytes plus48 constant-only inactive read words"
+  },
+  "functional_qualification": {
+    "status": "PASS",
+    "cases_per_setting": 210,
+    "settings": [
+      0,
+      11,
+      29
+    ],
+    "completed_cases": 630,
+    "scope": "finite full-core RTL KATs and tested boot recovery"
+  },
+  "generic_ff_structural_qualification": {
+    "status": "PASS",
+    "tool_version": "Yosys 0.69 (git sha1 9f75ca1f9, Release, Clang /workspace/YoWASP/yosys/wasi-sdk-33.0-x86_64-linux/share/cmake/../..//bin/clang++ 22.1.0)",
+    "netlist_sha256": "57dbcb86e0bd29f7c0bef57934989d78670bffb0319287a066e3e2b2aec46a3e",
+    "module_count": 58,
+    "reachable_module_types": 58,
+    "hierarchical_ff_bits": 1041731,
+    "production_ram_banks": {
+      "4096x96": 1,
+      "1024x96": 6
+    },
+    "production_storage_bits": 983040,
+    "production_ram_output_ff_bits": 1344,
+    "production_ram_total_ff_bits": 984384,
+    "remaining_memory_cells": 0,
+    "remaining_latch_cells": 0,
+    "powerup_init_attributes": 0,
+    "tristate_cells": 0,
+    "blackboxes": 0,
+    "standard_cell_mapped": false,
+    "mapped_netlist_functional_equivalence": false
+  },
+  "standard_cell_library_qualification": false,
+  "physical_ppa_qualification": false,
+  "no_runtime_data_files": true
+}

@@ -1,0 +1,2 @@
+ASIC_BOOT_SHELL_PASS complete_boots=3 interrupted_scrub=1 ordinary_reset_cycles=12
+/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_boot_shell.sv:55: $finish called at 123560000 (1ps)

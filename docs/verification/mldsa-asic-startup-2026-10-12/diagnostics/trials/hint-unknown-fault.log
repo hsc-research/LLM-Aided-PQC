@@ -1,0 +1,2 @@
+FATAL: trials/tb_unknown_fault.sv:36: unknown observable output
+       Time: 513000  Scope: tb_makehint_read_view

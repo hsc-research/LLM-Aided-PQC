@@ -1,0 +1,17 @@
+test_80_byte_storage_not_padded (test_mldsa_asic_startup.StartupSources.test_80_byte_storage_not_padded) ... ok
+test_bad_reference_manifest_rejected (test_mldsa_asic_startup.StartupSources.test_bad_reference_manifest_rejected) ... ok
+test_boot_is_distinct_from_ordinary_reset (test_mldsa_asic_startup.StartupSources.test_boot_is_distinct_from_ordinary_reset) ... ok
+test_no_powerup_state (test_mldsa_asic_startup.StartupSources.test_no_powerup_state) ... ok
+test_occupied_output_rejected (test_mldsa_asic_startup.StartupSources.test_occupied_output_rejected) ... ok
+test_ram_banks_and_clock (test_mldsa_asic_startup.StartupSources.test_ram_banks_and_clock) ... ok
+test_redundant_initializers_are_classified (test_mldsa_asic_startup.StartupSources.test_redundant_initializers_are_classified) ... ok
+test_reproducible_from_verified_exports (test_mldsa_asic_startup.StartupSources.test_reproducible_from_verified_exports) ... ok
+test_restart_marker_is_required (test_mldsa_asic_startup.StartupSources.test_restart_marker_is_required) ... ok
+test_same_boot_and_memory_overhead (test_mldsa_asic_startup.StartupSources.test_same_boot_and_memory_overhead) ... ok
+test_supported_hint_read_bounds (test_mldsa_asic_startup.StartupSources.test_supported_hint_read_bounds) ... ok
+test_unknown_initial_driver_rejected (test_mldsa_asic_startup.StartupSources.test_unknown_initial_driver_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.770s
+
+OK

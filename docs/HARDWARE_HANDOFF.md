@@ -26,14 +26,15 @@ DC/Genus qualification runs are performed by the user on their licensed machine.
 ## Prepare explicit target profiles without EDA
 
 Use [the target-profile exporter](../tools/export_target_profiles.py) to bind
-an exact source bundle to either target. For example, prepare the same guarded
-ML-DSA baseline twice:
+an exact source bundle to either target. For new ML-DSA/SLH ASIC work, select
+[the explicit startup derivatives](ASIC_STARTUP.md). Preserve the original FPGA
+selection separately, for example:
 
 ```bash
 python3 tools/export_target_profiles.py --design mldsa \
   --variant guarded-baseline --target fpga --out build/profiles/mldsa-baseline-fpga
 python3 tools/export_target_profiles.py --design mldsa \
-  --variant guarded-baseline --target asic --out build/profiles/mldsa-baseline-asic
+  --variant asic-startup-baseline --target asic --out build/profiles/mldsa-baseline-asic
 python3 tools/export_target_profiles.py \
   --verify build/profiles/mldsa-baseline-asic/profile.json
 ```
@@ -45,9 +46,12 @@ Every output directory must be absent or empty. Supported selections are:
 | `mlkem` | `baseline` | Optional `1024`; unified core boundary retained |
 | `mldsa` | `guarded-baseline`, `corrected-candidate` | Optional `44-65-87`; runtime selection retained |
 | `slh` | `corrected-baseline`, `corrected-candidate` | Required `128f` or `192f`; both arms must match |
+| `mldsa` | `asic-startup-baseline`, `asic-startup-candidate` (**ASIC only**) | Optional `44-65-87`; explicit boot interface, runtime selection retained |
+| `slh` | `asic-startup-baseline`, `asic-startup-candidate` (**ASIC only**) | Required `128f` or `192f`; same-mode boot-enabled pair |
 
-Repeat with `--target fpga` or `--target asic` and a fresh destination for each
-selected baseline/candidate. HQC is deliberately unsupported. ML-KEM has no
+Use a fresh destination for each selected baseline/candidate. Original portable
+variants remain available for both targets; the recommended ML-DSA/SLH ASIC
+selection is the separately tested startup variant, which rejects `--target fpga`. HQC is deliberately unsupported. ML-KEM has no
 separately qualified optimized source export yet; create and requalify candidates
 through the controlled optimization workflow.
 
@@ -55,17 +59,19 @@ The output contains `profile.json`, the unchanged qualified `source-bundle/`,
 source/include lists, `sources.tcl`, a portable `verify_profile.py`, and
 `site.<target>.example.json`. The profile records source/evidence hashes,
 elaboration settings, memory intent, external boundaries and
-`compatibility_blockers`. It does not rewrite RAMs or repair startup behavior.
-In particular:
+`compatibility_blockers`. Target preparation itself does not rewrite RTL. Explicit
+startup variants select the separately tested boot-enabled source ports and their
+fresh evidence. In particular:
 
 - ML-KEM selects upstream target-specific defines; equivalence of those target
   compile settings is not established by the previous generic-source test.
   Generic clock-gate mapping still needs review. Full-selected-design admission
   requires both ML-KEM and ML-DSA operations of the unified core; the existing
   ML-KEM-only record cannot satisfy that requirement.
-- ML-DSA and SLH retain initialization-dependent memories/control state; ASIC
-  reset/load/startup equivalence is unresolved. Hash-preserved sources alone
-  do not make those designs ASIC-ready.
+- Original portable ML-DSA/SLH variants retain initialization-dependent state.
+  New `asic-startup-*` variants instead declare explicit boot/reset and memory
+  contracts. Their finite RTL and generic FF evidence does not qualify licensed
+  standard-cell mapping or mapped startup/collision behavior.
 - SLH retains its external signature-memory boundary and limited sign/verify
   fixture coverage; it is not a complete independently qualified algorithm.
 
@@ -118,6 +124,10 @@ and exact implementation netlist. The built-in ASIC runner's strict FF inventory
 does not provide that startup/behavior proof.
 
 ## ML-DSA: export the passing derivatives
+
+The commands below preserve the original portable/FPGA source selection. For
+new ASIC startup work, use [the explicit startup pair](ASIC_STARTUP.md) instead
+of substituting the historical `asic/arms/` sources.
 
 From the repository root, use the [no-EDA exporter](../tools/export_mldsa_verified.py):
 
@@ -214,6 +224,10 @@ Do not synthesize only `abr_top` and exclude its memory wrapper. Shared-block
 edits need separate ML-DSA behavior checks in addition to the ML-KEM samples.
 
 ## SLH-DSA: keep mode and derivative together
+
+The portable pair below is preserved for FPGA and historical reproduction.
+For new ASIC work, use [the startup pair](ASIC_STARTUP.md) with the same mode;
+its boot-enabled source and evidence are separately identified.
 
 The passing portable results concern explicitly staged sensitivity corrections;
 tracked pristine/candidate RTL remains unchanged. Select the corrected source

@@ -18,7 +18,7 @@ or an EDA license.
 | Understand the project and the hardware flow | [Learn the project](docs/LEARN.md) |
 | See what worked and what was actually tested | [Results](docs/RESULTS.md) → [verification record](docs/VERIFICATION.md) |
 | Install and run it step by step | [Run guide](docs/REPRODUCE.md) or the [quick start](#quick-start) below |
-| Prepare separate FPGA/ASIC baselines, then optimize each | [Hardware handoff](docs/HARDWARE_HANDOFF.md) |
+| Prepare separate FPGA/ASIC baselines, then optimize each | [Hardware handoff](docs/HARDWARE_HANDOFF.md), [ASIC startup sources](docs/ASIC_STARTUP.md) |
 | Find RTL, testbenches, scripts or logs | [Repository map](docs/REPOSITORY_LAYOUT.md) |
 | Choose a design and check its limits | [Four-design status](docs/PROJECT_STATUS.md) |
 | Browse all documentation | [Documentation index](docs/README.md) |
@@ -54,6 +54,42 @@ Historical FPGA results are recorded for ML-DSA, HQC and SLH-DSA. **The new
 whole-design controller and Genus/DC flow have software-test coverage, but no
 new licensed-tool optimization or PPA result is claimed.** ASIC place-and-route
 is not implemented. See [results and comparison rules](docs/RESULTS.md).
+
+## Choose FPGA or ASIC sources
+
+| Design | FPGA original / qualified portable sources | ASIC startup baseline | ASIC startup candidate |
+|---|---|---|---|
+| ML-KEM | [Pinned unified core](third_party/adams_bridge/README.md), variant `baseline` | Same existing generic-memory unified core via `baseline`; target qualification pending | No separately qualified candidate |
+| ML-DSA | Pinned `third_party/mldsa_osh/upstream`; export `guarded-baseline` or `corrected-candidate` | [Frozen guarded startup tree](asic/rtl/mldsa_startup/guarded-baseline), variant `asic-startup-baseline` | [Frozen corrected startup tree](asic/rtl/mldsa_startup/corrected-candidate), variant `asic-startup-candidate` |
+| SLH | Preserved `agent/slh_dsa/pristine` / `slh_src`; export the corrected same-mode pair | [Startup exporter](tools/export_slh_asic_verified.py), variant `asic-startup-baseline` through the target exporter | Same exporter, variant `asic-startup-candidate`; match `128f` or `192f` |
+| HQC SAC 2026 | [Source-only import](third_party/hqc_sac2026/README.md) | Blocked/unqualified | Blocked/unqualified |
+
+Recommended source preparation, without launching EDA:
+
+```bash
+# Preserved FPGA selection.
+python3 tools/export_target_profiles.py --design mldsa --variant guarded-baseline \
+  --target fpga --out build/profiles/mldsa-fpga
+# New ASIC startup source baseline; candidate uses asic-startup-candidate.
+python3 tools/export_target_profiles.py --design mldsa --variant asic-startup-baseline \
+  --target asic --out build/profiles/mldsa-asic
+python3 tools/export_target_profiles.py --design slh --variant asic-startup-baseline \
+  --parameter-set 128f --target asic --out build/profiles/slh-128f-asic
+python3 tools/export_target_profiles.py --design mlkem --variant baseline \
+  --target asic --out build/profiles/mlkem-unified-asic
+```
+
+SLH generates each complete same-mode arm into its own exported
+`source-bundle/rtl`; `asic/rtl/slh_startup` contains shared templates, not the
+whole design. See [all selections, boot protocols and exact evidence](docs/ASIC_STARTUP.md).
+The new ML-DSA/SLH startup sources have fresh finite RTL checks and generic FF
+structural evidence. Licensed DC/Genus mapping and target-bound optimization
+admission remain pending. ML-DSA has tested in-operation boot recovery; SLH
+qualifies repeated boot while inactive only.
+
+`asic/arms/` and `configs/mldsa_osh_asic.example.json` retain historical source
+selections, not the new startup defaults. Use exported launch configurations
+for new runs. Original FPGA source trees and historical paths stay in place.
 
 ## Quick start
 

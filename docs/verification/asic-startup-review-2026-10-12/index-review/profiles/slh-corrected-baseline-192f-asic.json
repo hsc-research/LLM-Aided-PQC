@@ -1,0 +1,410 @@
+{
+  "boundary": {
+    "clock_ports": [
+      "clk"
+    ],
+    "external_memories": [
+      {
+        "included": false,
+        "interface": [
+          "sig_mem_out0",
+          "sig_mem_addr0_w"
+        ],
+        "name": "signature_store",
+        "requirement": "Supply and account for the same store in both arms before whole-system PPA admission."
+      }
+    ],
+    "notes": [
+      "Testbench SIG_MEM is not part of top or the design source list.",
+      "setting.v fixes widths and selected SHA cores; never override parameter_set alone.",
+      "mem_dual retains DEPTH+1 entries, write-through outputs and unspecified simultaneous same-address dual writes.",
+      "mem_single preserves its final old-data read assignment.",
+      "Initial zero/file contents have no memory reset port; ASIC startup equivalence is unqualified."
+    ],
+    "reset_ports": [
+      "rstn"
+    ],
+    "scope": "slh_top_with_internal_memories_external_signature_store_excluded"
+  },
+  "bundle_files_sha256": {
+    "evidence/source-qualification.json": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343",
+    "source-bundle/LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "source-bundle/NOTICE": "4d074742bb08bb947cecd004f1d175346ce1fdeaca958d465a4682ad299b5136",
+    "source-bundle/README.txt": "1360808c251b587016fa6a878c64524e9370d99acf2f09e2bff0d848886f3f24",
+    "source-bundle/SHA256SUMS": "f8c15e2f4724d87ac910c0a9a255b7079721ff1e1f973c9db92b44961ec32477",
+    "source-bundle/changes.patch": "e39057452eaf00466d6c407fb270c8f47bd2dd9a95dda0654562631ee894d541",
+    "source-bundle/evidence/golden.hex": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+    "source-bundle/evidence/partner_qualification.json": "00c182f676170e28c33f6d258e4f768044c0f5ebdb2918bff81f25cb228f1f4a",
+    "source-bundle/evidence/qualification.json": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343",
+    "source-bundle/evidence/qualification.log.txt": "f39347530420d1798e88da201dc9b0d81b724f789ea459252a94a803496b55ce",
+    "source-bundle/include_dirs.f": "482a27b1e95dfc05d65d9042ca1666526fa79423574c306341d90d7160dd7f3c",
+    "source-bundle/manifest.json": "03531699945f52b8c52e7d63e7db01cb8a166e32d682ff3544ac164fd4392ac6",
+    "source-bundle/rtl/imports/fifo.v": "4b78d74a860211e1e623778c3b4615286be965512bb00e3fd91c2939fdf87a2b",
+    "source-bundle/rtl/imports/global_include/clog2.v": "f40e6c004af2039624ee34fe8896861d0dbd755f867a5413280c65b2fe22c119",
+    "source-bundle/rtl/imports/global_include/keccak_math.v": "4d97659868be32dfc36228ea81b36939801f6b85797bfeedf79cd9e72c94d918",
+    "source-bundle/rtl/imports/mem_dual.v": "cc473dbdda4f8b27b3cc2f1ba4f63a89906151898d64c361d916085c06cc469b",
+    "source-bundle/rtl/imports/mem_single.v": "f685a74dc32dfc9275984a8f4e7bb921b3427d6841a4f4d12a54c5fc8a2e1d50",
+    "source-bundle/rtl/sphincslet/chain_lengths.v": "ac405c6b70545496d9fba57fee6f69345208631cb108696fb64fcd7e067616ba",
+    "source-bundle/rtl/sphincslet/fsm/FSM.v": "1ffe81f373b7950adc3cfd13c81b7c9d09fde4f7ab02c1e6779ce1d6f929b940",
+    "source-bundle/rtl/sphincslet/fsm/WOTS_FSM.v": "1c0f51a467bcd674dbb8ab99c3d655c8ffdb41832f5f0cab2f098600db441cf9",
+    "source-bundle/rtl/sphincslet/fsm/XMSS_FSM.v": "9afd281ee04338911c265674cbb6f47e5151bffeb91f4349e098394ed3fd3e26",
+    "source-bundle/rtl/sphincslet/hash_message.v": "02fd0b7f7d5f96888b9f00fc6608a6be6b0114cdebaa47c3e9b71e89acafdd37",
+    "source-bundle/rtl/sphincslet/hash_tile/hash_mem_interface_sha.v": "a87cb87a1c55efa2c197fcdd4e1f113205290ef098facbda6c3845843c1a692a",
+    "source-bundle/rtl/sphincslet/hash_tile/hash_mem_interface_shake256.v": "b36666e4f5fe040edf767df832776d0e260a6f98d226dd2dfef26e7b36a02449",
+    "source-bundle/rtl/sphincslet/hash_tile/hash_tile.v": "8269a3c06ac080a201817726898d5ee358168e6efb1e9d55e82cfe005ca1c2bb",
+    "source-bundle/rtl/sphincslet/hash_tile/two_hash_tile.v": "beefe895e6f7c31212b9e1d7fbe228944e21cde04a05f954a42ea67995b35a67",
+    "source-bundle/rtl/sphincslet/message_to_indices.v": "a46b8739dfdaa071e598a9c50dbe9826ccbd1c58da30b64edbcff175a3dbdd5a",
+    "source-bundle/rtl/sphincslet/setting.v": "d8dc8da5b3104b088d87dbf7fdd87dc3ac7e95449b10bbea211d5a746f368ea9",
+    "source-bundle/rtl/sphincslet/sha/sha256_core.v": "84880d645e4706e1aa26e4461faedd7e97636184e16a6e1f65b8ee49a83aae71",
+    "source-bundle/rtl/sphincslet/sha/sha256_k_constants.v": "78a9600a6968eb0dc04a3a9fdc6329d3b503044b5a2561263b1cdab18f657007",
+    "source-bundle/rtl/sphincslet/sha/sha256_w_mem.v": "0b4de636364625e34e771bb26363d24f4a4bcae6579d0f8cd3e86d7e5c14354a",
+    "source-bundle/rtl/sphincslet/sha/sha512_core.v": "f0cdd30533ded3714935edf9bc40075409ed676a2f0221e769902f69a0f0be9c",
+    "source-bundle/rtl/sphincslet/sha/sha512_h_constants.v": "bbb8c670c7f9504fa866b62365ca35cd87587877fac81572022bac03cd83e764",
+    "source-bundle/rtl/sphincslet/sha/sha512_k_constants.v": "b87e10a1065135f931884a68ae30acf9f78b38e4f050cbbd1ad0b056048923d1",
+    "source-bundle/rtl/sphincslet/sha/sha512_w_mem.v": "51aca3c6157670bf3586550a94c33f8dfc52570972cf5c3d1a288a594f8ee46d",
+    "source-bundle/rtl/sphincslet/shake256/keccak_round.v": "5eebf180b8ff9eb491a76142935bf030d07198cc5596801c8fb05f381d324654",
+    "source-bundle/rtl/sphincslet/shake256/keccak_round_constants_gen.v": "7910be70c932905fbe157caf71fffc6acfd25024d08d6b5b9174cda2252c82c9",
+    "source-bundle/rtl/sphincslet/shake256/keccak_top.v": "ff528a0bd4858101b617a58972eae83d430d439b18baf1c849d29009d3643cba",
+    "source-bundle/rtl/sphincslet/shake256/shake256_top.v": "470b0b0d4f7f08b57b97cc16c18166ab36463eb205e20321b2e258cb5106cac0",
+    "source-bundle/rtl/sphincslet/tb.v": "653e8f68b76875004ae278374b73e172c09e6327d3e46f66d8454e8bb34f20a8",
+    "source-bundle/rtl/sphincslet/top.v": "f98db6f0a6785a2a50d861bea3bea4c73f0b613950875e40935a71185e8225fc",
+    "source-bundle/rtl/sphincslet/write_to_root_mem.v": "885ea9ed2a01933476fc3d303e2e55050123727e6e5e8aa79199cf79469d3d68",
+    "source-bundle/simulation/TECS_v8.srcs/sources_1/imports/data_sha2/192_optrand.hex": "9fc287d099e0593efe7175ff08a924e30f6947fcda7e5565fe9e04337fe45397",
+    "source-bundle/simulation/TECS_v8.srcs/sources_1/imports/data_sha2/SLH_192f_PK.hex": "417d1d2c0395e8a866142b4f336f7face872d5065ed98746efeca89597c7981a",
+    "source-bundle/simulation/TECS_v8.srcs/sources_1/imports/data_sha2/SLH_192f_SK.hex": "1be370ee5b91bcc590d076f81e3f43dfd7621a7cbabdb632a3ada2ba9eab8b01",
+    "source-bundle/simulation/TECS_v8.srcs/sources_1/imports/data_sha2/SLH_msg_33B.hex": "995fc0c6d6a9b7da4488825699ced52b2b1628785ee45d703256beeb806fa422",
+    "source-bundle/simulation_sources.f": "a43a957c0e9333d5d918ae508efa74fa91650f2806b86534213e1be14091963e",
+    "source-bundle/sources.f": "adc8b301f9906e74b33385b8c9e80f4dd8d4798a6e39f84b2756b9e244c5638e",
+    "source-bundle/sources.tcl": "4144de86f29277dcb3244ab0b3dfb2b23132329305719997966f397b7f08a7d8"
+  },
+  "compatibility_blockers": [
+    "RAM initial contents have no reset/scrub implementation in the current top.",
+    "Control-state initializers require a target-specific reset/startup audit and full functional requalification."
+  ],
+  "design": "slh",
+  "elaboration": {
+    "compilation_unit": "single_ordered_compilation_unit_with_persistent_preprocessor_state",
+    "data_files": [],
+    "defines": [],
+    "global_include_files": [
+      "source-bundle/rtl/imports/global_include/clog2.v",
+      "source-bundle/rtl/sphincslet/setting.v"
+    ],
+    "include_dirs": [
+      "source-bundle/rtl/sphincslet",
+      "source-bundle/rtl/imports/global_include",
+      "source-bundle/rtl/sphincslet/fsm"
+    ],
+    "include_files": [
+      {
+        "path": "source-bundle/rtl/imports/global_include/clog2.v",
+        "sha256": "f40e6c004af2039624ee34fe8896861d0dbd755f867a5413280c65b2fe22c119"
+      },
+      {
+        "path": "source-bundle/rtl/imports/global_include/keccak_math.v",
+        "sha256": "4d97659868be32dfc36228ea81b36939801f6b85797bfeedf79cd9e72c94d918"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/chain_lengths.v",
+        "sha256": "ac405c6b70545496d9fba57fee6f69345208631cb108696fb64fcd7e067616ba"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/fsm/FSM.v",
+        "sha256": "1ffe81f373b7950adc3cfd13c81b7c9d09fde4f7ab02c1e6779ce1d6f929b940"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/fsm/WOTS_FSM.v",
+        "sha256": "1c0f51a467bcd674dbb8ab99c3d655c8ffdb41832f5f0cab2f098600db441cf9"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/fsm/XMSS_FSM.v",
+        "sha256": "9afd281ee04338911c265674cbb6f47e5151bffeb91f4349e098394ed3fd3e26"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/hash_message.v",
+        "sha256": "02fd0b7f7d5f96888b9f00fc6608a6be6b0114cdebaa47c3e9b71e89acafdd37"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/hash_tile/hash_mem_interface_sha.v",
+        "sha256": "a87cb87a1c55efa2c197fcdd4e1f113205290ef098facbda6c3845843c1a692a"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/hash_tile/hash_mem_interface_shake256.v",
+        "sha256": "b36666e4f5fe040edf767df832776d0e260a6f98d226dd2dfef26e7b36a02449"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/hash_tile/hash_tile.v",
+        "sha256": "8269a3c06ac080a201817726898d5ee358168e6efb1e9d55e82cfe005ca1c2bb"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/hash_tile/two_hash_tile.v",
+        "sha256": "beefe895e6f7c31212b9e1d7fbe228944e21cde04a05f954a42ea67995b35a67"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/message_to_indices.v",
+        "sha256": "a46b8739dfdaa071e598a9c50dbe9826ccbd1c58da30b64edbcff175a3dbdd5a"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/setting.v",
+        "sha256": "d8dc8da5b3104b088d87dbf7fdd87dc3ac7e95449b10bbea211d5a746f368ea9"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha256_core.v",
+        "sha256": "84880d645e4706e1aa26e4461faedd7e97636184e16a6e1f65b8ee49a83aae71"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha256_k_constants.v",
+        "sha256": "78a9600a6968eb0dc04a3a9fdc6329d3b503044b5a2561263b1cdab18f657007"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha256_w_mem.v",
+        "sha256": "0b4de636364625e34e771bb26363d24f4a4bcae6579d0f8cd3e86d7e5c14354a"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_core.v",
+        "sha256": "f0cdd30533ded3714935edf9bc40075409ed676a2f0221e769902f69a0f0be9c"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_h_constants.v",
+        "sha256": "bbb8c670c7f9504fa866b62365ca35cd87587877fac81572022bac03cd83e764"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_k_constants.v",
+        "sha256": "b87e10a1065135f931884a68ae30acf9f78b38e4f050cbbd1ad0b056048923d1"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_w_mem.v",
+        "sha256": "51aca3c6157670bf3586550a94c33f8dfc52570972cf5c3d1a288a594f8ee46d"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/shake256/keccak_round.v",
+        "sha256": "5eebf180b8ff9eb491a76142935bf030d07198cc5596801c8fb05f381d324654"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/shake256/keccak_round_constants_gen.v",
+        "sha256": "7910be70c932905fbe157caf71fffc6acfd25024d08d6b5b9174cda2252c82c9"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/shake256/keccak_top.v",
+        "sha256": "ff528a0bd4858101b617a58972eae83d430d439b18baf1c849d29009d3643cba"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/shake256/shake256_top.v",
+        "sha256": "470b0b0d4f7f08b57b97cc16c18166ab36463eb205e20321b2e258cb5106cac0"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/tb.v",
+        "sha256": "653e8f68b76875004ae278374b73e172c09e6327d3e46f66d8454e8bb34f20a8"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/top.v",
+        "sha256": "f98db6f0a6785a2a50d861bea3bea4c73f0b613950875e40935a71185e8225fc"
+      },
+      {
+        "path": "source-bundle/rtl/sphincslet/write_to_root_mem.v",
+        "sha256": "885ea9ed2a01933476fc3d303e2e55050123727e6e5e8aa79199cf79469d3d68"
+      }
+    ],
+    "language_standard": "verilog2005",
+    "parameters": {},
+    "sources": [
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/imports/global_include/clog2.v",
+        "sha256": "f40e6c004af2039624ee34fe8896861d0dbd755f867a5413280c65b2fe22c119"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/setting.v",
+        "sha256": "d8dc8da5b3104b088d87dbf7fdd87dc3ac7e95449b10bbea211d5a746f368ea9"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/imports/global_include/keccak_math.v",
+        "sha256": "4d97659868be32dfc36228ea81b36939801f6b85797bfeedf79cd9e72c94d918"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/imports/mem_dual.v",
+        "sha256": "cc473dbdda4f8b27b3cc2f1ba4f63a89906151898d64c361d916085c06cc469b"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/imports/mem_single.v",
+        "sha256": "f685a74dc32dfc9275984a8f4e7bb921b3427d6841a4f4d12a54c5fc8a2e1d50"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/chain_lengths.v",
+        "sha256": "ac405c6b70545496d9fba57fee6f69345208631cb108696fb64fcd7e067616ba"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/fsm/FSM.v",
+        "sha256": "1ffe81f373b7950adc3cfd13c81b7c9d09fde4f7ab02c1e6779ce1d6f929b940"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/fsm/WOTS_FSM.v",
+        "sha256": "1c0f51a467bcd674dbb8ab99c3d655c8ffdb41832f5f0cab2f098600db441cf9"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/fsm/XMSS_FSM.v",
+        "sha256": "9afd281ee04338911c265674cbb6f47e5151bffeb91f4349e098394ed3fd3e26"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/hash_message.v",
+        "sha256": "02fd0b7f7d5f96888b9f00fc6608a6be6b0114cdebaa47c3e9b71e89acafdd37"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/hash_tile/hash_mem_interface_sha.v",
+        "sha256": "a87cb87a1c55efa2c197fcdd4e1f113205290ef098facbda6c3845843c1a692a"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/hash_tile/hash_mem_interface_shake256.v",
+        "sha256": "b36666e4f5fe040edf767df832776d0e260a6f98d226dd2dfef26e7b36a02449"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/hash_tile/hash_tile.v",
+        "sha256": "8269a3c06ac080a201817726898d5ee358168e6efb1e9d55e82cfe005ca1c2bb"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/hash_tile/two_hash_tile.v",
+        "sha256": "beefe895e6f7c31212b9e1d7fbe228944e21cde04a05f954a42ea67995b35a67"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/message_to_indices.v",
+        "sha256": "a46b8739dfdaa071e598a9c50dbe9826ccbd1c58da30b64edbcff175a3dbdd5a"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/shake256/keccak_round.v",
+        "sha256": "5eebf180b8ff9eb491a76142935bf030d07198cc5596801c8fb05f381d324654"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/shake256/keccak_round_constants_gen.v",
+        "sha256": "7910be70c932905fbe157caf71fffc6acfd25024d08d6b5b9174cda2252c82c9"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/shake256/keccak_top.v",
+        "sha256": "ff528a0bd4858101b617a58972eae83d430d439b18baf1c849d29009d3643cba"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/shake256/shake256_top.v",
+        "sha256": "470b0b0d4f7f08b57b97cc16c18166ab36463eb205e20321b2e258cb5106cac0"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/top.v",
+        "sha256": "f98db6f0a6785a2a50d861bea3bea4c73f0b613950875e40935a71185e8225fc"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/write_to_root_mem.v",
+        "sha256": "885ea9ed2a01933476fc3d303e2e55050123727e6e5e8aa79199cf79469d3d68"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/imports/fifo.v",
+        "sha256": "4b78d74a860211e1e623778c3b4615286be965512bb00e3fd91c2939fdf87a2b"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha256_core.v",
+        "sha256": "84880d645e4706e1aa26e4461faedd7e97636184e16a6e1f65b8ee49a83aae71"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha256_k_constants.v",
+        "sha256": "78a9600a6968eb0dc04a3a9fdc6329d3b503044b5a2561263b1cdab18f657007"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha256_w_mem.v",
+        "sha256": "0b4de636364625e34e771bb26363d24f4a4bcae6579d0f8cd3e86d7e5c14354a"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_core.v",
+        "sha256": "f0cdd30533ded3714935edf9bc40075409ed676a2f0221e769902f69a0f0be9c"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_h_constants.v",
+        "sha256": "bbb8c670c7f9504fa866b62365ca35cd87587877fac81572022bac03cd83e764"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_k_constants.v",
+        "sha256": "b87e10a1065135f931884a68ae30acf9f78b38e4f050cbbd1ad0b056048923d1"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sphincslet/sha/sha512_w_mem.v",
+        "sha256": "51aca3c6157670bf3586550a94c33f8dfc52570972cf5c3d1a288a594f8ee46d"
+      }
+    ],
+    "top": "top",
+    "working_directory": "source-bundle"
+  },
+  "limitations": [
+    "This is source-only target preparation, not an ASIC RTL port completion or FPGA/ASIC compatibility certificate.",
+    "No EDA tool, license, cloud API, download or upstream executable is invoked by export or prepare.",
+    "Target defines, memory initialization/collisions, elaboration and post-mapping equivalence require separate qualification.",
+    "ASIC intent is generic register/logic mapping only, with no memory compiler or RAM/ROM macro substitution.",
+    "Flop mapping, blackbox absence, initialization semantics and constraints must be proven by mapped tool evidence.",
+    "No PPA, timing closure, power, side-channel, certification or whole-system claim."
+  ],
+  "parameter_set": "192f",
+  "profile_fingerprint": "254ee4a88098e2fc6fbb483a168994c58e3c1666e7b7ece8de4a449a928b9123",
+  "profile_kind": "qualified_source_target_preparation",
+  "provenance": {
+    "export_manifest": {
+      "path": "source-bundle/manifest.json",
+      "sha256": "03531699945f52b8c52e7d63e7db01cb8a166e32d682ff3544ac164fd4392ac6"
+    },
+    "exporter_sha256": "ec5d58a55bd969794cecf6aa705b8daab88303b26a5242a4753233078f97ec96",
+    "qualification_repository_path": "docs/verification/slh-portable-corrected-baseline-192f-2026-10-12.json",
+    "source_bytes_modified_by_target_preparation": false
+  },
+  "qualification": {
+    "evidence_scope": "Historical vendor stream differential, not independent FIPS validation",
+    "observed_operations": [
+      "sign",
+      "verify"
+    ],
+    "report": {
+      "path": "evidence/source-qualification.json",
+      "sha256": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343"
+    },
+    "required_operations": [
+      "keygen",
+      "sign",
+      "verify"
+    ],
+    "required_operations_meaning": "Future strict optimization admission requirements; not a claim of completed target qualification.",
+    "source_qualified": true,
+    "target_define_equivalence_qualified": false,
+    "target_tool_qualified": false,
+    "whole_algorithm_qualified": false
+  },
+  "schema_version": 1,
+  "target": {
+    "kind": "asic",
+    "memory_compiler_allowed": false,
+    "memory_implementation": "flops",
+    "memory_macros": [],
+    "technology_mapping_verified": false
+  },
+  "variant": "corrected-baseline"
+}
