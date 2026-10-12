@@ -5,12 +5,12 @@ RTL. Deterministic code applies it and the three-stage gate accepts or rejects.
 The model cannot influence any check.
 """
 import os, sys, json, re
-import anthropic
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fix_templates import TEMPLATES
 
-client = anthropic.Anthropic()
+client = None
 MODEL = "claude-opus-4-5"
 
 SYSTEM = """You fix Verilog cross-toolchain portability defects.
@@ -73,7 +73,7 @@ File: {filename}
 --- END SOURCE ---
 
 Return the JSON object."""
-    r = client.messages.create(model=MODEL, max_tokens=4000,
+    r = (client or __import__("llm_client").create_client()).messages.create(model=MODEL, max_tokens=4000,
                                system=SYSTEM,
                                messages=[{"role": "user", "content": prompt}])
     txt = "".join(b.text for b in r.content if b.type == "text").strip()

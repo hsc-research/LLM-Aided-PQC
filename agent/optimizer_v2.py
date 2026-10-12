@@ -1,10 +1,10 @@
 """Optimizer v2: path-report-driven, taxonomy-guided, ops-only output.
 The model sees the timing board + relevant RTL excerpts and must return a
 JSON experiment for edit_ops, or a no_action verdict. It cannot emit code."""
-import anthropic, json, sys, os
+import json, sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 
-client = anthropic.Anthropic()
+client = None
 
 SYSTEM_PROMPT = """You are an RTL timing-closure agent for an HQC post-quantum KEM \
 on Xilinx Artix-7 (200 MHz target, OOC synthesis). You operate under a hard contract: \
@@ -104,7 +104,7 @@ def propose(board_text, rtl_excerpts, recon_notes=""):
             f"RTL EXCERPTS (verbatim, from the build copies the ops will run on):\n"
             f"{rtl_excerpts}\n\nRECON NOTES:\n{recon_notes}\n\n"
             "Classify the worst RTL-addressable cluster and return your JSON.")
-    msg = client.messages.create(
+    msg = (client or __import__("llm_client").create_client()).messages.create(
         model="claude-sonnet-4-5", max_tokens=8192,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user}])

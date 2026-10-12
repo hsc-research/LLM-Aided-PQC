@@ -1,14 +1,13 @@
 # HQC Agent - Optimizer
 # Sends a Verilog module to Claude and asks for a PPA-improved version.
 
-import anthropic
 import os
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from synthesizer import run_synthesis
 from baseline import compare
 
-client = anthropic.Anthropic()
+client = None
 
 SYSTEM_PROMPT = """You are an expert RTL hardware designer optimizing Verilog code for FPGA implementation on a Xilinx Artix-7.
 Your goal is to reduce LUT count, flip-flop count, and improve timing (Fmax) without changing functional behavior.
@@ -51,7 +50,7 @@ def ask_claude(verilog_code, previous_error=None):
     else:
         user_msg = f"Optimize this Verilog module for FPGA PPA:\n\n{verilog_code}"
 
-    message = client.messages.create(
+    message = (client or __import__("llm_client").create_client()).messages.create(
         model="claude-sonnet-4-5",
         max_tokens=8192,
         system=SYSTEM_PROMPT,
@@ -62,6 +61,7 @@ def ask_claude(verilog_code, previous_error=None):
     return strip_fences(message.content[0].text)
 
 def optimize_once(module, param_set, verilog_path, backup=True, previous_error=None, backend=None):
+    raise RuntimeError("Legacy unconstrained optimizer is disabled: it has no correctness gate. Use python3 -m agent.run --target fpga --dispatch.")
     original = load_verilog(verilog_path)
     backup_path = verilog_path + ".backup"
 

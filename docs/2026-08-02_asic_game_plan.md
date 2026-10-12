@@ -1,3 +1,8 @@
+> Historical research document. Commands, coverage claims, plans, and numbers below
+> describe earlier experiments. For the current checkout, use
+> [project status](PROJECT_STATUS.md), [setup](REPRODUCE.md), and the
+> [result-reading guide](RESULTS.md).
+
 # ASIC Game Plan: ASAP7 Genus-to-Innovus
 
 Written 2026-08-02 after Dr. Abideen's redirection. This supersedes the

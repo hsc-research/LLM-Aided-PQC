@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-aided-pqc"
+version = "0.2.0"
+description = "Correctness-gated PQC RTL experiments and explicit EDA measurement workflows"
+requires-python = ">=3.10"
+license = {text = "GPL-3.0-only"}
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40,<1"]
+dashboard = ["Flask>=3,<4"]
+
+[project.scripts]
+pqc-agent = "agent.__main__:main"
+
+[tool.setuptools]
+license-files = ["LICENSE", "NOTICE", "LICENSES/*.txt"]
+
+[tool.setuptools.packages.find]
+include = ["agent*"]
+exclude = ["agent.*.pristine*", "agent.*.slh_src*", "agent.*.mldsa_src*"]
+
+[tool.setuptools.package-data]
+agent = ["dashboard_static/*", "dashboard_baselines.json"]

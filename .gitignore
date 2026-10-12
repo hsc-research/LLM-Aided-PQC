@@ -99,3 +99,15 @@ tutorial_innovus/
 !logs/**/*.log
 
 # ASAP7: keep scripts and constraints, exclude run output
+
+# Candidate transactions and new ASIC measurement workspaces
+.pqc-run.lock
+.pqc_runs/
+runs/asic/
+agent/hqc/joint_kat_sources.json
+configs/*.local.json
+
+# Python environments and local installation metadata
+.venv/
+*.egg-info/
+.pytest_cache/

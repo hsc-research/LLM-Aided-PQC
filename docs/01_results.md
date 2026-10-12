@@ -1,3 +1,8 @@
+> Historical research document. Commands, coverage claims, plans, and numbers below
+> describe earlier experiments. For the current checkout, use
+> [project status](PROJECT_STATUS.md), [setup](REPRODUCE.md), and the
+> [result-reading guide](RESULTS.md).
+
 # Results
 
 All optimizations below are KAT-verified at HQC-128, 192, and 256, and are
@@ -63,7 +68,7 @@ routing fraction (70 percent or more of the path delay is interconnect) and low
 logic-level counts. They are addressed by floorplanning, register/net
 duplication, or boundary pipelining, not by reducing combinational depth. The
 decap operation's dominant cluster is the clearest example and is characterized
-formally in [findings/decap_cluster_characterization.txt](findings/decap_cluster_characterization.txt).
+formally in [findings/hqc/decap_cluster_characterization.txt](findings/hqc/decap_cluster_characterization.txt).
 
 ## Measured PPA deltas
 
