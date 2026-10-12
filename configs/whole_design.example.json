@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "root": "..",
+  "target": "asic",
+  "backend": "genus",
+  "top": "combined_top",
+  "scope": "full_design",
+  "sources": [
+    "REPLACE_WITH_ORDERED_COMPLETE_SOURCE_MANIFEST.v"
+  ],
+  "immutable_inputs": [
+    "REPLACE_WITH_CONSTRAINTS.sdc",
+    "configs/site_asic.local.json",
+    "configs/site_paths.local.json",
+    "REPLACE_WITH_LIBRARY.lib",
+    "REPLACE_WITH_COMPLETE_FROZEN_REFERENCE_AND_VECTOR_INPUT_LIST",
+    "REPLACE_WITH_QUALIFIED_PATH_EXTRACTOR.py",
+    "agent/whole_design_adapters.py",
+    "agent/whole_design.py",
+    "agent/asic_synthesis.py",
+    "agent/mldsa/full_kat_gate.py",
+    "agent/llm_client.py",
+    "agent/edit_ops.py",
+    "agent/run_safety.py"
+  ],
+  "editable_files": [
+    "REPLACE_WITH_ORDERED_COMPLETE_SOURCE_MANIFEST.v"
+  ],
+  "instance_to_file": {
+    "REPLACE_WITH_EXACT_FULL_HIERARCHY_INSTANCE": "REPLACE_WITH_ORDERED_COMPLETE_SOURCE_MANIFEST.v"
+  },
+  "measurement": {
+    "stage": "post_synth",
+    "period_ns": 5.0,
+    "tool_version": "REPLACE_WITH_QUALIFIED_EXACT_RELEASE",
+    "technology": "REPLACE_WITH_LIBRARY_TECHNOLOGY",
+    "corner": "REPLACE_WITH_EXACT_CORNER",
+    "effort": {
+      "generic": "high",
+      "map": "high",
+      "opt": "high"
+    },
+    "seed": "not_applicable",
+    "memory_model": "flops",
+    "constraints": [
+      "REPLACE_WITH_CONSTRAINTS.sdc"
+    ],
+    "qualification": "REPLACE_WITH_REVIEWED_ADAPTER_QUALIFICATION_RECORD",
+    "asic_effective_config": {
+      "REPLACE_WITH": "asic_effective_config from describe-asic output"
+    }
+  },
+  "commands": {
+    "verify": [
+      "python3",
+      "-m",
+      "agent.whole_design_adapters",
+      "verify-mldsa-keygen",
+      "--source-dir",
+      "REPLACE_WITH_CANDIDATE_DIRECTORY",
+      "--reference-root",
+      "third_party/mldsa_osh/upstream",
+      "--request",
+      "{request}",
+      "--response",
+      "{response}"
+    ],
+    "measure": [
+      "python3",
+      "-m",
+      "agent.whole_design_adapters",
+      "measure-asic",
+      "--site-config",
+      "configs/site_asic.local.json",
+      "--extractor-config",
+      "configs/site_paths.local.json",
+      "--request",
+      "{request}",
+      "--response",
+      "{response}"
+    ],
+    "propose": [
+      "python3",
+      "-m",
+      "agent.whole_design_adapters",
+      "propose-llm",
+      "--model",
+      "claude-sonnet-4-5",
+      "--max-tokens",
+      "4096",
+      "--request",
+      "{request}",
+      "--response",
+      "{response}"
+    ]
+  },
+  "area_metric": "cell_area_reported",
+  "objective": {
+    "metric": "worst_setup_slack_ns",
+    "min_improvement": 0.05
+  },
+  "minimum_slack_ns": 0.0,
+  "max_area_regression_fraction": 0.0,
+  "candidate_budget": 5,
+  "critical_path_count": 5,
+  "max_edit_files": 2,
+  "max_changed_bytes": 16384,
+  "max_context_bytes": 262144,
+  "timeout_seconds": 86400,
+  "verification_profile": "mldsa_keygen_75"
+}

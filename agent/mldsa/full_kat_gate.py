@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """ML-DSA KeyGen KAT gate: N vectors for each of II, III and V must pass.
 
-MLDSA_ROOT selects the external pristine tree (default: sibling
-ML-DSA-OSH-main). VIVADO_BIN optionally augments PATH. Run artifacts go into
+MLDSA_ROOT overrides the bundled pinned third_party/mldsa_osh/upstream tree.
+VIVADO_BIN optionally augments PATH. Run artifacts go into
 unique PQC_RUN_DIR children (default: repository/.pqc_runs), never archived logs.
 """
 import argparse
@@ -20,8 +20,9 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 sys.path.insert(0, str(HERE.parent))
 from run_safety import hashes, run_process
+from mldsa_sources import BUNDLED_ROOT, source_root as resolve_source_root, verify_snapshot
 
-ROOT = Path(os.environ.get('MLDSA_ROOT', str(REPO.parent / 'ML-DSA-OSH-main'))).resolve()
+ROOT = resolve_source_root()
 VIVADO_BIN = os.environ.get('VIVADO_BIN', '')
 TIMEOUT = 86400
 LEVELS = ('II', 'III', 'V')
@@ -95,6 +96,8 @@ def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT, root=None):
     started = time.monotonic()
     try:
         source_root = Path(root or ROOT).resolve()
+        if source_root == BUNDLED_ROOT.resolve():
+            verify_snapshot(source_root)
         source = source_root / 'ref_combined/src'
         tb = source_root / 'ref_combined/src_tb/tb_keygen_top.v'
         if not source.is_dir() or not tb.is_file():

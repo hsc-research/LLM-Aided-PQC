@@ -10,7 +10,9 @@ claim that hardware runs were repeated during the portable Python update.
 1. Follow [installation](REPRODUCE.md) and run the offline checks.
 2. Load your Vivado installation's `settings64.sh`; confirm `vivado -version`.
 3. Run `python3 -m agent doctor --json` and resolve the selected design's missing
-   files. For ML-DSA, configure `MLDSA_ROOT` to the matching upstream tree.
+   files. ML-DSA defaults to the pinned bundled ML-DSA-OSH tree; use
+   `MLDSA_ROOT` only when intentionally selecting another matching tree.
+   Run `python3 tools/check_mldsa_sources.py` to verify the bundled inputs.
    `VIVADO_BIN` can identify its simulator executables when needed.
 4. Use a dedicated checkout. Preserve baseline sources and tracked `build/`
    inputs; do not use the legacy Makefile as an initialization step.
@@ -41,14 +43,33 @@ send design material to the external provider.
 | Design | Entry point | Coverage to report |
 |---|---|---|
 | HQC joint KEM | `python3 agent/hqc/joint_kat_gate.py --all` | Shared-secret consistency at HQC-128/192/256; `--all` matters |
-| ML-DSA | `python3 agent/mldsa/full_kat_gate.py` | Baseline key-generation tests from the external tree; selected vectors and levels must be recorded |
+| ML-DSA | `python3 agent/mldsa/full_kat_gate.py` | Bundled baseline KeyGen: 25 vectors at each of II/III/V by default, 75 total; report any reduced `--vectors` coverage |
 | ML-DSA edited sources | `python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src` | Same tests with matching-basename RTL overrides |
-| SLH-DSA | `python3 agent/slh_dsa/slh_kat_gate.py` | Configuration-specific differential signature check; inspect [current status](PROJECT_STATUS.md) before running |
+| SLH-DSA pristine baseline | Explicit command below | SHA2-128f vendor-output comparison plus testbench verify match; not an independent FIPS 205 oracle |
+| SLH-DSA current candidate | `python3 agent/slh_dsa/slh_kat_gate.py` | SHA2-192f complete vendor-stream comparison against its pinned 192f reference and verify match; not independent FIPS 205 validation |
 
 Read the selected script's requirements before starting a long simulation.
 No missing output, timeout, compilation failure, unsupported mode, or partial
 vector run should be reported as a full pass. A passing ML-DSA key-generation
 test does not validate signing and verification.
+
+Use this command from the repository root for the unchanged SLH-DSA baseline:
+
+```bash
+python3 agent/slh_dsa/slh_kat_gate.py agent/slh_dsa/pristine
+```
+
+ML-DSA requires `xvhdl`, `xvlog`, `xelab` and `xsim`; SLH-DSA requires the
+last three. The [ML-DSA source import](../third_party/mldsa_osh/README.md) and
+[SLH source/hash checks](PROJECT_STATUS.md#slh-dsa-baseline-boundary) do not
+constitute new simulation passes. The SLH frozen streams include a padded
+message tail; do not treat a stream match as an independently checked bare
+standard signature. The gate supports all six SHA2 modes with fixed hashes,
+unchanged vendor inputs and complete byte comparison; SHAKE is unsupported.
+Both selected candidate and pristine setup reach missing `xvlog` here. Icarus
+and Verilator reject vendor duplicate declarations in `FSM.v`; no RTL edits
+were made. Fresh Vivado simulation and Vivado/DC/Genus qualification remain
+pending. See the [gate contract](../agent/slh_dsa/README.md).
 
 ## Timing and reports
 

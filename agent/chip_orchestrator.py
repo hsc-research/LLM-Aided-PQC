@@ -20,6 +20,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
 sys.path.insert(0, str(HERE))
 from run_safety import RunLock, SourceTransaction, hashes, run_process, gate_passed, proposal_accepted
+from experiment_history import PARENT_ID_ENV, parse_preliminary, is_final_acceptance
 
 DESIGNS = {
     'mldsa_baseline': {
@@ -44,13 +45,16 @@ DESIGNS = {
             'REJ': 'agent/mldsa/mldsa_src/rejection_s.v',
         },
         'orchestrator': 'agent/mldsa/orchestrator.py',
+        'orchestrator_blocks': ('rejection_a', 'rejection_s', 'rejection_y',
+                                'makehint', 'gen_c', 'decoder', 'usehint'),
         'kat_gate': ['python3', 'agent/mldsa/full_kat_gate.py', 'agent/mldsa/mldsa_src'],
         'scopes': ['agent/mldsa/mldsa_src'],
     },
     'hqc_baseline': {
         'key': 'hqc_joint_pristine', 'ckpt': './synth_out/sweep_hqc_joint_pristine/post_synth_grade1.dcp',
         'bracket': (6.0, 10.0), 'hier2file': {}, 'orchestrator': None,
-        'kat_gate': ['python3', 'agent/hqc/joint_kat_gate.py', '--all'],
+        'kat_gate': ['python3', 'agent/hqc/joint_kat_gate.py', '--all',
+                     '--source-key', 'hqc_joint_pristine'],
         'scopes': ['build/keygen', 'build/encap', 'build/decap', 'build/joint_design'],
     },
     'hqc': {
@@ -65,6 +69,11 @@ DESIGNS = {
             'KECCAK': 'build/keygen/keccak_top.v', 'ENCRYPT': 'build/encap/encrypt.v',
         },
         'orchestrator': 'agent/hqc/transfer_orchestrator.py',
+        # The transfer runner requires a module and an explicit parameter set.
+        # Full-design admission still checks every HQC level via --all below.
+        'orchestrator_args': ['hqc128'],
+        # Other mapped file stems are not supported module keys for this runner.
+        'orchestrator_blocks': ('encap', 'decap'),
         'joint_orchestrator': 'agent/hqc/joint_top_orchestrator.py',
         'kat_gate': ['python3', 'agent/hqc/joint_kat_gate.py', '--all'],
         'scopes': ['build/keygen', 'build/encap', 'build/decap', 'build/joint_design'],
@@ -85,6 +94,19 @@ DESIGNS = {
 def log_record(record):
     with (HERE / 'chip_orchestrator_log.jsonl').open('a') as stream:
         stream.write(json.dumps(record) + '\n')
+
+
+def learn_final_candidate(record):
+    """Optional learning only after durable whole-design acceptance."""
+    if not is_final_acceptance(record):
+        raise ValueError('Cannot learn an optimization rule from preliminary evidence')
+    proposal = record['proposal']
+    try:
+        from learned_rules import distill_rule
+        from llm_client import create_client
+        distill_rule(create_client(), proposal['source_model'], record, proposal['design'])
+    except Exception as error:
+        print(f'Final-outcome rule distillation skipped: {error}')
 
 
 def validate_closure(value):
@@ -152,6 +174,23 @@ def source_state(cfg):
             'read_order': [str(Path(p).resolve()) for p in sources]}
 
 
+def verify_baseline(cfg, record, timeout):
+    """Check the exact current source state before spending on measurement."""
+    if not cfg.get('kat_gate'):
+        raise RuntimeError('No correctness gate configured for the baseline')
+    before = source_state(cfg)
+    record['baseline_sources'] = before
+    checked = run_process(cfg['kat_gate'], cwd=REPO, timeout=timeout)
+    if not gate_passed(checked):
+        record['baseline_correctness_status'] = 'FAIL'
+        raise RuntimeError('Baseline correctness gate failed; measurement and dispatch not started')
+    if source_state(cfg) != before:
+        record['baseline_correctness_status'] = 'SOURCE_CHANGED'
+        raise RuntimeError('Baseline sources changed during verification')
+    record['baseline_correctness_status'] = 'PASS'
+    return before
+
+
 def regen_ckpt(cfg):
     if cfg.get('regen'):
         result = run_process(cfg['regen'], cwd=REPO)
@@ -186,20 +225,30 @@ def regen_ckpt(cfg):
 
 def evaluate_candidate(cfg, source_file, base, tag, record, timeout=86400):
     block = Path(source_file).stem
-    command, arguments = cfg.get('orchestrator'), [block]
+    command = cfg.get('orchestrator')
+    arguments = [block, *cfg.get('orchestrator_args', [])]
     if block == 'hqc_kem_joint_design' and cfg.get('joint_orchestrator'):
         command, arguments = cfg['joint_orchestrator'], []
+    elif cfg.get('orchestrator_blocks') is not None and block not in cfg['orchestrator_blocks']:
+        record['verdict'] = f'NO_TARGET (unsupported optimizer block: {block})'
+        return False
     if not command or not cfg.get('kat_gate'):
         record['verdict'] = 'NO_TARGET (no supported optimizer and checker pair)'
         return False
     scopes = [*cfg['scopes'], cfg['ckpt']]
+    record.update(history_schema=1, candidate_id=tag, evidence_stage='full_design',
+                  history_state='chip_rejected', baseline=base)
     with SourceTransaction(REPO, scopes) as transaction:
         original = source_state(cfg)
-        result = run_process([sys.executable, command, *arguments], cwd=REPO, timeout=timeout)
+        record['baseline_sources'] = original
+        env = dict(os.environ, **{PARENT_ID_ENV: tag})
+        result = run_process([sys.executable, command, *arguments], cwd=REPO,
+                             timeout=timeout, env=env)
         print(result.stdout[-2000:])
         if not proposal_accepted(result):
             record['verdict'] = 'NO_ACCEPTED_CANDIDATE (restored)'
             return False
+        record['proposal'] = parse_preliminary(result.stdout, tag)
         candidate = source_state(cfg)
         if candidate == original:
             record['verdict'] = 'NO_EFFECTIVE_SOURCE_CHANGE (restored)'
@@ -208,8 +257,10 @@ def evaluate_candidate(cfg, source_file, base, tag, record, timeout=86400):
         checked = run_process(cfg['kat_gate'], cwd=REPO, timeout=timeout)
         print(checked.stdout[-1000:])
         if not gate_passed(checked):
+            record['correctness_status'] = 'FAIL'
             record['verdict'] = 'KAT_FAIL (restored)'
             return False
+        record['correctness_status'] = 'PASS'
         if source_state(cfg) != candidate:
             raise RuntimeError('RTL changed during verification; refusing PPA comparison')
         regen_ckpt(cfg)
@@ -222,9 +273,21 @@ def evaluate_candidate(cfg, source_file, base, tag, record, timeout=86400):
             record['verdict'] = 'REJECT_PPA (all scoped files restored)'
             return False
         record['verdict'] = 'ACCEPT'
+        record['history_state'] = 'accept_pending'
         log_record(record)  # Logging failure must not retain the candidate.
         transaction.accept()
-        return True
+        record['history_state'] = 'finally_accepted'
+        try:
+            log_record(record)
+        except OSError:
+            # Keep the snapshot available until all required history writes
+            # succeed. SourceTransaction rolls back even after accept() when
+            # its body exits with an exception.
+            record.update(history_state='chip_rejected', verdict='HISTORY_WRITE_FAILED (restored)')
+            raise
+    # No rule can be learned until the source transaction has exited cleanly.
+    learn_final_candidate(record)
+    return True
 
 
 def main(argv=None):
@@ -241,8 +304,15 @@ def main(argv=None):
     record = {'design': args.design, 'ts': time.strftime('%F %T'), 'tag': tag}
     try:
         with RunLock(REPO):
-            regen_ckpt(cfg)
-            base = closure_search(cfg['ckpt'], tag, *cfg['bracket'])
+            with SourceTransaction(REPO, [*cfg['scopes'], cfg['ckpt']]) as baseline_transaction:
+                baseline_sources = verify_baseline(cfg, record, args.timeout)
+                regen_ckpt(cfg)
+                if source_state(cfg) != baseline_sources:
+                    raise RuntimeError('Baseline sources changed during synthesis')
+                base = closure_search(cfg['ckpt'], tag, *cfg['bracket'])
+                if source_state(cfg) != baseline_sources:
+                    raise RuntimeError('Baseline sources changed during implementation')
+                baseline_transaction.accept()
             path = worst_path_at_close(tag, base['closing_period_ns'], base.get('report_path'))
             if path is None:
                 raise RuntimeError('No worst path in the closing report')

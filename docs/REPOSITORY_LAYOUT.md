@@ -9,8 +9,12 @@ snapshots and dated reports retain their paths.
 | Location | Role | Editing rule |
 |---|---|---|
 | `hardware/` | HQC reference RTL and testbenches | Preserve the reference version used by an experiment |
+| `third_party/adams_bridge/upstream/` | Pinned unified ML-KEM-1024 / ML-DSA-87 reference | Keep byte-exact; use a separate candidate tree for edits |
+| `third_party/adams_bridge/integration/` | Whole-core memory wrapper and ordered source lists | Review measured boundary and tool settings |
+| `third_party/mldsa_osh/upstream/` | Pinned ML-DSA reference, common data and KeyGen vectors | Preserve baseline and retained license notices |
+| `verification/mlkem_adams_bridge/` | Independent ML-KEM testbench and gate documentation | Checker inputs are immutable during optimization |
 | `build/keygen/`, `build/encap/`, `build/decap/`, `build/joint_design/` | Tracked HQC experiment sources | These are inputs, despite the directory name |
-| `agent/mldsa/mldsa_src/` | Modified ML-DSA RTL | Existing flows overlay files on a separately supplied upstream tree |
+| `agent/mldsa/mldsa_src/` | Modified ML-DSA RTL | Flows overlay files on the bundled reference or an explicit `MLDSA_ROOT` override |
 | `agent/slh_dsa/pristine/` | SLH-DSA baseline RTL and data | Keep separate from edits |
 | `agent/slh_dsa/slh_src/` | SLH-DSA modified RTL | Match the selected parameter set and test data |
 | `asic/arms/` | Baseline and edited source snapshots for ASIC experiments | Identify the exact arm, missing inputs, and memory treatment |

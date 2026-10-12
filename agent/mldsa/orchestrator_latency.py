@@ -20,7 +20,7 @@ if "--model" in sys.argv:
 MIN_GAIN_NS = 0.05
 LOG = os.path.join(HERE, "latency_log.jsonl")
 SRCDIR = "agent/mldsa/mldsa_src"
-PRISTINE = os.path.join(os.environ.get("MLDSA_ROOT", os.path.join(os.path.dirname(REPO), "ML-DSA-OSH-main")), "ref_combined", "src")
+PRISTINE = os.path.join(os.environ.get("MLDSA_ROOT", os.path.join(REPO, "third_party", "mldsa_osh", "upstream")), "ref_combined", "src")
 # files the model may touch per target block (cluster = block + its schedulers)
 CLUSTERS = {
     "butterfly": ["butterfly.v", "butterfly2x2.v", "operation_module.v"],

@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'agent'))
 import run_safety as safety
 import chip_orchestrator as chip
+import experiment_history as history
 import asic_synthesis as asic
 from hqc import joint_kat_gate as hqc
 
@@ -105,7 +106,12 @@ class ChipAcceptance(TemporaryTree):
                 if not no_edit:
                     (self.src / 'a.v').write_text('candidate')
                     (self.src / 'b.v').write_text('paired update')
-                return subprocess.CompletedProcess(argv, 0, '=== ACCEPTED. ===')
+                proposal = {'candidate_id': kwargs['env'][history.PARENT_ID_ENV],
+                            'verdict': 'BLOCK_FILTER_PASS', 'evidence_stage': 'block_filter',
+                            'design': 'fixture', 'block': 'a', 'strategy': 'fixture',
+                            'source_model': 'offline-fixture', 'edits': [{'old': 'a', 'new': 'b'}]}
+                return subprocess.CompletedProcess(argv, 0, '=== ACCEPTED. ===\n'
+                    + history.FILTER_MARKER + json.dumps(proposal))
             if mutation:
                 (self.src / 'a.v').write_text('silently replaced')
             return subprocess.CompletedProcess(argv, 0, 'GATE: ' + ('PASS' if gate else 'FAIL'))
@@ -115,6 +121,7 @@ class ChipAcceptance(TemporaryTree):
              patch.object(chip, 'source_state', lambda cfg: safety.hashes(self.src.glob('*.v'))), \
              patch.object(chip, 'regen_ckpt', side_effect=failure), \
              patch.object(chip, 'closure_search', return_value=after), \
+             patch.object(chip, 'learn_final_candidate'), \
              patch.object(chip, 'log_record', side_effect=OSError('disk full') if log_failure else None):
             accepted = chip.evaluate_candidate(self.cfg, 'rtl/a.v', self.base, 'test', record)
         return accepted, record
@@ -150,6 +157,57 @@ class ChipAcceptance(TemporaryTree):
             with self.assertRaises(RuntimeError):
                 chip.validate_closure(dict(self.base, wns_at_close=invalid))
 
+    def dispatched_command(self, design, source_file):
+        cfg = dict(chip.DESIGNS[design], scopes=['rtl'], ckpt='baseline.dcp')
+        record = {}
+        with patch.object(chip, 'REPO', self.root), \
+             patch.object(chip, 'source_state', return_value={}), \
+             patch.object(chip, 'run_process', return_value=subprocess.CompletedProcess(
+                 [], 0, 'no_action')) as process:
+            self.assertFalse(chip.evaluate_candidate(cfg, source_file, self.base, 'test', record))
+        process.assert_called_once()
+        return process.call_args.args[0]
+
+    def test_hqc_block_dispatch_supplies_parameter_set(self):
+        for block in ('encap', 'decap'):
+            with self.subTest(block=block):
+                self.assertEqual(self.dispatched_command('hqc', f'build/{block}/{block}.v'),
+                                 [sys.executable, 'agent/hqc/transfer_orchestrator.py',
+                                  block, 'hqc128'])
+        self.assertIn('--all', chip.DESIGNS['hqc']['kat_gate'])
+
+    def test_hqc_joint_dispatch_has_no_block_or_parameter_argument(self):
+        self.assertEqual(self.dispatched_command('hqc', 'build/joint_design/hqc_kem_joint_design.v'),
+                         [sys.executable, 'agent/hqc/joint_top_orchestrator.py'])
+
+    def test_mldsa_dispatch_does_not_receive_hqc_parameter_set(self):
+        self.assertEqual(self.dispatched_command('mldsa', 'agent/mldsa/mldsa_src/rejection_s.v'),
+                         [sys.executable, 'agent/mldsa/orchestrator.py', 'rejection_s'])
+
+    def test_unsupported_mapped_blocks_do_not_launch_optimizer(self):
+        unsupported = {
+            'hqc': ('fixed_weight_ct', 'v_minus_uy', 'vect_set_random', 'keccak_top', 'encrypt'),
+            'mldsa': ('encoder', 'coeff_decomposer', 'butterfly'),
+        }
+        for design, blocks in unsupported.items():
+            for block in blocks:
+                with self.subTest(design=design, block=block), \
+                     patch.object(chip, 'run_process') as process, \
+                     patch.object(chip, 'SourceTransaction') as transaction:
+                    record = {}
+                    self.assertFalse(chip.evaluate_candidate(
+                        chip.DESIGNS[design], f'rtl/{block}.v', self.base, 'test', record))
+                    self.assertEqual(record['verdict'],
+                                     f'NO_TARGET (unsupported optimizer block: {block})')
+                    process.assert_not_called()
+                    transaction.assert_not_called()
+
+    def test_supported_blocks_match_runner_registries(self):
+        from mldsa.orchestrator import BLOCKS
+        from synthesizer import MODULE_SOURCES
+        self.assertEqual(set(chip.DESIGNS['mldsa']['orchestrator_blocks']), set(BLOCKS))
+        self.assertTrue(set(chip.DESIGNS['hqc']['orchestrator_blocks']) <= set(MODULE_SOURCES))
+
 
 class HQCPrivateWorkspace(TemporaryTree):
     def test_stage_leaves_live_candidate_untouched(self):
@@ -163,7 +221,8 @@ class HQCPrivateWorkspace(TemporaryTree):
         (self.root / 'hardware/encap/memory_files/seed_align.py').write_text('# fixture')
         (self.root / 'hardware/joint_design/tb/tb.v').write_text('module tb; endmodule')
         fake = types.ModuleType('synthesizer')
-        fake.ordered_sources = lambda key: [str(self.src / 'a.v'), str(self.src / 'b.v')]
+        selected = []
+        fake.ordered_sources = lambda key: selected.append(key) or [str(self.src / 'a.v'), str(self.src / 'b.v')]
         def seed(argv, **kwargs):
             (Path(kwargs['cwd']) / argv[-2]).write_text('seed')
             return subprocess.CompletedProcess(argv, 0, '')
@@ -175,6 +234,10 @@ class HQCPrivateWorkspace(TemporaryTree):
              patch.object(hqc, 'run_process', seed):
             manifest, original = hqc.stage(work)
             hqc.verify_sources(manifest, original, work)
+            pristine_work = self.root / 'pristine-private'
+            pristine_work.mkdir()
+            hqc.stage(pristine_work, 'hqc_joint_pristine')
+        self.assertEqual(selected, ['hqc_joint_opt', 'hqc_joint_pristine'])
         self.assertEqual((self.src / 'a.v').read_text(), 'uncommitted original')
         self.assertEqual((work / 'build/joint_design/a.v').read_text(), 'uncommitted original')
         (work / 'build/joint_design/a.v').write_text('corrupted')

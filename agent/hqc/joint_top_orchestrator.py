@@ -13,7 +13,8 @@ REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
 from synthesizer import run_synthesis
 import path_extractor
-from learned_rules import rules_prompt_block, distill_rule
+from learned_rules import rules_prompt_block
+from experiment_history import preliminary_record, history_prompt
 
 SRC = "build/joint_design/hqc_kem_joint_design.v"
 MODULE = "hqc_joint_opt"
@@ -61,7 +62,8 @@ def kat_gate():
 def call_llm(rtl, board, tags):
     client = __import__("llm_client").create_client()
     prompt = (f"CRITICAL-PATH BOARD (full-chip synth, worst first):\n{board}\n\n"
-              + "\n".join(tags) + "\n\nINTEGRATION RTL:\n" + rtl)
+              + "\n".join(tags) + history_prompt("hqc", MODULE)
+              + "\n\nINTEGRATION RTL:\n" + rtl)
     r = client.messages.create(model=MODEL, max_tokens=2000,
                                system=POLICY + rules_prompt_block("hqc"),
                                messages=[{"role": "user", "content": prompt}])
@@ -140,12 +142,10 @@ def main():
         gain = round(res["wns_ns"] - pre, 3)
         print(f"chip WNS {pre} -> {res['wns_ns']} ({gain:+.3f})")
         if gain >= MIN_GAIN_NS:
-            rec = {"verdict": "ACCEPTED", "attempt": attempt,
+            rec = {"module": MODULE, "verdict": "ACCEPTED", "attempt": attempt,
                    "strategy": prop["strategy"], "wns_pre": pre,
                    "wns_post": res["wns_ns"], "gain": gain, "edits": edits}
-            log(rec)
-            try: distill_rule(__import__("llm_client").create_client(), MODEL, rec, "hqc")
-            except Exception as e: print("rule distill skipped:", e)
+            log(preliminary_record(rec, "hqc", MODEL))
             print("=== ACCEPTED (synth filter). POST-ROUTE JUDGE STILL REQUIRED "
                   "(chip_orchestrator re-judge). Source left applied; commit after judge. ===")
             return

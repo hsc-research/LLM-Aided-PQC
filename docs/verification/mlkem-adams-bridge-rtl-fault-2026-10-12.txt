@@ -1,0 +1,3 @@
+[67385000] %Fatal: tb_mlkem_acvp.sv:156: Assertion failed in tb_mlkem_acvp: MLKEM_FAIL case=1 reason=word_mismatch addr=0000b000 expected=ca23098d actual=ca23098c
+%Error: /workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mlkem_adams_bridge/tb_mlkem_acvp.sv:156: Verilog $stop
+Aborting...

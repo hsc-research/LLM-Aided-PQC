@@ -9,7 +9,9 @@
 | Find source trees and safe output paths | [Repository layout](REPOSITORY_LAYOUT.md) |
 | Start a hardware run | [FPGA setup](FPGA.md), [quick start](../README.md#quick-start) |
 | Select Genus or Synopsys DC | [ASIC configuration and outputs](../asic/README.md) |
+| Configure whole-design-first optimization | [Bounded search and adapters](WHOLE_DESIGN.md) |
 | Understand testing and rollback | [Agent workflow](../agent/README.md) |
+| Assess agent capabilities and next improvements | [Agent status and roadmap](AGENT_STATUS.md) |
 | Review this update | [Changes and limitations](UPDATE_NOTES.md) |
 | Read existing experiments | [Result-reading guide](RESULTS.md) |
 | Find recorded measurements | [Findings index](findings/INDEX.md) |
