@@ -1,0 +1,46 @@
+{
+  "scope": "Standalone combinational checker, independent FIPS 204 Algorithm 21 oracle; not full-DUT or four-state full-design qualification",
+  "cases": 9371,
+  "expected_valid": 3788,
+  "expected_invalid": 5583,
+  "seed": 20421,
+  "oracle_source": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf",
+  "commands": [
+    {
+      "argv": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "-g2012",
+        "-s",
+        "tb",
+        "-o",
+        "test.vvp",
+        "mldsa_hint_guard.v",
+        "tb.v"
+      ],
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "argv": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+        "test.vvp"
+      ],
+      "returncode": 0,
+      "output": "PASS 9371 independent hint encodings\ntb.v:10: $finish called at 9371 (1s)\n"
+    }
+  ],
+  "cases_sha256": "1b693e36f26a01ff2b100adf850c0374931748cae196729ebb71b82224dcfe89",
+  "source_unchanged": true,
+  "status": "PASS",
+  "evidence_kind": "independent standalone RTL diagnostic",
+  "reproduction_source": "from pathlib import Path\nimport hashlib,json,random,subprocess,tempfile\nROOT=Path.cwd()\nwork=Path(tempfile.mkdtemp(prefix='mldsa-hint-review-',dir=ROOT/'.pqc_runs'))\nguard=ROOT/'verification/mldsa_osh/mldsa_hint_guard.v'\nsource=guard.read_bytes();(work/guard.name).write_bytes(source)\nrng=random.Random(20421)\ncases=[]\ndef invalid(y,w,k):\n    cursor=0\n    for stop in y[w:]:\n        if stop<cursor or stop>w:return 1\n        part=y[cursor:stop]\n        if any(a>=b for a,b in zip(part,part[1:])):return 1\n        cursor=stop\n    return int(any(y[cursor:w]))\ndef add(lvl,y,w,k,label):cases.append((lvl,bytes(y),invalid(y,w,k),label))\nfor lvl,w,k,param in [(2,80,4,44),(3,55,6,65),(5,75,8,87)]:\n    # Distinct boundary cases: empty groups, full omega, cross-group ordering reset,\n    # terminal index 255, duplicates, descending counts, and nonzero unused padding.\n    add(lvl,[0]*(w+k),w,k,'empty')\n    full=list(range(w))+[0]*(k-1)+[w];add(lvl,full,w,k,'full-omega-last-poly')\n    cross=[255,0]+[0]*(w-2)+[1]+[2]*(k-1);add(lvl,cross,w,k,'index-reset-per-poly')\n    for stop in (w+1,255):\n        y=[0]*(w+k);y[w]=stop;add(lvl,y,w,k,'count-overflow')\n    for pos in range(w):\n        y=[0]*(w+k);y[pos]=1;add(lvl,y,w,k,'nonzero-padding')\n    for group in range(k):\n        y=[0]*(w+k);y[:2]=[7,7];y[w:]=[0]*group+[2]*(k-group);add(lvl,y,w,k,'duplicate-per-poly')\n        y[0]=8;add(lvl,y,w,k,'descending-per-poly')\n    for group in range(k-1):\n        y=[0]*(w+k);y[w+group]=1;add(lvl,y,w,k,'descending-count')\n    for _ in range(1000):\n        # Sample canonical groups, intentionally allowing empty and repeated counts.\n        stops=sorted(rng.randrange(w+1) for _ in range(k))\n        indices=[];cursor=0\n        for stop in stops:indices.extend(sorted(rng.sample(range(256),stop-cursor)));cursor=stop\n        y=indices+[0]*(w-len(indices))+stops;add(lvl,y,w,k,'random-canonical')\n        for _ in range(2):\n            z=y.copy();z[rng.randrange(w+k)]=rng.randrange(256);add(lvl,z,w,k,'random-one-byte-change')\n    kat=ROOT/'third_party/mldsa_osh/upstream/KAT'/f'SigVer_signature_{param}.txt'\n    for val in kat.read_text().split():\n        y=list(bytes.fromhex(val)[-w-k:]);add(lvl,y,w,k,'pinned-sigver-hint');y[-1]^=1;add(lvl,y,w,k,'one-bit-count-change')\n# Unsupported parameter codes must reject even an all-zero encoding.\nfor lvl in (0,1,4,6,7):cases.append((lvl,bytes(84),1,'unsupported-level'))\nvec=''.join(f'{lvl:01x}{expected:01x}{y.hex():0>168}\\n' for lvl,y,expected,_ in cases)\n(work/'cases.hex').write_text(vec)\n(work/'tb.v').write_text('''module tb;\nreg [679:0] cases [0:%d]; reg [2:0] sec_lvl; reg [671:0] hint_bytes; wire invalid;\ninteger i; mldsa_hint_guard dut(sec_lvl,hint_bytes,invalid);\ninitial begin\n$readmemh(\"cases.hex\",cases);\nfor(i=0;i<%d;i=i+1)begin\nsec_lvl=cases[i][678:676];hint_bytes=cases[i][671:0];#1;\nif(invalid !== cases[i][672])$fatal(1,\"case %%0d expected %%b observed %%b\",i,cases[i][672],invalid);\nend\n$display(\"PASS %%0d independent hint encodings\",i);$finish;\nend\nendmodule\n'''%(len(cases)-1,len(cases)))\ntools=Path('/workspace/shared/spectral-memory-reduction/tools/bin')\ncommands=[[str(tools/'iverilog'),'-g2012','-s','tb','-o','test.vvp','mldsa_hint_guard.v','tb.v'],[str(tools/'vvp'),'test.vvp']]\nresults=[]\nfor cmd in commands:\n    p=subprocess.run(cmd,cwd=work,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=60)\n    results.append({'argv':cmd,'returncode':p.returncode,'output':p.stdout})\n    if p.returncode:break\nreport={'scope':'Standalone combinational checker, independent FIPS 204 Algorithm 21 oracle; not full-DUT or four-state full-design qualification','cases':len(cases),'expected_valid':sum(x[2]==0 for x in cases),'expected_invalid':sum(x[2]==1 for x in cases),'seed':20421,'oracle_source':'https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf','commands':results,'guard_sha256':hashlib.sha256(source).hexdigest(),'cases_sha256':hashlib.sha256(vec.encode()).hexdigest(),'source_unchanged':guard.read_bytes()==source,'run_dir':str(work),'status':'PASS' if len(results)==2 and all(r['returncode']==0 for r in results) else 'FAIL'}\n(work/'review.py').write_text(Path(__file__).read_text())\n(work/'report.json').write_text(json.dumps(report,indent=2)+'\\n')\nprint(json.dumps(report,indent=2))\n",
+  "testbench_source": "module tb;\nreg [679:0] cases [0:9370]; reg [2:0] sec_lvl; reg [671:0] hint_bytes; wire invalid;\ninteger i; mldsa_hint_guard dut(sec_lvl,hint_bytes,invalid);\ninitial begin\n$readmemh(\"cases.hex\",cases);\nfor(i=0;i<9371;i=i+1)begin\nsec_lvl=cases[i][678:676];hint_bytes=cases[i][671:0];#1;\nif(invalid !== cases[i][672])$fatal(1,\"case %0d expected %b observed %b\",i,cases[i][672],invalid);\nend\n$display(\"PASS %0d independent hint encodings\",i);$finish;\nend\nendmodule\n",
+  "source_files": {
+    "verification/mldsa_osh/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe"
+  },
+  "limits": [
+    "Finite binary-input corpus; not exhaustive or formal equivalence.",
+    "Icarus four-state semantics were used, but unknown input encodings were not tested.",
+    "Full-DUT flag lifetime and reset sequencing require separate evidence."
+  ]
+}

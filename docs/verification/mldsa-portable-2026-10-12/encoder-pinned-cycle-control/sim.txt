@@ -1,0 +1,23 @@
+CFG sl=2 em=0 done: 162 words
+CFG sl=2 em=1 done: 125 words
+CFG sl=2 em=2 done: 37 words
+CFG sl=2 em=3 done: 37 words
+CFG sl=2 em=4 done: 75 words
+CFG sl=2 em=5 done: 225 words
+CFG sl=3 em=0 done: 162 words
+CFG sl=3 em=1 done: 125 words
+CFG sl=3 em=2 done: 50 words
+CFG sl=3 em=3 done: 50 words
+CFG sl=3 em=4 done: 50 words
+CFG sl=3 em=5 done: 250 words
+CFG sl=5 em=0 done: 162 words
+CFG sl=5 em=1 done: 125 words
+CFG sl=5 em=2 done: 37 words
+CFG sl=5 em=3 done: 37 words
+CFG sl=5 em=4 done: 50 words
+CFG sl=5 em=5 done: 250 words
+SWITCHSEQ sl=3 done: 137 words
+SWITCHSEQ sl=5 done: 132 words
+CYCLE CHECK SUMMARY checked=11659 errors=0 unknown_valid=0 unknown_data=0
+GATE RESULT: PASS
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/tb_encoder_cycle_equiv.v:172: $finish called at 117040000 (1ps)

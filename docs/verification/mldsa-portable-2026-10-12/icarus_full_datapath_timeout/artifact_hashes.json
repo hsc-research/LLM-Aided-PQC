@@ -1,0 +1,9 @@
+{
+  "version-vvp.txt": "c9010a85df9399c2adb11b59115cdc285ea6f0a399802944367c3813c6772a42",
+  "keygen-sim.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "version-ghdl.txt": "ee22300b9ce493871f5fd5fd6f8631034f074dac4b55af8163dca195e7f1f8e4",
+  "version-iverilog.txt": "f9199cc8658f4afcec3edeb93f29f23bb2aebf66d3eeb217cdc728aaa692f946",
+  "iverilog-scheduler-diagnostic.txt": "596b14f3147bf606b028d70dc4ce8a3b4a08588b9b4b7357f85c9b87a925296d",
+  "ghdl-synth.txt": "cf652ed250c6d752f052da5b10041d81548a32d609e8c1bc8f6ebb34de601c81",
+  "ghdl-analyze.txt": "ad6f1f949aa818d88101e5f556d5068b93131ee86ef2caf53ea298f38273c875"
+}

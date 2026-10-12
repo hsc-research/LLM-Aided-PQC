@@ -1,0 +1,2 @@
+MLDSA_HINT_GUARD PASS cases=1350
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-hint-guard-n5abatj4/tb_hint_guard.v:18: $finish called at 1350000 (1ps)

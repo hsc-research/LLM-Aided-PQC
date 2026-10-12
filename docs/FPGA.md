@@ -12,6 +12,10 @@ SAC 2023-derived sources. The preferred [SAC 2026 HQC snapshot](../third_party/h
 is a separate source-only import with no qualified executable adapter. These
 commands and historical results do not verify that newer snapshot.
 
+For newly corrected ML-DSA/SLH variants, use the [hardware handoff](HARDWARE_HANDOFF.md)
+first. Legacy commands do not automatically select the staged corrections.
+Current portable functional evidence is separate from vendor-tool qualification.
+
 ## Prepare the environment
 
 1. Follow [installation](REPRODUCE.md) and run the offline checks.
@@ -51,9 +55,11 @@ send design material to the external provider.
 |---|---|---|
 | HQC joint KEM | `python3 agent/hqc/joint_kat_gate.py --all` | Shared-secret consistency at HQC-128/192/256; `--all` matters |
 | ML-DSA | `python3 agent/mldsa/full_kat_gate.py` | Bundled baseline KeyGen: 25 vectors at each of II/III/V by default, 75 total; report any reduced `--vectors` coverage |
+| ML-DSA portable corrected variants | [Run and export instructions](HARDWARE_HANDOFF.md#ml-dsa-export-the-passing-derivatives) | 210 full-design cases per named derivative; no new Vivado implementation or automatic legacy dispatch routing |
 | ML-DSA edited sources | `python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src` | Same tests with matching-basename RTL overrides |
 | SLH-DSA pristine baseline | Explicit command below | SHA2-128f vendor-output comparison plus testbench verify match; not an independent FIPS 205 oracle |
 | SLH-DSA current candidate | `python3 agent/slh_dsa/slh_kat_gate.py` | SHA2-192f complete vendor-stream comparison against its pinned 192f reference and verify match; not independent FIPS 205 validation |
+| SLH-DSA portable corrected pairs | [Run and export instructions](HARDWARE_HANDOFF.md#slh-dsa-keep-mode-and-derivative-together) | Both arms passed the fixed fixture and live rejection control at 128f and 192f; vendor implementation remains the next stage |
 
 Read the selected script's requirements before starting a long simulation.
 No missing output, timeout, compilation failure, unsupported mode, or partial

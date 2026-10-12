@@ -192,3 +192,113 @@ hardware latency or throughput measurements.
 The original [Vivado gate](../../agent/slh_dsa/slh_kat_gate.py) remains
 unchanged and still requires Vivado. Portable simulation does not establish
 Vivado/DC/Genus synthesis, implementation, timing, area, power or PPA results.
+
+## Source-only FPGA / ASIC handoff
+
+[The source exporter](../../tools/export_slh_verified.py) runs **no EDA tool**,
+installs nothing and produces no PPA measurements. It materializes the exact
+corrected RTL bytes bound to a completed functional record. It refuses stale
+sources, missing or wrong-parameter evidence, failed positive/negative
+controls, and nonempty destinations. Both original tracked RTL trees remain
+unchanged.
+
+```sh
+python3 tools/export_slh_verified.py --variant corrected-baseline \
+  --parameter-set 128f --out build/slh-handoff/corrected-baseline-128f
+python3 tools/export_slh_verified.py --variant corrected-candidate \
+  --parameter-set 128f --out build/slh-handoff/corrected-candidate-128f
+
+python3 tools/export_slh_verified.py --variant corrected-baseline \
+  --parameter-set 192f --out build/slh-handoff/corrected-baseline-192f
+python3 tools/export_slh_verified.py --variant corrected-candidate \
+  --parameter-set 192f --out build/slh-handoff/corrected-candidate-192f
+```
+
+Each bundle contains:
+
+- `manifest.json`: design top `top`, simulation top `tb`, parameter-selection
+  source/macro, exact original and corrected source hashes, ordered source
+  entries, include directories, qualification record/hash, fixture hashes,
+  memory semantics and explicit limitations.
+- `sources.f`: synthesis/design sources only. `simulation_sources.f` also
+  includes the instrumented testbench. Preserve file order and the three
+  include directories in `include_dirs.f`; files setting `default_nettype`
+  remain last as in the qualified simulation.
+- `sources.tcl`: source-only variables (`slh_top`, `slh_include_dirs`,
+  `slh_sources`). Sourcing it does not launch an EDA command.
+- `rtl/`, `changes.patch`, preserved source notices, repository license and
+  notice files, and copied qualification/reference evidence.
+- Four public deterministic test fixtures in the vendor-relative simulation
+  layout. They are test keys/data, never production secrets. The expected
+  golden is kept separately under `evidence/`; no produced-signature file
+  is pre-populated in the simulation data directory.
+- `SHA256SUMS`, covering the manifest and every exported content file.
+  Verify it from the bundle root with `sha256sum -c SHA256SUMS`.
+
+The compile-time parameter is already selected in `rtl/sphincslet/setting.v`.
+Do not override only the top-level `parameter_set` parameter: configuration
+macros also choose widths and hash cores. The exporter therefore supplies
+empty external `defines` and `parameter_overrides` lists and records the
+selected source configuration explicitly.
+
+The top exposes an external signature-memory interface. `SIG_MEM` in `tb.v`
+is **testbench-only**, and is not in the synthesis source list. Budget and
+supply equivalent external signature storage in both arms. Internal RAMs
+and FIFOs remain the generic vendor models: no ASIC SRAM macros or FPGA
+memory primitive wrappers are supplied. In particular, the unchanged
+`mem_dual` array is declared `[0:DEPTH]` (DEPTH+1 entries). Initialization and
+inference behavior need target-specific review. No timing/placement or clock
+constraints are supplied; the testbench's 10 ns simulated clock is not a
+measured operating frequency or proposed implementation constraint.
+
+### Matched functional source pairs
+
+The earlier pristine-derived **128f** and candidate-derived **192f** passes
+are different parameter sets, **not a matched baseline/candidate PPA pair**.
+For a comparison, export baseline and candidate at the **same** parameter,
+with the same correction, wrapper, clocks, constraints, memory mapping and
+implementation settings.
+
+The exporter verifies that same-parameter corrected trees differ only in
+`sha256_core.v` and `sha512_core.v`, the candidate carry-save-adder changes.
+It reports a separate `source_relationship.partner_qualified` flag after
+validating the other arm's same-parameter completed functional record. A
+qualified individual bundle with a missing partner is not a qualified pair.
+
+The additional [corrected candidate128f run](../../docs/verification/slh-portable-corrected-candidate-128f-2026-10-12.json)
+([complete logs](../../docs/verification/slh-portable-corrected-candidate-128f-2026-10-12.txt))
+has passed the same 2,141-word positive fixture and live corruption rejection.
+Together with the earlier corrected baseline128f record, this establishes a
+same-parameter **128f functional source pair**. Both exported 128f manifests
+report `partner_qualified: true`, with only the two SHA-core files differing.
+This establishes functional evidence for the pair, not a PPA result.
+
+The additional [corrected baseline192f run](../../docs/verification/slh-portable-corrected-baseline-192f-2026-10-12.json)
+([complete logs](../../docs/verification/slh-portable-corrected-baseline-192f-2026-10-12.txt))
+also passed, including all 4,463 golden words and the positive/negative
+verification controls. Together with the earlier corrected candidate192f
+record, the **192f functional source pair** is now qualified too.
+
+The [source-handoff audit](../../docs/verification/slh-source-handoff-2026-10-12.json)
+records all four exported manifests, exact source hashes and qualification
+record hashes. Every bundle passed its complete checksum verification and
+byte-identical repeat export. Within each pair, top, parameter configuration
+and design-source ordering match; only `sha256_core.v` and `sha512_core.v`
+differ. All four manifests report `partner_qualified: true`.
+
+Explicit `--parameter-set` selection alters only disposable staged copies
+and is recorded in source hashes and patches. Reproduce the additional
+checks with:
+
+```sh
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/slh_src \
+  --parameter-set 128f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-candidate-128f.json
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
+  --parameter-set 192f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-pristine-192f.json
+```
+
+These functional checks still provide historical vendor-differential
+coverage for one fixed message per parameter, not independent FIPS 205
+validation, formal equivalence or FPGA/ASIC implementation results.

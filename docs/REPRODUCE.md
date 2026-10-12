@@ -130,50 +130,80 @@ and [test limitations](VERIFICATION.md#real-ml-kem-baseline-and-rtl-fault-reject
 
 ### ML-DSA
 
-There are two separate routes. The [portable full-design runner](../verification/mldsa_osh/README.md)
-uses GHDL to translate the VHDL Keccak hierarchy, then Icarus or Verilator to
-simulate the combined design. **Its end-to-end qualification is pending; no new
-full-design pass is recorded yet.** With the required tools installed, a
-qualification run is:
+The [portable full-design runner](../verification/mldsa_osh/README.md) has two
+explicit passing variants. Use GHDL with synthesis/Verilog support, Verilator,
+a C++ compiler and make. The recorded toolchain uses GHDL 6.0.0 with pinned
+compatibility-library sources and a specifically recorded Verilator build;
+[tool identities and setup](verification/mldsa-portable-2026-10-12/toolchain.json)
+are part of the evidence. A default Icarus full-datapath run did not complete,
+so select Verilator explicitly for the qualified route.
 
 ```bash
-python3 agent/mldsa/portable_kat_gate.py --simulator verilator --verify-mutations
+# Guarded baseline: all 210 cases.
+python3 agent/mldsa/portable_kat_gate.py --simulator verilator \
+  --canonical-hints --verify-mutations
+
+# Candidate with both explicit corrections: all 210 cases.
+python3 agent/mldsa/portable_kat_gate.py --simulator verilator \
+  --override agent/mldsa/mldsa_src --encoder-fallthrough \
+  --canonical-hints --verify-mutations
 ```
 
-The requested coverage is 75 KeyGen, 45 Sign and 45 Verify cases, plus 12
-one-bit verification mutations. Counts are planned coverage until the actual
-run completes. The reference answers are pinned upstream KAT data, not a new
-independently authenticated official corpus. Verilator is two-state; the
-GHDL-translated variant needs its own recorded evidence. See the focused guide
-for the four-state Icarus route, candidate overrides and transformation limits.
+Expected for each: overall `PASS`, exit 0, and complete counts of 75 KeyGen,
+45 Sign, 45 upstream Verify, 12 one-bit tamper cases and 33 canonical-encoding
+controls/negatives. Upstream Verify has 9 valid and 36 invalid cases;
+flag 0 means accept, flag 1 reject. The added canonical set has 18 valid
+controls and 15 invalid cases. Inspect the printed private run directory's
+`result.json`, source hashes and simulator logs.
 
-The existing mixed-language **Vivado KeyGen-only** gate requires `xvhdl`,
-`xvlog`, `xelab` and `xsim`. Load the installed Vivado environment first.
+The original baseline passes the 165 upstream cases but fails an added
+malformed-hint check. The original 14-file candidate also fails that check
+and stalls during signing. The two flags above select semantic corrections
+in staged copies; they do not alter the pinned originals or make their
+retained failures disappear. Bounded partial-word testbench adaptations and
+GHDL translation are also recorded. See [exact evidence](VERIFICATION.md#real-ml-dsa-portable-variants).
+
+The optional [GHDL setup helper](../tools/bootstrap_mldsa_ghdl.py) downloads
+hash-pinned official Debian packages into a chosen local directory. It needs
+network access, `dpkg-deb` and a compatible Linux x86-64 runtime; it does not
+install system packages:
 
 ```bash
-# Pinned ML-DSA-OSH baseline: 25 KeyGen vectors at each of II, III and V.
-python3 agent/mldsa/full_kat_gate.py
+python3 tools/bootstrap_mldsa_ghdl.py --prefix /tmp/pqc-ghdl
+export PATH="/tmp/pqc-ghdl/bin:$PATH"
+```
 
-# Same test with the repository's matching-basename candidate overrides.
+Install/configure Verilator and its C++ build tools separately. The focused
+guide explains the recorded build-specific precompiled-header setting;
+it is not an RTL fix. Full passing runs are two-state and use pinned upstream
+KAT answers, not an independently authenticated complete ACVP corpus. There
+is no full four-state or FIPS 204 certification claim.
+
+For the next FPGA/ASIC stage, [export both passing derivatives](HARDWARE_HANDOFF.md#ml-dsa-export-the-passing-derivatives).
+Do not measure the old candidate directory or historical ASIC source list
+and attach the corrected variant's verification evidence to it.
+
+The separate legacy Vivado gate is **KeyGen-only** and requires `xvhdl`,
+`xvlog`, `xelab` and `xsim`:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py
 python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src
 ```
 
-The default is **75 KeyGen vectors**. `--vectors` reduces the per-level count;
-report that reduced coverage. An explicit `MLDSA_ROOT` or `--root` selects a
-matching external reference tree; record the override and verify its contents.
-A KeyGen pass does not establish Sign/Verify correctness or independent FIPS
-204 conformance. Use [current entry points](PROJECT_STATUS.md#ml-dsa-entry-points)
-for the latest full-design verification status.
+It defaults to 25 vectors per level (75 total); `--vectors` deliberately
+reduces coverage. `MLDSA_ROOT` / `--root` overrides must be recorded. Neither
+this legacy gate nor the existing optimization adapter automatically selects
+the guarded variants or proves signing/verification coverage.
 
-A smaller, separate Icarus test exercises the `coeff_decomposer` block and two
-intentional arithmetic faults:
+A separate 400-vector Icarus arithmetic-block test remains available:
 
 ```bash
 python3 tools/check_hdl_smoke.py --output .pqc_runs/hdl-smoke.json
 ```
 
-That runner returns 0 only if the baseline passes and both faults are rejected
-for output mismatches. It covers 400 block vectors, not the full accelerator.
+It requires the baseline and two injected faults to behave as expected.
+That block-only result is independent of the new full-design runs.
 
 ### HQC
 
@@ -237,24 +267,33 @@ python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
 
 The syntax-only pristine 128f variant has **failed** output/verification checks;
 that command must not be presented as an expected passing baseline. The
-explicitly corrected 128f and 192f derivatives each passed one frozen fixture
-and a live signature-bitflip rejection check:
+explicitly corrected baseline and candidate each passed at 128f and at 192f,
+using one frozen fixture and a live signature-bitflip rejection check per run:
 
 ```bash
 python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
-  --fix-auth-sensitivity --output .pqc_runs/slh-portable-fixed-128f.json
-
+  --parameter-set 128f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-baseline-128f.json
 python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/slh_src \
-  --fix-auth-sensitivity --output .pqc_runs/slh-portable-fixed-192f.json
+  --parameter-set 128f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-candidate-128f.json
+
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
+  --parameter-set 192f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-baseline-192f.json
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/slh_src \
+  --parameter-set 192f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-candidate-192f.json
 ```
 
 Expected: 2,141 matching words for corrected 128f, or 4,463 for corrected
 192f; normal verification flag 0, rejection flag 1 after the captured-signature
 mutation, and overall exit 0. The option changes a hash-pinned authentication
 path sensitivity list in each staged copy; original sources and frozen
-references stay unchanged. The [128f record](verification/slh-portable-corrected-128f-2026-10-12.json)
-and [192f record](verification/slh-portable-corrected-192f-2026-10-12.json)
-are not unchanged-source or FIPS 205 conformance results. The syntax-only
+references stay unchanged. Explicit parameter selection changes only staged
+configuration copies. The [four-run evidence matrix](HARDWARE_HANDOFF.md#slh-dsa-keep-mode-and-derivative-together)
+links the passing source pairs and exact no-EDA export commands for hardware
+measurement. These are not unchanged-source or FIPS 205 conformance results. The syntax-only
 192f run matched all words but failed valid-signature verification; its
 negative control is unqualified. The other four SHA2 sets were not executed.
 Compilation, matching bytes alone and partial output are not passes. Read the
@@ -263,6 +302,10 @@ transformations and [current status](PROJECT_STATUS.md#slh-dsa-baseline-boundary
 for exact completed coverage.
 
 ## 5. Measure an FPGA design
+
+Start with the [hardware handoff](HARDWARE_HANDOFF.md) to select the exact
+verified source derivative. The commands below do not silently redirect
+legacy flows to new corrected sources.
 
 Requires AMD Vivado, supported OS libraries and the selected FPGA device files.
 The historical records used Vivado 2025.2 and Artix-7 `xc7a200tfbg676-1`.
@@ -290,6 +333,9 @@ For a historical result, follow its exact [finding](findings/INDEX.md), source
 revision and constraints rather than substituting the latest default command.
 
 ## 6. Measure ASIC logic with Genus or DC
+
+Use the [hardware handoff](HARDWARE_HANDOFF.md) for verified derivative exports
+and matched baseline/candidate source configuration.
 
 Requires a licensed Cadence Genus or Synopsys Design Compiler installation,
 permitted target libraries, a reviewed source list and timing constraints.

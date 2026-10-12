@@ -162,6 +162,13 @@ blocks search, while plain ASIC measurement remains available independently.
 
 ### Existing ML-DSA KeyGen gate
 
+The newer [portable corrected variants](../verification/mldsa_osh/README.md)
+have broader standalone evidence and [exact-source exports](HARDWARE_HANDOFF.md).
+They do not silently change this adapter's `mldsa_keygen_75` profile or the
+configured source list. A future broader adapter must bind the actual exported
+sources, declared operations, per-case cycles and negative controls.
+
+
 `verify-mldsa-keygen --source-dir ... --reference-root ... --request ... --response ...`
 runs the existing full-top KeyGen gate for exactly 25 vectors at each of II/III/V.
 It checks that every measured candidate source was actually consumed and freezes

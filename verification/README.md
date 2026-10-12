@@ -7,6 +7,9 @@ inputs remain in their design source trees. **Recorded test evidence** belongs
 in [`docs/verification/`](../docs/verification/README.md); generated compilation
 and simulation products belong in private run directories.
 
+For later FPGA/ASIC measurements, use the [hardware handoff](../docs/HARDWARE_HANDOFF.md)
+to export the exact passing derivatives and preserve their design boundaries.
+
 | Design | Start here | Important boundary |
 |---|---|---|
 | ML-KEM | [Adam's Bridge ACVP harness](mlkem_adams_bridge/README.md) | Exercises ML-KEM-1024 on the shared ML-KEM/ML-DSA core; it does not qualify the ML-DSA function |

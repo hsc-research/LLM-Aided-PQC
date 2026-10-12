@@ -1,0 +1,65 @@
+{
+  "scope": "Local extracted official Debian GHDL packages; no system installation. GHDL6 requires compatibility libraries supplied by GHDL5 common package.",
+  "packages": [
+    {
+      "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-mcode_6.0.0+dfsg3-1_amd64.deb",
+      "sha256": "f78203381ee4ca00210f245bbb7dfb0c7dea44ec2cbdd7bfbfae669fa1c4f921",
+      "bytes": 2170940,
+      "package_metadata": "Package: ghdl-mcode\nVersion: 6.0.0+dfsg3-1"
+    },
+    {
+      "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-common_6.0.0+dfsg3-1_amd64.deb",
+      "sha256": "399a4bec476e3edb2b51c76c460bc5bb835fe69257b67f34097815c46c8b8c15",
+      "bytes": 158224,
+      "package_metadata": "Package: ghdl-common\nVersion: 6.0.0+dfsg3-1"
+    },
+    {
+      "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-common_5.0.1+dfsg-1+b1_amd64.deb",
+      "sha256": "f205ba98df92d34ee8ee05fc5f071d51c9503626879f0d5dc225510f5c2810e9",
+      "bytes": 171596,
+      "package_metadata": "Package: ghdl-common\nVersion: 5.0.1+dfsg-1+b1"
+    }
+  ],
+  "executables": {
+    "/tmp/pqc-ghdl6-tools/root/usr/bin/ghdl-mcode": "93da2a1fcfebd364e05072f16ad71e9a2721295fe87604fb52c1ae114fdc4842",
+    "/workspace/shared/spectral-memory-reduction/tools/verilator/verilator/bin/verilator_bin": "7a308fe7b00607f3140fe0599efc107a3f591e631a44a1c3614e00e6c90c0dcc",
+    "/workspace/shared/spectral-memory-reduction/tools/iverilog/usr/bin/iverilog": "99633b21371b5fc6ddc3156c9402c10e2915a94feb99ddc5eb01ba8f02758462",
+    "/workspace/shared/spectral-memory-reduction/tools/iverilog/usr/bin/vvp": "dc287630d71c187dcf258a9d3c7d4aa77d2c3c2c4c7515debe91d000ea40c1df",
+    "/usr/bin/x86_64-linux-gnu-g++-14": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d",
+    "/usr/bin/make": "8a229baf64671988cfb5af43ba3070c6ce7214cf32bcf96155115559d1466fa7"
+  },
+  "compatibility_sources": {
+    "std_logic_arith": "0526b2af10bbfe5b04b96e76d1ef2befad5727ebf39ebf556e029c6189a0bd32",
+    "std_logic_unsigned": "7d1e6c664ed5f697d248640144772bf8bbd1db2ec4d040518e6aa8bfd3b2ca5c"
+  },
+  "commands": [
+    "ghdl -a --std=08 -fsynopsys --work=ieee --workdir=/tmp/pqc-ghdl6-tools/root/usr/lib/ghdl/mcode/vhdl/ieee/v08 /tmp/pqc-ghdl-tools/root/usr/lib/ghdl/src/synopsys/std_logic_arith.vhdl /tmp/pqc-ghdl-tools/root/usr/lib/ghdl/src/synopsys/std_logic_unsigned.vhdl",
+    "PATH=/tmp/pqc-ghdl6-tools/bin:/workspace/shared/spectral-memory-reduction/tools/bin:$PATH MAKEFLAGS='CFG_CXXFLAGS_PCH_I=-include' python3 agent/mldsa/portable_kat_gate.py --simulator verilator --verify-mutations"
+  ],
+  "toolchain_notes": [
+    "GHDL5.0.1 analyzed RTL but its Verilog emitter raised INTERNAL_ERROR; final runs use GHDL6.0.0.",
+    "GHDL6 package omits legacy Synopsys compatibility sources; exact official GHDL5 package source bytes were compiled into the local IEEE library.",
+    "Verilator launcher version is vUNKNOWN-built20260516-4e853d8; runtime reports Verilator5.49. Do not infer tool version from Python wheel metadata.",
+    "MAKEFLAGS supplies the missing -include precompiled-header switch for the preserved Verilator wheel; no RTL was changed for this build correction."
+  ],
+  "compiler_version": "c++ (Debian 14.2.0-19) 14.2.0",
+  "make_version": "GNU Make 4.4.1",
+  "bootstrap_helper": "tools/bootstrap_mldsa_ghdl.py",
+  "bootstrap_verified_command": "python3 tools/bootstrap_mldsa_ghdl.py --prefix /tmp/pqc-ghdl-repro",
+  "bootstrap_manifest": "docs/verification/mldsa-portable-2026-10-12/bootstrap_manifest.json",
+  "unsuccessful_initial_tool_attempt": {
+    "version": "GHDL5.0.1",
+    "reason": "Verilog emitter INTERNAL_ERROR netlists-disp_verilog.adb:1336",
+    "packages": [
+      {
+        "url": "https://deb.debian.org/debian/pool/main/g/ghdl/ghdl-mcode_5.0.1+dfsg-1+b1_amd64.deb",
+        "sha256": "f0f0a850038694de37da993d1674f8970c05b436a2cbc471478a713f798c996a"
+      },
+      {
+        "url": "https://deb.debian.org/debian/pool/main/g/gcc-14/libgnat-14_14.2.0-19_amd64.deb",
+        "sha256": "1edd2b13324d41e70c25a0172c3c90e4a413aae3312ea0489116e2b573c57885"
+      }
+    ],
+    "note": "Neither executable nor libgnat runtime from this failed route is required by the successful GHDL6 bootstrap."
+  }
+}

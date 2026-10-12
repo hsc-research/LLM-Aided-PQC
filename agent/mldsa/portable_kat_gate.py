@@ -53,7 +53,7 @@ def evaluate_log(text, operation, count, returncode=0):
         reason = "nonpositive cycle count"
     return {"status": "FAIL" if reason else "PASS", "reason": reason,
             "operation": operation, "expected": len(expected),
-            "completed": len(results), "vectors": results}
+            "completed": len(results), "vectors": results, "simulator_returncode": returncode}
 
 
 def hoist_declarations(source):
@@ -75,12 +75,38 @@ def hoist_declarations(source):
     return source[:end] + "\n" + "\n".join(found) + "\n" + source[end:], len(found)
 
 
-def prepare_testbench(text, operation, count, cycle_limit):
+def prepare_testbench(text, operation, count, cycle_limit, bounded_sign_capture=True, bounded_verify_hint_read=True):
     capacity = OPERATIONS[operation][1]
     pattern = re.compile(r"\blocalparam\s+NUM_TV\s*=\s*(\d+)\s*;")
     if pattern.findall(text) != [str(capacity)]:
         raise ValueError(f"unexpected {operation} testbench capacity")
     text = pattern.sub(f"localparam NUM_TV = {count};", text)
+    if operation == "sign" and bounded_sign_capture:
+        # The original final hint word extends past an ascending packed-array
+        # bound. Verilator drops that whole dynamic write. Capture only real
+        # signature bytes, retaining every original byte-exact comparison.
+        for level in (2, 3, 5):
+            old = f"sig_{level}_out[`CTILDE_WIDTH_{level} + `z_WIDTH_{level} + ctr*64 +: 64] <= data_o;"
+            new = ("for (j = 0; j < 8; j = j + 1)\n"
+                   f"                        if (ctr*8+j < `h_BYTES_{level})\n"
+                   f"                            sig_{level}_out[`CTILDE_WIDTH_{level} + `z_WIDTH_{level} + (ctr*8+j)*8 +: 8] <= data_o[63-j*8 -: 8];")
+            if text.count(old) != 1:
+                raise ValueError(f"unexpected Sign hint capture at level {level}")
+            text = text.replace(old, new)
+    if operation == "verify" and bounded_verify_hint_read:
+        # Pack the final partial hint input word explicitly. Out-of-range
+        # indexed reads otherwise zero the entire word under Verilator.
+        for level in (2, 3, 5):
+            for index in ("ctr", "(ctr+1)"):
+                expression = f"sig_{level}[c][`CTILDE_WIDTH_{level} + `z_WIDTH_{level} + {index}*64 +: 64]"
+                anchor = re.compile(r"data_i\s*<= " + re.escape(expression) + ";")
+                replacement = ("for (j = 0; j < 8; j = j + 1)\n"
+                               f"                        if ({index}*8+j < `h_BYTES_{level})\n"
+                               f"                            data_i[63-j*8 -: 8] <= sig_{level}[c][`CTILDE_WIDTH_{level} + `z_WIDTH_{level} + ({index}*8+j)*8 +: 8];\n"
+                               "                        else data_i[63-j*8 -: 8] <= 8'b0;")
+                text, changes = anchor.subn(replacement, text)
+                if changes != 1:
+                    raise ValueError(f"unexpected Verify hint read at level {level}, index {index}")
     # A simulator wall-time bound is not enough: ensure hardware deadlocks
     # explicitly fail rather than looking like a quiet, successful process.
     anchor = "\nendmodule"
@@ -109,7 +135,7 @@ def stage_verify_mutations(kat, destination):
         records = {name: (kat / f"SigVer_{name}_{level}.txt").read_text().split() for name in fields}
         if any(len(row) != 15 for row in records.values()):
             raise ValueError(f"unexpected Verify KAT shape for {level}")
-        candidates = [i for i in range(15) if records["result"][i] == "1"
+        candidates = [i for i in range(15) if records["result"][i] == "0"
                       and int(records["mlen"][i], 16) and int(records["ctxlen"][i], 16)]
         if not candidates:
             raise ValueError(f"no valid positive control with message and context: {level}")
@@ -121,24 +147,94 @@ def stage_verify_mutations(kat, destination):
             # Least significant bit is inside the message/context even when
             # their files are left-zero-padded to their fixed maximum lengths.
             row[mutation] = format(int(original, 16) ^ 1, f"0{len(original)}x")
-            row["result"] = "0"
+            row["result"] = "1"
             for name in fields:
                 generated[name].append(row[name])
             metadata.append({"parameter_set": level, "positive_control_index": index,
-                             "mutation": mutation + " least-significant bit", "expected": 0})
+                             "mutation": mutation + " least-significant bit", "expected_failure_flag": 1})
         for name, values in generated.items():
             (destination / f"SigVer_{name}_{level}.txt").write_text("\n".join(values) + "\n")
     return metadata
 
 
+def stage_canonical_cases(kat, destination):
+    """Interleave valid controls with each FIPS 204 hint-encoding violation."""
+    destination.mkdir(parents=True, exist_ok=True)
+    fields = ("message", "mlen", "pk", "ctx", "ctxlen", "signature", "result")
+    metadata = []
+    for level, omega, k in ((44, 80, 4), (65, 55, 6), (87, 75, 8)):
+        records = {name: (kat / f"SigVer_{name}_{level}.txt").read_text().split() for name in fields}
+        control = next(i for i, value in enumerate(records["result"]) if value == "0")
+        signature = bytearray.fromhex(records["signature"][control])
+        hint = bytearray(signature[-omega-k:])
+        if hint[omega] < 2 or hint[-1] >= omega:
+            raise ValueError("canonical test control needs two initial indices and padding")
+        variants = []
+        bad = hint.copy(); bad[omega] = omega + 1; variants.append(("count_overflow", bad))
+        bad = hint.copy(); bad[omega+1] = bad[omega]-1; variants.append(("count_decrease", bad))
+        bad = hint.copy(); bad[1] = bad[0]; variants.append(("duplicate_index", bad))
+        bad = hint.copy(); bad[0], bad[1] = bad[1], bad[0]; variants.append(("unsorted_indices", bad))
+        bad = hint.copy(); bad[hint[-1]] = 1; variants.append(("nonzero_padding", bad))
+        sequence = [("positive_control", hint, "0")]
+        for name, bad in variants:
+            sequence.extend([(name, bad, "1"), ("positive_control", hint, "0")])
+        generated = {name: [] for name in fields}
+        for case, encoded, failure in sequence:
+            row = {name: records[name][control] for name in fields}
+            row["signature"] = (signature[:-omega-k] + encoded).hex()
+            row["result"] = failure
+            for name in fields:
+                generated[name].append(row[name])
+            metadata.append({"parameter_set": level, "positive_control_index": control,
+                             "case": case, "expected_failure_flag": int(failure)})
+        for name, values in generated.items():
+            (destination / f"SigVer_{name}_{level}.txt").write_text("\n".join(values) + "\n")
+    return metadata
+
+
+def apply_canonical_hint_guard(staged):
+    """Add canonical decoding validation to a separately named staged variant."""
+    hint = staged / "usehint.v"
+    text = hint.read_text()
+    edits = [
+        ("input      poly_ready_o\n", "input      poly_ready_o,\n        output reg invalid_hint\n"),
+        ("    integer i;", "    wire encoding_invalid;\n    mldsa_hint_guard CANONICAL_HINT_GUARD(sec_lvl, hint_addr, encoding_invalid);\n    integer i;"),
+        ("            state <= INIT;", "            invalid_hint <= 0;\n            state <= INIT;"),
+        ("            INIT: begin\n                poly_num", "            INIT: begin\n                if (start) invalid_hint <= 0;\n                poly_num"),
+        ("            EXPAND_HINT: begin\n                hint_poly", "            EXPAND_HINT: begin\n                invalid_hint <= invalid_hint | encoding_invalid;\n                hint_poly"),
+    ]
+    for old, new in edits:
+        if text.count(old) != 1:
+            raise ValueError(f"canonical hint patch anchor mismatch: {old!r}")
+        text = text.replace(old, new)
+    hint.write_text(text)
+    top = staged / "combined_top.v"
+    text = top.read_text()
+    edits = [
+        ("    usehint HINT_APPLIER(", "    wire invalid_hint;\n    usehint HINT_APPLIER("),
+        ("        poly_ready_o_hint\n    );", "        poly_ready_o_hint, invalid_hint\n    );"),
+        ("? fail : 0;", "? (fail | invalid_hint) : 0;"),
+    ]
+    for old, new in edits:
+        if text.count(old) != 1:
+            raise ValueError(f"canonical top patch anchor mismatch: {old!r}")
+        text = text.replace(old, new)
+    top.write_text(text)
+    source = REPO / "verification/mldsa_osh/mldsa_hint_guard.v"
+    shutil.copy2(source, staged / source.name)
+    return source
+
+
 def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=None,
              simulator="iverilog", timeout=1800, cycle_limit=20000000, jobs=2,
-             fifo_nonblocking=False, verify_mutations=False):
+             fifo_nonblocking=False, verify_mutations=False, raw_sign_capture=False, raw_verify_hint_read=False, canonical_hints=False, encoder_fallthrough=False):
     if not operations or len(set(operations)) != len(operations) or any(x not in OPERATIONS for x in operations):
         raise ValueError("operations must be unique keygen, sign, or verify values")
     if vectors is not None and (isinstance(vectors, bool) or not isinstance(vectors, int)
                                 or not 1 <= vectors <= min(OPERATIONS[x][1] for x in operations)):
         raise ValueError("vectors exceeds the selected operation capacity")
+    if verify_mutations and vectors is not None:
+        raise ValueError("--verify-mutations requires full Verify coverage so every positive control is checked")
     if simulator not in ("iverilog", "verilator"):
         raise ValueError("unsupported simulator")
     if not 0 < timeout < float("inf") or cycle_limit < 1 or jobs < 1:
@@ -148,7 +244,9 @@ def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=
     work = Path(tempfile.mkdtemp(prefix="mldsa-portable-", dir=parent))
     outcome = {"status": "FAIL", "run_dir": str(work), "backend": "ghdl-synth+" + simulator,
                "variant": "candidate" if override else "pinned-baseline",
-               "coverage": {}, "transformations": [], "commands": [], "tools": {}}
+               "coverage": {}, "transformations": [], "commands": [], "tools": {},
+               "build_environment": {key: os.environ[key] for key in ("MAKEFLAGS", "CXXFLAGS", "CXX", "CC", "GHDL_PREFIX", "VERILATOR_ROOT") if key in os.environ}}
+    outcome["harness_hashes"] = hashes([Path(__file__).resolve()])
     started = time.monotonic()
     stage = "setup"
     input_hashes = {}
@@ -219,9 +317,32 @@ def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=
             fifo.write_text(patched)
             outcome["transformations"].append({"file": fifo.name, "edit": "eight clocked blocking assignments to nonblocking; semantic variant"})
             outcome["variant"] += "+fifo-nonblocking"
+        if encoder_fallthrough:
+            if override is None:
+                raise ValueError("--encoder-fallthrough requires an explicit candidate override directory")
+            encoder_source = REPO / "verification/mldsa_osh/encoder_fallthrough.v"
+            encoder_hash = hashes([encoder_source])
+            shutil.copy2(encoder_source, staged / "encoder.v")
+            if hashes([staged / "encoder.v"])[str((staged / "encoder.v").resolve())] != encoder_hash[str(encoder_source.resolve())]:
+                raise RuntimeError("encoder correction changed while staging")
+            input_hashes.update(encoder_hash)
+            outcome["variant"] += "+encoder-fallthrough"
+            outcome["transformations"].append({"edit": "banked encoder empty-FIFO fallthrough to preserve reference output timing; semantic candidate correction",
+                                                "source": str(encoder_source), "file": "encoder.v"})
+        if canonical_hints:
+            guard_source = REPO / "verification/mldsa_osh/mldsa_hint_guard.v"
+            guard_hash = hashes([guard_source])
+            apply_canonical_hint_guard(staged)
+            if hashes([staged / guard_source.name])[str((staged / guard_source.name).resolve())] != guard_hash[str(guard_source.resolve())]:
+                raise RuntimeError("canonical guard source changed while staging")
+            input_hashes.update(guard_hash)
+            outcome["variant"] += "+canonical-hints"
+            outcome["transformations"].append({"edit": "canonical HintBitUnpack validation with sticky failure flag; semantic hardening variant",
+                                                "files": ["usehint.v", "combined_top.v", "mldsa_hint_guard.v"]})
         for binary in ("ghdl", simulator, *(("vvp",) if simulator == "iverilog" else ())):
             if not shutil.which(binary):
                 raise FileNotFoundError(f"required tool not on PATH: {binary}")
+            outcome.setdefault("tool_launcher_hashes", {}).update(hashes([shutil.which(binary)]))
             flag = "-V" if binary in ("iverilog", "vvp") else "--version"
             outcome["tools"][binary] = execute([binary, flag], "version-" + binary).splitlines()[:4]
         stage = "ghdl-analyze"
@@ -245,6 +366,18 @@ def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=
             shutil.copy2(path, target)
             if hashes([target])[str(target.resolve())] != hashes([path])[str(path.resolve())]:
                 raise RuntimeError(f"simulator data copy differs: {target}")
+        if vectors is not None:
+            # Verilator rejects extra records beyond a reduced array's size.
+            # Select the exact same leading records from every related file.
+            prefixes = {"keygen": "KeyGen", "sign": "SigGen", "verify": "SigVer"}
+            for operation in operations:
+                for path in tbdir.glob(prefixes[operation] + "_*.txt"):
+                    records = path.read_text().split()
+                    if len(records) != OPERATIONS[operation][1]:
+                        raise ValueError(f"unexpected KAT capacity: {path.name}")
+                    path.write_text("\n".join(records[:vectors]) + "\n")
+            outcome["transformations"].append({"edit": "restrict simulator KAT copies to leading records",
+                                                "vectors_per_level": vectors})
         runs = [(operation, operation, tbdir, vectors if vectors is not None else OPERATIONS[operation][1])
                 for operation in operations]
         if verify_mutations:
@@ -255,13 +388,29 @@ def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=
             shutil.copy2(BUNDLED_ROOT / "ref_combined/src_tb/tb_verify_top.v", mutation_dir / "tb_verify_top.v")
             shutil.copy2(work / "common/zetas.txt", mutation_dir / "zetas.txt")
             runs.append(("verify_mutations", "verify", mutation_dir, 4))
+        if canonical_hints and "verify" in operations:
+            canonical_dir = work / "ref_combined/canonical_tb"
+            outcome["canonical_cases"] = stage_canonical_cases(work / "KAT", canonical_dir)
+            shutil.copy2(BUNDLED_ROOT / "ref_combined/src_tb/tb_verify_top.v", canonical_dir / "tb_verify_top.v")
+            shutil.copy2(work / "common/zetas.txt", canonical_dir / "zetas.txt")
+            runs.append(("verify_canonical", "verify", canonical_dir, 11))
         for case, operation, current_tbdir, count in runs:
             tb = current_tbdir / f"tb_{operation}_top.v"
-            tb.write_text(prepare_testbench(tb.read_text(), operation, count, cycle_limit))
+            tb.write_text(prepare_testbench(tb.read_text(), operation, count, cycle_limit,
+                                               bounded_sign_capture=not raw_sign_capture,
+                                               bounded_verify_hint_read=not raw_verify_hint_read))
+            outcome["transformations"].append({"file": str(tb.relative_to(work)),
+                                                "edit": "append cycle watchdog"})
+            if operation == "sign" and not raw_sign_capture:
+                outcome["transformations"].append({"file": str(tb.relative_to(work)),
+                                                    "edit": "bound partial final hint-word capture to actual signature bytes; testbench only"})
+            if operation == "verify" and not raw_verify_hint_read:
+                outcome["transformations"].append({"file": str(tb.relative_to(work)),
+                                                    "edit": "pack partial final hint input word bytewise with zero padding; testbench only"})
             top = tb.stem
             outcome.setdefault("testbench_hashes", {}).update(hashes([tb]))
-            if case == "verify_mutations":
-                outcome["mutation_input_hashes"] = hashes(current_tbdir.glob("SigVer_*.txt"))
+            if case in ("verify_mutations", "verify_canonical"):
+                outcome.setdefault("generated_input_hashes", {})[case] = hashes(current_tbdir.glob("SigVer_*.txt"))
             used_inputs = [*staged.iterdir(), *(work / "common").iterdir(), tb,
                            *current_tbdir.glob("*.txt")]
             case_hashes = hashes(used_inputs)
@@ -278,6 +427,9 @@ def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=
                 execute(["verilator", "--binary", "--timing", "--top-module", top, "--Mdir", objdir,
                          "-j", str(jobs), "-Wno-fatal", *vfiles, tb], stage, current_tbdir)
                 command = [objdir / ("V" + top)]
+            executable_path = Path(command[-1] if simulator == "iverilog" else command[0])
+            executable_hash = hashes([executable_path])
+            outcome.setdefault("simulation_executable_hashes", {})[case] = executable_hash
             stage = case + "-sim"
             try:
                 simulation = execute(command, stage, current_tbdir, allow_failure=True)
@@ -289,11 +441,14 @@ def run_gate(*, override=None, operations=("keygen", "sign", "verify"), vectors=
                 result["timed_out"] = True
             if hashes(case_hashes) != case_hashes:
                 raise RuntimeError("staged simulation inputs changed during compilation or execution")
+            if hashes(executable_hash) != executable_hash:
+                raise RuntimeError("simulation executable changed during execution")
             if operation == "verify":
                 expected = [(current_tbdir / f"SigVer_result_{level}.txt").read_text().split()[:count]
                             for level in ("44", "65", "87")]
-                result["known_valid"] = sum(row.count("1") for row in expected)
-                result["known_invalid"] = sum(row.count("0") for row in expected)
+                result["result_encoding"] = "active-high failure flag: 0=valid, 1=invalid"
+                result["known_valid"] = sum(row.count("0") for row in expected)
+                result["known_invalid"] = sum(row.count("1") for row in expected)
             outcome["coverage"][case] = result
             # Save incremental evidence even when a later stage fails.
             (work / "result.json").write_text(json.dumps(outcome, indent=2) + "\n")
@@ -327,6 +482,10 @@ if __name__ == "__main__":
     parser.add_argument("--timeout", type=float, default=1800)
     parser.add_argument("--cycle-limit", type=int, default=20000000)
     parser.add_argument("--jobs", type=int, default=2)
+    parser.add_argument("--encoder-fallthrough", action="store_true", help="test a separate candidate correction preserving encoder output timing")
+    parser.add_argument("--canonical-hints", action="store_true", help="test a separate RTL hardening variant that rejects noncanonical hint encodings")
+    parser.add_argument("--raw-verify-hint-read", action="store_true", help="retain upstream out-of-bounds final hint-word testbench input read for diagnostic reproduction")
+    parser.add_argument("--raw-sign-capture", action="store_true", help="retain upstream out-of-bounds final hint-word testbench capture for diagnostic reproduction")
     parser.add_argument("--verify-mutations", action="store_true", help="also reject modified signature, message, context and public key for each level")
     parser.add_argument("--fifo-nonblocking", action="store_true", help="explicit semantic portability variant")
     args = parser.parse_args()

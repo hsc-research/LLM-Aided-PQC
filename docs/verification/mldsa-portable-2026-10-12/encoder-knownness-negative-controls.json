@@ -1,0 +1,122 @@
+{
+  "both_valid_x": {
+    "expected_status": "FAIL",
+    "run_dir": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk",
+    "injection": "wait(rst === 1'b0); @(negedge clk); force g_valid_o = 1'bx; force c_valid_o = 1'bx; @(negedge clk); release g_valid_o; release c_valid_o;",
+    "staged_hashes": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/gold_encoder.v": "1804103639e81d3eb1f436688ff9cadee7ab497e2ca7fe21787765f32f7b52e8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/gold_uncenter_coeff.v": "84b685bf20a30d7f66334aaa7e4daca0bdd44b9e4b40a4f5acd6f1f20e2f99aa",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/gold_zero_strip.v": "9269a34f906f90a5973b0d63d6b476924689946983059556f23753c6570699fb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/pinned_encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/pinned_uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/pinned_zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/tb_encoder_cycle_equiv.v": "6a04975b7d1d21a044d453b2fec086ca4199384ca37b59d75f4984baf31056e9",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/unmodified_tb.v": "665a4901a4b7839cda8f40940e41346f4796308ecf6cff6ad30c39f7d68c5bf4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+    },
+    "commands": [
+      {
+        "argv": [
+          "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+          "-g2012",
+          "-s",
+          "tb_encoder",
+          "-o",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/sim",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/tb_encoder_cycle_equiv.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/gold_encoder.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/encoder.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/gold_uncenter_coeff.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/uncenter_coeff.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/gold_zero_strip.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/zero_strip.v"
+        ],
+        "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk",
+        "returncode": 0,
+        "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/compile.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/sim"
+        ],
+        "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk",
+        "returncode": 0,
+        "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_valid_x-jpdh2xuk/sim.log",
+        "log_sha256": "ce1baa82db95016bdc5713e72cbda3398ee899b7f26b0feac5985877e460e184"
+      }
+    ],
+    "status": "FAIL",
+    "reason": "simulator reported ERROR",
+    "words": 2278,
+    "output_markers": [
+      "UNKNOWN VALID ERROR t=45000 gv=x cv=x",
+      "CYCLE CHECK SUMMARY checked=11659 errors=1 unknown_valid=1 unknown_data=0",
+      "GATE RESULT: FAIL (1 errors)"
+    ],
+    "binary_sha256": "a53f3c46b9574495cd721b081ef9508ad5b8e6726916935c6c7116e947b272cb"
+  },
+  "both_data_x": {
+    "expected_status": "FAIL",
+    "run_dir": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5",
+    "injection": "wait(g_valid_o === 1'b1 && c_valid_o === 1'b1); @(negedge clk); force g_valid_o = 1'b1; force c_valid_o = 1'b1; force g_dout = 64'bx; force c_dout = 64'bx; @(negedge clk); release g_dout; release c_dout; release g_valid_o; release c_valid_o;",
+    "staged_hashes": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/gold_encoder.v": "1804103639e81d3eb1f436688ff9cadee7ab497e2ca7fe21787765f32f7b52e8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/gold_uncenter_coeff.v": "84b685bf20a30d7f66334aaa7e4daca0bdd44b9e4b40a4f5acd6f1f20e2f99aa",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/gold_zero_strip.v": "9269a34f906f90a5973b0d63d6b476924689946983059556f23753c6570699fb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/pinned_encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/pinned_uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/pinned_zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/tb_encoder_cycle_equiv.v": "2c5e7c0c50b288b4a5fa035c52830625277c2c0315a369a45980bf81d6c315fd",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/unmodified_tb.v": "665a4901a4b7839cda8f40940e41346f4796308ecf6cff6ad30c39f7d68c5bf4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+    },
+    "commands": [
+      {
+        "argv": [
+          "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+          "-g2012",
+          "-s",
+          "tb_encoder",
+          "-o",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/sim",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/tb_encoder_cycle_equiv.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/gold_encoder.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/encoder.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/gold_uncenter_coeff.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/uncenter_coeff.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/gold_zero_strip.v",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/zero_strip.v"
+        ],
+        "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5",
+        "returncode": 0,
+        "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/compile.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "argv": [
+          "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+          "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/sim"
+        ],
+        "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5",
+        "returncode": 0,
+        "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-knownness-both_data_x-g8obawe5/sim.log",
+        "log_sha256": "e7e9a04a8c8003c7bcf49de23d07d13764c3cd63681307a95eb2e64a51804e76"
+      }
+    ],
+    "status": "FAIL",
+    "reason": "simulator reported ERROR",
+    "words": 2278,
+    "output_markers": [
+      "UNKNOWN DATA ERROR t=85000 gv=1 cv=1 gd=xxxxxxxxxxxxxxxx cd=xxxxxxxxxxxxxxxx",
+      "CYCLE CHECK SUMMARY checked=11659 errors=1 unknown_valid=0 unknown_data=1",
+      "GATE RESULT: FAIL (1 errors)"
+    ],
+    "binary_sha256": "ee31e75a420a494c74bece2b01a3769e55bd7f2ceefaa6c5278ba77f630996ee"
+  }
+}

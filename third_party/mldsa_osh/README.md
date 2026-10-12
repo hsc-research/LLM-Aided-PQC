@@ -39,6 +39,17 @@ reported as an RTL simulation, proof of equivalence or licensed synthesis pass.
 Do not repair an integrity failure by changing expected hashes to match an
 unreviewed source or silently substituting a different upstream revision.
 
+## Later portable full-design verification
+
+The source import remains unchanged. Subsequent
+[portable verification](../../verification/mldsa_osh/README.md) exercises
+KeyGen/Sign/Verify and added malformed-input checks. It preserves failures in
+the original baseline/candidate and records two explicitly guarded/corrected
+derivatives passing 210 cases each. This is not a pass for untouched originals,
+FIPS certification or a vendor PPA result. Use the
+[exact-source hardware handoff](../../docs/HARDWARE_HANDOFF.md) for those variants;
+the older ASIC arms and KeyGen-only commands below remain separate.
+
 ## Run the existing KeyGen gate
 
 With Vivado's `xvhdl`, `xvlog`, `xelab` and `xsim` on `PATH`, run:

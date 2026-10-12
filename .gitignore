@@ -115,3 +115,7 @@ configs/*.local.json
 # Local ML-KEM compiler products and raw qualification runs
 /build/mlkem_adams_bridge/
 /build/mlkem_adams_bridge_verilator/
+
+# Deterministic local hardware source handoffs (regenerate with exporters)
+/build/slh-handoff/
+/build/mldsa-handoff/

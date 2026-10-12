@@ -1,0 +1,15 @@
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-cjjutg8m/ref_combined/src/keccak_control.vhd:35:17:warning: no assignment for port "sel_cin" [-Wnowrite]
+                sel_cin                                 : out std_logic;
+                ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-cjjutg8m/ref_combined/src/sha3_pkg.vhd:70:18:note: found ROM "n158", width: 8 bits, depth: 8
+        constant lookup_sel_lvl2_64bit_pad : rom_pad64bit_type := (
+                 ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-cjjutg8m/ref_combined/src/sha3_pkg.vhd:74:18:note: found ROM "n169", width: 8 bits, depth: 8
+        constant lookup_sel_lvl1_64bit_pad : rom_pad64bit_type := (
+                 ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-cjjutg8m/ref_combined/src/sha3_pkg.vhd:78:14:note: found ROM "n179", width: 8 bits, depth: 8
+    constant lookup_sel_lvl1_64bit_out_zeropad : rom_pad64bit_type := (
+             ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-cjjutg8m/ref_combined/src/keccak_cons.vhd:25:10:note: found ROM "n2149", width: 64 bits, depth: 32
+constant my_rom: matrix :=(
+         ^

@@ -1,0 +1,48 @@
+--- a/agent/mldsa/mldsa_src/encoder.v
++++ b/verification/mldsa_osh/encoder_fallthrough.v
+@@ -111,6 +111,10 @@
+     wire fifo_full  = (fifo_count == 3'd4);
+     wire fifo_empty = (fifo_count == 3'd0);
+     wire do_pop  = (acc_len >= 8'd64) && !fifo_full;
++    // A completed accumulator word bypasses an empty FIFO, preserving the
++    // original PISO output latency required by the top-level drain schedule.
++    wire do_bypass = fifo_empty && do_pop && ready_o;
++    wire do_enqueue = do_pop && !do_bypass;
+     wire do_out;
+     reg  [255:0] acc_after_pop;
+     reg  [7:0]   len_after_pop;
+@@ -164,13 +168,13 @@
+         endcase
+     
+         
+-        valid_o = !fifo_empty;
++        valid_o = !fifo_empty || (acc_len >= 8'd64);
+         ready_i = 1;
+-        dout = fifo[fifo_head];
++        dout = fifo_empty ? ACC[63:0] : fifo[fifo_head];
+         acc_after_pop = do_pop ? (ACC >> 64) : ACC;
+         len_after_pop = do_pop ? (acc_len - 8'd64) : acc_len;
+     end
+-    assign do_out = valid_o && ready_o;
++    assign do_out = !fifo_empty && ready_o;
+     
+     always @(posedge clk) begin
+         
+@@ -192,15 +196,13 @@
+             else
+                 ACC <= acc_after_pop;
+             acc_len <= len_after_pop + (valid_buffer[1] ? buffer_len[1][7:0] : 8'd0);
+-            if (do_pop) begin
++            if (do_enqueue) begin
+                 fifo[fifo_tail] <= ACC[63:0];
+                 fifo_tail <= fifo_tail + 2'd1;
+             end
+-            if (do_pop)
+-                $display("BANKPOP t=%0t word=%h acclen=%0d vb=%b", $time, ACC[63:0], acc_len, valid_buffer[1]);
+             if (do_out)
+                 fifo_head <= fifo_head + 2'd1;
+-            fifo_count <= fifo_count + (do_pop ? 3'd1 : 3'd0) - (do_out ? 3'd1 : 3'd0);
++            fifo_count <= fifo_count + (do_enqueue ? 3'd1 : 3'd0) - (do_out ? 3'd1 : 3'd0);
+         end
+     end
+     

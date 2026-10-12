@@ -19,11 +19,16 @@ entry point for current full-design coverage across the four schemes.
 |---|---|---|
 | ML-KEM-1024 on Adam's Bridge | 80 official ACVP sample cases; 39,840 exact word/status checks passed | [Machine-readable result](verification/mlkem-adams-bridge-acvp-2026-10-12.json); shared ML-KEM/ML-DSA core, ML-KEM API only, two-state Verilator simulation |
 | Faulty ML-KEM candidate | Compiled, then rejected on its first mismatched key output | [RTL-fault record](verification/mlkem-adams-bridge-rtl-fault-2026-10-12.json); proves detection of this particular injected fault |
+| ML-DSA guarded baseline | 210 cases passed: upstream operations plus tamper/canonical checks | [Result and exact derivative](verification/mldsa-portable-2026-10-12/baseline_canonical_pass/result.json); GHDL/Verilator two-state full-design simulation |
+| ML-DSA guarded, encoder-corrected candidate | Same 210 cases passed | [Result](verification/mldsa-portable-2026-10-12/candidate_corrected_pass/result.json); explicit semantic corrections, not an unchanged candidate or PPA gain |
+| Original ML-DSA failures | Baseline accepts an added malformed hint; original candidate also stalls Sign | [Baseline rejection failure](verification/mldsa-portable-2026-10-12/baseline_upstream_failure/result.json), [candidate Sign failure](verification/mldsa-portable-2026-10-12/candidate_sign_failure/result.json), [candidate rejection failure](verification/mldsa-portable-2026-10-12/candidate_verify_failure/result.json) |
 | ML-DSA `coeff_decomposer` block | 400 vectors passed; two arithmetic faults rejected | [HDL smoke record](verification/hdl-smoke-2026-10-12.json); a block test, not full ML-DSA verification |
 | SLH-DSA syntax-only Icarus 128f variant | Failed: 2,133 words instead of 2,141, with RTL verification mismatch | [Recorded failure](verification/slh-portable-syntax-128f-2026-10-12.json); a staged portable derivative, not an unmodified Vivado result. Failure is retained independently of the corrected variant below |
 | SLH-DSA syntax-only Icarus 192f variant | Failed despite all 4,463 frozen words matching: RTL rejects the untampered signature | [Recorded failure](verification/slh-portable-syntax-192f-2026-10-12.json); its negative control cannot qualify a failed positive baseline |
 | SLH-DSA sensitivity-corrected Icarus 128f variant | Passed: all 2,141 frozen words; valid signature accepted and one-bit captured-signature corruption rejected | [Corrected-variant record](verification/slh-portable-corrected-128f-2026-10-12.json); one deterministic fixture, not unchanged pristine RTL or independent FIPS 205 validation. |
+| SLH-DSA corrected candidate selected as 128f | Passed the same 2,141-word fixture and live rejection control | [Candidate record](verification/slh-portable-corrected-candidate-128f-2026-10-12.json); qualifies a same-parameter functional source pair with the corrected 128f baseline, without new PPA measurements |
 | SLH-DSA sensitivity-corrected Icarus 192f variant | Passed: all 4,463 frozen words; valid signature accepted and one-bit captured-signature corruption rejected | [Corrected-variant record](verification/slh-portable-corrected-192f-2026-10-12.json); the selected optimized derivative, one deterministic fixture. Other four SHA2 modes unexecuted; no independent FIPS 205 validation |
+| SLH-DSA corrected baseline selected as 192f | Passed the same 4,463-word fixture and live rejection control | [Baseline record](verification/slh-portable-corrected-baseline-192f-2026-10-12.json); completes the same-parameter 192f functional source pair, without new PPA measurements |
 | Python flows and whole-design controller | Software checks recorded; includes temporary files, mock tools and synthetic measurements | [Software record](VERIFICATION.md#portable-software-checks); not vendor EDA qualification |
 
 The preferred [HQC SAC 2026 baseline](../third_party/hqc_sac2026/README.md) is a
@@ -33,6 +38,13 @@ concerns only the earlier tracked joint-design source: unused mismatch flags
 are a static finding; the attempted dynamic probe is inconclusive. No repaired
 HQC variant is qualified. Do not attach either the older FPGA numbers or that
 legacy-source finding to the newer SAC 2026 snapshot.
+
+The ML-DSA 210-case total is 75 KeyGen + 45 Sign + 45 upstream Verify + 12
+one-bit tamper cases + 33 canonical-hint controls/negatives. Upstream Verify
+contains 9 valid and 36 invalid cases; the added canonical set has 18 valid
+controls and 15 invalid cases. These counts do not imply exhaustive or
+independent full-standard validation. [Read the complete scope](VERIFICATION.md#real-ml-dsa-portable-variants)
+and use the [exact-source hardware handoff](HARDWARE_HANDOFF.md) before measuring.
 
 A source-integrity check, an RTL simulation pass and a synthesis result answer
 different questions. None is a substitute for the others. No new Genus/DC

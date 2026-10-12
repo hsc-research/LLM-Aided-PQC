@@ -22,12 +22,18 @@ sys.path.insert(0, str(HERE))
 from run_safety import RunLock, SourceTransaction, hashes, run_process, gate_passed, proposal_accepted
 from experiment_history import PARENT_ID_ENV, parse_preliminary, is_final_acceptance
 
+MLDSA_KEYGEN_PROFILE = 'mldsa_keygen_75'
+MLDSA_KEYGEN_COVERAGE = ('25 KeyGen vectors at each of II/III/V (75 total); '
+                        'Sign and Verify are not checked by this gate.')
+
 DESIGNS = {
     'mldsa_baseline': {
         'key': 'combined_top_pristine',
         'ckpt': './synth_out/sweep_combined_top_pristine/post_synth_grade1.dcp',
         'bracket': (12.0, 16.0), 'hier2file': {}, 'orchestrator': None,
         'kat_gate': ['python3', 'agent/mldsa/full_kat_gate.py'],
+        'verification_profile': MLDSA_KEYGEN_PROFILE,
+        'verification_coverage': MLDSA_KEYGEN_COVERAGE,
         'scopes': ['agent/mldsa/mldsa_src'],
     },
     'mldsa': {
@@ -48,6 +54,8 @@ DESIGNS = {
         'orchestrator_blocks': ('rejection_a', 'rejection_s', 'rejection_y',
                                 'makehint', 'gen_c', 'decoder', 'usehint'),
         'kat_gate': ['python3', 'agent/mldsa/full_kat_gate.py', 'agent/mldsa/mldsa_src'],
+        'verification_profile': MLDSA_KEYGEN_PROFILE,
+        'verification_coverage': MLDSA_KEYGEN_COVERAGE,
         'scopes': ['agent/mldsa/mldsa_src'],
     },
     'hqc_baseline': {
@@ -180,6 +188,7 @@ def verify_baseline(cfg, record, timeout):
         raise RuntimeError('No correctness gate configured for the baseline')
     before = source_state(cfg)
     record['baseline_sources'] = before
+    record_verification_coverage(cfg, record, 'baseline_')
     checked = run_process(cfg['kat_gate'], cwd=REPO, timeout=timeout)
     if not gate_passed(checked):
         record['baseline_correctness_status'] = 'FAIL'
@@ -189,6 +198,13 @@ def verify_baseline(cfg, record, timeout):
         raise RuntimeError('Baseline sources changed during verification')
     record['baseline_correctness_status'] = 'PASS'
     return before
+
+
+def record_verification_coverage(cfg, record, prefix=''):
+    """Attach the configured gate's bounded coverage without widening its verdict."""
+    for field in ('verification_profile', 'verification_coverage'):
+        if field in cfg:
+            record[prefix + field] = cfg[field]
 
 
 def regen_ckpt(cfg):
@@ -254,6 +270,7 @@ def evaluate_candidate(cfg, source_file, base, tag, record, timeout=86400):
             record['verdict'] = 'NO_EFFECTIVE_SOURCE_CHANGE (restored)'
             return False
         record['candidate_sources'] = candidate
+        record_verification_coverage(cfg, record)
         checked = run_process(cfg['kat_gate'], cwd=REPO, timeout=timeout)
         print(checked.stdout[-1000:])
         if not gate_passed(checked):

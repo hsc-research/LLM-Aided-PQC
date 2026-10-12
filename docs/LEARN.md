@@ -110,6 +110,9 @@ explains actual local runs separately from source checks and mock-tool tests.
 | PPA | Power, performance and area; missing power or physical implementation must remain missing |
 | LUT / FF / BRAM / DSP | FPGA lookup tables, flip-flops, block RAM and arithmetic resources |
 | SDC | Timing constraints supplied to the synthesis/implementation tool |
+| Canonical-hint guard | An added ML-DSA RTL check that rejects malformed signature hint counts, ordering or padding; it creates an explicit corrected source variant |
+| Encoder fallthrough repair | A banked-encoder correction that supplies a word without an extra empty-FIFO delay; its tested scope is recorded separately |
+| Verified source export | A source bundle whose hashes match a named passing simulation; it still needs hardware-tool and timing qualification |
 | Adapter | A reviewed command wrapper connecting the controller to a particular checker or hardware tool |
 
 ## Where to go next
@@ -117,5 +120,5 @@ explains actual local runs separately from source checks and mock-tool tests.
 - **Run something now:** [offline setup and checks](REPRODUCE.md#2-run-the-offline-checks)
 - **Read numerical results:** [historical FPGA results](RESULTS.md#historical-fpga-results)
 - **Inspect actual test evidence:** [verification record](VERIFICATION.md)
-- **Start a hardware experiment:** [staged run guide](REPRODUCE.md)
+- **Start a hardware experiment:** [staged run guide](REPRODUCE.md) and [exact-source hardware handoff](HARDWARE_HANDOFF.md)
 - **Add a design or measurement tool:** [controller protocol](WHOLE_DESIGN.md)

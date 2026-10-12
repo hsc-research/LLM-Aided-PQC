@@ -14,6 +14,7 @@ snapshots and dated reports retain their paths.
 | Current support and actual checks | [Design status](PROJECT_STATUS.md) and [verification record](VERIFICATION.md) |
 | Historical measured improvements | [Results guide](RESULTS.md), then [dated findings](findings/INDEX.md) |
 | A command you can run now | [Staged run guide](REPRODUCE.md) |
+| Verified sources for your FPGA/ASIC run | [Hardware handoff](HARDWARE_HANDOFF.md) and explicit export manifests |
 | Command-line and optimization code | [Agent workflows](../agent/README.md), `agent/whole_design.py`, `agent/asic_synthesis.py` |
 | Test harnesses and test data | [Harness index](../verification/README.md), `tests/`, and the design-specific source rows below |
 | Tool configuration examples | [configs/](../configs/) and [ASIC setup](../asic/README.md) |
@@ -40,7 +41,9 @@ baseline until its exact bytes pass the required checks and matched measurement.
 | `third_party/adams_bridge/integration/` | Whole-core memory wrapper and ordered source lists | Review measured boundary and tool settings |
 | `third_party/hqc_sac2026/upstream/` | Preferred pinned SAC 2026 source-only HQC snapshot | Keep byte-exact; no qualified executable adapter supplied |
 | `third_party/mldsa_osh/upstream/` | Pinned ML-DSA RTL, common data and KeyGen/Sign/Verify test inputs | Preserve baseline and retained license notices |
+| `verification/mldsa_osh/` | Portable full-design checker instructions, explicit guard/encoder corrections and recorded GHDL netlists | Original pinned RTL stays separate; export only a named passing variant |
 | `verification/mlkem_adams_bridge/` | Independent ML-KEM testbench and gate documentation | Checker inputs are immutable during optimization |
+| `verification/slh_portable/` | Explicit portable-variant, source-export and fixed-fixture instructions | Keep source version and SHA2 parameter set together |
 | `build/keygen/`, `build/encap/`, `build/decap/`, `build/joint_design/` | Tracked HQC experiment sources | These are inputs, despite the directory name |
 | `agent/mldsa/mldsa_src/` | Modified ML-DSA RTL | Flows overlay files on the bundled reference or an explicit `MLDSA_ROOT` override |
 | `agent/slh_dsa/pristine/` | SLH-DSA baseline RTL and data | Keep separate from edits |
@@ -57,6 +60,8 @@ See [ASIC setup](../asic/README.md) for the portable ASIC entry point and
 
 | Location | Contents | Handling |
 |---|---|---|
+| `build/mldsa-handoff/` | Deterministic guarded-baseline/corrected-candidate source exports | Generated from named passing evidence; use manifests, do not mix variants |
+| `build/slh-handoff/` | Deterministic sensitivity-corrected baseline/candidate exports at a selected SHA2 mode | Check source hashes and same-mode partner qualification before a comparison |
 | `.pqc_runs/` | Isolated checks, candidate transactions, recovery snapshots and user-selected run reports | Local run state; inspect failed-run/recovery evidence before removing |
 | `runs/asic/<tool>-<uuid>/` | New ASIC manifests, logs, generated Tcl, reports, netlists and `result.json` | Keep baseline/candidate runs separate |
 | `build/mlkem_adams_bridge*/` | Default ML-KEM compilation/simulation workspaces | Generated outputs; distinct from the tracked HQC `build/` subtrees |

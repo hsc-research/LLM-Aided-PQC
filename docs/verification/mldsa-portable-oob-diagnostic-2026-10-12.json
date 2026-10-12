@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-12",
+  "classification": "independent_simulator_boundary_diagnostic_not_a_dut_qualification",
+  "scope": "Dynamic 64-bit accesses that partially exceed the bounds of ascending packed vectors, matching the shape of the upstream ML-DSA testbench signature tail accesses.",
+  "checkout_commit": "fa0aab24dc4b8763aaba8751650a41904d3facc0",
+  "source": "`timescale 1ns/1ps\nmodule tb;\n  reg clk = 0;\n  always #5 clk = ~clk;\n  reg [63:0] data = 64'h1122334455667788;\n  integer offset = 64;\n  integer i;\n  reg [0:95] direct4 = 0, bounded4 = 0;\n  reg [0:103] direct5 = 0, bounded5 = 0;\n  reg [0:87] direct3 = 0, bounded3 = 0;\n  initial begin\n    @(posedge clk);\n    direct4[offset +: 64] <= data;\n    direct5[offset +: 64] <= data;\n    direct3[offset +: 64] <= data;\n    for (i=0; i<8; i=i+1) begin\n      if (offset+i*8 < 96) bounded4[offset+i*8 +: 8] <= data[63-i*8 -: 8];\n      if (offset+i*8 < 104) bounded5[offset+i*8 +: 8] <= data[63-i*8 -: 8];\n      if (offset+i*8 < 88) bounded3[offset+i*8 +: 8] <= data[63-i*8 -: 8];\n    end\n    #1;\n    $display(\"TAIL4 direct=%h bounded=%h expected=11223344\", direct4[64+:32], bounded4[64+:32]);\n    $display(\"TAIL5 direct=%h bounded=%h expected=1122334455\", direct5[64+:40], bounded5[64+:40]);\n    $display(\"TAIL3 direct=%h bounded=%h expected=112233\", direct3[64+:24], bounded3[64+:24]);\n    $display(\"READ4 direct=%h expected_high=11223344\", bounded4[offset+:64]);\n    $display(\"READ5 direct=%h expected_high=1122334455\", bounded5[offset+:64]);\n    $display(\"READ3 direct=%h expected_high=112233\", bounded3[offset+:64]);\n    $finish;\n  end\nendmodule\n",
+  "source_sha256": "bc6e157e98f3a69471e75636164fd0e8db7f1e45022406e9464200a8b025af3b",
+  "commands": [
+    "iverilog -g2012 -s tb -o \"$OUT/tb.vvp\" \"$OUT/tb.v\"",
+    "vvp \"$OUT/tb.vvp\"",
+    "MAKEFLAGS=\"CFG_CXXFLAGS_PCH_I=-include\" verilator --binary --timing --top-module tb --Mdir \"$OUT/obj\" -j 2 -Wno-fatal \"$OUT/tb.v\"",
+    "\"$OUT/obj/Vtb\""
+  ],
+  "environment_notes": [
+    "OUT is a fresh diagnostic directory. Save the source field as tb.v before running.",
+    "The installed Verilator wrapper sets CXXFLAGS=--std=c++20 -DVL_TIME_CONTEXT and VERILATOR_ROOT to its relocated installation.",
+    "CFG_CXXFLAGS_PCH_I=-include is a compiler precompiled-header option for this installed Verilator build, not an RTL change."
+  ],
+  "icarus": {
+    "compiler_version": "Icarus Verilog 12.0 (stable)",
+    "runtime_version": "Icarus Verilog runtime 12.0 (stable)",
+    "compile_exit": 0,
+    "simulator_exit": 0,
+    "simulator_output": "TAIL4 direct=11223344 bounded=11223344 expected=11223344\nTAIL5 direct=1122334455 bounded=1122334455 expected=1122334455\nTAIL3 direct=112233 bounded=112233 expected=112233\nREAD4 direct=11223344xxxxxxxx expected_high=11223344\nREAD5 direct=1122334455xxxxxx expected_high=1122334455\nREAD3 direct=112233xxxxxxxxxx expected_high=112233\n$OUT/tb.v:28: $finish called at 6000 (1ps)\n",
+    "original_log_sha256": "8332e0fa825b4e373be21a23a9036e8bac2c0542a02a479f8d9d8655879e7928"
+  },
+  "verilator": {
+    "launcher_version_output": "rev vUNKNOWN-built20260516-4e853d8",
+    "runtime_reported_version": "Verilator 5.49",
+    "compile_exit": 0,
+    "simulator_exit": 0,
+    "simulator_output": "TAIL4 direct=00000000 bounded=11223344 expected=11223344\nTAIL5 direct=0000000000 bounded=1122334455 expected=1122334455\nTAIL3 direct=000000 bounded=112233 expected=112233\nREAD4 direct=0000000000000000 expected_high=11223344\nREAD5 direct=0000000000000000 expected_high=1122334455\nREAD3 direct=0000000000000000 expected_high=112233\n- $OUT/tb.v:28: Verilog $finish\n- S i m u l a t i o n   R e p o r t: Verilator 5.49\n- Verilator: $finish at 6ns; walltime 0.000 s; speed 96.896 us/s\n- Verilator: cpu 0.000 s on 1 threads; allocated 6 MB\n",
+    "original_log_sha256": "f06de023c0a6e7ad24177d652e1d85ba0cb1f5393587895360d5007f267f70cf"
+  },
+  "observations": [
+    "For partially out-of-range writes, Icarus retains the valid in-range bytes; this installed Verilator build leaves the entire destination slice zero.",
+    "For partially out-of-range reads, Icarus retains the valid high bytes and reports X for the out-of-range suffix; this installed Verilator build returns an entirely zero word.",
+    "Bounded bytewise writes preserve the expected four-, five- and three-byte tails under both simulators."
+  ],
+  "implication": "A portable ML-DSA testbench must capture all valid signature bytes and explicitly construct valid input bytes without relying on partially out-of-range accesses. This observation does not justify dropping tail comparisons, replacing expected values, or claiming that the DUT passed.",
+  "limits": [
+    "This is a tiny synthetic language/tool behavior diagnostic, not a full ML-DSA run.",
+    "It does not establish behavior of other Verilator releases or an independent language-standard conformance finding.",
+    "The accompanying ML-DSA baseline failure and corrected full-run results must be reported separately."
+  ],
+  "local_evidence_directory": ".pqc_runs/mldsa-oob-review-Kuw5rv",
+  "original_logs_preserved": true
+}
