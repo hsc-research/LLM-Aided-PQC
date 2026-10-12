@@ -14,16 +14,14 @@ import sys, os, re, json, shutil, importlib, time
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
-os.chdir(REPO)
 
-import anthropic
 from synthesizer import run_synthesis
 import path_extractor
 
 MODEL       = "claude-sonnet-4-6"
 MIN_GAIN_NS = 0.05
 LOG         = os.path.join(HERE, "orchestrator_log.jsonl")
-PRISTINE    = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src"
+PRISTINE    = os.path.join(os.environ.get("MLDSA_ROOT", os.path.join(os.path.dirname(REPO), "ML-DSA-OSH-main")), "ref_combined", "src")
 
 BLOCKS = {
     # block: (tracked source, gate module name, baseline wns_ns, baseline luts)
@@ -125,7 +123,7 @@ def classify(paths):
     return tags
 
 def call_llm(block, rtl, board, tags):
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     prompt = (f"BLOCK: {block} (ML-DSA, Artix-7 xc7a200tfbg676-1, 200 MHz OOC).\n"
               f"CODE-COMPUTED CLASSIFICATION (authoritative): {tags}\n\n"
               f"TOP TIMING PATHS:\n{board}\n\nFULL RTL:\n{rtl}\n\n"
@@ -147,6 +145,7 @@ def call_llm(block, rtl, board, tags):
     raise SystemExit("LLM failed to produce valid JSON twice; aborting.")
 
 def main():
+    os.chdir(REPO)
     block = sys.argv[1]
     # ML-DSA sources have no parameter_set generic; Vivado ignores it.
     # "mldsa" is just a label for report filenames/logs.
@@ -248,6 +247,8 @@ def main():
             log({"block": block, "verdict": "refused",
                  "reason": f"edit{k} anchor count {n} != 1: {e['old'][:60]}"}); return
         work = work.replace(e["old"], e["new"])
+    from edit_ops import validate_rtl_change
+    validate_rtl_change(rtl, work)
     shutil.copy(src, src + ".bak")
     open(src, "w").write(work)
     print("applied")   # mandatory confirmation per protocol
@@ -280,12 +281,12 @@ def main():
              "wns_pre": pre_wns, "wns_post": res["wns_ns"], "gain": round(gain, 3),
              "luts": res.get("luts"), "edits": edits, **{k: res.get(k) for k in ("luts","ffs","dsp","total_w","dynamic_w") if isinstance(res, dict) and res.get(k) is not None}}  # ppa-logged
         log(rec)
-        try: distill_rule(anthropic.Anthropic(), MODEL, rec, "mldsa")
+        try: distill_rule(__import__("llm_client").create_client(), MODEL, rec, "mldsa")
         except Exception as e: print(f"rule distill skipped: {e}")
         print("=== ACCEPTED. .bak kept; review diff and commit manually. ===")
     else:
         try:
-            distill_rule(anthropic.Anthropic(), MODEL,
+            distill_rule(__import__("llm_client").create_client(), MODEL,
                          {"block": block, "verdict": "REJECTED_MARGINAL",
                           "strategy": prop.get("strategy"), "wns_pre": pre_wns,
                           "wns_post": res["wns_ns"], "gain": round(gain, 3)}, "mldsa")

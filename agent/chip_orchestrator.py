@@ -70,7 +70,7 @@ DESIGNS = {
         'scopes': ['build/keygen', 'build/encap', 'build/decap', 'build/joint_design'],
     },
     'slh_dsa': {
-        'key': 'top', 'ckpt': '/mnt/c/PQC/slh_test/slh_128f_sha2_synth.dcp',
+        'key': 'top', 'ckpt': './synth_out/slh_dsa/post_synth.dcp',
         'bracket': (10.0, 13.0), 'regen': ['python3', 'agent/slh_dsa/regen_slh_ckpt.py'],
         'hier2file': {
             'W_MEM_INST': 'agent/slh_dsa/slh_src/sphincslet/sha/sha256_w_mem.v',
@@ -88,6 +88,8 @@ def log_record(record):
 
 
 def validate_closure(value):
+    if isinstance(value, dict) and (value.get("measurement_valid") is False or value.get("search_complete") is False):
+        raise RuntimeError("Incomplete or invalid closure measurement")
     for key in ('closing_fmax_mhz', 'closing_period_ns'):
         number = value.get(key) if isinstance(value, dict) else None
         if isinstance(number, bool) or not isinstance(number, (int, float)) or not math.isfinite(number) or number <= 0:
@@ -113,8 +115,8 @@ def closure_search(ckpt, tag, lo, hi):
     raise RuntimeError('Closure runner produced no valid result')
 
 
-def worst_path_at_close(tag, period):
-    path = Path(f'/tmp/fsrch_{tag}_{period}.rpt')
+def worst_path_at_close(tag, period, report_path=None):
+    path = Path(report_path) if report_path else Path(f'/tmp/fsrch_{tag}_{period}.rpt')
     if not path.is_file():
         return None
     match = re.search(r'Slack \((?:MET|VIOLATED)\)\s*:.*?Source:\s*(\S+).*?Destination:\s*(\S+)',
@@ -241,7 +243,7 @@ def main(argv=None):
         with RunLock(REPO):
             regen_ckpt(cfg)
             base = closure_search(cfg['ckpt'], tag, *cfg['bracket'])
-            path = worst_path_at_close(tag, base['closing_period_ns'])
+            path = worst_path_at_close(tag, base['closing_period_ns'], base.get('report_path'))
             if path is None:
                 raise RuntimeError('No worst path in the closing report')
             inst, source = map_to_file(path, cfg['hier2file'])

@@ -106,3 +106,8 @@ tutorial_innovus/
 runs/asic/
 agent/hqc/joint_kat_sources.json
 configs/*.local.json
+
+# Python environments and local installation metadata
+.venv/
+*.egg-info/
+.pytest_cache/

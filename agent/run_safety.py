@@ -159,10 +159,26 @@ def run_process(argv, *, cwd=None, timeout=86400, env=None, log_path=None):
 
 
 def gate_passed(result):
+    """Require an explicit line/JSON verdict and reject conflicting evidence."""
+    if result.returncode != 0:
+        return False
     text = result.stdout or ''
-    failed = re.search(r'"status"\s*:\s*"(?:FAIL|ERROR|INCONCLUSIVE)"|GATE:\s*(?:FAIL|ERROR|INCONCLUSIVE)', text)
-    passed = re.search(r'"status"\s*:\s*"PASS"|GATE:\s*PASS\b', text)
-    return result.returncode == 0 and bool(passed) and not failed
+    if re.search(r'"status"\s*:\s*"(?:FAIL|ERROR|INCONCLUSIVE)"|'
+                 r'^(?:.*\b(?:GATE|KAT RESULT):\s*(?:FAIL|ERROR|INCONCLUSIVE)\b|\s*(?:ERROR|FATAL)(?:\s|:))',
+                 text, re.M):
+        return False
+    # JSON status can span lines, but must occur in a real JSON object.
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r'\{', text):
+        try:
+            value, _ = decoder.raw_decode(text[match.start():])
+        except ValueError:
+            continue
+        if isinstance(value, dict) and value.get('status') == 'PASS':
+            return True
+    return bool(re.search(r'^(?:(?:JOINT KAT|SLH-DSA|HQC) )?GATE:\s*PASS'
+                          r'(?:\s+-[^\n]*|\s*\([^\n]*\))?\s*$|^KAT RESULT:\s*PASS\s*$',
+                          text, re.M))
 
 
 def proposal_accepted(result):

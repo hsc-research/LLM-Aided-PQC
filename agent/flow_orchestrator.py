@@ -7,14 +7,13 @@ Usage: python3 agent/flow_orchestrator.py <module> <period> [--pristine] [--max-
 Requires: synth_out/sweep_<key>/post_synth.dcp (run flow_sweep.py once first,
 or this script synthesizes the checkpoint if missing).
 """
-import sys, os, re, json, time, subprocess, urllib.request
+import sys, os, re, json, time, subprocess
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from synthesizer import MODULE_SOURCES, VHDL_SOURCES, PART, TOP_OVERRIDE
 
 MODEL = "claude-sonnet-4-5"
-API_KEY = os.environ.get("ANTHROPIC_API_KEY") or open(os.path.expanduser("~/.anthropic_key")).read().strip()
 LOG = os.path.join(HERE, "flow_sweep_log.jsonl")
 
 PLACE = ["Default","Explore","ExtraNetDelay_high","ExtraNetDelay_low",
@@ -61,16 +60,11 @@ Respond ONLY with JSON:
 {{"place": "...", "phys_opt": "...", "route": "...", "reasoning": "one sentence"}}
 or {{"verdict": "converged", "reasoning": "one sentence"}} if the history shows
 diminishing returns (best unlikely to improve >0.5%)."""
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=json.dumps({"model": MODEL, "max_tokens": 300,
-                         "messages": [{"role":"user","content":prompt}]}).encode(),
-        headers={"x-api-key": API_KEY, "anthropic-version": "2023-06-01",
-                 "content-type": "application/json"})
-    with urllib.request.urlopen(req) as f:
-        resp = json.load(f)
-    cost = resp["usage"]["input_tokens"]*3e-6 + resp["usage"]["output_tokens"]*15e-6
-    txt = resp["content"][0]["text"]
+    response = __import__("llm_client").create_client().messages.create(
+        model=MODEL, max_tokens=300, messages=[{"role": "user", "content": prompt}])
+    # Historical nominal rates only; not a current billing quotation.
+    cost = response.usage.input_tokens * 3e-6 + response.usage.output_tokens * 15e-6
+    txt = response.content[0].text
     m = re.search(r"\{.*\}", txt, re.S)
     return json.loads(m.group(0)), cost
 
@@ -96,6 +90,7 @@ puts "=== IMPL {tag} DONE ==="
     return wns, fmax, round(time.time()-t0,1)
 
 def main():
+    raise RuntimeError("Legacy projected-Fmax flow search is disabled; use python3 -m agent.run --target fpga for measured routed closure")
     module = sys.argv[1]; period = float(sys.argv[2])
     key = module + ("_pristine" if "--pristine" in sys.argv else "")
     max_runs = int(sys.argv[sys.argv.index("--max-runs")+1]) if "--max-runs" in sys.argv else 4

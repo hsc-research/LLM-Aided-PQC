@@ -14,14 +14,20 @@ A common command entry point now selects FPGA/Vivado or ASIC/Genus/DC. ASIC runs
 
 ## Validation
 
-The local suite passed **44 tests** using temporary files, mock executables, and Tcl command stubs. Coverage includes multi-file rollback, dirty-file preservation, source mutation, private HQC staging, combined defines, failed KATs, PPA rejection, missing artifacts, invalid timing, explicit tool choice, input provenance, and timeouts. Python syntax compilation also passed.
+The earlier candidate-safety/ASIC-selection update passed **44 tests** using temporary files, mock executables, and Tcl command stubs. Coverage includes multi-file rollback, dirty-file preservation, source mutation, private HQC staging, combined defines, failed KATs, PPA rejection, missing artifacts, invalid timing, explicit tool choice, input provenance, and timeouts. Python syntax compilation also passed.
 
-No Vivado, Genus, DC, hardware simulation, or model call was run during this software validation. Both generated ASIC flows and the changed HQC gate must be checked on the licensed server before merging as an EDA-validated release. Run the suite with `python3 -m unittest discover -s tests -v`.
+That historical count is not the current test total. Run the complete suite
+against the checkout being reviewed. No Vivado, Genus, DC, hardware simulation,
+or model call was run during that software validation. Both generated ASIC flows and the changed HQC gate must be checked on the licensed server before merging as an EDA-validated release. Run the suite with `python3 -m unittest discover -s tests -v`.
 
 ## Remaining boundaries
 
-- External ML-DSA/SLH-DSA trees and some legacy paths still require site configuration.
-- The old FPGA period-search recipe retains its existing DRC warning overrides and bounded-search assumptions. This update does not certify global Fmax or historical results.
+- ML-DSA still requires the complete external source/testbench/data tree.
+  SLH-DSA stages private simulation inputs but its standalone frozen-reference
+  gate supports SHA2-128f only; the current 192f candidate is blocked.
+- The FPGA period search remains bounded and cannot prove global Fmax. The
+  portable follow-on removes DRC warning downgrades and checks routing and
+  timing reports more strictly; it does not revalidate historical measurements.
 - Transactions and locks protect cooperating code, not hostile programs or concurrent manual edits. Direct legacy optimizer invocations are outside the top-level transaction.
 - SIGKILL or power loss cannot execute rollback. Backups remain under `.pqc_runs/transactions/`; inspect the manifest and restore its scopes before restarting.
 - Functional evidence remains design-specific. No all-input constant-time proof or generic cycle-profile acceptance check has been added.
@@ -29,3 +35,16 @@ No Vivado, Genus, DC, hardware simulation, or model call was run during this sof
 - Legacy learned-rule records may refer to block-level successes; the top-level verdict determines the integrated result.
 
 No hardware RTL, test-vector data, historical result logs, upstream license notices, or experimental PPA numbers are changed.
+
+## Portable setup and public documentation
+
+The follow-on adds standard-library `doctor`, `list`, and `smoke` commands,
+optional Python extras, explicit opt-in for model calls, and an offline-first
+installation guide. Current setup, four-scheme coverage, result interpretation,
+and dated research records now have separate entry points.
+
+The Makefile cleanup target preserves tracked HQC source snapshots. Source
+packaging excludes historical hardware evidence and binary tool artifacts.
+Third-party notices now cover SLH-DSA imports, and Apache-2.0 text accompanies
+the ML-DSA headers. The [release review](RELEASE_CHECKLIST.md) remains open;
+package exclusions do not remove historical files from the repository.

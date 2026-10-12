@@ -12,13 +12,16 @@ from pathlib import Path
 import re
 import shutil
 import sys
-import tempfile
 import time
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 sys.path.insert(0, str(HERE.parent))
 from run_safety import hashes, run_process, stage_sources
+try:
+    from .kat_gate import compare_secrets, copy_inputs, new_run_dir
+except ImportError:
+    from kat_gate import compare_secrets, copy_inputs, new_run_dir
 
 SIMDIR = Path('test_joint_design/test_joint_design.sim/sim_1/behav/xsim')
 KEYGEN_SIM = Path('test_keygen/test_keygen.sim/sim_1/behav/xsim')
@@ -54,12 +57,12 @@ def stage(work):
     for name in ('pk_seed.in', 'sk_seed.in'):
         result = run_process([sys.executable, str(target / 'seed_align.py'),
                               'seed_align', '0', '40', name, 'yes'], cwd=work)
-        if result.returncode:
+        if result.returncode or re.search(r'(?im)^\s*(?:ERROR|FATAL)(?:\s|:)', result.stdout):
             raise RuntimeError('Seed staging failed: ' + result.stdout[-500:])
         shutil.move(str(work / name), str(target / 'tb' / name))
     record = {'sources': origin_hashes, 'staged_basenames': manifest,
               'scope': 'joint decapsulation; standalone keygen/encap provide stimuli'}
-    (HERE / 'joint_kat_sources.json').write_text(json.dumps(record, indent=2))
+    (work / 'joint_kat_sources.json').write_text(json.dumps(record, indent=2))
     return manifest, origin_hashes
 
 
@@ -97,9 +100,10 @@ def run_sim(top, level, inputs, work, manifest):
     script = work / (level + '.tcl')
     script.write_text(joint_tcl(top, level, inputs, manifest))
     shutil.rmtree(work / 'test_joint_design', ignore_errors=True)
-    result = run_process(['vivado', '-mode', 'batch', '-nojournal', '-nolog',
-                          '-notrace', '-source', str(script)], cwd=work, timeout=TIMEOUT_S)
-    if result.returncode:
+    result = run_process([os.environ.get('VIVADO', 'vivado'), '-mode', 'batch', '-nojournal', '-nolog',
+                          '-notrace', '-source', str(script)], cwd=work, timeout=TIMEOUT_S,
+                          log_path=work / (level + '.log'))
+    if result.returncode or re.search(r'(?im)^\s*(?:ERROR|FATAL)(?:\s|:)', result.stdout):
         raise RuntimeError('Joint simulation failed: ' + result.stdout[-800:])
     total = re.findall(r'Total Clock Cycles:\s*(\d+)', result.stdout)
     decode = re.findall(r'Decode Clock Cycles:\s*(\d+)', result.stdout)
@@ -108,9 +112,10 @@ def run_sim(top, level, inputs, work, manifest):
 
 
 def run_standalone(script, work):
-    result = run_process(['vivado', '-mode', 'batch', '-nojournal', '-nolog',
-                          '-notrace', '-source', script], cwd=work, timeout=TIMEOUT_S)
-    if result.returncode:
+    result = run_process([os.environ.get('VIVADO', 'vivado'), '-mode', 'batch', '-nojournal', '-nolog',
+                          '-notrace', '-source', script], cwd=work, timeout=TIMEOUT_S,
+                          log_path=work / (Path(script).stem + '.log'))
+    if result.returncode or re.search(r'(?im)^\s*(?:ERROR|FATAL)(?:\s|:)', result.stdout):
         raise RuntimeError('Standalone simulation failed: ' + result.stdout[-800:])
 
 
@@ -119,40 +124,42 @@ def main(argv=None):
     parser.add_argument('--all', action='store_true')
     args = parser.parse_args(argv)
     levels = ['hqc128', 'hqc192', 'hqc256'] if args.all else ['hqc128']
-    os.chdir(REPO)
     CYCLES.clear()
     started = time.monotonic()
+    work = new_run_dir('hqc-joint-', REPO)
+    print(f'Run artifacts: {work}')
     try:
-        with tempfile.TemporaryDirectory(prefix='pqc-joint-kat-') as directory:
-            work = Path(directory)
-            manifest, original = stage(work)
-            run_standalone('./build/keygen/tb/keygen.tcl', work)
-            for level in levels:
-                suffix = level[3:]
-                for kind in ('s', 'h', 'x', 'y'):
-                    name = f'{kind}_{suffix}.in'
-                    shutil.copy2(work / KEYGEN_SIM / name, work / 'build/encap/tb')
-                    shutil.copy2(work / KEYGEN_SIM / name, work / name)
-            run_standalone('./build/encap/tb/encap.tcl', work)
-            for level in levels:
-                suffix = level[3:]
-                for name in ([f'{kind}_{suffix}.in' for kind in ('u', 'v', 'd', 's')]
-                             + [f'ss_output_{suffix}.out']):
-                    shutil.copy2(work / ENCAP_SIM / name, work / name)
-            for level in levels:
-                verify_sources(manifest, original, work)
-                suffix = level[3:]
-                inputs = list((work / 'build/joint_design').glob('*.mem'))
-                inputs += [work / 'build/joint_design/tb' / name for name in ('pk_seed.in', 'sk_seed.in')]
-                inputs += [work / f'{kind}_{suffix}.in' for kind in ('s', 'h', 'x', 'y', 'u', 'v', 'd')]
-                run_sim('hqc_joint_design_decap_tb', level, inputs, work, manifest)
-                produced = work / SIMDIR / f'test_ss_output_{suffix}.out'
-                expected = (work / f'ss_output_{suffix}.out').read_text().strip()
-                if not produced.is_file() or not expected or produced.read_text().strip() != expected:
-                    raise RuntimeError(f'{level}: missing or mismatched shared secret')
-                print(f'[{level}] SS MATCH')
+        manifest, original = stage(work)
+        run_standalone('./build/keygen/tb/keygen.tcl', work)
+        copy_inputs(work / KEYGEN_SIM, work / 'build/encap/tb', ('s', 'h', 'x', 'y'))
+        for level in levels:
+            suffix = level[3:]
+            for kind in ('s', 'h', 'x', 'y'):
+                name = f'{kind}_{suffix}.in'
+                shutil.copy2(work / KEYGEN_SIM / name, work / 'build/encap/tb')
+                shutil.copy2(work / KEYGEN_SIM / name, work / name)
+        run_standalone('./build/encap/tb/encap.tcl', work)
+        copy_inputs(work / ENCAP_SIM, work, ('u', 'v', 'd', 's'))
+        for level in levels:
+            suffix = level[3:]
+            for name in ([f'{kind}_{suffix}.in' for kind in ('u', 'v', 'd', 's')]
+                         + [f'ss_output_{suffix}.out']):
+                shutil.copy2(work / ENCAP_SIM / name, work / name)
+        for level in levels:
             verify_sources(manifest, original, work)
-        (HERE / 'joint_kat_cycles.json').write_text(json.dumps(CYCLES, indent=2))
+            suffix = level[3:]
+            inputs = list((work / 'build/joint_design').glob('*.mem'))
+            inputs += [work / 'build/joint_design/tb' / name for name in ('pk_seed.in', 'sk_seed.in')]
+            inputs += [work / f'{kind}_{suffix}.in' for kind in ('s', 'h', 'x', 'y', 'u', 'v', 'd')]
+            run_sim('hqc_joint_design_decap_tb', level, inputs, work, manifest)
+            produced = work / SIMDIR / f'test_ss_output_{suffix}.out'
+            expected = work / f'ss_output_{suffix}.out'
+            if compare_secrets(expected, produced) != 'MATCH':
+                raise RuntimeError(f'{level}: missing or mismatched shared secret')
+            shutil.copy2(produced, work / f'test_ss_output_{suffix}.out')
+            print(f'[{level}] SS MATCH')
+        verify_sources(manifest, original, work)
+        (work / 'joint_kat_cycles.json').write_text(json.dumps(CYCLES, indent=2))
         print(f'JOINT KAT GATE: PASS ({time.monotonic()-started:.0f}s)')
         return 0
     except (Exception, KeyboardInterrupt) as error:

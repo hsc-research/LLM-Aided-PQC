@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "scope": "ML-DSA coeff_decomposer block only",
+  "python_version": "3.12.14",
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "baseline",
+      "returncode": 0,
+      "expected_outcome_observed": true,
+      "result": {
+        "status": "PASS",
+        "reason": "all levels match",
+        "levels": {
+          "2": {
+            "ok": true,
+            "reason": "all expected outputs match",
+            "checked": 200
+          },
+          "3": {
+            "ok": true,
+            "reason": "all expected outputs match",
+            "checked": 200
+          }
+        }
+      }
+    },
+    {
+      "case": "live-arithmetic",
+      "returncode": 1,
+      "expected_outcome_observed": true,
+      "result": {
+        "status": "FAIL",
+        "reason": "simulator reported MISMATCH",
+        "levels": {
+          "2": {
+            "ok": false,
+            "reason": "simulator reported MISMATCH",
+            "checked": 200
+          }
+        }
+      }
+    },
+    {
+      "case": "boundary-constant",
+      "returncode": 1,
+      "expected_outcome_observed": true,
+      "result": {
+        "status": "FAIL",
+        "reason": "simulator reported MISMATCH",
+        "levels": {
+          "2": {
+            "ok": false,
+            "reason": "simulator reported MISMATCH",
+            "checked": 200
+          }
+        }
+      }
+    }
+  ],
+  "input_sha256": {
+    "agent/mldsa/mldsa_src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+    "agent/mldsa/mldsa_src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "agent/mldsa/mldsa_check/gen_vectors.py": "dd0af7c8d25762ad27b4513df7ec67657828607d73dd075cf3fc10aece986cb9",
+    "agent/mldsa/mldsa_check/tb_coeff_decomposer.v": "36f6c074ead924328cf9fbb97888e9d8a2be37855677c16bfe0bade3d7fb7e00"
+  },
+  "iverilog_version": "Icarus Verilog version 12.0 (stable) ()",
+  "vvp_version": "Icarus Verilog runtime version 12.0 (stable) ()",
+  "tracked_inputs_unchanged": true
+}

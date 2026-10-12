@@ -193,6 +193,7 @@ class ASIC(unittest.TestCase):
         self.root = Path(self.tmp.name)
         for name in ('top.v', 'timing.lib', 'timing.db'):
             (self.root / name).write_text('test fixture only')
+        (self.root / 'timing.lib').write_text('library (fixture) { time_unit : "1ps"; }')
         (self.root / 'constraints.sdc').write_text('set fixture_constraint 1')
         self.cfg = {'schema_version': 1, 'root': '.', 'top': 'top', 'scope': 'test',
                     'period_ns': 1, 'memory_model': 'flops', 'sdc': 'constraints.sdc',
@@ -240,26 +241,35 @@ class ASIC(unittest.TestCase):
         self.cfg['tools']['genus']['executable'] = 'missing-pqc-tool'
         with self.assertRaises(ValueError): asic.run(self.plan())
     def test_explicit_timing_units(self):
-        metrics = asic.parse_metrics('genus', 'Path 1: MET (1 ps)', 'top top 25 40.5', '', 'ps', 'top', 'library_unit')
+        metrics = asic.parse_metrics('genus', 'Path 1: MET (1 ps) Setup Check', 'top top 25 40.5', '', 'ps', 'top', 'library_unit')
         self.assertAlmostEqual(metrics['worst_setup_slack_ns'], 0.001)
         self.assertIsNone(metrics['power_w'])
         self.assertIsNone(metrics['fmax_mhz'])
     def test_dc_power_units(self):
-        metrics = asic.parse_metrics('dc', 'slack (MET) 1', 'Number of cells: 25\nTotal cell area: 40.5',
+        metrics = asic.parse_metrics('dc', 'Path Type: max\nslack (MET) 1', 'Number of cells: 25\nTotal cell area: 40.5',
             'Total Dynamic Power = 2 mW\nCell Leakage Power = 3 uW', 'ps', 'top', 'library_unit')
         self.assertAlmostEqual(metrics['power_w'], 0.002003)
     def test_missing_slack_fails(self):
         with self.assertRaises(ValueError): asic.parse_metrics('dc', '', '', '', 'ns', 'top', 'library_unit')
     def test_contradictory_slack_fails(self):
         with self.assertRaises(ValueError):
-            asic.parse_metrics('genus', 'Path 1: MET (-1 ps)', '', '', 'ps', 'top', 'library_unit')
+            asic.parse_metrics('genus', 'Path 1: MET (-1 ps) Setup Check', '', '', 'ps', 'top', 'library_unit')
     def mock_tool(self, tool='genus', marker=True, missing=False, error=False):
         exe = self.root / 'fake-tool'
         checkpoint = 'design.db' if tool == 'genus' else 'design.ddc'
-        timing = 'Path 1: MET (1 ps)' if tool == 'genus' else 'slack (MET) 1'
+        timing = 'Path 1: MET (1 ps) Setup Check' if tool == 'genus' else 'Path Type: max\nslack (MET) 1'
         code = '#!/usr/bin/env python3\nfrom pathlib import Path\n'
         code += f"Path('timing.rpt').write_text({timing!r})\n"
-        code += "Path('area.rpt').write_text('top top 25 40.5')\n"
+        area = 'top top 25 40.5' if tool == 'genus' else 'Number of cells: 25\nTotal cell area: 40.5'
+        code += f"Path('area.rpt').write_text({area!r})\n"
+        code += "Path('constraint_audit.rpt').write_text('PQC_PERIOD_NATIVE 1000')\n"
+        if tool == 'genus':
+            unresolved = "No unresolved references in design 'top'\nNo empty modules in design 'top'\n"
+            code += f"Path('unresolved.rpt').write_text({unresolved!r})\n"
+        else:
+            code += "Path('units.rpt').write_text('Time Units : 1ps')\n"
+            code += "Path('check_timing.rpt').write_text('fixture')\n"
+            code += "Path('hold.rpt').write_text('fixture')\n"
         for name in ('power.rpt', 'netlist.v', 'constraints.sdc', checkpoint):
             if not (missing and name == 'netlist.v'): code += f"Path({name!r}).write_text('fixture')\n"
         if marker: code += "print('PQC_SYNTHESIS_DONE')\n"
@@ -294,7 +304,10 @@ class ASIC(unittest.TestCase):
         self.assertEqual(done.returncode, 0)
         self.assertEqual(done.stdout.strip(), value)
     def test_generated_tcl_syntax_with_stubs(self):
-        stub = 'set search_path {}\nproc unknown {args} {return 1}\n'
+        stub = ('set search_path {}\n'
+                'proc get_db {args} {if {[lindex $args end] eq ".period"} {return 1000}; return 1}\n'
+                'proc get_attribute {args} {return 1000}\n'
+                'proc unknown {args} {return 1}\n')
         for tool in ('genus', 'dc'):
             with tempfile.TemporaryDirectory() as work:
                 result = subprocess.run(['tclsh'], input=stub + asic.render_tcl(self.plan(tool)),

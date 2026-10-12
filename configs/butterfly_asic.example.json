@@ -44,7 +44,10 @@
         "generic": "high",
         "map": "high",
         "opt": "high"
-      }
+      },
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "ASAP7 LVT TT; verify loaded library PVT at the site"
     },
     "dc": {
       "executable": "dc_shell",
@@ -58,7 +61,10 @@
         "${ASAP7_DB_DIR}/asap7sc7p5t_SEQ_LVT_TT_nldm_220123.db",
         "${ASAP7_DB_DIR}/asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.db"
       ],
-      "compile": "compile_ultra"
+      "compile": "compile_ultra",
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "ASAP7 LVT TT; verify loaded library PVT at the site"
     }
   }
 }

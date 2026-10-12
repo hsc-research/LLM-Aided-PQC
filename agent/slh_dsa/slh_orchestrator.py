@@ -26,9 +26,7 @@ import sys, os, re, json, shutil, time, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
-os.chdir(REPO)
 
-import anthropic
 from learned_rules import rules_prompt_block
 
 MODEL     = "claude-sonnet-4-6"
@@ -160,7 +158,7 @@ def classify(detail):
 
 
 def call_llm(block, rtl, ctx, tags, extra=""):
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     prompt = (f"BLOCK: {block} (SLH-DSA / SPHINCSLET, Artix-7 xc7a200tfbg676-1, "
               f"whole-design OOC, judged at chip closure).\n"
               f"CODE-COMPUTED CLASSIFICATION (authoritative): {tags}\n\n"
@@ -234,7 +232,7 @@ def proposed_rules(design="slh_dsa"):
 
 def propose_rule(block, rtl, ctx, tags, decline_reason):
     """One call: given that no menu entry applied, what rule would have?"""
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     prompt = (
         "You maintain an optimization rulebook for FPGA PPA agents. The "
         "existing menu returned no_action on this cone for this reason:\n"
@@ -290,17 +288,28 @@ def resolve_rule(rule_id, status, note, closure_after=None):
 
 
 def apply_edits(src, edits):
-    """Anchor-count assert on every edit, all-or-nothing, .bak first."""
-    s = open(src).read()
-    for e in edits:
-        n = s.count(e["old"])
-        if n != 1:
-            return False, f"anchor count {n} for: {e['old'][:60]!r}"
-    shutil.copy(src, src + ".bak")
-    for e in edits:
-        s = s.replace(e["old"], e["new"], 1)
-    open(src, "w").write(s)
-    return True, "applied"
+    """Stage sequential replacements before any write; reject simulator escapes."""
+    from edit_ops import validate_path, validate_rtl_change, EditError
+    try:
+        validate_path(src, list(BLOCKS.values()))
+        if not isinstance(edits, list) or not 1 <= len(edits) <= 4:
+            return False, "expected 1..4 edits"
+        original = open(src).read()
+        staged = original
+        for edit in edits:
+            if not isinstance(edit, dict) or not isinstance(edit.get("old"), str) or not edit["old"] or not isinstance(edit.get("new"), str):
+                return False, "invalid replacement"
+            count = staged.count(edit["old"])
+            if count != 1:
+                return False, f"anchor count {count}"
+            staged = staged.replace(edit["old"], edit["new"], 1)
+        validate_rtl_change(original, staged)
+        shutil.copy(src, src + ".bak")
+        with open(src, "w") as out:
+            out.write(staged)
+        return True, "applied"
+    except EditError as error:
+        return False, str(error)
 
 
 CFGS = ["128s", "128f", "192s", "192f", "256s", "256f"]
@@ -354,6 +363,7 @@ def gate_at(cfg):
 
 
 def main():
+    os.chdir(REPO)
     block = sys.argv[1] if len(sys.argv) > 1 else None
     dry   = "--dry" in sys.argv
     cfg = None

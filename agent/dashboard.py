@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """PQC Agent Dashboard v3 — narrative UI backend.
-Usage: python3 agent/dashboard.py  ->  http://localhost:5000
+Usage: python3 agent/dashboard.py  ->  http://127.0.0.1:8080
 Read-only; safe while orchestrators / Minerva / Vivado run.
 Serves static front end from agent/dashboard_static/."""
 import json, os, time, subprocess
@@ -247,6 +247,6 @@ def index():
     return send_from_directory(STATIC, "index.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    app.run(host="127.0.0.1", port=8080, debug=False)
 
 
