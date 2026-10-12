@@ -1,0 +1,1059 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/dbroy-iitk/HQC_SAC",
+  "commit": "4be1fe99c677d6a3ff055d380a386f65184544f1",
+  "upstream_tree_sha1": "a20e5140a5b4ce9e50c2e6a812f3a2c84f209920",
+  "snapshot_subdirectory": "upstream",
+  "import_date": "2026-10-12",
+  "status": "source-only; not functionally qualified",
+  "selection": "All upstream tracked files except three .DS_Store Finder metadata files. Scripts are retained as inert source bytes and were not executed.",
+  "license": "GNU GPL version 3 repository license; GPL-3.0-or-later in sampled HQC source headers; original component-specific notices retained. Not a complete license-clearance determination.",
+  "file_count": 126,
+  "total_bytes": 1459138,
+  "category_counts": {
+    "build_or_input_script": 7,
+    "design_verilog": 88,
+    "empty_build_directory_marker": 1,
+    "license": 1,
+    "memory_or_stimulus_input": 12,
+    "testbench_or_test_vector_verilog": 14,
+    "upstream_documentation": 3
+  },
+  "files": [
+    {
+      "path": "LICENSE",
+      "git_blob_sha1": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "size_bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "mode": "100644",
+      "category": "license"
+    },
+    {
+      "path": "Makefile",
+      "git_blob_sha1": "9eb2410afbb664d0bc757d356337240ace72733d",
+      "size_bytes": 14424,
+      "sha256": "1d0e1b4572b169214de4a2b7b225be4c4509fbebd4164f196e7574d4d9f98bae",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "build/.gitkeep",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "100644",
+      "category": "empty_build_directory_marker"
+    },
+    {
+      "path": "hardware/common/adders/loc_based_adder.v",
+      "git_blob_sha1": "d4bc0fabab29fe35bba72f21e8a560ae0cd2b73b",
+      "size_bytes": 5864,
+      "sha256": "8308819bb26294796d165ccabf2362d84243591119c7baa75c94b2880e5a3af0",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/adders/xor_based_adder.v",
+      "git_blob_sha1": "e2cb672486a8d92aa1ef0717d86527272e27b62c",
+      "size_bytes": 4386,
+      "sha256": "d51018a3daab04f6b6c77b239c4e7f83688f22fad03de31b577ac3ce801117f8",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/barrett_reduction/barrett_hqc_128.mem",
+      "git_blob_sha1": "24733a84b4145ec71a8eb2a94f5e8556ad1b20a8",
+      "size_bytes": 1424,
+      "sha256": "7882446d1827b54fbbbf55330bfdaa33a34a144186cede9078cf67053727ef64",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/common/barrett_reduction/barrett_hqc_192.mem",
+      "git_blob_sha1": "eec22c06f9dc55752d21462508983b23e822765f",
+      "size_bytes": 2051,
+      "sha256": "5160813c9073f0e4c51caa7fbc38e122bed6760733c78acaf61f2b8b3a700644",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/common/barrett_reduction/barrett_hqc_256.mem",
+      "git_blob_sha1": "6f3feb6ecc8203543477db7e5ef3dc112492b5da",
+      "size_bytes": 2681,
+      "sha256": "afa4dddb376deef76390b6111e29815544be7cd5f1634ef033641e6564652edb",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/common/barrett_reduction/barrett_red_gen.v",
+      "git_blob_sha1": "3656c676b93ecac15f5f6eb41612ff16a91a32d2",
+      "size_bytes": 4670,
+      "sha256": "e14586adfd6eb11f4ed79a3c40548bf17173317c55dc07c8dabec8dd127187d1",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/barrett_reduction/karatsuba_small.v",
+      "git_blob_sha1": "58865753c1e5b431ad5953ed8ff0a9375af02f26",
+      "size_bytes": 2736,
+      "sha256": "0f439a8151145ccabcc240126b824d33a7a0d3116912dddd37132cd2f7d7bbc7",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/clog2.v",
+      "git_blob_sha1": "70e157700b8040ee76502ceabf85244c97bb8c80",
+      "size_bytes": 1511,
+      "sha256": "3405b15368f22c52852150329f1def0030a763b845971c68875611a119832c07",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/duplicate_detection.v",
+      "git_blob_sha1": "003d221562094b8175a731f3de40780a9a7762ed",
+      "size_bytes": 10062,
+      "sha256": "c73c95d8a2db2074110833227290662b92718be50bfe6e1b8ad375a7d209b098",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/fixed_weight.v",
+      "git_blob_sha1": "50cb857212ae733be585884ba385cbde247f078e",
+      "size_bytes": 35477,
+      "sha256": "2ddca4708025cc95c8af8025c65b1ea5a8c596a9cd56d1d8c165e7d3f4bb4d72",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/fixed_weight_ct.v",
+      "git_blob_sha1": "57099623301bd0f152e2e6dbad8f9b52433f70a7",
+      "size_bytes": 32011,
+      "sha256": "2307e1b3138a24d42f96bddd0e79b5d214deffa6ae56340d9ccacc8e59753e03",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/fixed_weight_cww.v",
+      "git_blob_sha1": "3d8b854b875b27be74a806e4f731e349aadc0382",
+      "size_bytes": 19940,
+      "sha256": "f2e5c950c5a6286d2b5c18651bd82f8092a3b7ecc4297adce18590bcaeba9cb3",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/fixed_weight_cww_opt.v",
+      "git_blob_sha1": "b4a5862ef73ed55682c16e339f27453930df95b0",
+      "size_bytes": 20999,
+      "sha256": "6ed970232bc6e26d5fd31f53838fba1ec66d6e9c708224617620389b3dcbf205",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/hqc_barrett_red.v",
+      "git_blob_sha1": "3804c285b5f75b330399176c5f3bac599c5d242d",
+      "size_bytes": 5616,
+      "sha256": "418b97a351b8182e9234a0438c4fc2f0752d3cae69f951ccc7b0439edfbc5c21",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/onegen.v",
+      "git_blob_sha1": "43ab5a63a860418de13974492baea6e0dbf5634b",
+      "size_bytes": 9572,
+      "sha256": "bc6564fc106868d1b4d90dc0f755313eeaaff787e8889c85959f448547944b53",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/fixed_weight/onegen_ct.v",
+      "git_blob_sha1": "035f14be4863ac53d5e65ed58ceac6f4ddb93521",
+      "size_bytes": 11313,
+      "sha256": "cfacc22693fbac2fdf1062c968ca57e8d11dc9e5244e56eb5262e2c49984383a",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/memory/mem_dual.v",
+      "git_blob_sha1": "e5d63b55f5cf0296db7cc62fb30aad5682e6bd26",
+      "size_bytes": 1392,
+      "sha256": "d0e50890c57291a1d34480c7b28f71d86012b7599c45196f95475ddb2c23af8a",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/memory/mem_dual_2r1w.v",
+      "git_blob_sha1": "563ff64bde741166ea3bccb0ab790d284f88b66c",
+      "size_bytes": 1022,
+      "sha256": "761dd3dfc3e7da151a272254fef08c67c95039b227d9e4348103be341a17343e",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/memory/mem_single.v",
+      "git_blob_sha1": "7fc50655cc7e0e35606f23a563c6cb1bedd3549e",
+      "size_bytes": 939,
+      "sha256": "f685a74dc32dfc9275984a8f4e7bb921b3427d6841a4f4d12a54c5fc8a2e1d50",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/poly_mult/poly_mult.v",
+      "git_blob_sha1": "7c9e0e1727749b87dc31e65ae9692595f0663650",
+      "size_bytes": 15823,
+      "sha256": "f7a657bfbfd4ec4a5d98180663ff7229e0ac9bc2f6e48b2eac092b65e8287dc8",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/poly_mult/poly_mult_new.v",
+      "git_blob_sha1": "dc6cc450cafc8d379af112ee42339443b7e1bd1f",
+      "size_bytes": 18584,
+      "sha256": "0cf9c0647d8c8e2c6d3bfe38b6891a5833890014b95a6c7cb2c5f760a1c5e75b",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/readme.txt",
+      "git_blob_sha1": "33fd31774ef2a0a917f72733b6fd3ec29cc74159",
+      "size_bytes": 2026,
+      "sha256": "8484cf559d67f3b3d97f4fe9f568b770efc75526dda1de48d663cadf8946da88",
+      "mode": "100644",
+      "category": "upstream_documentation"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/clog2.v",
+      "git_blob_sha1": "70e157700b8040ee76502ceabf85244c97bb8c80",
+      "size_bytes": 1511,
+      "sha256": "3405b15368f22c52852150329f1def0030a763b845971c68875611a119832c07",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/control_path.v",
+      "git_blob_sha1": "9cc0de0baf4c8d57c9468d4fca5303d6e17ea790",
+      "size_bytes": 75547,
+      "sha256": "80c02f074e07bc81931f50521fd0618b61a52f3e3bf26f9c450e23004e13c14e",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/data_path.v",
+      "git_blob_sha1": "ed2f3d292985aa01eb76812296b290b0a3d3551b",
+      "size_bytes": 11341,
+      "sha256": "70d157345f5a1ac870c43c6e9876363fc054e46af928e5aa6162f9503b665f2a",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/keccak_math.v",
+      "git_blob_sha1": "73c33f528fb57f9b2442969bb60021206ba40c5b",
+      "size_bytes": 96,
+      "sha256": "4d97659868be32dfc36228ea81b36939801f6b85797bfeedf79cd9e72c94d918",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/keccak_pkg.v",
+      "git_blob_sha1": "0e7e4bc7f6b2eaff576170bb6f67a95cc3b8598b",
+      "size_bytes": 13452,
+      "sha256": "c0d6d7f12e7feae2178e1da6371fbccf1de24f576eeb4a17bd112c0cd1a05227",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/keccak_top.v",
+      "git_blob_sha1": "bf4b8d085e8da79b8923f23c3cbf19141e6725b7",
+      "size_bytes": 3443,
+      "sha256": "9d205b09fa4b9ce48d11908f6a4b85dd49a3da90e925839ec4e2ba2f8e5c2599",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/rc.v",
+      "git_blob_sha1": "530d9fbcabd8dde1327d16fff28665800d101734",
+      "size_bytes": 2919,
+      "sha256": "4cfd11f5a58a1786f5158fc8e9d59fbcab50cd529e26e33b12984027c3ba753f",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/state_ram.v",
+      "git_blob_sha1": "1b7320e7f9e979a6b601f8fa6086254cd6ee88f6",
+      "size_bytes": 14791,
+      "sha256": "6dcb88e415f22506db5275e9aaaf5e9d133c927def8a6a7c01da0442210a46ad",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/stateram_inference.v",
+      "git_blob_sha1": "45d6342b8145fb3a04c35ae31e9ab918a03e8135",
+      "size_bytes": 6149,
+      "sha256": "56f1954b2e082ce3d9d3b3ea47cbdf753e6683a5708294cafa97df3556a51831",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtl/transform.v",
+      "git_blob_sha1": "607a74999dd8d5ba387fdc7deedddb213fba18a0",
+      "size_bytes": 14043,
+      "sha256": "af7782276f43e5b2e4eb171c5e955fbfb90ede3c96d175c1cd7be568aaac096f",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/Keccak_F1600.v",
+      "git_blob_sha1": "a07b8aaaa9b8a729126a544234f5f7f3da86a8de",
+      "size_bytes": 2707,
+      "sha256": "c8348a41d799bf320df7923b32e1e057de05b7940f442a3c121c9a30f0ac013d",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/Keccak_state_func.v",
+      "git_blob_sha1": "5f6ed025eab2d5ed8c80891b5d9bd5cd6b8d9601",
+      "size_bytes": 281,
+      "sha256": "73a6cf4d4e0811143f6a139581c80a7c666048378f42d934238c4a01b529c42e",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/ROL.v",
+      "git_blob_sha1": "2bc9a7b90e5c0e33bb35b6cc0014ab10ede644e7",
+      "size_bytes": 250,
+      "sha256": "1afbe0f2c1afb64252fac7545fea8f9513613e6c971cff7c8736764cfae07f4b",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/Xita.v",
+      "git_blob_sha1": "f443091bbeeb8230c82de6ea82f22865cd132e53",
+      "size_bytes": 2188,
+      "sha256": "dfbe701cd3fdaaa0f961ca40fa4adac4e6a7bbe4cc901a45488570f47436c4a5",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/clog2.v",
+      "git_blob_sha1": "70e157700b8040ee76502ceabf85244c97bb8c80",
+      "size_bytes": 1511,
+      "sha256": "3405b15368f22c52852150329f1def0030a763b845971c68875611a119832c07",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/counter.v",
+      "git_blob_sha1": "f61ca71522c4ef8e9bb5437e1340ce6ffae80a02",
+      "size_bytes": 418,
+      "sha256": "dc48fe3352f41b3c8944f2e631d83d446fca321f79ac261b68e2569f40905842",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/keccak_pkg.v",
+      "git_blob_sha1": "0e7e4bc7f6b2eaff576170bb6f67a95cc3b8598b",
+      "size_bytes": 13452,
+      "sha256": "c0d6d7f12e7feae2178e1da6371fbccf1de24f576eeb4a17bd112c0cd1a05227",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/keccak_top.v",
+      "git_blob_sha1": "e2251751656f9739020440ae475dbe5bad6c644b",
+      "size_bytes": 6353,
+      "sha256": "f29ebe39489355d32b7352932aed5e798896dcd52ee6daa82e098bc900d18478",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/pi.v",
+      "git_blob_sha1": "0b20f04931d727d65a1732569399c46d8f7c80d5",
+      "size_bytes": 975,
+      "sha256": "fec73e0ef838e34ee50e39ebfc276c840dd56f4cf2dc25c0ce1f3c043449dc76",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/regLayer_A.v",
+      "git_blob_sha1": "b221dc37e9b19af88d315e39027a32180e046941",
+      "size_bytes": 4139,
+      "sha256": "f4fa9d04c441b1418a69e8378b038c3e05f10dc95cffa95f5de9cfe64fdf72c7",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/rev_bytes_1600.v",
+      "git_blob_sha1": "8e581b16dc7296a17adf8bd2810de26c69361a7f",
+      "size_bytes": 22044,
+      "sha256": "df75e793dceaf732b1081dd7baab2bc63763469a833d5f463944f244b5749463",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/rev_bytes_264.v",
+      "git_blob_sha1": "2f267c066d1e859fc9dff785ec8a55ca036d9004",
+      "size_bytes": 3511,
+      "sha256": "7712f39c95059dc6291c7ada4a1c6d8b89961c4b70f9ac321ae93d8744cf9789",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/rhoo.v",
+      "git_blob_sha1": "2d3f0ab9135fef49582ba74aff44ac5c3e86accd",
+      "size_bytes": 1211,
+      "sha256": "148be66816d59c25d21f88463755dc71c111bd4c11ac175340caa254262836c9",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/round.v",
+      "git_blob_sha1": "37cdfd2bb0c01bb3c422e8135ba80b790bc2d73b",
+      "size_bytes": 2744,
+      "sha256": "61b2c8470675933ab0cb9511cd3e698baa9c14aa434dd54c8dfe93e000c5c8f5",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/statetostring.v",
+      "git_blob_sha1": "4a6b069d70ea784580084da326c1cc4e23c7e9cc",
+      "size_bytes": 11231,
+      "sha256": "2bf2a45899be9df2ded02bb706b5749d4613de55bdd108d3da426df928825cf8",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/stringtostatearray.v",
+      "git_blob_sha1": "85bfd3628d063189540fe12e5103295c85f50768",
+      "size_bytes": 1254,
+      "sha256": "a9384bdce9836267126c51176c4f3c10352e9277dfa1bec0369f44ea0fa6ef92",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/theta.v",
+      "git_blob_sha1": "824f6fad5f55c658dc49aba0acda3f585209d821",
+      "size_bytes": 1591,
+      "sha256": "541dc21f581bfae975643a73b7ddd907354831244cebeaa8015d08fc710682d1",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/thota.v",
+      "git_blob_sha1": "cbef767fc6cef3a3c6535d4cd61f15609c391927",
+      "size_bytes": 1842,
+      "sha256": "1c9b4d666b9a8d9ecada7774ee24170782651fe532d323bcd6b710c0e006dd26",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/updateregs.v",
+      "git_blob_sha1": "3631e156a2551bc186c851f92fc41d31479d03de",
+      "size_bytes": 828,
+      "sha256": "0dad7d02f70d1dd29766da473ee1fd45fbe0e72aa5c6152e7a2fb6843baa9bcf",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/rtln/updateregs2.v",
+      "git_blob_sha1": "c65deec766722db641aace542e9eed88bf16c4d8",
+      "size_bytes": 784,
+      "sha256": "6bd1e897ab21cf2b92ad4cd6741031ae6adec6ae25a810f13045449e0dd4861b",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/tb/additional/tb.v",
+      "git_blob_sha1": "f2e413f53ff3699605b90a1ead18d4eb9be8d250",
+      "size_bytes": 6113,
+      "sha256": "7e4f4d245f686db0113dfd23bdeccb5610c4c58b35a3d1354f8d813fbfb89e5e",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/tb/additional/testvectors.v",
+      "git_blob_sha1": "fe8be22fd918227463beeb2df8a6fb43846af62c",
+      "size_bytes": 153572,
+      "sha256": "751f34578b1c5b65fd9d9fb0085c1f43f46a6887211838d67767f7f84df83e81",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/shake256/tb/tb.v",
+      "git_blob_sha1": "3af3d9eeba3c1039a37dcc4c6ac30a12d1caa90f",
+      "size_bytes": 3991,
+      "sha256": "17d1ab34258cc4bf2e91763d76168f3d3f4a96c57c09546e30eab26c96e75017",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/tb/duplicate_detection_tb.v",
+      "git_blob_sha1": "3517b67b4d4629c0ae18f1278145014af1b01a75",
+      "size_bytes": 3960,
+      "sha256": "ef505d22156b6b3d64b101d6cae90195f7b0fe9a9c69158d741bd9afb253d2d6",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/tb/fixed_weight_cww_opt_tb.v",
+      "git_blob_sha1": "c0dd7c9da88304476457e914ecb97a8d3945206c",
+      "size_bytes": 8300,
+      "sha256": "91223185a325cbf941776844603779f063805139a3f2c37c0b08a311ad8fac39",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/tb/fixed_weight_cww_tb.v",
+      "git_blob_sha1": "621ee39094600e110a312c7f8c58cf9a93cb13cf",
+      "size_bytes": 7338,
+      "sha256": "9524a4acd0d71f24e83e09a1363cd04a5996b8c1754df0ae0020caf38e3ecd87",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/tb/loc_based_adder_tb.v",
+      "git_blob_sha1": "19bb18d8a9596abd3bf788e6ad25e0096f0b68e2",
+      "size_bytes": 3945,
+      "sha256": "b2405c56ff1a85534856040887b9758c4bb8bc7a506a5ec2af522d8eb20f5dd6",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/common/tb/poly_mult_hqc_v1_tb.v",
+      "git_blob_sha1": "1342f69f96506a03d30d6fb2e8a6a2221a0254b5",
+      "size_bytes": 8483,
+      "sha256": "1f029054782c8c49bc61a1a2515bccef5dc5417b5d4be28fbeb2493b8efbd978",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/decap/add_fft.v",
+      "git_blob_sha1": "d5550b19c766cf18da5f91550185923fff843401",
+      "size_bytes": 3865,
+      "sha256": "1369b82e5a4e9566752000aa255b1f338fe60031cfb5ad75bc55e4776fe72409",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/decap.v",
+      "git_blob_sha1": "6815297df0a423022e2e1226708f8a090e1fae77",
+      "size_bytes": 26220,
+      "sha256": "4661cac2e09a146dedf19f06b468e13e17c710d1719fac7ba805d1d136f08178",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/decrypt.v",
+      "git_blob_sha1": "1ffa58d86222310403deb3175026278193c48f93",
+      "size_bytes": 7563,
+      "sha256": "a55646261de07d3124ec5b000a20cc06fae8a915dcb76c021446ef821264f21a",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/decrypt_128.v",
+      "git_blob_sha1": "db03f63a965c8dd354e6c64c1f36cf5062671cb7",
+      "size_bytes": 6005,
+      "sha256": "e894fc5649dc36012eb308b41511ca6669c43c4cce6d49e7b9293bdeb4212dbc",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/fft_leaves_butterfly.v",
+      "git_blob_sha1": "cfb2046a45342e86b28a38cc48029d1343ecf5e3",
+      "size_bytes": 2940,
+      "sha256": "837bf53fd44f28a2f771944239f1c4958f1373d81ecadce028f4bc000c32d399",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/fft_part1.v",
+      "git_blob_sha1": "40e8cc69e16e375c10d600c2ee9314cd917e5472",
+      "size_bytes": 9459,
+      "sha256": "c05c3ad9b88a8661dac7f06761573fbc6f55bbb9d525ff72c287975d644d33d5",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/fft_part2.v",
+      "git_blob_sha1": "42c2d7f29c425192a9d65dae891ba476b57515ab",
+      "size_bytes": 9896,
+      "sha256": "b2c4bc09f59e0b27eb12600903e6c40f499ad073678da570fd9a723e08d81150",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/fft_retrieve_error_poly.v",
+      "git_blob_sha1": "99458e832e5646052b75f9ce097da4eda7216cc5",
+      "size_bytes": 7643,
+      "sha256": "4d6f2c80b35ae676684f70ba9c6cae34723e4952b3e4b8d8962055d522460025",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/gfmul.v",
+      "git_blob_sha1": "b617c486c1b07a501667bc42636dd1b726d94ec2",
+      "size_bytes": 4150,
+      "sha256": "8898eedb37b1c6fc36f7c3781aa148287fa3343215cf88045d88d86634d85920",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_decod_top.v",
+      "git_blob_sha1": "54ffea79fd54d85c7241cd8f8fc5f7a4a90ee6e7",
+      "size_bytes": 2901,
+      "sha256": "171503fc0e5edba6ec2f4719f30cb3250bb01ba16df45ee70c1a248b70c983a5",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rmdecod_ctrl.v",
+      "git_blob_sha1": "52c375478e25638824da0eb2bcc3af2178d984d1",
+      "size_bytes": 3538,
+      "sha256": "a271ed334d2e340c6c15b57954cb6cae5a12261d88d326f3d8d6ca8f375d3d33",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rmdecod_expnsum.v",
+      "git_blob_sha1": "b781fbfea5987544432b4556054d639d57ed015e",
+      "size_bytes": 3518,
+      "sha256": "e0f62c41fd7048028b5e9f7983a80451f2b52741163ed7f93e5c37efac76beef",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rmdecod_findpeaks.v",
+      "git_blob_sha1": "d6cfd75318650a2dd31f8eb43ede271f0e54679c",
+      "size_bytes": 5005,
+      "sha256": "92e1b3300353d6f60c8efad539fb1083ae4687820ca219ddacac7d4efe956dc0",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rmdecod_hadamard.v",
+      "git_blob_sha1": "c352c856f7a6fcebb97923da5386b7be189a8bdb",
+      "size_bytes": 7696,
+      "sha256": "0840f46a9224295629ac34b096a316111ab4ac74eb414d4367900c4c42a3252e",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rmdecod_top.v",
+      "git_blob_sha1": "f6f7f9f68234a688c88e4a60d9c68e2965836c20",
+      "size_bytes": 4272,
+      "sha256": "09190799ac573f3c0037dbec8d2356780192331ac0fb8b68c0af55e98ce9c793",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rsdecod_elp.v",
+      "git_blob_sha1": "edc30ae4c4732dce594c3f6200b906dfb8d47c61",
+      "size_bytes": 8027,
+      "sha256": "b92c7c58548ece5146b09ee5a53b205b24ff7b8995de85f999a802f89dd8d836",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rsdecod_err_val.v",
+      "git_blob_sha1": "747a7fa9953f02e2888aafc75a24df666bd81853",
+      "size_bytes": 14120,
+      "sha256": "5c27d5ef6d65ef856aaf42bd86865718ef44b0289ea2f06a48ada40a76746e0e",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rsdecod_roots.v",
+      "git_blob_sha1": "c707213aefb6a3db5c275180a65bff8aa828ac55",
+      "size_bytes": 3110,
+      "sha256": "819a7f0c4af03f157bf73c73508c7dd173383157350f0e5d5edeeae741c4bc58",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rsdecod_syndromes.v",
+      "git_blob_sha1": "2f4a618257d65b1a90de9b1566c8ecd8b56f2792",
+      "size_bytes": 27236,
+      "sha256": "1c51d8400e83b59b6d08cafaf93cdd805218e17fe68bdb254575c1f11a8175d1",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rsdecod_top.v",
+      "git_blob_sha1": "1c907caf1d5f696d95027f785c508343f1eca728",
+      "size_bytes": 4430,
+      "sha256": "655e7fc67c4d039069afc8e1d5875ec111dca37b2c82182ad828b9bac60d241b",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/hqc_rsdecod_zpoly.v",
+      "git_blob_sha1": "cbc71bae0b78aec98b0e4773ae67191b140e82f3",
+      "size_bytes": 3858,
+      "sha256": "869facc9551a98001c5ab1388afb419af9e1db5a45ea016c57a77943ca74fdad",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/syncfifo.v",
+      "git_blob_sha1": "c9bef65755109a4823b779b6d9285817036fb8c6",
+      "size_bytes": 2274,
+      "sha256": "2d344a3f88aca0413fa9d05fa51e122048191e7aaa70e4d355b266f1dc7997c5",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/tb/decap_tb.v",
+      "git_blob_sha1": "6431b8c15078e95995c211835d91f242703e900e",
+      "size_bytes": 14052,
+      "sha256": "cb326dfe8e04132b4fcce50a067cad75405e34252667c4369c9b80d8e88afb0a",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/readme.txt",
+      "git_blob_sha1": "719990e35492d242acfc0a2feb8f398666f6eec0",
+      "size_bytes": 454,
+      "sha256": "8706e2c2f20d36894e4bb55661e22a6eeda7ad1b9788515cb58dd7c402db6347",
+      "mode": "100644",
+      "category": "upstream_documentation"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/u_128.in",
+      "git_blob_sha1": "d98d23f885d5e823f4b3d22cd9f5ce3485e072df",
+      "size_bytes": 17931,
+      "sha256": "b7d70dc45b4ddfbb5ce605d6d69db6cfe05968ec3d40d9e57fa560a194b5f846",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/u_192.in",
+      "git_blob_sha1": "fc90067b4aabd129b7b9fa4ebb44bb7b46928fbe",
+      "size_bytes": 36249,
+      "sha256": "675eefbfa0ad3d4632ccdd12683410a2983ee0a6ebfb6119ed9de9fa1c6ef4da",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/u_256.in",
+      "git_blob_sha1": "568823cd00fc2627f18cc04e32616822198b967d",
+      "size_bytes": 58179,
+      "sha256": "48c14746e2aecc95226913efaa4719368891f033ecfbd5497abdd32b33f60e8c",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/v_128.in",
+      "git_blob_sha1": "970cd30da1d503e5ef6d084ff13d3a30a0aacfaf",
+      "size_bytes": 17931,
+      "sha256": "4bfefb807c495a4f08466e61896cbf26f15d646ab6973f7497efe5593cec92d3",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/v_192.in",
+      "git_blob_sha1": "837fb3abb7784b95bfc2d170e202c24689f825ec",
+      "size_bytes": 36249,
+      "sha256": "40deb3cb6ef00131e5745f0d934629e4a3cd1985513abedf81c1e6fdc224bad3",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/v_256.in",
+      "git_blob_sha1": "b8d7be740503ac9d160531b8b83d06154231d06f",
+      "size_bytes": 58179,
+      "sha256": "4c5d97f0cf377a4a4a741420939c362d4436a2693247269f0f828ecf99a963f2",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/y_128.in",
+      "git_blob_sha1": "577c64f39954ad52dca2395ceb79b6e0f4d2e3c6",
+      "size_bytes": 1056,
+      "sha256": "b4f81c1f56a26ae59e61c8fee58e082af230aa9d4516c18197b2f15c73068672",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/y_192.in",
+      "git_blob_sha1": "ae722023613891419a911598d699faf02eafe6e8",
+      "size_bytes": 1700,
+      "sha256": "4b6bf603fc61c41ac6cf728613a2e64a24e701bb20348d756c2eb313acb4cb26",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tb/memory_files/y_256.in",
+      "git_blob_sha1": "95bfbdb6e4c71ab80fab95bbfbeb137ca4d65f1d",
+      "size_bytes": 2227,
+      "sha256": "5dff979d2cb7486c2f0140d1e25a117f54bc7c54e06cc06db9763028e0d891b5",
+      "mode": "100644",
+      "category": "memory_or_stimulus_input"
+    },
+    {
+      "path": "hardware/decap/tcl/decap.tcl",
+      "git_blob_sha1": "c54375cc174cfa728e4d8262a4fd536092ef0681",
+      "size_bytes": 2324,
+      "sha256": "1d71a3301070575011624713d1c34395ddc407b086ae93b7f1e35d2ae8a73c0e",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "hardware/decap/v_minus_uy.v",
+      "git_blob_sha1": "e13f779b3a6de2e461b6aaa272786e13e678600d",
+      "size_bytes": 9066,
+      "sha256": "0a188e56c65341ad9ac95ca1955e5ad8795cca3b2e5f0e3a2eed55fd46b71dc1",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/decap/wrapper_hqc_decode.v",
+      "git_blob_sha1": "ad7274b0dcdf5616ec1beeb45782ae0ee11145ba",
+      "size_bytes": 8002,
+      "sha256": "092adac250cbb4f5d6e18683591b4dd69a124c192644aa8410e22dc4ef7ea4ee",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/cdw_xor_tmp.v",
+      "git_blob_sha1": "2c666522c356017495fcb5a8aebfdf0d70a01087",
+      "size_bytes": 1843,
+      "sha256": "15e6eb6981cfc38146bca9fe9895774ecb7800e829423d340b88d69e8eb46fea",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/concat_code.v",
+      "git_blob_sha1": "4fa3a80358217864655d8eb4f159870996a02e58",
+      "size_bytes": 2230,
+      "sha256": "d16128d63c5171b462d2be0e68451c9673ad291ab28ac9a971ae4adda05c73c3",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/encap.v",
+      "git_blob_sha1": "c189922951612471a29b72c704c77945af84fd75",
+      "size_bytes": 59908,
+      "sha256": "fd074974c380fe1b8b46f04051c7e7740823b6953db36558885d3ce895968f4b",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/encrypt.v",
+      "git_blob_sha1": "4c8a792055236d22440f4cd6691cad72bc010481",
+      "size_bytes": 34508,
+      "sha256": "b24166b3a7dfe5bc41c8f1f1345e89c9422d9d03f8fb24d6f1a1109161ed67ff",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/encrypt_128.v",
+      "git_blob_sha1": "55f258fd085744f5f0fc7dfb679689e43e7d757a",
+      "size_bytes": 34496,
+      "sha256": "ae877097920ab4c10d07d3a9f85afd97b37b1c459965271838509d3731729448",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/encrypt_parallel.v",
+      "git_blob_sha1": "246d77c10d7ed61e12e67aee2a3a16bf212c6be7",
+      "size_bytes": 31840,
+      "sha256": "6d20811fc7c175d7fc74bd8afa42478313159f915d1675699d3e7f0322b35be8",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/encrypt_parallel_128.v",
+      "git_blob_sha1": "4059f9d06643633b89aa2977409d38f145bf1233",
+      "size_bytes": 31235,
+      "sha256": "aa8e2621d8315f49697e01afbdad664dfc88b8a5a46dcf693e3c5485cd61c42f",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/gf_mul.v",
+      "git_blob_sha1": "0b6ab5c49e4507a4209efe24870157f857f518a0",
+      "size_bytes": 3661,
+      "sha256": "80774dc01ee774b0e8555f2078f08796852d5e98c3a9e4fa1dd95b4677f9ff3f",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/memory_files/seed_align.py",
+      "git_blob_sha1": "d5b4c817658557ea0a1d7e70dd13e67c4e97afcb",
+      "size_bytes": 882,
+      "sha256": "3ae6f5a2bab3c44e324c6fce8cacaf2696cc18c3f9381a08cdbadf732ac661be",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "hardware/encap/mod34.v",
+      "git_blob_sha1": "822ef285b5615842db74239eb459e4594c0d226d",
+      "size_bytes": 1250,
+      "sha256": "a91fec1fc5b6a88ed30a738cac8e3b096cc3bc0abbaec97ccc85459efa8114c8",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/reed_muller_encode.v",
+      "git_blob_sha1": "fdb7e2d740e4a05506d7708637765fb2191f48f9",
+      "size_bytes": 4202,
+      "sha256": "30c619580cce469f86fab9e2ed3c7a86cb9409592296a81f2d0ac171285e3e87",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/reed_solomon_encode.v",
+      "git_blob_sha1": "748b938cc89cb95e82f321b5ff36513ea19c5611",
+      "size_bytes": 5760,
+      "sha256": "6bb6eea6e0dc7e0855851d0e59d36e098b374a312cdd95ea4c46580a1b55ca09",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/rm_encoder.v",
+      "git_blob_sha1": "4f2899047860499324b2e2dffc480ca7357facf5",
+      "size_bytes": 5118,
+      "sha256": "a23b92b04927c673451e5e70e91c582a9cb6ebda2ececc42397461ffa016d3c9",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/encap/tb/encap_tb.v",
+      "git_blob_sha1": "718136b43881f318075693cb994264c42b055316",
+      "size_bytes": 14935,
+      "sha256": "e275c8fb91c46d4d8b560fa8491962a1b106dedb855af0a48428baf9700064c4",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/encap/tcl/encap.tcl",
+      "git_blob_sha1": "e1232d031890f29d65db8de595d19c3f1004cd86",
+      "size_bytes": 1917,
+      "sha256": "0a08633551b1cc39a591820ebbed1f5f694a94ca43f7965c718d472d1fc4a1a1",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "hardware/encap/wrapper_concat_code.v",
+      "git_blob_sha1": "cbe729408576da3f0c79e7429353631c58df9646",
+      "size_bytes": 7285,
+      "sha256": "be1882f146f88d7e5c8fb976f26375fa91597c2940f8c4e9c97a5299447a8827",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/joint_design/hqc_kem_joint_design.v",
+      "git_blob_sha1": "e5f5394143bbef3d5db0475c6ce1c4f283d9e33d",
+      "size_bytes": 20597,
+      "sha256": "34ac974c320da0d2b723bed3b9bbb9406c143ceefaaa39f99523131dba7c4597",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/joint_design/tb/hqc_kem_joint_design_decap_tb.v",
+      "git_blob_sha1": "e625a8fa1899f85ca891ba5155851bd82b4bd2a5",
+      "size_bytes": 13360,
+      "sha256": "a76b8e9c03008d911235e046f60904fa3b48aec8386e3a183161e88f7a3f5029",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/joint_design/tb/hqc_kem_joint_design_encap_tb.v",
+      "git_blob_sha1": "0a137eb78a19abbcb95a59e64fc633965b3f8d23",
+      "size_bytes": 10717,
+      "sha256": "4d5afeff67c5b0c728dbeb6371f750870e3aac760b16f3e4a51d2a288a0489f0",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/joint_design/tb/hqc_kem_joint_design_keygen_tb.v",
+      "git_blob_sha1": "b3e36e7dc3a265f7002823041171361865428a8f",
+      "size_bytes": 8366,
+      "sha256": "b17fbb489e175c78414404f5e7ed40d4befd6ceb0a7f886966a8543822512555",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/joint_design/tcl/joint_design.tcl",
+      "git_blob_sha1": "fc90757ef718edcb30a91f61cae847552d316e45",
+      "size_bytes": 1402,
+      "sha256": "0e8dc20cf40c85037848b5e1ccb2fb715e71651d28157630332d9b63fadc0650",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "hardware/keygen/keygen.v",
+      "git_blob_sha1": "8ca8053cabe61e1294e521f245aec0ac473be839",
+      "size_bytes": 22675,
+      "sha256": "e028aa0fc8b7c3c9098e50335f6972ba44ef289fd27633e47321970d5e7505ff",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "hardware/keygen/memory_files/seed_align.py",
+      "git_blob_sha1": "5b872891a080af21b28b6b068ccb61efb1d1c639",
+      "size_bytes": 572,
+      "sha256": "a1d01dcd59a12b6c9fc2e2269a016c1770ac2c656375b76cb3c066eca0425224",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "hardware/keygen/tb/keygen_tb.v",
+      "git_blob_sha1": "b2a624848dc422a32ff54422e6ef6c6c35bce24a",
+      "size_bytes": 13018,
+      "sha256": "c947b1d709e194aab7c14390239c4b9876fddec7399ea0b88ee5aa9291f0a699",
+      "mode": "100644",
+      "category": "testbench_or_test_vector_verilog"
+    },
+    {
+      "path": "hardware/keygen/tcl/keygen.tcl",
+      "git_blob_sha1": "53c840056534fea4a15d2dd42ef3e7aab6fe67e8",
+      "size_bytes": 1412,
+      "sha256": "30be5bcd3edb84b9bd4fddbb62dbc751a22286ed6aeb36d41a973fb20220cc42",
+      "mode": "100644",
+      "category": "build_or_input_script"
+    },
+    {
+      "path": "hardware/keygen/vect_set_random.v",
+      "git_blob_sha1": "7550d2ea18b079edff40d9092011682d7089b8af",
+      "size_bytes": 12998,
+      "sha256": "c96f3453558f200186247723b9a89617a288ca9a2dbad8699128c74c4cb84afc",
+      "mode": "100644",
+      "category": "design_verilog"
+    },
+    {
+      "path": "readme.md",
+      "git_blob_sha1": "db7cb6dc71ce85515666f4421ae4214b9df78722",
+      "size_bytes": 3646,
+      "sha256": "25baaef23d827f06a0d2c3052a4dbd821bf2c10c7837575579eac62a17f75c7c",
+      "mode": "100644",
+      "category": "upstream_documentation"
+    }
+  ],
+  "excluded_files": [
+    {
+      "path": ".DS_Store",
+      "git_blob_sha1": "1fb542aabf170cf36f586879ef4e3c7652da3b05",
+      "size_bytes": 10244,
+      "mode": "100644",
+      "reason": "macOS Finder metadata; not source or verification input"
+    },
+    {
+      "path": "hardware/.DS_Store",
+      "git_blob_sha1": "04ab5373c4be861e73869be80503575f6ee620e4",
+      "size_bytes": 10244,
+      "mode": "100644",
+      "reason": "macOS Finder metadata; not source or verification input"
+    },
+    {
+      "path": "hardware/common/.DS_Store",
+      "git_blob_sha1": "1b8e548f46a8395d588608a4fa32bf02bdde9dc6",
+      "size_bytes": 10244,
+      "mode": "100644",
+      "reason": "macOS Finder metadata; not source or verification input"
+    }
+  ],
+  "upstream_execution_performed": false,
+  "rtl_simulation_performed": false,
+  "synthesis_performed": false,
+  "automatic_runner_selection": false
+}

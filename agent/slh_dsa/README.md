@@ -96,7 +96,7 @@ the hardened verification entry point. In particular, the historical sweep
 can regenerate reference files; do not use it to approve a candidate or to
 replace the frozen evidence for this gate.
 
-## Verification on 2026-10-12
+## Original Vivado gate check on 2026-10-12
 
 The selected-mode and existing correctness-harness tests pass:
 
@@ -113,12 +113,33 @@ incomplete/contradictory logs, stale outputs and changes during verification.
 
 Real gate invocations for both the unchanged candidate and pristine tree pass
 the configuration/reference/input checks and then return `ERROR` at `xvlog`,
-which is absent in this environment. No fresh SLH RTL `PASS` is claimed.
+which is absent in this environment. Those invocations do not establish an RTL `PASS`.
 
 Existing Icarus Verilog 12.0 (`-g2005`) and Verilator (`--language 1364-2005`)
 were also tried against the unmodified candidate. Both reject duplicate
 `WOTS_FSM_start` and `WOTS_s_in_0_wr_en` declarations in `fsm/FSM.v`
 (lines 190/202 versus output declarations 121/120). This is a portability
-blocker; no RTL was altered to make an alternative simulator accept it.
-Vivado simulation and later Vivado/DC/Genus implementation remain separate,
-unexecuted stages in this environment.
+blocker for the unmodified source. Subsequent explicit staged variants are
+documented separately below. Vivado simulation and later Vivado/DC/Genus
+implementation remain separate, unexecuted stages in this environment.
+
+
+## Separate open-source portability verification
+
+The [portable verification runner](../../tools/check_slh_portable.py) performs
+real Icarus signing/verification and a live signature-corruption test against
+the same frozen historical answers. It stages reviewed syntax adaptations;
+`--fix-auth-sensitivity` additionally opts into a separately identified
+one-line authentication-path sensitivity correction. It never edits either
+tracked RTL tree or the reference files.
+
+See the [portable verification record](../../verification/slh_portable/README.md)
+for exact transformations, reproducible commands, results and limits. Neither
+a portable result nor its negative control is independent FIPS 205 validation.
+
+On 2026-10-12, the explicit sensitivity-corrected Icarus variants passed:
+pristine-derived SHA2-128f compared all 2,141 words, and selected optimized
+SHA2-192f compared all 4,463 words. Both verified valid signatures and rejected
+a real one-bit signature-memory corruption. Syntax-only variants failed and
+are retained in the record. The other four SHA2 parameter sets have not been
+executed by this portable qualification.

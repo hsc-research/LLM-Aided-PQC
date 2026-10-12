@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "recorded_utc_date": "2026-10-12",
+  "classification": "diagnostic_observation_not_qualification",
+  "scope": "syntax-only SHA2-128f Icarus portability variant, through FORS completion",
+  "simulator_returncode": 0,
+  "capture_edge_streams_equal": true,
+  "rising_edge_words": 456,
+  "falling_edge_words": 456,
+  "expected_prefix_words": 464,
+  "rising_edge_sha256": "5fa284d8917fa02d5bb1b7c65e51677ee588c8b32f361fc88e94c3d1f6a5f809",
+  "falling_edge_sha256": "5fa284d8917fa02d5bb1b7c65e51677ee588c8b32f361fc88e94c3d1f6a5f809",
+  "diagnostic_testbench_sha256": "d36dff693f7a053afaf9cffb0a087e669ee0f39d207ee902ab70718c14e1f47e",
+  "added_diagnostic_monitor": "integer falling_capture;\ninitial falling_capture = $fopen(\"negedge_stream.hex\", \"w\");\nalways @(negedge clk) begin\n    if(i_sig_mode == 1'b0 && o_sig_valid) $fdisplay(falling_capture, \"%X\", o_sig_data);\nend\ninitial begin\n    @(posedge top_md0.cl_start_next);\n    #1;\n    $fclose(falling_capture);\n    $fclose(fp);\n    $display(\"CAPTURE_DIAGNOSTIC: FORS finished\");\n    $finish;\nend\nendmodule",
+  "interpretation": "Both edges observe the same four absent 128-bit authentication nodes. The discrepancy is present on the DUT output before testbench capture; this is not proof of unmodified vendor-tool failure."
+}

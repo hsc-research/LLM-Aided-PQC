@@ -59,3 +59,19 @@ ML-DSA-OSH reference inputs
   Apache-2.0 portions and original source-specific notices preserved.
   Upstream LICENSE, NOTICE, README.md and CITATION are retained in the bundle.
   See third_party/mldsa_osh/README.md for scope and provenance.
+
+HQC SAC 2026 source-only baseline
+  The unmodified source/test/input bundle under third_party/hqc_sac2026/upstream/
+  is pinned to dbroy-iitk/HQC_SAC, commit
+  4be1fe99c677d6a3ff055d380a386f65184544f1, associated with
+  Performance Analysis of Parameterizable HQC Hardware Architecture (SAC 2026),
+  https://eprint.iacr.org/2026/592.
+  The upstream GNU GPL version 3 license is retained. Sampled source headers
+  allow version 3 or later; original component-specific author and copyright
+  notices remain unchanged. No separate upstream NOTICE exists at this pin.
+  The snapshot includes all upstream tracked files except three .DS_Store
+  metadata files. Local provenance and documentation are identified separately.
+  Importing this source does not qualify its functionality or replace the
+  separate SAC 2023-derived execution gates or historical hardware evidence.
+  See third_party/hqc_sac2026/README.md and SOURCE_MANIFEST.json for inventory,
+  attribution, static copy-integrity evidence, and qualification limits.

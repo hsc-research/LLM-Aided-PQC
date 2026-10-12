@@ -10,6 +10,11 @@ critical-path-guided search with full-design admission, latency and area guards,
 and explicit adapter qualification. Use its read-only plan before execution.
 The older FPGA driver below remains a one-round, design-specific entry point.
 
+The preferred [HQC SAC 2026 source baseline](../third_party/hqc_sac2026/README.md)
+is imported separately and remains unverified. The `hqc` / `hqc_baseline` keys
+and existing joint gate below continue to use the older SAC 2023-derived
+source trees; no runner has been silently redirected.
+
 ## Entry points
 
 | Command | Purpose |
@@ -44,7 +49,7 @@ HQC joint testing stages the effective integrated-synthesis sources in a private
 
 ## Scope and limits
 
-HQC checks shared-secret consistency, not independent official response vectors. ML-DSA uses the existing key-generation testbench. The standalone [SLH-DSA checker](slh_dsa/README.md) selects the actual SHA2 parameter set and compares its entire frozen vendor stream. All six SHA2 sets are supported, including the current 192f candidate; SHAKE is rejected. Vendor testbench, inputs and reference hashes are pinned. No fresh RTL pass or independent FIPS 205 validation is claimed. The historical six-mode sweep is a separate experiment record. Recorded cycles are evidence; there is no universal constant-time proof or general cycle-profile admission check in this driver.
+HQC checks shared-secret consistency, not independent official response vectors. ML-DSA uses the existing key-generation testbench. The standalone [SLH-DSA checker](slh_dsa/README.md) selects the actual SHA2 parameter set and compares its entire frozen vendor stream. All six SHA2 sets are supported, including the current 192f candidate; SHAKE is rejected. Vendor testbench, inputs and reference hashes are pinned. A separate [portable Icarus runner](../verification/slh_portable/README.md) has passed explicitly sensitivity-corrected 128f and 192f derivatives, one fixed fixture plus live bit-flip rejection each. Syntax-only 128f/192f fail; the other four SHA2 modes were not run. This is not unchanged-pristine or independent FIPS 205 validation. The historical six-mode sweep is a separate experiment record. Recorded cycles are evidence; there is no universal constant-time proof or general cycle-profile admission check in this driver.
 
 Use a dedicated checkout. The top-level transaction protects its configured
 scopes; do not assume every legacy standalone entry point has equivalent

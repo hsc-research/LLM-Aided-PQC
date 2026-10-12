@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "recorded_utc_date": "2026-10-12",
+  "classification": "verification_only_diagnostic_not_full_sign_verify_qualification",
+  "scope": "Same pinned historical SHA2-192f golden supplied as verifier input to syntax-only and sensitivity-corrected candidate variants",
+  "golden_sha256": "22bfbe1c1130b0faf039268adf00504a0ffec308f8ac7a8692593c757371dfe3",
+  "input_signature_words": 4463,
+  "fixture_sha256": {
+    "SLH_192f_SK.hex": "1be370ee5b91bcc590d076f81e3f43dfd7621a7cbabdb632a3ada2ba9eab8b01",
+    "SLH_192f_PK.hex": "417d1d2c0395e8a866142b4f336f7face872d5065ed98746efeca89597c7981a",
+    "SLH_msg_33B.hex": "995fc0c6d6a9b7da4488825699ced52b2b1628785ee45d703256beeb806fa422",
+    "192_optrand.hex": "9fc287d099e0593efe7175ff08a924e30f6947fcda7e5565fe9e04337fe45397"
+  },
+  "testbench_transform": "Delete the signing stimulus block between the signature-gen and signature-verification markers; initialize SIG_MEM using .FILE(SIG_FILE_r) instead of an empty file. No signature is generated or accepted as fresh signing evidence.",
+  "cases": [
+    {
+      "auth_sensitivity_fix": false,
+      "simulator_returncode": 0,
+      "rtl_verification_flag": [
+        "1"
+      ],
+      "testbench_sha256": "993e1ec5682b7f91b11cb3ca581366c6bd8e5bf72689e24c8563b1658a09874b",
+      "xmss_fsm_sha256": "1a9417e12c9a5d9ee8033ee85ae687c9cda2c6a57f58636fdeecc4459143aa74",
+      "signature_input_unchanged": true
+    },
+    {
+      "auth_sensitivity_fix": true,
+      "simulator_returncode": 0,
+      "rtl_verification_flag": [
+        "0"
+      ],
+      "testbench_sha256": "993e1ec5682b7f91b11cb3ca581366c6bd8e5bf72689e24c8563b1658a09874b",
+      "xmss_fsm_sha256": "9afd281ee04338911c265674cbb6f47e5151bffeb91f4349e098394ed3fd3e26",
+      "signature_input_unchanged": true
+    }
+  ],
+  "interpretation": "With identical known-answer signature and key/message fixtures, syntax-only verification rejects and sensitivity-corrected verification accepts. Full signing and the live corruption control must still complete separately."
+}

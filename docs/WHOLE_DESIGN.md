@@ -1,5 +1,7 @@
 # Whole-design-first optimization controller
 
+[Project home](../README.md) · [Documentation](README.md) · [Run guide](REPRODUCE.md) · [Results](RESULTS.md)
+
 ## Status and scope
 
 `agent/whole_design.py` is an opt-in, offline-tested controller for future FPGA
