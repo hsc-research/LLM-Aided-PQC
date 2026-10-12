@@ -22,19 +22,24 @@ or model call was run during that software validation. Both generated ASIC flows
 
 ## Remaining boundaries
 
-- ML-DSA still requires the complete external source/testbench/data tree.
-  SLH-DSA stages private simulation inputs but its standalone frozen-reference
-  gate supports SHA2-128f only; the current 192f candidate is blocked.
+- ML-DSA now defaults to the pinned bundled source/testbench/KAT/common tree;
+  its current full-design simulation remains unrun and the gate covers KeyGen
+  only. SLH-DSA stages private inputs and selects the frozen vendor stream for
+  each of the six SHA2 sets, including the unchanged 192f candidate. Fresh RTL
+  simulation is unrun; SHAKE and independent FIPS 205 validation are unsupported.
 - The FPGA period search remains bounded and cannot prove global Fmax. The
   portable follow-on removes DRC warning downgrades and checks routing and
   timing reports more strictly; it does not revalidate historical measurements.
 - Transactions and locks protect cooperating code, not hostile programs or concurrent manual edits. Direct legacy optimizer invocations are outside the top-level transaction.
 - SIGKILL or power loss cannot execute rollback. Backups remain under `.pqc_runs/transactions/`; inspect the manifest and restore its scopes before restarting.
-- Functional evidence remains design-specific. No all-input constant-time proof or generic cycle-profile acceptance check has been added.
+- Functional evidence remains design-specific. The new whole-design controller compares declared per-operation cycle profiles; this does not add untested operations or an all-input constant-time proof.
 - ASIC report formats and library units need site review. Unknown fields stay null. The example SDC is not a reproduction of the historical ASAP7 experiment constraints.
 - Legacy learned-rule records may refer to block-level successes; the top-level verdict determines the integrated result.
 
-No hardware RTL, test-vector data, historical result logs, upstream license notices, or experimental PPA numbers are changed.
+The earlier safety update did not alter hardware RTL, vectors or historical measurements.
+The current follow-on additionally imports pinned upstream ML-KEM/ML-DSA inputs
+and new local ML-KEM verification evidence, preserving original notices and
+existing RTL snapshots. See [the current verification record](VERIFICATION.md).
 
 ## Portable setup and public documentation
 

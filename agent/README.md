@@ -2,6 +2,14 @@
 
 [Project](../README.md) · [Documentation](../docs/README.md) · [ASIC tools](../asic/README.md)
 
+See [agent status and next improvements](../docs/AGENT_STATUS.md) for the current
+dispatch coverage, objective and feedback gaps, and a prioritized roadmap.
+
+The new [whole-design controller](../docs/WHOLE_DESIGN.md) implements bounded
+critical-path-guided search with full-design admission, latency and area guards,
+and explicit adapter qualification. Use its read-only plan before execution.
+The older FPGA driver below remains a one-round, design-specific entry point.
+
 ## Entry points
 
 | Command | Purpose |
@@ -10,6 +18,7 @@
 | `python3 -m agent list --json` | List four-scheme support and verification limits |
 | `python3 -m agent smoke` | Exercise edit preview, application, rejection, and restoration in temporary files |
 | `python3 -m agent.run --target fpga --design hqc` | Top-level Vivado measurement and target recommendation |
+| `python3 -m agent.whole_design --config FILE` | Read-only plan for the new whole-design controller; add `--execute` only after adapter qualification |
 | Add `--dispatch` | One supported edit, test, rebuild, and acceptance round |
 | `python3 -m agent.run --target asic --synth-tool genus --config FILE` | Genus fixed-period measurement |
 | Replace `genus` with `dc` | Design Compiler fixed-period measurement |
@@ -19,6 +28,11 @@ The offline commands above use only the Python standard library. The regression
 suite also uses `tclsh`; see [installation](../docs/REPRODUCE.md). Model-backed
 runs additionally require the `llm` extra, `PQC_ENABLE_LLM=1`, and an API key.
 They may send design excerpts and reports to the configured provider.
+
+The chip driver verifies the baseline before synthesis or dispatch, then checks
+that the same source bytes survive verification and measurement. HQC baseline
+checks explicitly select the pristine joint-design manifest; candidate checks
+use the optimized manifest.
 
 `chip_orchestrator.py` remains the FPGA driver. `run.py` selects the flow; `asic_synthesis.py` handles ASIC configuration, Tcl generation, report parsing, and run records. Legacy `backends/` and `asic/asap7/` scripts remain for historical reproduction; the new runner does not use their hard-coded SSH or PDK configuration.
 
@@ -30,9 +44,7 @@ HQC joint testing stages the effective integrated-synthesis sources in a private
 
 ## Scope and limits
 
-HQC checks shared-secret consistency, not independent official response vectors. ML-DSA uses the existing key-generation testbench. The standalone SLH-DSA checker compares a frozen SHA2-128f signature; it rejects
-unsupported modes, including the checked-in candidate's 192f selection. The
-historical six-mode sweep is a separate experiment record. Recorded cycles are evidence; there is no universal constant-time proof or general cycle-profile admission check in this driver.
+HQC checks shared-secret consistency, not independent official response vectors. ML-DSA uses the existing key-generation testbench. The standalone [SLH-DSA checker](slh_dsa/README.md) selects the actual SHA2 parameter set and compares its entire frozen vendor stream. All six SHA2 sets are supported, including the current 192f candidate; SHAKE is rejected. Vendor testbench, inputs and reference hashes are pinned. No fresh RTL pass or independent FIPS 205 validation is claimed. The historical six-mode sweep is a separate experiment record. Recorded cycles are evidence; there is no universal constant-time proof or general cycle-profile admission check in this driver.
 
 Use a dedicated checkout. The top-level transaction protects its configured
 scopes; do not assume every legacy standalone entry point has equivalent

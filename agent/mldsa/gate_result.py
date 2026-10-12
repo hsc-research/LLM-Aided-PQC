@@ -7,7 +7,7 @@ REPO = Path(__file__).resolve().parents[2]
 
 
 def pristine_source(name=None):
-    root = Path(os.environ.get('MLDSA_ROOT', str(REPO.parent / 'ML-DSA-OSH-main')))
+    root = Path(os.environ.get('MLDSA_ROOT', str(REPO / 'third_party/mldsa_osh/upstream')))
     source = root.resolve() / 'ref_combined/src'
     return str(source / name if name else source)
 

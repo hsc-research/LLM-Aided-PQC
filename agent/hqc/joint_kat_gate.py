@@ -30,10 +30,12 @@ TIMEOUT_S = 3600
 CYCLES = {}
 
 
-def stage(work):
+def stage(work, source_key='hqc_joint_opt'):
+    if source_key not in ('hqc_joint_opt', 'hqc_joint_pristine'):
+        raise ValueError('Unsupported HQC joint source selection')
     import synthesizer
     synthesis = importlib.reload(synthesizer)
-    sources = synthesis.ordered_sources('hqc_joint_opt')
+    sources = synthesis.ordered_sources(source_key)
     origin_hashes = hashes(sources)
     target = work / 'build/joint_design'
     manifest = stage_sources(sources, target)
@@ -60,7 +62,7 @@ def stage(work):
         if result.returncode or re.search(r'(?im)^\s*(?:ERROR|FATAL)(?:\s|:)', result.stdout):
             raise RuntimeError('Seed staging failed: ' + result.stdout[-500:])
         shutil.move(str(work / name), str(target / 'tb' / name))
-    record = {'sources': origin_hashes, 'staged_basenames': manifest,
+    record = {'sources': origin_hashes, 'staged_basenames': manifest, 'source_key': source_key,
               'scope': 'joint decapsulation; standalone keygen/encap provide stimuli'}
     (work / 'joint_kat_sources.json').write_text(json.dumps(record, indent=2))
     return manifest, origin_hashes
@@ -122,6 +124,8 @@ def run_standalone(script, work):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--all', action='store_true')
+    parser.add_argument('--source-key', choices=('hqc_joint_opt', 'hqc_joint_pristine'),
+                        default='hqc_joint_opt')
     args = parser.parse_args(argv)
     levels = ['hqc128', 'hqc192', 'hqc256'] if args.all else ['hqc128']
     CYCLES.clear()
@@ -129,7 +133,7 @@ def main(argv=None):
     work = new_run_dir('hqc-joint-', REPO)
     print(f'Run artifacts: {work}')
     try:
-        manifest, original = stage(work)
+        manifest, original = stage(work, args.source_key)
         run_standalone('./build/keygen/tb/keygen.tcl', work)
         copy_inputs(work / KEYGEN_SIM, work / 'build/encap/tb', ('s', 'h', 'x', 'y'))
         for level in levels:

@@ -19,8 +19,8 @@ else:
     from run_safety import run_process
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-# MLDSA_ROOT is the external ML-DSA checkout, containing ref_combined/src.
-MLDSA_ROOT = Path(os.environ.get("MLDSA_ROOT", str(REPO_ROOT.parent / "ML-DSA-OSH-main"))).expanduser().resolve()
+# MLDSA_ROOT overrides the bundled pinned ML-DSA tree, containing ref_combined/src.
+MLDSA_ROOT = Path(os.environ.get("MLDSA_ROOT", str(REPO_ROOT / "third_party/mldsa_osh/upstream"))).expanduser().resolve()
 _PRIS = str(MLDSA_ROOT / "ref_combined" / "src")
 
 

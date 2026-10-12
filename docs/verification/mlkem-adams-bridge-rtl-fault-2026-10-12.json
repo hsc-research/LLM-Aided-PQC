@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "EXPECTED_RTL_FAULT_REJECTED",
+  "regression_passed": true,
+  "candidate_rtl_kat_passed": false,
+  "baseline_rtl_kat_passed": true,
+  "date_utc": "2026-10-12",
+  "scope": "Candidate isolation and real ML-KEM EK-output mismatch detection, not full unified behavior qualification",
+  "baseline_evidence": "mlkem-adams-bridge-acvp-2026-10-12.json",
+  "reference_source_integrity_verified": true,
+  "reference_inputs_unchanged": true,
+  "candidate_inputs_unchanged": true,
+  "candidate_matches_pinned_upstream": false,
+  "mutation": {
+    "scope": "One-bit synthesizable fault in authentic core EK output path, isolated candidate only",
+    "file": "src/abr_top/rtl/abr_ctrl.sv",
+    "before": "MLKEM_ENCAPS_KEY.rd_data = encapskey_rd_ack & mlkem_valid_reg ? privkey_out_rdata : '0;",
+    "after": "MLKEM_ENCAPS_KEY.rd_data = encapskey_rd_ack & mlkem_valid_reg ? (privkey_out_rdata ^ 32'h1) : '0;",
+    "changes": [
+      {
+        "path": "src/abr_top/rtl/abr_ctrl.sv",
+        "reference_sha256": "4c6dde9371e21fa2eabb6ddb1619ccc565947a298413948c27c5db6dd61dbaf0",
+        "candidate_sha256": "c712ebdc1674b1818cff8a6b5636508fcfa3b22c575faa1f364e33856885c9d0"
+      }
+    ]
+  },
+  "candidate_changes": [
+    {
+      "path": "src/abr_top/rtl/abr_ctrl.sv",
+      "reference_sha256": "4c6dde9371e21fa2eabb6ddb1619ccc565947a298413948c27c5db6dd61dbaf0",
+      "candidate_sha256": "c712ebdc1674b1818cff8a6b5636508fcfa3b22c575faa1f364e33856885c9d0"
+    }
+  ],
+  "tool_version": "Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)",
+  "compile_returncode": 0,
+  "simulate_returncode": -6,
+  "gate_exit_code": 1,
+  "compile_seconds": 118.389,
+  "simulate_seconds": 1.067,
+  "first_mismatch": {
+    "case_id": 1,
+    "operation": "keyGen",
+    "tgId": 3,
+    "tcId": 51,
+    "register_address": "0x0000b000",
+    "expected": "0xca23098d",
+    "actual": "0xca23098c"
+  },
+  "sha256": {
+    "same_official_commands": "c8f3b1c08523b2b67c45a601e034d57f58be6747f2b1ba943e717ff3820ea491",
+    "protected_wrapper": "b377aa515a3a6654208798437c35efe70d33329018b3a261ee38834bd8a32a87",
+    "protected_testbench": "ee4ef0149d293cf4f59e012a772b071b59b51c860d847cffbfede33a40371ce9",
+    "runner": "2feb46ee174eba2df316163d3f47ab768dce3932142ca7bc646804cfebcc8749",
+    "candidate_filelist": "8d3c8857ba02eb246457b7c2b82347f143019466a793694d110df81359e742d6",
+    "raw_report": "8ae156b1689b28fbaae30c7d4624ea14889e3f2e112065574a725a17d2e6badd",
+    "compile_log": "5343b81aefd63b3ed9b7593d792c2c976af7cd6986983a90f30258bf4c1aa598",
+    "simulation_log": "c1801df19226d0d3519c61ec11bb22f86ca298b75a62d0c6ea52523531b48b45",
+    "candidate_inputs_canonical_json": "0542a5b9ad6187dde90dd2b848f81bf43888b827f16509bf806546f8752504a9"
+  },
+  "actual_compile_command": [
+    "/tmp/pqc-verilator-tools/root/usr/bin/verilator",
+    "--binary",
+    "--timing",
+    "--assert",
+    "-Wno-fatal",
+    "--top-module",
+    "tb_mlkem_acvp",
+    "--Mdir",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/candidate_fault/obj_dir",
+    "-j",
+    "2",
+    "-f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/candidate_fault/sources.f"
+  ],
+  "actual_simulate_command": [
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/candidate_fault/obj_dir/Vtb_mlkem_acvp",
+    "+COMMANDS=/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/candidate_fault/commands.hex",
+    "+MAX_CYCLES=200000"
+  ],
+  "reproduce_after_applying_documented_mutation": "python tools/run_mlkem_adams_bridge_kat.py --simulator verilator --candidate-root build/mlkem_adams_bridge_verilator/fault_candidate_upstream --work-dir build/mlkem_adams_bridge_verilator/candidate_fault",
+  "log": "mlkem-adams-bridge-rtl-fault-2026-10-12.txt",
+  "full_local_report": "build/mlkem_adams_bridge_verilator/candidate_fault/report.json",
+  "limitations": [
+    "Candidate acceptance is conservative admission, not an adversarial sandbox or exhaustive equivalence proof.",
+    "An ML-KEM vector pass cannot establish ML-DSA-87 or full-unified behavior preservation.",
+    "This is an intentional failing candidate, not an optimized implementation or PPA improvement."
+  ]
+}

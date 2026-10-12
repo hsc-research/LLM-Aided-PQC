@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "root": "..",
+  "synthesis_tool": "genus",
+  "top": "combined_top",
+  "scope": "full_design_mldsa_44_65_87_existing_portable_baseline",
+  "period_ns": 5.0,
+  "period_note": "Example target only, not measured or recommended Fmax. Choose a site-qualified target.",
+  "memory_model": "flops",
+  "sdc": "configs/mldsa_osh_asic.sdc",
+  "files": [
+    {
+      "path": "asic/arms/mldsa_baseline/sha3_pkg.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_pkg.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/countern.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/piso.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/regn.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/sipo.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/sr_reg.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_bytepad.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_cons.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_round.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_fsm1.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_fsm2.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/sha3_fsm3.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_control.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_datapath.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/keccak_top.vhd",
+      "language": "vhdl"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/mldsa_params.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/Barrett_8380417.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/address_resolver.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/address_unit.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/butterfly.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/butterfly2x2.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/coeff_decomposer.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/decoder.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/decomp_map1.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/decomposer_unit.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/dual_port_ram.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/dual_port_rom.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/encoder.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/expandmask_ext.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/gen_a_ext.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/gen_c.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/gen_s.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/makehint.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/norm_check.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/ntt_fifo.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/ntt_fifo_piso.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/ntt_pipo.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/operation_module.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/rejection_a.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/rejection_s.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/rejection_y.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/sampler_a_ext.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/sampler_s.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/sampler_y_ext.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/twiddle_resolver.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/uncenter_coeff.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/usehint.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/zero_strip.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/mldsa_baseline/combined_top.v",
+      "language": "verilog"
+    }
+  ],
+  "include_dirs": [
+    "asic/arms/mldsa_baseline"
+  ],
+  "defines": [],
+  "parameters": {},
+  "data_files": [
+    "third_party/mldsa_osh/upstream/common/zetas.txt"
+  ],
+  "output_root": "runs/asic/mldsa_osh",
+  "timeout_seconds": 288000,
+  "qualification_status": "Inputs pinned; existing ASIC portability edits unchanged. Current mixed-language simulation and licensed Genus/DC qualification NOT RUN.",
+  "tools": {
+    "genus": {
+      "executable": "genus",
+      "version": "record-installed-version",
+      "time_unit": "ns",
+      "area_unit": "library_unit",
+      "target_libraries": [
+        "${PQC_GENUS_TARGET_LIB}"
+      ],
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "Set to the actual library process, voltage and temperature; time_unit must match library metadata",
+      "effort": {
+        "generic": "high",
+        "map": "high",
+        "opt": "high"
+      }
+    },
+    "dc": {
+      "executable": "dc_shell",
+      "version": "record-installed-version",
+      "time_unit": "ns",
+      "area_unit": "library_unit",
+      "target_libraries": [
+        "${PQC_DC_TARGET_DB}"
+      ],
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "Set to the actual library process, voltage and temperature; time_unit must match library metadata",
+      "compile": "compile_ultra"
+    }
+  }
+}

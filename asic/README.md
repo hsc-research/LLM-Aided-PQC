@@ -14,10 +14,10 @@ Offline tests cover execution failures, malformed reports, units, clock-period m
 
 | Scheme | Tracked source evidence | ASIC readiness |
 |---|---|---|
-| ML-KEM | No ML-KEM/Kyber implementation or KAT found in this checkout | Missing implementation, source/license provenance, correctness tests, and synthesis manifest |
-| ML-DSA | Full mixed-Verilog/VHDL arms in `asic/arms/mldsa_*`; butterfly arms in `asic/arms/bf2x2_*` | Example config covers only `butterfly2x2`. Full-chip `operation_module.v` refers to `zetas.txt`, absent from the repository. Ordered VHDL packages and complete ROM data must be supplied and verified |
+| ML-KEM | Pinned Adam's Bridge v2.0.3 unified ML-KEM-1024 / ML-DSA-87 source and generic memories; baseline passed 80 official ACVP cases under Verilator | [Whole-wrapper example](../configs/mlkem_adams_bridge_asic.example.json) covers the unified design, not ML-KEM-only area. Licensed synthesis, site constraints and library/memory qualification remain open |
+| ML-DSA | Pinned mixed-Verilog/VHDL ML-DSA-OSH inputs under `third_party/mldsa_osh/upstream`, including `common/zetas.txt`; existing ASIC arms and butterfly arms retained | [Full-design example](../configs/mldsa_osh_asic.example.json) supplies ordered source/data inputs. The historical baseline retains two portability edits. No new RTL simulation, licensed elaboration or synthesis was run; KeyGen-only checking cannot qualify Sign/Verify |
 | HQC | Full baseline/optimized ASIC arms in `asic/arms/hqc_*`; archived Genus elaboration reports | A current full-chip DC manifest, parameter/define/memory review, correctness validation, and licensed runs remain required |
-| SLH-DSA | Tracked baseline/candidate RTL in `agent/slh_dsa/{pristine,slh_src}` | No qualified ASIC manifest. Review global `setting.v`/`clog2.v` compilation, algorithm variants, data paths and memory inference; the existing regeneration script is FPGA-specific |
+| SLH-DSA | All 62 pristine files match pinned SPHINCSLET upstream; baseline/candidate remain in `agent/slh_dsa/{pristine,slh_src}` | No qualified ASIC manifest. The selected-mode gate covers all six SHA2 sets using pinned vendor streams, including the unchanged 192f candidate and 128f pristine baseline; fresh RTL simulation is unrun and SHAKE is unsupported. Review global `setting.v`/`clog2.v` compilation, algorithm variants, data paths and memory inference; the existing regeneration script is FPGA-specific |
 
 These are source/flow facts, not four verified ASIC implementations. The shared butterfly block is not a complete ML-DSA accelerator, nor an ML-KEM implementation. Do not substitute it for a scheme-level result. Do not invent missing twiddle/ROM data or silently blackbox absent modules.
 
@@ -26,6 +26,21 @@ Preserve third-party source headers. HQC includes GPL notices; ML-DSA includes A
 ## Configure the licensed machine
 
 Start from [the example JSON](../configs/butterfly_asic.example.json), [site shell template](../configs/asic_site.example.sh), and [site Tcl template](../configs/asic_site.example.tcl). Copy configuration locally and fill it with actual approved paths, installed version, corner, and interface assumptions. No EDA software or proprietary PDK is downloaded by this flow.
+
+For scheme-level work, select the
+[ML-DSA full-design example](../configs/mldsa_osh_asic.example.json) or the
+[ML-KEM/ML-DSA unified example](../configs/mlkem_adams_bridge_asic.example.json)
+rather than the butterfly block config. The
+[ML-DSA bundle notes](../third_party/mldsa_osh/README.md) identify the pristine
+source pin and its relationship to existing ASIC arms. Of 50 compared
+source/common files, 48 match the historical ML-DSA baseline byte-for-byte;
+`combined_top.v` declaration placement and `ntt_fifo_piso.v` assignment
+semantics differ because of the retained
+[portability edits](../docs/findings/asic/2026-07-31_mldsa_genus_port.md).
+Do not describe those edited arms as pristine upstream RTL or infer equivalence
+from matching source basenames. The newly available `zetas.txt` removes the
+missing-ROM-input blocker; it does not establish that a selected synthesis
+tool inferred or mapped that ROM correctly.
 
 | Field | Meaning |
 |---|---|

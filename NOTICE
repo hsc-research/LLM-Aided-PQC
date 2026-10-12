@@ -36,3 +36,26 @@ redistribution clearance; see docs/RELEASE_CHECKLIST.md for open review items.
 The repository-level GPL-3.0 license text does not replace source-specific licenses
 or notices attached to third-party files. Users are responsible for reviewing
 and complying with all applicable terms before redistribution.
+
+Adam's Bridge unified ML-KEM-1024 / ML-DSA-87 reference
+  The unmodified source subset under third_party/adams_bridge/upstream/ is
+  pinned to chipsalliance/adams-bridge v2.0.3, commit
+  b77e3d899e828d626cfc2a0d26a6b5704cc121e0, under Apache-2.0.
+  Original source copyright notices and the upstream license remain in place.
+  Locally authored integration and verification files are identified separately.
+  See third_party/adams_bridge/README.md and upstream/SOURCE_MANIFEST.json.
+
+NIST ACVP ML-KEM verification data
+  Official FIPS 203 vectors are derived from the pinned usnistgov/ACVP-Server
+  source identified in third_party/adams_bridge/test_vectors/.
+  Original notices and the exact vector provenance are included there.
+  These public test inputs must not be used as production cryptographic keys.
+
+ML-DSA-OSH reference inputs
+  The unmodified source subset under third_party/mldsa_osh/upstream/ is
+  pinned to KULeuven-COSIC/ML-DSA-OSH, commit
+  751009199ac081091a9059805e6921453bde0154.
+  Copyright (c) 2025 KU Leuven - COSIC, under the MIT License, with
+  Apache-2.0 portions and original source-specific notices preserved.
+  Upstream LICENSE, NOTICE, README.md and CITATION are retained in the bundle.
+  See third_party/mldsa_osh/README.md for scope and provenance.

@@ -37,7 +37,8 @@ try:
 except SystemExit:
     pass
 POLICY = _m.POLICY
-from learned_rules import rules_prompt_block, distill_rule
+from learned_rules import rules_prompt_block
+from experiment_history import preliminary_record, history_prompt
 classify = _m.classify
 
 def log(rec):
@@ -73,6 +74,7 @@ def call_llm(block, rtl, board, tags):
               f"preconditions genuinely hold; no_action is the correct answer when "
               f"they do not.\n"
               f"CODE-COMPUTED CLASSIFICATION: {tags}\n\n"
+              + history_prompt("hqc", block) + "\n"
               f"TOP TIMING PATHS:\n{board}\n\nFULL RTL:\n{rtl}\n\n"
               "Fill exactly two slots: strategy + str-replace pair(s). JSON only.")
     for attempt in range(2):
@@ -171,17 +173,9 @@ def main():
     if gain >= MIN_GAIN_NS:
         rec = {"module": module, "verdict": "ACCEPTED", "strategy": prop["strategy"],
              "wns_pre": pre, "wns_post": res["wns_ns"], "gain": gain, "edits": edits, **{k: res.get(k) for k in ("luts","ffs","dsp","total_w","dynamic_w") if isinstance(res, dict) and res.get(k) is not None}}  # ppa-logged
-        log(rec)
-        try: distill_rule(__import__("llm_client").create_client(), MODEL, rec, "hqc")
-        except Exception as e: print(f"rule distill skipped: {e}")
-        print("=== ACCEPTED (TRANSFER WIN). .bak kept; review + commit manually. ===")
+        log(preliminary_record(rec, "hqc", MODEL))
+        print("=== ACCEPTED (block filter only). Whole-design judgment still required. ===")
     else:
-        try:
-            distill_rule(__import__("llm_client").create_client(), MODEL,
-                         {"module": module, "verdict": "REJECTED_MARGINAL",
-                          "strategy": prop.get("strategy"), "wns_pre": pre,
-                          "wns_post": res["wns_ns"], "gain": gain}, "hqc")
-        except Exception as e: print(f"rule distill skipped: {e}")
         revert(f"marginal_{gain:+.3f}")
 
 if __name__ == "__main__":

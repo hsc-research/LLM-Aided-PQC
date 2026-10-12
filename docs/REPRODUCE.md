@@ -57,6 +57,20 @@ Record the checkout with `git rev-parse HEAD` when reporting a test or result.
 A missing optional tool should be reported as missing, not as a failed RTL
 check or a passing hardware experiment.
 
+The complete selected ML-DSA-OSH baseline inputs are bundled under
+`third_party/mldsa_osh/upstream`, including the mixed-language RTL, three
+testbenches, 48 KAT files and `common/zetas.txt`. Verify the pinned input bytes
+without launching an EDA tool:
+
+```bash
+python3 tools/check_mldsa_sources.py
+```
+
+The default KeyGen gate uses this tree; an explicit `MLDSA_ROOT` or `--root`
+can select another matching tree. Keep any such override in the recorded run
+configuration. See the [bundle notes](../third_party/mldsa_osh/README.md) for
+provenance, licenses and differences from the historical ASIC baseline.
+
 ## 3. Optional Python installation
 
 Direct `python3 -m agent` commands work from the checkout without installation.
@@ -106,6 +120,39 @@ permitted target libraries, source inputs, and timing constraints locally.
 A generated Tcl file or dry run demonstrates preparation only. It does not
 establish successful elaboration, mapped area, timing, or power.
 
+### Baseline functional checks and their limits
+
+With Vivado simulator tools loaded, run the full default ML-DSA KeyGen set:
+
+```bash
+python3 agent/mldsa/full_kat_gate.py
+```
+
+This requires `xvhdl`, `xvlog`, `xelab` and `xsim`, and checks 25 vectors at
+each of II, III and V (75 total). `--vectors` selects a reduced per-level
+set; report that reduced coverage explicitly. Even a full pass checks KeyGen
+only, not Sign/Verify, FIPS 204 conformance or side-channel resistance.
+No ML-DSA simulation or synthesis was run as part of the source import.
+
+The SLH-DSA differential gate preserves each tree's selected SHA2 mode:
+
+```bash
+# Unchanged pristine SHA2-128f baseline
+python3 agent/slh_dsa/slh_kat_gate.py agent/slh_dsa/pristine
+# Unchanged current SHA2-192f candidate
+python3 agent/slh_dsa/slh_kat_gate.py
+```
+
+This requires `xvlog`, `xelab` and `xsim`. A pass compares the generated
+vendor output stream to a frozen reference and requires the testbench's verify
+match; it is not an independent FIPS 205 KAT. All six SHA2 modes select their
+own pinned reference, testbench inputs and output filename. SHAKE remains
+unsupported. The whole stream, including the padded message tail, is compared.
+Do not change the candidate's parameter set or regenerate the golden to obtain
+a pass. Existing Icarus/Verilator reject vendor duplicate declarations; fresh
+Vivado simulation and Vivado/DC/Genus qualification remain pending. See the
+[SLH-DSA baseline boundary](PROJECT_STATUS.md#slh-dsa-baseline-boundary).
+
 ## 5. Preserve source snapshots and results
 
 - `build/` contains tracked HQC RTL. Legacy Makefile
@@ -127,7 +174,9 @@ establish successful elaboration, mapped area, timing, or power.
 | `No module named flask` or `anthropic` | Install the corresponding optional extra only if that feature is needed |
 | `vivado`, `dc_shell`, or `genus` missing | Load the tool environment provided by your institution/vendor, then rerun `doctor` |
 | `/mnt/c/PQC/...` path missing | A historical script still needs local path configuration; consult the per-design status before editing paths |
-| ML-DSA testbench, KAT files, or ROM data missing | Obtain the matching upstream inputs; do not substitute an empty file or omit the check |
+| ML-DSA testbench, KAT files, or ROM data missing | Run `tools/check_mldsa_sources.py`; check whether `MLDSA_ROOT` selects an incomplete external tree. Restore the pinned inputs; never substitute an empty file or omit the check |
+| SLH configuration/reference/input check fails | All six SHA2 selections are supported; inspect the selected mode and pinned fixture hashes. SHAKE, ambiguous macros and changed vendor testbench/input bytes are rejected |
+| SLH fails under Icarus/Verilator | The unmodified vendor `FSM.v` has duplicate declarations. The gate requires Vivado simulation; do not patch RTL or weaken comparisons just to claim a pass |
 | Old report exists after a failed tool run | Treat it as stale; use a new output directory and inspect the process exit status |
 | No signature or shared-secret output | Treat the run as failed or incomplete; missing output is never a passing comparison |
 

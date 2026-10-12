@@ -1,0 +1,26 @@
+{
+  "created": "2026-10-12",
+  "transform": "ML-KEM-1024 group selection and tcId join for NIST; literal extraction for upstream UVM KATs",
+  "files": [
+    {
+      "path": "upstream_kats.json",
+      "sha256": "f5234aa595f4f4e825d9d8e3f3ba07b025894d6bb9cc53c946b93de9128fc545",
+      "size": 36853
+    },
+    {
+      "path": "nist_acvp_mlkem1024.json",
+      "sha256": "b7b1ab2cb459632301bed7bf1cff8625f71cb241479abfbd20596702a5401c8e",
+      "size": 620587
+    },
+    {
+      "path": "NIST_ACVP_README.upstream.md",
+      "sha256": "d5a569884ee83bd1c4737042d0a2cc7d68c6950690f75a73ef14f505a9aa3555",
+      "size": 21473
+    },
+    {
+      "path": "NIST_SOURCE_MANIFEST.json",
+      "sha256": "cb5576918c571331f1ee528894604be1bb92f27d051d892880741575d9fbdaa4",
+      "size": 1029
+    }
+  ]
+}

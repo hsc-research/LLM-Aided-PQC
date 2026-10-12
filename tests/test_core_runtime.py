@@ -153,7 +153,8 @@ class TypedEdits(unittest.TestCase):
 class OfflineRuntime(unittest.TestCase):
     def test_all_four_schemes_explicit(self):
         self.assertEqual({r["scheme"] for r in scheme_catalog()}, {"ML-KEM", "ML-DSA", "SLH-DSA", "HQC"})
-        self.assertEqual(scheme_catalog()[0]["support"], "not_implemented")
+        self.assertEqual(scheme_catalog()[0]["support"], "baseline_available_site_qualification_pending")
+        self.assertIn("unified", scheme_catalog()[0]["baseline_scope"])
 
     def test_smoke(self):
         self.assertEqual(smoke()["status"], "PASS")
@@ -163,6 +164,17 @@ class OfflineRuntime(unittest.TestCase):
             result = doctor()
         self.assertEqual(result["audit_status"], "completed")
         self.assertTrue(all(not row["licensed_run_verified"] for row in result["schemes"]))
+
+    def test_doctor_recognizes_selected_slh_192f_without_claiming_rtl_pass(self):
+        with patch("subprocess.Popen", side_effect=AssertionError("must not launch")):
+            row = next(row for row in doctor()["schemes"] if row["key"] == "slh_dsa")
+        self.assertEqual(row["active_parameters"], ["PARAM_192F"])
+        self.assertEqual(row["active_parameter_set"], "SHA2-192f")
+        self.assertEqual(row["gate_inputs"]["status"], "verified")
+        self.assertEqual(Path(row["gate_inputs"]["golden"]).name, "SIG_192f.hex")
+        self.assertFalse(row["licensed_run_verified"])
+        self.assertFalse(row["independent_fips_205_validation"])
+        self.assertFalse(any("supported PARAM_128F" in b for b in row["blockers"]))
 
     def test_paid_calls_require_explicit_optin(self):
         with patch.dict(os.environ, {"PQC_ENABLE_LLM": "0"}):

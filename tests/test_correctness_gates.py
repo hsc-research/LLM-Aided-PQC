@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import shutil
 import sys
 import tempfile
 import unittest
@@ -273,7 +274,7 @@ class SLHSignatures(TemporaryGateTree):
         self.golden.write_text('aabbccdd\n')
         self.produced.write_text('aabbccdd\n')
 
-    def check(self, code=0, output='The signature is matched'):
+    def check(self, code=0, output='sig gen done\nsig verification done\nThe signature is matched!'):
         return slh.check_signature(self.golden, self.produced, output, code)
 
     def test_successful_signature_check(self):
@@ -298,38 +299,31 @@ class SLHSignatures(TemporaryGateTree):
 
     def test_unsupported_configuration_is_explicit(self):
         setting = self.root / 'setting.v'
-        for text in ('`define PARAM_192F\n', '`define PARAM_128F\n`define SHAKE\n', '`define PARAM_128F\n`define PARAM_128S\n'):
+        for text in ('`define PARAM_128F\n`define SHAKE\n', '`define PARAM_128F\n`define PARAM_128S\n'):
             setting.write_text(text)
-            with self.assertRaisesRegex(ValueError, 'supports SHA2 PARAM_128F only'):
+            with self.assertRaisesRegex(ValueError, 'exactly one SHA2 parameter set'):
                 slh.check_configuration(setting)
-        setting.write_text('// `define SHAKE\n// `define PARAM_192F\n`define PARAM_128F\n')
-        slh.check_configuration(setting)
+        for tree, parameter in (('pristine', '128f'), ('slh_src', '192f')):
+            self.assertEqual(slh.check_configuration(slh.HERE / tree / 'sphincslet/setting.v'), parameter)
 
     def fixture(self):
         rtl = self.root / 'rtl'
-        for name in ('imports/global_include/clog2.v', 'imports/fifo.v', 'sphincslet/tb.v', 'sphincslet/setting.v'):
-            path = rtl / name
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text('`define PARAM_128F\n' if path.name == 'setting.v' else '// fixture\n')
-        data = rtl / 'imports/data_sha2'
-        data.mkdir()
-        (data / 'SIG_file0_128f_w.hex').write_text('old evidence must survive')
-        self.golden.with_suffix('.sha256').write_text(hashlib.sha256(self.golden.read_bytes()).hexdigest())
+        shutil.copytree(slh.HERE / 'pristine', rtl)
+        (rtl / 'imports/data_sha2/SIG_file0_128f_w.hex').write_text('old evidence must survive')
         return rtl
 
     def tool(self, argv, **kwargs):
         output = ''
         if argv[0] == 'xsim':
-            output = 'The signature is matched'
+            output = 'sig gen done\nsig verification done\nThe signature is matched!'
             data = Path(kwargs['cwd']).parents[3] / 'TECS_v8.srcs/sources_1/imports/data_sha2'
-            (data / 'SIG_file0_128f_w.hex').write_bytes(self.golden.read_bytes())
+            (data / 'SIG_file0_128f_w.hex').write_bytes(slh.load_reference('128f')[1])
         Path(kwargs['log_path']).write_text(output)
         return subprocess.CompletedProcess(argv, 0, output)
 
     def test_run_isolated_and_preserves_external_signature(self):
         rtl = self.fixture()
-        with patch.object(slh, 'DEFAULT_RTL', rtl), patch.object(slh, 'GOLDEN', self.golden), \
-             patch.object(slh, 'run_process', side_effect=self.tool):
+        with patch.object(slh, 'run_process', side_effect=self.tool):
             result = slh.run_equiv(rtl)
         self.assertEqual(result['status'], 'PASS', result)
         self.assertEqual((rtl / 'imports/data_sha2/SIG_file0_128f_w.hex').read_text(), 'old evidence must survive')
@@ -337,15 +331,16 @@ class SLHSignatures(TemporaryGateTree):
     def test_run_rejects_process_failure_and_timeout(self):
         rtl = self.fixture()
         for failure in (subprocess.CompletedProcess([], 1, 'The signature is matched'), subprocess.TimeoutExpired('xsim', 1)):
-            with patch.object(slh, 'DEFAULT_RTL', rtl), patch.object(slh, 'GOLDEN', self.golden), \
-                 patch.object(slh, 'run_process', side_effect=failure if isinstance(failure, Exception) else None,
+            with patch.object(slh, 'run_process', side_effect=failure if isinstance(failure, Exception) else None,
                               return_value=failure):
                 self.assertEqual(slh.run_equiv(rtl)['status'], 'FAIL')
 
     def test_corrupted_golden_checksum_blocks_before_simulation(self):
         rtl = self.fixture()
-        self.golden.write_text('corrupted')
-        with patch.object(slh, 'GOLDEN', self.golden), patch.object(slh, 'run_process') as tool:
+        golden_dir = self.root / 'references'
+        shutil.copytree(slh.GOLDEN_DIR, golden_dir)
+        (golden_dir / 'SIG_128f.hex').write_text('corrupted')
+        with patch.object(slh, 'GOLDEN_DIR', golden_dir), patch.object(slh, 'run_process') as tool:
             self.assertEqual(slh.run_equiv(rtl)['status'], 'ERROR')
         tool.assert_not_called()
 
