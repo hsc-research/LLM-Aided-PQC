@@ -114,6 +114,15 @@ clock in the XDC against the declared period and inspect the resulting hierarchy
 memory, timing and DRC reports. Source preparation cannot validate a Tcl/XDC's
 meaning or prove hardware compatibility.
 
+The Vivado launcher records the absolute Python 3.10+ interpreter used during
+preparation, instead of looking up `python3` in Vivado's modified `PATH`.
+The interpreter binary and verification script are hash-bound in
+`preparation.json`; `-I` isolates the verifier from Python environment settings.
+Activate your intended Python environment before preparing the launch. If the
+interpreter changes, prepare a new launch directory rather than editing the
+frozen Tcl or hashes. Existing exported source profiles can be retained when
+regenerating a launch with the updated repository preparation command.
+
 Preserve this prepared baseline; use the
 [matched-run procedure](#record-a-fair-comparison) before starting the
 [target-bound controller](WHOLE_DESIGN.md#bind-a-target-profile-before-optimizing).

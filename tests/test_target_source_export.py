@@ -1,6 +1,7 @@
 """Offline exact-source target preparation checks; no licensed EDA process."""
 import copy
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -342,6 +343,53 @@ class TargetSourceExportTests(unittest.TestCase):
             self.assertNotIn("tb.v", script)
             verify_preparation(output / "preparation.json")
             self.assertFalse(Path(value["output_root"]).exists())
+
+    def test_vivado_precheck_uses_frozen_python_with_hostile_path(self):
+        if not shutil.which("tclsh"):
+            self.skipTest("tclsh is required for launcher regression")
+        with tempfile.TemporaryDirectory(prefix="pqc launch ") as root:
+            path, p = self.export(root, target="fpga")
+            site, value = self.site(path, p, root)
+            output = Path(root) / "prepared"
+            prepare(path / "profile.json", site, output)
+            cfg = json.loads((output / "launch-config.json").read_text())
+            self.assertEqual(cfg["verification_python"]["executable"], str(Path(sys.executable).absolute()))
+            self.assertEqual(cfg["verification_python"]["version"], list(sys.version_info[:3]))
+            fake_bin = Path(root) / "old-python"
+            fake_bin.mkdir()
+            fake = fake_bin / "python3"
+            fake.write_text("#!/bin/sh\necho WRONG_PYTHON >&2\nexit 99\n")
+            fake.chmod(0o755)
+            harness = Path(root) / "harness.tcl"
+            # Stop immediately after the real precheck, before any EDA command.
+            harness.write_text('proc version {args} {error PRECHECK_REACHED_VERSION}\n'
+                               + 'source [lindex $argv 0]\n')
+            env = dict(os.environ, PATH=str(fake_bin),
+                       PYTHONHOME=str(Path(root) / "invalid-python-home"),
+                       PYTHONPATH=str(Path(root) / "invalid-python-path"))
+            proc = subprocess.run([shutil.which("tclsh"), str(harness), str(output / "launch_vivado.tcl")],
+                                  env=env, text=True, capture_output=True, timeout=30)
+            self.assertEqual(proc.returncode, 1)
+            self.assertIn("PRECHECK_REACHED_VERSION", proc.stderr)
+            self.assertNotIn("WRONG_PYTHON", proc.stderr)
+            self.assertFalse(Path(value["output_root"]).exists())
+            (path / "verify_profile.py").write_text("# changed verifier\n")
+            with self.assertRaisesRegex(ValueError, "changed"):
+                verify_preparation(output / "preparation.json")
+
+    def test_vivado_preparation_binds_python_binary(self):
+        with tempfile.TemporaryDirectory() as root:
+            path, p = self.export(root, target="fpga")
+            site, _ = self.site(path, p, root)
+            executable = Path(root) / "python3"
+            shutil.copyfile(sys.executable, executable)
+            output = Path(root) / "prepared"
+            with patch("tools.export_target_profiles.sys.executable", str(executable)):
+                prepare(path / "profile.json", site, output)
+            verify_preparation(output / "preparation.json")
+            executable.write_bytes(executable.read_bytes() + b"changed")
+            with self.assertRaisesRegex(ValueError, "changed"):
+                verify_preparation(output / "preparation.json")
 
     def test_verifier_is_relocatable_and_stdlib_only(self):
         with tempfile.TemporaryDirectory() as root:
