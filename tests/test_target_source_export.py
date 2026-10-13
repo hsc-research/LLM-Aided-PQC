@@ -364,7 +364,9 @@ class TargetSourceExportTests(unittest.TestCase):
             # Stop immediately after the real precheck, before any EDA command.
             harness.write_text('proc version {args} {error PRECHECK_REACHED_VERSION}\n'
                                + 'source [lindex $argv 0]\n')
-            env = dict(os.environ, PATH=str(fake_bin))
+            env = dict(os.environ, PATH=str(fake_bin),
+                       PYTHONHOME=str(Path(root) / "invalid-python-home"),
+                       PYTHONPATH=str(Path(root) / "invalid-python-path"))
             proc = subprocess.run([shutil.which("tclsh"), str(harness), str(output / "launch_vivado.tcl")],
                                   env=env, text=True, capture_output=True, timeout=30)
             self.assertEqual(proc.returncode, 1)
