@@ -125,6 +125,11 @@ refused. A zero-generation `BLOCKED_BUDGET` record can also be re-prepared after
 you review the pricing/budget. Review the new context before separately running
 any new paid request. Never delete a lock or failed record to bypass the guard.
 
+If generation completed and only `response_review` failed, use the
+[offline saved-response review](FPGA_AGENT_FEEDBACK.md#review-a-saved-response-without-another-api-call)
+instead. It can interpret the retained response without another paid request or
+credential unlock, while preserving the original failed record and usage.
+
 If `api_calls_attempted` is 1, or the status is `RUNNING` or
 `FAILED_OUTCOME_UNKNOWN`, **check provider usage before considering another
 request**. This helper refuses those outcomes. No failure triggers an automatic

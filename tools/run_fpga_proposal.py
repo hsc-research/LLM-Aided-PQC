@@ -80,7 +80,8 @@ def run(context_path, model, input_price, output_price, budget, max_tokens=4096)
         require(reply.content and all(b.type=='text' for b in reply.content),'Only text JSON accepted')
         raw=''.join(b.text for b in reply.content)
         require(len(raw.encode())<=192*1024,'Response too large')
-        (folder/'proposal-response.json').write_text(raw)
+        (folder/'proposal-response.json').write_text(raw, encoding='utf-8')
+        record['response_sha256']=sha(folder/'proposal-response.json');save(folder/'proposal-run.json',record)
         verdict=review(context_path,folder/'proposal-response.json',folder/'review.json')
         record['status']='STOP' if verdict['status']=='STOP' else 'PROPOSAL_REVIEW_READY'
     except (Exception, KeyboardInterrupt) as exc:

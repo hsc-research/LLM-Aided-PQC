@@ -9,18 +9,27 @@ import json
 import math
 import re
 from .asic_dashboard import collect as collect_asic
+from .proposal_response import decode_response, LIMIT as RESPONSE_LIMIT
 
 LIMIT = 4 * 1024 * 1024
 
 
-def read_record(path):
-    if path.is_symlink() or not path.is_file() or path.stat().st_size > LIMIT:
+def read_blob(path, limit=LIMIT):
+    if path.is_symlink() or not path.is_file() or path.stat().st_size > limit:
         raise ValueError('Missing, symlinked, or oversized record')
-    raw = path.read_bytes()
+    with path.open('rb') as stream:
+        raw = stream.read(limit + 1)
+    if len(raw) > limit:
+        raise ValueError('Oversized record')
+    return raw, hashlib.sha256(raw).hexdigest()
+
+
+def read_record(path):
+    raw, digest = read_blob(path)
     value = json.loads(raw)
     if not isinstance(value, dict):
         raise ValueError('Record must be an object')
-    return value, hashlib.sha256(raw).hexdigest()
+    return value, digest
 
 
 def number(value):
@@ -150,6 +159,69 @@ def report_summary(reports):
             'timing_signoff': False}
 
 
+def checked_review(record, directory, context, context_hash, prompt_hash):
+    """Validate local evidence only; never follow source paths from a record."""
+    raw, response_hash = read_blob(directory / 'proposal-response.json', RESPONSE_LIMIT)
+    proposal_value, response_format = decode_response(raw.decode('utf-8'))
+    expected = {'STOP': 'STOP', 'PROPOSED': 'EDIT_PREVIEW_VALID_NOT_APPLIED'}.get(proposal_value.get('status'))
+    required = (record.get('schema_version') == 1 and expected is not None
+                and record.get('status') == expected
+                and record.get('context_sha256') == context_hash
+                and record.get('profile_fingerprint') == context.get('profile_fingerprint')
+                and record.get('response_sha256') == response_hash
+                and record.get('rtl_changed') is False
+                and record.get('functional_verified') is False
+                and record.get('ppa_gain_verified') is False
+                and record.get('automatic_acceptance') == 'BLOCKED')
+    if not required:
+        raise ValueError('Review evidence mismatch')
+    if 'prompt_sha256' in record and record['prompt_sha256'] != prompt_hash:
+        raise ValueError('Review prompt mismatch')
+    if 'response_format' in record and record['response_format'] != response_format:
+        raise ValueError('Review interpretation mismatch')
+    return response_hash
+
+
+def apply_offline_review(summary, directory, context, context_hash, prompt_hash, run_record, run_hash):
+    path = directory / 'review-offline.json'
+    if not path.exists() and not path.is_symlink():
+        return
+    try:
+        record, _ = read_record(path)
+        response_hash = checked_review(record, directory, context, context_hash, prompt_hash)
+        _, claim_hash = read_blob(directory / '.proposal-request.lock', 16 * 1024)
+        if not (record.get('record_type') == 'OFFLINE_RESPONSE_REVIEW'
+                and run_record is not None and run_record.get('status') == 'FAILED'
+                and run_record.get('failure_stage') == 'response_review'
+                and type(run_record.get('api_calls_attempted')) is int and run_record['api_calls_attempted'] == 1
+                and all(type(run_record.get(key)) is int and run_record[key] >= 0 for key in ('input_tokens', 'output_tokens'))
+                and isinstance(run_record.get('finished_at'), str) and run_record['finished_at']
+                and record.get('original_run_status') == 'FAILED'
+                and record.get('original_run_sha256') == run_hash
+                and record.get('request_claim_sha256') == claim_hash
+                and record.get('prompt_sha256') == prompt_hash
+                and run_record.get('prompt_sha256') == prompt_hash
+                and record.get('source_integrity') == 'CHECKED_AT_OFFLINE_REVIEW'
+                and type(record.get('api_calls')) is int and record['api_calls'] == 0
+                and 'response_format' in record):
+            raise ValueError('Offline evidence mismatch')
+        binding = ('RECORDED_RESPONSE_HASH' if 'response_sha256' in run_record
+                   else 'LEGACY_RESPONSE_NOT_BOUND_BY_PAID_RUN')
+        if record.get('response_binding') != binding or ('response_sha256' in run_record and run_record['response_sha256'] != response_hash):
+            raise ValueError('Offline response binding mismatch')
+        summary.update(status=record['status'], review_status=record['status'], status_source='offline_review',
+                       original_run_status=run_record['status'], offline_review_record='review-offline.json',
+                       offline_response_binding=binding, source_integrity='CHECKED_AT_OFFLINE_REVIEW_NOT_LIVE')
+        summary['notes'].append('Displayed decision comes from a later offline review. Original paid-run failure and usage are preserved; no extra API call or RTL edit was made.')
+        summary['notes'].append('Source hashes were checked at offline review time. This dashboard does not recheck live RTL paths.')
+        if binding == 'LEGACY_RESPONSE_NOT_BOUND_BY_PAID_RUN':
+            summary['notes'].append('Legacy response was not hash-bound by the paid run. Offline review binds the retained local bytes now; their original provider association is not independently proven.')
+        if record['response_format'].get('untrusted_rationale_present'):
+            summary['notes'].append('The retained model rationale is unverified commentary; it is not a timing requirement, measurement or instruction.')
+    except (ValueError, OSError, TypeError, KeyError, AttributeError, RecursionError):
+        summary['notes'].append('Offline review excluded: stale, missing, unsafe or inconsistent local evidence. Original run status retained.')
+
+
 def proposal(directory):
     context, context_hash = read_record(directory / 'proposal-context.json')
     if context.get('schema_version') != 1:
@@ -179,11 +251,18 @@ def proposal(directory):
          'scope': 'Frozen imported text; execution association is not independently proven'}
         for name, text in user.get('reports', {}).items()
         if name in {'timing.rpt', 'utilization.rpt', 'utilization_hierarchical.rpt', 'check_timing.rpt', 'drc.rpt'} and isinstance(text, str)]
+    run_record = run_hash = None
     for filename in ('proposal-run.json', 'review.json'):
         path = directory / filename
         if not path.exists():
             continue
-        record, _ = read_record(path)
+        try:
+            record, record_hash = read_record(path)
+        except (ValueError, OSError, TypeError, RecursionError):
+            if filename == 'proposal-run.json':
+                raise
+            summary['notes'].append('review.json: unreadable or invalid review excluded')
+            continue
         if record.get('context_sha256') != context_hash:
             summary['notes'].append(filename + ': stale or unbound record excluded')
             continue
@@ -192,8 +271,11 @@ def proposal(directory):
         if record.get('status') not in allowed:
             summary['notes'].append(filename + ': unsupported status excluded')
             continue
-        summary['status'] = label(record.get('status'))
         if filename == 'proposal-run.json':
+            run_record, run_hash = record, record_hash
+            summary['status'] = label(record.get('status'))
+            summary['original_run_status'] = summary['status']
+            summary['status_source'] = 'paid_run_record'
             for key in ('api_calls_attempted', 'token_count_requests_attempted', 'reported_cost_usd', 'estimated_max_cost_usd', 'input_tokens', 'output_tokens'):
                 value = record.get(key)
                 if key.endswith('_usd') and isinstance(value, str):
@@ -206,14 +288,24 @@ def proposal(directory):
             # Only bounded enums/numbers, never SDK exception text or credentials.
             if record.get('failure_stage') in {'credential_setup', 'token_count', 'budget_check', 'generation', 'response_review'}:
                 summary['failure_stage'] = record['failure_stage']
-            if record.get('error_category') in {'interrupted', 'workspace_required', 'authentication', 'permission', 'not_found', 'rate_limit', 'provider_unavailable', 'local_credentials', 'connection_or_timeout', 'local_configuration_or_validation', 'invalid_request', 'unknown'}:
+            if record.get('error_category') in {'response_format', 'proposal_validation', 'interrupted', 'workspace_required', 'authentication', 'permission', 'not_found', 'rate_limit', 'provider_unavailable', 'local_credentials', 'connection_or_timeout', 'local_configuration_or_validation', 'invalid_request', 'unknown'}:
                 summary['error_category'] = record['error_category']
             status = record.get('provider_http_status')
             if type(status) is int and 100 <= status <= 599:
                 summary['provider_http_status'] = status
             summary['cost_note'] = 'Generation attempts exclude token-count requests. Costs use declared pricing; unknown usage/cost stays unknown. Estimates are not billing caps.'
         else:
-            summary['review_status'] = label(record.get('status'))
+            try:
+                if run_record is not None and run_record.get('status') not in {'STOP', 'PROPOSAL_REVIEW_READY'}:
+                    raise ValueError('Use an explicit offline review for a failed or incomplete paid run')
+                response_hash = checked_review(record, directory, context, context_hash, prompt_hash)
+                if run_record is not None and 'response_sha256' in run_record and run_record['response_sha256'] != response_hash:
+                    raise ValueError('Paid response mismatch')
+                summary['status'] = summary['review_status'] = record['status']
+                summary['status_source'] = 'original_review'
+            except (ValueError, OSError, TypeError, KeyError, AttributeError, RecursionError):
+                summary['notes'].append('review.json: stale or inconsistent review excluded')
+    apply_offline_review(summary, directory, context, context_hash, prompt_hash, run_record, run_hash)
     return summary
 
 

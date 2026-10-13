@@ -17,6 +17,7 @@ function metricTable(run,parent) {
 }
 function pipeline(run,parent){
  if(run.target==='asic'){element('p','Recorded ASIC measurement · '+shown(run.measurement_role)+' · '+shown(run.measurement_stage)+'. Qualification and comparison limits are shown below.',parent,'notice');return;}
+ if(run.status_source==='offline_review')element('p','Offline review of the retained response. The original run remains '+statusLabel(run.original_run_status)+'. No additional model call or RTL edit was made.',parent,'notice');
  const reviewed=Boolean(run.review_status),response=['PROPOSAL_REVIEW_READY','EDIT_PREVIEW_VALID_NOT_APPLIED','STOP'].includes(run.status);
  const list=element('ol','',parent,'pipeline');list.setAttribute('aria-label','Recorded experiment stages');
  const stages=[['1 · Prepare','Recorded',true],['2 · Proposal response',response?'Recorded':run.status==='RUNNING'?'Waiting for response':'Not recorded',response],['3 · Edit review',reviewed?'Recorded':'Not recorded',reviewed],['4 · Functional checks','Not run',false],['5 · Candidate PPA','Not run',false],['6 · Compare & accept','Blocked',false]];
@@ -33,7 +34,7 @@ function analysis(run,parent){
  element('li','Power and latency remain unknown unless independently measured. Latch-loop counts do not establish the inferred-latch count.',list);
  if(run.target==='asic'){for(const note of run.notes||[])element('p',note,box,'detail');return;}
  const costs=element('section','',parent,'side-panel');element('h3','Model request & usage',costs);const dl=element('dl','',costs,'compact-list');
- for(const [name,val]of [['Model',run.model],['Token-count attempts',run.token_count_requests_attempted],['Failure stage',run.failure_stage],['Error category',run.error_category],['Provider HTTP status',run.provider_http_status],['Generation attempts',run.api_calls_attempted],['Input tokens',run.input_tokens],['Output tokens',run.output_tokens],['Reported cost (USD)',run.reported_cost_usd],['Estimated maximum (USD)',run.estimated_max_cost_usd]]){element('dt',name,dl);element('dd',shown(val),dl);}
+ for(const [name,val]of [['Model',run.model],['Original run status',run.original_run_status?statusLabel(run.original_run_status):null],['Review source',run.status_source],['Token-count attempts',run.token_count_requests_attempted],['Recorded failure stage',run.failure_stage],['Recorded error category',run.error_category],['Provider HTTP status',run.provider_http_status],['Generation attempts',run.api_calls_attempted],['Input tokens',run.input_tokens],['Output tokens',run.output_tokens],['Reported cost (USD)',run.reported_cost_usd],['Estimated maximum (USD)',run.estimated_max_cost_usd]]){element('dt',name,dl);element('dd',shown(val),dl);}
  element('p','Unknown cost is not zero. Estimates use declared pricing and are not provider billing caps.',costs,'detail');
 }
 function criticalPaths(run,parent){
