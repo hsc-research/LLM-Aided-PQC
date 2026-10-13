@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT))
 from tools.export_target_profiles import verify_preparation, verify_profile, sha
 from agent import edit_ops
 from agent.proposal_response import decode_response, ResponseFormatError
+from agent.proposal_source_context import read_only_sources, design_overview
 from agent.whole_design_adapters import SYSTEM, TARGET_SYSTEM
 
 REPORTS = ('timing.rpt', 'utilization.rpt', 'check_timing.rpt', 'drc.rpt')
@@ -33,12 +34,18 @@ def save(path, value):
 
 
 def read_bounded(path, limit=LIMIT):
+    return read_snapshot(path, limit)[0]
+
+
+def read_snapshot(path, limit=LIMIT):
     require(path.is_file() and not path.is_symlink(), 'Missing or symlinked file: ' + str(path))
-    require(path.stat().st_size <= limit, 'Input too large; select fewer/smaller files: ' + str(path))
-    return path.read_text(encoding='utf-8')
+    with path.open('rb') as stream:
+        raw = stream.read(limit + 1)
+    require(len(raw) <= limit, 'Input too large; select fewer/smaller files: ' + str(path))
+    return raw.decode('utf-8'), hashlib.sha256(raw).hexdigest()
 
 
-def prepare(preparation, selected, out):
+def prepare(preparation, selected, out, context_selected=None):
     preparation = Path(preparation).resolve()
     record = verify_preparation(preparation)
     profile_path = Path(record['profile']).resolve()
@@ -52,23 +59,36 @@ def prepare(preparation, selected, out):
     report_root = Path(launch['output_root']).resolve()
     all_sources = {str((profile_path.parent / row['path']).resolve()): row['sha256']
                    for row in profile['elaboration']['sources']}
+    require(len(all_sources) == len(profile['elaboration']['sources']), 'Duplicate canonical paths in exported source order')
+    require(all(not Path(p).is_symlink() for p in selected), 'Editable RTL must not be a symlink')
     selected = [str(Path(p).resolve()) for p in selected]
     require(1 <= len(selected) <= 3 and len(set(selected)) == len(selected), 'Select one to three distinct RTL files')
     require(set(selected) <= set(all_sources), 'Selected RTL is outside the exact exported source list')
-    reports = {name: read_bounded(report_root / name) for name in REPORTS}
-    source_text = {name: read_bounded(Path(name)) for name in selected}
+    report_snapshots = {name: read_snapshot(report_root / name) for name in REPORTS}
+    reports = {name: snapshot[0] for name, snapshot in report_snapshots.items()}
+    source_snapshots = {name: read_snapshot(Path(name)) for name in selected}
+    require(all(digest == all_sources[name] for name, (_, digest) in source_snapshots.items()), 'Editable source differs from the exact profile')
+    # edit_ops previews with universal-newline text reads. Keep exact-anchor
+    # presentation consistent while freezing hashes of the original raw bytes.
+    source_text = {name: snapshot[0].replace('\r\n', '\n').replace('\r', '\n')
+                   for name, snapshot in source_snapshots.items()}
+    read_only = read_only_sources(context_selected or [], all_sources, selected)
     context = {'purpose': 'one preliminary RTL optimization proposal for human review',
                'status': 'PRELIMINARY_POST_SYNTH_REPORTS_NOT_QUALIFIED',
                'target': 'fpga', 'part': launch['part'], 'tool_version_declared': launch['tool_version'],
                'period_ns': launch['period_ns'], 'top': profile['elaboration']['top'],
                'profile_fingerprint': profile['profile_fingerprint'],
                'source_order': list(all_sources), 'allowed_files': selected,
-               'rtl': source_text, 'reports': reports,
+               'design_overview': design_overview(profile, all_sources, selected, read_only),
+               'reading_sequence': ['design_overview', 'read_only_rtl (top-level context first)', 'rtl', 'reports'],
+               'rtl': source_text, 'read_only_rtl': read_only, 'reports': reports,
+               'editable_text_format': 'UTF-8 with universal newlines, matching the exact-anchor preview; input hashes bind original source bytes.',
                'report_provenance': 'User-supplied files at prepared output path; hashes bind imported bytes only. Actual execution and source association are not independently proven.',
                'limitations': ['No routed timing closure', 'No power result', 'No mapped-memory verification',
                               'No full functional revalidation of a proposed edit', 'No automatic path-to-RTL ownership proof']}
-    system = SYSTEM + TARGET_SYSTEM['fpga'] + '\nThis is PROPOSAL ONLY. Reports are preliminary imported observations. Nothing will be applied or accepted. Prefer STOP if the selected files cannot explain the timing path. Do not claim measured improvement. Return exactly one plain JSON object, with no Markdown fence or surrounding prose. Put any rationale inside the JSON object as a string; it remains unverified commentary.\n'
-    require(len((system + json.dumps(context)).encode()) <= LIMIT, 'Combined prompt exceeds 192 KiB; reduce selected sources')
+    system = SYSTEM + TARGET_SYSTEM['fpga'] + '\nThis is PROPOSAL ONLY. Reports are preliminary imported observations. Nothing will be applied or accepted. Analyze the frozen top-level source context and whole-design dependencies before the reported critical paths, then consider a local edit. Only allowed_files are editable. read_only_rtl is evidence only; omitted lines remain unknown. A source inventory is not an elaborated hierarchy or automatic timing-path ownership proof. Prefer STOP if the supplied context cannot justify an allowlisted edit. Post-synthesis route estimates do not prove a placement problem; model commentary does not set a new delay target. Do not claim measured improvement. Return exactly one plain JSON object, with no Markdown fence or surrounding prose. Put any rationale inside the JSON object as a string; it remains unverified commentary.\n'
+    prompt_bytes = len((system + json.dumps(context, allow_nan=False)).encode('utf-8'))
+    require(prompt_bytes <= LIMIT, 'Combined prompt exceeds 192 KiB; reduce explicit read-only spans or selected sources; reports are never truncated')
     out = Path(out).resolve()
     require(not out.exists(), 'Use a new output directory')
     # Freeze every source and dependency, not just text selected for the prompt.
@@ -76,7 +96,7 @@ def prepare(preparation, selected, out):
               **record['input_sha256'], **all_sources}
     inputs.update({str((profile_path.parent / name).resolve()): digest
                    for name, digest in profile['bundle_files_sha256'].items()})
-    inputs.update({str(report_root / name): sha(report_root / name) for name in REPORTS})
+    inputs.update({str(report_root / name): report_snapshots[name][1] for name in REPORTS})
     require(all(sha(p) == digest for p, digest in inputs.items()), 'Inputs changed during prompt preparation')
     out.mkdir(parents=True)
     save(out / 'prompt.json', {'system': system, 'user': context})
@@ -85,10 +105,13 @@ def prepare(preparation, selected, out):
               'part': launch['part'], 'period_ns': launch['period_ns'], 'tool_version_declared': launch['tool_version'],
               'measurement_stage': 'post_synth', 'baseline_metrics': None, 'power': None, 'input_sha256': inputs,
               'prompt_sha256': sha(out / 'prompt.json'), 'allowed_files': selected,
+              'read_only_context': [{k: v for k, v in row.items() if k != 'text'} for row in read_only],
+              'prompt_payload_bytes': prompt_bytes, 'prompt_payload_limit_bytes': LIMIT,
               'api_calls': 0, 'rtl_changed': False, 'target_tool_qualified': False,
               'automatic_acceptance': 'BLOCKED: full-operation and mapped-implementation verification adapters required'}
     save(out / 'proposal-context.json', result)
-    return {'status': result['status'], 'out': str(out), 'api_calls': 0}
+    return {'status': result['status'], 'out': str(out), 'api_calls': 0,
+            'editable_files': len(selected), 'read_only_spans': len(read_only), 'prompt_payload_bytes': prompt_bytes}
 
 
 def _review_result(context_path, response_path):
@@ -231,13 +254,16 @@ def recover_preflight(context_path, out):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest='command', required=True)
-    a = sub.add_parser('prepare'); a.add_argument('--preparation', required=True); a.add_argument('--rtl', action='append', required=True); a.add_argument('--out', required=True)
+    a = sub.add_parser('prepare'); a.add_argument('--preparation', required=True)
+    a.add_argument('--rtl', action='append', required=True, help='Editable full source; repeat for one to three exact profile files')
+    a.add_argument('--context-rtl', action='append', default=[], metavar='PATH[:START:END]', help='Read-only full source or inclusive 1-based line span; repeat for nonoverlapping spans (not editable)')
+    a.add_argument('--out', required=True)
     a = sub.add_parser('review'); a.add_argument('--context', required=True); a.add_argument('--response', required=True); a.add_argument('--out', required=True)
     a = sub.add_parser('recover-preflight'); a.add_argument('--context', required=True); a.add_argument('--out', required=True)
     a = sub.add_parser('review-existing'); a.add_argument('--context', required=True)
     args = p.parse_args()
     try:
-        if args.command == 'prepare': result = prepare(args.preparation, args.rtl, args.out)
+        if args.command == 'prepare': result = prepare(args.preparation, args.rtl, args.out, args.context_rtl)
         elif args.command == 'review-existing': result = review_existing(args.context)
         elif args.command == 'recover-preflight': result = recover_preflight(args.context, args.out)
         else: result = review(args.context, args.response, args.out)
