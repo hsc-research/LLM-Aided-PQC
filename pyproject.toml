@@ -25,4 +25,4 @@ include = ["agent*"]
 exclude = ["agent.*.pristine*", "agent.*.slh_src*", "agent.*.mldsa_src*"]
 
 [tool.setuptools.package-data]
-agent = ["dashboard_static/*", "dashboard_baselines.json"]
+agent = ["dashboard_static/*", "dashboard_static/brand/*", "dashboard_baselines.json"]

@@ -1,23 +1,74 @@
 'use strict';
-function element(tag, text, parent) {const node=document.createElement(tag); node.textContent=text; parent.appendChild(node); return node;}
-function shown(value) {return value === null || value === undefined ? 'Unknown / not measured' : String(value);}
-async function refresh() {
- const state=document.getElementById('state');
- try {
-  const response=await fetch('/api/current', {cache:'no-store'}); if(!response.ok) throw new Error('HTTP '+response.status);
-  const data=await response.json(); const main=document.getElementById('runs'); main.replaceChildren();
-  state.textContent='Updated '+new Date().toLocaleTimeString()+'. '+data.notice;
-  if(!data.runs.length) element('p','No current proposal records. Prepare a proposal under .pqc_runs/fpga-proposals/<run> to start tracking.',main);
-  for(const run of data.runs){
-   const card=element('article','',main); element('h2',run.id+' — '+run.status,card);
-   const list=element('dl','',card);
-   for(const [title,value] of [['Source profile',run.profile_fingerprint],['Target',run.target+' / '+run.tool+' '+run.tool_version+' / '+run.part],['Period (ns)',run.period_ns],['Measurement stage',run.measurement_stage],['Functional verification',run.functional_verification],['Candidate measurement',run.candidate_measurement],['Automatic acceptance',run.automatic_acceptance],['Model',run.model],['Generation requests attempted',run.api_calls_attempted],['Input tokens',run.input_tokens],['Output tokens',run.output_tokens],['Reported cost (USD)',run.reported_cost_usd],['Estimated maximum request cost (USD)',run.estimated_max_cost_usd]]){element('dt',title,list);element('dd',shown(value),list);}
-   element('h3','Baseline observations (preliminary imported reports)',card); element('pre',JSON.stringify(run.observations,null,2),card);
-   element('p','Comparison: '+run.comparison.status+'. '+run.comparison.reason,card);
-   for(const note of run.notes) element('p',note,card);
-   if(run.cost_note) element('p',run.cost_note,card);
-  }
-  for(const error of data.errors) element('p',error.id+': '+error.status+' — '+error.reason,main).className='warning';
- } catch(error) {state.textContent='Refresh failed; displayed information may be stale. '+error.message;}
+function element(tag, text, parent, cls) {const node=document.createElement(tag); node.textContent=text; if(cls)node.className=cls; parent.appendChild(node); return node;}
+function shown(value) {return value === null || value === undefined || value === '' ? 'Unknown / not measured' : String(value);}
+function statusLabel(value) {return ({PROMPT_PREPARED_NO_API_CALL:'Prepared · no API call yet',PREFLIGHT_RUNNING:'Checking request size and cost',RUNNING:'Waiting for model response',PROPOSAL_REVIEW_READY:'Proposal ready for review',EDIT_PREVIEW_VALID_NOT_APPLIED:'Edit checked · not applied',STOP:'No edit proposed',FAILED:'Request failed',FAILED_OUTCOME_UNKNOWN:'Interrupted · outcome unknown',BLOCKED_BUDGET:'Blocked by budget check',NOT_RUN:'Not run',MEASURED:'Measurement recorded',NOT_ESTABLISHED_BY_DASHBOARD:'Not established by this dashboard',BLOCKED:'Blocked'})[value] || value;}
+const byId=id=>document.getElementById(id);
+let latest=null, lastSignature='', busy=false;
+function metricTable(run,parent) {
+ const o=run.observations||{}, m=o.metrics||{}, w=o.warnings||{};
+ const wrap=element('div','',parent,'table-wrap');wrap.setAttribute('tabindex','0');wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Baseline and candidate comparison; scroll horizontally if needed');
+ const isAsic=run.target==='asic';const table=element('table','',wrap);element('caption',isAsic?'ASIC design measurement and comparison':'Baseline and candidate comparison',table);
+ const role=run.measurement_role||'unspecified';const primary=isAsic?(role==='baseline'?'Baseline':role==='candidate'?'Candidate':'Recorded design'):'Baseline';const secondary=isAsic?'Matched comparison':'Candidate';
+ const row=element('tr','',element('thead','',table));for(const title of ['Parameter',primary,secondary])element('th',title,row).setAttribute('scope','col');
+ const body=element('tbody','',table);
+ const fpgaRows=[['FPGA part',run.part],['Clock period (ns)',run.period_ns],['Measurement stage',run.measurement_stage==='post_synth'?'After synthesis, before routing':run.measurement_stage],['Setup slack (ns)',m.worst_setup_slack_ns],['Hold slack (ns)',m.worst_hold_slack_ns],['LUTs',m.luts],['Flip-flops',m.ffs],['RAMB36 blocks',m.ramb36],['RAMB18 blocks',m.ramb18],['Block RAM tiles',m.bram_tiles],['DSP blocks',m.dsp],['Latency (cycles)',m.latency_cycles],['Power (W)',m.power_w],['Pins without a clock',w.no_clock],['Unconstrained internal endpoints',w.unconstrained_internal_endpoints],['Missing input delays',w.no_input_delay],['Missing output delays',w.no_output_delay],['Latch loops (not latch count)',w.latch_loops],['Inferred latch count',null],['Functional checks for this run','Not established by imported reports'],['Timing sign-off','Not established']];
+ const rows=isAsic?[['Synthesis tool',run.tool],['Tool version',run.tool_version],['Technology / library',run.technology],['Corner',run.corner],['Clock period (ns)',run.period_ns],['Measurement stage',run.measurement_stage],['Setup slack (ns)',m.worst_setup_slack_ns],['Hold slack (ns)',m.worst_hold_slack_ns],['Cell area',m.area],['Area units',m.area_unit||run.area_unit],['Latency (cycles)',m.latency_cycles],['Total power (W)',m.total_power_w],['Dynamic power (W)',m.dynamic_power_w],['Leakage power (W)',m.leakage_power_w],['Functional verification',statusLabel(run.functional_verification)],['Automatic acceptance',statusLabel(run.automatic_acceptance)]]:fpgaRows;
+ for(const pair of rows){const tr=element('tr','',body);element('th',pair[0],tr).setAttribute('scope','row');element('td',shown(pair[1]),tr);element('td',isAsic?'No matched record':'Not run',tr,'pending');}
 }
-document.getElementById('refresh').addEventListener('click',refresh); refresh(); setInterval(refresh,5000);
+function pipeline(run,parent){
+ if(run.target==='asic'){element('p','Recorded ASIC measurement · '+shown(run.measurement_role)+' · '+shown(run.measurement_stage)+'. Qualification and comparison limits are shown below.',parent,'notice');return;}
+ const reviewed=Boolean(run.review_status),response=['PROPOSAL_REVIEW_READY','EDIT_PREVIEW_VALID_NOT_APPLIED','STOP'].includes(run.status);
+ const list=element('ol','',parent,'pipeline');list.setAttribute('aria-label','Recorded experiment stages');
+ const stages=[['1 · Prepare','Recorded',true],['2 · Proposal response',response?'Recorded':run.status==='RUNNING'?'Waiting for response':'Not recorded',response],['3 · Edit review',reviewed?'Recorded':'Not recorded',reviewed],['4 · Functional checks','Not run',false],['5 · Candidate PPA','Not run',false],['6 · Compare & accept','Blocked',false]];
+ for(const [name,status,done]of stages){const li=element('li','',list,done?'recorded':'');element('span',name,li,'step-name');element('span',status,li,'step-state');}
+}
+function analysis(run,parent){
+ const o=run.observations||{},w=o.warnings||{},m=o.metrics||{};
+ const box=element('section','',parent,'side-panel');element('h3','What the results tell us',box);const list=element('ul','',box,'warning-list');
+ if(typeof m.worst_setup_slack_ns==='number') element('li','Setup slack is '+m.worst_setup_slack_ns+' ns for the constrained paths at the recorded stage: '+shown(run.measurement_stage)+'.',list);
+ if(w.no_clock>0)element('li',w.no_clock+' pins have no clock. Positive slack does not cover these pins.',list);
+ if(w.unconstrained_internal_endpoints>0)element('li',w.unconstrained_internal_endpoints+' internal endpoints are unconstrained. Timing coverage needs review.',list);
+ if(run.target!=='asic'&&(w.no_clock===null||w.no_clock===undefined))element('li','Clock coverage is unknown from the available reports.',list);
+ element('li',run.target==='asic'?'No verified matching pair is established by this view. No improvement is calculated.':'No verified candidate measurements are available, so no gain or percentage improvement is shown.',list);
+ element('li','Power and latency remain unknown unless independently measured. Latch-loop counts do not establish the inferred-latch count.',list);
+ if(run.target==='asic'){for(const note of run.notes||[])element('p',note,box,'detail');return;}
+ const costs=element('section','',parent,'side-panel');element('h3','Model request & usage',costs);const dl=element('dl','',costs,'compact-list');
+ for(const [name,val]of [['Model',run.model],['Generation attempts',run.api_calls_attempted],['Input tokens',run.input_tokens],['Output tokens',run.output_tokens],['Reported cost (USD)',run.reported_cost_usd],['Estimated maximum (USD)',run.estimated_max_cost_usd]]){element('dt',name,dl);element('dd',shown(val),dl);}
+ element('p','Unknown cost is not zero. Estimates use declared pricing and are not provider billing caps.',costs,'detail');
+}
+function criticalPaths(run,parent){
+ const paths=(run.observations||{}).critical_paths||[];const section=element('section','',parent,'path-section');element('h3','Reported critical paths',section);
+ if(!paths.length){element('p','No critical-path details are available in this record.',section);return;}
+ element('p',run.target==='fpga'?'These are synthesis-stage path estimates. The reported routing component is not a post-route measurement.':'Path details retain the recorded tool units and stage; absent fields remain unknown.',section,'target-line');
+ for(const [index,path]of paths.entries()){const details=element('details','',section,'meta');element('summary','Path '+(index+1)+' · '+shown(path.path_type)+' · slack '+shown(path.slack_ns)+' ns',details);const dl=element('dl','',details,'compact-list');for(const [name,value]of [['Startpoint',path.startpoint],['Endpoint',path.endpoint],['Path group',path.path_group],['Provenance',path.provenance==='HASH_BOUND_ADAPTER_OBSERVATION'?'Adapter-reported; referenced report hash checked':path.provenance==='HASH_BOUND_DC_REPORT'?'Parsed from DC report':path.provenance||'Parsed from frozen report text'],['Report line range',path.line_start&&path.line_end?path.line_start+'–'+path.line_end:null],['Data path delay (ns)',path.data_path_delay_ns],['Logic delay (ns)',path.logic_delay_ns],['Net / route delay (ns)',path.net_delay_ns],['Logic levels',path.logic_levels]]){element('dt',name,dl);element('dd',shown(value),dl);}}
+}
+function resourceBreakdown(run,parent){
+ if(run.target!=='fpga')return;const section=element('section','',parent,'path-section');element('h3','Resource-heavy instances',section);const rows=(run.observations||{}).resource_instances||[];
+ if(!rows.length){element('p','No hierarchical utilization is included in this frozen record. A flat device summary cannot identify resource-heavy blocks.',section);return;}
+ element('p','Largest reported instances by LUT count. Rows can be nested and overlap; do not add these counts together.',section,'target-line');const wrap=element('div','',section,'table-wrap');wrap.setAttribute('tabindex','0');wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Reported resource-heavy instances');const table=element('table','',wrap);element('caption','Hierarchy observations from the imported report',table);const tr=element('tr','',element('thead','',table));for(const title of ['Instance','Module','LUTs','FFs','RAMB36','RAMB18','DSPs'])element('th',title,tr).setAttribute('scope','col');const body=element('tbody','',table);for(const row of rows){const tr=element('tr','',body);element('th',row.instance,tr).setAttribute('scope','row');for(const key of ['module','luts','ffs','ramb36','ramb18','dsp'])element('td',shown(row[key]),tr);}
+}
+function renderRuns(){
+ if(!latest)return;const main=byId('runs');main.replaceChildren();const selected=byId('run-select').value;
+ const runs=latest.runs.filter(r=>!selected||r.id===selected);
+ if(!runs.length){const box=element('section','',main,'panel empty');element('h2','No current run records yet',box);element('p','Prepare a proposal under .pqc_runs/fpga-proposals/<run>. This monitor does not start an API call or change RTL.',box);return;}
+ for(const run of runs){const card=element('article','',main,'panel run-card');const head=element('div','',card,'run-head');const title=element('div','',head);element('h2',run.id,title);element('p',(run.target||'Unknown target').toUpperCase()+' · '+(run.tool||'Unknown tool')+' '+shown(run.tool_version)+' · '+shown(run.target==='asic'?run.technology:run.part),title,'target-line');element('span',statusLabel(run.status),head,'badge');
+ pipeline(run,card);element('p',run.target==='asic'?'ASIC report observations are separate from FPGA resource counts. Recorded measurements are not automatically qualified for acceptance.':'Baseline: preliminary imported reports. Candidate: not measured. Automatic acceptance remains blocked.',card,'notice');
+ const grid=element('div','',card,'analysis-grid');metricTable(run,grid);analysis(run,element('aside','',grid));criticalPaths(run,card);resourceBreakdown(run,card);
+ const details=element('details','',card,'meta');element('summary','Source identity and verification limits',details);element('p','Source profile fingerprint',details);element('p',run.profile_fingerprint||'No target-profile fingerprint in this record',details,'fingerprint');for(const [name,value]of [['Source-manifest SHA-256',run.source_manifest_sha256],['Configuration SHA-256',run.configuration_sha256]]){if(value){element('p',name,details);element('p',value,details,'fingerprint');}}if(run.libraries&&run.libraries.length)element('p','Recorded libraries: '+run.libraries.join(', '),details);for(const report of run.report_provenance||[]){element('p',report.name+' · SHA-256',details);element('p',report.sha256,details,'fingerprint');}for(const note of run.notes||[])element('p',note,details);element('p','Saved status is not a live process check. Displayed reports do not independently establish functional correctness or a PPA improvement.',details);
+ }
+}
+function renderOverview(){const parent=byId('overview');parent.replaceChildren();const all=latest.runs,r=all.filter(x=>x.kind!=='asic_measurement');const attempts=r.reduce((sum,x)=>sum+(typeof x.api_calls_attempted==='number'?x.api_calls_attempted:0),0);const unknownAttempts=r.filter(x=>typeof x.api_calls_attempted!=='number').length;const known=r.filter(x=>typeof x.reported_cost_usd==='number');const unknown=r.length-known.length;const costs=known.reduce((sum,x)=>sum+x.reported_cost_usd,0);
+ for(const [name,value,note] of [['Current records',all.length,all.filter(x=>x.target==='fpga').length+' FPGA · '+all.filter(x=>x.target==='asic').length+' ASIC'],['Known generation attempts',unknownAttempts===r.length&&r.length?'Unknown':attempts,unknownAttempts?unknownAttempts+' run(s) have unknown attempt counts':'Token-count requests are separate'],['ASIC measurement records',all.filter(x=>x.target==='asic').length,'Recorded evidence; not a count of accepted designs'],['Reported cost subtotal',known.length?'$'+costs.toFixed(4):'Unknown',unknown?unknown+' proposal run(s) have unknown cost':'Recorded proposal costs only']]){const tile=element('div','',parent,'summary-tile');element('span',name,tile,'label');element('span',String(value),tile,'value');element('p',note,tile,'detail');}}
+async function refresh(manual){
+ if(busy)return;busy=true;const state=byId('state');
+ try{const response=await fetch('/api/current',{cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);const data=await response.json();if(!Array.isArray(data.runs)||!Array.isArray(data.errors))throw new Error('Unexpected run record format');
+ const signature=JSON.stringify(data);if(signature!==lastSignature){
+  if(!manual&&(byId('runs').contains(document.activeElement)||document.activeElement===byId('run-select'))){state.textContent='New records are available. Finish reading or select Refresh now to update.';return;}
+  const selected=byId('run-select').value;latest=data;lastSignature=signature;const select=byId('run-select');select.replaceChildren();const all=element('option','All current runs',select);all.value='';for(const r of data.runs){const option=element('option',r.id,select);option.value=r.id;}select.value=data.runs.some(r=>r.id===selected)?selected:'';
+  const errors=byId('errors');errors.replaceChildren();for(const error of data.errors){element('p',typeof error==='string'?error:(error.id+': '+error.reason),errors,'notice warning');}
+  renderOverview();renderRuns();state.textContent='Saved records updated at '+new Date().toLocaleTimeString()+'. Current runs are separate from historical experiments.';
+ }else if(manual){state.textContent='Checked at '+new Date().toLocaleTimeString()+'. No changes to saved records.';}
+ }catch(error){state.textContent='Refresh failed; displayed information may be stale. '+error.message;}
+ finally{busy=false;}
+}
+byId('refresh').addEventListener('click',()=>refresh(true));byId('run-select').addEventListener('change',renderRuns);byId('auto-refresh').addEventListener('change',()=>{byId('state').textContent=byId('auto-refresh').checked?'Automatic refresh enabled.':'Automatic refresh paused. Use Refresh now to check saved records.';});refresh(false);setInterval(()=>{if(byId('auto-refresh').checked)refresh(false);},5000);

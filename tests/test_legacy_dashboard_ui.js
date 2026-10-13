@@ -1,0 +1,8 @@
+// Exercise legacy polling controls without network or a browser.
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+let renders=0,hidden=true,focused=false,fail=false,timer;
+const nodes={'modal':{classList:{contains:()=>hidden}},'legacy-main':{contains:()=>focused},'legacy-auto':{checked:true},'legacy-refresh':{},'legacy-state':{textContent:''}};
+const context={$:id=>nodes[id],document:{activeElement:null},JSON,Error,fetch:async()=>{if(fail)throw Error('offline');return{ok:true,json:async()=>({cards:[]})}},render:()=>renders++,enableKeyboardDetails:()=>{},loadSide:async()=>{},setInterval:fn=>timer=fn};
+vm.createContext(context);const source=fs.readFileSync('agent/dashboard_static/app.js','utf8');vm.runInContext(source.slice(source.indexOf('/* ---------- read-only polling ---------- */')),context);
+const settle=()=>new Promise(resolve=>setImmediate(resolve));
+(async()=>{await settle();assert.equal(renders,1);await context.tick(false);assert.equal(renders,1);nodes['legacy-auto'].checked=false;nodes['legacy-auto'].onchange();assert(nodes['legacy-state'].textContent.includes('paused'));timer();await settle();assert.equal(renders,1);hidden=false;fail=true;await context.tick(true);assert(!nodes['legacy-state'].textContent.includes('failed'));hidden=true;await context.tick(true);assert(nodes['legacy-state'].textContent.includes('may be stale'));assert(source.includes("e.key==='Escape'"));assert(source.includes("el.setAttribute('tabindex','0')"));assert(source.includes('modalReturnFocus.focus()'));console.log('Legacy polling pause, modal deferral, unchanged state and failed-refresh tests passed');})().catch(e=>{console.error(e);process.exitCode=1});
