@@ -18,10 +18,11 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+FPGA_LATCH_VARIANTS = ("fpga-latch-corrected-baseline", "fpga-latch-corrected-candidate")
 ASIC_STARTUP_VARIANTS = ("asic-startup-baseline", "asic-startup-candidate")
 DESIGNS = {
     "mlkem": ("baseline",),
-    "mldsa": ("guarded-baseline", "corrected-candidate", *ASIC_STARTUP_VARIANTS),
+    "mldsa": ("guarded-baseline", "corrected-candidate", *ASIC_STARTUP_VARIANTS, *FPGA_LATCH_VARIANTS),
     "slh": ("corrected-baseline", "corrected-candidate", *ASIC_STARTUP_VARIANTS),
 }
 HDL_SUFFIXES = {".v", ".vh", ".sv", ".svh", ".vhd", ".vhdl"}
@@ -312,6 +313,10 @@ def qualified_mldsa_startup(variant, bundle):
 
 
 def source_export(design, variant, parameter, bundle):
+    if variant in FPGA_LATCH_VARIANTS:
+        from tools.export_mldsa_fpga_latch_corrected import export
+        manifest = export(bundle, variant)
+        return manifest, ROOT / manifest["qualification_report"]
     if variant in ASIC_STARTUP_VARIANTS:
         if design == "mldsa":
             return qualified_mldsa_startup(variant, bundle)
@@ -417,6 +422,8 @@ def export_profile(design, variant, parameter_set, target, out):
         raise ValueError("unsupported design/variant; HQC has no qualified export")
     if target not in ("fpga", "asic"):
         raise ValueError("target must be fpga or asic")
+    if variant in FPGA_LATCH_VARIANTS and target != "fpga":
+        raise ValueError("FPGA latch-corrected variants require target fpga; use ASIC startup variants for ASIC")
     startup = variant in ASIC_STARTUP_VARIANTS
     if startup and target != "asic":
         raise ValueError("ASIC startup variants require target asic; original FPGA exports are separate")
@@ -554,6 +561,8 @@ def verify_profile(path):
         raise ValueError("invalid target/memory policy")
     if profile["variant"] in ASIC_STARTUP_VARIANTS and target["kind"] != "asic":
         raise ValueError("ASIC startup variant cannot be relabeled as an FPGA profile")
+    if profile["variant"] in FPGA_LATCH_VARIANTS and target["kind"] != "fpga":
+        raise ValueError("FPGA latch-corrected variant cannot be relabeled as an ASIC profile")
     expected_memory = "flops" if target["kind"] == "asic" else "fpga_inferred_ram"
     if target.get("memory_implementation") != expected_memory:
         raise ValueError("target and memory policy disagree")

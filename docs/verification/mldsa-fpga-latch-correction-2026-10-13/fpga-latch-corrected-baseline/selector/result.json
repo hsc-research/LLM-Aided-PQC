@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "source_hashes": {
+    "original": "61c566fba62f9c9d9671d9fa3f7c7fdf117a6d12d87c2306c582abb3b352292c",
+    "corrected": "a6eccf04bb316c5ac62a411cf1d53ab7405ae8d4746448a03aebedfa0a69f8da"
+  },
+  "commands": [
+    [
+      "iverilog",
+      "-g2005",
+      "-s",
+      "tb",
+      "-o",
+      "tb.vvp",
+      "reference.v",
+      "corrected.v",
+      "tb.v"
+    ],
+    [
+      "vvp",
+      "tb.vvp"
+    ],
+    [
+      "yosys",
+      "-p",
+      "read_verilog reference.v; hierarchy -top reference; proc; write_json reference.json"
+    ],
+    [
+      "yosys",
+      "-p",
+      "read_verilog corrected.v; hierarchy -top corrected; proc; write_json corrected.json"
+    ]
+  ],
+  "reference_generic_latch_cells": 3,
+  "reference_generic_latch_bits": 74,
+  "corrected_generic_latch_cells": 0,
+  "corrected_generic_latch_bits": 0,
+  "supported_selector_differential": "PASS",
+  "supported_basis_cases": 1542,
+  "limits": [
+    "Extracted combinational selector only; full-core KAT and target Vivado checks reported separately.",
+    "The original generic latches total 64+10 bits before constant-bit optimization; Vivado reports 64+2 live bits.",
+    "Unsupported security levels remain unsupported even though these selector outputs are now zero."
+  ]
+}

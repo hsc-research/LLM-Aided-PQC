@@ -26,6 +26,8 @@ model API to understand the repo or run its Python checks.
 | [ASIC startup sources](ASIC_STARTUP.md) | Explicit ML-DSA/SLH baseline/candidate paths, boot protocols, evidence and remaining target gates |
 | [ASIC synthesis](../asic/README.md) | Genus/DC manifests, libraries, constraints, output reports and qualification |
 | [ASIC site admission](ASIC_ADMISSION.md) | Qualified adapter contract for structural checks and FF-memory evidence |
+| [FPGA agent feedback](FPGA_AGENT_FEEDBACK.md) | Exact-export checks, preliminary Vivado feedback and bounded review-only proposals |
+| [Current FPGA dashboard](CURRENT_DASHBOARD.md) | Inspect current source-bound feedback separately from historical results |
 | [Whole-design controller](WHOLE_DESIGN.md) | Multi-path targeting, small edits, full-design rechecks and acceptance/rollback |
 | [Existing agent workflows](../agent/README.md) | CLI entry points and the older one-round FPGA driver |
 | [Local dashboard](DASHBOARD.md) | Read existing experiment logs in a local browser |
@@ -67,3 +69,7 @@ These are retained records, not a current installation guide. Read the
 
 When sources disagree, prefer the dated correction and its underlying report.
 An archived result is not evidence that the current checkout has reproduced it.
+
+## ML-DSA FPGA latch correction
+
+For fresh FPGA runs, see [the explicit corrected variants and rerun instructions](fpga/MLDSA_LATCH_CORRECTION.md).

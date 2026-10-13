@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "whole_core_latch_cells_after_proc_opt": 0,
+  "assertion": "select -assert-none t:$dlatch t:$adlatch",
+  "returncode": 0,
+  "scope": "Generic Verilog process lowering and optimization, not technology mapping or Vivado timing.",
+  "yosys_version": "0.69 (git 9f75ca1f9)",
+  "warnings": "33 unique/40 total warnings retained, not waived.",
+  "log_sha256": "0559ed8d5e480feb4c66544d22632ac549e7f016c11e6e2b04ed0ad48ca53a2c"
+}

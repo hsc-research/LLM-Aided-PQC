@@ -1,0 +1,1526 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "design_manifest_sha256": "c4c668eaf68181037d165e860d4759e24e48241f388df38c14cc864d07657168",
+  "variant": "fpga-latch-corrected-candidate",
+  "tool": "rev vUNKNOWN-built20260516-4e853d8",
+  "source_hashes": {
+    "rtl/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+    "rtl/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "rtl/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+    "rtl/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+    "rtl/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+    "rtl/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+    "rtl/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+    "rtl/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "rtl/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+    "rtl/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+    "rtl/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "rtl/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+    "rtl/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+    "rtl/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+    "rtl/gen_c.v": "0f319f54a792d5cbc1fb625a991b268e39459078ebeab296d711bec2c612bbcb",
+    "rtl/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+    "rtl/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+    "rtl/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+    "rtl/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+    "rtl/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "rtl/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+    "rtl/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+    "rtl/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+    "rtl/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+    "rtl/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+    "rtl/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+    "rtl/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+    "rtl/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+    "rtl/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+    "rtl/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+    "rtl/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+    "rtl/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "rtl/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+    "rtl/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "rtl/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338"
+  },
+  "coverage": {
+    "keygen:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "keygen",
+      "expected": 75,
+      "completed": 75,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 4986
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 4990
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 4991
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 4983
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 4993
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 4986
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 4989
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 4986
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 4980
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 4984
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 4992
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 15,
+          "cycles": 4989
+        },
+        {
+          "level": "II",
+          "kat": 16,
+          "cycles": 4984
+        },
+        {
+          "level": "II",
+          "kat": 17,
+          "cycles": 4990
+        },
+        {
+          "level": "II",
+          "kat": 18,
+          "cycles": 4985
+        },
+        {
+          "level": "II",
+          "kat": 19,
+          "cycles": 4983
+        },
+        {
+          "level": "II",
+          "kat": 20,
+          "cycles": 4989
+        },
+        {
+          "level": "II",
+          "kat": 21,
+          "cycles": 4985
+        },
+        {
+          "level": "II",
+          "kat": 22,
+          "cycles": 4985
+        },
+        {
+          "level": "II",
+          "kat": 23,
+          "cycles": 4991
+        },
+        {
+          "level": "II",
+          "kat": 24,
+          "cycles": 4989
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 8431
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 8428
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 8430
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 8424
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 8426
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 15,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 16,
+          "cycles": 8426
+        },
+        {
+          "level": "III",
+          "kat": 17,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 18,
+          "cycles": 8424
+        },
+        {
+          "level": "III",
+          "kat": 19,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 20,
+          "cycles": 8424
+        },
+        {
+          "level": "III",
+          "kat": 21,
+          "cycles": 8430
+        },
+        {
+          "level": "III",
+          "kat": 22,
+          "cycles": 8430
+        },
+        {
+          "level": "III",
+          "kat": 23,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 24,
+          "cycles": 8420
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14230
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14228
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14227
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14223
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14224
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14218
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14225
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14226
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14230
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14228
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14227
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14224
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 15,
+          "cycles": 14224
+        },
+        {
+          "level": "V",
+          "kat": 16,
+          "cycles": 14217
+        },
+        {
+          "level": "V",
+          "kat": 17,
+          "cycles": 14218
+        },
+        {
+          "level": "V",
+          "kat": 18,
+          "cycles": 14216
+        },
+        {
+          "level": "V",
+          "kat": 19,
+          "cycles": 14228
+        },
+        {
+          "level": "V",
+          "kat": 20,
+          "cycles": 14236
+        },
+        {
+          "level": "V",
+          "kat": 21,
+          "cycles": 14218
+        },
+        {
+          "level": "V",
+          "kat": 22,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 23,
+          "cycles": 14227
+        },
+        {
+          "level": "V",
+          "kat": 24,
+          "cycles": 14226
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 4.68
+    },
+    "sign:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "sign",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 30264
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 36302
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 42497
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 30020
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 23676
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 12379
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 18394
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 30404
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 12761
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 24077
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 54906
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 12521
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 11302
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 30402
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 18776
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 101398
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 16766
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 16625
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 50336
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 33447
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 41887
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 16614
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 25045
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 25926
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 16614
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 17054
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 16615
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 25768
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 67642
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 59220
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 26130
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 26130
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 38268
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 50403
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 111140
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 50422
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 98986
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 86839
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 98981
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 26111
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 74703
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 38286
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 38293
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 38272
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 26130
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 10.15
+    },
+    "verify:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6844
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6796
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 7036
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 6744
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 9964
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14844
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14842
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14840
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14832
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14844
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14842
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14844
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14846
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14855
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14838
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14848
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14834
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14838
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14842
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 3.88,
+      "known_valid": 9,
+      "known_invalid": 36
+    },
+    "verify_mutations:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 12,
+      "completed": 12,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6892
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9964
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14850
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 0.97,
+      "known_valid": 0,
+      "known_invalid": 12
+    },
+    "verify_canonical:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 33,
+      "completed": 33,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6892
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9964
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14850
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 2.87,
+      "known_valid": 18,
+      "known_invalid": 15
+    }
+  },
+  "commands": [
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_keygen_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/ref_combined/src_tb/tb_keygen_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/obj/Vtb_keygen_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_sign_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/ref_combined/src_tb/tb_sign_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/obj/Vtb_sign_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-candidate/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/ref_combined/src_tb"
+    }
+  ],
+  "boot_restarts_per_process": 0,
+  "collision_assertions": false,
+  "two_state_simulation": true,
+  "four_state_fullcore_qualified": false,
+  "normal_reset_contract": "Original per-operation reset semantics retained; arbitrary abort/reset recovery is not claimed.",
+  "testbench_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/ref_combined/src_tb/tb_keygen_top.v": "60d279a945a7fd7b8bc77d025346fec9d3c8d5b83aac03518699d0e0eab36627",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/ref_combined/src_tb/tb_sign_top.v": "352d73a205eb28d485058b072209bae189fb6cda8a2a259f14f505b20891d15c",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/ref_combined/src_tb/tb_verify_top.v": "3ec1805eaed21f66c49dedaac1912e736757273f8d5bfcb84bc2c9952eefdc89",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/ref_combined/src_tb/tb_verify_top.v": "1784237295f47c5a3607bccfa2dffe8fe10f872e8e3a87ddc330d46f64083a61",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/ref_combined/src_tb/tb_verify_top.v": "1101e147b958b2e5ad2f29e625e7c28455b0c0b04a1f665314c7dfd2c81d9a6b"
+  },
+  "executable_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/keygen/obj/Vtb_keygen_top": "1a2cf130004aba3363a0103c8594c8e956d707d3690e2a0f2e976e039c5aace5",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/sign/obj/Vtb_sign_top": "3b6c50a3b1e882bdabee39869a8c687c32f65588589d71da5f84f74d6663515e",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify/obj/Vtb_verify_top": "090856534459711aa4b26e5770c326d52609ab987790c6d22ea9158e07cc4b3d",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_mutations/obj/Vtb_verify_top": "07d3184070ea483aea1bc0e0e859a0639913ee54f9eca4568036ab2dcd2078aa",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/candidate-final/verify_canonical/obj/Vtb_verify_top": "875c43107a5f5e77fdaa705b047cf4f5014cb9029f1fb01652dfd3c3a08250d1"
+  },
+  "source_hashes_unchanged": true,
+  "full_210_case_coverage": true,
+  "data_sha256": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+  "supported_selector_differential": "PASS",
+  "evidence_files_sha256": {
+    "keygen/compile.log": "62a101a101326e3413d7e2a0f1d81cceae65a3c8864bcb7bfa487bf69741ee5d",
+    "keygen/ref_combined/src_tb/tb_keygen_top.v": "60d279a945a7fd7b8bc77d025346fec9d3c8d5b83aac03518699d0e0eab36627",
+    "keygen/simulate-seed-0.log": "ce13c94abb7f35cfa3a38553e31ab2f5d6142d0f8f14ac9f19a2b675f6c0bea9",
+    "raw-kat-result.json": "fca3c18d46cbf57541b2c060fef30d2b8f2bf21cf288771b8ce923c2309504b2",
+    "selector/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "selector/corrected-yosys.log": "75ae372f9a9eb4428cf58a8f34b08a15b548c4fddc7ffcc1f1f29c1965b7ad20",
+    "selector/corrected.json": "28db58bd3c1978c44c003ad36482d791b3c50c3a3faa2bf3ea62c73d484c0bc9",
+    "selector/corrected.v": "6dc380d3c023d1d8637d6e10ff69cf0a6ab1311de6a1b0cb70cd2f2ebc770cbd",
+    "selector/reference-yosys.log": "6b424bf557f645a7ecee0dc341628f946d487b91e9c36483b7518cae87d62e8c",
+    "selector/reference.json": "44eed2915429d3a16b4438412f549dbfc69039f95b82442d0f69b458397041ab",
+    "selector/reference.v": "cce4691c5fd7a474ee401e7410e0142cdec34a79f500bbaa1fc623f3712f7e2c",
+    "selector/result.json": "48a3d4670a560226c269c45f0ee60eb0e581979b70d33e610bc8d31e2e0ddc3a",
+    "selector/simulate.log": "f1fb6609653d1349e1f540e3f5896fa73efd4bb0bbecc69251630839cf6aa4d7",
+    "selector/tb.v": "2a04c36d51f146da28552dbc2c4849d4afb54ae33fd5bf4afe401059b9856d78",
+    "sign/compile.log": "cded516e257e5598b5c27f6c866b2037b1db8e489d5ebcbac2853c0431db954d",
+    "sign/ref_combined/src_tb/tb_sign_top.v": "352d73a205eb28d485058b072209bae189fb6cda8a2a259f14f505b20891d15c",
+    "sign/simulate-seed-0.log": "3b10b74a2f7d8df942c2ca244cebc6481d51feabeb7d48f3365a4686e3dafc57",
+    "verify/compile.log": "3741f7727dabb0cb66c4717d5a57539b9a68307899ccb1d9c84cdca29fff2216",
+    "verify/ref_combined/src_tb/tb_verify_top.v": "3ec1805eaed21f66c49dedaac1912e736757273f8d5bfcb84bc2c9952eefdc89",
+    "verify/simulate-seed-0.log": "38a17c241828ccdead2573051be6753c84e20a9de37b048758f175d301ae787f",
+    "verify_canonical/compile.log": "f9c5baa308ef5984cfa3eac9f24a76c55fce2463b9a2df4d7453a92ef0ea7de1",
+    "verify_canonical/ref_combined/src_tb/tb_verify_top.v": "1101e147b958b2e5ad2f29e625e7c28455b0c0b04a1f665314c7dfd2c81d9a6b",
+    "verify_canonical/simulate-seed-0.log": "794b9de5254b04a3dfdaf73ec09336bf01cbcbebb2ea512f3f65cc237f7ef007",
+    "verify_mutations/compile.log": "5d116ca9cbda71300b9950dd6d82dc20ec2efd1f69bddb972385e16696b10e2f",
+    "verify_mutations/ref_combined/src_tb/tb_verify_top.v": "1784237295f47c5a3607bccfa2dffe8fe10f872e8e3a87ddc330d46f64083a61",
+    "verify_mutations/simulate-seed-0.log": "ce61481f8fe0e3d20c54b02476f7eb566e5133bcf43e34bc75fad2f1b4dc7f08"
+  },
+  "limits": [
+    "Two-state finite RTL KAT verification, not formal whole-design equivalence or FIPS certification.",
+    "Vivado FPGA synthesis and timing must be rerun on the corrected variant.",
+    "No ASIC startup changes; unsupported security levels remain unsupported."
+  ],
+  "unsupported_selector_behavior": "Both corrected selector outputs are zero for unsupported binary or X/Z sec_lvl; cryptographic operations at these settings are not supported."
+}

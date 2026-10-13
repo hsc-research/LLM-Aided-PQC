@@ -1,0 +1,82 @@
+ML-DSA-II.KeyGen, KAT # 0 completed in                 4871 clock cycles
+ML-DSA-II.KeyGen, KAT # 1 completed in                 4875 clock cycles
+ML-DSA-II.KeyGen, KAT # 2 completed in                 4873 clock cycles
+ML-DSA-II.KeyGen, KAT # 3 completed in                 4876 clock cycles
+ML-DSA-II.KeyGen, KAT # 4 completed in                 4868 clock cycles
+ML-DSA-II.KeyGen, KAT # 5 completed in                 4878 clock cycles
+ML-DSA-II.KeyGen, KAT # 6 completed in                 4873 clock cycles
+ML-DSA-II.KeyGen, KAT # 7 completed in                 4871 clock cycles
+ML-DSA-II.KeyGen, KAT # 8 completed in                 4873 clock cycles
+ML-DSA-II.KeyGen, KAT # 9 completed in                 4874 clock cycles
+ML-DSA-II.KeyGen, KAT #10 completed in                 4871 clock cycles
+ML-DSA-II.KeyGen, KAT #11 completed in                 4865 clock cycles
+ML-DSA-II.KeyGen, KAT #12 completed in                 4869 clock cycles
+ML-DSA-II.KeyGen, KAT #13 completed in                 4877 clock cycles
+ML-DSA-II.KeyGen, KAT #14 completed in                 4873 clock cycles
+ML-DSA-II.KeyGen, KAT #15 completed in                 4874 clock cycles
+ML-DSA-II.KeyGen, KAT #16 completed in                 4869 clock cycles
+ML-DSA-II.KeyGen, KAT #17 completed in                 4875 clock cycles
+ML-DSA-II.KeyGen, KAT #18 completed in                 4870 clock cycles
+ML-DSA-II.KeyGen, KAT #19 completed in                 4868 clock cycles
+ML-DSA-II.KeyGen, KAT #20 completed in                 4874 clock cycles
+ML-DSA-II.KeyGen, KAT #21 completed in                 4870 clock cycles
+ML-DSA-II.KeyGen, KAT #22 completed in                 4870 clock cycles
+ML-DSA-II.KeyGen, KAT #23 completed in                 4876 clock cycles
+ML-DSA-II.KeyGen, KAT #24 completed in                 4874 clock cycles
+Moving to ML-DSA-III.KeyGen. ML-DSA-II completed in avg.        4872 clock cycles
+ML-DSA-III.KeyGen, KAT # 0 completed in                 8300 clock cycles
+ML-DSA-III.KeyGen, KAT # 1 completed in                 8291 clock cycles
+ML-DSA-III.KeyGen, KAT # 2 completed in                 8287 clock cycles
+ML-DSA-III.KeyGen, KAT # 3 completed in                 8287 clock cycles
+ML-DSA-III.KeyGen, KAT # 4 completed in                 8289 clock cycles
+ML-DSA-III.KeyGen, KAT # 5 completed in                 8297 clock cycles
+ML-DSA-III.KeyGen, KAT # 6 completed in                 8287 clock cycles
+ML-DSA-III.KeyGen, KAT # 7 completed in                 8299 clock cycles
+ML-DSA-III.KeyGen, KAT # 8 completed in                 8293 clock cycles
+ML-DSA-III.KeyGen, KAT # 9 completed in                 8289 clock cycles
+ML-DSA-III.KeyGen, KAT #10 completed in                 8291 clock cycles
+ML-DSA-III.KeyGen, KAT #11 completed in                 8289 clock cycles
+ML-DSA-III.KeyGen, KAT #12 completed in                 8295 clock cycles
+ML-DSA-III.KeyGen, KAT #13 completed in                 8287 clock cycles
+ML-DSA-III.KeyGen, KAT #14 completed in                 8287 clock cycles
+ML-DSA-III.KeyGen, KAT #15 completed in                 8289 clock cycles
+ML-DSA-III.KeyGen, KAT #16 completed in                 8295 clock cycles
+ML-DSA-III.KeyGen, KAT #17 completed in                 8291 clock cycles
+ML-DSA-III.KeyGen, KAT #18 completed in                 8293 clock cycles
+ML-DSA-III.KeyGen, KAT #19 completed in                 8291 clock cycles
+ML-DSA-III.KeyGen, KAT #20 completed in                 8293 clock cycles
+ML-DSA-III.KeyGen, KAT #21 completed in                 8299 clock cycles
+ML-DSA-III.KeyGen, KAT #22 completed in                 8299 clock cycles
+ML-DSA-III.KeyGen, KAT #23 completed in                 8289 clock cycles
+ML-DSA-III.KeyGen, KAT #24 completed in                 8289 clock cycles
+Moving to ML-DSA-V.KeyGen. ML-DSA-III completed in avg.        8291 clock cycles
+ML-DSA-V.KeyGen, KAT # 0 completed in                14039 clock cycles
+ML-DSA-V.KeyGen, KAT # 1 completed in                14037 clock cycles
+ML-DSA-V.KeyGen, KAT # 2 completed in                14036 clock cycles
+ML-DSA-V.KeyGen, KAT # 3 completed in                14032 clock cycles
+ML-DSA-V.KeyGen, KAT # 4 completed in                14033 clock cycles
+ML-DSA-V.KeyGen, KAT # 5 completed in                14029 clock cycles
+ML-DSA-V.KeyGen, KAT # 6 completed in                14027 clock cycles
+ML-DSA-V.KeyGen, KAT # 7 completed in                14034 clock cycles
+ML-DSA-V.KeyGen, KAT # 8 completed in                14035 clock cycles
+ML-DSA-V.KeyGen, KAT # 9 completed in                14039 clock cycles
+ML-DSA-V.KeyGen, KAT #10 completed in                14037 clock cycles
+ML-DSA-V.KeyGen, KAT #11 completed in                14036 clock cycles
+ML-DSA-V.KeyGen, KAT #12 completed in                14029 clock cycles
+ML-DSA-V.KeyGen, KAT #13 completed in                14033 clock cycles
+ML-DSA-V.KeyGen, KAT #14 completed in                14029 clock cycles
+ML-DSA-V.KeyGen, KAT #15 completed in                14033 clock cycles
+ML-DSA-V.KeyGen, KAT #16 completed in                14026 clock cycles
+ML-DSA-V.KeyGen, KAT #17 completed in                14027 clock cycles
+ML-DSA-V.KeyGen, KAT #18 completed in                14025 clock cycles
+ML-DSA-V.KeyGen, KAT #19 completed in                14037 clock cycles
+ML-DSA-V.KeyGen, KAT #20 completed in                14045 clock cycles
+ML-DSA-V.KeyGen, KAT #21 completed in                14027 clock cycles
+ML-DSA-V.KeyGen, KAT #22 completed in                14029 clock cycles
+ML-DSA-V.KeyGen, KAT #23 completed in                14036 clock cycles
+ML-DSA-V.KeyGen, KAT #24 completed in                14035 clock cycles
+ML-DSA.KeyGen testbench done. ML-DSA-V completed in avg.       14033 clock cycles
+- /tmp/pqc-exact-gate-final/kat-work/keygen/ref_combined/src_tb/tb_keygen_top.v:603: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.49
+- Verilator: $finish at 7ms; walltime 4.719 s; speed 1.442 ms/s
+- Verilator: cpu 4.718 s on 1 threads; allocated 7 MB

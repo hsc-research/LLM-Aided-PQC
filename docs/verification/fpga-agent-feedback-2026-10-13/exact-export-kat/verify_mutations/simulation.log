@@ -1,0 +1,19 @@
+ML-DSA-II.Verify, KAT # 0 completed in                 6764 clock cycles
+ML-DSA-II.Verify, KAT # 1 completed in                 6764 clock cycles
+ML-DSA-II.Verify, KAT # 2 completed in                 6764 clock cycles
+ML-DSA-II.Verify, KAT # 3 completed in                 6764 clock cycles
+Moving to ML-DSA-III.Verify. ML-DSA-II completed in avg.        6764 clock cycles
+ML-DSA-III.Verify, KAT # 0 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 1 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 2 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 3 completed in                 9730 clock cycles
+Moving to ML-DSA-V.Verify. ML-DSA-III completed in avg.        9730 clock cycles
+ML-DSA-V.Verify, KAT # 0 completed in                14650 clock cycles
+ML-DSA-V.Verify, KAT # 1 completed in                14650 clock cycles
+ML-DSA-V.Verify, KAT # 2 completed in                14650 clock cycles
+ML-DSA-V.Verify, KAT # 3 completed in                14650 clock cycles
+Testbench done. ML-DSA-V completed in avg.       14650 clock cycles
+- /tmp/pqc-exact-gate-final/kat-work/verify_mutations/ref_combined/src_tb/tb_verify_top.v:678: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.49
+- Verilator: $finish at 1ms; walltime 1.010 s; speed 1.234 ms/s
+- Verilator: cpu 1.010 s on 1 threads; allocated 7 MB
