@@ -309,6 +309,56 @@ def proposal(directory):
     return summary
 
 
+def autonomous(directory):
+    """Display bounded local journal records, never traverse live RTL/report paths."""
+    state, state_hash = read_record(directory / 'state.json')
+    config, config_hash = read_record(directory / 'configuration.json')
+    if state.get('schema_version') != 1 or state.get('mode') not in ('strict', 'exploratory'):
+        raise ValueError('Unsupported autonomous state')
+    from .whole_design import digest
+    if digest(config) != state.get('configuration_sha256'):
+        raise ValueError('Autonomous configuration mismatch')
+    final = directory / 'integrity.json'
+    finalized = final.is_file()
+    if finalized:
+        inventory, _ = read_record(final)
+        expected = inventory.get('records', {})
+        if expected.get('state.json') != state_hash or expected.get('configuration.json') != config_hash:
+            raise ValueError('Changed autonomous state/configuration')
+    journal = directory / 'journal'
+    if journal.is_symlink():
+        raise ValueError('Symlinked autonomous journal')
+    paths = sorted(journal.glob('*.json'))
+    if len(paths) > 220:
+        raise ValueError('Autonomous journal is oversized')
+    history, head = [], None
+    for index, path in enumerate(paths):
+        row, _ = read_record(path)
+        claimed = row.pop('sha256', None)
+        if row.get('sequence') != index or row.get('previous') != head or digest(row) != claimed:
+            raise ValueError('Autonomous journal chain mismatch')
+        head = claimed
+        history.append({key: row.get(key) for key in ('iteration', 'verdict', 'metrics_before', 'metrics_after', 'retention')})
+    if finalized and head != state.get('journal_head'):
+        raise ValueError('Autonomous state/journal mismatch')
+    spec = config['measurement']
+    return {'id': directory.name, 'kind': 'autonomous_fpga', 'target': 'fpga', 'tool': 'vivado',
+            'status': label(state.get('status')), 'mode': state['mode'], 'active_stage': label(state.get('active_stage')),
+            'profile_fingerprint': label(state.get('profile_fingerprint')), 'configuration_sha256': state['configuration_sha256'],
+            'part': label(spec.get('part')), 'period_ns': number(spec.get('period_ns')), 'tool_version': label(spec.get('tool_version')),
+            'iterations': number(state.get('iterations')), 'accepted': number(state.get('accepted')),
+            'provisional_count': len(state.get('provisional_candidates', [])), 'history': history,
+            'model': label(state.get('model')), 'api_calls_attempted': number(state.get('generation_attempts')),
+            'reported_cost_usd': None if state.get('pending_request') is not None else number(float(state.get('spent_usd', 'nan'))),
+            'reserved_cost_usd': number(float(state.get('reserved_usd', 'nan'))),
+            'blockers': [label(x) for x in state.get('qualification_blockers', [])],
+            'finalized': finalized, 'baseline_unchanged_recorded': state.get('baseline_unchanged') is True,
+            'target_tool_qualified': False, 'timing_signoff': False,
+            'notes': ['Local status/journal hashes checked only. Use --inspect to verify source snapshots and reports.',
+                      'Provisional candidates are never promoted. Recorded acceptance is not independently requalified by this dashboard.',
+                      'Saved status is not a live-process check; model hypotheses are not hardware facts.']}
+
+
 def collect(root):
     root = Path(root)
     records, errors = [], []
@@ -323,8 +373,16 @@ def collect(root):
                 records.append(proposal(directory))
             except (ValueError, OSError, TypeError, KeyError, AttributeError) as error:
                 errors.append({'id': directory.name, 'status': 'INCOMPLETE_OR_INVALID', 'reason': label(error)})
+    auto = root / '.pqc_runs' / 'autonomous-fpga'
+    if auto.is_dir() and not auto.is_symlink():
+        for directory in sorted(auto.iterdir(), key=lambda x: x.name, reverse=True)[:200]:
+            if directory.is_symlink() or not directory.is_dir():
+                continue
+            try: records.append(autonomous(directory))
+            except (ValueError, OSError, TypeError, KeyError, AttributeError) as error:
+                errors.append({'id': directory.name, 'status': 'INCOMPLETE_OR_INVALID', 'reason': label(error)})
     asic = collect_asic(root)
     records.extend(asic['runs'])
     errors.extend(asic['errors'])
     return {'runs': records, 'errors': errors, 'read_only': True,
-            'notice': 'Current FPGA proposals and recorded ASIC measurements. No verified optimization gain is implied. Historical records remain separate.'}
+            'notice': 'Current FPGA proposals, autonomous experiment journals and recorded ASIC measurements. No verified optimization gain is implied. Historical records remain separate.'}

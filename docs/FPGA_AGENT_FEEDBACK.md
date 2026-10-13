@@ -2,6 +2,14 @@
 
 [Project home](../README.md) · [Whole-design controller](WHOLE_DESIGN.md) · [FPGA latch correction](fpga/MLDSA_LATCH_CORRECTION.md)
 
+## Connected experiment loop
+
+The new [bounded autonomous FPGA entrypoint](AUTONOMOUS_FPGA.md) connects
+source-isolated edits, exact 210-case verification, fresh Vivado feedback and
+bounded retries. Strict admission remains fail-closed; explicit exploratory mode
+retains only provisional candidates while mapped-memory qualification is missing.
+The one-shot proposal commands below remain review-only.
+
 ## What can run now
 
 The exact exported ML-DSA sources can be checked with the new 210-case RTL

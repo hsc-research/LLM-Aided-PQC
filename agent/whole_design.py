@@ -342,9 +342,9 @@ def choose_targets(measurement, cfg):
     return {'critical_paths': mapped, 'allowed_files': files, 'rtl': context}
 
 
-def acceptance(before, after, before_cycles, after_cycles, cfg):
+def acceptance(before, after, before_cycles, after_cycles, cfg, contract=None):
     require(before['configuration'] == after['configuration'], 'Configuration changed during comparison')
-    require(before['configuration'] == configuration(cfg),
+    require(before['configuration'] == (configuration(cfg) if contract is None else contract),
             'Acceptance evidence belongs to a different target/configuration')
     require(before['area_unit'] == after['area_unit'], 'Area units changed')
     if any(after_cycles[key] > before_cycles[key] for key in before_cycles):

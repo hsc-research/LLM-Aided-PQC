@@ -1,0 +1,889 @@
+EXCLUDED TESTS: [
+  {
+    "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+    "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+    "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+  },
+  {
+    "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+    "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+  },
+  {
+    "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  },
+  {
+    "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+    "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+  }
+]
+test_benign_warning_is_not_blanket_rejected (test_asic_admission.Admission.test_benign_warning_is_not_blanket_rejected) ... ok
+test_duplicate_configuration_keys_rejected (test_asic_admission.Admission.test_duplicate_configuration_keys_rejected) ... ok
+test_each_structural_fault_rejected_by_python_and_before_mapping (test_asic_admission.Admission.test_each_structural_fault_rejected_by_python_and_before_mapping) ... ok
+test_exact_review_waiver_and_fatal_policy (test_asic_admission.Admission.test_exact_review_waiver_and_fatal_policy) ... ok
+test_legacy_measurement_explicitly_unverified (test_asic_admission.Admission.test_legacy_measurement_explicitly_unverified) ... ok
+test_no_adapter_dry_run_cannot_claim_or_launch (test_asic_admission.Admission.test_no_adapter_dry_run_cannot_claim_or_launch) ... ok
+test_no_macro_or_blackbox_memory_can_be_waived (test_asic_admission.Admission.test_no_macro_or_blackbox_memory_can_be_waived) ... ok
+test_post_mapping_fault_rejected (test_asic_admission.Admission.test_post_mapping_fault_rejected) ... ok
+test_post_mapping_ff_bit_accounting_required (test_asic_admission.Admission.test_post_mapping_ff_bit_accounting_required) ... ok
+test_qualification_hashes_version_compilation_and_controls_fail_closed (test_asic_admission.Admission.test_qualification_hashes_version_compilation_and_controls_fail_closed) ... ok
+test_qualified_dependencies_and_controls_in_input_fingerprint (test_asic_admission.Admission.test_qualified_dependencies_and_controls_in_input_fingerprint) ... ok
+test_required_admission_artifacts_cannot_be_omitted (test_asic_admission.Admission.test_required_admission_artifacts_cannot_be_omitted) ... ok
+test_strict_macros_configuration_rejected (test_asic_admission.Admission.test_strict_macros_configuration_rejected) ... ok
+test_tcl_valid_fixture_and_live_version_mismatch (test_asic_admission.Admission.test_tcl_valid_fixture_and_live_version_mismatch) ... ok
+test_unknown_duplicate_negative_or_missing_evidence_is_rejected (test_asic_admission.Admission.test_unknown_duplicate_negative_or_missing_evidence_is_rejected) ... ok
+test_valid_fixture_pipeline_both_tools_retains_all_evidence (test_asic_admission.Admission.test_valid_fixture_pipeline_both_tools_retains_all_evidence) ... ok
+test_bound_baseline_observations_not_qualification (test_asic_dashboard.ASICDashboardTests.test_bound_baseline_observations_not_qualification) ... ok
+test_candidate_role_without_gains (test_asic_dashboard.ASICDashboardTests.test_candidate_role_without_gains) ... ok
+test_claimed_qualification_never_promoted (test_asic_dashboard.ASICDashboardTests.test_claimed_qualification_never_promoted) ... ok
+test_configuration_mismatch_excluded (test_asic_dashboard.ASICDashboardTests.test_configuration_mismatch_excluded) ... ok
+test_historical_logs_not_imported (test_asic_dashboard.ASICDashboardTests.test_historical_logs_not_imported) ... ok
+test_invalid_path_range_not_displayed (test_asic_dashboard.ASICDashboardTests.test_invalid_path_range_not_displayed) ... ok
+test_missing_power_and_nonfinite_metrics_stay_unknown (test_asic_dashboard.ASICDashboardTests.test_missing_power_and_nonfinite_metrics_stay_unknown) ... ok
+test_outside_report_excluded (test_asic_dashboard.ASICDashboardTests.test_outside_report_excluded) ... ok
+test_partial_and_oversized_json_fail_closed (test_asic_dashboard.ASICDashboardTests.test_partial_and_oversized_json_fail_closed) ... ok
+test_path_traversal_excluded (test_asic_dashboard.ASICDashboardTests.test_path_traversal_excluded) ... ok
+test_report_tamper_excluded (test_asic_dashboard.ASICDashboardTests.test_report_tamper_excluded) ... ok
+test_request_tamper_excluded (test_asic_dashboard.ASICDashboardTests.test_request_tamper_excluded) ... ok
+test_source_mismatch_excluded (test_asic_dashboard.ASICDashboardTests.test_source_mismatch_excluded) ... ok
+test_standalone_dc_reparses_reports_and_components (test_asic_dashboard.ASICDashboardTests.test_standalone_dc_reparses_reports_and_components) ... ok
+test_symlink_ancestor_excluded (test_asic_dashboard.ASICDashboardTests.test_symlink_ancestor_excluded) ... ok
+test_symlink_file_excluded (test_asic_dashboard.ASICDashboardTests.test_symlink_file_excluded) ... ok
+test_blackbox_warning_overrides_success (test_asic_hardening.ProvenanceValidation.test_blackbox_warning_overrides_success) ... ok
+test_clock_mismatch_fails_before_tool_synthesis (test_asic_hardening.ProvenanceValidation.test_clock_mismatch_fails_before_tool_synthesis) ... ok
+test_contradictory_unresolved_report_rejected (test_asic_hardening.ProvenanceValidation.test_contradictory_unresolved_report_rejected) ... ok
+test_dc_units_are_verified (test_asic_hardening.ProvenanceValidation.test_dc_units_are_verified) ... ok
+test_liberty_units_are_checked_before_execution (test_asic_hardening.ProvenanceValidation.test_liberty_units_are_checked_before_execution) ... ok
+test_real_zero_unresolved_report (test_asic_hardening.ProvenanceValidation.test_real_zero_unresolved_report) ... ok
+test_site_template_requires_explicit_constraints (test_asic_hardening.ProvenanceValidation.test_site_template_requires_explicit_constraints) ... ok
+test_unresolved_evidence_is_required (test_asic_hardening.ProvenanceValidation.test_unresolved_evidence_is_required) ... ok
+test_dc_power_percent_suffix (test_asic_hardening.ReportValidation.test_dc_power_percent_suffix) ... ok
+test_genus_path_sequence_and_setup_required (test_asic_hardening.ReportValidation.test_genus_path_sequence_and_setup_required) ... ok
+test_genus_power_subtotal (test_asic_hardening.ReportValidation.test_genus_power_subtotal) ... ok
+test_invalid_dc_area_rejected (test_asic_hardening.ReportValidation.test_invalid_dc_area_rejected) ... ok
+test_invalid_dc_power_rejected (test_asic_hardening.ReportValidation.test_invalid_dc_power_rejected) ... ok
+test_invalid_genus_area_rejected (test_asic_hardening.ReportValidation.test_invalid_genus_area_rejected) ... ok
+test_invalid_genus_power_rejected (test_asic_hardening.ReportValidation.test_invalid_genus_power_rejected) ... ok
+test_malformed_dc_path_is_not_skipped (test_asic_hardening.ReportValidation.test_malformed_dc_path_is_not_skipped) ... ok
+test_malformed_second_genus_path_is_not_skipped (test_asic_hardening.ReportValidation.test_malformed_second_genus_path_is_not_skipped) ... ok
+test_missing_area_and_power_are_unknown (test_asic_hardening.ReportValidation.test_missing_area_and_power_are_unknown) ... ok
+test_overflow_timing_is_rejected (test_asic_hardening.ReportValidation.test_overflow_timing_is_rejected) ... ok
+test_real_genus_report_fixture (test_asic_hardening.ReportValidation.test_real_genus_report_fixture) ... ok
+test_rounded_violation_does_not_pass (test_asic_hardening.ReportValidation.test_rounded_violation_does_not_pass) ... ok
+test_unconstrained_timing_is_not_measured (test_asic_hardening.ReportValidation.test_unconstrained_timing_is_not_measured) ... ok
+test_worst_reported_path_is_used (test_asic_hardening.ReportValidation.test_worst_reported_path_is_used) ... ok
+test_legacy_backend_cannot_connect (test_asic_hardening.RetiredWorkflows.test_legacy_backend_cannot_connect) ... ok
+test_legacy_fmax_launchers_fail_without_tool (test_asic_hardening.RetiredWorkflows.test_legacy_fmax_launchers_fail_without_tool) ... ok
+test_port_kat_requires_structured_success_and_zero_exit (test_asic_hardening.RetiredWorkflows.test_port_kat_requires_structured_success_and_zero_exit) ... ok
+test_port_reorder_missing_files_fail_closed (test_asic_hardening.RetiredWorkflows.test_port_reorder_missing_files_fail_closed) ... ok
+test_remote_port_helper_has_no_effect (test_asic_hardening.RetiredWorkflows.test_remote_port_helper_has_no_effect) ... ok
+test_checked_in_rom_matches_all_pinned_constants (test_asic_memory_components.ASICMemoryComponentsTests.test_checked_in_rom_matches_all_pinned_constants) ... ok
+test_constant_mutation_is_rejected (test_asic_memory_components.ASICMemoryComponentsTests.test_constant_mutation_is_rejected) ... ok
+test_missing_duplicate_or_reordered_address_is_rejected (test_asic_memory_components.ASICMemoryComponentsTests.test_missing_duplicate_or_reordered_address_is_rejected) ... ok
+test_only_bounded_memory_sources_are_in_abr_list (test_asic_memory_components.ASICMemoryComponentsTests.test_only_bounded_memory_sources_are_in_abr_list) ... ok
+test_powerup_or_runtime_file_loading_is_rejected (test_asic_memory_components.ASICMemoryComponentsTests.test_powerup_or_runtime_file_loading_is_rejected) ... ok
+test_budget_blocks_before_generation (test_autonomous_fpga.AutonomousTests.test_budget_blocks_before_generation) ... ok
+test_candidate_accepted_then_feedback_reaches_next_proposal (test_autonomous_fpga.AutonomousTests.test_candidate_accepted_then_feedback_reaches_next_proposal) ... ok
+test_close_failure_is_sanitized_and_state_persisted (test_autonomous_fpga.AutonomousTests.test_close_failure_is_sanitized_and_state_persisted) ... ok
+test_context_outside_manifest_stops (test_autonomous_fpga.AutonomousTests.test_context_outside_manifest_stops) ... ok
+test_cost_reservation_is_durable_before_dispatch (test_autonomous_fpga.AutonomousTests.test_cost_reservation_is_durable_before_dispatch) ... ok
+test_count_failure_is_sanitized_without_generation (test_autonomous_fpga.AutonomousTests.test_count_failure_is_sanitized_without_generation) ... ok
+test_dashboard_autonomous_record_is_read_only_and_provisional (test_autonomous_fpga.AutonomousTests.test_dashboard_autonomous_record_is_read_only_and_provisional) ... ok
+test_environment_never_inherits_provider_credentials (test_autonomous_fpga.AutonomousTests.test_environment_never_inherits_provider_credentials) ... ok
+test_existing_run_cannot_dispatch_again (test_autonomous_fpga.AutonomousTests.test_existing_run_cannot_dispatch_again) ... ok
+test_exploration_tests_measures_then_rolls_back_without_best (test_autonomous_fpga.AutonomousTests.test_exploration_tests_measures_then_rolls_back_without_best) ... ok
+test_exploratory_focus_is_explicit_and_not_ownership_proof (test_autonomous_fpga.AutonomousTests.test_exploratory_focus_is_explicit_and_not_ownership_proof) ... ok
+test_exploratory_mode_never_promotes_even_with_qualified_fixture (test_autonomous_fpga.AutonomousTests.test_exploratory_mode_never_promotes_even_with_qualified_fixture) ... ok
+test_failures_feedback_and_no_measurement_on_failed_verification (test_autonomous_fpga.AutonomousTests.test_failures_feedback_and_no_measurement_on_failed_verification) ... ok
+test_generation_limit_and_duplicate_candidate (test_autonomous_fpga.AutonomousTests.test_generation_limit_and_duplicate_candidate) ... ok
+test_inspection_detects_source_and_journal_tampering (test_autonomous_fpga.AutonomousTests.test_inspection_detects_source_and_journal_tampering) ... ok
+test_invalid_usage_keeps_reservation (test_autonomous_fpga.AutonomousTests.test_invalid_usage_keeps_reservation) ... ok
+test_malformed_response_stops_without_retry (test_autonomous_fpga.AutonomousTests.test_malformed_response_stops_without_retry) ... ok
+test_measurement_response_tamper_is_detected (test_autonomous_fpga.AutonomousTests.test_measurement_response_tamper_is_detected) ... ok
+test_missing_ownership_stops_before_provider_setup (test_autonomous_fpga.AutonomousTests.test_missing_ownership_stops_before_provider_setup) ... ok
+test_need_context_is_bounded_and_fed_back (test_autonomous_fpga.AutonomousTests.test_need_context_is_bounded_and_fed_back) ... ok
+test_profile_lock_prevents_concurrent_run (test_autonomous_fpga.AutonomousTests.test_profile_lock_prevents_concurrent_run) ... ok
+test_prompt_limit_stops_before_unlock (test_autonomous_fpga.AutonomousTests.test_prompt_limit_stops_before_unlock) ... ok
+test_runtime_ceiling_prevents_more_work (test_autonomous_fpga.AutonomousTests.test_runtime_ceiling_prevents_more_work) ... ok
+test_stop_never_requests_more_context (test_autonomous_fpga.AutonomousTests.test_stop_never_requests_more_context) ... ok
+test_strict_unqualified_baseline_never_unlocks_or_calls (test_autonomous_fpga.AutonomousTests.test_strict_unqualified_baseline_never_unlocks_or_calls) ... ok
+test_timing_regression_rolls_back (test_autonomous_fpga.AutonomousTests.test_timing_regression_rolls_back) ... ok
+test_unknown_cost_stops_with_reservation_and_no_retry (test_autonomous_fpga.AutonomousTests.test_unknown_cost_stops_with_reservation_and_no_retry) ... ok
+test_usage_over_reservation_stops (test_autonomous_fpga.AutonomousTests.test_usage_over_reservation_stops) ... ok
+test_real_prepared_export_builds_isolated_contract_without_tools (test_autonomous_fpga.PreparedExportTests.test_real_prepared_export_builds_isolated_contract_without_tools) ... ok
+test_foreign_code_and_comment_activation_rejected_without_execution (test_autonomous_fpga.SourceSafetyTests.test_foreign_code_and_comment_activation_rejected_without_execution) ... ok
+test_foreign_metacomment_payload_cannot_replace_existing_comment (test_autonomous_fpga.SourceSafetyTests.test_foreign_metacomment_payload_cannot_replace_existing_comment) ... ok
+test_interfaces_and_preprocessor_are_frozen (test_autonomous_fpga.SourceSafetyTests.test_interfaces_and_preprocessor_are_frozen) ... ok
+test_lexical_model_is_source_bound_and_not_training (test_autonomous_fpga.SourceSafetyTests.test_lexical_model_is_source_bound_and_not_training) ... ok
+test_pure_rtl_edit_allowed (test_autonomous_fpga.SourceSafetyTests.test_pure_rtl_edit_allowed) ... ok
+test_accepted_rtl_tamper_is_detected (test_autonomous_fpga_adversarial.IndependentReview.test_accepted_rtl_tamper_is_detected) ... ok
+test_fast_child_cannot_bypass_artifact_limit (test_autonomous_fpga_adversarial.IndependentReview.test_fast_child_cannot_bypass_artifact_limit) ... ok
+test_journal_failure_rolls_back_and_cannot_claim_integrity (test_autonomous_fpga_adversarial.IndependentReview.test_journal_failure_rolls_back_and_cannot_claim_integrity) ... ok
+test_postspawn_deadline_kills_child (test_autonomous_fpga_adversarial.IndependentReview.test_postspawn_deadline_kills_child) ... ok
+test_provisional_rtl_tamper_is_detected (test_autonomous_fpga_adversarial.IndependentReview.test_provisional_rtl_tamper_is_detected) ... ok
+test_real_feedback_parser_integrates_with_controller (test_autonomous_fpga_adversarial.IndependentReview.test_real_feedback_parser_integrates_with_controller) ... ok
+test_relocated_comments_cannot_activate_system_tasks (test_autonomous_fpga_adversarial.IndependentReview.test_relocated_comments_cannot_activate_system_tasks) ... ok
+test_snapshot_failure_rolls_back (test_autonomous_fpga_adversarial.IndependentReview.test_snapshot_failure_rolls_back) ... ok
+test_usage_evidence_tamper_is_detected (test_autonomous_fpga_adversarial.IndependentReview.test_usage_evidence_tamper_is_detected) ... ok
+test_baseline_pass_and_failure_keep_bounded_coverage (test_chip_gate_coverage.ChipGateCoverageTests.test_baseline_pass_and_failure_keep_bounded_coverage) ... ok
+test_both_mldsa_configurations_retain_keygen_gate (test_chip_gate_coverage.ChipGateCoverageTests.test_both_mldsa_configurations_retain_keygen_gate) ... ok
+test_candidate_accept_and_gate_failure_keep_bounded_coverage (test_chip_gate_coverage.ChipGateCoverageTests.test_candidate_accept_and_gate_failure_keep_bounded_coverage) ... ok
+test_unconfigured_design_is_not_given_mldsa_coverage (test_chip_gate_coverage.ChipGateCoverageTests.test_unconfigured_design_is_not_given_mldsa_coverage) ... ok
+test_common_client_workspace_and_safety_options (test_claude_credentials.ClientTests.test_common_client_workspace_and_safety_options) ... ok
+test_legacy_import_uses_same_credentials_module (test_claude_credentials.ClientTests.test_legacy_import_uses_same_credentials_module) ... ok
+test_no_workspace_header_for_legacy_scoped_key (test_claude_credentials.ClientTests.test_no_workspace_header_for_legacy_scoped_key) ... ok
+test_optin_and_conflicting_env_before_credential_read (test_claude_credentials.ClientTests.test_optin_and_conflicting_env_before_credential_read) ... ok
+test_transport_children_cannot_propagate_to_debug_root (test_claude_credentials.ClientTests.test_transport_children_cannot_propagate_to_debug_root) ... ok
+test_detached_input_fails_promptly_without_stdin_fallback (test_claude_credentials.ProcessBoundaryTests.test_detached_input_fails_promptly_without_stdin_fallback) ... ok
+test_legacy_standalone_import_without_checkout_on_path (test_claude_credentials.ProcessBoundaryTests.test_legacy_standalone_import_without_checkout_on_path) ... ok
+test_both_endpoints_redact_raw_error (test_claude_credentials.ProviderErrorTests.test_both_endpoints_redact_raw_error) ... ok
+test_deep_json_normalized (test_claude_credentials.ProviderErrorTests.test_deep_json_normalized) ... ok
+test_real_sdk_does_not_follow_redirect (test_claude_credentials.SDKTransportTests.test_real_sdk_does_not_follow_redirect) ... ok
+test_real_sdk_error_has_one_attempt_no_retry_and_no_raw_body (test_claude_credentials.SDKTransportTests.test_real_sdk_error_has_one_attempt_no_retry_and_no_raw_body) ... ok
+test_real_sdk_sends_workspace_header_on_both_requests (test_claude_credentials.SDKTransportTests.test_real_sdk_sends_workspace_header_on_both_requests) ... ok
+test_actual_pty_setup_and_unlock_without_secret_echo (test_claude_credentials.TerminalIntegrationTests.test_actual_pty_setup_and_unlock_without_secret_echo) ... ok
+test_cache_cannot_silently_unlock_a_forked_process (test_claude_credentials.VaultTests.test_cache_cannot_silently_unlock_a_forked_process) ... ok
+test_env_is_explicit_and_validated_without_persistence (test_claude_credentials.VaultTests.test_env_is_explicit_and_validated_without_persistence) ... ok
+test_no_terminal_or_echo_fallback (test_claude_credentials.VaultTests.test_no_terminal_or_echo_fallback) ... ok
+test_oversize_and_fifo_fail_without_blocking (test_claude_credentials.VaultTests.test_oversize_and_fifo_fail_without_blocking) ... ok
+test_reject_insecure_file_and_directory_permissions (test_claude_credentials.VaultTests.test_reject_insecure_file_and_directory_permissions) ... ok
+test_reject_malformed_and_unbounded_kdf (test_claude_credentials.VaultTests.test_reject_malformed_and_unbounded_kdf) ... ok
+test_reject_symlink_parent_file_and_hardlink (test_claude_credentials.VaultTests.test_reject_symlink_parent_file_and_hardlink) ... ok
+test_reject_unsafe_parent_and_repository_path (test_claude_credentials.VaultTests.test_reject_unsafe_parent_and_repository_path) ... ok
+test_replace_success_and_atomic_failure (test_claude_credentials.VaultTests.test_replace_success_and_atomic_failure) ... ok
+test_roundtrip_encrypted_permissions_and_cache (test_claude_credentials.VaultTests.test_roundtrip_encrypted_permissions_and_cache) ... ok
+test_setup_no_overwrite_and_failed_replace_preserves_bytes (test_claude_credentials.VaultTests.test_setup_no_overwrite_and_failed_replace_preserves_bytes) ... ok
+test_status_never_unlocks_or_calls_api (test_claude_credentials.VaultTests.test_status_never_unlocks_or_calls_api) ... ok
+test_weak_passphrase_never_installs_vault (test_claude_credentials.VaultTests.test_weak_passphrase_never_installs_vault) ... ok
+test_wrong_file_owner_is_rejected_after_open (test_claude_credentials.VaultTests.test_wrong_file_owner_is_rejected_after_open) ... ok
+test_wrong_password_and_tampered_ciphertext_fail (test_claude_credentials.VaultTests.test_wrong_password_and_tampered_ciphertext_fail) ... ok
+test_all_four_schemes_explicit (test_core_runtime.OfflineRuntime.test_all_four_schemes_explicit) ... ok
+test_dashboard_has_no_dynamic_inline_handler (test_core_runtime.OfflineRuntime.test_dashboard_has_no_dynamic_inline_handler) ... ok
+test_doctor_is_read_only (test_core_runtime.OfflineRuntime.test_doctor_is_read_only) ... ok
+test_doctor_recognizes_selected_slh_192f_without_claiming_rtl_pass (test_core_runtime.OfflineRuntime.test_doctor_recognizes_selected_slh_192f_without_claiming_rtl_pass) ... ok
+test_gate_accepts_structured_final_result (test_core_runtime.OfflineRuntime.test_gate_accepts_structured_final_result) ... ok
+test_gate_rejects_conflicting_or_inline_verdict (test_core_runtime.OfflineRuntime.test_gate_rejects_conflicting_or_inline_verdict) ... ok
+test_legacy_unsafe_workflows_block_before_writes_or_calls (test_core_runtime.OfflineRuntime.test_legacy_unsafe_workflows_block_before_writes_or_calls) ... ok
+test_paid_calls_require_explicit_optin (test_core_runtime.OfflineRuntime.test_paid_calls_require_explicit_optin) ... ok
+test_smoke (test_core_runtime.OfflineRuntime.test_smoke) ... ok
+test_apply_and_revert (test_core_runtime.TypedEdits.test_apply_and_revert) ... ok
+test_arbitrary_paths_default_denied (test_core_runtime.TypedEdits.test_arbitrary_paths_default_denied) ... ok
+test_boolean_count_refused (test_core_runtime.TypedEdits.test_boolean_count_refused) ... ok
+test_delete_exact_text_allowed (test_core_runtime.TypedEdits.test_delete_exact_text_allowed) ... ok
+test_duplicate_paths_refused (test_core_runtime.TypedEdits.test_duplicate_paths_refused) ... ok
+test_empty_anchor_refused (test_core_runtime.TypedEdits.test_empty_anchor_refused) ... ok
+test_gate_code_extension_denied_even_in_allowlist (test_core_runtime.TypedEdits.test_gate_code_extension_denied_even_in_allowlist) ... ok
+test_optimized_python_still_rejects (test_core_runtime.TypedEdits.test_optimized_python_still_rejects) ... ok
+test_pair_site_count_enforced (test_core_runtime.TypedEdits.test_pair_site_count_enforced) ... ok
+test_partial_write_failure_rolls_back (test_core_runtime.TypedEdits.test_partial_write_failure_rolls_back) ... ok
+test_preview_never_writes (test_core_runtime.TypedEdits.test_preview_never_writes) ... ok
+test_same_basename_backups_distinct (test_core_runtime.TypedEdits.test_same_basename_backups_distinct) ... ok
+test_simulator_side_effects_rejected (test_core_runtime.TypedEdits.test_simulator_side_effects_rejected) ... ok
+test_symlink_denied (test_core_runtime.TypedEdits.test_symlink_denied) ... ok
+test_testbench_targets_default_denied (test_core_runtime.TypedEdits.test_testbench_targets_default_denied) ... ok
+test_unsafe_slug_refused (test_core_runtime.TypedEdits.test_unsafe_slug_refused) ... ok
+test_wrong_count_leaves_no_writes (test_core_runtime.TypedEdits.test_wrong_count_leaves_no_writes) ... ok
+test_block_gate_rejects_false_positive_and_incomplete_counts (test_correctness_gates.BlockResults.test_block_gate_rejects_false_positive_and_incomplete_counts) ... ok
+test_each_lockstep_wrapper_uses_fail_closed_parser (test_correctness_gates.BlockResults.test_each_lockstep_wrapper_uses_fail_closed_parser) ... ok
+test_encoder_requires_all_positive_configuration_counts (test_correctness_gates.BlockResults.test_encoder_requires_all_positive_configuration_counts) ... ok
+test_encoder_wrapper_rejects_success_text_after_simulator_failure (test_correctness_gates.BlockResults.test_encoder_wrapper_rejects_success_text_after_simulator_failure) ... ok
+test_lockstep_rejects_nonzero_zero_missing_and_contradictory_results (test_correctness_gates.BlockResults.test_lockstep_rejects_nonzero_zero_missing_and_contradictory_results) ... ok
+test_archived_trace_has_75_distinct_vectors (test_correctness_gates.MLDSAResults.test_archived_trace_has_75_distinct_vectors) ... ok
+test_complete_security_level_coverage_passes (test_correctness_gates.MLDSAResults.test_complete_security_level_coverage_passes) ... ok
+test_done_marker_alone_fails (test_correctness_gates.MLDSAResults.test_done_marker_alone_fails) ... ok
+test_incomplete_or_malformed_cycles_fail (test_correctness_gates.MLDSAResults.test_incomplete_or_malformed_cycles_fail) ... ok
+test_missing_done_or_timeout_fails (test_correctness_gates.MLDSAResults.test_missing_done_or_timeout_fails) ... ok
+test_missing_vector_or_security_level_fails (test_correctness_gates.MLDSAResults.test_missing_vector_or_security_level_fails) ... ok
+test_nonzero_exit_never_passes (test_correctness_gates.MLDSAResults.test_nonzero_exit_never_passes) ... ok
+test_repeated_vector_completion_fails (test_correctness_gates.MLDSAResults.test_repeated_vector_completion_fails) ... ok
+test_subset_requires_three_times_requested_count (test_correctness_gates.MLDSAResults.test_subset_requires_three_times_requested_count) ... ok
+test_wrong_and_error_lines_fail (test_correctness_gates.MLDSAResults.test_wrong_and_error_lines_fail) ... ok
+test_failed_cli_exits_nonzero (test_correctness_gates.MLDSARuns.test_failed_cli_exits_nonzero) ... ok
+test_invalid_arguments_never_launch_tools (test_correctness_gates.MLDSARuns.test_invalid_arguments_never_launch_tools) ... ok
+test_lowered_testbench_vector_capacity_fails (test_correctness_gates.MLDSARuns.test_lowered_testbench_vector_capacity_fails) ... ok
+test_missing_or_unknown_override_fails (test_correctness_gates.MLDSARuns.test_missing_or_unknown_override_fails) ... ok
+test_runs_write_unique_artifacts_and_do_not_touch_archive (test_correctness_gates.MLDSARuns.test_runs_write_unique_artifacts_and_do_not_touch_archive) ... ok
+test_simulator_nonzero_rc_with_complete_log_fails (test_correctness_gates.MLDSARuns.test_simulator_nonzero_rc_with_complete_log_fails) ... ok
+test_timeout_with_complete_log_fails (test_correctness_gates.MLDSARuns.test_timeout_with_complete_log_fails) ... ok
+test_corrupted_golden_checksum_blocks_before_simulation (test_correctness_gates.SLHSignatures.test_corrupted_golden_checksum_blocks_before_simulation) ... ok
+test_empty_matching_signatures_fail (test_correctness_gates.SLHSignatures.test_empty_matching_signatures_fail) ... ok
+test_missing_mismatched_and_contradictory_outputs_fail (test_correctness_gates.SLHSignatures.test_missing_mismatched_and_contradictory_outputs_fail) ... ok
+test_nonzero_simulator_exit_overrides_success_text (test_correctness_gates.SLHSignatures.test_nonzero_simulator_exit_overrides_success_text) ... ok
+test_run_isolated_and_preserves_external_signature (test_correctness_gates.SLHSignatures.test_run_isolated_and_preserves_external_signature) ... ok
+test_run_rejects_process_failure_and_timeout (test_correctness_gates.SLHSignatures.test_run_rejects_process_failure_and_timeout) ... ok
+test_successful_signature_check (test_correctness_gates.SLHSignatures.test_successful_signature_check) ... ok
+test_unsupported_configuration_is_explicit (test_correctness_gates.SLHSignatures.test_unsupported_configuration_is_explicit) ... ok
+test_constant_offset_is_not_latency_preserving (test_correctness_gates.TimingResults.test_constant_offset_is_not_latency_preserving) ... ok
+test_empty_incomplete_duplicate_and_invalid_vectors_fail (test_correctness_gates.TimingResults.test_empty_incomplete_duplicate_and_invalid_vectors_fail) ... ok
+test_exact_equivalence_passes_independent_of_record_order (test_correctness_gates.TimingResults.test_exact_equivalence_passes_independent_of_record_order) ... ok
+test_failed_child_status_never_reads_stale_files (test_correctness_gates.TimingResults.test_failed_child_status_never_reads_stale_files) ... ok
+test_asic_records_are_included_without_relabeling (test_current_dashboard.CurrentDashboardTests.test_asic_records_are_included_without_relabeling) ... ok
+test_bound_api_usage_and_unknown_cost (test_current_dashboard.CurrentDashboardTests.test_bound_api_usage_and_unknown_cost) ... ok
+test_brand_and_accessibility_markup (test_current_dashboard.CurrentDashboardTests.test_brand_and_accessibility_markup) ... ok
+test_corrupt_and_partial_file (test_current_dashboard.CurrentDashboardTests.test_corrupt_and_partial_file) ... ok
+test_direct_script_import_preserves_package_imports (test_current_dashboard.CurrentDashboardTests.test_direct_script_import_preserves_package_imports) ... ok
+test_endpoints_and_ui_are_read_only (test_current_dashboard.CurrentDashboardTests.test_endpoints_and_ui_are_read_only) ... ok
+test_flat_utilization_report (test_current_dashboard.CurrentDashboardTests.test_flat_utilization_report) ... ok
+test_hierarchical_instances_are_ranked_not_summed (test_current_dashboard.CurrentDashboardTests.test_hierarchical_instances_are_ranked_not_summed) ... ok
+test_hold_summary_kept_separate_from_setup (test_current_dashboard.CurrentDashboardTests.test_hold_summary_kept_separate_from_setup) ... ok
+test_missing_flat_resources_stay_unknown (test_current_dashboard.CurrentDashboardTests.test_missing_flat_resources_stay_unknown) ... ok
+test_missing_reports_are_unknown (test_current_dashboard.CurrentDashboardTests.test_missing_reports_are_unknown) ... ok
+test_no_paths_followed (test_current_dashboard.CurrentDashboardTests.test_no_paths_followed) ... ok
+test_only_allowlisted_failure_fields_reach_dashboard (test_current_dashboard.CurrentDashboardTests.test_only_allowlisted_failure_fields_reach_dashboard) ... ok
+test_prepared_is_not_pass (test_current_dashboard.CurrentDashboardTests.test_prepared_is_not_pass) ... ok
+test_preview_is_never_acceptance (test_current_dashboard.CurrentDashboardTests.test_preview_is_never_acceptance) ... ok
+test_prompt_tamper (test_current_dashboard.CurrentDashboardTests.test_prompt_tamper) ... ok
+test_report_parser (test_current_dashboard.CurrentDashboardTests.test_report_parser) ... ok
+test_setup_and_hold_path_details (test_current_dashboard.CurrentDashboardTests.test_setup_and_hold_path_details) ... ok
+test_stale_review_not_used (test_current_dashboard.CurrentDashboardTests.test_stale_review_not_used) ... ok
+test_symlink_ignored (test_current_dashboard.CurrentDashboardTests.test_symlink_ignored) ... ok
+test_code_and_external_links_not_checked (test_docs.DocumentationLinks.test_code_and_external_links_not_checked) ... ok
+test_image_and_explicit_anchor (test_docs.DocumentationLinks.test_image_and_explicit_anchor) ... ok
+test_inline_html_reference_and_duplicate_headings (test_docs.DocumentationLinks.test_inline_html_reference_and_duplicate_headings) ... ok
+test_missing_heading_fails (test_docs.DocumentationLinks.test_missing_heading_fails) ... ok
+test_missing_target_fails (test_docs.DocumentationLinks.test_missing_target_fails) ... ok
+test_baseline_correctness_precedes_synthesis_and_measurement (test_experiment_history.FinalOutcomeHistory.test_baseline_correctness_precedes_synthesis_and_measurement) ... ok
+test_baseline_gate_source_change_prevents_measurement_and_dispatch (test_experiment_history.FinalOutcomeHistory.test_baseline_gate_source_change_prevents_measurement_and_dispatch) ... ERROR: Baseline sources changed during verification
+ok
+test_baseline_measurement_source_change_prevents_dispatch (test_experiment_history.FinalOutcomeHistory.test_baseline_measurement_source_change_prevents_dispatch) ... ERROR: Baseline sources changed during implementation
+ok
+test_baseline_synthesis_source_change_prevents_measurement (test_experiment_history.FinalOutcomeHistory.test_baseline_synthesis_source_change_prevents_measurement) ... ERROR: Baseline sources changed during synthesis
+ok
+test_baseline_without_correctness_gate_fails_closed (test_experiment_history.FinalOutcomeHistory.test_baseline_without_correctness_gate_fails_closed) ... ok
+test_chip_rejection_restores_and_never_learns_local_win (test_experiment_history.FinalOutcomeHistory.test_chip_rejection_restores_and_never_learns_local_win) ... ok
+test_failed_baseline_prevents_measurement_and_dispatch (test_experiment_history.FinalOutcomeHistory.test_failed_baseline_prevents_measurement_and_dispatch) ... ERROR: Baseline correctness gate failed; measurement and dispatch not started
+ok
+test_final_acceptance_has_two_distinct_states_and_source_evidence (test_experiment_history.FinalOutcomeHistory.test_final_acceptance_has_two_distinct_states_and_source_evidence) ... ok
+test_final_log_failure_restores_without_qualifying_history_or_learning (test_experiment_history.FinalOutcomeHistory.test_final_log_failure_restores_without_qualifying_history_or_learning) ... ok
+test_gate_failure_never_learns_local_win (test_experiment_history.FinalOutcomeHistory.test_gate_failure_never_learns_local_win) ... ok
+test_later_source_change_invalidates_applied_claim (test_experiment_history.FinalOutcomeHistory.test_later_source_change_invalidates_applied_claim) ... ok
+test_legacy_success_is_not_assumed_currently_applied (test_experiment_history.FinalOutcomeHistory.test_legacy_success_is_not_assumed_currently_applied) ... ok
+test_malformed_source_evidence_is_not_an_applied_claim (test_experiment_history.FinalOutcomeHistory.test_malformed_source_evidence_is_not_an_applied_claim) ... ok
+test_mismatched_or_duplicate_preliminary_records_are_rejected (test_experiment_history.FinalOutcomeHistory.test_mismatched_or_duplicate_preliminary_records_are_rejected) ... ok
+test_missing_preliminary_record_restores_and_fails_closed (test_experiment_history.FinalOutcomeHistory.test_missing_preliminary_record_restores_and_fails_closed) ... ok
+test_only_final_backed_rules_are_injected (test_experiment_history.FinalOutcomeHistory.test_only_final_backed_rules_are_injected) ... ok
+test_preliminary_or_legacy_records_cannot_distill_or_append_rules (test_experiment_history.FinalOutcomeHistory.test_preliminary_or_legacy_records_cannot_distill_or_append_rules) ... ok
+test_synthesis_exception_cannot_create_final_acceptance (test_experiment_history.FinalOutcomeHistory.test_synthesis_exception_cannot_create_final_acceptance) ... ok
+test_exact_source_full_coverage (test_fpga_proposal.ExportedGateFixtureTests.test_exact_source_full_coverage) ... ok
+test_dry_feedback_is_blocked_and_flat_plus_hierarchy (test_fpga_proposal.FeedbackFixtureTests.test_dry_feedback_is_blocked_and_flat_plus_hierarchy) ... ok
+test_budget_prevents_generation (test_fpga_proposal.ProposalTests.test_budget_prevents_generation) ... ok
+test_complete_kat_contract (test_fpga_proposal.ProposalTests.test_complete_kat_contract) ... ok
+test_exclusive_claim_blocks_duplicate (test_fpga_proposal.ProposalTests.test_exclusive_claim_blocks_duplicate) ... ok
+test_fake_single_stop (test_fpga_proposal.ProposalTests.test_fake_single_stop) ... ok
+test_initialization_failure_keeps_record_and_claim (test_fpga_proposal.ProposalTests.test_initialization_failure_keeps_record_and_claim) ... ok
+test_interrupted_unlock_is_recorded_without_generation (test_fpga_proposal.ProposalTests.test_interrupted_unlock_is_recorded_without_generation) ... ok
+test_missing_end_turn (test_fpga_proposal.ProposalTests.test_missing_end_turn) ... ok
+test_no_repeat_after_request (test_fpga_proposal.ProposalTests.test_no_repeat_after_request) ... ok
+test_nonexact_edit (test_fpga_proposal.ProposalTests.test_nonexact_edit) ... ok
+test_optin_precedes_sdk (test_fpga_proposal.ProposalTests.test_optin_precedes_sdk) ... ok
+test_outside_allowlist (test_fpga_proposal.ProposalTests.test_outside_allowlist) ... ok
+test_preview_never_edits (test_fpga_proposal.ProposalTests.test_preview_never_edits) ... ok
+test_price_nan (test_fpga_proposal.ProposalTests.test_price_nan) ... ok
+test_prompt_drift (test_fpga_proposal.ProposalTests.test_prompt_drift) ... ok
+test_recovery_refuses_drift_and_existing_destination (test_fpga_proposal.ProposalTests.test_recovery_refuses_drift_and_existing_destination) ... ok
+test_recovery_refuses_uncertain_generation (test_fpga_proposal.ProposalTests.test_recovery_refuses_uncertain_generation) ... ok
+test_source_drift (test_fpga_proposal.ProposalTests.test_source_drift) ... ok
+test_stop_no_edit (test_fpga_proposal.ProposalTests.test_stop_no_edit) ... ok
+test_timeout_unknown_no_secret (test_fpga_proposal.ProposalTests.test_timeout_unknown_no_secret) ... ok
+test_unknown_exception_name_and_http_status_are_not_persisted (test_fpga_proposal.ProposalTests.test_unknown_exception_name_and_http_status_are_not_persisted) ... ok
+test_workspace_failure_is_bounded_and_recoverable (test_fpga_proposal.ProposalTests.test_workspace_failure_is_bounded_and_recoverable) ... ok
+test_empty_stream_is_inconclusive (test_latency_diagnostics.CurrentDiagnosticLog.test_empty_stream_is_inconclusive) ... ok
+test_exit_status_must_match (test_latency_diagnostics.CurrentDiagnosticLog.test_exit_status_must_match) ... ok
+test_failed_edited_simulation_can_show_divergence (test_latency_diagnostics.CurrentDiagnosticLog.test_failed_edited_simulation_can_show_divergence) ... ok
+test_incomplete_simulation_is_inconclusive (test_latency_diagnostics.CurrentDiagnosticLog.test_incomplete_simulation_is_inconclusive) ... ok
+test_malformed_result_is_inconclusive (test_latency_diagnostics.CurrentDiagnosticLog.test_malformed_result_is_inconclusive) ... ok
+test_missing_log_is_inconclusive (test_latency_diagnostics.CurrentDiagnosticLog.test_missing_log_is_inconclusive) ... ok
+test_never_reads_archived_log (test_latency_diagnostics.CurrentDiagnosticLog.test_never_reads_archived_log) ... ok
+test_reads_returned_current_log (test_latency_diagnostics.CurrentDiagnosticLog.test_reads_returned_current_log) ... ok
+test_80_byte_storage_not_padded (test_mldsa_asic_startup.StartupSources.test_80_byte_storage_not_padded) ... ok
+test_bad_reference_manifest_rejected (test_mldsa_asic_startup.StartupSources.test_bad_reference_manifest_rejected) ... ok
+test_boot_is_distinct_from_ordinary_reset (test_mldsa_asic_startup.StartupSources.test_boot_is_distinct_from_ordinary_reset) ... ok
+test_no_powerup_state (test_mldsa_asic_startup.StartupSources.test_no_powerup_state) ... ok
+test_occupied_output_rejected (test_mldsa_asic_startup.StartupSources.test_occupied_output_rejected) ... ok
+test_ram_banks_and_clock (test_mldsa_asic_startup.StartupSources.test_ram_banks_and_clock) ... ok
+test_redundant_initializers_are_classified (test_mldsa_asic_startup.StartupSources.test_redundant_initializers_are_classified) ... ok
+test_reproducible_from_verified_exports (test_mldsa_asic_startup.StartupSources.test_reproducible_from_verified_exports) ... ok
+test_restart_marker_is_required (test_mldsa_asic_startup.StartupSources.test_restart_marker_is_required) ... ok
+test_same_boot_and_memory_overhead (test_mldsa_asic_startup.StartupSources.test_same_boot_and_memory_overhead) ... ok
+test_supported_hint_read_bounds (test_mldsa_asic_startup.StartupSources.test_supported_hint_read_bounds) ... ok
+test_unknown_initial_driver_rejected (test_mldsa_asic_startup.StartupSources.test_unknown_initial_driver_rejected) ... ok
+test_both_exact_verilog_arms (test_mldsa_export.MLDSAExportTests.test_both_exact_verilog_arms) ... ok
+test_exports_deterministic_and_nonoverwriting (test_mldsa_export.MLDSAExportTests.test_exports_deterministic_and_nonoverwriting) ... ok
+test_mixed_manifest_never_compiles_duplicate_keccak (test_mldsa_export.MLDSAExportTests.test_mixed_manifest_never_compiles_duplicate_keccak) ... ok
+test_report_rejects_boolean_and_float_integer_fields (test_mldsa_export.MLDSAExportTests.test_report_rejects_boolean_and_float_integer_fields) ... ok
+test_report_requires_exact_variant_and_coverage (test_mldsa_export.MLDSAExportTests.test_report_requires_exact_variant_and_coverage) ... ok
+test_evidence_rejects_claim_only_or_changed_sources (test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_evidence_rejects_claim_only_or_changed_sources) ... ok
+test_only_two_defaults_change_for_both_variants (test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_only_two_defaults_change_for_both_variants) ... ok
+test_profiles_explicit_fpga_only_and_remain_target_unqualified (test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_profiles_explicit_fpga_only_and_remain_target_unqualified) ... ok
+test_transform_fails_closed_on_repeat_or_changed_anchor (test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_transform_fails_closed_on_repeat_or_changed_anchor) ... ok
+test_all_operation_names_and_exact_coverage (test_mldsa_portable_gate.PortableMLDSAGateTests.test_all_operation_names_and_exact_coverage) ... ok
+test_bounded_hint_word_io_is_testbench_only (test_mldsa_portable_gate.PortableMLDSAGateTests.test_bounded_hint_word_io_is_testbench_only) ... ok
+test_canonical_cases_interleave_valid_controls (test_mldsa_portable_gate.PortableMLDSAGateTests.test_canonical_cases_interleave_valid_controls) ... ok
+test_capacity_mutation_rejected (test_mldsa_portable_gate.PortableMLDSAGateTests.test_capacity_mutation_rejected) ... ok
+test_each_bench_staged_with_watchdog (test_mldsa_portable_gate.PortableMLDSAGateTests.test_each_bench_staged_with_watchdog) ... ok
+test_fail_closed (test_mldsa_portable_gate.PortableMLDSAGateTests.test_fail_closed) ... ok
+test_guard_failure_is_sticky_until_new_operation (test_mldsa_portable_gate.PortableMLDSAGateTests.test_guard_failure_is_sticky_until_new_operation) ... ok
+test_hoisting_preserves_declarations_and_upstream (test_mldsa_portable_gate.PortableMLDSAGateTests.test_hoisting_preserves_declarations_and_upstream) ... ok
+test_mutations_change_one_bit_and_require_rejection (test_mldsa_portable_gate.PortableMLDSAGateTests.test_mutations_change_one_bit_and_require_rejection) ... ok
+test_mutations_require_positive_control_coverage (test_mldsa_portable_gate.PortableMLDSAGateTests.test_mutations_require_positive_control_coverage) ... ok
+test_all_candidate_overrides_have_pinned_counterparts (test_mldsa_source_integration.MLDSASourceIntegration.test_all_candidate_overrides_have_pinned_counterparts) ... ok
+test_all_source_bytes_and_keygen_vector_shapes (test_mldsa_source_integration.MLDSASourceIntegration.test_all_source_bytes_and_keygen_vector_shapes) ... ok
+test_asic_example_needs_real_site_libraries (test_mldsa_source_integration.MLDSASourceIntegration.test_asic_example_needs_real_site_libraries) ... ok
+test_asic_manifest_and_zetas_staging_plan (test_mldsa_source_integration.MLDSASourceIntegration.test_asic_manifest_and_zetas_staging_plan) ... ok
+test_bundled_default_and_environment_override (test_mldsa_source_integration.MLDSASourceIntegration.test_bundled_default_and_environment_override) ... ok
+test_doctor_checks_integrity_without_running_tools (test_mldsa_source_integration.MLDSASourceIntegration.test_doctor_checks_integrity_without_running_tools) ... ok
+test_external_tree_is_not_reported_pin_verified (test_mldsa_source_integration.MLDSASourceIntegration.test_external_tree_is_not_reported_pin_verified) ... ok
+test_extra_or_missing_inputs_fail_closed (test_mldsa_source_integration.MLDSASourceIntegration.test_extra_or_missing_inputs_fail_closed) ... ok
+test_tampered_source_and_manifest_fail_closed (test_mldsa_source_integration.MLDSASourceIntegration.test_tampered_source_and_manifest_fail_closed) ... ok
+test_changed_fixture_rejected (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_changed_fixture_rejected) ... ok
+test_clean_synthetic_transcript_accepted_by_parser_only (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_clean_synthetic_transcript_accepted_by_parser_only) ... ok
+test_duplicate_case_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_duplicate_case_fails_closed) ... ok
+test_early_summary_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_early_summary_fails_closed) ... ok
+test_empty_result_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_empty_result_fails_closed) ... ok
+test_endianness (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_endianness) ... ok
+test_failure_with_success_marker_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_failure_with_success_marker_fails_closed) ... ok
+test_full_output_byte_counts (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_full_output_byte_counts) ... ok
+test_malformed_or_short_data_rejected (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_malformed_or_short_data_rejected) ... ok
+test_missing_case_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_missing_case_fails_closed) ... ok
+test_missing_or_duplicate_summary_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_missing_or_duplicate_summary_fails_closed) ... ok
+test_nonzero_exit_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_nonzero_exit_fails_closed) ... ok
+test_official_full_coverage (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_official_full_coverage) ... ok
+test_partial_word_rejected (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_partial_word_rejected) ... ok
+test_program_has_exact_check_and_case_accounting (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_program_has_exact_check_and_case_accounting) ... ok
+test_summary_only_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_summary_only_fails_closed) ... ok
+test_wrong_checks_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_wrong_checks_fails_closed) ... ok
+test_zero_cycle_or_malformed_case_fails_closed (test_mlkem_adams_bridge_gate.AcvpMappingTests.test_zero_cycle_or_malformed_case_fails_closed) ... ok
+test_corrupt_expected_word_causes_real_fatal (test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_corrupt_expected_word_causes_real_fatal) ... ok
+test_junk_after_terminator_causes_real_fatal (test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_junk_after_terminator_causes_real_fatal) ... ok
+test_missing_terminator_causes_real_fatal (test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_missing_terminator_causes_real_fatal) ... ok
+test_word_lanes_and_stalled_data_phases (test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_word_lanes_and_stalled_data_phases) ... ok
+test_assertion_headers_are_protected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_assertion_headers_are_protected) ... ok
+test_changed_source_manifest_rejected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_changed_source_manifest_rejected) ... ok
+test_extra_source_rejected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_extra_source_rejected) ... ok
+test_filelist_keeps_harness_and_wrapper_original (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_filelist_keeps_harness_and_wrapper_original) ... ok
+test_masking_configuration_is_protected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_masking_configuration_is_protected) ... ok
+test_missing_source_rejected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_missing_source_rejected) ... ok
+test_new_include_rejected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_new_include_rejected) ... ok
+test_permitted_rtl_fault_is_hashed_as_modified (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_permitted_rtl_fault_is_hashed_as_modified) ... ok
+test_reference_or_ancestor_cannot_be_candidate (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_reference_or_ancestor_cannot_be_candidate) ... ok
+test_simulator_control_and_host_calls_rejected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_simulator_control_and_host_calls_rejected) ... ok
+test_symlink_file_rejected (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_symlink_file_rejected) ... ok
+test_unchanged_copy_has_full_hash_inventory (test_mlkem_adams_bridge_gate.CandidateIsolationTests.test_unchanged_copy_has_full_hash_inventory) ... ok
+test_mock_ahb_completion_has_clean_simulator_exit (test_mlkem_adams_bridge_gate.VerilatorShutdownTests.test_mock_ahb_completion_has_clean_simulator_exit) ... ok
+test_acvp_fixture_has_all_operations_and_implicit_rejections (test_mlkem_source_integration.MLKEMSourceIntegration.test_acvp_fixture_has_all_operations_and_implicit_rejections) ... ok
+test_asic_example_requires_external_library_setup (test_mlkem_source_integration.MLKEMSourceIntegration.test_asic_example_requires_external_library_setup) ... ok
+test_asic_example_uses_actual_runner_and_user_libraries (test_mlkem_source_integration.MLKEMSourceIntegration.test_asic_example_uses_actual_runner_and_user_libraries) ... ok
+test_catalog_does_not_confuse_import_with_qualification (test_mlkem_source_integration.MLKEMSourceIntegration.test_catalog_does_not_confuse_import_with_qualification) ... ok
+test_tampered_source_fails_closed (test_mlkem_source_integration.MLKEMSourceIntegration.test_tampered_source_fails_closed) ... ok
+test_tcl_manifest_is_location_independent (test_mlkem_source_integration.MLKEMSourceIntegration.test_tcl_manifest_is_location_independent) ... ok
+test_vendored_source_identity (test_mlkem_source_integration.MLKEMSourceIntegration.test_vendored_source_identity) ... ok
+test_vivado_script_requires_explicit_site_arguments (test_mlkem_source_integration.MLKEMSourceIntegration.test_vivado_script_requires_explicit_site_arguments) ... ok
+test_vivado_tcl_with_explicit_test_doubles (test_mlkem_source_integration.MLKEMSourceIntegration.test_vivado_tcl_with_explicit_test_doubles) ... ok
+test_wrapper_includes_core_and_all_memory_instances (test_mlkem_source_integration.MLKEMSourceIntegration.test_wrapper_includes_core_and_all_memory_instances) ... ok
+test_changed_sources_or_prompt_refuse_review_without_mutation (test_proposal_response.OfflineReviewTests.test_changed_sources_or_prompt_refuse_review_without_mutation) ... ok
+test_corrupt_ordinary_review_cannot_hide_valid_offline_decision (test_proposal_response.OfflineReviewTests.test_corrupt_ordinary_review_cannot_hide_valid_offline_decision) ... ok
+test_crlf_response_uses_identical_metadata_in_review_and_dashboard (test_proposal_response.OfflineReviewTests.test_crlf_response_uses_identical_metadata_in_review_and_dashboard) ... ok
+test_dashboard_does_not_follow_review_supplied_paths (test_proposal_response.OfflineReviewTests.test_dashboard_does_not_follow_review_supplied_paths) ... ok
+test_dashboard_rejects_each_changed_evidence_file (test_proposal_response.OfflineReviewTests.test_dashboard_rejects_each_changed_evidence_file) ... ok
+test_dashboard_rejects_forged_flags_decision_and_binding (test_proposal_response.OfflineReviewTests.test_dashboard_rejects_forged_flags_decision_and_binding) ... ok
+test_dashboard_rejects_symlinked_or_missing_evidence (test_proposal_response.OfflineReviewTests.test_dashboard_rejects_symlinked_or_missing_evidence) ... ok
+test_dashboard_source_check_is_historical_not_live (test_proposal_response.OfflineReviewTests.test_dashboard_source_check_is_historical_not_live) ... ok
+test_hash_bound_response_recovers_without_new_call (test_proposal_response.OfflineReviewTests.test_hash_bound_response_recovers_without_new_call) ... ok
+test_invalid_edit_still_fails_preview (test_proposal_response.OfflineReviewTests.test_invalid_edit_still_fails_preview) ... ok
+test_legacy_paid_failure_reuses_bytes_and_preserves_every_original (test_proposal_response.OfflineReviewTests.test_legacy_paid_failure_reuses_bytes_and_preserves_every_original) ... ok
+test_multiple_answers_never_create_an_offline_review (test_proposal_response.OfflineReviewTests.test_multiple_answers_never_create_an_offline_review) ... ok
+test_nonterminal_unrelated_or_uncertain_run_is_refused (test_proposal_response.OfflineReviewTests.test_nonterminal_unrelated_or_uncertain_run_is_refused) ... ok
+test_ordinary_review_cannot_hide_paid_failure (test_proposal_response.OfflineReviewTests.test_ordinary_review_cannot_hide_paid_failure) ... ok
+test_original_paid_response_hash_must_match (test_proposal_response.OfflineReviewTests.test_original_paid_response_hash_must_match) ... ok
+test_repeat_cannot_overwrite_the_offline_record (test_proposal_response.OfflineReviewTests.test_repeat_cannot_overwrite_the_offline_record) ... ok
+test_valid_proposed_edit_is_only_a_preview (test_proposal_response.OfflineReviewTests.test_valid_proposed_edit_is_only_a_preview) ... ok
+test_bounds_and_nesting_are_enforced (test_proposal_response.ResponseDecoderTests.test_bounds_and_nesting_are_enforced) ... ok
+test_duplicate_keys_at_root_and_nested_are_rejected (test_proposal_response.ResponseDecoderTests.test_duplicate_keys_at_root_and_nested_are_rejected) ... ok
+test_fenced_object_without_rationale (test_proposal_response.ResponseDecoderTests.test_fenced_object_without_rationale) ... ok
+test_fenced_stop_with_labeled_rationale (test_proposal_response.ResponseDecoderTests.test_fenced_stop_with_labeled_rationale) ... ok
+test_multiple_or_ambiguous_payloads_are_rejected (test_proposal_response.ResponseDecoderTests.test_multiple_or_ambiguous_payloads_are_rejected) ... ok
+test_nonfinite_values_and_nonobject_roots_are_rejected (test_proposal_response.ResponseDecoderTests.test_nonfinite_values_and_nonobject_roots_are_rejected) ... ok
+test_numeric_rtl_selectors_are_prose_not_competing_arrays (test_proposal_response.ResponseDecoderTests.test_numeric_rtl_selectors_are_prose_not_competing_arrays) ... ok
+test_plain_json_and_literal_delimiters_inside_strings (test_proposal_response.ResponseDecoderTests.test_plain_json_and_literal_delimiters_inside_strings) ... ok
+test_rationale_cannot_change_decision (test_proposal_response.ResponseDecoderTests.test_rationale_cannot_change_decision) ... ok
+test_fenced_response_completes_once_and_binds_raw_bytes (test_proposal_response.RunnerResponseTests.test_fenced_response_completes_once_and_binds_raw_bytes) ... ok
+test_response_format_and_edit_failures_have_safe_categories (test_proposal_response.RunnerResponseTests.test_response_format_and_edit_failures_have_safe_categories) ... ok
+test_adjacent_disjoint_spans_keep_explicit_order (test_proposal_source_context.SourceContextTests.test_adjacent_disjoint_spans_keep_explicit_order) ... ok
+test_bad_ranges_are_rejected_before_output (test_proposal_source_context.SourceContextTests.test_bad_ranges_are_rejected_before_output) ... ok
+test_canonical_profile_source_alias_rejected (test_proposal_source_context.SourceContextTests.test_canonical_profile_source_alias_rejected) ... ok
+test_cli_prepare_is_offline_and_readonly (test_proposal_source_context.SourceContextTests.test_cli_prepare_is_offline_and_readonly) ... ok
+test_colon_path_is_explicitly_unsupported (test_proposal_source_context.SourceContextTests.test_colon_path_is_explicitly_unsupported) ... ok
+test_context_hash_mismatch_after_verified_profile_rejected (test_proposal_source_context.SourceContextTests.test_context_hash_mismatch_after_verified_profile_rejected) ... ok
+test_duplicate_overlapping_and_full_plus_partial_rejected (test_proposal_source_context.SourceContextTests.test_duplicate_overlapping_and_full_plus_partial_rejected) ... ok
+test_editable_context_overlap_rejected (test_proposal_source_context.SourceContextTests.test_editable_context_overlap_rejected) ... ok
+test_editable_crlf_multiline_anchor_matches_existing_preview (test_proposal_source_context.SourceContextTests.test_editable_crlf_multiline_anchor_matches_existing_preview) ... ok
+test_empty_and_invalid_utf8_context_rejected (test_proposal_source_context.SourceContextTests.test_empty_and_invalid_utf8_context_rejected) ... ok
+test_exact_crlf_span_hash_and_omissions (test_proposal_source_context.SourceContextTests.test_exact_crlf_span_hash_and_omissions) ... ok
+test_exact_roles_profile_order_and_top_down_instructions (test_proposal_source_context.SourceContextTests.test_exact_roles_profile_order_and_top_down_instructions) ... ok
+test_full_file_is_explicit_and_not_editable (test_proposal_source_context.SourceContextTests.test_full_file_is_explicit_and_not_editable) ... ok
+test_literal_colon_filename_cannot_be_confused_with_valid_range (test_proposal_source_context.SourceContextTests.test_literal_colon_filename_cannot_be_confused_with_valid_range) ... ok
+test_outside_exact_source_list_rejected (test_proposal_source_context.SourceContextTests.test_outside_exact_source_list_rejected) ... ok
+test_outside_span_unselected_source_report_and_prompt_drift_block_review (test_proposal_source_context.SourceContextTests.test_outside_span_unselected_source_report_and_prompt_drift_block_review) ... ok
+test_partial_large_generated_source_is_bounded (test_proposal_source_context.SourceContextTests.test_partial_large_generated_source_is_bounded) ... ok
+test_prompt_limit_rejects_without_truncation_or_output (test_proposal_source_context.SourceContextTests.test_prompt_limit_rejects_without_truncation_or_output) ... ok
+test_readonly_edit_refused_and_no_rtl_changes (test_proposal_source_context.SourceContextTests.test_readonly_edit_refused_and_no_rtl_changes) ... ok
+test_report_read_time_drift_rejected (test_proposal_source_context.SourceContextTests.test_report_read_time_drift_rejected) ... ok
+test_report_snapshot_hash_matches_prompt_crlf (test_proposal_source_context.SourceContextTests.test_report_snapshot_hash_matches_prompt_crlf) ... ok
+test_source_drift_blocks_before_sdk_or_request_claim (test_proposal_source_context.SourceContextTests.test_source_drift_blocks_before_sdk_or_request_claim) ... ok
+test_symlink_context_and_editable_rejected (test_proposal_source_context.SourceContextTests.test_symlink_context_and_editable_rejected) ... ok
+test_too_many_selections_and_source_scan_limit (test_proposal_source_context.SourceContextTests.test_too_many_selections_and_source_scan_limit) ... ok
+test_unchanged_three_editable_limit_and_legacy_invocation (test_proposal_source_context.SourceContextTests.test_unchanged_three_editable_limit_and_legacy_invocation) ... ok
+test_completion_marker_required (test_safety_and_backends.ASIC.test_completion_marker_required) ... ok
+test_contradictory_slack_fails (test_safety_and_backends.ASIC.test_contradictory_slack_fails) ... ok
+test_dc_power_units (test_safety_and_backends.ASIC.test_dc_power_units) ... ok
+test_dc_requires_compiled_libraries (test_safety_and_backends.ASIC.test_dc_requires_compiled_libraries) ... ok
+test_dry_run_does_not_launch (test_safety_and_backends.ASIC.test_dry_run_does_not_launch) ... ok
+test_explicit_timing_units (test_safety_and_backends.ASIC.test_explicit_timing_units) ... ok
+test_generated_tcl_syntax_with_stubs (test_safety_and_backends.ASIC.test_generated_tcl_syntax_with_stubs) ... ok
+test_input_changes_rejected (test_safety_and_backends.ASIC.test_input_changes_rejected) ... ok
+test_invalid_tool (test_safety_and_backends.ASIC.test_invalid_tool) ... ok
+test_invalid_units (test_safety_and_backends.ASIC.test_invalid_units) ... ok
+test_log_error_overrides_exit_zero (test_safety_and_backends.ASIC.test_log_error_overrides_exit_zero) ... ok
+test_missing_artifact_fails (test_safety_and_backends.ASIC.test_missing_artifact_fails) ... ok
+test_missing_inputs (test_safety_and_backends.ASIC.test_missing_inputs) ... ok
+test_missing_slack_fails (test_safety_and_backends.ASIC.test_missing_slack_fails) ... ok
+test_mock_dc_run (test_safety_and_backends.ASIC.test_mock_dc_run) ... ok
+test_mock_genus_run (test_safety_and_backends.ASIC.test_mock_genus_run) ... ok
+test_no_fallback (test_safety_and_backends.ASIC.test_no_fallback) ... ok
+test_no_wildcard_sources (test_safety_and_backends.ASIC.test_no_wildcard_sources) ... ok
+test_nonfinite_period (test_safety_and_backends.ASIC.test_nonfinite_period) ... ok
+test_runs_are_separate (test_safety_and_backends.ASIC.test_runs_are_separate) ... ok
+test_scripts_are_vendor_specific (test_safety_and_backends.ASIC.test_scripts_are_vendor_specific) ... ok
+test_tcl_quoting (test_safety_and_backends.ASIC.test_tcl_quoting) ... ok
+test_tool_choice (test_safety_and_backends.ASIC.test_tool_choice) ... ok
+test_changed_candidate_rejected (test_safety_and_backends.ChipAcceptance.test_changed_candidate_rejected) ... ok
+test_failed_gate_restores (test_safety_and_backends.ChipAcceptance.test_failed_gate_restores) ... ok
+test_failed_synthesis_restores (test_safety_and_backends.ChipAcceptance.test_failed_synthesis_restores) ... ok
+test_logging_failure_restores (test_safety_and_backends.ChipAcceptance.test_logging_failure_restores) ... ok
+test_missing_or_negative_slack_rejected (test_safety_and_backends.ChipAcceptance.test_missing_or_negative_slack_rejected) ... ok
+test_mldsa_dispatch_does_not_receive_hqc_parameter_set (test_safety_and_backends.ChipAcceptance.test_mldsa_dispatch_does_not_receive_hqc_parameter_set) ... ok
+test_no_effective_edit_rejected (test_safety_and_backends.ChipAcceptance.test_no_effective_edit_rejected) ... ok
+test_ppa_rejection_restores_pair (test_safety_and_backends.ChipAcceptance.test_ppa_rejection_restores_pair) ... ok
+test_success_keeps_pair (test_safety_and_backends.ChipAcceptance.test_success_keeps_pair) ... ok
+test_accept_retains (test_safety_and_backends.Transactions.test_accept_retains) ... ok
+test_duplicate_basename_rejected (test_safety_and_backends.Transactions.test_duplicate_basename_rejected) ... ok
+test_escape_rejected (test_safety_and_backends.Transactions.test_escape_rejected) ... ok
+test_exception_restores (test_safety_and_backends.Transactions.test_exception_restores) ... ok
+test_lock (test_safety_and_backends.Transactions.test_lock) ... ok
+test_overlap_rejected (test_safety_and_backends.Transactions.test_overlap_rejected) ... ok
+test_rollback_all_files (test_safety_and_backends.Transactions.test_rollback_all_files) ... ok
+test_stage_preserves_candidate (test_safety_and_backends.Transactions.test_stage_preserves_candidate) ... ok
+test_symlink_rejected (test_safety_and_backends.Transactions.test_symlink_rejected) ... ok
+test_timeout_retains_log (test_safety_and_backends.Transactions.test_timeout_retains_log) ... ok
+test_verdicts_fail_closed (test_safety_and_backends.Transactions.test_verdicts_fail_closed) ... ok
+test_asic_pair_only_has_original_sha_differences (test_slh_asic_startup.StartupTests.test_asic_pair_only_has_original_sha_differences) ... ok
+test_asic_qualification_rejects_wrong_or_incomplete_evidence (test_slh_asic_startup.StartupTests.test_asic_qualification_rejects_wrong_or_incomplete_evidence) ... ok
+test_focused_inventory_rejects_omissions_and_inner_failures (test_slh_asic_startup.StartupTests.test_focused_inventory_rejects_omissions_and_inner_failures) ... ok
+test_fpga_source_preservation_and_explicit_boundary (test_slh_asic_startup.StartupTests.test_fpga_source_preservation_and_explicit_boundary) ... ok
+test_original_export_validator_still_rejects_asic_record (test_slh_asic_startup.StartupTests.test_original_export_validator_still_rejects_asic_record) ... ok
+test_stale_input_fails_closed (test_slh_asic_startup.StartupTests.test_stale_input_fails_closed) ... ok
+test_baseline_cannot_accept_tamper_marker_or_incomplete_signature (test_slh_portable.PortableSLH.test_baseline_cannot_accept_tamper_marker_or_incomplete_signature) ... ok
+test_good_baseline_and_real_rejection_contracts (test_slh_portable.PortableSLH.test_good_baseline_and_real_rejection_contracts) ... ok
+test_missing_tools_are_not_pass (test_slh_portable.PortableSLH.test_missing_tools_are_not_pass) ... ok
+test_negative_control_needs_all_signals_and_exact_generated_dump (test_slh_portable.PortableSLH.test_negative_control_needs_all_signals_and_exact_generated_dump) ... ok
+test_negative_rejection_cannot_qualify_a_failed_baseline (test_slh_portable.PortableSLH.test_negative_rejection_cannot_qualify_a_failed_baseline) ... ok
+test_only_three_reviewed_files_change (test_slh_portable.PortableSLH.test_only_three_reviewed_files_change) ... ok
+test_optional_auth_sensitivity_fix_is_exact_and_pinned (test_slh_portable.PortableSLH.test_optional_auth_sensitivity_fix_is_exact_and_pinned) ... ok
+test_pristine_and_candidate_unchanged_by_transform (test_slh_portable.PortableSLH.test_pristine_and_candidate_unchanged_by_transform) ... ok
+test_simulator_timeout_returns_nonzero_error (test_slh_portable.PortableSLH.test_simulator_timeout_returns_nonzero_error) ... ok
+test_timeout_and_jobs_are_validated_before_execution (test_slh_portable.PortableSLH.test_timeout_and_jobs_are_validated_before_execution) ... ok
+test_unknown_missing_or_wrong_verification_flag_fails (test_slh_portable.PortableSLH.test_unknown_missing_or_wrong_verification_flag_fails) ... ok
+test_unreviewed_portability_input_fails_closed (test_slh_portable.PortableSLH.test_unreviewed_portability_input_fails_closed) ... ok
+test_192f_does_not_read_128f_output_filename (test_slh_selected_gate.SelectedSLHGate.test_192f_does_not_read_128f_output_filename) ... ok
+test_192f_never_accepts_128f_bytes_even_with_correct_192f_filename (test_slh_selected_gate.SelectedSLHGate.test_192f_never_accepts_128f_bytes_even_with_correct_192f_filename) ... ok
+test_all_six_selections_bind_correct_reference_filename_and_full_length (test_slh_selected_gate.SelectedSLHGate.test_all_six_selections_bind_correct_reference_filename_and_full_length) ... ok
+test_changed_source_or_input_during_run_is_rejected (test_slh_selected_gate.SelectedSLHGate.test_changed_source_or_input_during_run_is_rejected) ... ok
+test_every_byte_including_framing_and_final_newline_is_compared (test_slh_selected_gate.SelectedSLHGate.test_every_byte_including_framing_and_final_newline_is_compared) ... ok
+test_historical_128f_alias_is_unchanged (test_slh_selected_gate.SelectedSLHGate.test_historical_128f_alias_is_unchanged) ... ok
+test_input_bitflip_or_missing_input_fails_before_tools (test_slh_selected_gate.SelectedSLHGate.test_input_bitflip_or_missing_input_fails_before_tools) ... ok
+test_missing_tool_is_error_with_selected_parameter_and_no_pass (test_slh_selected_gate.SelectedSLHGate.test_missing_tool_is_error_with_selected_parameter_and_no_pass) ... ok
+test_modified_vendor_testbench_is_rejected (test_slh_selected_gate.SelectedSLHGate.test_modified_vendor_testbench_is_rejected) ... ok
+test_new_sidecar_cannot_authorize_replaced_golden (test_slh_selected_gate.SelectedSLHGate.test_new_sidecar_cannot_authorize_replaced_golden) ... ok
+test_no_signature_and_incomplete_or_contradictory_logs_fail (test_slh_selected_gate.SelectedSLHGate.test_no_signature_and_incomplete_or_contradictory_logs_fail) ... ok
+test_relocated_identical_data_root_is_accepted_but_changed_data_is_not (test_slh_selected_gate.SelectedSLHGate.test_relocated_identical_data_root_is_accepted_but_changed_data_is_not) ... ok
+test_stale_external_signatures_are_preserved_and_ignored (test_slh_selected_gate.SelectedSLHGate.test_stale_external_signatures_are_preserved_and_ignored) ... ok
+test_unknown_ambiguous_shake_or_redefined_config_fails_before_tools (test_slh_selected_gate.SelectedSLHGate.test_unknown_ambiguous_shake_or_redefined_config_fails_before_tools) ... ok
+test_absent_partner_is_explicit_and_failed_partner_is_not_exported (test_slh_source_export.SLHSourceExport.test_absent_partner_is_explicit_and_failed_partner_is_not_exported) ... ok
+test_candidate192_export_matches_qualified_staged_hashes (test_slh_source_export.SLHSourceExport.test_candidate192_export_matches_qualified_staged_hashes) ... ok
+test_destination_and_unsupported_mode_are_fail_closed (test_slh_source_export.SLHSourceExport.test_destination_and_unsupported_mode_are_fail_closed) ... ok
+test_export_is_deterministic_and_invokes_no_eda (test_slh_source_export.SLHSourceExport.test_export_is_deterministic_and_invokes_no_eda) ... ok
+test_invalid_explicit_mode_cannot_silently_use_original (test_slh_source_export.SLHSourceExport.test_invalid_explicit_mode_cannot_silently_use_original) ... ok
+test_mode_override_changes_only_reviewed_selection (test_slh_source_export.SLHSourceExport.test_mode_override_changes_only_reviewed_selection) ... ok
+test_stale_wrong_mode_or_incomplete_qualification_is_rejected (test_slh_source_export.SLHSourceExport.test_stale_wrong_mode_or_incomplete_qualification_is_rejected) ... ok
+test_bound_history_is_not_reused_without_exact_target_configuration (test_target_aware_whole_design.TargetAwareTests.test_bound_history_is_not_reused_without_exact_target_configuration) ... ok
+test_compilation_directive_edits_rejected_before_candidate_gate (test_target_aware_whole_design.TargetAwareTests.test_compilation_directive_edits_rejected_before_candidate_gate) ... ok
+test_continued_and_inline_directives_are_frozen (test_target_aware_whole_design.TargetAwareTests.test_continued_and_inline_directives_are_frozen) ... ok
+test_cross_target_acceptance_cannot_transfer (test_target_aware_whole_design.TargetAwareTests.test_cross_target_acceptance_cannot_transfer) ... ok
+test_cross_target_profile_blocks_before_command (test_target_aware_whole_design.TargetAwareTests.test_cross_target_profile_blocks_before_command) ... ok
+test_fpga_profile_requires_exact_part_and_inferred_memory (test_target_aware_whole_design.TargetAwareTests.test_fpga_profile_requires_exact_part_and_inferred_memory) ... ok
+test_mixed_profile_sources_and_fingerprints_fail (test_target_aware_whole_design.TargetAwareTests.test_mixed_profile_sources_and_fingerprints_fail) ... ok
+test_rehashed_profile_cannot_weaken_full_operation_coverage (test_target_aware_whole_design.TargetAwareTests.test_rehashed_profile_cannot_weaken_full_operation_coverage) ... ok
+test_required_coverage_and_negative_controls_cannot_be_omitted (test_target_aware_whole_design.TargetAwareTests.test_required_coverage_and_negative_controls_cannot_be_omitted) ... ok
+test_stale_baseline_gate_cannot_qualify_candidate (test_target_aware_whole_design.TargetAwareTests.test_stale_baseline_gate_cannot_qualify_candidate) ... ok
+test_strict_measurement_controls_reject_unqualified_target (test_target_aware_whole_design.TargetAwareTests.test_strict_measurement_controls_reject_unqualified_target) ... ok
+test_strict_negative_controls_block_before_measurement (test_target_aware_whole_design.TargetAwareTests.test_strict_negative_controls_block_before_measurement) ... ok
+test_strict_target_baseline_and_candidate_gate (test_target_aware_whole_design.TargetAwareTests.test_strict_target_baseline_and_candidate_gate) ... ok
+test_undeclared_include_dependency_and_new_file_block (test_target_aware_whole_design.TargetAwareTests.test_undeclared_include_dependency_and_new_file_block) ... ok
+test_added_include_input_fails_closed (test_target_source_export.TargetSourceExportTests.test_added_include_input_fails_closed) ... ok
+test_all_fourteen_profiles_preserve_exact_sources_and_target_intent (test_target_source_export.TargetSourceExportTests.test_all_fourteen_profiles_preserve_exact_sources_and_target_intent) ... ok
+test_asic_preparation_is_strict_flops_and_hash_bound_without_adapter (test_target_source_export.TargetSourceExportTests.test_asic_preparation_is_strict_flops_and_hash_bound_without_adapter) ... ok
+test_compile_checker_missing_tool_and_timeout_remain_unqualified (test_target_source_export.TargetSourceExportTests.test_compile_checker_missing_tool_and_timeout_remain_unqualified) ... ok
+test_compile_checker_preserves_dialect_and_does_not_turn_warnings_into_qualification (test_target_source_export.TargetSourceExportTests.test_compile_checker_preserves_dialect_and_does_not_turn_warnings_into_qualification) ... ok
+test_exact_profile_export_is_deterministic_and_nonoverwriting (test_target_source_export.TargetSourceExportTests.test_exact_profile_export_is_deterministic_and_nonoverwriting) ... ok
+test_fpga_preparation_preserves_file_order_and_uses_no_fake_part (test_target_source_export.TargetSourceExportTests.test_fpga_preparation_preserves_file_order_and_uses_no_fake_part) ... ok
+test_mldsa_startup_export_uses_portable_inputs_and_rejects_missing_or_changed_files (test_target_source_export.TargetSourceExportTests.test_mldsa_startup_export_uses_portable_inputs_and_rejects_missing_or_changed_files) ... ok
+test_mldsa_startup_live_log_rejects_late_restart_marker (test_target_source_export.TargetSourceExportTests.test_mldsa_startup_live_log_rejects_late_restart_marker) ... ok
+test_mldsa_startup_rejects_reduced_stale_or_predecessor_evidence (test_target_source_export.TargetSourceExportTests.test_mldsa_startup_rejects_reduced_stale_or_predecessor_evidence) ... ok
+test_placeholders_cross_target_and_nonfinite_periods_fail_closed (test_target_source_export.TargetSourceExportTests.test_placeholders_cross_target_and_nonfinite_periods_fail_closed) ... ok
+test_source_only_tcl_is_location_independent (test_target_source_export.TargetSourceExportTests.test_source_only_tcl_is_location_independent) ... ok
+test_startup_manifest_report_and_source_tampering_fail_closed (test_target_source_export.TargetSourceExportTests.test_startup_manifest_report_and_source_tampering_fail_closed) ... ok
+test_startup_pair_has_identical_boot_and_memory_overhead (test_target_source_export.TargetSourceExportTests.test_startup_pair_has_identical_boot_and_memory_overhead) ... ok
+test_startup_preparation_preserves_boot_boundary_and_stays_unqualified (test_target_source_export.TargetSourceExportTests.test_startup_preparation_preserves_boot_boundary_and_stays_unqualified) ... ok
+test_startup_profiles_are_deterministic_relocatable_and_nonoverwriting (test_target_source_export.TargetSourceExportTests.test_startup_profiles_are_deterministic_relocatable_and_nonoverwriting) ... ok
+test_startup_profiles_bind_new_evidence_and_explicit_boot_contract (test_target_source_export.TargetSourceExportTests.test_startup_profiles_bind_new_evidence_and_explicit_boot_contract) ... ok
+test_startup_variants_reject_fpga_before_export (test_target_source_export.TargetSourceExportTests.test_startup_variants_reject_fpga_before_export) ... ok
+test_tamper_source_report_and_order_fail_closed (test_target_source_export.TargetSourceExportTests.test_tamper_source_report_and_order_fail_closed) ... ok
+test_unqualified_hqc_mlkem_candidate_and_cross_mode_fail_before_export (test_target_source_export.TargetSourceExportTests.test_unqualified_hqc_mlkem_candidate_and_cross_mode_fail_before_export) ... ok
+test_verifier_is_relocatable_and_stdlib_only (test_target_source_export.TargetSourceExportTests.test_verifier_is_relocatable_and_stdlib_only) ... ok
+test_vivado_precheck_uses_frozen_python_with_hostile_path (test_target_source_export.TargetSourceExportTests.test_vivado_precheck_uses_frozen_python_with_hostile_path) ... ok
+test_vivado_preparation_binds_python_binary (test_target_source_export.TargetSourceExportTests.test_vivado_preparation_binds_python_binary) ... ok
+test_archived_actual_bad_report_is_rejected (test_vivado_qualification.QualificationTests.test_archived_actual_bad_report_is_rejected) ... ok
+test_changed_checkpoint_is_not_reusable (test_vivado_qualification.QualificationTests.test_changed_checkpoint_is_not_reusable) ... ok
+test_changed_netlist_is_not_reusable (test_vivado_qualification.QualificationTests.test_changed_netlist_is_not_reusable) ... ok
+test_changed_source_is_not_reusable (test_vivado_qualification.QualificationTests.test_changed_source_is_not_reusable) ... ok
+test_clean_observable_checks_pass_but_memory_behavior_does_not (test_vivado_qualification.QualificationTests.test_clean_observable_checks_pass_but_memory_behavior_does_not) ... ok
+test_disabled_drc_cannot_claim_clean_structure (test_vivado_qualification.QualificationTests.test_disabled_drc_cannot_claim_clean_structure) ... ok
+test_exact_justified_io_exception (test_vivado_qualification.QualificationTests.test_exact_justified_io_exception) ... ok
+test_exception_never_subtracts_positive_missing_delay_count (test_vivado_qualification.QualificationTests.test_exception_never_subtracts_positive_missing_delay_count) ... ok
+test_execute_collect_and_recompute_feedback (test_vivado_qualification.QualificationTests.test_execute_collect_and_recompute_feedback) ... ok
+test_incomplete_object_report_is_rejected (test_vivado_qualification.QualificationTests.test_incomplete_object_report_is_rejected) ... ok
+test_internal_false_path_is_not_a_coverage_fix (test_vivado_qualification.QualificationTests.test_internal_false_path_is_not_a_coverage_fix) ... ok
+test_known_bad_baseline_remains_blocked (test_vivado_qualification.QualificationTests.test_known_bad_baseline_remains_blocked) ... ok
+test_literal_bus_cell_round_trip (test_vivado_qualification.QualificationTests.test_literal_bus_cell_round_trip) ... ok
+test_missing_empty_or_oversized_tool_build_is_rejected (test_vivado_qualification.QualificationTests.test_missing_empty_or_oversized_tool_build_is_rejected) ... ok
+test_missing_hold_or_nan_is_rejected (test_vivado_qualification.QualificationTests.test_missing_hold_or_nan_is_rejected) ... ok
+test_missing_or_conflicting_timing_checks_rejected (test_vivado_qualification.QualificationTests.test_missing_or_conflicting_timing_checks_rejected) ... ok
+test_missing_primary_clock_profile_blocks_coverage (test_vivado_qualification.QualificationTests.test_missing_primary_clock_profile_blocks_coverage) ... ok
+test_model_cannot_supply_exception_without_xdc_command (test_vivado_qualification.QualificationTests.test_model_cannot_supply_exception_without_xdc_command) ... ok
+test_negative_hold_is_measured_but_not_qualified (test_vivado_qualification.QualificationTests.test_negative_hold_is_measured_but_not_qualified) ... ok
+test_reduced_corner_or_io_coverage_is_not_complete (test_vivado_qualification.QualificationTests.test_reduced_corner_or_io_coverage_is_not_complete) ... ok
+test_relative_source_location_is_not_guessed (test_vivado_qualification.QualificationTests.test_relative_source_location_is_not_guessed) ... ok
+test_response_metric_cannot_override_objects (test_vivado_qualification.QualificationTests.test_response_metric_cannot_override_objects) ... ok
+test_setup_floor_is_not_silently_weakened (test_vivado_qualification.QualificationTests.test_setup_floor_is_not_silently_weakened) ... ok
+test_tcl_is_complete_and_uses_real_objects (test_vivado_qualification.QualificationTests.test_tcl_is_complete_and_uses_real_objects) ... ok
+test_unknown_ownership_does_not_use_instance_names (test_vivado_qualification.QualificationTests.test_unknown_ownership_does_not_use_instance_names) ... ok
+test_user_booleans_cannot_admit_a_netlist (test_vivado_qualification.QualificationTests.test_user_booleans_cannot_admit_a_netlist) ... ok
+test_warning_needs_review_even_with_zero_latches (test_vivado_qualification.QualificationTests.test_warning_needs_review_even_with_zero_latches) ... ok
+test_wrong_part_clock_tool_or_stage_rejected (test_vivado_qualification.QualificationTests.test_wrong_part_clock_tool_or_stage_rejected) ... ok
+test_bad_periods (test_vivado_runtime.Reports.test_bad_periods) ... ok
+test_contradictory_slack_is_invalid (test_vivado_runtime.Reports.test_contradictory_slack_is_invalid) ... ok
+test_empty_endpoint_table_is_invalid (test_vivado_runtime.Reports.test_empty_endpoint_table_is_invalid) ... ok
+test_fractional_bram_and_thousands (test_vivado_runtime.Reports.test_fractional_bram_and_thousands) ... ok
+test_fractional_logic_counts_are_invalid (test_vivado_runtime.Reports.test_fractional_logic_counts_are_invalid) ... ok
+test_global_wns_is_not_a_clock_or_hold_row (test_vivado_runtime.Reports.test_global_wns_is_not_a_clock_or_hold_row) ... ok
+test_hold_only_is_not_setup (test_vivado_runtime.Reports.test_hold_only_is_not_setup) ... ok
+test_incomplete_routing_is_invalid (test_vivado_runtime.Reports.test_incomplete_routing_is_invalid) ... ok
+test_missing_reports_fail_closed (test_vivado_runtime.Reports.test_missing_reports_fail_closed) ... ok
+test_no_retracted_projection (test_vivado_runtime.Reports.test_no_retracted_projection) ... ok
+test_nonfinite_path_is_invalid_even_with_summary (test_vivado_runtime.Reports.test_nonfinite_path_is_invalid_even_with_summary) ... ok
+test_nonfinite_summary_is_invalid (test_vivado_runtime.Reports.test_nonfinite_summary_is_invalid) ... ok
+test_route_requires_positive_complete_evidence (test_vivado_runtime.Reports.test_route_requires_positive_complete_evidence) ... ok
+test_routed_timing_requires_worst_path_and_correct_period (test_vivado_runtime.Reports.test_routed_timing_requires_worst_path_and_correct_period) ... ok
+test_summary_cannot_override_violating_setup_path (test_vivado_runtime.Reports.test_summary_cannot_override_violating_setup_path) ... ok
+test_default_paths_are_checkout_relative_and_import_safe (test_vivado_runtime.SLHCheckpointRuntime.test_default_paths_are_checkout_relative_and_import_safe) ... ok
+test_fresh_checkpoint_published_with_actual_configuration (test_vivado_runtime.SLHCheckpointRuntime.test_fresh_checkpoint_published_with_actual_configuration) ... ok
+test_missing_echoed_marker_or_logged_error_rejected (test_vivado_runtime.SLHCheckpointRuntime.test_missing_echoed_marker_or_logged_error_rejected) ... ok
+test_missing_global_include_does_not_launch (test_vivado_runtime.SLHCheckpointRuntime.test_missing_global_include_does_not_launch) ... ok
+test_mutated_source_does_not_publish (test_vivado_runtime.SLHCheckpointRuntime.test_mutated_source_does_not_publish) ... ok
+test_nonzero_status_with_valid_marker_and_dcp_rejected (test_vivado_runtime.SLHCheckpointRuntime.test_nonzero_status_with_valid_marker_and_dcp_rejected) ... ok
+test_old_output_does_not_count_as_new_checkpoint (test_vivado_runtime.SLHCheckpointRuntime.test_old_output_does_not_count_as_new_checkpoint) ... ok
+test_timeout_does_not_publish (test_vivado_runtime.SLHCheckpointRuntime.test_timeout_does_not_publish) ... ok
+test_bad_arguments_do_not_launch (test_vivado_runtime.SearchRuntime.test_bad_arguments_do_not_launch) ... ok
+test_cli_failure_returns_nonzero_with_json (test_vivado_runtime.SearchRuntime.test_cli_failure_returns_nonzero_with_json) ... ok
+test_endpoints_measured_and_legacy_alias_kept (test_vivado_runtime.SearchRuntime.test_endpoints_measured_and_legacy_alias_kept) ... ok
+test_invalid_midpoint_cannot_return_earlier_closure_as_success (test_vivado_runtime.SearchRuntime.test_invalid_midpoint_cannot_return_earlier_closure_as_success) ... ok
+test_lower_endpoint_closed_is_not_global_maximum (test_vivado_runtime.SearchRuntime.test_lower_endpoint_closed_is_not_global_maximum) ... ok
+test_missing_or_echoed_marker_is_invalid (test_vivado_runtime.SearchRuntime.test_missing_or_echoed_marker_is_invalid) ... ok
+test_missing_tool_is_invalid (test_vivado_runtime.SearchRuntime.test_missing_tool_is_invalid) ... ok
+test_no_closed_endpoint_is_not_success (test_vivado_runtime.SearchRuntime.test_no_closed_endpoint_is_not_success) ... ok
+test_nonmonotonic_outcome_is_disclosed (test_vivado_runtime.SearchRuntime.test_nonmonotonic_outcome_is_disclosed) ... ok
+test_nonzero_return_even_with_valid_reports_is_invalid (test_vivado_runtime.SearchRuntime.test_nonzero_return_even_with_valid_reports_is_invalid) ... ok
+test_retry_uses_fresh_attempt_directory (test_vivado_runtime.SearchRuntime.test_retry_uses_fresh_attempt_directory) ... ok
+test_tcl_does_not_swallow_opt_failure_or_downgrade_drc (test_vivado_runtime.SearchRuntime.test_tcl_does_not_swallow_opt_failure_or_downgrade_drc) ... ok
+test_upper_endpoint_can_be_only_closing_sample (test_vivado_runtime.SearchRuntime.test_upper_endpoint_can_be_only_closing_sample) ... ok
+test_backend_forwards_actual_settings (test_vivado_runtime.SynthesisRuntime.test_backend_forwards_actual_settings) ... ok
+test_correct_repo_root_period_part_and_ooc (test_vivado_runtime.SynthesisRuntime.test_correct_repo_root_period_part_and_ooc) ... ok
+test_imports_work_outside_checkout_without_launch_or_output (test_vivado_runtime.SynthesisRuntime.test_imports_work_outside_checkout_without_launch_or_output) ... ok
+test_missing_or_echoed_marker_and_tool_errors (test_vivado_runtime.SynthesisRuntime.test_missing_or_echoed_marker_and_tool_errors) ... ok
+test_missing_sources_never_launch (test_vivado_runtime.SynthesisRuntime.test_missing_sources_never_launch) ... ok
+test_missing_tool_and_timeout_are_reported (test_vivado_runtime.SynthesisRuntime.test_missing_tool_and_timeout_are_reported) ... ok
+test_mldsa_root_controls_all_external_paths (test_vivado_runtime.SynthesisRuntime.test_mldsa_root_controls_all_external_paths) ... ok
+test_nonzero_exit_overrides_reports (test_vivado_runtime.SynthesisRuntime.test_nonzero_exit_overrides_reports) ... ok
+test_stale_reports_cannot_be_accepted (test_vivado_runtime.SynthesisRuntime.test_stale_reports_cannot_be_accepted) ... ok
+test_generated_scripts_parse_with_stubbed_eda_commands (test_vivado_runtime.TclQuoting.test_generated_scripts_parse_with_stubbed_eda_commands) ... ok
+test_quotes_survive_braced_catch_body (test_vivado_runtime.TclQuoting.test_quotes_survive_braced_catch_body) ... ok
+test_accept_remeasure_and_recompute_paths (test_whole_design.WholeDesignTests.test_accept_remeasure_and_recompute_paths) ... ok
+test_asic_translation_uses_real_result_schema (test_whole_design.WholeDesignTests.test_asic_translation_uses_real_result_schema) ... ok
+test_baseline_failure_prevents_measurement_and_proposals (test_whole_design.WholeDesignTests.test_baseline_failure_prevents_measurement_and_proposals) ... ok
+test_baseline_missing_latency_blocks (test_whole_design.WholeDesignTests.test_baseline_missing_latency_blocks) ... ok
+test_budget_and_changed_byte_limit (test_whole_design.WholeDesignTests.test_budget_and_changed_byte_limit) ... ok
+test_candidate_failure_rolls_back_before_measurement (test_whole_design.WholeDesignTests.test_candidate_failure_rolls_back_before_measurement) ... ok
+test_command_input_mutations_are_restored (test_whole_design.WholeDesignTests.test_command_input_mutations_are_restored) ... ok
+test_exception_and_interrupt_restore_candidate (test_whole_design.WholeDesignTests.test_exception_and_interrupt_restore_candidate) ... ok
+test_failed_final_history_write_restores_candidate (test_whole_design.WholeDesignTests.test_failed_final_history_write_restores_candidate) ... ok
+test_interrupt_after_candidate_return_restores_incumbent (test_whole_design.WholeDesignTests.test_interrupt_after_candidate_return_restores_incumbent) ... ok
+test_latency_metrics_configuration_and_scope_regressions_reject (test_whole_design.WholeDesignTests.test_latency_metrics_configuration_and_scope_regressions_reject) ... ok
+test_missing_functional_adapter_or_mapping_blocks_plan (test_whole_design.WholeDesignTests.test_missing_functional_adapter_or_mapping_blocks_plan) ... ok
+test_power_objective_is_not_accepted (test_whole_design.WholeDesignTests.test_power_objective_is_not_accepted) ... ok
+test_proposer_stop_is_a_completed_bounded_run (test_whole_design.WholeDesignTests.test_proposer_stop_is_a_completed_bounded_run) ... ok
+test_read_only_plan (test_whole_design.WholeDesignTests.test_read_only_plan) ... ok
+test_repeat_attempt_hash_ignores_renamed_proposal (test_whole_design.WholeDesignTests.test_repeat_attempt_hash_ignores_renamed_proposal) ... ok
+test_same_controller_for_fpga (test_whole_design.WholeDesignTests.test_same_controller_for_fpga) ... ok
+test_unmapped_missing_and_stale_measurements_block (test_whole_design.WholeDesignTests.test_unmapped_missing_and_stale_measurements_block) ... ok
+test_asic_cli_adapter_uses_existing_plan_and_fresh_extractor (test_whole_design_adapters.AdapterTests.test_asic_cli_adapter_uses_existing_plan_and_fresh_extractor) ... ok
+test_asic_effective_config_mismatch_blocks_before_tool (test_whole_design_adapters.AdapterTests.test_asic_effective_config_mismatch_blocks_before_tool) ... ok
+test_keygen_adapter_cannot_claim_full_target_coverage (test_whole_design_adapters.AdapterTests.test_keygen_adapter_cannot_claim_full_target_coverage) ... ok
+test_mldsa_adapter_binds_every_candidate_and_each_vector_latency (test_whole_design_adapters.AdapterTests.test_mldsa_adapter_binds_every_candidate_and_each_vector_latency) ... ok
+test_mldsa_adapter_refuses_broader_coverage (test_whole_design_adapters.AdapterTests.test_mldsa_adapter_refuses_broader_coverage) ... ok
+test_proposer_rejects_cross_target_measurement_before_model (test_whole_design_adapters.AdapterTests.test_proposer_rejects_cross_target_measurement_before_model) ... ok
+test_proposer_rejects_truncation_outside_paths_and_command_ops (test_whole_design_adapters.AdapterTests.test_proposer_rejects_truncation_outside_paths_and_command_ops) ... ok
+test_proposer_returns_typed_proposal_without_writing_rtl (test_whole_design_adapters.AdapterTests.test_proposer_returns_typed_proposal_without_writing_rtl) ... ok
+test_proposer_uses_existing_cost_opt_in (test_whole_design_adapters.AdapterTests.test_proposer_uses_existing_cost_opt_in) ... ok
+test_proposer_uses_target_specific_policy_without_transferred_evidence (test_whole_design_adapters.AdapterTests.test_proposer_uses_target_specific_policy_without_transferred_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 634 tests in 38.903s
+
+OK
+=== ACCEPTED. ===
+GATE: PASS
+=== ACCEPTED. ===
+GATE: FAIL
+{
+  "design": "fixture",
+  "ts": "2026-10-13 11:31:51",
+  "tag": "chip_fixture_d78eff84e51b",
+  "baseline_sources": {
+    "/tmp/tmpigbok8sn/rtl/a.v": "0682c5f2076f099c34cfdd15a9e063849ed437a49677e6fcc5b4198c76575be5"
+  },
+  "baseline_correctness_status": "PASS",
+  "closure": {
+    "closing_fmax_mhz": 100,
+    "closing_period_ns": 10,
+    "wns_at_close": 0.1
+  },
+  "worst_path": {
+    "source": "a/C",
+    "dest": "b/D"
+  },
+  "dispatch_instance": null,
+  "dispatch_file": null
+}
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: PASS
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: PASS
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: PASS
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: FAIL
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: PASS
+=== ACCEPTED (filter). ===
+
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: PASS
+PQC_BLOCK_FILTER_PASS {"block": "a", "strategy": "flag_precompute", "edits": [{"old": "original", "new": "candidate"}], "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "source_model": "offline-model", "candidate_id": "candidate-1"}
+=== ACCEPTED (filter). ===
+
+GATE: PASS
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+GATE: PASS
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+GATE: FAIL
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+GATE: PASS
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+GATE: PASS
+no_action
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+GATE: PASS
+=== ACCEPTED. ===
+PQC_BLOCK_FILTER_PASS {"candidate_id": "test", "verdict": "BLOCK_FILTER_PASS", "evidence_stage": "block_filter", "design": "fixture", "block": "a", "strategy": "fixture", "source_model": "offline-fixture", "edits": [{"old": "a", "new": "b"}]}
+GATE: PASS
+{
+  "optimization": 1,
+  "discovered": 653,
+  "selected": 634,
+  "ran": 634,
+  "failures": 0,
+  "errors": 0,
+  "skipped": [],
+  "successful": true,
+  "excluded": [
+    {
+      "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+      "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+      "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+      "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+    },
+    {
+      "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    }
+  ],
+  "scope": "Permitted non-HQC subset; not a full suite pass, RTL algorithm requalification, or licensed EDA validation",
+  "elapsed_seconds": 39.375,
+  "runner_sha256": "2a53da0aaec6c8fba3ff091bace77bf5672ebca7599b5e16cc2961bae91cf8a8",
+  "prior_exclusion_count": 19,
+  "new_hqc_exclusions": []
+}

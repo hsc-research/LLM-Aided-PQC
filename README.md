@@ -192,3 +192,7 @@ source bytes intact. Review of historical vendor databases/logs and some
 third-party notices remains open; retaining those files does not establish
 permission to redistribute them. Tools, licenses, PDKs and cell libraries are
 supplied separately.
+
+### Bounded autonomous FPGA experiments
+
+[Run the connected ML-DSA/Vivado experiment loop](docs/AUTONOMOUS_FPGA.md): isolated RTL candidates, full exact-source 210-case checks, matched synthesis feedback, bounded API cost/runtime and persistent source-linked context. Explicit exploration remains provisional; mapped-memory behavioral proof is still required for strict acceptance.
