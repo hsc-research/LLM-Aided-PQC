@@ -21,13 +21,18 @@ part, clock period, constraints and measurement stage.
 ## Prepare feedback without an API key or charge
 
 After the prepared Vivado run finishes, select one to three exported RTL files
-that a human has associated with the reported critical path. There is no automatic
-hierarchy-to-file proof in this preliminary route. Substitute actual file paths:
+that a human has associated with the reported critical path. These are the only
+**editable files**, selected with `--rtl`. Supply top-level interfaces,
+instantiations and relevant cross-module logic separately with **read-only**
+`--context-rtl`. Reading a file does not authorize editing it. There is no automatic
+hierarchy-to-file proof in this preliminary route. Substitute actual file paths
+and source line ranges:
 
 ```sh
 python3 tools/prepare_fpga_proposal.py prepare \
   --preparation build/launch/mldsa-latch-corrected-fpga/preparation.json \
   --rtl build/profiles/mldsa-latch-corrected-fpga/REPLACE_WITH_PROFILE_SOURCE_PATH.v \
+  --context-rtl build/profiles/mldsa-latch-corrected-fpga/REPLACE_WITH_TOP_SOURCE_PATH.v:START:END \
   --out .pqc_runs/fpga-proposals/mldsa-review-001
 ```
 
@@ -36,11 +41,61 @@ for its path. The command finds reports at the frozen launch configuration's
 output directory and requires `timing.rpt`, `utilization.rpt`, `check_timing.rpt`
 and `drc.rpt`. It does not invent missing data or silently truncate reports.
 
-`prompt.json` contains the selected RTL and report text. Inspect it before sharing
+`prompt.json` contains the selected editable RTL, read-only source context and
+complete report text. Inspect it before sharing
 with an API provider. `proposal-context.json` freezes source/configuration/report
 hashes and labels imported results preliminary. Matching hashes establish which
 bytes were imported, not that Vivado actually used them during an earlier run.
 No source file, constraint, or baseline report is modified.
+
+### Top-down context without widening edit permission
+
+Repeat `--context-rtl PATH` for a full read-only file, or
+`--context-rtl PATH:START:END` for an explicit one-based, inclusive line range.
+For example, `top.v:50:90` selects lines 50 through 90 of a file that must be in
+the frozen profile. Replace those example numbers with ranges reviewed against
+**your exact exported source**, not upstream files or a different derivative.
+Specify top-level context first, then the relevant downstream dependencies.
+
+The prompt includes a source overview with the declared top, compile settings,
+the exact ordered source list, and each source's text role. It directs analysis
+from the top-level interfaces and instantiations toward the actual reported
+whole-design critical paths before considering local edits. This is a **partial
+source-context view**, not an elaborated hierarchy graph or proof of ownership
+of synthesized cells. In particular, rebuilt synthesis hierarchy and similarly
+named generated cells are not enough to identify an RTL edit location.
+
+Each read-only entry records the full source's SHA-256, byte and line counts,
+selected line range, exact span SHA-256/byte count, and omitted line counts.
+Lines outside a span are explicitly unknown, not assumed irrelevant. Read-only
+text preserves UTF-8 bytes and CRLF; line ranges split on LF boundaries. Editable
+text uses universal newlines, matching the existing exact-anchor preview, while
+its input hash still binds the original bytes. All profile sources, including
+unselected files and omitted lines, remain frozen and are rechecked before a
+request and during review. Reports are read and hashed from the same byte snapshot.
+
+The following fail closed before creating a prompt:
+
+- A read-only source outside the exact exported profile, a direct symlink target,
+  or a colon-containing filename ambiguous with range syntax
+- A source selected as both editable and read-only, duplicate/overlapping ranges,
+  invalid/reversed/out-of-file line numbers, or duplicate canonical profile paths
+- More than three editable files or 64 read-only selections
+- More than 4 MiB in one scanned read-only source or 16 MiB across unique scanned
+  read-only sources
+- A combined system/user prompt exceeding **192 KiB**, including the complete
+  reports, source text and metadata; nothing is silently truncated
+
+Canonical parent-directory aliases still resolve through exact profile membership.
+Selecting a small span from a large generated file is supported within the scan
+limits. Reduce explicit spans when the total prompt is too large. No report is
+dropped to make room, and no model request is made by `prepare`.
+
+The source-context feature changes neither the three-file edit limit nor the
+exact-anchor, size, interface/latency and verification requirements. A proposed
+edit to any read-only file is rejected, even if all its text was provided. A fresh
+prepared prompt is only an offline artifact; it does not authorize another paid
+request or imply that a defensible optimization exists.
 
 ## Optional single Claude request
 
