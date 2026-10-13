@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-13T18:33:07.863839+00:00",
+  "base_commit": "f160f64b9ce71a262c004bd005da3bdd32c165fa",
+  "status": "PERMITTED_SOFTWARE_VALIDATION_PASS",
+  "source_files_sha256": {
+    "agent/autonomous_design.py": "98c945f98dc7daf0db0511162f21344f0729ef37fc0b866ee285caf97dba82fb",
+    "agent/autonomous_fpga.py": "3473c7be9750fe6bcb2902f9e741dc46ed24c49a259f984cd3322de5a204fab5",
+    "agent/current_dashboard.py": "5693a52d6ed9b54b96bcf6317a23b838dfd3f52acbb2b745f1fa2f65e76a23a3",
+    "agent/dashboard_static/current.js": "5cf38baa6534b70f0f5b5ab5876e61d6e9d7b483fc9d9211ba8f4e0925e56738",
+    "agent/fpga_feedback.py": "3fbd0fffe2bdcd543de04ee568d4eb1e80e5b06dfbcc60d132bb7ea0452f10db",
+    "agent/vivado_qualification.py": "8e3718e7c06db0191c35328250be2207d59766757b892d30a7c3aeb4deb126ce",
+    "agent/vivado_qualification.tcl": "38b059d565244d1781402321f3dc58e936bd21ea7ff0c4184fa3fee669557fe3",
+    "agent/whole_design.py": "f5733726462704dd6baf2c0277d5538d868f7f265a7743822faa309e4b854f19",
+    "configs/autonomous_fpga.example.json": "0277ed2befe7cc9207c41b608681836b801836c5764739c584088aafcb462e8f",
+    "tests/test_autonomous_fpga.py": "97f36fb875017e65ca9908ed3401fbfc62b60113fb50f2e8e1e16564afb82f2e",
+    "tests/test_autonomous_fpga_adversarial.py": "2ceea39e568203613c753751b75ee7b420c7d2d74a98067553d61ff8bffd2f6e",
+    "tests/test_vivado_qualification.py": "7bd0bf14c10f4ddebfab7de0ed6e6541d149eec916ee35b54334784e7c06dba7"
+  },
+  "software_tests": {
+    "0": {
+      "optimization": 0,
+      "discovered": 653,
+      "selected": 634,
+      "ran": 634,
+      "failures": 0,
+      "errors": 0,
+      "skipped": [],
+      "successful": true,
+      "excluded": [
+        {
+          "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+          "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+          "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+          "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        }
+      ],
+      "scope": "Permitted non-HQC subset; not a full suite pass, RTL algorithm requalification, or licensed EDA validation",
+      "elapsed_seconds": 39.418,
+      "runner_sha256": "2a53da0aaec6c8fba3ff091bace77bf5672ebca7599b5e16cc2961bae91cf8a8",
+      "prior_exclusion_count": 19,
+      "new_hqc_exclusions": []
+    },
+    "1": {
+      "optimization": 1,
+      "discovered": 653,
+      "selected": 634,
+      "ran": 634,
+      "failures": 0,
+      "errors": 0,
+      "skipped": [],
+      "successful": true,
+      "excluded": [
+        {
+          "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+          "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+          "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+          "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        }
+      ],
+      "scope": "Permitted non-HQC subset; not a full suite pass, RTL algorithm requalification, or licensed EDA validation",
+      "elapsed_seconds": 39.375,
+      "runner_sha256": "2a53da0aaec6c8fba3ff091bace77bf5672ebca7599b5e16cc2961bae91cf8a8",
+      "prior_exclusion_count": 19,
+      "new_hqc_exclusions": []
+    }
+  },
+  "checks": {
+    "node_syntax": "PASS: node --check agent/dashboard_static/current.js",
+    "git_diff_check": "PASS",
+    "cli_help": "PASS: python3 -m agent.autonomous_fpga --help",
+    "real_preparation_smoke": "PASS: latch-corrected ML-DSA export/site preparation/load settings/isolated setup; 35 sources, 210 declared case keys; no simulator, EDA or API invoked by this smoke test",
+    "independent_review": "No remaining blocking findings; 71 focused controller/adversarial/qualification tests passed normally and with -O. Final controller SHA-256: 3473c7be9750fe6bcb2902f9e741dc46ed24c49a259f984cd3322de5a204fab5."
+  },
+  "commands": [
+    "PATH=/workspace/shared/spectral-memory-reduction/tools/bin:$PATH MAKEFLAGS=CFG_CXXFLAGS_PCH_I=-include /workspace/scratch/8c6eb979d526/pqc-response-review/.venv/bin/python docs/verification/autonomous-fpga-2026-10-13/run_permitted_subset.py",
+    "Same command with python -O for optimized run"
+  ],
+  "execution_scope": {
+    "paid_api_requests": 0,
+    "licensed_eda_runs": 0,
+    "new_full_pqc_kat_runs": 0,
+    "hqc_tests_run": 0,
+    "existing_open_source_simulator_tests": "Permitted non-cryptographic AHB plumbing and shutdown regressions ran using existing Icarus/Verilator wrappers.",
+    "browser_visual_test": "Not performed; dashboard Python endpoint tests and JavaScript syntax checks passed."
+  },
+  "limitations": [
+    "Real Vivado producer was not run on the licensed server; synthetic raw-report fixtures validate the parser contract only.",
+    "Mapped-memory startup/reset/read/write/collision proof is not implemented. Strict acceptance remains blocked for real FPGA measurements.",
+    "Explicit exploratory mode performs candidate verification/measurement/feedback while keeping every candidate provisional.",
+    "Finite 210-case checks do not establish formal equivalence, exhaustive behavior, physical side-channel resistance or FIPS certification.",
+    "No Genus/DC optimization qualification or other PQC algorithm support is claimed by this FPGA entrypoint."
+  ],
+  "artifacts": {
+    "README.md": "e0bea544b749a075b732133b3a988c38e26480f24c01d5411d2e8fa58eebdf1c",
+    "run_permitted_subset.py": "2a53da0aaec6c8fba3ff091bace77bf5672ebca7599b5e16cc2961bae91cf8a8",
+    "unittest-O0.json": "952d6d2655e34eaa1439c3e87f7e2427785619f906a66c6bd6a3ecb30c120067",
+    "unittest-O0.log.txt": "66dba1a7a3e39c65ccb694a31121c8069aed85599da107f4ef2762ed872db0f1",
+    "unittest-O1.json": "ba64106b94c837f6c7b58b4971a8d62eaa26dd9eb59a8a087c157450d3b1ce48",
+    "unittest-O1.log.txt": "82668923641a7b69a25e6d6e38a1650870cd1fe5f19be5a3adb1580f78485ec2"
+  }
+}
