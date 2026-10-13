@@ -22,7 +22,7 @@ setInterval(()=>{
 /* ---------- theme ---------- */
 document.querySelectorAll('.themes button').forEach(b=>b.onclick=()=>{
   document.body.dataset.theme=b.dataset.t;localStorage.setItem('theme',b.dataset.t);});
-document.body.dataset.theme=localStorage.getItem('theme')||'matrix';
+document.body.dataset.theme='light'; // Shared HSC shell; no animated background.
 
 /* ---------- helpers ---------- */
 const $=id=>document.getElementById(id);
@@ -40,9 +40,13 @@ function svgLine(pts,w,h,color){
 }
 
 /* ---------- drill-down modal ---------- */
-function openModal(html){$('mbody').innerHTML=html;$('modal').classList.remove('hidden');}
-$('mclose').onclick=()=>$('modal').classList.add('hidden');
-$('modal').onclick=e=>{if(e.target.id==='modal')$('modal').classList.add('hidden');};
+let modalReturnFocus=null;
+function openModal(html){modalReturnFocus=document.activeElement;$('mbody').innerHTML=html;$('modal').classList.remove('hidden');$('mclose').focus();}
+function closeModal(){$('modal').classList.add('hidden');if(modalReturnFocus&&modalReturnFocus.isConnected)modalReturnFocus.focus();}
+$('mclose').onclick=closeModal;
+$('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
+document.addEventListener('keydown',e=>{if($('modal').classList.contains('hidden'))return;if(e.key==='Escape'){e.preventDefault();closeModal();}if(e.key==='Tab'){const f=$('modal').querySelectorAll('button,a[href],input,select,[tabindex="0"]');const first=f[0],last=f[f.length-1];if((e.shiftKey&&document.activeElement===first)||(!e.shiftKey&&document.activeElement===last)){e.preventDefault();(e.shiftKey?last:first).focus();}}});
+function enableKeyboardDetails(){document.querySelectorAll('#feed .card,.dot.now').forEach(el=>{el.setAttribute('role','button');el.setAttribute('tabindex','0');el.setAttribute('aria-label',el.classList.contains('dot')?'View historical block details':'View historical attempt details');el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}};});}
 function editHtml(edits){
   if(!edits||!edits.length)return '<div class="nobase">edit text not recorded for this win</div>';
   return edits.map((e,i)=>`<div class="diff"><h3>EDIT ${i+1}${e.file?' — '+esc(e.file):''}</h3>
@@ -84,7 +88,7 @@ function render(){
   const dk=Object.keys(d.designs||{});
   if(!dk.includes(DESIGN))DESIGN=dk[0];
   $('tabs').innerHTML=dk.map(k=>`<button class="${k===DESIGN?'on':''}" data-k="${esc(k)}">${esc(d.designs[k].label||k)}</button>`).join('');
-  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{DESIGN=b.dataset.k;localStorage.setItem('design',DESIGN);render();});
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{DESIGN=b.dataset.k;localStorage.setItem('design',DESIGN);render();enableKeyboardDetails();const active=Array.from(document.querySelectorAll('#tabs button')).find(x=>x.dataset.k===DESIGN);if(active)active.focus();});
   const des=d.designs[DESIGN]||{cores:[]};
   const vals=des.cores.flatMap(c=>[c.base,c.now]).filter(v=>typeof v==='number');
   const mn=Math.min(...vals,0)-0.2,mx=Math.max(...vals,0)+0.2;
@@ -141,7 +145,7 @@ function drawFeed(){
       ${c.detail?`<pre>${esc(JSON.stringify(c.detail,null,1))}</pre>`:''}`);
   });
 }
-$('q').oninput=drawFeed;
+$('q').oninput=()=>{drawFeed();enableKeyboardDetails();};
 
 /* ---------- side panels ---------- */
 async function loadSide(){
@@ -165,9 +169,15 @@ async function loadSide(){
   }catch(e){}
 }
 
-/* ---------- poll ---------- */
-async function tick(){
-  try{DATA=await(await fetch('/api/data')).json();render();}catch(e){}
-  loadSide();
+/* ---------- read-only polling ---------- */
+let legacyBusy=false,legacySignature='';
+async function tick(manual){
+ if(legacyBusy)return;
+ if(!$('modal').classList.contains('hidden'))return;
+ if(!manual&&$('legacy-main').contains(document.activeElement))return;
+ legacyBusy=true;
+ try{const response=await fetch('/api/data',{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();const signature=JSON.stringify({...data,now:null});if(signature!==legacySignature){DATA=data;legacySignature=signature;render();enableKeyboardDetails();$('legacy-state').textContent='Historical records updated. These are not current-run measurements.';}else if(manual){$('legacy-state').textContent='No changes to historical records.';}await loadSide();}catch(e){$('legacy-state').textContent='Refresh failed; historical data may be stale. '+e.message;}finally{legacyBusy=false;}
 }
-tick();setInterval(tick,5000);
+$('legacy-refresh').onclick=()=>tick(true);
+$('legacy-auto').onchange=()=>{$('legacy-state').textContent=$('legacy-auto').checked?'Historical auto-refresh enabled.':'Historical auto-refresh paused.';};
+tick(false);setInterval(()=>{if($('legacy-auto').checked)tick(false);},5000);

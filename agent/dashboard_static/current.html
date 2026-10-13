@@ -1,5 +1,28 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PQC current runs</title>
-<style>body{font:16px system-ui;background:#f3f5f8;color:#15243b;margin:2rem auto;padding:0 1rem;max-width:1100px}article{background:white;border:1px solid #cad3de;border-left:5px solid #327483;border-radius:8px;padding:1.2rem;margin:1rem 0}h1,h2{color:#16385c}dt{font-weight:650}dd{margin:0 0 .6rem;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f4f7;padding:1rem}.warning{color:#854800}a{color:#1756a3}button{padding:.6rem 1rem}#state{min-height:1.5rem}</style>
-<h1>PQC current runs</h1><p>Read-only monitoring. A proposal is not a verified improvement. Status reflects the latest saved record, not a live process check. No jobs or API calls can be started here.</p>
-<p><a href="/legacy">Historical dashboard (legacy data, not the current baseline)</a></p><button id="refresh">Refresh</button><p id="state" role="status" aria-live="polite"></p><main id="runs"></main>
-<script src="/static/current.js"></script></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PQC Agent | HSC Research Lab</title>
+<link rel="stylesheet" href="/static/hsc-dashboard.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to results</a>
+<header class="brand-header">
+ <a href="https://hsc-research.org/" class="lab-mark"><img src="/static/brand/hsc-logo.png" alt="Hardware Security and Cryptography Research Lab" width="1536" height="458"></a>
+ <img class="university-mark" src="/static/brand/University_of_Idaho_logo.png" alt="University of Idaho" width="1920" height="533">
+</header>
+<div class="app-bar"><div class="app-title">PQC Agent <span>FPGA &amp; ASIC research</span></div><span class="read-only">Read-only monitor</span></div>
+<nav class="main-nav" aria-label="Dashboard views"><a href="/" aria-current="page">Current runs</a><a href="/legacy">Historical experiments</a><a href="#comparison-guide">How to read results</a></nav>
+<main id="main" tabindex="-1" class="workspace">
+ <div class="page-heading"><div><p class="eyebrow">Experiment workspace</p><h1>Run tracking &amp; results</h1><p>Follow proposals, inspect the baseline, and check what still needs verification.</p></div><div class="toolbar"><label class="auto-label"><input id="auto-refresh" type="checkbox" checked> Auto-refresh every 5 seconds</label><button id="refresh" type="button">Refresh now</button></div></div>
+ <p id="state" class="connection-status" role="status" aria-live="polite">Loading saved run records. If this message remains, check that JavaScript is enabled and refresh the page.</p>
+ <noscript><p class="notice warning">JavaScript is required for live updates. You can inspect the read-only JSON at <a href="/api/current">/api/current</a>.</p></noscript>
+ <section id="overview" class="summary-grid" aria-label="Current run summary"></section>
+ <div class="run-toolbar"><label for="run-select">Run</label><select id="run-select"><option value="">All current runs</option></select><span>Only source-bound current records are shown here.</span></div>
+ <div id="errors" class="errors" aria-label="Record warnings"></div>
+ <div id="runs"><section class="panel empty"><h2>Waiting for saved records</h2><p>No API call or hardware job is started by this page.</p></section></div>
+ <section id="comparison-guide" class="panel guide"><h2>How to read these results</h2><div class="guide-grid"><div><h3>Measured, estimated, or missing?</h3><p>Imported synthesis reports are preliminary observations. Routed timing, workload power, and functional verification require their own evidence. Missing values stay unknown.</p></div><div><h3>When is an improvement valid?</h3><p>Compare the same device, tool settings, constraints, design scope, and verification coverage. A proposal preview is not an accepted design. Candidate values remain Not run until measurements are available.</p></div><div><h3>What does the monitor do?</h3><p>It reads saved records only. It cannot call an API, edit RTL, launch tools, or approve a candidate. A saved Running status does not prove that a process is still active.</p></div></div></section>
+</main>
+<footer class="site-footer">Hardware Security and Cryptography Research Lab · University of Idaho <span>Local monitoring · No external tracking</span></footer>
+<script src="/static/current.js"></script>
+</body></html>

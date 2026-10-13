@@ -97,6 +97,46 @@ class CurrentDashboardTests(unittest.TestCase):
         self.assertEqual(result['metrics']['ramb36'], 29)
         self.assertFalse(result['timing_signoff'])
 
+    def test_hierarchical_instances_are_ranked_not_summed(self):
+        result = report_summary({'utilization.rpt': """
+| Instance | Module | Total LUTs | FFs | RAMB36 | RAMB18 | DSP Blocks |
+| top | (top) | 100 | 50 | 2 | 0 | 1 |
+| A | block_a | 70 | 30 | 1 | 0 | 1 |
+| nested | block_n | 60 | 20 | 0 | 0 | 1 |
+| B | block_b | 30 | 20 | 1 | 0 | 0 |
+"""})
+        self.assertEqual(result['metrics']['luts'], 100)
+        self.assertEqual([r['instance'] for r in result['resource_instances']], ['A','nested','B'])
+        self.assertEqual(report_summary({})['resource_instances'], [])
+
+    def test_setup_and_hold_path_details(self):
+        result = report_summary({'timing.rpt': """Slack (MET) : 0.293ns
+ Source: DECODER/encode_mode_reg[0]/C
+ Destination: ENCODER/PISO_reg[102]/D
+ Path Group: clk
+ Path Type: Setup (Max at Slow Process Corner)
+ Data Path Delay: 14.652ns (logic 4.263ns (29.095%) route 10.389ns (70.905%))
+ Logic Levels: 20 (LUT6=10)
+Slack (VIOLATED) : -0.201ns
+ Source: GEN_Y/OFFSET_reg[0]/C
+ Destination: GEN_Y/OFFSET_reg[1]/D
+ Path Type: Hold (Min at Fast Process Corner)
+"""})
+        paths = result['critical_paths']
+        self.assertEqual(len(paths), 2)
+        self.assertEqual(paths[0]['data_path_delay_ns'], 14.652)
+        self.assertEqual(paths[0]['net_delay_ns'], 10.389)
+        self.assertEqual(paths[0]['logic_levels'], 20)
+        self.assertTrue(paths[1]['path_type'].startswith('Hold'))
+        self.assertEqual(paths[1]['slack_ns'], -.201)
+        self.assertIsNone(paths[1]['net_delay_ns'])
+
+    def test_hold_summary_kept_separate_from_setup(self):
+        result = report_summary({'timing.rpt': ' WNS(ns) TNS(ns) TNS Failing Endpoints TNS Total Endpoints WHS(ns) THS(ns) THS Failing Endpoints THS Total Endpoints\n --- --- --- --- --- --- --- ---\n 0.293 0.000 0 68434 0.201 0.000 0 68434\n'})
+        self.assertEqual(result['metrics']['worst_setup_slack_ns'], .293)
+        self.assertEqual(result['metrics']['worst_hold_slack_ns'], .201)
+        self.assertIsNone(result['metrics']['latency_cycles'])
+
     def test_flat_utilization_report(self):
         result = report_summary({'utilization.rpt': """
 | Site Type | Used | Fixed | Available | Util% |
@@ -120,6 +160,55 @@ class CurrentDashboardTests(unittest.TestCase):
         self.assertIsNone(result['metrics']['luts'])
         self.assertIsNone(result['metrics']['bram_tiles'])
 
+    def test_brand_and_accessibility_markup(self):
+        from html.parser import HTMLParser
+        class Inspector(HTMLParser):
+            def __init__(self):
+                super().__init__(); self.ids = []; self.main = 0; self.h1 = 0
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if 'id' in attrs: self.ids.append(attrs['id'])
+                if tag == 'main': self.main += 1
+                if tag == 'h1': self.h1 += 1
+        static = Path(__file__).resolve().parents[1] / 'agent/dashboard_static'
+        for filename in ('current.html', 'index.html'):
+            text = (static / filename).read_text()
+            parser = Inspector(); parser.feed(text)
+            self.assertEqual(parser.main, 1)
+            self.assertEqual(parser.h1, 1)
+            self.assertEqual(len(parser.ids), len(set(parser.ids)))
+            self.assertIn('Skip to results', text)
+            self.assertIn('hsc-logo.png', text)
+            self.assertIn('University_of_Idaho_logo.png', text)
+            self.assertIn('aria-current="page"', text)
+        css = (static / 'hsc-dashboard.css').read_text()
+        self.assertIn('focus-visible', css)
+        self.assertIn('prefers-reduced-motion', css)
+        def luminance(hex_color):
+            channels = [int(hex_color[i:i+2], 16) / 255 for i in (0, 2, 4)]
+            linear = [v / 12.92 if v <= .04045 else ((v + .055) / 1.055) ** 2.4 for v in channels]
+            return sum(a*b for a,b in zip(linear, (.2126,.7152,.0722)))
+        for foreground, background in [('191919','f1b300'),('545454','ffffff'),('735400','ffffff'),('ffffff','191919')]:
+            a,b = sorted((luminance(foreground),luminance(background)))
+            self.assertGreaterEqual((b+.05)/(a+.05),4.5)
+
+    def test_asic_records_are_included_without_relabeling(self):
+        from unittest.mock import patch
+        with patch('agent.current_dashboard.collect_asic', return_value={'runs': [{'id':'asic-record','target':'asic'}], 'errors': []}):
+            data = collect(self.root)
+        self.assertEqual(len(data['runs']), 2)
+        self.assertEqual(data['runs'][-1]['target'], 'asic')
+
+    def test_direct_script_import_preserves_package_imports(self):
+        try:
+            import flask
+        except ImportError:
+            self.skipTest('Install dashboard extra for entry-point test')
+        import runpy
+        module = runpy.run_path(str(Path(__file__).resolve().parents[1] / 'agent/dashboard.py'), run_name='dashboard_import_test')
+        module['app'].config['PQC_REPO_ROOT'] = str(self.root)
+        self.assertEqual(module['app'].test_client().get('/api/current').status_code, 200)
+
     def test_endpoints_and_ui_are_read_only(self):
         try:
             from agent.dashboard import app
@@ -132,8 +221,8 @@ class CurrentDashboardTests(unittest.TestCase):
         self.assertEqual(client.post('/').status_code, 405)
         with client.get('/') as response:
             html = response.get_data(as_text=True)
-        self.assertIn('PQC current runs', html)
-        self.assertIn('Historical dashboard', html)
+        self.assertIn('Run tracking &amp; results', html)
+        self.assertIn('Historical experiments', html)
         with client.get('/static/current.js') as response:
             js = response.get_data(as_text=True)
         self.assertIn('textContent', js)

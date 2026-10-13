@@ -4,25 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PQC Agent — Mission Control</title>
-<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/app.css"><link rel="stylesheet" href="/static/hsc-dashboard.css">
 </head>
-<body data-theme="matrix"><div style="padding:16px;background:#fff0c2;color:#332000">Historical records only. These values are not the current FPGA baseline. <a href="/">Current runs</a></div>
+<body class="legacy-shell" data-theme="light">
+<a class="skip-link" href="#legacy-main">Skip to results</a>
+<header class="brand-header">
+ <a href="https://hsc-research.org/" class="lab-mark"><img src="/static/brand/hsc-logo.png" alt="Hardware Security and Cryptography Research Lab" width="1536" height="458"></a>
+ <img class="university-mark" src="/static/brand/University_of_Idaho_logo.png" alt="University of Idaho" width="1920" height="533">
+</header>
+<div class="app-bar"><div class="app-title">PQC Agent <span>FPGA &amp; ASIC research</span></div><span class="read-only">Read-only monitor</span></div>
+<nav class="main-nav" aria-label="Dashboard views"><a href="/">Current runs</a><a href="/legacy" aria-current="page">Historical experiments</a><a href="/#comparison-guide">How to read results</a></nav>
 <canvas id="rain"></canvas>
-<div class="wrap">
-  <header>
-    <div class="brand">
-      <span class="logo">▚</span>
-      <div><h1>PQC AGENT</h1><div class="sub">LLM-aided PPA optimization — HQC · ML-DSA · Artix-7</div></div>
-    </div>
-    <div class="hdr-right">
-      <div id="clock" class="clock"></div>
-      <div class="themes">
-        <button data-t="matrix" title="Matrix">◉</button>
-        <button data-t="dark" title="Dark">◐</button>
-        <button data-t="light" title="Light">○</button>
-      </div>
-    </div>
-  </header>
+<main class="wrap" id="legacy-main" tabindex="-1">
+<h1>Historical experiments</h1><p class="notice warning">Historical records only. These values belong to earlier source trees and configurations; they are not the current FPGA baseline or verified gains for your new run.</p><div class="toolbar"><label class="auto-label"><input id="legacy-auto" type="checkbox" checked> Auto-refresh historical records</label><button id="legacy-refresh" type="button">Refresh now</button></div><p id="legacy-state" role="status" aria-live="polite">Loading historical records.</p><div id="clock" class="clock"></div>
 
   <section id="hero" class="hero"><div id="status" class="status">loading…</div>
     <div id="procs" class="procs"></div>
@@ -41,20 +35,20 @@
     </div>
   </section>
 
-  <section class="panel"><h2>Cumulative verified gain</h2><div id="trend"></div></section>
+  <section class="panel"><h2>Historical recorded gain (not current-run evidence)</h2><div id="trend"></div></section>
   <section class="panel"><h2>Per-block trajectories</h2><div id="traj" class="trajgrid"></div></section>
 
   <section class="panel"><h2>Attempt feed</h2>
     <div class="feedbar">
-      <input id="q" placeholder="filter: block, strategy, verdict…">
+      <label for="q">Filter historical attempts</label><input id="q" placeholder="filter: block, strategy, verdict…">
       <div id="legend" class="legend"></div>
     </div>
     <div id="feed"></div>
   </section>
-</div>
+</main>
 
-<div id="modal" class="modal hidden"><div class="modal-card">
-  <button id="mclose" class="mclose">✕</button>
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Historical experiment details"><div class="modal-card">
+  <button id="mclose" class="mclose" aria-label="Close experiment details">✕</button>
   <div id="mbody"></div>
 </div></div>
 <script src="/static/app.js"></script>

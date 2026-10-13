@@ -7,7 +7,9 @@ import json, os, time, subprocess
 try:
     from .current_dashboard import collect
 except ImportError:
-    from current_dashboard import collect
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from agent.current_dashboard import collect
 from flask import Flask, jsonify, send_from_directory
 
 HERE = os.path.dirname(os.path.abspath(__file__))
