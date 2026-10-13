@@ -194,7 +194,7 @@ def proposal(directory):
             continue
         summary['status'] = label(record.get('status'))
         if filename == 'proposal-run.json':
-            for key in ('api_calls_attempted', 'reported_cost_usd', 'estimated_max_cost_usd', 'input_tokens', 'output_tokens'):
+            for key in ('api_calls_attempted', 'token_count_requests_attempted', 'reported_cost_usd', 'estimated_max_cost_usd', 'input_tokens', 'output_tokens'):
                 value = record.get(key)
                 if key.endswith('_usd') and isinstance(value, str):
                     try:
@@ -203,6 +203,14 @@ def proposal(directory):
                         value = None
                 summary[key] = number(value) if number(value) is not None and value >= 0 else None
             summary['model'] = label(record.get('model'))
+            # Only bounded enums/numbers, never SDK exception text or credentials.
+            if record.get('failure_stage') in {'credential_setup', 'token_count', 'budget_check', 'generation', 'response_review'}:
+                summary['failure_stage'] = record['failure_stage']
+            if record.get('error_category') in {'interrupted', 'workspace_required', 'authentication', 'permission', 'not_found', 'rate_limit', 'provider_unavailable', 'local_credentials', 'connection_or_timeout', 'local_configuration_or_validation', 'invalid_request', 'unknown'}:
+                summary['error_category'] = record['error_category']
+            status = record.get('provider_http_status')
+            if type(status) is int and 100 <= status <= 599:
+                summary['provider_http_status'] = status
             summary['cost_note'] = 'Generation attempts exclude token-count requests. Costs use declared pricing; unknown usage/cost stays unknown. Estimates are not billing caps.'
         else:
             summary['review_status'] = label(record.get('status'))

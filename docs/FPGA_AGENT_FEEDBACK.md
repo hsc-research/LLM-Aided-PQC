@@ -45,8 +45,10 @@ No source file, constraint, or baseline report is modified.
 ## Optional single Claude request
 
 Only run after approving the chosen model, data sent and expected API spending.
-Set `ANTHROPIC_API_KEY` privately in the current shell; never put it in a repository
-file. Install the project's optional `llm` dependencies. Supply current prices
+[Set up the local encrypted Claude vault](CLAUDE_CREDENTIALS.md) first. The
+foreground command prompts for its passphrase; the key and workspace ID never
+need to be retyped for each run. Install the project's optional `llm` dependencies.
+Supply current prices
 for the exact model and your budget; the following values are placeholders:
 
 ```sh
@@ -67,7 +69,11 @@ unknown cost and is never automatically retried. Do not start another request
 until checking provider usage. Reusing the same request directory is refused.
 
 `proposal-run.json` records state, model, estimated cost and returned token usage;
-it never records the key or SDK exception text. `review.json` states whether the
+it never records the key or SDK exception text. Bounded failure-stage/category
+fields distinguish local unlock, token-count, generation and review failures.
+For a confirmed zero-generation preflight failure, use the explicit
+[offline recovery command](CLAUDE_CREDENTIALS.md#recover-a-confirmed-preflight-failure-without-erasing-history)
+to prepare a new context while preserving the original claim and record. `review.json` states whether the
 typed edit can be previewed against the original source. `EDIT_PREVIEW_VALID_NOT_APPLIED`
 means only the edit anchors and allowed paths passed validation. Correctness,
 latency and PPA remain unverified. There are no new power measurements here.

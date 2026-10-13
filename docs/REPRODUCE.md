@@ -411,8 +411,11 @@ python3 -m pip install -e '.[dashboard]'
 python3 -m pip install -e '.[llm]'
 ```
 
-The LLM extra additionally needs `PQC_ENABLE_LLM=1` and `ANTHROPIC_API_KEY` in
-the process environment. Model calls can send RTL/report excerpts to an
+The LLM extra additionally needs `PQC_ENABLE_LLM=1` and deliberately configured
+credentials. For foreground proposals, use the [local encrypted Claude vault](CLAUDE_CREDENTIALS.md);
+it saves the key/workspace once and prompts for a passphrase on each new process.
+Detached controller jobs cannot unlock this terminal-only vault. Existing
+site-managed environment integrations must explicitly select `PQC_CLAUDE_AUTH=env`. Model calls can send RTL/report excerpts to an
 external provider and incur charges. Review the inputs and budget; never put
 credentials in Git, prompts or result logs. Setup, tests, report review and
 standalone synthesis do not need a model key.

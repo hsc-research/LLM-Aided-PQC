@@ -11,7 +11,7 @@ license = {text = "GPL-3.0-only"}
 dependencies = []
 
 [project.optional-dependencies]
-llm = ["anthropic>=0.40,<1"]
+llm = ["anthropic>=0.45,<1", "cryptography>=44,<51"]
 dashboard = ["Flask>=3,<4"]
 
 [project.scripts]
