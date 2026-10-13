@@ -15,6 +15,10 @@ is imported separately and remains unverified. The `hqc` / `hqc_baseline` keys
 and existing joint gate below continue to use the older SAC 2023-derived
 source trees; no runner has been silently redirected.
 
+See the [current-run dashboard](../docs/CURRENT_DASHBOARD.md) for read-only
+proposal progress, imported FPGA reports, and API usage. The default page keeps
+historical experiments separate from your current baseline.
+
 ## Entry points
 
 | Command | Purpose |

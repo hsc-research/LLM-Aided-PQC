@@ -1,0 +1,9 @@
+test_evidence_rejects_claim_only_or_changed_sources (tests.test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_evidence_rejects_claim_only_or_changed_sources) ... ok
+test_only_two_defaults_change_for_both_variants (tests.test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_only_two_defaults_change_for_both_variants) ... ok
+test_profiles_explicit_fpga_only_and_remain_target_unqualified (tests.test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_profiles_explicit_fpga_only_and_remain_target_unqualified) ... ok
+test_transform_fails_closed_on_repeat_or_changed_anchor (tests.test_mldsa_fpga_latch_correction.FpgaLatchCorrectionTests.test_transform_fails_closed_on_repeat_or_changed_anchor) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.442s
+
+OK

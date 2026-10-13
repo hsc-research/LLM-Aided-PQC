@@ -1,0 +1,52 @@
+ML-DSA-II.Verify, KAT # 0 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT # 1 completed in                 6716 clock cycles
+ML-DSA-II.Verify, KAT # 2 completed in                 6668 clock cycles
+ML-DSA-II.Verify, KAT # 3 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT # 4 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT # 5 completed in                 6596 clock cycles
+ML-DSA-II.Verify, KAT # 6 completed in                 6764 clock cycles
+ML-DSA-II.Verify, KAT # 7 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT # 8 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT # 9 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT #10 completed in                 6908 clock cycles
+ML-DSA-II.Verify, KAT #11 completed in                 6596 clock cycles
+ML-DSA-II.Verify, KAT #12 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT #13 completed in                 6584 clock cycles
+ML-DSA-II.Verify, KAT #14 completed in                 6584 clock cycles
+Moving to ML-DSA-III.Verify. ML-DSA-II completed in avg.        6637 clock cycles
+ML-DSA-III.Verify, KAT # 0 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 1 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 2 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 3 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 4 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 5 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 6 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 7 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 8 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT # 9 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT #10 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT #11 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT #12 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT #13 completed in                 9730 clock cycles
+ML-DSA-III.Verify, KAT #14 completed in                 9730 clock cycles
+Moving to ML-DSA-V.Verify. ML-DSA-III completed in avg.        9730 clock cycles
+ML-DSA-V.Verify, KAT # 0 completed in                14644 clock cycles
+ML-DSA-V.Verify, KAT # 1 completed in                14642 clock cycles
+ML-DSA-V.Verify, KAT # 2 completed in                14640 clock cycles
+ML-DSA-V.Verify, KAT # 3 completed in                14632 clock cycles
+ML-DSA-V.Verify, KAT # 4 completed in                14650 clock cycles
+ML-DSA-V.Verify, KAT # 5 completed in                14644 clock cycles
+ML-DSA-V.Verify, KAT # 6 completed in                14642 clock cycles
+ML-DSA-V.Verify, KAT # 7 completed in                14644 clock cycles
+ML-DSA-V.Verify, KAT # 8 completed in                14646 clock cycles
+ML-DSA-V.Verify, KAT # 9 completed in                14655 clock cycles
+ML-DSA-V.Verify, KAT #10 completed in                14638 clock cycles
+ML-DSA-V.Verify, KAT #11 completed in                14648 clock cycles
+ML-DSA-V.Verify, KAT #12 completed in                14634 clock cycles
+ML-DSA-V.Verify, KAT #13 completed in                14638 clock cycles
+ML-DSA-V.Verify, KAT #14 completed in                14642 clock cycles
+Testbench done. ML-DSA-V completed in avg.       14642 clock cycles
+- /workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/ref_combined/src_tb/tb_verify_top.v:678: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.49
+- Verilator: $finish at 5ms; walltime 3.927 s; speed 1.189 ms/s
+- Verilator: cpu 3.914 s on 1 threads; allocated 8 MB
