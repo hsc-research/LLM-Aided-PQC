@@ -21,6 +21,7 @@ or an EDA license.
 | Prepare separate FPGA/ASIC baselines, then optimize each | [Hardware handoff](docs/HARDWARE_HANDOFF.md), [ASIC startup sources](docs/ASIC_STARTUP.md) |
 | Find RTL, testbenches, scripts or logs | [Repository map](docs/REPOSITORY_LAYOUT.md) |
 | Choose a design and check its limits | [Four-design status](docs/PROJECT_STATUS.md) |
+| Save a Claude key locally and select a workspace | [Encrypted credential setup](docs/CLAUDE_CREDENTIALS.md) |
 | Browse all documentation | [Documentation index](docs/README.md) |
 
 ## What is available

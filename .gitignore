@@ -123,3 +123,7 @@ configs/*.local.json
 /build/target-profiles/
 /build/profiles/
 /build/target-launch/
+
+# Defense in depth; credential code refuses storage in any Git checkout.
+**/claude-vault.json
+**/.claude-vault-*

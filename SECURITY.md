@@ -17,6 +17,15 @@ still contain an untested functional, timing, or side-channel defect.
 - Keep the optional dashboard on a trusted local interface; it is a research
   log viewer, not an authenticated multi-user service.
 
+## Local model credentials
+
+The optional [Claude vault](docs/CLAUDE_CREDENTIALS.md) encrypts a key and workspace
+ID outside the checkout. Setup is user-driven and requires a trusted terminal;
+subsequent foreground runs unlock with a passphrase. This protects data at rest,
+not an unlocked process, a compromised OS account or a host administrator.
+Unattended controller jobs need a separately managed credential integration.
+Never send a real key or vault passphrase in an issue, chat or test fixture.
+
 ## Report a problem
 
 For a non-sensitive bug, report the checkout commit, minimal reproduction,

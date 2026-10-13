@@ -33,7 +33,7 @@ function analysis(run,parent){
  element('li','Power and latency remain unknown unless independently measured. Latch-loop counts do not establish the inferred-latch count.',list);
  if(run.target==='asic'){for(const note of run.notes||[])element('p',note,box,'detail');return;}
  const costs=element('section','',parent,'side-panel');element('h3','Model request & usage',costs);const dl=element('dl','',costs,'compact-list');
- for(const [name,val]of [['Model',run.model],['Generation attempts',run.api_calls_attempted],['Input tokens',run.input_tokens],['Output tokens',run.output_tokens],['Reported cost (USD)',run.reported_cost_usd],['Estimated maximum (USD)',run.estimated_max_cost_usd]]){element('dt',name,dl);element('dd',shown(val),dl);}
+ for(const [name,val]of [['Model',run.model],['Token-count attempts',run.token_count_requests_attempted],['Failure stage',run.failure_stage],['Error category',run.error_category],['Provider HTTP status',run.provider_http_status],['Generation attempts',run.api_calls_attempted],['Input tokens',run.input_tokens],['Output tokens',run.output_tokens],['Reported cost (USD)',run.reported_cost_usd],['Estimated maximum (USD)',run.estimated_max_cost_usd]]){element('dt',name,dl);element('dd',shown(val),dl);}
  element('p','Unknown cost is not zero. Estimates use declared pricing and are not provider billing caps.',costs,'detail');
 }
 function criticalPaths(run,parent){

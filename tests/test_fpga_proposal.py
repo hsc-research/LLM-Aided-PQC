@@ -47,7 +47,7 @@ class ProposalTests(unittest.TestCase):
             return NS(usage=NS(input_tokens=10,output_tokens=10),stop_reason=stop,content=[NS(type='text',text='{"status":"STOP"}')])
         return NS(messages=NS(count_tokens=lambda **kw:NS(input_tokens=10),create=create))
     def run_fake(self,client,budget=1):
-        with patch.dict(os.environ,{'PQC_ENABLE_LLM':'1'}),patch.dict('sys.modules',{'anthropic':NS(Anthropic=lambda **kw:client)}):
+        with patch.dict(os.environ,{'PQC_ENABLE_LLM':'1'}),patch.object(r,'create_client',return_value=client):
             return r.run(self.context,'fixture',1,1,budget)
     def test_fake_single_stop(self):
         result=self.run_fake(self.fake_client());self.assertEqual(result['status'],'STOP');self.assertEqual(result['api_calls_attempted'],1)
@@ -57,6 +57,57 @@ class ProposalTests(unittest.TestCase):
     def test_timeout_unknown_no_secret(self):
         with self.assertRaises(RuntimeError):self.run_fake(self.fake_client(fail=True))
         text=(self.root/'proposal-run.json').read_text();self.assertNotIn('secret',text);self.assertEqual(json.loads(text)['status'],'FAILED_OUTCOME_UNKNOWN')
+    def test_workspace_failure_is_bounded_and_recoverable(self):
+        client=self.fake_client()
+        class BadRequestError(Exception):
+            status_code=400
+            body={'error': {'message': 'secret API key not scoped to a workspace; specify anthropic-workspace-id'}}
+        client.messages.count_tokens=lambda **kw: (_ for _ in ()).throw(BadRequestError('secret'))
+        with self.assertRaises(RuntimeError): self.run_fake(client)
+        old={path.name:path.read_bytes() for path in self.root.iterdir() if path.is_file()}
+        record=json.loads(old['proposal-run.json'])
+        self.assertEqual(record['api_calls_attempted'],0)
+        self.assertEqual(record['failure_stage'],'token_count')
+        self.assertEqual(record['error_category'],'workspace_required')
+        self.assertEqual(record['provider_http_status'],400)
+        self.assertNotIn('secret',old['proposal-run.json'].decode())
+        result=p.recover_preflight(self.context,self.root/'recovery')
+        self.assertEqual(result['api_calls'],0)
+        self.assertEqual((self.root/'recovery/prompt.json').read_bytes(),self.prompt.read_bytes())
+        self.assertFalse((self.root/'recovery/.proposal-request.lock').exists())
+        for name,data in old.items(): self.assertEqual((self.root/name).read_bytes(),data)
+        self.assertEqual(self.rtl.read_text(),'module a; wire x; endmodule\n')
+    def test_recovery_refuses_uncertain_generation(self):
+        with self.assertRaises(RuntimeError):self.run_fake(self.fake_client(fail=True))
+        with self.assertRaisesRegex(ValueError,'zero generation'):p.recover_preflight(self.context,self.root/'recovery')
+        self.assertFalse((self.root/'recovery').exists())
+    def test_recovery_refuses_drift_and_existing_destination(self):
+        self.run_fake(self.fake_client(),budget='0.00001')
+        with self.assertRaisesRegex(ValueError,'new output'):p.recover_preflight(self.context,self.root)
+        self.rtl.write_text('changed')
+        with self.assertRaisesRegex(ValueError,'Inputs changed'):p.recover_preflight(self.context,self.root/'recovery')
+    def test_initialization_failure_keeps_record_and_claim(self):
+        with patch.dict(os.environ,{'PQC_ENABLE_LLM':'1'}),patch.object(r,'create_client',side_effect=RuntimeError('hidden secret')):
+            with self.assertRaises(RuntimeError):r.run(self.context,'fixture',1,1,1)
+        record=json.loads((self.root/'proposal-run.json').read_text())
+        self.assertEqual(record['failure_stage'],'credential_setup')
+        self.assertEqual(record['token_count_requests_attempted'],0)
+        self.assertNotIn('hidden',json.dumps(record))
+        self.assertTrue((self.root/'.proposal-request.lock').exists())
+    def test_interrupted_unlock_is_recorded_without_generation(self):
+        with patch.dict(os.environ,{'PQC_ENABLE_LLM':'1'}),patch.object(r,'create_client',side_effect=KeyboardInterrupt):
+            with self.assertRaises(RuntimeError):r.run(self.context,'fixture',1,1,1)
+        record=json.loads((self.root/'proposal-run.json').read_text())
+        self.assertEqual(record['error_category'],'interrupted')
+        self.assertEqual(record['failure_stage'],'credential_setup')
+        self.assertEqual(record['api_calls_attempted'],0)
+        self.assertEqual(p.recover_preflight(self.context,self.root/'recovery')['api_calls'],0)
+    def test_unknown_exception_name_and_http_status_are_not_persisted(self):
+        error=type('SECRET_TYPE',(Exception,),{'status_code':'SECRET_STATUS'})('SECRET_BODY')
+        diagnostic=r.safe_error(error,'generation')
+        self.assertEqual(diagnostic['error_type'],'OtherError')
+        self.assertIsNone(diagnostic['provider_http_status'])
+        self.assertNotIn('SECRET',json.dumps(diagnostic))
     def test_no_repeat_after_request(self):
         self.run_fake(self.fake_client())
         with self.assertRaises(ValueError):self.run_fake(self.fake_client())

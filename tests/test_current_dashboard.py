@@ -46,6 +46,22 @@ class CurrentDashboardTests(unittest.TestCase):
         self.assertEqual(run['estimated_max_cost_usd'], 1.2)
         self.assertIsNone(run['reported_cost_usd'])
 
+    def test_only_allowlisted_failure_fields_reach_dashboard(self):
+        value={'context_sha256':self.context_hash,'status':'FAILED','api_calls_attempted':0,
+               'token_count_requests_attempted':1,'failure_stage':'token_count',
+               'error_category':'workspace_required','provider_http_status':400,
+               'error_type':'SECRET','error_note':'SECRET','api_key':'SECRET','workspace_id':'SECRET'}
+        write(self.run/'proposal-run.json',value)
+        result=collect(self.root)['runs'][0]
+        self.assertEqual(result['failure_stage'],'token_count')
+        self.assertEqual(result['error_category'],'workspace_required')
+        self.assertEqual(result['provider_http_status'],400)
+        self.assertEqual(result['token_count_requests_attempted'],1)
+        self.assertNotIn('SECRET',json.dumps(result))
+        value.update(failure_stage='SECRET',error_category='SECRET',provider_http_status='SECRET')
+        write(self.run/'proposal-run.json',value)
+        self.assertNotIn('SECRET',json.dumps(collect(self.root)))
+
     def test_stale_review_not_used(self):
         write(self.run / 'review.json', {'context_sha256': 'wrong', 'status': 'PASS'})
         run = collect(self.root)['runs'][0]

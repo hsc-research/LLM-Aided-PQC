@@ -13,6 +13,8 @@ from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from tools.prepare_fpga_proposal import require, read_bounded, save, review, sha
+from agent.llm_client import create_client
+from agent.claude_errors import safe_error
 
 
 def positive(value):
@@ -42,20 +44,23 @@ def run(context_path, model, input_price, output_price, budget, max_tokens=4096)
             lock.write('One proposal request claimed; inspect provider usage before any new request.\n')
     except FileExistsError:
         raise ValueError('A request has already been claimed in this directory') from None
-    # No SDK import or credential read until explicit cost opt-in and local checks.
-    import anthropic
-    client=anthropic.Anthropic(max_retries=0,timeout=120.0)
     record={'schema_version':1,'status':'PREFLIGHT_RUNNING','context_sha256':sha(context_path),
             'prompt_sha256':context['prompt_sha256'],'profile_fingerprint':context['profile_fingerprint'],
             'target':'fpga','stage':'proposal_only','model':model,'api_calls_attempted':0,
+            'failure_stage':None,'token_count_requests_attempted':0,
             'input_tokens':None,'output_tokens':None,'estimated_max_cost_usd':None,'reported_cost_usd':None,
             'pricing':{'source':'user_declared_USD_per_million_tokens','input':str(ip),'output':str(op)},
             'budget_usd':str(limit),'max_output_tokens':max_tokens,'rtl_changed':False,
             'automatic_acceptance':'BLOCKED','started_at':datetime.now(timezone.utc).isoformat()}
     save(folder/'proposal-run.json',record)
+    failure_stage='credential_setup'
     try:
+        client=create_client()
+        failure_stage='token_count'
+        record['token_count_requests_attempted']=1;save(folder/'proposal-run.json',record)
         counted=client.messages.count_tokens(**params).input_tokens
         require(type(counted)is int and counted>=0,'Invalid token-count response')
+        failure_stage='budget_check'
         # Counting endpoint estimates may differ from billed message usage.
         reserved=counted+(counted+9)//10+1024
         estimate=(Decimal(reserved)*ip+Decimal(max_tokens)*op)/1000000
@@ -63,8 +68,10 @@ def run(context_path, model, input_price, output_price, budget, max_tokens=4096)
         if estimate>limit:
             record['status']='BLOCKED_BUDGET';save(folder/'proposal-run.json',record);return record
         require(all(sha(p)==h for p,h in context['input_sha256'].items()),'Inputs changed during token preflight')
+        failure_stage='generation'
         record.update(status='RUNNING',api_calls_attempted=1);save(folder/'proposal-run.json',record)
         reply=client.messages.create(**params,max_tokens=max_tokens)
+        failure_stage='response_review'
         record.update(input_tokens=reply.usage.input_tokens,output_tokens=reply.usage.output_tokens)
         require(type(record['input_tokens'])is int and type(record['output_tokens'])is int,'Missing usage')
         record['reported_cost_usd']=str((Decimal(record['input_tokens'])*ip+Decimal(record['output_tokens'])*op)/1000000)
@@ -76,11 +83,11 @@ def run(context_path, model, input_price, output_price, budget, max_tokens=4096)
         (folder/'proposal-response.json').write_text(raw)
         verdict=review(context_path,folder/'proposal-response.json',folder/'review.json')
         record['status']='STOP' if verdict['status']=='STOP' else 'PROPOSAL_REVIEW_READY'
-    except Exception as exc:
+    except (Exception, KeyboardInterrupt) as exc:
         record['status']='FAILED_OUTCOME_UNKNOWN' if record['api_calls_attempted'] and record['input_tokens'] is None else 'FAILED'
         # Do not log SDK error text, request headers, environment or credentials.
-        record['error_type']=type(exc).__name__
-        record['error_note']='Inspect local stage and provider usage. No automatic retry; no edit was applied.'
+        record.update(safe_error(exc, failure_stage))
+        record['error_note']='No automatic retry; no edit was applied. See docs/CLAUDE_CREDENTIALS.md and preserve this run.'
         save(folder/'proposal-run.json',record)
         raise RuntimeError(record['status']+': '+record['error_type']+'; see proposal-run.json') from None
     finally:

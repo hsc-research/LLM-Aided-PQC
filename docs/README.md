@@ -26,6 +26,7 @@ model API to understand the repo or run its Python checks.
 | [ASIC startup sources](ASIC_STARTUP.md) | Explicit ML-DSA/SLH baseline/candidate paths, boot protocols, evidence and remaining target gates |
 | [ASIC synthesis](../asic/README.md) | Genus/DC manifests, libraries, constraints, output reports and qualification |
 | [ASIC site admission](ASIC_ADMISSION.md) | Qualified adapter contract for structural checks and FF-memory evidence |
+| [Claude credentials](CLAUDE_CREDENTIALS.md) | Encrypted local setup, workspace selection, unlock and safe preflight recovery |
 | [FPGA agent feedback](FPGA_AGENT_FEEDBACK.md) | Exact-export checks, preliminary Vivado feedback and bounded review-only proposals |
 | [Current FPGA dashboard](CURRENT_DASHBOARD.md) | Inspect current source-bound feedback separately from historical results |
 | [Whole-design controller](WHOLE_DESIGN.md) | Multi-path targeting, small edits, full-design rechecks and acceptance/rollback |
