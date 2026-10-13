@@ -661,12 +661,25 @@ def prepare(profile_path, site_path_arg, out):
         if not re.fullmatch(r"[A-Za-z0-9_.-]+", part):
             raise ValueError("invalid FPGA part string")
         config.update(tool="vivado", part=part, xdc=constraints, tool_version=version)
+    if tool == "vivado":
+        if sys.version_info < (3, 10):
+            raise ValueError("Vivado preparation requires Python 3.10 or newer")
+        # Vivado can prepend its bundled Python to PATH. Retain the interpreter
+        # used to prepare this run (including a virtual-environment path).
+        python_executable = Path(sys.executable).absolute()
+        if not python_executable.is_file():
+            raise ValueError("preparation Python executable is unavailable")
+        config["verification_python"] = {
+            "executable": str(python_executable),
+            "version": list(sys.version_info[:3]),
+            "sha256": sha(python_executable),
+        }
     out = empty_destination(out)
     out.mkdir(parents=True, exist_ok=True)
     write_json(out / "launch-config.json", config)
     if tool == "vivado":
         script = ["# Source-only launcher. Generated but never run by preparation.", "if {[catch {",
-                  "exec python3 " + tcl_word(root / "verify_profile.py") + " --verify-preparation " + tcl_word(out / "preparation.json"),
+                  "exec " + tcl_word(python_executable) + " -I " + tcl_word(root / "verify_profile.py") + " --verify-preparation " + tcl_word(out / "preparation.json"),
                   "if {[version -short] ne " + tcl_word(version) + '} {error "Vivado version differs from frozen site config"}',
                   "set run_dir " + tcl_word(output_root), 'if {[file exists $run_dir]} {error "Use a fresh run directory"}',
                   "file mkdir $run_dir", "cd $run_dir", "create_project -in_memory -part " + tcl_word(config["part"]),
@@ -693,7 +706,7 @@ def prepare(profile_path, site_path_arg, out):
         if adapter is not None:
             bound_inputs += [Path(p) for p in spec["admission_adapter"]["inputs"] + [spec["admission_adapter"]["tcl"], spec["admission_adapter"]["qualification"]]]
     else:
-        bound_inputs.append(out / "launch_vivado.tcl")
+        bound_inputs += [out / "launch_vivado.tcl", python_executable, root / "verify_profile.py"]
     write_json(out / "preparation.json", {"schema_version": 1, "status": "SOURCE_PREPARED_NOT_RUN",
                "profile": str(profile_path), "profile_fingerprint": profile["profile_fingerprint"],
                "input_sha256": {str(p): sha(p) for p in bound_inputs},
