@@ -78,6 +78,69 @@ typed edit can be previewed against the original source. `EDIT_PREVIEW_VALID_NOT
 means only the edit anchors and allowed paths passed validation. Correctness,
 latency and PPA remain unverified. There are no new power measurements here.
 
+## Review a saved response without another API call
+
+If Claude completed generation but the local response review failed, **do not run
+another paid proposal or remove the request claim**. After updating this code,
+review the retained response offline:
+
+```sh
+python3 tools/prepare_fpga_proposal.py review-existing \
+  --context .pqc_runs/fpga-proposals/mldsa-review-002/proposal-context.json
+```
+
+This command needs no key, unlock, model, price or `PQC_ENABLE_LLM`. It requires a
+finished `FAILED` record at `response_review`, one recorded generation attempt,
+returned token usage, the original context/prompt, response and claim, and unchanged
+source/configuration/report hashes. It creates **`review-offline.json`** once and
+refuses to overwrite it. The original `proposal-run.json`, `proposal-response.json`,
+`.proposal-request.lock`, prompt, context and RTL remain byte-for-byte unchanged.
+
+The sidecar binds the original run, request claim, context, prompt, raw response
+and decoded proposal with hashes. New paid runs record the raw response hash
+before reviewing it. Older runs did not: their offline review is explicitly marked
+`LEGACY_RESPONSE_NOT_BOUND_BY_PAID_RUN`. It binds the retained local bytes now;
+it cannot prove retrospectively that those bytes are unchanged provider output.
+No API request is made to establish that association.
+
+The dashboard derives the displayed decision from a valid offline sidecar while
+also showing the **original failed status, failure stage and paid usage**. It
+checks the local evidence hashes before using the sidecar. Source hashes are
+checked by the offline review command; the dashboard never follows recorded live
+RTL paths and does not claim a live integrity check. Changed or missing local
+response/run/claim evidence excludes the derived decision.
+
+### Bounded response formatting
+
+New prompts request exactly one plain JSON object. The defensive parser also
+accepts exactly one `json` or unlabeled Markdown code fence, with an optional
+trailing `Rationale:` or `**Rationale:**` section. That section is unverified model
+commentary, not a source of decisions, commands, timing requirements or measured
+hardware facts. It remains in the original raw response and is not promoted into
+the dashboard's measurements. The JSON object alone determines `STOP` or
+`PROPOSED`.
+
+The parser does not hunt for the first object in arbitrary prose or repair broken
+JSON. Multiple objects/values/fences, duplicate keys, non-finite numbers, non-object
+roots and nesting beyond 64 levels are rejected. Raw responses are bounded to
+192 KiB and trailing rationale to 32 KiB. Numeric RTL selectors attached to
+identifiers, such as `signal[0]`, `bus[31:0]` and `genblk1[2].KECCAK`, are allowed
+in rationale. Other braces/brackets, additional fences, unlabeled trailing text
+and standalone JSON-valued rationale lines are rejected as ambiguous. Existing
+frozen prompts and raw responses are never rewritten for normalization.
+
+`STOP` means no edit was proposed. It does not validate the accompanying rationale.
+For example, a model's suggested delay target is not a user requirement, and a
+routing-delay estimate from a synthesis report is not evidence of a measured
+placement problem or routed timing result.
+
+A `PROPOSED` response still passes the same allowlist, exact-anchor, edit-size and
+safe-preview gates. `EDIT_PREVIEW_VALID_NOT_APPLIED` is only a preview: the command
+never applies RTL, runs KATs or synthesis, or accepts a candidate. After a separately
+approved edit, exact-source functional verification and matched baseline/candidate
+measurements are still required. The 210-operation exported ML-DSA adapter below
+is not invoked automatically by proposal review.
+
 ## Exact-source verification adapter
 
 ```sh

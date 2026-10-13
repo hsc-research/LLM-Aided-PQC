@@ -6,6 +6,7 @@ qualified measurement. This utility cannot admit a candidate to the strict loop.
 """
 from __future__ import annotations
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -15,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.export_target_profiles import verify_preparation, verify_profile, sha
 from agent import edit_ops
+from agent.proposal_response import decode_response, ResponseFormatError
 from agent.whole_design_adapters import SYSTEM, TARGET_SYSTEM
 
 REPORTS = ('timing.rpt', 'utilization.rpt', 'check_timing.rpt', 'drc.rpt')
@@ -65,7 +67,7 @@ def prepare(preparation, selected, out):
                'report_provenance': 'User-supplied files at prepared output path; hashes bind imported bytes only. Actual execution and source association are not independently proven.',
                'limitations': ['No routed timing closure', 'No power result', 'No mapped-memory verification',
                               'No full functional revalidation of a proposed edit', 'No automatic path-to-RTL ownership proof']}
-    system = SYSTEM + TARGET_SYSTEM['fpga'] + '\nThis is PROPOSAL ONLY. Reports are preliminary imported observations. Nothing will be applied or accepted. Prefer STOP if the selected files cannot explain the timing path. Do not claim measured improvement.\n'
+    system = SYSTEM + TARGET_SYSTEM['fpga'] + '\nThis is PROPOSAL ONLY. Reports are preliminary imported observations. Nothing will be applied or accepted. Prefer STOP if the selected files cannot explain the timing path. Do not claim measured improvement. Return exactly one plain JSON object, with no Markdown fence or surrounding prose. Put any rationale inside the JSON object as a string; it remains unverified commentary.\n'
     require(len((system + json.dumps(context)).encode()) <= LIMIT, 'Combined prompt exceeds 192 KiB; reduce selected sources')
     out = Path(out).resolve()
     require(not out.exists(), 'Use a new output directory')
@@ -89,36 +91,110 @@ def prepare(preparation, selected, out):
     return {'status': result['status'], 'out': str(out), 'api_calls': 0}
 
 
-def review(context_path, response_path, out):
+def _review_result(context_path, response_path):
     context_path = Path(context_path).resolve()
     context = json.loads(read_bounded(context_path, 4 * 1024 * 1024))
     require(context.get('schema_version') == 1 and context.get('status') == 'PROMPT_PREPARED_NO_API_CALL', 'Wrong context record')
     require(sha(context_path.parent / 'prompt.json') == context['prompt_sha256'], 'Prompt changed')
     require(all(sha(p) == digest for p, digest in context['input_sha256'].items()), 'Source/configuration/report bytes changed; prepare again')
-    proposal = json.loads(read_bounded(Path(response_path)))
+    response_path = Path(response_path)
+    require(response_path.is_file() and not response_path.is_symlink(), 'Missing or symlinked response file')
+    with response_path.open('rb') as stream:
+        response_bytes = stream.read(LIMIT + 1)
+    require(len(response_bytes) <= LIMIT, 'Response exceeds 192 KiB')
+    response_hash = hashlib.sha256(response_bytes).hexdigest()
+    try:
+        response_text = response_bytes.decode('utf-8')
+    except UnicodeError:
+        raise ResponseFormatError('invalid_utf8') from None
+    proposal, response_format = decode_response(response_text)
     require(proposal.get('status') in ('STOP', 'PROPOSED'), 'Expected a JSON STOP or PROPOSED response')
     changed = 0
     if proposal['status'] == 'PROPOSED':
         experiment = proposal.get('experiment', {})
+        require(isinstance(experiment, dict), 'Experiment must be an object')
+        require(isinstance(experiment.get('files'), list), 'Experiment files must be a list')
         require(1 <= len(experiment.get('files', [])) <= 3, 'One proposal may touch at most three selected files')
         for row in experiment['files']:
+            require(isinstance(row, dict) and isinstance(row.get('ops'), list), 'Each file needs an operation list')
             require(1 <= len(row.get('ops', [])) <= 4, 'At most four edits per file')
             for op in row['ops']:
+                require(isinstance(op, dict), 'Each operation must be an object')
                 require(op.get('op') == 'replace_exact', 'Only replace_exact is supported')
                 require(type(op.get('expect')) is int and op['expect'] == 1, 'Each anchor must occur exactly once')
                 require(isinstance(op.get('old'), str) and isinstance(op.get('new'), str), 'Text anchors required')
                 changed += len(op['old'].encode()) + len(op['new'].encode())
         require(changed <= 8192, 'Proposal edit text exceeds 8192 bytes')
         edit_ops.preview_experiment(experiment, allowed_paths=context['allowed_files'])
-    out = Path(out).resolve()
-    require(not out.exists(), 'Do not overwrite a review result')
+    require(all(sha(p) == digest for p, digest in context['input_sha256'].items()), 'Inputs changed during review')
+    require(sha(response_path) == response_hash, 'Response changed during review')
     result = {'schema_version': 1, 'status': 'STOP' if proposal['status'] == 'STOP' else 'EDIT_PREVIEW_VALID_NOT_APPLIED',
-              'response_sha256': sha(response_path), 'context_sha256': sha(context_path),
+              'response_sha256': response_hash, 'context_sha256': sha(context_path),
               'profile_fingerprint': context['profile_fingerprint'], 'rtl_changed': False,
               'functional_verified': False, 'ppa_gain_verified': False,
-              'automatic_acceptance': 'BLOCKED', 'edit_text_bytes': changed}
-    save(out, result)
+              'automatic_acceptance': 'BLOCKED', 'edit_text_bytes': changed,
+              'prompt_sha256': context['prompt_sha256'], 'response_format': response_format}
     return result
+
+
+def _save_new_review(out, result):
+    # Exclusive creation prevents accidental replacement, including symlinks.
+    try:
+        with Path(out).open('x', encoding='utf-8') as stream:
+            stream.write(json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + '\n')
+    except FileExistsError:
+        raise ValueError('Do not overwrite a review result; the existing record was preserved') from None
+
+
+def review(context_path, response_path, out):
+    require(not Path(out).exists(), 'Do not overwrite a review result')
+    result = _review_result(context_path, response_path)
+    _save_new_review(out, result)
+    return result
+
+
+def review_existing(context_path):
+    """Review retained response bytes offline, without changing the paid run.
+
+    This fixed local sidecar is a derived review, not a rewritten request history.
+    Legacy runs did not bind response bytes; that limitation is retained explicitly.
+    """
+    context_path = Path(context_path).resolve()
+    folder = context_path.parent
+    require(context_path.name == 'proposal-context.json', 'Expected the original proposal context filename')
+    out = folder / 'review-offline.json'
+    require(not out.exists() and not out.is_symlink(), 'Offline review already exists; it will not be overwritten')
+    run_path, response_path, claim_path = (folder / name for name in ('proposal-run.json', 'proposal-response.json', '.proposal-request.lock'))
+    original = {}
+    for path in (context_path, folder / 'prompt.json', run_path, response_path, claim_path):
+        require(bool(read_bounded(path, 4 * 1024 * 1024)), 'Missing or empty original evidence')
+        original[path] = sha(path)
+    run = json.loads(read_bounded(run_path))
+    require(isinstance(run, dict) and run.get('schema_version') == 1, 'Unsupported paid-run record')
+    require(run.get('status') == 'FAILED' and run.get('failure_stage') == 'response_review',
+            'Offline recovery requires a completed failure during response review')
+    require(type(run.get('api_calls_attempted')) is int and run['api_calls_attempted'] == 1,
+            'Expected exactly one recorded generation attempt; no new call is permitted here')
+    require(all(type(run.get(key)) is int and run[key] >= 0 for key in ('input_tokens', 'output_tokens')),
+            'Generation usage is missing; inspect the original outcome before reviewing')
+    require(isinstance(run.get('finished_at'), str) and bool(run['finished_at']), 'Run is not recorded as finished')
+    require(run.get('context_sha256') == original[context_path], 'Paid run/context hash mismatch')
+    require(run.get('prompt_sha256') == original[folder / 'prompt.json'], 'Paid run/prompt hash mismatch')
+    binding = 'RECORDED_RESPONSE_HASH'
+    if 'response_sha256' in run:
+        require(run['response_sha256'] == original[response_path], 'Saved response differs from the paid-run hash')
+    else:
+        binding = 'LEGACY_RESPONSE_NOT_BOUND_BY_PAID_RUN'
+    result = _review_result(context_path, response_path)
+    require(result['response_sha256'] == original[response_path], 'Response changed during review')
+    require(all(sha(path) == digest for path, digest in original.items()), 'Original evidence changed during review')
+    result.update(record_type='OFFLINE_RESPONSE_REVIEW', original_run_sha256=original[run_path],
+                  request_claim_sha256=original[claim_path], original_run_status=run['status'],
+                  response_binding=binding, source_integrity='CHECKED_AT_OFFLINE_REVIEW',
+                  reviewed_at=datetime.now(timezone.utc).isoformat(), api_calls=0,
+                  history_note='Original paid-run status, usage, response and request claim are preserved. This sidecar records only an offline interpretation.')
+    _save_new_review(out, result)
+    return {**result, 'review_record': str(out)}
 
 
 def recover_preflight(context_path, out):
@@ -158,9 +234,11 @@ def main():
     a = sub.add_parser('prepare'); a.add_argument('--preparation', required=True); a.add_argument('--rtl', action='append', required=True); a.add_argument('--out', required=True)
     a = sub.add_parser('review'); a.add_argument('--context', required=True); a.add_argument('--response', required=True); a.add_argument('--out', required=True)
     a = sub.add_parser('recover-preflight'); a.add_argument('--context', required=True); a.add_argument('--out', required=True)
+    a = sub.add_parser('review-existing'); a.add_argument('--context', required=True)
     args = p.parse_args()
     try:
         if args.command == 'prepare': result = prepare(args.preparation, args.rtl, args.out)
+        elif args.command == 'review-existing': result = review_existing(args.context)
         elif args.command == 'recover-preflight': result = recover_preflight(args.context, args.out)
         else: result = review(args.context, args.response, args.out)
         print(json.dumps(result, indent=2)); return 0

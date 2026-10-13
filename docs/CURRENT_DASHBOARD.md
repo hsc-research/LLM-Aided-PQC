@@ -115,3 +115,18 @@ the details. Adapter-reported path observations are distinct from values parsed
 from a DC report. This dashboard does not independently qualify an adapter,
 validate mapped-memory behavior, prove functional correctness, or establish
 workload power. There are no actual new ASIC results bundled with the dashboard.
+
+## Offline review of a retained response
+
+A completed paid response can be reviewed again with the
+[offline response-review command](FPGA_AGENT_FEEDBACK.md#review-a-saved-response-without-another-api-call).
+The dashboard checks the fixed `review-offline.json` sidecar against the original
+context, prompt, run, raw response and request claim. A valid sidecar can display
+`STOP` or a valid edit preview while preserving and showing the original failed
+run and its token usage/cost. No model call or RTL change is implied.
+
+Legacy responses that were not originally hashed into their paid-run records
+remain labeled as an unverified provider association. Source checks are historical
+checks made by the offline reviewer; this read-only dashboard does not read live
+RTL paths. Model rationale stays unverified commentary and is not displayed as
+measured timing, placement evidence or a user requirement.
