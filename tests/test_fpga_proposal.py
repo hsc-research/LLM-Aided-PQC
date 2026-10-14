@@ -119,6 +119,16 @@ class ProposalTests(unittest.TestCase):
         self.assertFalse((self.root/'review.json').exists())
     def test_price_nan(self):
         with self.assertRaises(ValueError):r.positive('NaN')
+    def test_known_failing_simulator_version_is_rejected(self):
+        for version in ("Verilator 5.022 2024-02-24 rev fedora-5.022",
+                        "Verilator 5.022 2024-02-24 rev v5.022"):
+            with self.assertRaisesRegex(ValueError, "KeyGen byte comparisons fail"):
+                k.validate_simulator_version(version)
+        # Passing this known-bad check is not blanket toolchain qualification.
+        for version in ("Verilator 5.048 2026-04-26 rev vUNKNOWN-built20260429",
+                        "rev vUNKNOWN-built20260516-4e853d8", "Verilator 5.024", "Verilator 5.0221"):
+            k.validate_simulator_version(version)
+
     def test_complete_kat_contract(self):
         c=k.coverage_contract();self.assertEqual(len(c['operations']),210);self.assertEqual(len(set(c['operations'])),210)
         self.assertEqual(c['required_negative_controls'],['verify_mutations','verify_canonical'])
@@ -145,7 +155,7 @@ class ExportedGateFixtureTests(unittest.TestCase):
                 if '--version' in argv:text='Verilator fixture only\n'
                 elif '--binary' in argv:
                     obj=Path(argv[argv.index('--Mdir')+1]);obj.mkdir();top=argv[argv.index('--top-module')+1];(obj/('V'+top)).write_text('fixture executable')
-                    self.assertIn(str(source),argv);text='fixture compilation\n'
+                    self.assertIn(str(source),argv);self.assertEqual(argv[argv.index('--unroll-count')+1], '512');self.assertNotIn('-Wno-BLKANDNBLK', argv);self.assertNotIn('-Wno-BLKLOOPINIT', argv);text='fixture compilation\n'
                 else:
                     case=log.parent.name;operation='verify' if case.startswith('verify') else case
                     label={'keygen':'KeyGen','sign':'Sign','verify':'Verify'}[operation]

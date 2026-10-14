@@ -128,6 +128,42 @@ ML-DSA-87; this test does not validate that function or produce ML-KEM-only
 area. Read the [harness contract](../verification/mlkem_adams_bridge/README.md)
 and [test limitations](VERIFICATION.md#real-ml-kem-baseline-and-rtl-fault-rejection).
 
+### ML-DSA exported-verifier compatibility
+
+The autonomous FPGA exported-source verifier uses `--unroll-count 512` to
+unroll its 319-element FIFO shifts, 256-element polynomial clear, and
+80-element hint clear. This changes compiler
+unrolling only: all RTL nonblocking assignments remain intact, and neither
+`BLKLOOPINIT` nor `BLKANDNBLK` is suppressed.
+
+The staged testbenches normalize only the diagnostic `start_time` and `average`
+assignments to blocking assignments, with exact expected assignment shapes and
+counts checked before simulation. The original bundled benches, DUT stimulus,
+output captures, byte comparisons, fixtures, and per-vector cycle expressions
+are unchanged. Aggregate printed averages can change because their updates are
+now immediate; the three Verify summaries also divide by `NUM_TV`, rather than
+the upstream `NUM_TV-1`, to include all accumulated vectors. Acceptance uses
+the unchanged individual vector cycle counts.
+
+Verilator 5.022 predates support for these array assignments without unrolling.
+The matching EPEL 5.022-3 package compiles with this workaround but fails the
+actual KeyGen byte comparisons, despite matching per-vector cycle counts.
+Do not treat compilation success as qualification or use 5.022 for this gate.
+The historical passing ML-DSA tool was development runtime 5.49, launcher
+`vUNKNOWN-built20260516-4e853d8`, not 5.022. The official Debian package `5.048-1` (runtime Verilator 5.048) passes the
+full 210-case replay with identical per-vector cycle counts; see the
+[compatibility evidence](verification/mldsa-verilator-compat-2026-10-14/README.md).
+This Debian binary is not portable installation guidance for EL9. A separate
+server installation/build still needs its own full baseline replay. No blanket
+minimum-version qualification is claimed. See the upstream
+[BLKLOOPINIT and BLKANDNBLK documentation](https://verilator.org/guide/latest/warnings.html).
+
+After changing verifier code, create a fresh autonomous run/output directory
+and regenerate its frozen requests. Existing runs bind the previous verifier
+hashes; do not resume them with modified checker files or edit their manifests.
+This compatibility change establishes no mapped-memory, four-state, synthesis,
+or timing-closure qualification.
+
 ### ML-DSA
 
 The [portable full-design runner](../verification/mldsa_osh/README.md) has two

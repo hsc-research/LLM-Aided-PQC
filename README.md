@@ -13,6 +13,8 @@ or an EDA license.
 
 ## Start here
 
+For the ML-DSA server experiment, follow the [baseline, agent, and student handoff guide](docs/MLDSA_STUDENT_QUICKSTART.md). It includes the tested simulator version, no-paid baseline checks, bounded agent commands, and dashboard access.
+
 | I want to… | Read or run |
 |---|---|
 | Understand the project and the hardware flow | [Learn the project](docs/LEARN.md) |
