@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 
@@ -36,6 +37,16 @@ def dependencies():
                     'target_profiles.py', 'edit_ops.py', 'llm_client.py')])
 
 
+def validate_simulator_version(version):
+    # Reproduced EPEL 5.022-3 compiles with unrolling but produces wrong KAT
+    # bytes. Reject the known failing release, not an untested version range.
+    require(re.search(r"\bVerilator\s+5\.022\b", version) is None,
+            'Verilator 5.022 is incompatible with this exported ML-DSA gate: '
+            'KeyGen byte comparisons fail despite successful compilation. '
+            'Use a separately qualified newer simulator and rerun the full '
+            '210-case baseline in a fresh output directory before paid proposals.')
+
+
 def verify(request_path, response_path, jobs=2, timeout=1800):
     request, response = read_request(request_path, response_path, 'verify')
     cfg = request['configuration']; profile = cfg.get('target_profile', {})
@@ -62,6 +73,7 @@ def verify(request_path, response_path, jobs=2, timeout=1800):
     work.mkdir()
     version = run_process(['verilator', '--version'], timeout=30, log_path=work/'version.log')
     require(version.returncode == 0, 'Cannot establish Verilator version')
+    validate_simulator_version(version.stdout.strip())
     report = {'status': 'RUNNING', 'scope': 'finite_210_case_rtl_only', 'simulator': version.stdout.strip(),
               'two_state_simulation': True, 'mapped_memory_verified': False,
               'source_hashes': request['source_hashes'], 'coverage': {}, 'commands': []}
@@ -86,7 +98,7 @@ def verify(request_path, response_path, jobs=2, timeout=1800):
             before = hashes([*tbdir.iterdir(), *(base/'common').iterdir()])
             obj = base/'obj'; top = tb.stem
             command = ['verilator', '--binary', '--timing', '--top-module', top, '--Mdir', str(obj),
-                       '-j', str(jobs), '-Wno-fatal', *['-I'+p for p in elab['include_dirs']], *source_files, str(tb)]
+                       '-j', str(jobs), '-Wno-fatal', '--unroll-count', '512', *['-I'+p for p in elab['include_dirs']], *source_files, str(tb)]
             report['commands'].append({'case': case, 'compile': command, 'cwd': str(tbdir)})
             env = os.environ.copy(); env['MAKEFLAGS'] = 'CFG_CXXFLAGS_PCH_I=-include'
             compiled = run_process(command, cwd=tbdir, timeout=timeout, env=env, log_path=base/'compile.log')

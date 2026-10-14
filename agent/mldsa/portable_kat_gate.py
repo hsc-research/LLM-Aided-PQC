@@ -75,7 +75,39 @@ def hoist_declarations(source):
     return source[:end] + "\n" + "\n".join(found) + "\n" + source[end:], len(found)
 
 
+def normalize_timing_bookkeeping(text, operation):
+    """Normalize only staged diagnostic variables for older Verilator builds.
+
+    Never change DUT stimulus, captures, comparisons, or RTL scheduling. Exact
+    assignment shapes/counts bind this transformation to the frozen testbenches.
+    """
+    counts = {"keygen": (1, 3, 0), "sign": (3, 3, 1), "verify": (3, 3, 3)}
+    shapes = (("start_time", "$time"), ("average", "0"),
+              ("average", "average + ($time-start_time)/`P"))
+    for (name, rhs), expected in zip(shapes, counts[operation]):
+        pattern = re.compile(r"^(?P<indent>[ \t]*)" + name + r" <= " + re.escape(rhs) + r";$", re.MULTILINE)
+        text, changed = pattern.subn(lambda match: match["indent"] + name + " = " + rhs + ";", text)
+        if changed != expected:
+            raise ValueError(f"unexpected {operation} timing bookkeeping: {name} <= {rhs}")
+    if re.search(r"^[ \t]*(?:start_time|average)\s*<=", text, re.MULTILINE):
+        raise ValueError(f"unexpected {operation} timing bookkeeping assignment")
+    if operation == "verify":
+        # The accumulator now includes the final vector before each display.
+        # Only aggregate diagnostics change; per-vector cycle expressions stay.
+        for message in (
+            "Moving to ML-DSA-III.Verify. ML-DSA-II completed in avg. %d clock cycles",
+            "Moving to ML-DSA-V.Verify. ML-DSA-III completed in avg. %d clock cycles",
+            "Testbench done. ML-DSA-V completed in avg. %d clock cycles",
+        ):
+            old = f'$display ("{message}", average/(NUM_TV-1));'
+            if text.count(old) != 1:
+                raise ValueError("unexpected verify timing bookkeeping summary")
+            text = text.replace(old, old.replace("average/(NUM_TV-1)", "average/NUM_TV"))
+    return text
+
+
 def prepare_testbench(text, operation, count, cycle_limit, bounded_sign_capture=True, bounded_verify_hint_read=True):
+    text = normalize_timing_bookkeeping(text, operation)
     capacity = OPERATIONS[operation][1]
     pattern = re.compile(r"\blocalparam\s+NUM_TV\s*=\s*(\d+)\s*;")
     if pattern.findall(text) != [str(capacity)]:

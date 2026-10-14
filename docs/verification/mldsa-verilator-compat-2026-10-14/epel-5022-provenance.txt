@@ -1,0 +1,15 @@
+Prepared 2026-10-14, isolated /tmp extraction. No system installation or PQC clone changes.
+Execution: source /tmp/verilator-5022-setup/env.sh; verilator [arguments]
+Version: Verilator 5.022 2024-02-24 rev fedora-5.022
+Official packages downloaded via HTTPS:
+https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/v/verilator-5.022-3.el9.x86_64.rpm
+https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/v/verilator-devel-5.022-3.el9.x86_64.rpm
+https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/g/gperftools-libs-2.9.1-3.el9.x86_64.rpm
+Official upstream archive retained, not built:
+https://github.com/verilator/verilator/archive/refs/tags/v5.022.tar.gz
+redirected normally to https://codeload.github.com/verilator/verilator/tar.gz/refs/tags/v5.022
+See SHA256SUMS for local artifact digests. RPM signatures were not independently verified; official HTTPS provenance only.
+RPM payload extracted by extract_rpm.py. Local relative symlinks for verilator_bin and verilator_bin_dbg added under usr/share/verilator/bin to support relocated VERILATOR_ROOT.
+Smoke check: verilator --binary -j 2 --Mdir /tmp/verilator-5022-setup/smoke/obj /tmp/verilator-5022-setup/smoke/smoke.sv
+Execution /tmp/verilator-5022-setup/smoke/obj/Vsmoke printed verilator-5022-smoke-ok and finished successfully. Build log: smoke/build.log.
+This is Fedora EPEL9 build 5.022-3, not a pristine upstream build. Build host is Debian glibc 2.41 x86_64; matching RHEL9 runtime was not provisioned.

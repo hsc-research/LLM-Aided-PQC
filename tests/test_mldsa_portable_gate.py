@@ -5,7 +5,7 @@ import tempfile
 import shutil
 
 from agent.mldsa.portable_kat_gate import (
-    OPERATIONS, evaluate_log, hoist_declarations, prepare_testbench, stage_verify_mutations, stage_canonical_cases, apply_canonical_hint_guard, run_gate,
+    OPERATIONS, evaluate_log, hoist_declarations, prepare_testbench, normalize_timing_bookkeeping, stage_verify_mutations, stage_canonical_cases, apply_canonical_hint_guard, run_gate,
 )
 from agent.mldsa_sources import BUNDLED_ROOT
 
@@ -42,6 +42,49 @@ class PortableMLDSAGateTests(unittest.TestCase):
             self.assertIn("portable_cycles >= 12345", result)
             self.assertIn('$fatal(1, "portable watchdog expired")', result)
             self.assertEqual(path.read_text(), original)
+
+    def test_bookkeeping_normalization_changes_only_exact_assignments(self):
+        import re
+        for operation in OPERATIONS:
+            path = BUNDLED_ROOT / f"ref_combined/src_tb/tb_{operation}_top.v"
+            original = path.read_text()
+            # Identically named substrings and comparisons must not be rewritten.
+            normalized = normalize_timing_bookkeeping(original, operation)
+            expected = re.sub(r"(?m)^(\s*(?:average|start_time)) <= (.*);$", r"\1 = \2;", original)
+            if operation == "verify":
+                self.assertEqual(expected.count("average/(NUM_TV-1)"), 3)
+                expected = expected.replace("average/(NUM_TV-1)", "average/NUM_TV")
+                self.assertEqual(normalized.count("average/NUM_TV"), 3)
+            self.assertEqual(normalized, expected)
+            # Prefix/suffix variables are outside the supported names.
+            extra = "\n    other_average <= 7;\n    start_time_copy <= 8;\n    if (average <= 12) $display(\"diagnostic\");\n"
+            self.assertEqual(normalize_timing_bookkeeping(original + extra, operation), expected + extra)
+            self.assertEqual(path.read_text(), original)
+
+    def test_prepared_stimulus_captures_and_checks_are_unchanged(self):
+        from unittest.mock import patch
+        for operation in OPERATIONS:
+            original = (BUNDLED_ROOT / f"ref_combined/src_tb/tb_{operation}_top.v").read_text()
+            with patch("agent.mldsa.portable_kat_gate.normalize_timing_bookkeeping", side_effect=lambda text, op: text):
+                prior = prepare_testbench(original, operation, OPERATIONS[operation][1], 12345)
+            current = prepare_testbench(original, operation, OPERATIONS[operation][1], 12345)
+            self.assertEqual(current, normalize_timing_bookkeeping(prior, operation))
+
+    def test_bookkeeping_normalization_fails_closed_on_drift(self):
+        for operation in OPERATIONS:
+            original = (BUNDLED_ROOT / f"ref_combined/src_tb/tb_{operation}_top.v").read_text()
+            for changed in (original.replace("start_time <= $time;", "start_time <= $time + 1;", 1),
+                            original.replace("average <= 0;", "average = 0;", 1),
+                            original + "\n    average <= 0;\n",
+                            original + "\n    average <= 7;\n"):
+                with self.assertRaisesRegex(ValueError, "timing bookkeeping"):
+                    normalize_timing_bookkeeping(changed, operation)
+
+    def test_verify_summary_drift_is_rejected(self):
+        original = (BUNDLED_ROOT / "ref_combined/src_tb/tb_verify_top.v").read_text()
+        changed = original.replace("average/(NUM_TV-1)", "average/NUM_TV", 1)
+        with self.assertRaisesRegex(ValueError, "timing bookkeeping summary"):
+            normalize_timing_bookkeeping(changed, "verify")
 
     def test_capacity_mutation_rejected(self):
         path = BUNDLED_ROOT / "ref_combined/src_tb/tb_sign_top.v"
