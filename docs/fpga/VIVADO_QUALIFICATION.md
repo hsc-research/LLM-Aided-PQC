@@ -32,6 +32,32 @@ regenerate RTL, introduce false paths, supply I/O delay numbers, or accept model
 commands. The only supported synthesis settings are default effort,
 `out_of_context`, gated-clock conversion off and no implementation seed.
 
+The launch calls the documented `synth_design` command directly. It does not
+use the `redirect` command from other EDA Tcl shells. Once the child exits,
+Python copies the complete captured `console.log` byte-for-byte to
+`synthesis.log`, before building qualification. Despite the historical filename,
+this now contains the **whole invocation transcript**, including elaboration and
+report generation. The warning gate conservatively reviews warnings/errors
+from all these stages; no warning is filtered out to obtain a pass. Native
+`vivado.log` remains available alongside the capture.
+
+`tool-version.txt` is written before the version comparison, so an observed
+mismatch is preserved even when synthesis never begins. A nonzero process exit
+blocks measurement and points to `vivado/console.log`. A collection or parser
+exception points to `vivado/qualification-error.txt`; missing qualified metadata
+is not presented as proof that the installed Vivado version differs. For an old
+failed run, inspect `tool_returncode`, `qualification_error_type`, `blockers`, and
+`actual_tool_version` in its bound `response.json`, plus those logs. Preserve the
+old run and create a fresh run so the updated adapter dependencies are frozen.
+Recreate preparation only if its bound inputs (such as site/XDC settings or
+Python executable) changed.
+
+License-free tests execute the generated launch with real Tcl and an explicit
+stubbed command surface that rejects unknown commands, including the formerly
+used `redirect`. They test warning retention, tool failure, actual version
+mismatch, and parser failure; they do not validate real Vivado synthesis or the
+post-synthesis query semantics. A licensed-host replay is still required.
+
 `vivado/input-manifest.json` binds the invocation request, source read order,
 full configuration, source hashes, frozen dependency hashes and producer hashes.
 `vivado/qualification.json` binds all raw artifacts, including the generated
@@ -167,6 +193,8 @@ explicit exploratory run may still use fresh, integrity-checked estimates and
 save provisional candidates without accepting them.
 
 ## Primary command references
+
+- [Vivado 2022.2 synth_design](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/synth_design)
 
 - [Vivado 2022.2 check_timing](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/check_timing)
 - [Vivado 2022.2 get_timing_paths](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/get_timing_paths)

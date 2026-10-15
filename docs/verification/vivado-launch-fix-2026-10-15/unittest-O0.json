@@ -1,0 +1,134 @@
+{
+  "optimization": 0,
+  "discovered": 666,
+  "selected": 647,
+  "ran": 647,
+  "failures": 0,
+  "errors": 0,
+  "skipped": [
+    {
+      "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_does_not_follow_redirect",
+      "reason": "Install llm extra for real SDK/mock transport checks"
+    },
+    {
+      "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_error_has_one_attempt_no_retry_and_no_raw_body",
+      "reason": "Install llm extra for real SDK/mock transport checks"
+    },
+    {
+      "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_sends_workspace_header_on_both_requests",
+      "reason": "Install llm extra for real SDK/mock transport checks"
+    },
+    {
+      "test": "test_current_dashboard.CurrentDashboardTests.test_direct_script_import_preserves_package_imports",
+      "reason": "Install dashboard extra for entry-point test"
+    },
+    {
+      "test": "test_current_dashboard.CurrentDashboardTests.test_endpoints_and_ui_are_read_only",
+      "reason": "Install dashboard extra for endpoint tests"
+    },
+    {
+      "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_corrupt_expected_word_causes_real_fatal",
+      "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+    },
+    {
+      "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_junk_after_terminator_causes_real_fatal",
+      "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+    },
+    {
+      "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_missing_terminator_causes_real_fatal",
+      "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+    },
+    {
+      "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_word_lanes_and_stalled_data_phases",
+      "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+    },
+    {
+      "test": "test_mlkem_adams_bridge_gate.VerilatorShutdownTests.test_mock_ahb_completion_has_clean_simulator_exit",
+      "reason": "Verilator needed for clean-shutdown regression"
+    }
+  ],
+  "successful": true,
+  "excluded": [
+    {
+      "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+      "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+      "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+    },
+    {
+      "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+      "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+    },
+    {
+      "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    },
+    {
+      "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+      "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+    }
+  ],
+  "scope": "Permitted non-HQC subset; not a full suite pass, RTL algorithm requalification, or licensed EDA validation",
+  "elapsed_seconds": 47.04,
+  "runner_sha256": "2a53da0aaec6c8fba3ff091bace77bf5672ebca7599b5e16cc2961bae91cf8a8",
+  "prior_exclusion_count": 19,
+  "new_hqc_exclusions": []
+}

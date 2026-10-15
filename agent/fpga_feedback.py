@@ -8,6 +8,7 @@ import argparse
 import json
 import math
 import os
+import shutil
 from pathlib import Path
 from agent.whole_design_adapters import read_request, verify_inputs, require_immutable
 from agent.whole_design import require, save
@@ -53,15 +54,15 @@ def collect(request_path, response_path, execute=False):
         require(isinstance(request_sha, str) and len(request_sha) == 64, 'Missing request hash')
     save(run / 'input-manifest.json', qualification.input_manifest(req, request_sha))
     script = ['if {[catch {', 'set actual_version [version -short]',
-              'if {$actual_version ne ' + tcl_word(spec['tool_version']) + '} {error "Vivado version mismatch"}',
               'set vf [open ' + tcl_word(run / 'tool-version.txt') + ' w]; puts $vf $actual_version; close $vf',
+              'if {$actual_version ne ' + tcl_word(spec['tool_version']) + '} {error "Vivado version mismatch"}',
               'cd ' + tcl_word(run), 'create_project -in_memory -part ' + tcl_word(spec['part']),
               'set_property include_dirs ' + tcl_list(elab['include_dirs']) + ' [current_fileset]']
     for path in elab['data_files']:
         script.append('file copy ' + tcl_word(path) + ' ' + tcl_word(Path(path).name))
     script += ['read_verilog ' + tcl_list(cfg['source_read_order']), 'read_xdc ' + tcl_word(xdc),
-               'redirect -tee -file synthesis.log {synth_design -top ' + tcl_word(cfg['top']) +
-               ' -part ' + tcl_word(spec['part']) + ' -mode out_of_context -gated_clock_conversion off}',
+               'synth_design -top ' + tcl_word(cfg['top']) +
+               ' -part ' + tcl_word(spec['part']) + ' -mode out_of_context -gated_clock_conversion off',
                'report_utilization -file utilization.rpt',
                'report_utilization -hierarchical -file utilization_hierarchical.rpt',
                'report_drc -file drc.rpt', 'write_checkpoint synthesized.dcp',
@@ -88,6 +89,14 @@ def collect(request_path, response_path, execute=False):
                                      '-journal', str(run / 'vivado.jou')], cwd=run, env=env, timeout=86400,
                                     log_path=run / 'console.log')
             response.update(executed=True, tool_returncode=completed.returncode)
+            # Vivado does not provide the redirect command used by other EDA
+            # shells. Capture the real process output in Python instead. Keep
+            # every byte and every warning, including elaboration/report-stage
+            # messages: this is conservatively broader than synthesis alone.
+            shutil.copyfile(run / 'console.log', run / 'synthesis.log')
+            version_file = run / 'tool-version.txt'
+            if version_file.is_file() and not version_file.is_symlink() and version_file.stat().st_size <= 1024:
+                response['actual_tool_version'] = version_file.read_text().strip()
             verify_inputs(req)
             require(hashes([tcl])[str(tcl)] == launch_sha, 'Launch script changed during execution')
             if completed.returncode == 0:
