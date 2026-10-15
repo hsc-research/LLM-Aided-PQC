@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-15",
+  "base_main_commit": "f003116e3fb6ba7f80bc6becc48507f3605222e0",
+  "base_tree": "80e7500128e485d4625e81841b158fe511f7c7bd",
+  "changed_source_sha256": {
+    "agent/autonomous_fpga.py": "1da99e8bc6f54c29124d3b63f996a6ee12106c232e9927ab253f0061beaf8b65",
+    "agent/fpga_feedback.py": "8e34eca00f812942bbe15b87a8d688f9f6d8b9e1a4c87d15aa30d33ff5a01de5",
+    "docs/fpga/VIVADO_QUALIFICATION.md": "2857ab1dea734bbbc161785cabc3c0699567ad3a0f0ef4c9966a0ca47ccf79a3",
+    "tests/test_vivado_launch.py": "5c65227b2c1de24fef57792b3e13ea30c5b19ba9aa8efe9c5682830853e778d0"
+  },
+  "python": "3.12.14",
+  "tcl": "8.6.16",
+  "focused": {
+    "ran": 103,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "independent_review": {
+    "blocking_findings": 0,
+    "focused_tests_passed": 36
+  },
+  "permitted_subset": {
+    "O0": {
+      "discovered": 666,
+      "selected": 647,
+      "ran": 647,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 47.04,
+      "skipped": 10,
+      "excluded": 19
+    },
+    "O1": {
+      "discovered": 666,
+      "selected": 647,
+      "ran": 647,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 42.22,
+      "skipped": 10,
+      "excluded": 19
+    }
+  },
+  "compileall": "PASS",
+  "local_links": {
+    "checked": 695,
+    "files": 112,
+    "errors": 0
+  },
+  "licensed_vivado_replay": false,
+  "model_api_calls": 0,
+  "hqc_experiments": 0,
+  "scope": "License-free launcher/parser/controller regression only. No real Vivado, FPGA result, mapped-memory proof, or full-suite pass is claimed."
+}

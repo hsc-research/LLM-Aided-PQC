@@ -339,7 +339,15 @@ class Controller:
                               'request': str(request), 'request_sha256': request_hash}
         if phase == 'verify': validate_gate(value, self.cfg, expected, self.contract)
         else:
-            require(value.get('executed') is True, 'Vivado did not execute')
+            # A failed launch or report parser must not masquerade as a tool
+            # version mismatch merely because qualified metadata is absent.
+            require(not value.get('qualification_error_type'),
+                    'Vivado evidence collection or validation failed; inspect bound vivado/qualification-error.txt')
+            require(value.get('executed') is True, 'Vivado did not execute; inspect bound vivado/console.log')
+            require(type(value.get('tool_returncode')) is int and value['tool_returncode'] == 0,
+                    'Vivado failed; inspect bound vivado/console.log')
+            require(isinstance(value.get('actual_tool_version'), str) and bool(value['actual_tool_version']),
+                    'Missing actual Vivado version evidence')
             require(value.get('actual_tool_version') == self.cfg['measurement']['tool_version'], 'Vivado actual version mismatch')
             require(isinstance(value.get('metrics'), dict), 'No actual Vivado measurement')
             finite(value['metrics'].get('worst_setup_slack_ns'), 'measured setup slack')
