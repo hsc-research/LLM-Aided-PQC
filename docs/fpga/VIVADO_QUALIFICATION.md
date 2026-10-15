@@ -246,8 +246,12 @@ and the existing frozen-source checks remain required. Path reports use only
 `report_timing -of_objects $path -return_string`: display switches that Vivado
 ignores with `-of_objects` are omitted.
 
-Before structural reporting, every returned rule must have class `drc_check`,
-be enabled, and collectively have exactly the three required names. The validated
+Before structural reporting, every returned rule must have class `rule_check`
+or `drc_check`, be enabled, and collectively have exactly the three required names.
+UG835 describes `get_drc_checks` results as `rule_check` objects; UG894's
+user-defined RAMW-1 example shows `drc_check`. Requiring only the latter rejected
+other documented DRC objects. Empty or unrelated classes still fail, and the
+error includes the returned class for diagnosis. The validated
 plain names are passed to `report_drc`, avoiding opaque collection display text.
 The observed licensed-host report selected the correct three rules even though
 its command header displayed `valid_o`; that header alone is not evidence of
@@ -271,3 +275,29 @@ Primary API references:
 - [2022.2 report_timing](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/report_timing)
 - [2022.2 DRC properties and class](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Manipulating-DRCs)
 - [2022.2 get_clocks and quiet behavior](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/get_clocks)
+
+
+### DRC class compatibility regression (2026-10-15)
+
+The new `Invalid structural DRC object class` failure occurs before
+`report_drc`, after port timing collection. No-path warnings preceding it are
+not the fatal Tcl assertion, and this correction does not suppress those
+warnings or turn missing paths into timing coverage.
+
+The accepted class set is limited to the two documented spellings. Cardinality,
+exact rule names (`MDRV-1`, `LUTLP-1`, `INBB-3`), enabled state, unwaived reporting,
+and violation/error handling are unchanged. Unknown classes, missing rules,
+duplicates, disabled rules and query/report errors still prevent completion.
+
+Sources:
+
+- [UG835 2022.2 PDF, get_drc_checks](https://www.xilinx.com/support/documents/sw_manuals/xilinx2022_2/ug835-vivado-tcl-commands.pdf)
+- [UG894 2022.2, Manipulating DRCs](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Manipulating-DRCs)
+
+The offline fixture now exercises `rule_check` as its default and separately
+checks `drc_check` compatibility. This is contract regression coverage, not
+licensed Vivado execution. On 2026-10-15 at approximately 18:40 UTC, the owner
+supplied a read-only Vivado 2022.2 host probe showing all three required rules
+(`INBB-3`, `LUTLP-1`, `MDRV-1`) with `CLASS=rule_check` and `IS_ENABLED=1`.
+This confirms the class mismatch on that host. The updated full collector has
+not yet been rerun there; successful reporting and qualification remain unverified.

@@ -168,7 +168,12 @@ set pqc_checks [get_drc_checks {MDRV-1 LUTLP-1 INBB-3}]
 if {[llength $pqc_checks] != 3} {error "Missing required structural DRC checks"}
 set pqc_check_names {}
 foreach rule $pqc_checks {
-    if {[get_property CLASS $rule] ne "drc_check"} {error "Invalid structural DRC object class"}
+    # UG835 get_drc_checks describes rule_check objects; UG894 also shows
+    # drc_check for its user-defined rule example. Accept only these DRC classes.
+    set rule_class [get_property CLASS $rule]
+    if {$rule_class ni {rule_check drc_check}} {
+        error "Invalid structural DRC object class: [list $rule_class] (expected rule_check or drc_check)"
+    }
     set rule_name [get_property NAME $rule]
     if {![get_property IS_ENABLED $rule]} {error "Disabled required structural DRC check: $rule_name"}
     lappend pqc_check_names $rule_name
