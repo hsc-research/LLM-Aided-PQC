@@ -1,0 +1,64 @@
+{
+  "base_commit": "01e137c9252aaea4f6fb2e170b4f660a00140833",
+  "scope": "License-free Tcl/Python regressions and saved-run diagnostic safety; no licensed Vivado, synthesis, HQC, paid provider or hosted CI execution",
+  "owner_reported_evidence": {
+    "timestamp_utc": "2026-10-15T23:25:00Z",
+    "source": "Owner console output relayed by parent conversation",
+    "run": "mldsa-006",
+    "tool_version": "2022.2",
+    "configured_top": "combined_top",
+    "recorded_top": "design_1",
+    "primitive_count": 122180,
+    "latch_inventory_count": 0,
+    "blackbox_count": 0,
+    "complete": 1,
+    "tool_returncode": 0,
+    "checkpoint_TOP_property": "combined_top"
+  },
+  "production_change": "Collect TOP on current_design; retain NAME as design_name; never use expected configuration as observed evidence. Python top equality guard unchanged.",
+  "diagnostic_contract": "Original response binds all RAW report hashes; request/manifest and source/non-producer inputs match; DCP property identity queried in temporary Vivado session; temporary corrected copy evaluated separately; original files unchanged and rehashed; no admission artifact",
+  "tests": {
+    "normal": {
+      "ran": 68,
+      "failures": 0,
+      "errors": 0
+    },
+    "optimized": {
+      "ran": 68,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "test_command": "python [-O] -m unittest tests.test_vivado_diagnostics tests.test_vivado_contracts tests.test_vivado_collector tests.test_vivado_launch tests.test_vivado_qualification -q",
+  "baseline_reproduction": "Unpatched collector completed but recorded design_1 despite mocked current_design TOP=combined_top",
+  "source_references": [
+    "https://www.xilinx.com/support/documents/sw_manuals/xilinx2022_2/ug835-vivado-tcl-commands.pdf",
+    "https://github.com/Xilinx/XilinxTclStore/blob/master/tclapp/xilinx/designutils/write_template.tcl"
+  ],
+  "ug835_pdf_sha256": "b1482b7acf57bf286e2f244fd60adedb9b036ab76693a007a250a742eae0631f",
+  "files": {
+    "agent/vivado_qualification.tcl": "4e7e9e8d07b99e644a43f77db161134cba2d678c9ed647789dec2146af0745e4",
+    "tests/test_vivado_contracts.py": "edfce3057a93defac94b5915933f9d897525bf9a19c53718c473e60c46875920",
+    "tests/test_vivado_diagnostics.py": "0776169420272022bf016c1db7b670a2b9ae25a84c1a34576d1f93a7accb7ac1",
+    "tools/diagnose_vivado_reports.py": "302db825d5099efb0e48936e118413ca929ec53f6065b59a6960f7f70af82baa",
+    "docs/fpga/VIVADO_QUALIFICATION.md": "dd360371ab985f9340b69e444ce0a76a5fb6da8d1f1726dfde4b29b50d8ec56b"
+  },
+  "owner_checkpoint_probe": {
+    "timestamp_utc": "2026-10-15T23:50:00Z",
+    "provenance": "Owner-supplied checkpoint probe relayed by parent; not independently executed by assistant",
+    "VERSION": "2022.2",
+    "NAME": "checkpoint_synthesized",
+    "TOP": "combined_top",
+    "PART": "xc7a200tfbg676-1",
+    "exit_code": 0,
+    "open_checkpoint_seconds": 24,
+    "scope": "Checkpoint property probe only; full updated collector not rerun"
+  },
+  "legacy_diagnostic_interpretation": {
+    "commit": "01e137c9252aaea4f6fb2e170b4f660a00140833",
+    "file": "agent/vivado_qualification.tcl",
+    "sha256": "c034c5bbde87842887190e1b38ccee1e9236b1ccff749ca9f19aa3cfea771a5c",
+    "verified_by": "git show 01e137c9252aaea4f6fb2e170b4f660a00140833:agent/vivado_qualification.tcl | sha256sum",
+    "rule": "Only this known NAME-producing script permits a mismatch to be interpreted diagnostically; actual DCP TOP must still match frozen top."
+  }
+}

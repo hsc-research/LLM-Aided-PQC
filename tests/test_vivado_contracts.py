@@ -8,7 +8,7 @@ from tools.export_target_profiles import tcl_word
 
 STUB = r'''
 set pqc_path_count 1
-set props [dict create design [dict create NAME combined_top PART xc7a200tfbg676-1] \
+set props [dict create design [dict create NAME design_1 TOP combined_top PART xc7a200tfbg676-1] \
  c1 [dict create NAME {top/gen[0]/r\one} REF_NAME FDRE PRIMITIVE_TYPE REGISTER.FLOP.FDRE] \
  c2 [dict create NAME {top/gen[1]/r two} REF_NAME FDRE PRIMITIVE_TYPE REGISTER.FLOP.FDRE] \
  clk [dict create NAME clk PERIOD 15 IS_GENERATED 0 SOURCE_PINS clk_i] \
@@ -18,11 +18,15 @@ set props [dict create design [dict create NAME combined_top PART xc7a200tfbg676
 foreach name {MDRV-1 LUTLP-1 INBB-3} {
  dict set props $name [dict create NAME $name CLASS $drc_class IS_ENABLED 1]
 }
+if {$scenario eq "wrong_top"} {dict set props design NAME combined_top; dict set props design TOP other_top}
+if {$scenario eq "empty_top"} {dict set props design TOP {}}
+if {$scenario eq "missing_top"} {dict unset props design TOP}
 if {$scenario eq "wrong_name"} {dict set props MDRV-1 NAME valid_o}
 if {$scenario eq "wrong_class"} {dict set props MDRV-1 CLASS port}
 if {$scenario eq "disabled"} {dict set props MDRV-1 IS_ENABLED 0}
 if {$scenario eq "bad_port"} {dict set props port CLASS cell}
 proc get_property {property objects} {
+ if {$::scenario eq "top_property_error" && $property eq "TOP"} {error "TOP property query failed"}
  if {$::scenario eq "drc_property_error" && $property eq $::failing_drc_property && [lsearch -exact $objects MDRV-1] >= 0} {error "DRC property read failed: $property"}
  if {$::scenario eq "property_error" && $property eq "SLACK"} {error "Property read failed"}
  set result {}
@@ -130,8 +134,36 @@ class FullCollectorContracts(unittest.TestCase):
                          ['setup-1', 'top/gen[1]/r two'], ['hold-1', 'top/gen[1]/r two']])
         self.assertEqual(rows['port'], [['valid_o', 'OUT', '0']])
         self.assertEqual(len(rows['port_timing']), 2)
+        self.assertEqual(rows['meta']['top'], 'combined_top')
+        self.assertEqual(rows['meta']['design_name'], 'design_1')
         self.assertIn('Exact path setup', report)
         self.assertIn('Exact path hold', report)
+
+    def test_wrong_actual_top_is_not_replaced_by_matching_design_name(self):
+        result, output, _ = self.run_script('wrong_top')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        rows = q.parse_objects(output)
+        self.assertEqual(rows['meta']['design_name'], 'combined_top')
+        self.assertEqual(rows['meta']['top'], 'other_top')
+        from tests.test_vivado_qualification import QualificationTests, encoded
+        fixture = QualificationTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        fixture.fixture()
+        objects = fixture.run / 'objects.tsv'
+        objects.write_text(objects.read_text().replace(encoded('meta', 'top', 'combined_top'),
+                                                      encoded('meta', 'top', rows['meta']['top'])))
+        with self.assertRaisesRegex(ValueError, 'Observed Vivado top differs'):
+            q.evaluate(fixture.run, fixture.request)
+
+    def test_missing_empty_or_failed_top_query_never_completes(self):
+        for scenario in ('missing_top', 'empty_top', 'top_property_error'):
+            with self.subTest(scenario=scenario):
+                result, output, _ = self.run_script(scenario)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertNotIn('primitive inventory begin', result.stdout)
+                with self.assertRaises(ValueError):
+                    q.parse_objects(output)
 
     def test_documented_drc_classes_reach_report_with_exact_enabled_names(self):
         for drc_class in ('rule_check', 'drc_check'):

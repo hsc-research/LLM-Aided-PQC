@@ -301,3 +301,57 @@ supplied a read-only Vivado 2022.2 host probe showing all three required rules
 (`INBB-3`, `LUTLP-1`, `MDRV-1`) with `CLASS=rule_check` and `IS_ENABLED=1`.
 This confirms the class mismatch on that host. The updated full collector has
 not yet been rerun there; successful reporting and qualification remain unverified.
+
+
+### Synthesized top identity and saved-run diagnosis (2026-10-15)
+
+`NAME` on `current_design` is a design-container label, not the top RTL module.
+The owner reported a completed run whose saved metadata recorded `design_1`
+while the frozen configuration requested `combined_top`. At approximately
+23:50 UTC on 2026-10-15, the owner opened that saved checkpoint with Vivado
+2022.2 and reported `NAME=checkpoint_synthesized`, `TOP=combined_top`, and
+`PART=xc7a200tfbg676-1`. Reopening a checkpoint changed its container NAME;
+it did not change its top module. This property probe confirms the identity
+correction, but is not a full execution of the updated collector. The collector now
+queries the loaded design's `TOP` property for `meta top` and records its
+`NAME` separately as `meta design_name`. Missing/empty TOP or query errors stop
+collection. The Python comparison against the exact frozen top is unchanged;
+a matching design-container name cannot conceal a different actual top.
+
+References:
+
+- [UG835 2022.2 synth_design](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/synth_design): `-name` labels the design, whereas `-top` selects the hierarchy's top module.
+- [AMD/Xilinx write_template implementation](https://github.com/Xilinx/XilinxTclStore/blob/master/tclapp/xilinx/designutils/write_template.tcl): uses `TOP` on `current_design` when identifying the top-level module.
+
+A failed Python qualification does not necessarily require another synthesis
+merely to diagnose its reports. For an existing, completed `002-measure` folder:
+
+```sh
+python3 -m tools.diagnose_vivado_reports --measurement /absolute/path/to/002-measure
+```
+
+This diagnostic launches Vivado only to open the saved `synthesized.dcp` and
+read its version, NAME, TOP and PART. It never synthesizes or saves a checkpoint.
+The original saved `response.json` must bind every raw report hash to the
+request. Frozen source and non-producer input hashes must still match. Original
+producer hashes are retained; current parser identities and producer drift are
+reported separately. Raw evidence (including the DCP) and frozen inputs are
+hashed again after diagnosis to detect changes during the read.
+
+Independent object, timing, utilization, path and exception parsers report their
+findings even when another parser fails. When the checkpoint independently
+confirms the requested top/part/version, old mismatching top metadata may be
+interpreted as a container label **only** when the saved Tcl producer hash is the
+exact known NAME-producing script at commit `01e137c9252aaea4f6fb2e170b4f660a00140833`.
+Unknown producer mismatches remain blocked, even if the old value matches the
+reopened container NAME. A disposable copy outside the original run interprets the old NAME row using the
+observed checkpoint TOP and runs the unchanged evaluator. This is explicitly
+`DIAGNOSTIC_ONLY` with `admission_eligible=false`. Original reports, request,
+response, state and producer bindings are not rewritten. No `qualification.json`
+or controller response is emitted. Diagnostic gate observations do not admit
+an old run, permit paid generation or establish mapped-memory semantics.
+
+Keep the old run intact. Do not manually edit its hex metadata, replace frozen
+hashes, or use a diagnostic result as accepted measurement evidence. A fresh
+fully bound invocation is still needed for an ordinary qualified collector
+record; diagnosis first can expose remaining blockers before that cost is paid.

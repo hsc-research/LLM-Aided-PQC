@@ -108,7 +108,12 @@ pqc_emit $pqc_f meta schema vivado-object-audit-v1
 pqc_emit $pqc_f meta tool_version [version -short]
 pqc_emit $pqc_f meta tool_build [version]
 pqc_emit $pqc_f meta part [get_property PART [current_design]]
-pqc_emit $pqc_f meta top [get_property NAME [current_design]]
+# NAME labels the loaded design container (for example netlist_1); TOP is the
+# actual synthesized top module. Never substitute the requested configuration.
+set pqc_top [get_property TOP [current_design]]
+if {[string trim $pqc_top] eq ""} {error "Missing observed Vivado top module"}
+pqc_emit $pqc_f meta design_name [get_property NAME [current_design]]
+pqc_emit $pqc_f meta top $pqc_top
 pqc_emit $pqc_f meta stage post_synth
 pqc_emit $pqc_f meta mode out_of_context
 pqc_emit $pqc_f meta effort default
