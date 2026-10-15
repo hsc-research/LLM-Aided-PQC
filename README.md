@@ -11,6 +11,8 @@ proposes edits; Python code applies them, runs checks, and restores rejected
 changes. You can read results and run the software checks without a model API
 or an EDA license.
 
+[Quick start](#quick-start) · [Dashboard](#dashboard) · [Verified status](#what-is-available) · [FPGA / ASIC sources](#choose-fpga-or-asic-sources) · [Optimization flow](#how-an-optimization-is-checked)
+
 ## Start here
 
 For the ML-DSA server experiment, follow the [baseline, agent, and student handoff guide](docs/MLDSA_STUDENT_QUICKSTART.md). It includes the tested simulator version, no-paid baseline checks, bounded agent commands, and dashboard access.
@@ -25,6 +27,83 @@ For the ML-DSA server experiment, follow the [baseline, agent, and student hando
 | Choose a design and check its limits | [Four-design status](docs/PROJECT_STATUS.md) |
 | Save a Claude key locally and select a workspace | [Encrypted credential setup](docs/CLAUDE_CREDENTIALS.md) |
 | Browse all documentation | [Documentation index](docs/README.md) |
+
+## Quick start
+
+Use Linux, Git, Python 3.10+ and `tclsh` (the Tcl interpreter used by some tests).
+The core tools use the Python standard library; no package installation is needed
+for the commands below. From a new checkout:
+
+```bash
+git clone https://github.com/hsc-research/LLM-Aided-PQC.git
+cd LLM-Aided-PQC
+python3 -m venv .venv
+source .venv/bin/activate
+
+python3 -m agent doctor --json
+python3 -m agent list --json
+python3 -m agent smoke
+python3 -m unittest discover -s tests -v
+python3 tools/check_docs.py
+```
+
+Expected: `smoke` prints `"status": "PASS"`, the test runner reports `OK`, and
+the link checker reports zero errors. Optional simulator-dependent tests can
+be skipped when their tools are absent; record skips with the result.
+`doctor` may list missing EDA tools. It is an inventory, not a hardware pass.
+None of these commands calls a paid API or starts vendor synthesis.
+
+For OS packages, expected outputs, source-integrity checks, actual RTL tests
+and troubleshooting, continue with the [staged run guide](docs/REPRODUCE.md).
+
+## Dashboard
+
+The real dashboard uses the HSC Research Lab / University of Idaho gold, black
+and gray theme. Its current-runs view shows saved FPGA proposals, autonomous FPGA
+journals and ASIC measurement records; historical experiments have a separate view.
+It is a **read-only monitor**, not a hardware launcher or verification gate.
+
+```bash
+# Optional UI dependency; run from your checkout and active Python environment.
+python3 -m pip install -e '.[dashboard]'
+python3 -m agent.dashboard
+```
+
+Open `http://127.0.0.1:8080` on the same computer. For a server, keep the dashboard
+running there and create this tunnel from your laptop (replace the placeholders):
+
+```bash
+ssh -N -L 8080:127.0.0.1:8080 USER@SERVER
+```
+
+Then open the same localhost URL on your laptop. Keep it private: the dashboard
+has no login. See the [dashboard guide](docs/CURRENT_DASHBOARD.md) for report
+interpretation and the [student guide](docs/MLDSA_STUDENT_QUICKSTART.md#dashboard-server-process-laptop-browser)
+for server access and port conflicts. Missing measurements stay unknown; proposal
+previews and provisional candidates are not verified improvements.
+
+### While an autonomous FPGA run is active
+
+Keep the original foreground terminal open for the credential vault. Quiet output
+can occur while tools write their logs. In a **second terminal**, read a saved
+status snapshot without interrupting the run:
+
+```bash
+# Replace RUN_DIRECTORY with the exact existing run directory.
+python3 -c 'import json, pathlib, sys; s=json.loads((pathlib.Path(sys.argv[1])/"state.json").read_text()); print(json.dumps({k:s.get(k) for k in ("status", "active_stage", "iterations", "generation_attempts")}, indent=2))' RUN_DIRECTORY
+```
+
+Saved status is not proof that a process is still alive. If a record is not yet
+available, wait for it; do not redispatch the job. **Use `--inspect` only after the
+run has finalized**, because it requires the final integrity record:
+
+```bash
+python3 -m agent.autonomous_fpga --inspect RUN_DIRECTORY
+```
+
+For preparation, approved scope, budget and stopping rules, use the
+[bounded FPGA experiment guide](docs/AUTONOMOUS_FPGA.md) and
+[baseline → agent → student handoff](docs/MLDSA_STUDENT_QUICKSTART.md).
 
 ## What is available
 
@@ -63,15 +142,15 @@ is not implemented. See [results and comparison rules](docs/RESULTS.md).
 | Design | FPGA original / qualified portable sources | ASIC startup baseline | ASIC startup candidate |
 |---|---|---|---|
 | ML-KEM | [Pinned unified core](third_party/adams_bridge/README.md), variant `baseline` | Same existing generic-memory unified core via `baseline`; target qualification pending | No separately qualified candidate |
-| ML-DSA | Pinned `third_party/mldsa_osh/upstream`; export `guarded-baseline` or `corrected-candidate` | [Frozen guarded startup tree](asic/rtl/mldsa_startup/guarded-baseline), variant `asic-startup-baseline` | [Frozen corrected startup tree](asic/rtl/mldsa_startup/corrected-candidate), variant `asic-startup-candidate` |
+| ML-DSA | [Latch-corrected FPGA variants](docs/fpga/MLDSA_LATCH_CORRECTION.md): `fpga-latch-corrected-baseline` / `fpga-latch-corrected-candidate`; earlier variants remain preserved | [Frozen guarded startup tree](asic/rtl/mldsa_startup/guarded-baseline), variant `asic-startup-baseline` | [Frozen corrected startup tree](asic/rtl/mldsa_startup/corrected-candidate), variant `asic-startup-candidate` |
 | SLH | Preserved `agent/slh_dsa/pristine` / `slh_src`; export the corrected same-mode pair | [Startup exporter](tools/export_slh_asic_verified.py), variant `asic-startup-baseline` through the target exporter | Same exporter, variant `asic-startup-candidate`; match `128f` or `192f` |
 | HQC SAC 2026 | [Source-only import](third_party/hqc_sac2026/README.md) | Blocked/unqualified | Blocked/unqualified |
 
 Recommended source preparation, without launching EDA:
 
 ```bash
-# Preserved FPGA selection.
-python3 tools/export_target_profiles.py --design mldsa --variant guarded-baseline \
+# Recommended corrected ML-DSA FPGA baseline for a fresh run.
+python3 tools/export_target_profiles.py --design mldsa --variant fpga-latch-corrected-baseline \
   --target fpga --out build/profiles/mldsa-fpga
 # New ASIC startup source baseline; candidate uses asic-startup-candidate.
 python3 tools/export_target_profiles.py --design mldsa --variant asic-startup-baseline \
@@ -81,6 +160,10 @@ python3 tools/export_target_profiles.py --design slh --variant asic-startup-base
 python3 tools/export_target_profiles.py --design mlkem --variant baseline \
   --target asic --out build/profiles/mlkem-unified-asic
 ```
+
+For new ML-DSA FPGA runs, use the latch-corrected pair above and remeasure its
+baseline. Earlier `guarded-baseline` / `corrected-candidate` sources and reports
+remain preserved for provenance; do not mix their timing with the new pair.
 
 SLH generates each complete same-mode arm into its own exported
 `source-bundle/rtl`; `asic/rtl/slh_startup` contains shared templates, not the
@@ -94,34 +177,23 @@ qualifies repeated boot while inactive only.
 selections, not the new startup defaults. Use exported launch configurations
 for new runs. Original FPGA source trees and historical paths stay in place.
 
-## Quick start
-
-Use Linux, Git, Python 3.10+ and `tclsh` (the Tcl interpreter used by some tests).
-From a new checkout:
-
-```bash
-git clone https://github.com/hsc-research/LLM-Aided-PQC.git
-cd LLM-Aided-PQC
-python3 -m venv .venv
-source .venv/bin/activate
-
-python3 -m agent doctor --json
-python3 -m agent list --json
-python3 -m agent smoke
-python3 -m unittest discover -s tests -v
-python3 tools/check_docs.py
-```
-
-Expected: `smoke` prints `"status": "PASS"`, the test runner reports `OK`, and
-the link checker reports zero errors. Optional simulator-dependent tests can
-be skipped when their tools are absent; record skips with the result.
-`doctor` may list missing EDA tools. It is an inventory, not a hardware pass.
-None of these commands calls a paid API or starts vendor synthesis.
-
-For OS packages, expected outputs, source-integrity checks, actual RTL tests
-and troubleshooting, continue with the [staged run guide](docs/REPRODUCE.md).
-
 ## How an optimization is checked
+
+![Four-step workflow: qualify the baseline, propose a bounded edit, test exact candidate sources, and remeasure the complete design. Failed or exploratory changes roll back.](docs/assets/optimization-workflow.svg)
+
+*Conceptual workflow, not a dashboard capture or measured optimization result.
+FPGA and ASIC require their own qualified evidence; current limits are listed above.*
+
+<details>
+<summary>Play the short workflow animation (optional)</summary>
+
+![One-pass animation highlighting the four conceptual workflow stages; all information is also in the static figure above.](docs/assets/optimization-workflow.gif)
+
+The animation plays once, uses slow stage highlights and contains no flashing.
+Prefer the static figure above for reduced motion. [Asset provenance](docs/assets/README.md).
+
+</details>
+
 
 1. Choose FPGA or ASIC, test that target's baseline, and measure the **complete
    design** under fixed constraints.
