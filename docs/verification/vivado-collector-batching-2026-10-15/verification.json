@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-15",
+  "base_tree": "424009275a5e93a86413b9225de113820cc7df7c",
+  "publication_note": "Preserve subsequent documentation-only main changes; this is a selective collector/test/docs/evidence delta.",
+  "changed_source_sha256": {
+    "agent/vivado_qualification.tcl": "337492e9eda65de750ef47f01058aec3e2bbf165c895632d7c622990ca073daa",
+    "tests/test_vivado_collector.py": "72de30912de08633f3ee4b4136b6928be52b60657d21a66b20fce6d03d562915",
+    "docs/fpga/VIVADO_QUALIFICATION.md": "b1aba8a7e74e243cf93c15e7065580fc2e6f26399b0128ec2df199fa0b679e03"
+  },
+  "python": "3.12.14",
+  "tcl": "8.6.16",
+  "focused": {
+    "ran": 111,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "independent_review": {
+    "blocking_findings": 0,
+    "tests_passed": 44,
+    "note": "Singleton scalar handling reviewed after correction; no licensed-host validation."
+  },
+  "permitted_subset": {
+    "O0": {
+      "discovered": 674,
+      "selected": 655,
+      "ran": 655,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 38.919,
+      "skipped": 10,
+      "excluded": 19
+    },
+    "O1": {
+      "discovered": 674,
+      "selected": 655,
+      "ran": 655,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 38.727,
+      "skipped": 10,
+      "excluded": 19
+    }
+  },
+  "synthetic_api_counts": {
+    "primitives": 600,
+    "list_property_calls": 600,
+    "get_property_calls": 18,
+    "max_query_objects": 256,
+    "scope": "Synthetic call counts only; not a Vivado timing measurement"
+  },
+  "compileall": "PASS",
+  "local_links": {
+    "checked": 696,
+    "files": 113,
+    "errors": 0
+  },
+  "licensed_vivado_replay": false,
+  "checkpoint_replay": false,
+  "model_api_calls": 0,
+  "hqc_experiments": 0,
+  "scope": "Real Tcl with synthetic object API; no licensed Vivado speedup, hardware qualification, or full-suite pass claimed."
+}

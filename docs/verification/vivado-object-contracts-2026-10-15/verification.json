@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-15",
+  "base_tree": "424009275a5e93a86413b9225de113820cc7df7c",
+  "publication_note": "Selective delta; preserve PR16 documentation on main 5e5123867c752aca47ab89e7797f8d3bc7477d26. No push from this workspace.",
+  "changed_source_sha256": {
+    "agent/fpga_feedback.py": "65229847e7385e2548b739238b06819e7bbc3994120f869068d1dd79055bbe2d",
+    "agent/vivado_qualification.tcl": "9a387e17eead2481abea7ac6fa404bab91e359fd42a6cacb9e3e0e298465d51c",
+    "tests/test_vivado_collector.py": "72de30912de08633f3ee4b4136b6928be52b60657d21a66b20fce6d03d562915",
+    "tests/test_vivado_contracts.py": "2f63c02870426d88a463ce826b247fed108c516af049a7f1815a4537ae3a982e",
+    "tests/test_vivado_launch.py": "6edbd5e2f65bcb362f91397429be5135ae93c39b470ea3360eddeaf1fddd527a",
+    "tests/test_vivado_qualification.py": "dab5b36038cd4ef53de8fde8bc525ef8691dda4d156643c19d16c2ed1d62cc08",
+    "docs/fpga/VIVADO_QUALIFICATION.md": "ad22807364cf9dcce70cc57ad34d8b3e4fecdec31ab0a583987eee96eb473589"
+  },
+  "python": "3.12.14",
+  "tcl": "8.6.16",
+  "focused": {
+    "ran": 48,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "permitted_subset": {
+    "O0": {
+      "discovered": 678,
+      "selected": 659,
+      "ran": 659,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 43.468,
+      "skipped": 10,
+      "excluded": 19
+    },
+    "O1": {
+      "discovered": 678,
+      "selected": 659,
+      "ran": 659,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 40.022,
+      "skipped": 10,
+      "excluded": 19
+    }
+  },
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "local_links": {
+    "files": 110,
+    "checked": 640,
+    "errors": 0
+  },
+  "licensed_vivado_replay": false,
+  "checkpoint_replay": false,
+  "model_api_calls": 0,
+  "hqc_experiments": 0,
+  "scope": "Synthetic API contracts executed by Tcl; no licensed Vivado speedup, qualification or full-suite pass claimed. DRC warnings remain unreviewed; admission safeguards unchanged."
+}

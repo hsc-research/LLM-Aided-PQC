@@ -74,6 +74,35 @@ It allows observed failures for explicit exploratory work.
 qualification gate to pass. The current mapped-memory behavioral gap means
 strict overall admission remains blocked.
 
+## Collector progress and bounded property queries
+
+The primitive inventory is emitted in batches of at most 256 cells. Mandatory
+property columns use bulk `get_property` calls with checked result cardinality.
+The single-object API returns a scalar; it is explicitly wrapped as one value
+so empty, whitespace-containing, or list-like values are never split.
+Property availability is still inspected on **every individual cell** exactly
+once; there is no type-level availability cache. Optional columns are queried
+only on the cells advertising each property, with missing values kept empty.
+Every matching memory INIT, mode, width, register, reset and collision property
+is retained. Rows keep the previous inventory order and encoding. The separate
+latch/blackbox queries and all downstream qualification gates are unchanged.
+
+`PQC_COLLECTOR` progress lines record the phase and completed/total primitive
+counts. The object stream and stdout are flushed at batch boundaries. A quiet
+native Vivado command log alone does not establish a hang: inspect those progress
+lines and the object-file growth. Earlier collectors had no such progress and
+made repeated property-list queries inside a silent full-netlist loop. The new
+query structure reduces API call counts in synthetic tests; actual Vivado
+runtime improvement must be measured on the licensed host.
+
+The parser retains its existing limits: `objects.tsv` and `qualification.json`
+are limited to 128 MiB, while ordinary text reports default to 32 MiB. A partial
+inventory, incorrect property cardinality, failed query, missing completion
+marker or missing required report cannot qualify a design. Do not change the
+collector under an active run or overwrite its evidence. A separate checkpoint
+inspection can be diagnostic, but cannot become accepted evidence from the old
+run by bypassing its frozen producer hashes.
+
 ## Observable checks
 
 - Primitive latch inventory uses the primitive subgroup and `LD*` reference
@@ -93,7 +122,7 @@ strict overall admission remains blocked.
 - Each non-clock I/O port receives separate min/max path queries. Missing paths,
   infinite slack, inout ports and unexplained ignored paths are uncovered.
   OOC mode does not waive the external timing contract.
-- Each critical path contains actual timing-point cell objects. Source
+- Each critical path contains actual datapath cell objects queried from its Vivado timing-path object. Source
   attribution uses only an absolute `FILE_NAME` plus a valid `LINE_NUMBER`
   within the exact frozen source manifest. Missing properties are `unknown`.
   Similar cell names, module names and matching file basenames are not proof.
@@ -194,6 +223,9 @@ save provisional candidates without accepting them.
 
 ## Primary command references
 
+- [Vivado 2022.2 get_property scalar/list semantics](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/get_property?contentId=LelYUw3FZOlqpGXaBpu12Q)
+- [Vivado 2022.2 get_property ordering and batching](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/get_property-and-Sorted-Lists?contentId=VizwBFZx0uBQMTGlyThZ~w)
+
 - [Vivado 2022.2 synth_design](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/synth_design)
 
 - [Vivado 2022.2 check_timing](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/check_timing)
@@ -202,3 +234,40 @@ save provisional candidates without accepting them.
 - [Vivado 2022.2 timing summary](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/report_timing_summary)
 - [Vivado 2022.2 blackbox query](https://docs.amd.com/r/2022.2-English/ug893-vivado-ide/Tcl-Command-for-Finding-Black-Box-Cells)
 - [DRC enable/disable property](https://docs.amd.com/r/2024.1-English/ug912-vivado-properties/IS_ENABLED)
+
+
+### Vivado 2022.2 object-contract correction
+
+Critical-path cell membership is queried with `get_cells -of_objects $path`.
+Vivado timing paths do not expose the previously assumed `POINTS` property.
+This query identifies datapath members; it does not establish clock-network
+ownership or infer source ownership from endpoint names. Exact source properties
+and the existing frozen-source checks remain required. Path reports use only
+`report_timing -of_objects $path -return_string`: display switches that Vivado
+ignores with `-of_objects` are omitted.
+
+Before structural reporting, every returned rule must have class `drc_check`,
+be enabled, and collectively have exactly the three required names. The validated
+plain names are passed to `report_drc`, avoiding opaque collection display text.
+The observed licensed-host report selected the correct three rules even though
+its command header displayed `valid_o`; that header alone is not evidence of
+incorrect rule execution.
+
+Only optional per-port clock association uses `get_clocks -quiet`, after checking
+the object class is `port`. Absence of a clock on a data port is expected. Returned
+clock names must occur in the global clock inventory. An empty result leads to
+mandatory separate min/max port timing coverage, never a clock-port exemption.
+The global clock query, clock properties, configured clock-port agreement,
+`check_timing` no-clock and unconstrained checks, synthesis, DRC, timing-path
+queries and property queries remain unsuppressed and fail closed. The transcript
+warning gate still examines every warning that Vivado emits.
+
+An executed process with a nonzero exit now reports `EXECUTED_TOOL_FAILED`,
+with blocked status and null measurements, rather than `PREPARED_NOT_EXECUTED`.
+
+Primary API references:
+- [2022.2 timing path objects and datapath relationships](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Timing-Path-Object)
+- [2022.2 path-cell query example](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Defining-Tcl-Procedures)
+- [2022.2 report_timing](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/report_timing)
+- [2022.2 DRC properties and class](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Manipulating-DRCs)
+- [2022.2 get_clocks and quiet behavior](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/get_clocks)

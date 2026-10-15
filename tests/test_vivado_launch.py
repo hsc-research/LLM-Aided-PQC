@@ -77,6 +77,7 @@ original_source SCRIPT
     def test_generated_launch_reaches_synthesis_and_retains_all_warnings(self):
         response = self.launch()
         self.assertEqual(response['tool_returncode'], 0)
+        self.assertEqual(response['measurement_label'], 'PRELIMINARY_POST_SYNTH_NOT_ADMITTED')
         self.assertEqual(response['actual_tool_version'], '2022.2')
         self.assertIsNotNone(response['qualification'])
         self.assertEqual((self.fixture.run / 'console.log').read_bytes(),
@@ -87,6 +88,14 @@ original_source SCRIPT
         self.assertIn('constraint fixture warning', response['warnings'][0])
         self.assertIn('report fixture warning', response['warnings'][-1])
         self.assertFalse(response['memory_semantics_verified'])
+
+    def test_dry_run_retains_not_executed_label(self):
+        with patch.object(feedback, 'run_process', side_effect=AssertionError('No tool launch allowed')):
+            response = feedback.collect(self.fixture.request_file, self.root / 'response.json')
+        self.assertFalse(response['executed'])
+        self.assertEqual(response['measurement_label'], 'PREPARED_NOT_EXECUTED')
+        self.assertIsNone(response['qualification'])
+        self.assertIsNone(response['metrics'])
 
     def test_unknown_redirect_is_rejected_by_tcl_contract(self):
         # Deliberately recreate the reported failure. The script-integrity check
@@ -99,6 +108,10 @@ original_source SCRIPT
 
     def test_synthesis_error_is_not_hidden_and_version_is_preserved(self):
         response = self.launch(synthesis_failure=True)
+        self.assertTrue(response['executed'])
+        self.assertEqual(response['measurement_label'], 'EXECUTED_TOOL_FAILED')
+        self.assertEqual(response['status'], 'BLOCKED')
+        self.assertFalse(response['memory_semantics_verified'])
         self.assertEqual(response['tool_returncode'], 1)
         self.assertEqual(response['actual_tool_version'], '2022.2')
         self.assertIn('SYNTHETIC synthesis failure', (self.fixture.run / 'synthesis.log').read_text())
@@ -108,6 +121,7 @@ original_source SCRIPT
 
     def test_wrong_version_records_observed_value_and_never_synthesizes(self):
         response = self.launch(version='2023.1')
+        self.assertEqual(response['measurement_label'], 'EXECUTED_TOOL_FAILED')
         self.assertEqual(response['tool_returncode'], 1)
         self.assertEqual(response['actual_tool_version'], '2023.1')
         self.assertIn('Vivado version mismatch', (self.fixture.run / 'console.log').read_text())
