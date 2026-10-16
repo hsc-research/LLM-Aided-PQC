@@ -74,6 +74,35 @@ It allows observed failures for explicit exploratory work.
 qualification gate to pass. The current mapped-memory behavioral gap means
 strict overall admission remains blocked.
 
+## Collector progress and bounded property queries
+
+The primitive inventory is emitted in batches of at most 256 cells. Mandatory
+property columns use bulk `get_property` calls with checked result cardinality.
+The single-object API returns a scalar; it is explicitly wrapped as one value
+so empty, whitespace-containing, or list-like values are never split.
+Property availability is still inspected on **every individual cell** exactly
+once; there is no type-level availability cache. Optional columns are queried
+only on the cells advertising each property, with missing values kept empty.
+Every matching memory INIT, mode, width, register, reset and collision property
+is retained. Rows keep the previous inventory order and encoding. The separate
+latch/blackbox queries and all downstream qualification gates are unchanged.
+
+`PQC_COLLECTOR` progress lines record the phase and completed/total primitive
+counts. The object stream and stdout are flushed at batch boundaries. A quiet
+native Vivado command log alone does not establish a hang: inspect those progress
+lines and the object-file growth. Earlier collectors had no such progress and
+made repeated property-list queries inside a silent full-netlist loop. The new
+query structure reduces API call counts in synthetic tests; actual Vivado
+runtime improvement must be measured on the licensed host.
+
+The parser retains its existing limits: `objects.tsv` and `qualification.json`
+are limited to 128 MiB, while ordinary text reports default to 32 MiB. A partial
+inventory, incorrect property cardinality, failed query, missing completion
+marker or missing required report cannot qualify a design. Do not change the
+collector under an active run or overwrite its evidence. A separate checkpoint
+inspection can be diagnostic, but cannot become accepted evidence from the old
+run by bypassing its frozen producer hashes.
+
 ## Observable checks
 
 - Primitive latch inventory uses the primitive subgroup and `LD*` reference
@@ -93,7 +122,7 @@ strict overall admission remains blocked.
 - Each non-clock I/O port receives separate min/max path queries. Missing paths,
   infinite slack, inout ports and unexplained ignored paths are uncovered.
   OOC mode does not waive the external timing contract.
-- Each critical path contains actual timing-point cell objects. Source
+- Each critical path contains actual datapath cell objects queried from its Vivado timing-path object. Source
   attribution uses only an absolute `FILE_NAME` plus a valid `LINE_NUMBER`
   within the exact frozen source manifest. Missing properties are `unknown`.
   Similar cell names, module names and matching file basenames are not proof.
@@ -194,6 +223,9 @@ save provisional candidates without accepting them.
 
 ## Primary command references
 
+- [Vivado 2022.2 get_property scalar/list semantics](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/get_property?contentId=LelYUw3FZOlqpGXaBpu12Q)
+- [Vivado 2022.2 get_property ordering and batching](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/get_property-and-Sorted-Lists?contentId=VizwBFZx0uBQMTGlyThZ~w)
+
 - [Vivado 2022.2 synth_design](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/synth_design)
 
 - [Vivado 2022.2 check_timing](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/check_timing)
@@ -202,3 +234,124 @@ save provisional candidates without accepting them.
 - [Vivado 2022.2 timing summary](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/report_timing_summary)
 - [Vivado 2022.2 blackbox query](https://docs.amd.com/r/2022.2-English/ug893-vivado-ide/Tcl-Command-for-Finding-Black-Box-Cells)
 - [DRC enable/disable property](https://docs.amd.com/r/2024.1-English/ug912-vivado-properties/IS_ENABLED)
+
+
+### Vivado 2022.2 object-contract correction
+
+Critical-path cell membership is queried with `get_cells -of_objects $path`.
+Vivado timing paths do not expose the previously assumed `POINTS` property.
+This query identifies datapath members; it does not establish clock-network
+ownership or infer source ownership from endpoint names. Exact source properties
+and the existing frozen-source checks remain required. Path reports use only
+`report_timing -of_objects $path -return_string`: display switches that Vivado
+ignores with `-of_objects` are omitted.
+
+Before structural reporting, every returned rule must have class `rule_check`
+or `drc_check`, be enabled, and collectively have exactly the three required names.
+UG835 describes `get_drc_checks` results as `rule_check` objects; UG894's
+user-defined RAMW-1 example shows `drc_check`. Requiring only the latter rejected
+other documented DRC objects. Empty or unrelated classes still fail, and the
+error includes the returned class for diagnosis. The validated
+plain names are passed to `report_drc`, avoiding opaque collection display text.
+The observed licensed-host report selected the correct three rules even though
+its command header displayed `valid_o`; that header alone is not evidence of
+incorrect rule execution.
+
+Only optional per-port clock association uses `get_clocks -quiet`, after checking
+the object class is `port`. Absence of a clock on a data port is expected. Returned
+clock names must occur in the global clock inventory. An empty result leads to
+mandatory separate min/max port timing coverage, never a clock-port exemption.
+The global clock query, clock properties, configured clock-port agreement,
+`check_timing` no-clock and unconstrained checks, synthesis, DRC, timing-path
+queries and property queries remain unsuppressed and fail closed. The transcript
+warning gate still examines every warning that Vivado emits.
+
+An executed process with a nonzero exit now reports `EXECUTED_TOOL_FAILED`,
+with blocked status and null measurements, rather than `PREPARED_NOT_EXECUTED`.
+
+Primary API references:
+- [2022.2 timing path objects and datapath relationships](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Timing-Path-Object)
+- [2022.2 path-cell query example](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Defining-Tcl-Procedures)
+- [2022.2 report_timing](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/report_timing)
+- [2022.2 DRC properties and class](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Manipulating-DRCs)
+- [2022.2 get_clocks and quiet behavior](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/get_clocks)
+
+
+### DRC class compatibility regression (2026-10-15)
+
+The new `Invalid structural DRC object class` failure occurs before
+`report_drc`, after port timing collection. No-path warnings preceding it are
+not the fatal Tcl assertion, and this correction does not suppress those
+warnings or turn missing paths into timing coverage.
+
+The accepted class set is limited to the two documented spellings. Cardinality,
+exact rule names (`MDRV-1`, `LUTLP-1`, `INBB-3`), enabled state, unwaived reporting,
+and violation/error handling are unchanged. Unknown classes, missing rules,
+duplicates, disabled rules and query/report errors still prevent completion.
+
+Sources:
+
+- [UG835 2022.2 PDF, get_drc_checks](https://www.xilinx.com/support/documents/sw_manuals/xilinx2022_2/ug835-vivado-tcl-commands.pdf)
+- [UG894 2022.2, Manipulating DRCs](https://docs.amd.com/r/2022.2-English/ug894-vivado-tcl-scripting/Manipulating-DRCs)
+
+The offline fixture now exercises `rule_check` as its default and separately
+checks `drc_check` compatibility. This is contract regression coverage, not
+licensed Vivado execution. On 2026-10-15 at approximately 18:40 UTC, the owner
+supplied a read-only Vivado 2022.2 host probe showing all three required rules
+(`INBB-3`, `LUTLP-1`, `MDRV-1`) with `CLASS=rule_check` and `IS_ENABLED=1`.
+This confirms the class mismatch on that host. The updated full collector has
+not yet been rerun there; successful reporting and qualification remain unverified.
+
+
+### Synthesized top identity and saved-run diagnosis (2026-10-15)
+
+`NAME` on `current_design` is a design-container label, not the top RTL module.
+The owner reported a completed run whose saved metadata recorded `design_1`
+while the frozen configuration requested `combined_top`. At approximately
+23:50 UTC on 2026-10-15, the owner opened that saved checkpoint with Vivado
+2022.2 and reported `NAME=checkpoint_synthesized`, `TOP=combined_top`, and
+`PART=xc7a200tfbg676-1`. Reopening a checkpoint changed its container NAME;
+it did not change its top module. This property probe confirms the identity
+correction, but is not a full execution of the updated collector. The collector now
+queries the loaded design's `TOP` property for `meta top` and records its
+`NAME` separately as `meta design_name`. Missing/empty TOP or query errors stop
+collection. The Python comparison against the exact frozen top is unchanged;
+a matching design-container name cannot conceal a different actual top.
+
+References:
+
+- [UG835 2022.2 synth_design](https://docs.amd.com/r/2022.2-English/ug835-vivado-tcl-commands/synth_design): `-name` labels the design, whereas `-top` selects the hierarchy's top module.
+- [AMD/Xilinx write_template implementation](https://github.com/Xilinx/XilinxTclStore/blob/master/tclapp/xilinx/designutils/write_template.tcl): uses `TOP` on `current_design` when identifying the top-level module.
+
+A failed Python qualification does not necessarily require another synthesis
+merely to diagnose its reports. For an existing, completed `002-measure` folder:
+
+```sh
+python3 -m tools.diagnose_vivado_reports --measurement /absolute/path/to/002-measure
+```
+
+This diagnostic launches Vivado only to open the saved `synthesized.dcp` and
+read its version, NAME, TOP and PART. It never synthesizes or saves a checkpoint.
+The original saved `response.json` must bind every raw report hash to the
+request. Frozen source and non-producer input hashes must still match. Original
+producer hashes are retained; current parser identities and producer drift are
+reported separately. Raw evidence (including the DCP) and frozen inputs are
+hashed again after diagnosis to detect changes during the read.
+
+Independent object, timing, utilization, path and exception parsers report their
+findings even when another parser fails. When the checkpoint independently
+confirms the requested top/part/version, old mismatching top metadata may be
+interpreted as a container label **only** when the saved Tcl producer hash is the
+exact known NAME-producing script at commit `01e137c9252aaea4f6fb2e170b4f660a00140833`.
+Unknown producer mismatches remain blocked, even if the old value matches the
+reopened container NAME. A disposable copy outside the original run interprets the old NAME row using the
+observed checkpoint TOP and runs the unchanged evaluator. This is explicitly
+`DIAGNOSTIC_ONLY` with `admission_eligible=false`. Original reports, request,
+response, state and producer bindings are not rewritten. No `qualification.json`
+or controller response is emitted. Diagnostic gate observations do not admit
+an old run, permit paid generation or establish mapped-memory semantics.
+
+Keep the old run intact. Do not manually edit its hex metadata, replace frozen
+hashes, or use a diagnostic result as accepted measurement evidence. A fresh
+fully bound invocation is still needed for an ordinary qualified collector
+record; diagnosis first can expose remaining blockers before that cost is paid.

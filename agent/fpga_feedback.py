@@ -113,7 +113,8 @@ def collect(request_path, response_path, execute=False):
                 # No accepting branch exists without mapped-implementation
                 # behavioral evidence. All individual observable gates can pass.
             else:
-                response['blockers'] = ['Vivado failed; inspect console.log', 'Exact-netlist memory semantics are not verified']
+                response.update(measurement_label='EXECUTED_TOOL_FAILED',
+                                blockers=['Vivado failed; inspect console.log', 'Exact-netlist memory semantics are not verified'])
         except Exception as error:
             # Preserve fresh failure evidence for the controller. Do not convert
             # incomplete/malformed reports into a partially qualified measurement.

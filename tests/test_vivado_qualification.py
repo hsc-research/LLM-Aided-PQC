@@ -308,7 +308,7 @@ class QualificationTests(unittest.TestCase):
         self.assertEqual(result.stdout.strip(), '1')
         text = script.read_text()
         for required in ('PRIMITIVE_SUBGROUP == LATCH', 'REF_NAME =~ LD*', 'FILE_NAME', 'LINE_NUMBER',
-                         '-no_waivers', 'get_property POINTS', 'get_property SLACK'):
+                         '-no_waivers', 'get_cells -of_objects $path', 'get_property SLACK'):
             self.assertIn(required, text)
 
 

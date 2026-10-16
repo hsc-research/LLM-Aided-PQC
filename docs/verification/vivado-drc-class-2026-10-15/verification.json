@@ -1,0 +1,53 @@
+{
+  "base_commit": "6736b4577e4e9e58bfe398bbb00a5068ff30fd73",
+  "scope": "Offline Tcl producer and Python qualification regressions; no licensed Vivado run, synthesis, HQC execution, paid API, hosted CI, push or merge",
+  "tests": {
+    "normal": {
+      "ran": 51,
+      "failures": 0,
+      "errors": 0
+    },
+    "optimized": {
+      "ran": 51,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "command": "python [-O] -m unittest tests.test_vivado_contracts tests.test_vivado_collector tests.test_vivado_launch tests.test_vivado_qualification -q",
+  "baseline_reproduction": "Unpatched HEAD producer rejects rule_check fixture with Invalid structural DRC object class",
+  "docs_check": "711 local links across 115 Markdown files; 0 errors (before adding this verification record)",
+  "diff_check": "passed",
+  "runtime_validation": "Owner-supplied read-only Vivado 2022.2 host probe confirms CLASS=rule_check for all three enabled required checks; updated full collector and qualification not yet rerun",
+  "source": {
+    "url": "https://www.xilinx.com/support/documents/sw_manuals/xilinx2022_2/ug835-vivado-tcl-commands.pdf",
+    "section": "get_drc_checks",
+    "printed_page": 696,
+    "sha256": "b1482b7acf57bf286e2f244fd60adedb9b036ab76693a007a250a742eae0631f"
+  },
+  "files": {
+    "agent/vivado_qualification.tcl": "c034c5bbde87842887190e1b38ccee1e9236b1ccff749ca9f19aa3cfea771a5c",
+    "tests/test_vivado_contracts.py": "fd6a99edf5e28ce629ab07b7b3e79fd2bd3b3550f9660e12132628ffe590fadb",
+    "docs/fpga/VIVADO_QUALIFICATION.md": "079c7e487df0d5c91522871943427d692230bac65b283a259b4108a12ef7a038"
+  },
+  "host_probe": {
+    "provenance": "Owner-supplied probe relayed by parent conversation at approximately 2026-10-15 18:40 UTC; not independently executed by assistant",
+    "version": "2022.2",
+    "rows": [
+      {
+        "NAME": "INBB-3",
+        "CLASS": "rule_check",
+        "IS_ENABLED": "1"
+      },
+      {
+        "NAME": "LUTLP-1",
+        "CLASS": "rule_check",
+        "IS_ENABLED": "1"
+      },
+      {
+        "NAME": "MDRV-1",
+        "CLASS": "rule_check",
+        "IS_ENABLED": "1"
+      }
+    ]
+  }
+}
