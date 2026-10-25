@@ -1,246 +1,272 @@
+<p align="center"><img src="docs/assets/banner.svg" alt="LLM-Aided-PQC" width="100%"></p>
+
 # LLM-Aided-PQC
 
+**Use full-design timing reports to guide small RTL changes, then test and measure the complete design again.**
 
+This is a hardware research repository for ML-KEM, ML-DSA, HQC and SLH-DSA.
+It contains reference RTL, edited designs, functional test runners, FPGA/ASIC
+measurement scripts, and the records of earlier experiments. An optional LLM
+proposes edits; Python code applies them, runs checks, and restores rejected
+changes. You can read results and run the software checks without a model API
+or an EDA license.
 
-A correctness-gated optimization agent for post-quantum cryptographic (PQC)
-hardware. An LLM proposes equivalence-preserving RTL edits; deterministic code
-verifies every change; a cryptographic correctness check gates every accepted
-edit. The agent also decides when a bottleneck is not addressable at the RTL
-level at all, and says so rather than forcing an edit.
+[Quick start](#quick-start) · [Dashboard](#dashboard) · [Verified status](#what-is-available) · [FPGA / ASIC sources](#choose-fpga-or-asic-sources) · [Optimization flow](#how-an-optimization-is-checked)
 
-Two NIST-standardized designs are studied: **ML-DSA** (GMU/Beckwith codebase)
-and **HQC** (Yale/Deshpande codebase), both on Artix-7 `xc7a200tfbg676-1`.
+## Start here
 
----
+For the ML-DSA server experiment, follow the [baseline, agent, and student handoff guide](docs/MLDSA_STUDENT_QUICKSTART.md). It includes the tested simulator version, no-paid baseline checks, bounded agent commands, and dashboard access.
 
-## The contribution, in five sentences
-
-1. **The model is structurally untrusted.** Deterministic code makes every
-   checkable decision, and a broken edit cannot be accepted, because acceptance
-   is gated on a check the model cannot touch.
-
-2. **The gates themselves are validated by corruption before being trusted.**
-   Each gate must reject an injected boundary fault and a live-branch
-   arithmetic fault before it is used autonomously. This caught a real hole in
-   a Fisher-Yates comparison; after repair, the gate correctly rejected the
-   same unsafe precomputation when the agent proposed it.
-
-3. **The contribution is not a new transformation.** It is an evidence-tagged
-   rulebook, learned from 59 gated proposals across two NIST standards, with
-   every negative result documented, describing when each transformation
-   helps, fails, or inverts.
-
-4. **Chip-level closure is claimed, and it is measured, not projected.**
-   Every frequency below is a true closing frequency: binary-searched period,
-   fully routed, non-negative slack. Block-level acceptance does not predict
-   chip-level outcome, so post-route closure is the only valid judge.
-
-5. **The rules learned on ML-DSA transferred to HQC with zero retuning**:
-   correct refusals, two gate-caught false positives, and an autonomous win,
-   for $0.52 of API spend.
-
----
-
-## Headline results
-
-### Full-chip, post-route (ML-DSA, `combined_top`)
-
-| Stage | Closing Fmax | Note |
-|---|---|---|
-| Baseline | 70.2 MHz | pristine |
-| Composed block edits | 69.0 MHz | accepted block wins alone regress chip closure |
-| Architectural rewrite | **80.5 MHz** | **+14.7% vs. baseline** |
-
-The composed-block-edits step is the key negative result: every individual
-edit passed its block-level gate, but composing them moved chip closure
-*down*. The true bottleneck was a 256-bit variable-shift serializer invisible
-to block-level runs. The agent's chip-level loop localized this cone itself,
-resolving the binding path to the encoder's PISO register and dispatching to
-`encoder.v`; the banked, word-aligned rewrite that fixed it was hand-authored,
-and the gates validated the result. **Targeting was autonomous; authoring was
-not.**
-
-After the rewrite the design closes at 80.5 MHz and binds on the challenge
-sampler (`ctr0_reg[1]/C` -> `CHALLENGE_SAMPLER/C_SIPO_reg[426]/R`), no longer
-on the encoder cone. Keccak/SHAKE256 bound the design at the intermediate
-71.4 MHz closure step and remains the binding cone for HQC below.
-
-| | Baseline | Optimized | Delta |
-|---|---|---|---|
-| Closed Fmax | 70.2 MHz | 80.5 MHz | **+14.7%** |
-| Throughput | 5,003 ops/s | 5,659 ops/s | **+13.1%** |
-| LUT | 53,127 | 53,543 | +0.8% |
-| FF | 29,079 | 30,078 | +3.4% |
-| DSP / BRAM | 16 / 29 | 16 / 29 | unchanged |
-| KeyGen cycles (level V) | 14,033 | 14,226 | +1.4% |
-
-### Block-level board, ML-DSA (out-of-context, 200 MHz target)
-
-| Block | Baseline WNS | Final WNS | Status |
-|---|---|---|---|
-| `makehint` | -3.511 | **-0.485** | flag-precompute + fanout N=8 (biggest single win, +51% fmax) |
-| `gen_c` | -5.233 | **-1.264** | +58% fmax, cumulative across 3 edits (autonomous fanout, hand-guided precompute, fanout) |
-| `rejection_s` | -4.013 | -2.486 | constant-LUT win, +1.53 ns |
-| `rejection_y` | -4.470 | -4.230 | sign-select win, WNS-neutral, -251 LUTs |
-| `coeff_decomposer` | -1.247 | -1.196 | width-narrowing win, threshold-bound |
-| `butterfly` | -3.802 | -2.793 | pipeline cut, hand-authored, DSP floor closed |
-| `usehint` | -2.542 | -2.542 | closed: ctr self-loop, no win |
-| `decoder` | — | — | sign-select regressed at 13-20 b; strategy excluded on this profile |
-| `encoder` | see chip trajectory above | — | the actual chip bottleneck; hand-authored architectural rewrite |
-
-`rejection_a` is not independently re-verified in this pass; see
-`docs/findings/mldsa/` before citing it.
-
-### The funnel, both designs
-
-| Stage | Count | Note |
-|---|---|---|
-| Proposed | 59 | 65 raw log records minus 6 `retries_exhausted` (retries within one proposal, not distinct proposals) |
-| Applied | 33 | 26 not applied (refused / synth-fail / apply-fail) |
-| Functionally correct | 19 | 14 of the 33 applied were functionally incorrect, caught only by the gate |
-| Committed | 4 | 15 of the 19 correct edits showed no gain and reverted with a recorded boundary |
-
-By lane: latency-preserving, 4 of 23 incorrect. Latency-changing, **10 of 10
-functionally incorrect** and none committed.
-
-### Pipelining insertion-point rule
-
-A mid-tier model went 0/12 on selecting where to cut a pipeline stage.
-Encoding a rendezvous rubric moved it to **4/4** on insertion-point selection,
-but all four still failed downstream (3 anchor mismatches, 1 gate failure).
-Structural judgment is rule-transferable; cross-file consequence tracking is
-not.
-
-### HQC
-
-`agent/hqc/transfer_orchestrator.py` imports the ML-DSA rulebook verbatim and
-applies it to HQC blocks under the HQC KAT, with zero retuning.
-
-- 15 logged transfer attempts, **1 accepted**: `decap`, flag-precompute,
-  **+0.726 ns for $0.037**. Total transfer spend across all 15 attempts:
-  **$0.52**.
-- 2 gate-caught false positives (`decap` flag-precompute, `fixed_weight`
-  max_fanout), both structurally plausible and both caught only by the KAT.
-- Chip-level: a closing frequency of 114.3 MHz was reached with the binding
-  path resolved to `SHAKE256/data_path_instance/state_ram_instance`,
-  confirming Keccak as HQC's binding cone.
-
-Full experiment-by-experiment detail is in `docs/findings/hqc/`; this section
-states only what is directly reconciled against `agent/hqc/transfer_log.jsonl`
-and the chip-level log as of 2026-07-24. Older summary numbers in
-`docs/01_results.md` (dated 2026-06-12) predate this work and should not be
-cited without re-verification.
-
----
-
-## Can this agent optimize PQC cores? The honest answer
-
-Split into the three things people actually mean by that question.
-
-**1. Can it find and verify latency-preserving optimizations autonomously?
-Yes, demonstrated.** It re-derived our best hand-tuned result (`makehint`)
-from pristine RTL with no knowledge of the solution, landing within 7 ps of
-the hand-authored version — independently confirmed as a real netlist
-difference and not tool jitter (three synthesis runs, bit-identical). It
-found new wins on blocks nobody had touched. It correctly rejected unsound
-proposals.
-
-**2. Can it verify latency-changing optimizations autonomously? Yes.** The
-full-KAT gate reliably caught every one of the 10 latency-changing edits the
-agent produced, all of which were functionally incorrect. This is arguably
-the strongest engineering result in the project: the assurance layer works
-even where the proposal layer does not.
-
-**3. Can it *design* pipelining or chip-level architectural rewrites
-autonomously? Not yet, and this is the honest boundary.** The chip-level loop
-reliably *localizes* the bottleneck cone: it correctly identified the
-encoder's PISO register as the binding path at 69.0 MHz and dispatched to the
-right file. It did not author the fix. The banked rewrite that closed the
-design to 80.5 MHz was hand-written and then validated by the same gates the
-agent uses. The correct label for this result is **agent-localized,
-human-authored, gate-validated** — targeting is autonomous, architectural
-authorship is not.
-
-Chip-level absolute timing closure **is** claimed: 80.5 MHz, binary-searched,
-fully routed, non-negative slack, out-of-context flow (WNS +0.029). What is not claimed is that the agent
-authored the edit that reached it.
-
----
-
-## Navigating this repository
-
-### Start here
-
-| Document | What it gives you |
+| I want to… | Read or run |
 |---|---|
-| **[docs/REPRODUCE.md](docs/REPRODUCE.md)** | The full step-by-step playbook, from a fresh machine (WSL + Vivado, or native Linux) through correctness checks, timing, and a full agent flight. Sections 0-7 cover HQC; Part II (sections 8-10) covers ML-DSA. |
-| **[docs/01_results.md](docs/01_results.md)** | ⚠ Dated 2026-06-12, predates the chip-closure trajectory above. Do not cite HQC or chip-level numbers from this file without cross-checking `agent/*.jsonl` first. |
-| **[docs/02_optimization_taxonomy.md](docs/02_optimization_taxonomy.md)** | The rulebook. Transformation classes and the fingerprints that predict when each helps, fails, or inverts. |
-| **[docs/04_agent_architecture.md](docs/04_agent_architecture.md)** | The agent pipeline, the gate catalog, and the flight-log narrative. |
-| **[docs/03_asic_ppa_analysis.md](docs/03_asic_ppa_analysis.md)** | How each optimization class is expected to translate to an ASIC flow. ASIC flows are in progress; no ASIC results exist for this agent yet. |
+| Understand the project and the hardware flow | [Learn the project](docs/LEARN.md) |
+| See what worked and what was actually tested | [Results](docs/RESULTS.md) → [verification record](docs/VERIFICATION.md) |
+| Install and run it step by step | [Run guide](docs/REPRODUCE.md) or the [quick start](#quick-start) below |
+| Prepare separate FPGA/ASIC baselines, then optimize each | [Hardware handoff](docs/HARDWARE_HANDOFF.md), [ASIC startup sources](docs/ASIC_STARTUP.md) |
+| Find RTL, testbenches, scripts or logs | [Repository map](docs/REPOSITORY_LAYOUT.md) |
+| Choose a design and check its limits | [Four-design status](docs/PROJECT_STATUS.md) |
+| Save a Claude key locally and select a workspace | [Encrypted credential setup](docs/CLAUDE_CREDENTIALS.md) |
+| Browse all documentation | [Documentation index](docs/README.md) |
 
-### The primary sources
+## Quick start
 
-**[docs/findings/](docs/findings/)** holds the dated lab notes, split by
-scheme. These are the primary-source records: every experiment, including
-every negative result and every reverted edit. **If a claim in this README or
-in any summary document matters to you, the dated findings file is the source
-of truth, not the summary.**
+Use Linux, Git, Python 3.10+ and `tclsh` (the Tcl interpreter used by some tests).
+The core tools use the Python standard library; no package installation is needed
+for the commands below. From a new checkout:
 
-- **[docs/findings/mldsa/](docs/findings/mldsa/)** — dated findings files,
-  including the encoder campaign, the rejection/makehint session, the fanout
-  load-profile study, and the pipelining insertion-point rubric.
-- **[docs/findings/hqc/](docs/findings/hqc/)** — HQC lab notes, including the
-  cross-design transfer experiment writeup.
+```bash
+git clone https://github.com/hsc-research/LLM-Aided-PQC.git
+cd LLM-Aided-PQC
+python3 -m venv .venv
+source .venv/bin/activate
 
-### Code
+python3 -m agent doctor --json
+python3 -m agent list --json
+python3 -m agent smoke
+python3 -m unittest discover -s tests -v
+python3 tools/check_docs.py
+```
 
-- **`agent/`** — the optimization agent and tooling.
-  - `chip_orchestrator_log.jsonl` — the chip-level closure trajectory: closing
-    frequency, worst-path resolution, and dispatch target at each step. This is
-    the primary source for every chip-level number in this README.
-  - `flight_log.jsonl`, `mldsa/orchestrator_log.jsonl`,
-    `mldsa/latency_log.jsonl`, `hqc/transfer_log.jsonl` — every proposal, every
-    verdict, including no-actions, refusals, and negative results. This is the
-    primary source for the funnel numbers above.
-  - `synthesizer.py`, `path_extractor.py`, `impl_runner.py` — synthesis,
-    critical-path extraction, post-route implementation.
-  - `kat_gate.py` — the HQC correctness gate.
-  - `optimizer_v2.py`, `loop_v21.py`, `edit_ops.py` — the proposal loop and the
-    typed-edit harness that verifies it.
-  - **`agent/hqc/`** — the HQC tier, including `transfer_orchestrator.py`.
-  - **`agent/mldsa/`** — the ML-DSA tier: `full_kat_gate.py`, `orchestrator.py`
-    / `orchestrator_latency.py`, the per-block equivalence gates
-    (`*_equiv_gate.py`), and `mldsa_src/` (the tracked override sources — every
-    committed ML-DSA win lives here, never in the pristine tree).
+Expected: `smoke` prints `"status": "PASS"`, the test runner reports `OK`, and
+the link checker reports zero errors. Optional simulator-dependent tests can
+be skipped when their tools are absent; record skips with the result.
+`doctor` may list missing EDA tools. It is an inventory, not a hardware pass.
+None of these commands calls a paid API or starts vendor synthesis.
 
-- **`build/{keygen,encap,decap}/`** — the three elaborated HQC build trees that
-  are synthesized and simulated.
-- **`hardware/`** — the HQC RTL (Yale/Deshpande).
-- **`synth_out/`** — synthesis reports and extracted critical paths.
+For OS packages, expected outputs, source-integrity checks, actual RTL tests
+and troubleshooting, continue with the [staged run guide](docs/REPRODUCE.md).
 
-### A note on measurement validity
+## Dashboard
 
-`agent/flow_sweep_log.jsonl` contains exploratory sweep records using a
-projected-fmax formula, `1/(period - WNS)`, computed under heavy
-over-constraint. **This formula has been formally retracted as a measurement
-method** and produces unreliable numbers under the conditions in that file.
-Nothing in this README derives from it. The only valid closing-frequency
-method used anywhere in this repository is the binary-search procedure in
-`fmax_search.py`, OOC synthesis mode, accepting only `Slack (MET)` results.
+The real dashboard uses the HSC Research Lab / University of Idaho gold, black
+and gray theme. Its current-runs view shows saved FPGA proposals, autonomous FPGA
+journals and ASIC measurement records; historical experiments have a separate view.
+It is a **read-only monitor**, not a hardware launcher or verification gate.
 
-### A note on the pristine trees
+```bash
+# Optional UI dependency; run from your checkout and active Python environment.
+python3 -m pip install -e '.[dashboard]'
+python3 -m agent.dashboard
+```
 
-Optimized RTL **never** lives in a pristine reference tree. ML-DSA overrides
-live in `agent/mldsa/mldsa_src/` and are applied by basename at compile time.
-A `.bak` file appearing next to a pristine source is a contamination signal —
-it means an edit was applied in the wrong place. This rule exists because it
-was violated once, caught, and documented
-(`FINDINGS_mldsa_repro_and_pristine_integrity.md`).
+Open `http://127.0.0.1:8080` on the same computer. For a server, keep the dashboard
+running there and create this tunnel from your laptop (replace the placeholders):
 
----
+```bash
+ssh -N -L 8080:127.0.0.1:8080 USER@SERVER
+```
 
-## Reproducing anything here
+Then open the same localhost URL on your laptop. Keep it private: the dashboard
+has no login. See the [dashboard guide](docs/CURRENT_DASHBOARD.md) for report
+interpretation and the [student guide](docs/MLDSA_STUDENT_QUICKSTART.md#dashboard-server-process-laptop-browser)
+for server access and port conflicts. Missing measurements stay unknown; proposal
+previews and provisional candidates are not verified improvements.
 
-Start with **[docs/REPRODUCE.md](docs/REPRODUCE.md)**. It assumes no prior
-familiarity with the codebase and has been verified from a fresh clone.
+### While an autonomous FPGA run is active
+
+Keep the original foreground terminal open for the credential vault. Quiet output
+can occur while tools write their logs. In a **second terminal**, read a saved
+status snapshot without interrupting the run:
+
+```bash
+# Replace RUN_DIRECTORY with the exact existing run directory.
+python3 -c 'import json, pathlib, sys; s=json.loads((pathlib.Path(sys.argv[1])/"state.json").read_text()); print(json.dumps({k:s.get(k) for k in ("status", "active_stage", "iterations", "generation_attempts")}, indent=2))' RUN_DIRECTORY
+```
+
+Saved status is not proof that a process is still alive. If a record is not yet
+available, wait for it; do not redispatch the job. **Use `--inspect` only after the
+run has finalized**, because it requires the final integrity record:
+
+```bash
+python3 -m agent.autonomous_fpga --inspect RUN_DIRECTORY
+```
+
+For preparation, approved scope, budget and stopping rules, use the
+[bounded FPGA experiment guide](docs/AUTONOMOUS_FPGA.md) and
+[baseline → agent → student handoff](docs/MLDSA_STUDENT_QUICKSTART.md).
+
+## What is available
+
+All four design families have source baselines in the checkout. Their tests
+and tool support differ; source availability does not mean that every
+operation, parameter set or hardware flow has passed.
+
+| Design | Source to start with | Recorded local verification |
+|---|---|---|
+| ML-KEM | [Adam's Bridge v2.0.3](third_party/adams_bridge/README.md), a **shared ML-KEM-1024 / ML-DSA-87 core with memories** | 80 official ACVP sample cases and 39,840 word/status checks passed with Verilator 5.032; [evidence and limits](docs/VERIFICATION.md#real-ml-kem-baseline-and-rtl-fault-rejection) |
+| ML-DSA | [Pinned ML-DSA-OSH source and explicit corrected variants](verification/mldsa_osh/README.md) | Guarded baseline and guarded, encoder-corrected candidate each passed **210 cases**. Original malformed-hint acceptance and candidate signing failure remain recorded. [Evidence and limits](docs/VERIFICATION.md#real-ml-dsa-portable-variants) |
+| HQC | [Pinned SAC 2026 source](third_party/hqc_sac2026/README.md) | Source-only import; no functional/PPA qualification or runner integration. [Earlier SAC 2023 flows and review](docs/PROJECT_STATUS.md#hqc-legacy-verification-boundary) remain separate |
+| SLH-DSA | [Preserved SPHINCSLET sources and corrected-variant guide](verification/slh_portable/README.md) | Corrected baseline/candidate pairs at **SHA2-128f and SHA2-192f** passed one frozen fixture and live bit-flip rejection per run. Syntax-only variants failed; the other four SHA2 sets were not run. See [current simulation limits](docs/PROJECT_STATUS.md#slh-dsa-baseline-boundary) |
+
+The ML-KEM test exercises only the ML-KEM API of the shared core. It does not
+verify that core's ML-DSA function, or make its area a standalone ML-KEM result.
+Tests with finite inputs are not certification, exhaustive equivalence, or
+side-channel validation.
+
+The dual-target goal is to qualify a baseline on each target before running its
+AI-guided optimization loop. FPGA prefers BRAM-compatible inference; ASIC uses
+generic RTL memory with standard-cell FF/logic mapping, without a macro compiler.
+Source preparation and portable tests do not prove either mapping or licensed
+Vivado/DC/Genus compatibility. **Four target-qualified baselines are not yet
+complete; HQC SAC 2026 remains blocked and unqualified.** See the
+[source-profile commands](docs/HARDWARE_HANDOFF.md#prepare-explicit-target-profiles-without-eda)
+and [matched-run procedure](docs/HARDWARE_HANDOFF.md#record-a-fair-comparison).
+
+Historical FPGA results are recorded for ML-DSA, HQC and SLH-DSA. **The new
+whole-design controller and Genus/DC flow have software-test coverage, but no
+new licensed-tool optimization or PPA result is claimed.** ASIC place-and-route
+is not implemented. See [results and comparison rules](docs/RESULTS.md).
+
+## Choose FPGA or ASIC sources
+
+| Design | FPGA original / qualified portable sources | ASIC startup baseline | ASIC startup candidate |
+|---|---|---|---|
+| ML-KEM | [Pinned unified core](third_party/adams_bridge/README.md), variant `baseline` | Same existing generic-memory unified core via `baseline`; target qualification pending | No separately qualified candidate |
+| ML-DSA | [Latch-corrected FPGA variants](docs/fpga/MLDSA_LATCH_CORRECTION.md): `fpga-latch-corrected-baseline` / `fpga-latch-corrected-candidate`; earlier variants remain preserved | [Frozen guarded startup tree](asic/rtl/mldsa_startup/guarded-baseline), variant `asic-startup-baseline` | [Frozen corrected startup tree](asic/rtl/mldsa_startup/corrected-candidate), variant `asic-startup-candidate` |
+| SLH | Preserved `agent/slh_dsa/pristine` / `slh_src`; export the corrected same-mode pair | [Startup exporter](tools/export_slh_asic_verified.py), variant `asic-startup-baseline` through the target exporter | Same exporter, variant `asic-startup-candidate`; match `128f` or `192f` |
+| HQC SAC 2026 | [Source-only import](third_party/hqc_sac2026/README.md) | Blocked/unqualified | Blocked/unqualified |
+
+Recommended source preparation, without launching EDA:
+
+```bash
+# Recommended corrected ML-DSA FPGA baseline for a fresh run.
+python3 tools/export_target_profiles.py --design mldsa --variant fpga-latch-corrected-baseline \
+  --target fpga --out build/profiles/mldsa-fpga
+# New ASIC startup source baseline; candidate uses asic-startup-candidate.
+python3 tools/export_target_profiles.py --design mldsa --variant asic-startup-baseline \
+  --target asic --out build/profiles/mldsa-asic
+python3 tools/export_target_profiles.py --design slh --variant asic-startup-baseline \
+  --parameter-set 128f --target asic --out build/profiles/slh-128f-asic
+python3 tools/export_target_profiles.py --design mlkem --variant baseline \
+  --target asic --out build/profiles/mlkem-unified-asic
+```
+
+For new ML-DSA FPGA runs, use the latch-corrected pair above and remeasure its
+baseline. Earlier `guarded-baseline` / `corrected-candidate` sources and reports
+remain preserved for provenance; do not mix their timing with the new pair.
+
+SLH generates each complete same-mode arm into its own exported
+`source-bundle/rtl`; `asic/rtl/slh_startup` contains shared templates, not the
+whole design. See [all selections, boot protocols and exact evidence](docs/ASIC_STARTUP.md).
+The new ML-DSA/SLH startup sources have fresh finite RTL checks and generic FF
+structural evidence. Licensed DC/Genus mapping and target-bound optimization
+admission remain pending. ML-DSA has tested in-operation boot recovery; SLH
+qualifies repeated boot while inactive only.
+
+`asic/arms/` and `configs/mldsa_osh_asic.example.json` retain historical source
+selections, not the new startup defaults. Use exported launch configurations
+for new runs. Original FPGA source trees and historical paths stay in place.
+
+## How an optimization is checked
+
+![Four-step workflow: qualify the baseline, propose a bounded edit, test exact candidate sources, and remeasure the complete design. Failed or exploratory changes roll back.](docs/assets/optimization-workflow.svg)
+
+*Conceptual workflow, not a dashboard capture or measured optimization result.
+FPGA and ASIC require their own qualified evidence; current limits are listed above.*
+
+<details>
+<summary>Play the short workflow animation (optional)</summary>
+
+![One-pass animation highlighting the four conceptual workflow stages; all information is also in the static figure above.](docs/assets/optimization-workflow.gif)
+
+The animation plays once, uses slow stage highlights and contains no flashing.
+Prefer the static figure above for reduced motion. [Asset provenance](docs/assets/README.md).
+
+</details>
+
+
+1. Choose FPGA or ASIC, test that target's baseline, and measure the **complete
+   design** under fixed constraints.
+2. Read several worst timing paths and identify the RTL responsible for them.
+3. Propose a small edit to those blocks.
+4. Apply it in a controlled candidate tree and rerun the required functional tests.
+5. Rebuild the complete candidate with the same target, tool, memory policy,
+   constraints and source scope.
+6. Keep the edit only if the measured result meets the timing, area and cycle
+   requirements. Otherwise restore the previous source state.
+7. After an accepted edit, inspect the new full-design paths before continuing.
+
+Block-only timing is useful for diagnosis; it does not decide full-design
+acceptance. [Learn the flow](docs/LEARN.md#why-start-with-the-complete-design).
+
+### Whole-design-first optimization
+
+The [controller guide](docs/WHOLE_DESIGN.md) explains manifests, test coverage,
+critical-path mapping, command adapters, bounded edits and rollback. Start
+with its read-only plan:
+
+```bash
+python3 -m agent.whole_design --config configs/whole_design.target.example.json
+```
+
+The target-bound example intentionally reports `BLOCKED` and exits nonzero until
+qualified full-operation and mapped-memory adapters and real site inputs exist.
+Do not add `--execute` until sources, checks, libraries,
+constraints and adapters have been reviewed. The opt-in LLM proposer may send
+RTL and timing reports to an external provider and incur charges.
+
+### Choose the next run
+
+| Stage | Requirements | Instructions |
+|---|---|---|
+| Verify source integrity | Python only | [Run guide: source checks](docs/REPRODUCE.md#3-check-the-reference-inputs) |
+| Simulate RTL | Compatible simulator and the selected test data | [Run guide: RTL tests](docs/REPRODUCE.md#4-run-functional-rtl-tests) |
+| Measure an FPGA design | AMD Vivado, device support and matching design inputs | [FPGA guide](docs/FPGA.md) |
+| Measure ASIC logic at a fixed period | Cadence Genus or Synopsys Design Compiler, local libraries and reviewed constraints | [ASIC guide](asic/README.md) |
+| Test an optimization loop | Qualified full-design test/measurement adapters; optional model access | [Whole-design controller](docs/WHOLE_DESIGN.md) |
+
+## Repository at a glance
+
+```text
+hardware/                 Legacy HQC SAC 2023 RTL and testbenches
+third_party/              Pinned Adam's Bridge, ML-DSA-OSH and HQC SAC 2026 inputs
+agent/                    Python flows and scheme-specific candidate RTL
+verification/             Functional test harnesses and their instructions
+configs/                  Example constraints and flow configurations
+docs/                     Learning, run guides, results and dated findings
+build/                    Also contains TRACKED HQC source inputs; preserve them
+asic/, logs/, synth_out/  ASIC flows, source snapshots and historical reports
+```
+
+[The full map](docs/REPOSITORY_LAYOUT.md) shows which directories are reference
+inputs, editable candidates, run outputs and historical evidence. Source and
+report paths are deliberately preserved so earlier experiments remain traceable.
+Use a dedicated checkout for hardware runs; legacy build targets can replace
+sources. The current `make clean` preserves tracked HQC `build/` inputs.
+
+## Contributing and licensing
+
+Run the checks in [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change.
+Use [SECURITY.md](SECURITY.md) for research limits and data handling, and
+[CITATION.cff](CITATION.cff) when citing an exact checkout.
+
+See [LICENSE](LICENSE), [NOTICE](NOTICE) and the
+[release checklist](docs/RELEASE_CHECKLIST.md). Keep upstream notices and pinned
+source bytes intact. Review of historical vendor databases/logs and some
+third-party notices remains open; retaining those files does not establish
+permission to redistribute them. Tools, licenses, PDKs and cell libraries are
+supplied separately.
+
+### Bounded autonomous FPGA experiments
+
+[Run the connected ML-DSA/Vivado experiment loop](docs/AUTONOMOUS_FPGA.md): isolated RTL candidates, full exact-source 210-case checks, matched synthesis feedback, bounded API cost/runtime and persistent source-linked context. Explicit exploration remains provisional; mapped-memory behavioral proof is still required for strict acceptance.

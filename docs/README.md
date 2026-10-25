@@ -1,99 +1,76 @@
-# Assurance-Guided LLM-Based RTL Optimization for PQC Accelerators
+# Documentation index
 
-An optimization agent for post-quantum cryptographic hardware. A language
-model proposes RTL edits; deterministic code applies and verifies them; a
-cryptographic correctness gate decides what is kept. The model is structurally
-untrusted: it cannot influence any check that decides acceptance.
+[Project home](../README.md) · [Learn](LEARN.md) · [Results](RESULTS.md) · [Run](REPRODUCE.md)
 
-Two NIST-standardized designs:
+New here? Read **[Learn the project](LEARN.md)**, look at **[Results](RESULTS.md)**,
+then follow **[Install and run](REPRODUCE.md)**. You do not need an EDA tool or
+model API to understand the repo or run its Python checks.
 
-- **ML-DSA** (FIPS 204, lattice signature), GMU/Beckwith implementation
-- **HQC** (code-based KEM), Yale/Deshpande implementation, SAC 2023
+## Understand the project
 
-Both target an AMD Artix-7 `xc7a200tfbg676-1`. An ASIC arc on ASAP7 7 nm
-(Genus + Innovus) is in progress.
-
----
-
-## THE ONLY VALID SOURCE OF NUMBERS
-
-**[findings/INDEX.md](findings/INDEX.md)** carries the canonical ledgers:
-block-level WNS, ML-DSA chip-level, and HQC chip-level. Each chip-level entry
-records the command that reproduces it and the commit it was measured at.
-
-A number that is not in a ledger may not be quoted in a paper, abstract,
-slide, or email. Superseded numbers stay in the ledger, marked, with the
-reason. See [DOCUMENTATION_STANDARD.md](DOCUMENTATION_STANDARD.md).
-
-### Current headline results
-
-| Design | Baseline | Optimized | Delta | Measured |
-|---|---|---|---|---|
-| ML-DSA `combined_top` | 70.2 MHz | 80.5 MHz | +14.7% | post-route closure, OOC |
-| HQC joint KEM | 109.6 MHz | 116.0 MHz | +5.8% | post-route closure, OOC |
-
-Every frequency is a *closing* frequency: binary-searched period, fully placed
-and routed, non-negative slack. Frequency is never projected from a violated
-run by `1/(T - WNS)`; numbers derived that way were retracted.
-
----
-
-## Where to start
-
-| Document | Contents |
+| Guide | What it answers |
 |---|---|
-| [findings/INDEX.md](findings/INDEX.md) | **Canonical ledgers and a one-line map of every experiment.** Start here. |
-| [DOCUMENTATION_STANDARD.md](DOCUMENTATION_STANDARD.md) | How results are recorded, retracted, and superseded |
-| [01_results.md](01_results.md) | The fifteen HQC block-level wins, cross-level timing, PPA deltas |
-| [02_optimization_taxonomy.md](02_optimization_taxonomy.md) | Optimization patterns, the fingerprints that predict success or regression, and the negatives |
-| [04_agent_architecture.md](04_agent_architecture.md) | Agent pipeline, gates, flight log |
-| [REPRODUCE.md](REPRODUCE.md) | Fresh machine to reproduced results |
-| [2026-08-02_asic_game_plan.md](2026-08-02_asic_game_plan.md) | Current ASIC plan and the RTL freeze |
-| [findings/](findings/) | Dated lab notes, preserved verbatim, including every negative |
+| [Learn the project](LEARN.md) | What the repo does, what the four designs are, and why full-design timing matters |
+| [Repository map](REPOSITORY_LAYOUT.md) | Where reference RTL, edited designs, test data, flow code and reports live |
+| [Current design status](PROJECT_STATUS.md) | Which operations and tools are supported, and which checks remain open |
+| [Results](RESULTS.md) | What was measured, what the results mean, and which claims were superseded |
+| [Verification record](VERIFICATION.md) | Exact local test coverage, commands, fault controls and [evidence files](verification/README.md) |
 
----
+## Run it
 
-## The three findings that shaped the work
-
-**Block-level acceptance does not predict chip-level outcome.** Composing four
-individually verified ML-DSA block edits and re-closing gave 69.0 MHz against
-a 70.2 MHz baseline, a net regression. The real bottleneck was a 256-bit
-variable-shift serializer that no block-level run could see. Chip-level
-closure is the only valid judge.
-
-**Correctness cannot be sampled.** Of 33 applied edits, 14 were functionally
-wrong. All 14 compiled and simulated cleanly. Only a checker separated them
-from the 4 commits. The failure rate is lane-dependent: 4 of 23
-latency-preserving, 10 of 10 latency-changing.
-
-**Priors transfer across hardness assumptions; bottlenecks do not.** The
-ML-DSA rule set applied verbatim to HQC produced a win for $0.037 in one call,
-and the binding path moved off the edited datapath onto the shared Keccak
-permutation. Neither design is limited by its own arithmetic.
-
----
-
-## Repository layout
-
-| Path | Contents |
+| Guide | Use it for |
 |---|---|
-| `hardware/` | **Authoritative RTL.** Common source for both Vivado and Genus. |
-| `build/{keygen,encap,decap,joint_design}/` | Elaborated trees that are synthesized and simulated. Win-carrying files are tracked. |
-| `agent/` | Agent code. `hqc/` and `mldsa/` hold per-design orchestrators and gates. |
-| `agent/backends/` | Synthesis backend abstraction (Vivado, Genus) |
-| `agent/port/` | Cross-toolchain port-fix loop and its three-stage gate |
-| `asic/` | ASAP7 scripts, SDC, arms, results. Does not touch `hardware/` or `build/`. |
-| `synth_out/` | Synthesis reports, checkpoints, extracted paths |
-| `docs/` | This documentation |
+| [Install and run](REPRODUCE.md) | A staged route from a clean checkout to source checks, RTL simulation and EDA runs |
+| [Hardware handoff](HARDWARE_HANDOFF.md) | Prepare separate FPGA/ASIC baselines, preserve memory behavior, then measure matched candidates |
+| [FPGA](FPGA.md) | Vivado setup, design selection, functional checks and timing measurement |
+| [ASIC startup sources](ASIC_STARTUP.md) | Explicit ML-DSA/SLH baseline/candidate paths, boot protocols, evidence and remaining target gates |
+| [ASIC synthesis](../asic/README.md) | Genus/DC manifests, libraries, constraints, output reports and qualification |
+| [ASIC site admission](ASIC_ADMISSION.md) | Qualified adapter contract for structural checks and FF-memory evidence |
+| [Claude credentials](CLAUDE_CREDENTIALS.md) | Encrypted local setup, workspace selection, unlock and safe preflight recovery |
+| [FPGA agent feedback](FPGA_AGENT_FEEDBACK.md) | Exact-export checks, preliminary Vivado feedback and bounded review-only proposals |
+| [Current FPGA dashboard](CURRENT_DASHBOARD.md) | Inspect current source-bound feedback separately from historical results |
+| [Whole-design controller](WHOLE_DESIGN.md) | Multi-path targeting, small edits, full-design rechecks and acceptance/rollback |
+| [Existing agent workflows](../agent/README.md) | CLI entry points and the older one-round FPGA driver |
+| [Local dashboard](DASHBOARD.md) | Read existing experiment logs in a local browser |
 
-## Correctness gates
+## Find a design
 
-Every accepted RTL change passes a Known-Answer Test. For HQC the full
-keygen -> encap -> decap chain must reproduce matching shared secrets at
-HQC-128, 192, and 256. For ML-DSA a 25-vector NIST KAT runs against the full
-design, with cycle-accurate lockstep equivalence at block level.
+| Design | Source and test instructions | Current limits |
+|---|---|---|
+| ML-KEM | [Adam's Bridge inputs](../third_party/adams_bridge/README.md), [ACVP harness](../verification/mlkem_adams_bridge/README.md) | [Shared-core scope and entry points](PROJECT_STATUS.md#ml-kem-entry-points) |
+| ML-DSA | [ML-DSA-OSH inputs](../third_party/mldsa_osh/README.md), [portable test guide](../verification/mldsa_osh/README.md), [run commands](REPRODUCE.md#ml-dsa) | [Source boundaries and coverage](PROJECT_STATUS.md#ml-dsa-entry-points) |
+| HQC | [Preferred SAC 2026 source-only snapshot](../third_party/hqc_sac2026/README.md), [legacy run commands](REPRODUCE.md#hqc) | [New-baseline status](PROJECT_STATUS.md#hqc-preferred-source-baseline), [separate legacy review](PROJECT_STATUS.md#hqc-legacy-verification-boundary) |
+| SLH-DSA | [Selected-mode checker](../agent/slh_dsa/README.md), [portable variant](../verification/slh_portable/README.md), [run commands](REPRODUCE.md#slh-dsa) | [Baseline boundary](PROJECT_STATUS.md#slh-dsa-baseline-boundary) |
 
-Each gate is corruption-validated before autonomous use: it must reject an
-injected boundary fault and a live-branch arithmetic fault. This found a real
-blind spot in a Fisher-Yates comparison, which the repaired gate later used to
-correctly reject an unsafe agent proposal.
+## Review or extend the work
+
+- [Agent status](AGENT_STATUS.md): implemented behavior and remaining work
+- [Contribution guide](../CONTRIBUTING.md): checks before submitting changes
+- [Documentation standard](DOCUMENTATION_STANDARD.md): how to record reproducible evidence
+- [Release checklist](RELEASE_CHECKLIST.md): unresolved redistribution and license review
+- [Security notes](../SECURITY.md): experimental-use and data-handling limits
+- [Optimization taxonomy](02_optimization_taxonomy.md): earlier transformation families
+- [Earlier architecture/onboarding notes](AGENT_ARCHITECTURE.md): historical design context;
+  use the current [controller guide](WHOLE_DESIGN.md) for new integrations
+
+## Historical records
+
+These are retained records, not a current installation guide. Read the
+[results guide](RESULTS.md) before quoting their numbers or rerunning a command.
+
+- [Findings index](findings/INDEX.md): dated experiments, corrected ledgers and rejected edits
+- [ML-DSA findings](findings/mldsa/), [HQC findings](findings/hqc/),
+  [SLH-DSA findings](findings/slh-dsa/), [ASIC findings](findings/asic/)
+- [Software update notes](UPDATE_NOTES.md): changes and limits at that update
+- [Earlier results summary](01_results.md), [ASIC analysis](03_asic_ppa_analysis.md),
+  [architecture](04_agent_architecture.md), [roadmap](ROADMAP.md) and
+  [ASIC plan](2026-08-02_asic_game_plan.md)
+- [Session handoffs](handoffs/) and [manuscript drafts](paper/)
+- [Archived research README](archive/README_RESEARCH_LOG_2026-08-30.md)
+
+When sources disagree, prefer the dated correction and its underlying report.
+An archived result is not evidence that the current checkout has reproduced it.
+
+## ML-DSA FPGA latch correction
+
+For fresh FPGA runs, see [the explicit corrected variants and rerun instructions](fpga/MLDSA_LATCH_CORRECTION.md).

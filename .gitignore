@@ -99,3 +99,31 @@ tutorial_innovus/
 !logs/**/*.log
 
 # ASAP7: keep scripts and constraints, exclude run output
+
+# Candidate transactions and new ASIC measurement workspaces
+.pqc-run.lock
+.pqc_runs/
+runs/asic/
+agent/hqc/joint_kat_sources.json
+configs/*.local.json
+
+# Python environments and local installation metadata
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Local ML-KEM compiler products and raw qualification runs
+/build/mlkem_adams_bridge/
+/build/mlkem_adams_bridge_verilator/
+
+# Deterministic local hardware source handoffs (regenerate with exporters)
+/build/slh-handoff/
+/build/mldsa-handoff/
+/build/target-profile-test/
+/build/target-profiles/
+/build/profiles/
+/build/target-launch/
+
+# Defense in depth; credential code refuses storage in any Git checkout.
+**/claude-vault.json
+**/.claude-vault-*

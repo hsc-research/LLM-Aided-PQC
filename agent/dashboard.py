@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """PQC Agent Dashboard v3 — narrative UI backend.
-Usage: python3 agent/dashboard.py  ->  http://localhost:5000
+Usage: python3 agent/dashboard.py  ->  http://127.0.0.1:8080
 Read-only; safe while orchestrators / Minerva / Vivado run.
 Serves static front end from agent/dashboard_static/."""
 import json, os, time, subprocess
+try:
+    from .current_dashboard import collect
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from agent.current_dashboard import collect
 from flask import Flask, jsonify, send_from_directory
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -242,11 +248,19 @@ def minerva():
             pass
     return jsonify({"minerva": out, "running": pg("run.py -tp")})
 
+@app.route("/api/current")
+def current():
+    return jsonify(collect(app.config.get("PQC_REPO_ROOT", os.path.dirname(HERE))))
+
 @app.route("/")
 def index():
+    return send_from_directory(STATIC, "current.html")
+
+@app.route("/legacy")
+def legacy():
     return send_from_directory(STATIC, "index.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    app.run(host="127.0.0.1", port=8080, debug=False)
 
 

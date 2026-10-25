@@ -12,7 +12,7 @@ MIN_GAIN_NS = 0.05
 FLIGHT_LOG = "agent/flight_log.jsonl"
 
 def sh(cmd):
-    return subprocess.run(cmd, shell=True, capture_output=True, text=True).stdout
+    return subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True, timeout=7200).stdout
 
 def log(rec):
     with open(FLIGHT_LOG, "a") as f:
@@ -21,21 +21,15 @@ def log(rec):
 def dry_run_diff(experiment):
     """Apply ops to copies in a temp dir; return unified diff text."""
     diffs = []
-    with tempfile.TemporaryDirectory() as td:
-        exp = json.loads(json.dumps(experiment))
-        for fs in exp["files"]:
-            tmp = os.path.join(td, os.path.basename(fs["path"]))
-            shutil.copy(fs["path"], tmp)
-            fs["__orig"], fs["path"] = fs["path"], tmp
-        edit_ops.apply_experiment(exp)            # raises on any gate
-        for fs in exp["files"]:
-            a = open(fs["__orig"]).read().splitlines(keepends=True)
-            b = open(fs["path"]).read().splitlines(keepends=True)
-            diffs.append("".join(difflib.unified_diff(
-                a, b, fs["__orig"], "proposed", n=2)))
+    staged = edit_ops.preview_experiment(experiment)
+    for path, (original, proposed) in staged.items():
+        diffs.append("".join(difflib.unified_diff(
+            original.splitlines(keepends=True), proposed.splitlines(keepends=True),
+            path, "proposed", n=2)))
     return "\n".join(diffs)
 
-def run(module, level):
+
+def _run_candidate(module, level):
     rpt = f"./synth_out/paths/{module}_{level}_top20.rpt"
     if not os.path.exists(rpt):
         print(sh(f"python3 agent/path_extractor.py {module} {level} 20"))
@@ -85,7 +79,13 @@ def run(module, level):
         target_selector.save_skip(target["key"], "model rejected own diff")
         log({"target": target["key"], "verdict": "self_rejected"}); return
 
-    backups = edit_ops.apply_experiment(confirm["experiment"])
+    # Confirmation may not silently replace the previewed proposal.
+    if confirm["experiment"] != proposal["experiment"]:
+        raise edit_ops.EditError("confirmation changed the previewed experiment; re-run review")
+    import glob
+    allowed = [p for op in ("keygen", "encap", "decap")
+               for p in glob.glob(f"build/{op}/" + os.path.basename(gt["file"]))]
+    backups = edit_ops.apply_experiment(confirm["experiment"], allowed_paths=allowed)
     pre = target["worst"]
     res = run_synthesis(module, level)
     if "error" in res:
@@ -100,14 +100,27 @@ def run(module, level):
     if gain < MIN_GAIN_NS:
         edit_ops.revert(backups); target_selector.save_skip(target["key"], f"marginal {gain:+.3f}")
         log({"target": target["key"], "verdict": "marginal", "gain": gain}); return
-    kat = sh("python3 agent/hqc/kat_gate.py"); print(kat)
-    if "KAT RESULT: PASS" not in kat:
+    from run_safety import run_process, gate_passed
+    kat = run_process([sys.executable, "agent/hqc/kat_gate.py"])
+    print(kat.stdout)
+    if not gate_passed(kat):
         edit_ops.revert(backups); target_selector.save_skip(target["key"], "KAT FAIL")
         log({"target": target["key"], "verdict": "KAT_FAIL"})
         print("KAT FAIL: run HALTED for human review."); sys.exit(1)
     log({"target": target["key"], "verdict": "VERIFIED", "gain": gain,
          "wns": res["wns_ns"]})
     print("=== VERIFIED. Backups kept; review and commit manually. ===")
+    return True
+
+def run(module, level):
+    """Legacy HQC experiment wrapped in the same rollback/locking primitives."""
+    if module not in ("keygen", "encap", "decap") or level not in ("hqc128", "hqc192", "hqc256"):
+        raise ValueError("Unsupported HQC module or parameter set")
+    from run_safety import RunLock, SourceTransaction
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    with RunLock(root), SourceTransaction(root, ["build/keygen", "build/encap", "build/decap"]) as transaction:
+        if _run_candidate(module, level):
+            transaction.accept()
 
 if __name__ == "__main__":
     run(sys.argv[1], sys.argv[2])

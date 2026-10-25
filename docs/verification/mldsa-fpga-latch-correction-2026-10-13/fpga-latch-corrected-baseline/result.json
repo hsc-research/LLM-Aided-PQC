@@ -1,0 +1,1526 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "design_manifest_sha256": "bceb01f3c7be444dced05b7c0ee6aa6e3df9305b477eeab5964dee4b9820b300",
+  "variant": "fpga-latch-corrected-baseline",
+  "tool": "rev vUNKNOWN-built20260516-4e853d8",
+  "source_hashes": {
+    "rtl/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+    "rtl/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "rtl/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+    "rtl/butterfly.v": "a0d107a4aec1a7fccfb10dbd54de82485c77e16c0e05f21233ee3aa8589bc00f",
+    "rtl/butterfly2x2.v": "6fe29b03f5e86ba41726851a4c1fb83fc2bc1adaf79465072112d135a1da36d6",
+    "rtl/coeff_decomposer.v": "237a64f8291a3598fec00131fc65844d1a9b9f7ad20240d1c089fc6828d9d9ad",
+    "rtl/decoder.v": "cfb1b879f75e8d4989570281ce196cec01c76e3aa54e52fa506c222a4278a947",
+    "rtl/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "rtl/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+    "rtl/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+    "rtl/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "rtl/encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+    "rtl/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+    "rtl/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+    "rtl/gen_c.v": "a6eccf04bb316c5ac62a411cf1d53ab7405ae8d4746448a03aebedfa0a69f8da",
+    "rtl/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+    "rtl/keccak_top_ghdl.v": "49e5f9e2bf65a421b40807b5da5cbe6e9e4b65688bda2a8fe03ac0221f5ebc77",
+    "rtl/makehint.v": "d8614915814c66fe14d1075b56913ca4cc57c2fe81e25d210765a434fa517fee",
+    "rtl/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+    "rtl/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "rtl/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+    "rtl/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+    "rtl/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+    "rtl/operation_module.v": "6e9b6690fbf1e677a36ae970b9a6762adeae8bc4c3f23548091da7b48cf9ca18",
+    "rtl/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+    "rtl/rejection_s.v": "dbb7ab502f54e591839ddbea17c70ffd47f572b20201ed463418f9605211434f",
+    "rtl/rejection_y.v": "33b3cd73fc4773ccfd37c7d3e1dc151ccae83e4d4b32e41267732e1afe4145fb",
+    "rtl/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+    "rtl/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+    "rtl/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+    "rtl/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+    "rtl/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "rtl/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+    "rtl/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "rtl/combined_top.v": "0f288b8af7f5e4edb0a7745f33c1ee13ae5910569cbd98af1ab43fb0bcf92c9f"
+  },
+  "coverage": {
+    "keygen:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "keygen",
+      "expected": 75,
+      "completed": 75,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 4878
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 4871
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 4865
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 4877
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 4873
+        },
+        {
+          "level": "II",
+          "kat": 15,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 16,
+          "cycles": 4869
+        },
+        {
+          "level": "II",
+          "kat": 17,
+          "cycles": 4875
+        },
+        {
+          "level": "II",
+          "kat": 18,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 19,
+          "cycles": 4868
+        },
+        {
+          "level": "II",
+          "kat": 20,
+          "cycles": 4874
+        },
+        {
+          "level": "II",
+          "kat": 21,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 22,
+          "cycles": 4870
+        },
+        {
+          "level": "II",
+          "kat": 23,
+          "cycles": 4876
+        },
+        {
+          "level": "II",
+          "kat": 24,
+          "cycles": 4874
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 8300
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 8297
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 8287
+        },
+        {
+          "level": "III",
+          "kat": 15,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 16,
+          "cycles": 8295
+        },
+        {
+          "level": "III",
+          "kat": 17,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 18,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 19,
+          "cycles": 8291
+        },
+        {
+          "level": "III",
+          "kat": 20,
+          "cycles": 8293
+        },
+        {
+          "level": "III",
+          "kat": 21,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 22,
+          "cycles": 8299
+        },
+        {
+          "level": "III",
+          "kat": 23,
+          "cycles": 8289
+        },
+        {
+          "level": "III",
+          "kat": 24,
+          "cycles": 8289
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14032
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14034
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14035
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14039
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 15,
+          "cycles": 14033
+        },
+        {
+          "level": "V",
+          "kat": 16,
+          "cycles": 14026
+        },
+        {
+          "level": "V",
+          "kat": 17,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 18,
+          "cycles": 14025
+        },
+        {
+          "level": "V",
+          "kat": 19,
+          "cycles": 14037
+        },
+        {
+          "level": "V",
+          "kat": 20,
+          "cycles": 14045
+        },
+        {
+          "level": "V",
+          "kat": 21,
+          "cycles": 14027
+        },
+        {
+          "level": "V",
+          "kat": 22,
+          "cycles": 14029
+        },
+        {
+          "level": "V",
+          "kat": 23,
+          "cycles": 14036
+        },
+        {
+          "level": "V",
+          "kat": 24,
+          "cycles": 14035
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 4.98
+    },
+    "sign:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "sign",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 29272
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 35090
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 41065
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 29028
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 22904
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 12047
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 17842
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 29412
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 12429
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 23305
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 53034
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 12189
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 10970
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 29410
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 18224
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 97833
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 16291
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 16190
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 48636
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 32394
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 40525
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 24301
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 25142
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 16179
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 16579
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 16180
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 24984
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 65313
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 57200
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 25691
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 37574
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 49454
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 108916
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 49473
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 97017
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 85125
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 97012
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 25672
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 73244
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 37592
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 37599
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 37578
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 25691
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 9.55
+    },
+    "verify:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6716
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6668
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6908
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 6596
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 6584
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 6584
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14640
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14632
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14642
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14644
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14646
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14655
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14648
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14634
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14638
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14642
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 3.98,
+      "known_valid": 9,
+      "known_invalid": 36
+    },
+    "verify_mutations:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 12,
+      "completed": 12,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 1.17,
+      "known_valid": 0,
+      "known_invalid": 12
+    },
+    "verify_canonical:seed-0": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 33,
+      "completed": 33,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6764
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6764
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9730
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9730
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14650
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14650
+        }
+      ],
+      "simulator_returncode": 0,
+      "seed": 0,
+      "runtime_s": 3.08,
+      "known_valid": 18,
+      "known_invalid": 15
+    }
+  },
+  "commands": [
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_keygen_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/ref_combined/src_tb/tb_keygen_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/obj/Vtb_keygen_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_sign_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/ref_combined/src_tb/tb_sign_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/obj/Vtb_sign_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/ref_combined/src_tb"
+    },
+    {
+      "compile": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/obj",
+        "-j",
+        "4",
+        "-Wno-fatal",
+        "--x-initial",
+        "unique",
+        "--x-assign",
+        "unique",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-check/fpga-latch-corrected-baseline/rtl/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/ref_combined/src_tb"
+    },
+    {
+      "simulate": [
+        "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/obj/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/ref_combined/src_tb"
+    }
+  ],
+  "boot_restarts_per_process": 0,
+  "collision_assertions": false,
+  "two_state_simulation": true,
+  "four_state_fullcore_qualified": false,
+  "normal_reset_contract": "Original per-operation reset semantics retained; arbitrary abort/reset recovery is not claimed.",
+  "testbench_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/ref_combined/src_tb/tb_keygen_top.v": "60d279a945a7fd7b8bc77d025346fec9d3c8d5b83aac03518699d0e0eab36627",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/ref_combined/src_tb/tb_sign_top.v": "352d73a205eb28d485058b072209bae189fb6cda8a2a259f14f505b20891d15c",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/ref_combined/src_tb/tb_verify_top.v": "3ec1805eaed21f66c49dedaac1912e736757273f8d5bfcb84bc2c9952eefdc89",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/ref_combined/src_tb/tb_verify_top.v": "1784237295f47c5a3607bccfa2dffe8fe10f872e8e3a87ddc330d46f64083a61",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/ref_combined/src_tb/tb_verify_top.v": "1101e147b958b2e5ad2f29e625e7c28455b0c0b04a1f665314c7dfd2c81d9a6b"
+  },
+  "executable_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/keygen/obj/Vtb_keygen_top": "58fe75e9e8e4cf13620e0527be69c2fd0a7e8b27f05826b84dba77a52ba98ee5",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/sign/obj/Vtb_sign_top": "6c6fb0646b5561b6b0195d013247440d7e36883ac2ae3e2a54718cded6c5f065",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify/obj/Vtb_verify_top": "3c0cea252cf52fbf46cb59bbaffef8611744666002b5005ddfd3425ef943a733",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_mutations/obj/Vtb_verify_top": "584d5cb0d00158d32324c1a6fdaea31b0a70d835caa0b8bbc45d6ad03f529534",
+    "/workspace/scratch/8c6eb979d526/pqc-fpga-latch-fix/build/latch-runs/baseline-final/verify_canonical/obj/Vtb_verify_top": "7818524efd48c70a600c4ce61e293092d6243278c902b728d9ee4580d5e36302"
+  },
+  "source_hashes_unchanged": true,
+  "full_210_case_coverage": true,
+  "data_sha256": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+  "supported_selector_differential": "PASS",
+  "evidence_files_sha256": {
+    "keygen/compile.log": "db3c99f8318fc7a4ee90568da73f9c2719087bf5d22b541cf1a9c0fa208839cb",
+    "keygen/ref_combined/src_tb/tb_keygen_top.v": "60d279a945a7fd7b8bc77d025346fec9d3c8d5b83aac03518699d0e0eab36627",
+    "keygen/simulate-seed-0.log": "00e3ab041df902f5e9e71b7eca3f2824b56bdb89d8d8403fc25e56703d323372",
+    "raw-kat-result.json": "51ec315380ac9ba563a5004ab472f5684753f3ca22ddf23438a7ba86c0e8fe45",
+    "selector/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "selector/corrected-yosys.log": "92469cbabac55867cda98c9877d81d7309ff992b5568ad21f74676f073ceec79",
+    "selector/corrected.json": "28db58bd3c1978c44c003ad36482d791b3c50c3a3faa2bf3ea62c73d484c0bc9",
+    "selector/corrected.v": "6dc380d3c023d1d8637d6e10ff69cf0a6ab1311de6a1b0cb70cd2f2ebc770cbd",
+    "selector/reference-yosys.log": "93089b0a1a0839d4b44b3d86fe922c4b385600301d7f30cf69f853cd4d6125cf",
+    "selector/reference.json": "44eed2915429d3a16b4438412f549dbfc69039f95b82442d0f69b458397041ab",
+    "selector/reference.v": "cce4691c5fd7a474ee401e7410e0142cdec34a79f500bbaa1fc623f3712f7e2c",
+    "selector/result.json": "820828c3df027757a6e74522c68fb29ac6e7fa7e9d3db3829487cd2c4d42bd85",
+    "selector/simulate.log": "f1fb6609653d1349e1f540e3f5896fa73efd4bb0bbecc69251630839cf6aa4d7",
+    "selector/tb.v": "2a04c36d51f146da28552dbc2c4849d4afb54ae33fd5bf4afe401059b9856d78",
+    "sign/compile.log": "4a10d89d8ac58949f8d23d7cca712af2367a3919c784a65432aca63b2bbf8d41",
+    "sign/ref_combined/src_tb/tb_sign_top.v": "352d73a205eb28d485058b072209bae189fb6cda8a2a259f14f505b20891d15c",
+    "sign/simulate-seed-0.log": "6f9e99e49f57180079bfec97d5f86cfa37f2f18283320be38a1086e3b6824132",
+    "verify/compile.log": "a6cf7ee1da89d4530af738a49146fd2c87ec93421510cb69a4c8a825966c1083",
+    "verify/ref_combined/src_tb/tb_verify_top.v": "3ec1805eaed21f66c49dedaac1912e736757273f8d5bfcb84bc2c9952eefdc89",
+    "verify/simulate-seed-0.log": "27beff4d9281a128e010cd3460f0de73407000548ccaae81b26edbd489b794db",
+    "verify_canonical/compile.log": "1c1e81e4483865225e3a60b9a14828780910b3af9a1d9d903e8088172fc2b8b4",
+    "verify_canonical/ref_combined/src_tb/tb_verify_top.v": "1101e147b958b2e5ad2f29e625e7c28455b0c0b04a1f665314c7dfd2c81d9a6b",
+    "verify_canonical/simulate-seed-0.log": "1686206cd60a954733f38569a1a75ab71f2c2c8c524ebfac013939f36b876fdb",
+    "verify_mutations/compile.log": "2d99c811e428827f860d8acedce5b108f43e3326e1d247af289a7a249a17a590",
+    "verify_mutations/ref_combined/src_tb/tb_verify_top.v": "1784237295f47c5a3607bccfa2dffe8fe10f872e8e3a87ddc330d46f64083a61",
+    "verify_mutations/simulate-seed-0.log": "42dc77a428c287f37c45abcdc6a68c42daebadbbacef355e5a4c4d3a164a4327"
+  },
+  "limits": [
+    "Two-state finite RTL KAT verification, not formal whole-design equivalence or FIPS certification.",
+    "Vivado FPGA synthesis and timing must be rerun on the corrected variant.",
+    "No ASIC startup changes; unsupported security levels remain unsupported."
+  ],
+  "unsupported_selector_behavior": "Both corrected selector outputs are zero for unsupported binary or X/Z sec_lvl; cryptographic operations at these settings are not supported."
+}

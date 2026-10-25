@@ -9,8 +9,6 @@ import sys, os, re, json, shutil, time, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
-os.chdir(REPO)
-import anthropic
 from synthesizer import run_synthesis, MODULE_SOURCES
 import path_extractor
 
@@ -39,7 +37,8 @@ try:
 except SystemExit:
     pass
 POLICY = _m.POLICY
-from learned_rules import rules_prompt_block, distill_rule
+from learned_rules import rules_prompt_block
+from experiment_history import preliminary_record, history_prompt
 classify = _m.classify
 
 def log(rec):
@@ -51,7 +50,7 @@ def log(rec):
     print("LOG:", rec.get("verdict"), str(rec.get("reason", ""))[:100])
 
 def call_llm(block, rtl, board, tags):
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     FAMILY = {
         "keccak_hqc": ("Keccak/SHAKE permutation core (symmetric primitive, shared by "
                        "ALL PQC schemes). Fixed 24-round permutation over a 25-lane "
@@ -75,6 +74,7 @@ def call_llm(block, rtl, board, tags):
               f"preconditions genuinely hold; no_action is the correct answer when "
               f"they do not.\n"
               f"CODE-COMPUTED CLASSIFICATION: {tags}\n\n"
+              + history_prompt("hqc", block) + "\n"
               f"TOP TIMING PATHS:\n{board}\n\nFULL RTL:\n{rtl}\n\n"
               "Fill exactly two slots: strategy + str-replace pair(s). JSON only.")
     for attempt in range(2):
@@ -103,6 +103,7 @@ def _prior_failures(block):
     return sorted(fails)
 
 def main():
+    os.chdir(REPO)
     module = sys.argv[1]; level = sys.argv[2]
     srcs = MODULE_SOURCES[module]
     rpt = path_extractor.run_extraction(module, level, 10)
@@ -149,6 +150,8 @@ def main():
             log({"module": module, "verdict": "refused",
                  "reason": f"edit{k} anchor count {n}", "strategy": prop.get("strategy")}); return
         work = work.replace(e["old"], e["new"])
+    from edit_ops import validate_rtl_change
+    validate_rtl_change(rtl, work)
     shutil.copy(src_file, src_file + ".bak")
     open(src_file, "w").write(work)
     print("applied")
@@ -157,9 +160,9 @@ def main():
         log({"module": module, "verdict": why, "strategy": prop.get("strategy"),
              "reason": prop.get("reason", ""), "edits": edits})
         print("REVERTED:", why)
-    kat = subprocess.run(["python3", "agent/hqc/kat_gate.py"],
-                         capture_output=True, text=True).stdout
-    if "KAT RESULT: PASS" not in kat:
+    from run_safety import run_process, gate_passed
+    kat = run_process([sys.executable, "agent/hqc/kat_gate.py"], timeout=86400)
+    if not gate_passed(kat):
         revert("kat_fail"); return
     print("KAT PASS")
     res = run_synthesis(module, level)
@@ -170,17 +173,9 @@ def main():
     if gain >= MIN_GAIN_NS:
         rec = {"module": module, "verdict": "ACCEPTED", "strategy": prop["strategy"],
              "wns_pre": pre, "wns_post": res["wns_ns"], "gain": gain, "edits": edits, **{k: res.get(k) for k in ("luts","ffs","dsp","total_w","dynamic_w") if isinstance(res, dict) and res.get(k) is not None}}  # ppa-logged
-        log(rec)
-        try: distill_rule(anthropic.Anthropic(), MODEL, rec, "hqc")
-        except Exception as e: print(f"rule distill skipped: {e}")
-        print("=== ACCEPTED (TRANSFER WIN). .bak kept; review + commit manually. ===")
+        log(preliminary_record(rec, "hqc", MODEL))
+        print("=== ACCEPTED (block filter only). Whole-design judgment still required. ===")
     else:
-        try:
-            distill_rule(anthropic.Anthropic(), MODEL,
-                         {"module": module, "verdict": "REJECTED_MARGINAL",
-                          "strategy": prop.get("strategy"), "wns_pre": pre,
-                          "wns_post": res["wns_ns"], "gain": gain}, "hqc")
-        except Exception as e: print(f"rule distill skipped: {e}")
         revert(f"marginal_{gain:+.3f}")
 
 if __name__ == "__main__":

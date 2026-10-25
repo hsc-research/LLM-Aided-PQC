@@ -1,0 +1,28 @@
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-jstjymyl/ref_combined/src/keccak_control.vhd:35:17:warning: no assignment for port "sel_cin" [-Wnowrite]
+                sel_cin                                 : out std_logic;
+                ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-jstjymyl/ref_combined/src/keccak_datapath.vhd:133:57:note: found ROM "n158", width: 8 bits, depth: 8
+        sel_pad_type_lookup <= lookup_sel_lvl2_64bit_pad(conv_integer(c_wire(5 downto 3)));
+                                                        ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-jstjymyl/ref_combined/src/keccak_datapath.vhd:136:52:note: found ROM "n169", width: 8 bits, depth: 8
+        sel_din_lookup <= lookup_sel_lvl1_64bit_pad(conv_integer(c_wire(5 downto 3)));
+                                                   ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-jstjymyl/ref_combined/src/keccak_datapath.vhd:140:50:note: found ROM "n179", width: 8 bits, depth: 8
+    sel_dout <= lookup_sel_lvl1_64bit_out_zeropad(conv_integer(output_size(5 downto 3)));
+                                                 ^
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-jstjymyl/ref_combined/src/sipo.vhd:39:25:note: found ROM "n2146", width: 64 bits, depth: 32
+                        if rising_edge(clk) then         
+                        ^
+
+******************** GHDL Bug occurred ***************************
+Please report this bug on https://github.com/ghdl/ghdl/issues
+GHDL release: 5.0.1 (Debian 5.0.1+dfsg-1+b1) [Dunoon edition]
+Compiled with GNAT Version: 14.2.0
+Target: x86_64-linux-gnu
+/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-jstjymyl/
+Command line:
+/tmp/pqc-ghdl-tools/root/usr/bin/ghdl-mcode --synth --std=08 -fsynopsys --out=verilog keccak_top
+Exception TYPES.INTERNAL_ERROR raised
+Exception information:
+raised TYPES.INTERNAL_ERROR : netlists-disp_verilog.adb:1336
+******************************************************************

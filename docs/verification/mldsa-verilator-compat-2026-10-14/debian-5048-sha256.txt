@@ -1,0 +1,4 @@
+e387099b34343ee76d3322e3cc86b3059d65c716e1d3fb2469fc366d52f9b596  verilator_5.048-1_amd64.deb
+bbabccb9177b26cc217b4b6ca84b507f2c86bd5ac23a37b1b25e86ae2120eac8  root/usr/bin/verilator
+9f0ccb6e7355c9430ae3998056ceda1f8d528f6d109d73018e8c6eee61f0d686  root/usr/bin/verilator_bin
+67199322498f3c4e6b1772c5cecfb2d0cd8f6f896a4d751256b8549622fabe6b  root/usr/share/verilator/include/verilated.mk

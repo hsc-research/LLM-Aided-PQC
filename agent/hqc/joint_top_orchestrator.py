@@ -11,11 +11,10 @@ import sys, os, re, json, shutil, time, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
-os.chdir(REPO)
-import anthropic
 from synthesizer import run_synthesis
 import path_extractor
-from learned_rules import rules_prompt_block, distill_rule
+from learned_rules import rules_prompt_block
+from experiment_history import preliminary_record, history_prompt
 
 SRC = "build/joint_design/hqc_kem_joint_design.v"
 MODULE = "hqc_joint_opt"
@@ -57,12 +56,14 @@ def log(rec):
 def kat_gate():
     r = subprocess.run(["python3", "agent/hqc/joint_kat_gate.py"],
                        capture_output=True, text=True, timeout=7200)
-    return r.returncode == 0 and "GATE: PASS" in r.stdout, r.stdout[-300:]
+    from run_safety import gate_passed
+    return gate_passed(r), r.stdout[-300:]
 
 def call_llm(rtl, board, tags):
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     prompt = (f"CRITICAL-PATH BOARD (full-chip synth, worst first):\n{board}\n\n"
-              + "\n".join(tags) + "\n\nINTEGRATION RTL:\n" + rtl)
+              + "\n".join(tags) + history_prompt("hqc", MODULE)
+              + "\n\nINTEGRATION RTL:\n" + rtl)
     r = client.messages.create(model=MODEL, max_tokens=2000,
                                system=POLICY + rules_prompt_block("hqc"),
                                messages=[{"role": "user", "content": prompt}])
@@ -74,6 +75,7 @@ def call_llm(rtl, board, tags):
         return {"verdict": "no_action", "reason": "bad json"}
 
 def main():
+    os.chdir(REPO)
     # pre-flight: KAT self-check on current tree
     ok, tail = kat_gate()
     if not ok:
@@ -117,11 +119,13 @@ def main():
         if bad:
             attempted.append({"strategy": prop.get("strategy"), "verdict": "refused"})
             continue
+        from edit_ops import validate_rtl_change
+        validate_rtl_change(rtl, work)
         open(SRC, "w").write(work)
         print("applied")
 
         def revert(why):
-            subprocess.run(["git", "checkout", "--", SRC], capture_output=True)
+            open(SRC, "w").write(rtl)  # restore this attempt, including prior uncommitted bytes
             rec = {"verdict": why, "attempt": attempt,
                    "strategy": prop.get("strategy"), "edits": edits}
             log(rec); attempted.append({"strategy": prop.get("strategy"), "verdict": why,
@@ -138,12 +142,10 @@ def main():
         gain = round(res["wns_ns"] - pre, 3)
         print(f"chip WNS {pre} -> {res['wns_ns']} ({gain:+.3f})")
         if gain >= MIN_GAIN_NS:
-            rec = {"verdict": "ACCEPTED", "attempt": attempt,
+            rec = {"module": MODULE, "verdict": "ACCEPTED", "attempt": attempt,
                    "strategy": prop["strategy"], "wns_pre": pre,
                    "wns_post": res["wns_ns"], "gain": gain, "edits": edits}
-            log(rec)
-            try: distill_rule(anthropic.Anthropic(), MODEL, rec, "hqc")
-            except Exception as e: print("rule distill skipped:", e)
+            log(preliminary_record(rec, "hqc", MODEL))
             print("=== ACCEPTED (synth filter). POST-ROUTE JUDGE STILL REQUIRED "
                   "(chip_orchestrator re-judge). Source left applied; commit after judge. ===")
             return

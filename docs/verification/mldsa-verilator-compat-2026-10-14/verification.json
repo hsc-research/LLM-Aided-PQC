@@ -1,0 +1,3221 @@
+{
+  "scope": "ML-DSA exported baseline finite 210-case two-state RTL verifier only; no HQC execution, paid APIs, Actions, RTL changes, mapped-memory/PPA/EL9-host qualification",
+  "base_commit": "c6b041ab06a75d524db0a0240025e3b5059913d4",
+  "profile_fingerprint": "59d15144b824edba333d34a4a6ba924a0f10735ce3b165e3d29d8e38ae6e8918",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "libc": "ldd (Debian GLIBC 2.41-12+deb13u4) 2.41",
+  "runs": {
+    "5048": {
+      "status": "PASS",
+      "simulator": "Verilator 5.048 2026-04-26 rev vUNKNOWN-built20260429",
+      "source_hashes_identical_to_historical": true,
+      "all_frozen_inputs_unchanged": true,
+      "all_210_per_vector_cycles_identical_to_historical": true,
+      "coverage": {
+        "keygen": {
+          "status": "PASS",
+          "expected": 75,
+          "completed": 75,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 4871
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 4875
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 4876
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 4868
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 4878
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 4871
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 4874
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 4871
+            },
+            {
+              "level": "II",
+              "kat": 11,
+              "cycles": 4865
+            },
+            {
+              "level": "II",
+              "kat": 12,
+              "cycles": 4869
+            },
+            {
+              "level": "II",
+              "kat": 13,
+              "cycles": 4877
+            },
+            {
+              "level": "II",
+              "kat": 14,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 15,
+              "cycles": 4874
+            },
+            {
+              "level": "II",
+              "kat": 16,
+              "cycles": 4869
+            },
+            {
+              "level": "II",
+              "kat": 17,
+              "cycles": 4875
+            },
+            {
+              "level": "II",
+              "kat": 18,
+              "cycles": 4870
+            },
+            {
+              "level": "II",
+              "kat": 19,
+              "cycles": 4868
+            },
+            {
+              "level": "II",
+              "kat": 20,
+              "cycles": 4874
+            },
+            {
+              "level": "II",
+              "kat": 21,
+              "cycles": 4870
+            },
+            {
+              "level": "II",
+              "kat": 22,
+              "cycles": 4870
+            },
+            {
+              "level": "II",
+              "kat": 23,
+              "cycles": 4876
+            },
+            {
+              "level": "II",
+              "kat": 24,
+              "cycles": 4874
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 8300
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 8297
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 8299
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 8293
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 11,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 12,
+              "cycles": 8295
+            },
+            {
+              "level": "III",
+              "kat": 13,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 14,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 15,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 16,
+              "cycles": 8295
+            },
+            {
+              "level": "III",
+              "kat": 17,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 18,
+              "cycles": 8293
+            },
+            {
+              "level": "III",
+              "kat": 19,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 20,
+              "cycles": 8293
+            },
+            {
+              "level": "III",
+              "kat": 21,
+              "cycles": 8299
+            },
+            {
+              "level": "III",
+              "kat": 22,
+              "cycles": 8299
+            },
+            {
+              "level": "III",
+              "kat": 23,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 24,
+              "cycles": 8289
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14039
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14037
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14036
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14032
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 14033
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 14027
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 14034
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 14035
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 14039
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 14037
+            },
+            {
+              "level": "V",
+              "kat": 11,
+              "cycles": 14036
+            },
+            {
+              "level": "V",
+              "kat": 12,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 13,
+              "cycles": 14033
+            },
+            {
+              "level": "V",
+              "kat": 14,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 15,
+              "cycles": 14033
+            },
+            {
+              "level": "V",
+              "kat": 16,
+              "cycles": 14026
+            },
+            {
+              "level": "V",
+              "kat": 17,
+              "cycles": 14027
+            },
+            {
+              "level": "V",
+              "kat": 18,
+              "cycles": 14025
+            },
+            {
+              "level": "V",
+              "kat": 19,
+              "cycles": 14037
+            },
+            {
+              "level": "V",
+              "kat": 20,
+              "cycles": 14045
+            },
+            {
+              "level": "V",
+              "kat": 21,
+              "cycles": 14027
+            },
+            {
+              "level": "V",
+              "kat": 22,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 23,
+              "cycles": 14036
+            },
+            {
+              "level": "V",
+              "kat": 24,
+              "cycles": 14035
+            }
+          ]
+        },
+        "sign": {
+          "status": "PASS",
+          "expected": 45,
+          "completed": 45,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 29272
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 35090
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 41065
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 29028
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 22904
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 12047
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 17842
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 29412
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 12429
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 23305
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 53034
+            },
+            {
+              "level": "II",
+              "kat": 11,
+              "cycles": 12189
+            },
+            {
+              "level": "II",
+              "kat": 12,
+              "cycles": 10970
+            },
+            {
+              "level": "II",
+              "kat": 13,
+              "cycles": 29410
+            },
+            {
+              "level": "II",
+              "kat": 14,
+              "cycles": 18224
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 97833
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 16291
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 16190
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 48636
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 32394
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 40525
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 16179
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 24301
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 25142
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 16179
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 16579
+            },
+            {
+              "level": "III",
+              "kat": 11,
+              "cycles": 16180
+            },
+            {
+              "level": "III",
+              "kat": 12,
+              "cycles": 24984
+            },
+            {
+              "level": "III",
+              "kat": 13,
+              "cycles": 65313
+            },
+            {
+              "level": "III",
+              "kat": 14,
+              "cycles": 57200
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 25691
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 25691
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 37574
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 49454
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 108916
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 49473
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 97017
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 85125
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 97012
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 25672
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 73244
+            },
+            {
+              "level": "V",
+              "kat": 11,
+              "cycles": 37592
+            },
+            {
+              "level": "V",
+              "kat": 12,
+              "cycles": 37599
+            },
+            {
+              "level": "V",
+              "kat": 13,
+              "cycles": 37578
+            },
+            {
+              "level": "V",
+              "kat": 14,
+              "cycles": 25691
+            }
+          ]
+        },
+        "verify": {
+          "status": "PASS",
+          "expected": 45,
+          "completed": 45,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 6716
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 6668
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 6596
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 6908
+            },
+            {
+              "level": "II",
+              "kat": 11,
+              "cycles": 6596
+            },
+            {
+              "level": "II",
+              "kat": 12,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 13,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 14,
+              "cycles": 6584
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 11,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 12,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 13,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 14,
+              "cycles": 9730
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14644
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14642
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14640
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14632
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 14644
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 14642
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 14644
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 14646
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 14655
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 14638
+            },
+            {
+              "level": "V",
+              "kat": 11,
+              "cycles": 14648
+            },
+            {
+              "level": "V",
+              "kat": 12,
+              "cycles": 14634
+            },
+            {
+              "level": "V",
+              "kat": 13,
+              "cycles": 14638
+            },
+            {
+              "level": "V",
+              "kat": 14,
+              "cycles": 14642
+            }
+          ],
+          "known_valid": 9,
+          "known_invalid": 36
+        },
+        "verify_mutations": {
+          "status": "PASS",
+          "expected": 12,
+          "completed": 12,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 6764
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 9730
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14650
+            }
+          ],
+          "known_valid": 0,
+          "known_invalid": 12
+        },
+        "verify_canonical": {
+          "status": "PASS",
+          "expected": 33,
+          "completed": 33,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 6764
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 9730
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 14650
+            }
+          ],
+          "known_valid": 18,
+          "known_invalid": 15
+        }
+      },
+      "compile_commands": [
+        {
+          "case": "keygen",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_keygen_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/keygen/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/keygen/ref_combined/src_tb/tb_keygen_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-5048/kat-work/keygen/ref_combined/src_tb"
+        },
+        {
+          "case": "sign",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_sign_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/sign/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/sign/ref_combined/src_tb/tb_sign_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-5048/kat-work/sign/ref_combined/src_tb"
+        },
+        {
+          "case": "verify",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_verify_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/verify/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/verify/ref_combined/src_tb/tb_verify_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-5048/kat-work/verify/ref_combined/src_tb"
+        },
+        {
+          "case": "verify_mutations",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_verify_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/verify_mutations/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/verify_mutations/ref_combined/src_tb/tb_verify_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-5048/kat-work/verify_mutations/ref_combined/src_tb"
+        },
+        {
+          "case": "verify_canonical",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_verify_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/verify_canonical/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-5048/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-5048/kat-work/verify_canonical/ref_combined/src_tb/tb_verify_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-5048/kat-work/verify_canonical/ref_combined/src_tb"
+        }
+      ],
+      "raw_artifact_sha256": {
+        "/tmp/mldsa-compat-qualified-5048/functional.json": "428824f5190c26078f3502245c155bc5a30333777f3e366d6b167b5a26b22b20",
+        "/tmp/mldsa-compat-qualified-5048/request.json": "58d556b595e1ddd5aaf90a79111832f4b564fe96424b15dcc83fa1d91892aa0b",
+        "/tmp/mldsa-compat-qualified-5048/response.json": "9b5a642e95121ee1a6d4be216567fe8ff66d0b0ae5ac64c8fb439b21f7a3e15f",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/version.log": "7a9107f4b513ab0ebf651bb23eb85cf6bc46bdbf3a9bdd2287df7ca2d1a1d83e",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/keygen/compile.log": "5754ad9091001d918cde4390bd7115a0e9c5cfe41e5cd142fe79dec146040f03",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/keygen/simulation.log": "b486ad0214db2c31a8ec75d1c7ee39499de9e7fa3ccb199b1b342160c2694a30",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/sign/compile.log": "1d6eaa47e4585a48f31d99cb8b48609836dfb884722e64a2d672ed9b5ffbff6b",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/sign/simulation.log": "2dd742af63df02d5194a457da4aaf433c9cce95ea6311446af86fe1a80e434b8",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/verify/compile.log": "29aeee8c3d1cc15a16d5601b2a247184d5e2d19b5a555526bfd04f0a02f09091",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/verify/simulation.log": "1e0a05c0901491e9adce21afc819c306f0928f3fbe972fc76057f2c0be6b981d",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/verify_mutations/compile.log": "a77c5c5c3683a099d6875fc60a14327faca11c1297d94c2a4107112ffd6af09e",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/verify_mutations/simulation.log": "74119017b1f8ed08032b0bbcd576b5a0cf9d03408238d36e3b7c72abe67899ad",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/verify_canonical/compile.log": "7aed2bd31290e4aaf31446fa9315b50d77a96c81a101568b7c3b78e050d90aab",
+        "/tmp/mldsa-compat-qualified-5048/kat-work/verify_canonical/simulation.log": "57759cae8a97eac44aadd6d9bdd82e1a119d6090bff0f3240e5f2512fef0e0c0"
+      },
+      "checker_sha256": {
+        "agent/edit_ops.py": "35861aff82dbaaebc396c8c9a3f1d3f9c2133d2f4a3a6d332bc814156ea7233b",
+        "agent/llm_client.py": "c01a9ac687e6a050df990379c982d72718d0230c19cc27aee368c92c8fb7866c",
+        "agent/mldsa/exported_kat_adapter.py": "903c7537d6be4277b527435e2eef1307b42c0f11ed8e1f580fef0895273644a7",
+        "agent/mldsa/portable_kat_gate.py": "46a7aa87474830d906d1354fddced072755cbe770a8f549ae94d3229dbfed3dc",
+        "agent/mldsa_sources.py": "f5ce5cfb0b9085655f8aac22a4e65ff858e750444ddf0b5cf966d2f9644c89b0",
+        "agent/run_safety.py": "ff066df97706299c3fb94297023a2a23bcf17c94b5c39097db85cf62c711a121",
+        "agent/target_profiles.py": "1d92306febdf222b08d2e927661ba206191cb5fed0632793737331e6629d44c8",
+        "agent/whole_design.py": "f5733726462704dd6baf2c0277d5538d868f7f265a7743822faa309e4b854f19",
+        "agent/whole_design_adapters.py": "bfc9efca31c5ac35d884fb84b5b264afcf20b62ddeefe076c43f2b1986903a2f"
+      },
+      "source_hashes": {
+        "Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+        "address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+        "address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+        "butterfly.v": "a0d107a4aec1a7fccfb10dbd54de82485c77e16c0e05f21233ee3aa8589bc00f",
+        "butterfly2x2.v": "6fe29b03f5e86ba41726851a4c1fb83fc2bc1adaf79465072112d135a1da36d6",
+        "coeff_decomposer.v": "237a64f8291a3598fec00131fc65844d1a9b9f7ad20240d1c089fc6828d9d9ad",
+        "combined_top.v": "0f288b8af7f5e4edb0a7745f33c1ee13ae5910569cbd98af1ab43fb0bcf92c9f",
+        "decoder.v": "cfb1b879f75e8d4989570281ce196cec01c76e3aa54e52fa506c222a4278a947",
+        "decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+        "decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+        "dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+        "dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+        "encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+        "expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+        "gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+        "gen_c.v": "a6eccf04bb316c5ac62a411cf1d53ab7405ae8d4746448a03aebedfa0a69f8da",
+        "gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+        "keccak_top_ghdl.v": "49e5f9e2bf65a421b40807b5da5cbe6e9e4b65688bda2a8fe03ac0221f5ebc77",
+        "makehint.v": "d8614915814c66fe14d1075b56913ca4cc57c2fe81e25d210765a434fa517fee",
+        "mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+        "norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+        "ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+        "ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+        "ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+        "operation_module.v": "6e9b6690fbf1e677a36ae970b9a6762adeae8bc4c3f23548091da7b48cf9ca18",
+        "rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+        "rejection_s.v": "dbb7ab502f54e591839ddbea17c70ffd47f572b20201ed463418f9605211434f",
+        "rejection_y.v": "33b3cd73fc4773ccfd37c7d3e1dc151ccae83e4d4b32e41267732e1afe4145fb",
+        "sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+        "sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+        "sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+        "twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+        "uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+        "usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+        "zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+      },
+      "aggregate_averages_match_integer_vector_means": true,
+      "aggregate_averages_II_III_V": {
+        "keygen": [
+          4872,
+          8291,
+          14033
+        ],
+        "sign": [
+          25081,
+          34261,
+          54221
+        ],
+        "verify": [
+          6633,
+          9730,
+          14642
+        ],
+        "verify_mutations": [
+          6764,
+          9730,
+          14650
+        ],
+        "verify_canonical": [
+          6764,
+          9730,
+          14650
+        ]
+      }
+    },
+    "549": {
+      "status": "PASS",
+      "simulator": "rev vUNKNOWN-built20260516-4e853d8",
+      "source_hashes_identical_to_historical": true,
+      "all_frozen_inputs_unchanged": true,
+      "all_210_per_vector_cycles_identical_to_historical": true,
+      "coverage": {
+        "keygen": {
+          "status": "PASS",
+          "expected": 75,
+          "completed": 75,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 4871
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 4875
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 4876
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 4868
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 4878
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 4871
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 4874
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 4871
+            },
+            {
+              "level": "II",
+              "kat": 11,
+              "cycles": 4865
+            },
+            {
+              "level": "II",
+              "kat": 12,
+              "cycles": 4869
+            },
+            {
+              "level": "II",
+              "kat": 13,
+              "cycles": 4877
+            },
+            {
+              "level": "II",
+              "kat": 14,
+              "cycles": 4873
+            },
+            {
+              "level": "II",
+              "kat": 15,
+              "cycles": 4874
+            },
+            {
+              "level": "II",
+              "kat": 16,
+              "cycles": 4869
+            },
+            {
+              "level": "II",
+              "kat": 17,
+              "cycles": 4875
+            },
+            {
+              "level": "II",
+              "kat": 18,
+              "cycles": 4870
+            },
+            {
+              "level": "II",
+              "kat": 19,
+              "cycles": 4868
+            },
+            {
+              "level": "II",
+              "kat": 20,
+              "cycles": 4874
+            },
+            {
+              "level": "II",
+              "kat": 21,
+              "cycles": 4870
+            },
+            {
+              "level": "II",
+              "kat": 22,
+              "cycles": 4870
+            },
+            {
+              "level": "II",
+              "kat": 23,
+              "cycles": 4876
+            },
+            {
+              "level": "II",
+              "kat": 24,
+              "cycles": 4874
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 8300
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 8297
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 8299
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 8293
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 11,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 12,
+              "cycles": 8295
+            },
+            {
+              "level": "III",
+              "kat": 13,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 14,
+              "cycles": 8287
+            },
+            {
+              "level": "III",
+              "kat": 15,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 16,
+              "cycles": 8295
+            },
+            {
+              "level": "III",
+              "kat": 17,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 18,
+              "cycles": 8293
+            },
+            {
+              "level": "III",
+              "kat": 19,
+              "cycles": 8291
+            },
+            {
+              "level": "III",
+              "kat": 20,
+              "cycles": 8293
+            },
+            {
+              "level": "III",
+              "kat": 21,
+              "cycles": 8299
+            },
+            {
+              "level": "III",
+              "kat": 22,
+              "cycles": 8299
+            },
+            {
+              "level": "III",
+              "kat": 23,
+              "cycles": 8289
+            },
+            {
+              "level": "III",
+              "kat": 24,
+              "cycles": 8289
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14039
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14037
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14036
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14032
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 14033
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 14027
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 14034
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 14035
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 14039
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 14037
+            },
+            {
+              "level": "V",
+              "kat": 11,
+              "cycles": 14036
+            },
+            {
+              "level": "V",
+              "kat": 12,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 13,
+              "cycles": 14033
+            },
+            {
+              "level": "V",
+              "kat": 14,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 15,
+              "cycles": 14033
+            },
+            {
+              "level": "V",
+              "kat": 16,
+              "cycles": 14026
+            },
+            {
+              "level": "V",
+              "kat": 17,
+              "cycles": 14027
+            },
+            {
+              "level": "V",
+              "kat": 18,
+              "cycles": 14025
+            },
+            {
+              "level": "V",
+              "kat": 19,
+              "cycles": 14037
+            },
+            {
+              "level": "V",
+              "kat": 20,
+              "cycles": 14045
+            },
+            {
+              "level": "V",
+              "kat": 21,
+              "cycles": 14027
+            },
+            {
+              "level": "V",
+              "kat": 22,
+              "cycles": 14029
+            },
+            {
+              "level": "V",
+              "kat": 23,
+              "cycles": 14036
+            },
+            {
+              "level": "V",
+              "kat": 24,
+              "cycles": 14035
+            }
+          ]
+        },
+        "sign": {
+          "status": "PASS",
+          "expected": 45,
+          "completed": 45,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 29272
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 35090
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 41065
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 29028
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 22904
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 12047
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 17842
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 29412
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 12429
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 23305
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 53034
+            },
+            {
+              "level": "II",
+              "kat": 11,
+              "cycles": 12189
+            },
+            {
+              "level": "II",
+              "kat": 12,
+              "cycles": 10970
+            },
+            {
+              "level": "II",
+              "kat": 13,
+              "cycles": 29410
+            },
+            {
+              "level": "II",
+              "kat": 14,
+              "cycles": 18224
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 97833
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 16291
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 16190
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 48636
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 32394
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 40525
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 16179
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 24301
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 25142
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 16179
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 16579
+            },
+            {
+              "level": "III",
+              "kat": 11,
+              "cycles": 16180
+            },
+            {
+              "level": "III",
+              "kat": 12,
+              "cycles": 24984
+            },
+            {
+              "level": "III",
+              "kat": 13,
+              "cycles": 65313
+            },
+            {
+              "level": "III",
+              "kat": 14,
+              "cycles": 57200
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 25691
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 25691
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 37574
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 49454
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 108916
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 49473
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 97017
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 85125
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 97012
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 25672
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 73244
+            },
+            {
+              "level": "V",
+              "kat": 11,
+              "cycles": 37592
+            },
+            {
+              "level": "V",
+              "kat": 12,
+              "cycles": 37599
+            },
+            {
+              "level": "V",
+              "kat": 13,
+              "cycles": 37578
+            },
+            {
+              "level": "V",
+              "kat": 14,
+              "cycles": 25691
+            }
+          ]
+        },
+        "verify": {
+          "status": "PASS",
+          "expected": 45,
+          "completed": 45,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 6716
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 6668
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 6596
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 6908
+            },
+            {
+              "level": "II",
+              "kat": 11,
+              "cycles": 6596
+            },
+            {
+              "level": "II",
+              "kat": 12,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 13,
+              "cycles": 6584
+            },
+            {
+              "level": "II",
+              "kat": 14,
+              "cycles": 6584
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 11,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 12,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 13,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 14,
+              "cycles": 9730
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14644
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14642
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14640
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14632
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 14644
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 14642
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 14644
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 14646
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 14655
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 14638
+            },
+            {
+              "level": "V",
+              "kat": 11,
+              "cycles": 14648
+            },
+            {
+              "level": "V",
+              "kat": 12,
+              "cycles": 14634
+            },
+            {
+              "level": "V",
+              "kat": 13,
+              "cycles": 14638
+            },
+            {
+              "level": "V",
+              "kat": 14,
+              "cycles": 14642
+            }
+          ],
+          "known_valid": 9,
+          "known_invalid": 36
+        },
+        "verify_mutations": {
+          "status": "PASS",
+          "expected": 12,
+          "completed": 12,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 6764
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 9730
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14650
+            }
+          ],
+          "known_valid": 0,
+          "known_invalid": 12
+        },
+        "verify_canonical": {
+          "status": "PASS",
+          "expected": 33,
+          "completed": 33,
+          "vectors": [
+            {
+              "level": "II",
+              "kat": 0,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 1,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 2,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 3,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 4,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 5,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 6,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 7,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 8,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 9,
+              "cycles": 6764
+            },
+            {
+              "level": "II",
+              "kat": 10,
+              "cycles": 6764
+            },
+            {
+              "level": "III",
+              "kat": 0,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 1,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 2,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 3,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 4,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 5,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 6,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 7,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 8,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 9,
+              "cycles": 9730
+            },
+            {
+              "level": "III",
+              "kat": 10,
+              "cycles": 9730
+            },
+            {
+              "level": "V",
+              "kat": 0,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 1,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 2,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 3,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 4,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 5,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 6,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 7,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 8,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 9,
+              "cycles": 14650
+            },
+            {
+              "level": "V",
+              "kat": 10,
+              "cycles": 14650
+            }
+          ],
+          "known_valid": 18,
+          "known_invalid": 15
+        }
+      },
+      "compile_commands": [
+        {
+          "case": "keygen",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_keygen_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-549/kat-work/keygen/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-549/kat-work/keygen/ref_combined/src_tb/tb_keygen_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-549/kat-work/keygen/ref_combined/src_tb"
+        },
+        {
+          "case": "sign",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_sign_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-549/kat-work/sign/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-549/kat-work/sign/ref_combined/src_tb/tb_sign_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-549/kat-work/sign/ref_combined/src_tb"
+        },
+        {
+          "case": "verify",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_verify_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-549/kat-work/verify/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-549/kat-work/verify/ref_combined/src_tb/tb_verify_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-549/kat-work/verify/ref_combined/src_tb"
+        },
+        {
+          "case": "verify_mutations",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_verify_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-549/kat-work/verify_mutations/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-549/kat-work/verify_mutations/ref_combined/src_tb/tb_verify_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-549/kat-work/verify_mutations/ref_combined/src_tb"
+        },
+        {
+          "case": "verify_canonical",
+          "compile": [
+            "verilator",
+            "--binary",
+            "--timing",
+            "--top-module",
+            "tb_verify_top",
+            "--Mdir",
+            "/tmp/mldsa-compat-qualified-549/kat-work/verify_canonical/obj",
+            "-j",
+            "2",
+            "-Wno-fatal",
+            "--unroll-count",
+            "512",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/Barrett_8380417.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/address_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/butterfly2x2.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/coeff_decomposer.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomp_map1.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/decomposer_unit.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_ram.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/dual_port_rom.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/encoder.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/expandmask_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_c.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/gen_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/keccak_top_ghdl.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/makehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/mldsa_hint_guard.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/norm_check.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_fifo_piso.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/ntt_pipo.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/operation_module.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_a.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/rejection_y.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_a_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_s.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/sampler_y_ext.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/twiddle_resolver.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/uncenter_coeff.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/usehint.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/zero_strip.v",
+            "/tmp/mldsa-compat-qualified-549/profile/source-bundle/rtl/combined_top.v",
+            "/tmp/mldsa-compat-qualified-549/kat-work/verify_canonical/ref_combined/src_tb/tb_verify_top.v"
+          ],
+          "cwd": "/tmp/mldsa-compat-qualified-549/kat-work/verify_canonical/ref_combined/src_tb"
+        }
+      ],
+      "raw_artifact_sha256": {
+        "/tmp/mldsa-compat-qualified-549/functional.json": "04959da368c4552bdb68b8a3119313fe61ffacac85e1bad020bada562353d3d2",
+        "/tmp/mldsa-compat-qualified-549/request.json": "c0591ccefe6b9d7d4202e290d46317b541c388363f818a0a759312102aed5235",
+        "/tmp/mldsa-compat-qualified-549/response.json": "83f36488d1f1914681e48fde5ebe41cac5e64a1c7fe0af56c8da2b3e9a6eb3d2",
+        "/tmp/mldsa-compat-qualified-549/kat-work/version.log": "a1c478e9817c5bbcbc5095b6b8abefac89015612a2a1921d283138267d117a2e",
+        "/tmp/mldsa-compat-qualified-549/kat-work/keygen/compile.log": "163c86ad96451978cca496e0c4eef69143624ab91624a6f316064c62074b6e23",
+        "/tmp/mldsa-compat-qualified-549/kat-work/keygen/simulation.log": "cbbb20e1948723f540245d83b561965e6515d9f6a64c87ec64febf365071c81c",
+        "/tmp/mldsa-compat-qualified-549/kat-work/sign/compile.log": "75ca62677f53732acf252a2dc6860a91a944234e9363b018df471e293d0242de",
+        "/tmp/mldsa-compat-qualified-549/kat-work/sign/simulation.log": "ad4aee542e1e381104e3705ef61acf814d8c0dec0a1c3333f54699f835663425",
+        "/tmp/mldsa-compat-qualified-549/kat-work/verify/compile.log": "d4c8a6ca85efb54991733d9803bd8725849123f413099f73d8b735752e4165fc",
+        "/tmp/mldsa-compat-qualified-549/kat-work/verify/simulation.log": "b5f3da16b53035044be52fe56a5a420c3ef986076aa4afde11313823133a29ec",
+        "/tmp/mldsa-compat-qualified-549/kat-work/verify_mutations/compile.log": "27ac48fd4167ed1d2dd8dcce932c75e346d49d86e8fc37b8513f8d436c9847f1",
+        "/tmp/mldsa-compat-qualified-549/kat-work/verify_mutations/simulation.log": "935f3e4b708e39785675876872ca9ef7020576244c33f2bce96100e657f32bae",
+        "/tmp/mldsa-compat-qualified-549/kat-work/verify_canonical/compile.log": "592bc0cbdcf6bf4e5843a9b17ea91600087e13ebd9a4bbf9647761a99c1c2ff9",
+        "/tmp/mldsa-compat-qualified-549/kat-work/verify_canonical/simulation.log": "03babbae3599ca190be6404a706389c6c385898841e16e0530be0ebcb3021492"
+      },
+      "checker_sha256": {
+        "agent/edit_ops.py": "35861aff82dbaaebc396c8c9a3f1d3f9c2133d2f4a3a6d332bc814156ea7233b",
+        "agent/llm_client.py": "c01a9ac687e6a050df990379c982d72718d0230c19cc27aee368c92c8fb7866c",
+        "agent/mldsa/exported_kat_adapter.py": "903c7537d6be4277b527435e2eef1307b42c0f11ed8e1f580fef0895273644a7",
+        "agent/mldsa/portable_kat_gate.py": "46a7aa87474830d906d1354fddced072755cbe770a8f549ae94d3229dbfed3dc",
+        "agent/mldsa_sources.py": "f5ce5cfb0b9085655f8aac22a4e65ff858e750444ddf0b5cf966d2f9644c89b0",
+        "agent/run_safety.py": "ff066df97706299c3fb94297023a2a23bcf17c94b5c39097db85cf62c711a121",
+        "agent/target_profiles.py": "1d92306febdf222b08d2e927661ba206191cb5fed0632793737331e6629d44c8",
+        "agent/whole_design.py": "f5733726462704dd6baf2c0277d5538d868f7f265a7743822faa309e4b854f19",
+        "agent/whole_design_adapters.py": "bfc9efca31c5ac35d884fb84b5b264afcf20b62ddeefe076c43f2b1986903a2f"
+      },
+      "source_hashes": {
+        "Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+        "address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+        "address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+        "butterfly.v": "a0d107a4aec1a7fccfb10dbd54de82485c77e16c0e05f21233ee3aa8589bc00f",
+        "butterfly2x2.v": "6fe29b03f5e86ba41726851a4c1fb83fc2bc1adaf79465072112d135a1da36d6",
+        "coeff_decomposer.v": "237a64f8291a3598fec00131fc65844d1a9b9f7ad20240d1c089fc6828d9d9ad",
+        "combined_top.v": "0f288b8af7f5e4edb0a7745f33c1ee13ae5910569cbd98af1ab43fb0bcf92c9f",
+        "decoder.v": "cfb1b879f75e8d4989570281ce196cec01c76e3aa54e52fa506c222a4278a947",
+        "decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+        "decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+        "dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+        "dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+        "encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+        "expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+        "gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+        "gen_c.v": "a6eccf04bb316c5ac62a411cf1d53ab7405ae8d4746448a03aebedfa0a69f8da",
+        "gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+        "keccak_top_ghdl.v": "49e5f9e2bf65a421b40807b5da5cbe6e9e4b65688bda2a8fe03ac0221f5ebc77",
+        "makehint.v": "d8614915814c66fe14d1075b56913ca4cc57c2fe81e25d210765a434fa517fee",
+        "mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+        "norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+        "ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+        "ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+        "ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+        "operation_module.v": "6e9b6690fbf1e677a36ae970b9a6762adeae8bc4c3f23548091da7b48cf9ca18",
+        "rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+        "rejection_s.v": "dbb7ab502f54e591839ddbea17c70ffd47f572b20201ed463418f9605211434f",
+        "rejection_y.v": "33b3cd73fc4773ccfd37c7d3e1dc151ccae83e4d4b32e41267732e1afe4145fb",
+        "sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+        "sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+        "sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+        "twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+        "uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+        "usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+        "zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+      },
+      "aggregate_averages_match_integer_vector_means": true,
+      "aggregate_averages_II_III_V": {
+        "keygen": [
+          4872,
+          8291,
+          14033
+        ],
+        "sign": [
+          25081,
+          34261,
+          54221
+        ],
+        "verify": [
+          6633,
+          9730,
+          14642
+        ],
+        "verify_mutations": [
+          6764,
+          9730,
+          14650
+        ],
+        "verify_canonical": [
+          6764,
+          9730,
+          14650
+        ]
+      }
+    }
+  },
+  "known_bad_5022": {
+    "package": "EPEL9 verilator-5.022-3.el9 + matching devel",
+    "simulator": "Verilator 5.022 2024-02-24 rev fedora-5.022",
+    "prepatch_lint_exit": 1,
+    "prepatch_errors": {
+      "BLKANDNBLK": 5,
+      "BLKLOOPINIT": 5
+    },
+    "compile_with_staging_and_unroll": "PASS",
+    "kat_status": "FAIL",
+    "reason": "[ML-DSA-II.KeyGen, KAT # 0, byte pk{         33}] WRONG: Expected d8, received 13",
+    "completed": 75,
+    "all_75_cycles_identical_to_historical": true,
+    "other_operations": "NOT RUN: gate stops at KeyGen data mismatch",
+    "logs": {
+      "/tmp/mldsa-compat-final-5022/kat-work/keygen/compile.log": "7b3dbb0ba8d5ff5d51b1a74ba2963f44baf3b5ad340a73733545ae8075606d57",
+      "/tmp/mldsa-compat-final-5022/kat-work/keygen/simulation.log": "bb386dbb7859a5833cf1f3ee8bf234dfccff5a0a78a98b15d1346fa6973bb0f7",
+      "/tmp/mldsa-compat-final-5022/functional.json": "bc98f5278735090583ae264069ea4ac068c3c856584345dbf3d521490366223b"
+    },
+    "final_guard_exit": 1,
+    "final_guard_before_compilation": true
+  },
+  "tool_binary_sha256": {
+    "/tmp/verilator-5022-setup/root/usr/bin/verilator_bin": "11d92c7190a13ac5052ebcb9d868e49f05358340c2e0afa52810a5429a030540",
+    "/tmp/verilator-stable-setup/root/usr/bin/verilator_bin": "9f0ccb6e7355c9430ae3998056ceda1f8d528f6d109d73018e8c6eee61f0d686",
+    "/workspace/shared/spectral-memory-reduction/tools/verilator/verilator/bin/verilator_bin": "7a308fe7b00607f3140fe0599efc107a3f591e631a44a1c3614e00e6c90c0dcc"
+  },
+  "software_tests": {
+    "O0": {
+      "discovered": 658,
+      "ran": 639,
+      "failures": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_does_not_follow_redirect",
+          "reason": "Install llm extra for real SDK/mock transport checks"
+        },
+        {
+          "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_error_has_one_attempt_no_retry_and_no_raw_body",
+          "reason": "Install llm extra for real SDK/mock transport checks"
+        },
+        {
+          "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_sends_workspace_header_on_both_requests",
+          "reason": "Install llm extra for real SDK/mock transport checks"
+        },
+        {
+          "test": "test_current_dashboard.CurrentDashboardTests.test_direct_script_import_preserves_package_imports",
+          "reason": "Install dashboard extra for entry-point test"
+        },
+        {
+          "test": "test_current_dashboard.CurrentDashboardTests.test_endpoints_and_ui_are_read_only",
+          "reason": "Install dashboard extra for endpoint tests"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_corrupt_expected_word_causes_real_fatal",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_junk_after_terminator_causes_real_fatal",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_missing_terminator_causes_real_fatal",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_word_lanes_and_stalled_data_phases",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.VerilatorShutdownTests.test_mock_ahb_completion_has_clean_simulator_exit",
+          "reason": "Verilator needed for clean-shutdown regression"
+        }
+      ],
+      "successful": true,
+      "excluded": [
+        {
+          "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+          "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+          "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+          "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        }
+      ]
+    },
+    "O1": {
+      "discovered": 658,
+      "ran": 639,
+      "failures": 0,
+      "errors": 0,
+      "skipped": [
+        {
+          "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_does_not_follow_redirect",
+          "reason": "Install llm extra for real SDK/mock transport checks"
+        },
+        {
+          "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_error_has_one_attempt_no_retry_and_no_raw_body",
+          "reason": "Install llm extra for real SDK/mock transport checks"
+        },
+        {
+          "test": "test_claude_credentials.SDKTransportTests.test_real_sdk_sends_workspace_header_on_both_requests",
+          "reason": "Install llm extra for real SDK/mock transport checks"
+        },
+        {
+          "test": "test_current_dashboard.CurrentDashboardTests.test_direct_script_import_preserves_package_imports",
+          "reason": "Install dashboard extra for entry-point test"
+        },
+        {
+          "test": "test_current_dashboard.CurrentDashboardTests.test_endpoints_and_ui_are_read_only",
+          "reason": "Install dashboard extra for endpoint tests"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_corrupt_expected_word_causes_real_fatal",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_junk_after_terminator_causes_real_fatal",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_missing_terminator_causes_real_fatal",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.AhbPlumbingTests.test_word_lanes_and_stalled_data_phases",
+          "reason": "Icarus needed only for the non-cryptographic AHB plumbing test"
+        },
+        {
+          "test": "test_mlkem_adams_bridge_gate.VerilatorShutdownTests.test_mock_ahb_completion_has_clean_simulator_exit",
+          "reason": "Verilator needed for clean-shutdown regression"
+        }
+      ],
+      "successful": true,
+      "excluded": [
+        {
+          "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key",
+          "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries",
+          "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer",
+          "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        },
+        {
+          "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched",
+          "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)"
+        }
+      ]
+    }
+  },
+  "diff_check": "PASS"
+}

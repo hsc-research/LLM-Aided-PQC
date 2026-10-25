@@ -1,93 +1,155 @@
 #!/usr/bin/env python3
-# Full-design NIST KAT outer gate via Vivado xsim (mixed Verilog/VHDL).
-# Usage: python3 full_kat_gate.py [tracked_src_dir]
-#   No arg: pristine baseline. With arg (e.g. agent/mldsa/mldsa_src):
-#   same-named files there OVERRIDE pristine in the compile set.
-# PASS = "testbench done" printed and zero "WRONG" lines.
-import subprocess, os, sys, json, glob, shutil, tempfile, time, re
+"""ML-DSA KeyGen KAT gate: N vectors for each of II, III and V must pass.
 
-ROOT   = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main"
-SRC    = os.path.join(ROOT, "ref_combined/src")
-TB     = os.path.join(ROOT, "ref_combined/src_tb/tb_keygen_top.v")
-COMMON = os.path.join(ROOT, "common")
-KAT    = os.path.join(ROOT, "KAT")
-VIVADO_BIN = "/tools/Xilinx/2025.2/Vivado/bin"
-TIMEOUT = 86400  # default 24h; override with --timeout SECS
-LOGFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fullkat_run.log")
-VECFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fullkat_vectors.json")
+MLDSA_ROOT overrides the bundled pinned third_party/mldsa_osh/upstream tree.
+VIVADO_BIN optionally augments PATH. Run artifacts go into
+unique PQC_RUN_DIR children (default: repository/.pqc_runs), never archived logs.
+"""
+import argparse
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parent.parent
+sys.path.insert(0, str(HERE.parent))
+from run_safety import hashes, run_process
+from mldsa_sources import BUNDLED_ROOT, source_root as resolve_source_root, verify_snapshot
+
+ROOT = resolve_source_root()
+VIVADO_BIN = os.environ.get('VIVADO_BIN', '')
+TIMEOUT = 86400
+LEVELS = ('II', 'III', 'V')
+
 
 def parse_per_vector(out):
-    vecs, cur = [], None
+    """Keep security level in identity; reject duplicate completion records."""
+    vecs, by_key, current = [], {}, None
     for line in out.splitlines():
-        m = re.search(r"KAT\s*#\s*(\d+)", line)
-        if m:
-            k = int(m.group(1))
-            if cur is None or cur["kat"] != k:
-                cur = next((v for v in vecs if v["kat"] == k), None)
-                if cur is None:
-                    cur = {"kat": k, "completed": False, "cycles": None, "wrong": 0}
-                    vecs.append(cur)
-            if "completed in" in line:
-                cur["completed"] = True
-                mc = re.search(r"completed in\s*(\d+)", line)
-                if mc: cur["cycles"] = int(mc.group(1))
-        if "WRONG" in line and cur is not None:
-            cur["wrong"] += 1
-    for v in vecs:
-        v["pass"] = v["completed"] and v["wrong"] == 0
+        match = re.search(r'KAT\s*#\s*(\d+)', line)
+        if match:
+            level = re.search(r'ML-DSA-(II|III|V)\.KeyGen', line)
+            key = (level.group(1) if level else None, int(match.group(1)))
+            if key not in by_key:
+                by_key[key] = {'level': key[0], 'kat': key[1], 'completed': False,
+                               'cycles': None, 'wrong': 0, 'completions': 0}
+                vecs.append(by_key[key])
+            current = by_key[key]
+            if 'completed in' in line:
+                cycles = re.search(r'completed in\s*(\d+)\s+clock cycles', line)
+                current['completions'] += 1
+                current['cycles'] = int(cycles.group(1)) if cycles else None
+                current['completed'] = current['cycles'] is not None and current['cycles'] > 0
+        if 'WRONG' in line and current is not None:
+            current['wrong'] += 1
+    for vector in vecs:
+        vector['pass'] = (vector['level'] in LEVELS and vector['completed']
+                          and vector['wrong'] == 0 and vector['completions'] == 1)
     return vecs
 
-def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT):
-    work = tempfile.mkdtemp(prefix="mldsa_fullkat_")
-    ok = False
-    try:
-        # assemble source set: pristine, then overrides replace by basename
-        vfiles  = {os.path.basename(p): p for p in glob.glob(SRC + "/*.v")}
-        vhfiles = {os.path.basename(p): p for p in glob.glob(SRC + "/*.vhd")}
-        if override_dir:
-            for p in glob.glob(os.path.join(override_dir, "*.v")):
-                b = os.path.basename(p)
-                if b in vfiles:
-                    vfiles[b] = p
-        # TB uses `include "../../common/mldsa_params.v" and reads KAT via
-        # relative paths -> replicate directory layout in work dir
-        os.makedirs(os.path.join(work, "ref_combined/src_tb"), exist_ok=True)
-        os.makedirs(os.path.join(work, "common"), exist_ok=True)
-        # copy the ENTIRE src_tb dir (TB + its sibling KAT/ROM data files:
-        # xsim resolves $readmem paths against cwd, and the pristine tree
-        # keeps flat copies of the data files next to the TB)
-        for p_ in glob.glob(os.path.dirname(TB) + "/*"):
-            if os.path.isfile(p_):
-                shutil.copy(p_, os.path.join(work, "ref_combined/src_tb"))
-        tb_dst = os.path.join(work, "ref_combined/src_tb", os.path.basename(TB))
-        if vectors is not None:
-            import re as _re2
-            tbs = open(tb_dst).read()
-            anchor = "localparam  NUM_TV = 25;"
-            n = tbs.count(anchor)
-            if n != 1:
-                return {"status": "FAIL", "stage": "subset-patch",
-                        "reason": f"NUM_TV anchor count {n} != 1"}
-            tbs = tbs.replace(anchor, f"localparam  NUM_TV = {vectors};")
-            open(tb_dst, "w").write(tbs)
-        for p in glob.glob(COMMON + "/*"):
-            shutil.copy(p, os.path.join(work, "common"))
-        shutil.copytree(KAT, os.path.join(work, "KAT"))
-        rundir = os.path.join(work, "ref_combined/src_tb")
-        # belt-and-suspenders: flatten common/ and KAT/ data files into rundir
-        for src_dir in (os.path.join(work, "common"), os.path.join(work, "KAT")):
-            for p_ in glob.glob(src_dir + "/*"):
-                if os.path.isfile(p_):
-                    dst_ = os.path.join(rundir, os.path.basename(p_))
-                    if not os.path.exists(dst_):
-                        shutil.copy(p_, dst_)
 
+def evaluate_simulation(out, returncode, expected_vectors, timed_out=False):
+    """A success marker alone is insufficient: prove the exact coverage set."""
+    vectors = parse_per_vector(out)
+    expected = {(level, index) for level in LEVELS for index in range(expected_vectors)}
+    actual = {(v['level'], v['kat']) for v in vectors}
+    failures = [line for line in out.splitlines() if 'WRONG' in line or
+                re.match(r'\s*(?:ERROR|FATAL)(?:\s|:)', line, re.I)]
+    reason = None
+    if timed_out:
+        reason = 'simulator timed out'
+    elif returncode != 0:
+        reason = f'simulator exited with status {returncode}'
+    elif failures:
+        reason = failures[0]
+    elif 'testbench done' not in out:
+        reason = "missing 'testbench done'"
+    elif actual != expected or not all(v['pass'] for v in vectors):
+        reason = 'missing, duplicate, malformed, or incomplete vector results'
+    return {'status': 'FAIL' if reason else 'PASS', 'stage': 'sim',
+            'reason': reason or 'all expected KeyGen vectors completed without errors',
+            'kats_expected': len(expected),
+            'kats_completed': sum(v['completed'] for v in vectors),
+            'vector_pass': sum(v['pass'] for v in vectors),
+            'vector_fail': sum(not v['pass'] for v in vectors),
+            'wrong_count': sum('WRONG' in line for line in out.splitlines())}, vectors
+
+
+def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT, root=None):
+    if vectors is not None and (isinstance(vectors, bool) or not isinstance(vectors, int) or not 1 <= vectors <= 25):
+        return {'status': 'FAIL', 'stage': 'setup', 'reason': 'vectors must be an integer from 1 to 25 per level'}
+    if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not 0 < timeout < float('inf'):
+        return {'status': 'FAIL', 'stage': 'setup', 'reason': 'timeout must be positive and finite'}
+    parent = Path(os.environ.get('PQC_RUN_DIR', str(REPO / '.pqc_runs'))).resolve()
+    parent.mkdir(parents=True, exist_ok=True)
+    work = tempfile.mkdtemp(prefix='mldsa-fullkat-', dir=parent)
+    log_file = str(Path(work) / 'fullkat_run.log')
+    vector_file = str(Path(work) / 'fullkat_vectors.json')
+    base = {'run_dir': work, 'log_file': log_file, 'per_vector_file': vector_file}
+    stage = 'setup'
+    started = time.monotonic()
+    try:
+        source_root = Path(root or ROOT).resolve()
+        if source_root == BUNDLED_ROOT.resolve():
+            verify_snapshot(source_root)
+        source = source_root / 'ref_combined/src'
+        tb = source_root / 'ref_combined/src_tb/tb_keygen_top.v'
+        if not source.is_dir() or not tb.is_file():
+            raise ValueError(f'MLDSA_ROOT lacks ref_combined/src and src_tb/tb_keygen_top.v: {source_root}')
+        chosen = {p.name: p for p in source.iterdir() if p.is_file()}
+        if not any(p.suffix == '.v' for p in chosen.values()):
+            raise ValueError('pristine source set contains no Verilog files')
+        if override_dir is not None:
+            override = Path(override_dir).resolve()
+            if not override.is_dir():
+                raise ValueError(f'override directory missing: {override}')
+            replacements = [p for p in override.iterdir() if p.suffix in ('.v', '.vhd', '.vh') and p.is_file()]
+            if not replacements:
+                raise ValueError('override directory contains no supported source files')
+            for path in replacements:
+                if path.name not in chosen:
+                    raise ValueError(f'override has no pristine counterpart: {path.name}')
+                chosen[path.name] = path
+        original_hashes = hashes(chosen.values())
+        staged = Path(work) / 'ref_combined/src'
+        staged.mkdir(parents=True)
+        for name, path in chosen.items():
+            shutil.copy2(path, staged / name)
+            if hashes([staged / name])[str(staged / name)] != original_hashes[str(path)]:
+                raise RuntimeError(f'source changed while staging: {path}')
+        (Path(work) / 'sources.json').write_text(json.dumps(original_hashes, indent=2))
+        vfiles = {p.name: str(p) for p in staged.glob('*.v')}
+        vhfiles = {p.name: str(p) for p in staged.glob('*.vhd')}
+        rundir = Path(work) / 'ref_combined/src_tb'
+        shutil.copytree(tb.parent, rundir)
+        shutil.copytree(source_root / 'common', Path(work) / 'common')
+        shutil.copytree(source_root / 'KAT', Path(work) / 'KAT')
+        tb_dst = rundir / tb.name
+        text = tb_dst.read_text()
+        # Check the supported pristine capacity even for full runs. Do not
+        # trust a modified NUM_TV value to lower the required coverage.
+        anchor = re.compile(r'\blocalparam\s+NUM_TV\s*=\s*(\d+)\s*;')
+        declarations = anchor.findall(text)
+        if declarations != ['25']:
+            raise ValueError(f'expected one NUM_TV = 25 declaration, found {declarations}')
+        expected_vectors = vectors if vectors is not None else 25
+        tb_dst.write_text(anchor.sub(f'localparam NUM_TV = {expected_vectors};', text))
+        for folder in (Path(work) / 'common', Path(work) / 'KAT'):
+            for path in folder.iterdir():
+                if path.is_file() and not (rundir / path.name).exists():
+                    shutil.copy2(path, rundir / path.name)
         # shim: hoist ALL forward-referenced reg/wire declarations in combined_top.v
         # (xvlog rejects use-before-declaration; other tools allowed it)
         ct = vfiles.get("combined_top.v")
         if ct:
             import re as _re
-            src_ct = open(ct).read()
+            src_ct = Path(ct).read_text()
             decl_re = _re.compile(r"^[ \t]*(reg|wire)(\s+(signed)?\s*(\[[^\]]+\])?)?\s+([A-Za-z_][A-Za-z0-9_]*(\s*\[[^\]]+\])?(\s*,\s*[A-Za-z_][A-Za-z0-9_]*(\s*\[[^\]]+\])?)*)\s*;\s*$", _re.M)
             hoisted = []
             def first_use(name, before):
@@ -105,114 +167,67 @@ def run_full_kat(override_dir=None, vectors=None, timeout=TIMEOUT):
                 hdr_end = src_ct.find(");", src_ct.find("module combined_top")) + 2
                 src_ct = src_ct[:hdr_end] + "\n    // xvlog shim: hoisted forward-referenced decls\n    " + "\n    ".join(hoisted) + "\n" + src_ct[hdr_end:]
                 shim = os.path.join(work, "combined_top.v")
-                open(shim, "w").write(src_ct)
+                Path(shim).write_text(src_ct)
                 vfiles["combined_top.v"] = shim
 
         env = dict(os.environ)
-        env["PATH"] = VIVADO_BIN + ":" + env.get("PATH", "")
+        if VIVADO_BIN:
+            env['PATH'] = VIVADO_BIN + os.pathsep + env.get('PATH', '')
+        counter = 0
 
-        def x(cmd, tee=False):
-            if not tee:
-                return subprocess.run(cmd, cwd=rundir, capture_output=True,
-                                      text=True, timeout=timeout, env=env, shell=True)
-            # tee mode: stream stdout to LOGFILE live so progress is visible
-            with open(LOGFILE, "w") as lf:
-                lf.write(f"=== {cmd} ===\n"); lf.flush()
-                proc = subprocess.Popen(cmd, cwd=rundir, stdout=subprocess.PIPE,
-                                        start_new_session=True,
-                                        stderr=subprocess.STDOUT, text=True,
-                                        env=env, shell=True)
-                import threading, signal as _sig
-                timed_out_flag = {"v": False}
-                def _watchdog():
-                    timed_out_flag["v"] = True
-                    try: os.killpg(os.getpgid(proc.pid), _sig.SIGKILL)
-                    except (ProcessLookupError, PermissionError):
-                        try: proc.kill()
-                        except Exception: pass
-                wd = threading.Timer(timeout, _watchdog)
-                wd.start()
-                lines = []
-                for line in proc.stdout:
-                    lf.write(line); lf.flush()
-                    lines.append(line)
-                wd.cancel()
-                proc.wait()
-                if timed_out_flag["v"]:
-                    class R: pass
-                    r = R(); r.returncode = -9
-                    r.stdout = "".join(lines); r.stderr = ""
-                    r.timed_out = True
-                    return r
-                class R: pass
-                r = R(); r.returncode = proc.returncode
-                r.stdout = "".join(lines); r.stderr = ""
-                r.timed_out = False
-                return r
+        def execute(argv, sim=False):
+            nonlocal counter
+            counter += 1
+            path = log_file if sim else str(Path(work) / f'{counter:03d}-{Path(argv[0]).name}.log')
+            return run_process(argv, cwd=rundir, env=env, timeout=timeout, log_path=path)
 
-        # multi-pass VHDL compile: retry failures until fixpoint (order-independent)
-        pkgs = [v for b, v in sorted(vhfiles.items()) if b.endswith("_pkg.vhd")]
-        rest = [v for b, v in sorted(vhfiles.items()) if not b.endswith("_pkg.vhd")]
-        pending = pkgs + rest
-        for _pass in range(len(pending) + 1):
+        stage = 'xvhdl'
+        pending = [v for name, v in sorted(vhfiles.items()) if name.endswith('_pkg.vhd')]
+        pending += [v for name, v in sorted(vhfiles.items()) if not name.endswith('_pkg.vhd')]
+        for _ in range(len(pending) + 1):
             failed = []
-            for f in pending:
-                r = x(f'xvhdl "{f}"')
-                if "ERROR" in r.stdout or r.returncode != 0:
-                    failed.append(f)
+            for path in pending:
+                result = execute(['xvhdl', path])
+                if result.returncode or re.search(r'(?im)^\s*ERROR\b', result.stdout):
+                    failed.append(path)
             if not failed:
                 break
             if len(failed) == len(pending):
-                return {"status": "FAIL", "stage": "xvhdl",
-                        "reason": "no progress; stuck on: " +
-                                  ",".join(os.path.basename(f) for f in failed)}
+                raise RuntimeError('VHDL compile made no progress: ' + ', '.join(Path(p).name for p in failed))
             pending = failed
-        else:
-            return {"status": "FAIL", "stage": "xvhdl", "reason": "pass limit exceeded"}
-        r = x("xvlog " + " ".join(f'"{p}"' for p in sorted(vfiles.values())) + " tb_keygen_top.v")
-        if r.returncode != 0:
-            return {"status": "FAIL", "stage": "xvlog", "reason": r.stdout[-400:] + r.stderr[-200:]}
-        r = x("xelab tb_keygen_top -s kat_sim --timescale 1ns/1ps")
-        if r.returncode != 0:
-            return {"status": "FAIL", "stage": "xelab", "reason": r.stdout[-400:] + r.stderr[-200:]}
-        t0 = time.time()
-        r = x("xsim kat_sim -R", tee=True)   # -R: batch run-all-then-exit, no gui simmode, no wdb
-        runtime = round(time.time() - t0, 1)
-        out = r.stdout
-        vecs  = parse_per_vector(out)
-        json.dump(vecs, open(VECFILE, "w"), indent=1)
-        wrong = [l for l in out.splitlines() if "WRONG" in l]
-        done  = "testbench done" in out
-        kats  = sum(1 for v in vecs if v["completed"])
-        base  = {"kats_completed": kats, "runtime_s": runtime,
-                 "per_vector_file": VECFILE,
-                 "vector_pass": sum(1 for v in vecs if v.get("pass")),
-                 "vector_fail": sum(1 for v in vecs if not v.get("pass"))}
-        if getattr(r, "timed_out", False):
-            inprog = vecs[-1]["kat"] if vecs else None
-            return {"status": "FAIL", "stage": "sim-timeout",
-                    "in_progress_vector": inprog, **base}
-        if done and not wrong:
-            ok = True
-            return {"status": "PASS", "override": override_dir or "pristine",
-                    "vectors": vectors or "full", **base}
-        return {"status": "FAIL", "stage": "sim",
-                "wrong_count": len(wrong),
-                "first_wrong": wrong[0] if wrong else "no 'testbench done'", **base}
-    finally:
-        if ok:
-            shutil.rmtree(work, ignore_errors=True)
-        else:
-            keep = work.replace("mldsa_fullkat_", "mldsa_fullkat_FAILED_")
-            try: os.rename(work, keep); print(f"workdir preserved: {keep}", file=sys.stderr)
-            except OSError: pass
+        for stage, argv in (
+                ('xvlog', ['xvlog', *sorted(vfiles.values()), tb.name]),
+                ('xelab', ['xelab', 'tb_keygen_top', '-s', 'kat_sim', '--timescale', '1ns/1ps'])):
+            result = execute(argv)
+            if result.returncode or re.search(r'(?im)^\s*(?:ERROR|FATAL)\b', result.stdout):
+                raise RuntimeError(f'{stage} failed: {result.stdout[-800:]}')
+        stage = 'sim'
+        timed_out = False
+        try:
+            result = execute(['xsim', 'kat_sim', '-R'], sim=True)
+            output, returncode = result.stdout, result.returncode
+        except subprocess.TimeoutExpired:
+            output = Path(log_file).read_text(errors='replace') if Path(log_file).exists() else ''
+            returncode, timed_out = -9, True
+        outcome, parsed = evaluate_simulation(output, returncode, expected_vectors, timed_out)
+        Path(vector_file).write_text(json.dumps(parsed, indent=2))
+        if hashes(original_hashes) != original_hashes:
+            raise RuntimeError('selected candidate sources changed during verification')
+        return {**outcome, **base, 'runtime_s': round(time.monotonic() - started, 1),
+                'override': str(override_dir) if override_dir else 'pristine',
+                'vectors_per_level': expected_vectors}
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as exc:
+        return {'status': 'FAIL', 'stage': stage, 'reason': str(exc), **base,
+                'runtime_s': round(time.monotonic() - started, 1)}
 
-if __name__ == "__main__":
-    args = sys.argv[1:]
-    vectors = None; timeout = TIMEOUT; override = None
-    while args:
-        a = args.pop(0)
-        if a == "--vectors": vectors = int(args.pop(0))
-        elif a == "--timeout": timeout = int(args.pop(0))
-        else: override = a
-    print(json.dumps(run_full_kat(override, vectors=vectors, timeout=timeout), indent=2))
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('override_dir', nargs='?')
+    parser.add_argument('--vectors', type=int)
+    parser.add_argument('--timeout', type=float, default=TIMEOUT)
+    parser.add_argument('--root', help='external pristine ML-DSA source root')
+    args = parser.parse_args()
+    outcome = run_full_kat(args.override_dir, vectors=args.vectors, timeout=args.timeout, root=args.root)
+    print(json.dumps(outcome, indent=2))
+    raise SystemExit(0 if outcome['status'] == 'PASS' else 1)

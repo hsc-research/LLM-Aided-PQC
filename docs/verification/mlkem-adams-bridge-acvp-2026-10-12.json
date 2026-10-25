@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "verification_target": "pinned_reference",
+  "ml_dsa_87_qualified": false,
+  "full_unified_behavior_preservation_qualified": false,
+  "status": "PASS",
+  "rtl_kat_passed": true,
+  "date_utc": "2026-10-12",
+  "scope": "ML-KEM-1024 API of unified ML-KEM-1024 / ML-DSA-87 RTL with SRAM models",
+  "upstream_commit": "b77e3d899e828d626cfc2a0d26a6b5704cc121e0",
+  "acvp_commit": "975de31eb83d87039ec88934fdc47d8c312b892d",
+  "certification": false,
+  "pinned_sources_unchanged": true,
+  "simulator": "Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)",
+  "simulator_state_model": "two-state",
+  "compile_returncode": 0,
+  "simulate_returncode": 0,
+  "compile_seconds": 107.97,
+  "simulate_seconds": 124.248,
+  "cases_passed": 80,
+  "checks_passed": 39840,
+  "compared_output_bytes": 159040,
+  "operation_counts": {
+    "keyGen": 25,
+    "encapsulation": 25,
+    "decapsulation": 10,
+    "decapsulationKeyCheck": 10,
+    "encapsulationKeyCheck": 10
+  },
+  "implicit_rejection_tcIds": [
+    96,
+    98,
+    101,
+    104,
+    105
+  ],
+  "source_inputs_hashed": 227,
+  "sha256": {
+    "upstream/SOURCE_MANIFEST.json": "9eca4e7c082ec36f287713e56a4b47bca6f0c340ac4c10536c7bdbee68a9e907",
+    "integration/manifest.json": "3f6207bd0dc7455004b61aab3596cf78e339be146cf927c1c9b4671d56579e1f",
+    "integration/abr_unified_top.sv": "b377aa515a3a6654208798437c35efe70d33329018b3a261ee38834bd8a32a87",
+    "test_vectors/nist_acvp_mlkem1024.json": "b7b1ab2cb459632301bed7bf1cff8625f71cb241479abfbd20596702a5401c8e",
+    "independent_testbench": "ee4ef0149d293cf4f59e012a772b071b59b51c860d847cffbfede33a40371ce9",
+    "independent_runner": "2feb46ee174eba2df316163d3f47ab768dce3932142ca7bc646804cfebcc8749",
+    "all_recorded_inputs_canonical_json": "5fce1d3173b48b72d392e7ab9d2ab2ce0edf745db9d3a656ad8810463a8869a4",
+    "generated_commands": "c8f3b1c08523b2b67c45a601e034d57f58be6747f2b1ba943e717ff3820ea491",
+    "compiled_binary": "4f769fa375c10087dad5d5969115b0e7485c91c9bc707c3ea01d1926a44907c2",
+    "raw_run_report": "0a4a6eba5fed3b19288055f75233dccb329e613c668b0e3d461e6b43291804cd",
+    "raw_compile_log": "1f3f70301cb8739e7530552af6097055cf94ad93683aa5b1b42a1a234025aeb0",
+    "simulation_log": "1c5389f5dca5d2aa77735120bb221dbc2b196de6d42596d11ce6f4ac78fe2e10",
+    "unit_test_log": "7ede53e2cdcc2049e5121f3b89dd36b7f8326a7e1bab6d9c5b2d2cf58fd10136"
+  },
+  "reproduce": "python tools/run_mlkem_adams_bridge_kat.py --simulator verilator --work-dir build/mlkem_adams_bridge_verilator",
+  "actual_compile_command": [
+    "/tmp/pqc-verilator-tools/root/usr/bin/verilator",
+    "--binary",
+    "--timing",
+    "--assert",
+    "-Wno-fatal",
+    "--top-module",
+    "tb_mlkem_acvp",
+    "--Mdir",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/obj_dir",
+    "-j",
+    "2",
+    "-f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/sources.f"
+  ],
+  "actual_simulate_command": [
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/obj_dir/Vtb_mlkem_acvp",
+    "+COMMANDS=/workspace/scratch/8c6eb979d526/pqc-project/integrated/build/mlkem_adams_bridge_verilator/commands.hex",
+    "+MAX_CYCLES=200000"
+  ],
+  "tool_installation": {
+    "source_url": "https://deb.debian.org/debian/pool/main/v/verilator/verilator_5.032-1+b2_amd64.deb",
+    "published_checksum_url": "https://packages.debian.org/trixie/amd64/verilator/download",
+    "expected_sha256": "238ab4ca84cddd371f113cd549f16f2d65c43e7b4962a763bea1d259158dd3b2",
+    "actual_sha256": "238ab4ca84cddd371f113cd549f16f2d65c43e7b4962a763bea1d259158dd3b2",
+    "package": "verilator",
+    "version": "5.032-1+b2",
+    "architecture": "amd64",
+    "installation_method": "dpkg-deb -x into temporary directory; no system installation",
+    "executable": "/tmp/pqc-verilator-tools/root/usr/bin/verilator",
+    "cxx_version": "g++ (Debian 14.2.0-19) 14.2.0"
+  },
+  "logs": {
+    "simulation": "mlkem-adams-bridge-acvp-2026-10-12.txt",
+    "full_local_report": "build/mlkem_adams_bridge_verilator/report.json",
+    "full_local_compile": "build/mlkem_adams_bridge_verilator/compile.log"
+  },
+  "unit_tests": {
+    "passed": 35,
+    "scope": "vector mapping, fail-closed result accounting, Icarus mock AHB and Verilator mock clean shutdown; not a substitute for the real RTL run"
+  },
+  "negative_controls": {
+    "purpose": "Real-DUT diagnostic controls; meaningful only alongside successful untouched-vector run",
+    "controls": [
+      {
+        "name": "expected_word_bitflip",
+        "commands_file": "expected_word_bitflip.hex",
+        "changed_line": 37,
+        "opcode": 2,
+        "address": "0xb000",
+        "original_word": "0xca23098d",
+        "mutated_word": "0xca23098c",
+        "sha256": "0586e40f7626b5d483bc813df0d2446276740c980e86933cf7420c88925dcf0e",
+        "status": "EXPECTED_MISMATCH_OBSERVED",
+        "returncode": -6,
+        "seconds": 1.017,
+        "log": "mlkem-adams-bridge-expected_word_bitflip-2026-10-12.txt",
+        "log_sha256": "665debebb21df0eed59426a343944f43fa0e492288728a4ddb526bda03f2540e"
+      },
+      {
+        "name": "seed_input_bitflip",
+        "commands_file": "seed_input_bitflip.hex",
+        "changed_line": 19,
+        "opcode": 1,
+        "address": "0x9018",
+        "original_word": "0xfa06a7f3",
+        "mutated_word": "0xfa06a7f2",
+        "sha256": "a2bbb95ef40a30541f3be04f002fbab2a129babb626f4304b74bd9c672b5cf7c",
+        "status": "EXPECTED_MISMATCH_OBSERVED",
+        "returncode": -6,
+        "seconds": 1.117,
+        "log": "mlkem-adams-bridge-seed_input_bitflip-2026-10-12.txt",
+        "log_sha256": "bebab449054d064f569235be8c7cf5ef1c2c8576b139aabf077c60bd1ebdc119"
+      }
+    ],
+    "compiled_binary_sha256": "4f769fa375c10087dad5d5969115b0e7485c91c9bc707c3ea01d1926a44907c2"
+  },
+  "warnings": {
+    "count": 430,
+    "policy": "Warnings retained and nonfatal; compilation and explicit harness failures remain fatal."
+  },
+  "diagnostic_history": [
+    "Initial authored harness incorrectly required READY with VALID. Pinned abr_ctrl asserts READY only in ABR_RESET; corrected to VALID=1/ERROR=0 for completed operations, matching the public interface.",
+    "Verilator shutdown crash reproduced without RTL: $finish inside a loop was followed by $feof on a closed file. Command processing now exits before fclose, and $finish is the last statement. No exit-code override or generated-C++ workaround is used.",
+    "Icarus 12 cannot compile upstream abr_piso_multi.sv:23 (unpacked parameter array). The successful full RTL run uses the exact source under Verilator 5.032."
+  ],
+  "limitations": [
+    "Finite published ACVP examples are not NIST certification or exhaustive functional equivalence.",
+    "Only ML-KEM-1024 API modes are qualified; this is a unified ML-KEM-1024/ML-DSA-87 accelerator with SRAMs, not an ML-KEM-only area baseline.",
+    "Verilator is two-state. The pinned upstream headers disable some assertions under VERILATOR or unless ABR_ASSERT_ON is set. All independent harness output, AHB, timeout and accounting checks remain active.",
+    "Case-cycle figures include reset settling, AHB input/readback transfers and polling; they are not isolated core latency or Fmax.",
+    "No FPGA or ASIC synthesis, timing closure, area, power, side-channel or fault-resistance claim is made."
+  ]
+}

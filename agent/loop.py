@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from optimizer import optimize_once, load_verilog, save_verilog
 
 def run_loop(module, param_set, verilog_path, max_iterations=10):
+    raise RuntimeError("Legacy ungated loop is disabled. Use python3 -m agent.run --target fpga --dispatch.")
     print(f"Starting optimization loop: {module} / {param_set}")
     print(f"Max iterations: {max_iterations}")
     print("="*50)

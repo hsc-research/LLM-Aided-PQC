@@ -1,6 +1,10 @@
 # ML-DSA Block-level KAT Gate (coeff_decomposer). Returns {"status":"PASS"|"FAIL",...}
 # Runs sec_lvl 2 AND 3 (both decomposition branches). PASS only if all pass.
-import subprocess, os, shutil, tempfile
+import subprocess, os, shutil, tempfile, sys
+try:
+    from .gate_result import block_result
+except ImportError:
+    from gate_result import block_result
 HERE      = os.path.dirname(os.path.abspath(__file__))
 CHECK_DIR = os.path.join(HERE, "mldsa_check")
 MLDSA_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mldsa_src")
@@ -13,21 +17,13 @@ def _run(cmd, cwd, timeout=120):
     except subprocess.TimeoutExpired:
         return 124,"","timeout"
 def _one_level(work, sec_lvl):
-    rc,out,err=_run(["python3",GEN,NVEC,sec_lvl],work)
+    rc,out,err=_run([sys.executable,GEN,NVEC,sec_lvl],work)
     if rc!=0: return False,f"gen failed (sec={sec_lvl}): {err[-200:]}",0
     rc,out,err=_run(["iverilog","-g2012",f"-DTB_SEC_LVL={sec_lvl}","-o","block_kat.vvp",
                      "-s","tb_coeff_decomposer",TB,TARGET,DEP],work)
     if rc!=0: return False,f"compile failed (sec={sec_lvl}): {err[-300:]}",0
     rc,out,err=_run(["vvp","block_kat.vvp"],work)
-    passed="BLOCK-KAT RESULT: PASS" in out
-    checked=0
-    for line in out.splitlines():
-        if "checked" in line and "errors" in line:
-            try: checked=int(line.split("checked")[1].split("outputs")[0])
-            except Exception: pass
-    if passed: return True,"ok",checked
-    first=next((l for l in out.splitlines() if "MISMATCH" in l),"")
-    return False,f"mismatch (sec={sec_lvl}). {first}",checked
+    return block_result(rc, out, err, expected=int(NVEC))
 def run_block_kat(candidate_rtl=None):
     work=tempfile.mkdtemp(prefix="mldsa_kat_")
     try:
@@ -42,8 +38,12 @@ def run_block_kat(candidate_rtl=None):
             results[lvl]={"ok":ok,"reason":reason,"checked":checked}
             if not ok: return {"status":"FAIL","reason":reason,"levels":results}
         return {"status":"PASS","reason":"all levels match","levels":results}
+    except (OSError, subprocess.SubprocessError) as exc:
+        return {"status":"FAIL","reason":str(exc)}
     finally:
         shutil.rmtree(work,ignore_errors=True)
 if __name__=="__main__":
     import sys,json
-    print(json.dumps(run_block_kat(sys.argv[1] if len(sys.argv)>1 else None),indent=2))
+    result = run_block_kat(sys.argv[1] if len(sys.argv)>1 else None)
+    print(json.dumps(result,indent=2))
+    raise SystemExit(0 if result["status"] == "PASS" else 1)

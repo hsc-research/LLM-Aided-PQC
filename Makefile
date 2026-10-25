@@ -280,8 +280,17 @@ build_joint_design:
 	vivado -mode batch -nojournal -nolog -notrace -source ./build/joint_design/tb/joint_design.tcl
 
 
+# build/ contains tracked candidate RTL. Never delete it during cleanup.
+.PHONY: clean test smoke doctor
 clean:
-	rm -rf ./build/*
-	rm -rf .Xil
-	rm -rf test_*
+	rm -rf -- .Xil test_keygen test_encap test_decap test_joint_design
+
+test:
+	python3 -m unittest discover -s tests -v
+
+smoke:
+	python3 -m agent smoke
+
+doctor:
+	python3 -m agent doctor --json
 

@@ -14,16 +14,14 @@ import sys, os, re, json, shutil, importlib, time
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
-os.chdir(REPO)
 
-import anthropic
 from synthesizer import run_synthesis
 import path_extractor
 
 MODEL       = "claude-sonnet-4-6"
 MIN_GAIN_NS = 0.05
 LOG         = os.path.join(HERE, "orchestrator_log.jsonl")
-PRISTINE    = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src"
+PRISTINE    = os.path.join(os.environ.get("MLDSA_ROOT", os.path.join(REPO, "third_party", "mldsa_osh", "upstream")), "ref_combined", "src")
 
 BLOCKS = {
     # block: (tracked source, gate module name, baseline wns_ns, baseline luts)
@@ -39,7 +37,8 @@ BLOCKS = {
 
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
-from learned_rules import rules_prompt_block, distill_rule
+from learned_rules import rules_prompt_block
+from experiment_history import preliminary_record, applied_proposals, history_prompt
 POLICY = """VALIDATED STRATEGY MENU (pick exactly one, or no_action):
 1. flag_precompute: compare logic on already-registered inputs feeding CE/write-index
    decode -> register the flag from pre-register inputs. (n=5, best pattern.)
@@ -125,7 +124,7 @@ def classify(paths):
     return tags
 
 def call_llm(block, rtl, board, tags):
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     prompt = (f"BLOCK: {block} (ML-DSA, Artix-7 xc7a200tfbg676-1, 200 MHz OOC).\n"
               f"CODE-COMPUTED CLASSIFICATION (authoritative): {tags}\n\n"
               f"TOP TIMING PATHS:\n{board}\n\nFULL RTL:\n{rtl}\n\n"
@@ -147,6 +146,7 @@ def call_llm(block, rtl, board, tags):
     raise SystemExit("LLM failed to produce valid JSON twice; aborting.")
 
 def main():
+    os.chdir(REPO)
     block = sys.argv[1]
     # ML-DSA sources have no parameter_set generic; Vivado ignores it.
     # "mldsa" is just a label for report filenames/logs.
@@ -207,24 +207,16 @@ def main():
             "likely a flag that no consumer reads, or an attribute on a pruned net). "
             "These strategies remain VALID — the previous EDIT was wrong, not the strategy. "
             "If you retry, ensure every new signal is actually consumed on the critical path."]
-    accepted = []
-    if os.path.exists(LOG):
-        for line in open(LOG):
-            r = json.loads(line)
-            if r.get("block") == block and r.get("verdict") == "ACCEPTED":
-                accepted.append(r)
+    accepted = applied_proposals("mldsa", block)
+    context = history_prompt("mldsa", block)
+    if context:
+        tags = list(tags) + [context]
     if accepted:
         hist = "; ".join(f"{r['strategy']}: {json.dumps(r.get('edits'))[:200]}" for r in accepted)
         tags = list(tags) + [f"EDITS ALREADY APPLIED AND ACCEPTED on this block (present in the RTL "
-            f"you were given; do NOT re-apply, duplicate, or paraphrase them — a strategy already "
-            f"accepted on a cone is exhausted for that cone): {hist}"]
-    closed = {r["strategy"] for r in accepted}
+            f"you were given; do NOT re-apply these exact edits; the same strategy may "
+            f"still apply to a different cone): {hist}"]
     prop = call_llm(block, rtl, board, tags)
-    if prop.get("verdict") == "experiment" and prop.get("strategy") in closed:
-        log({"block": block, "verdict": "refused",
-             "reason": f"strategy {prop['strategy']} already ACCEPTED on this block; cone closed",
-             "strategy": prop["strategy"]})
-        return
     print(json.dumps({k: v for k, v in prop.items() if k != "old" and k != "new"}, indent=1))
     if prop["verdict"] != "experiment":
         log({"block": block, "verdict": "no_action", "reason": prop["reason"]}); return
@@ -233,8 +225,7 @@ def main():
     edits = prop.get("edits") or ([{"old": prop["old"], "new": prop["new"]}]
                                   if "old" in prop else None)
     if edits and os.path.exists(LOG):
-        prior = [json.dumps(json.loads(l).get("edits")) for l in open(LOG)
-                 if json.loads(l).get("block") == block]
+        prior = [json.dumps(r.get("edits")) for r in accepted]
         if json.dumps(edits) in prior:
             log({"block": block, "verdict": "refused",
                  "reason": "byte-identical to a prior attempt on this block",
@@ -248,6 +239,8 @@ def main():
             log({"block": block, "verdict": "refused",
                  "reason": f"edit{k} anchor count {n} != 1: {e['old'][:60]}"}); return
         work = work.replace(e["old"], e["new"])
+    from edit_ops import validate_rtl_change
+    validate_rtl_change(rtl, work)
     shutil.copy(src, src + ".bak")
     open(src, "w").write(work)
     print("applied")   # mandatory confirmation per protocol
@@ -279,17 +272,9 @@ def main():
         rec = {"block": block, "verdict": "ACCEPTED", "strategy": prop["strategy"],
              "wns_pre": pre_wns, "wns_post": res["wns_ns"], "gain": round(gain, 3),
              "luts": res.get("luts"), "edits": edits, **{k: res.get(k) for k in ("luts","ffs","dsp","total_w","dynamic_w") if isinstance(res, dict) and res.get(k) is not None}}  # ppa-logged
-        log(rec)
-        try: distill_rule(anthropic.Anthropic(), MODEL, rec, "mldsa")
-        except Exception as e: print(f"rule distill skipped: {e}")
-        print("=== ACCEPTED. .bak kept; review diff and commit manually. ===")
+        log(preliminary_record(rec, "mldsa", MODEL))
+        print("=== ACCEPTED (block filter only). Whole-design judgment still required. ===")
     else:
-        try:
-            distill_rule(anthropic.Anthropic(), MODEL,
-                         {"block": block, "verdict": "REJECTED_MARGINAL",
-                          "strategy": prop.get("strategy"), "wns_pre": pre_wns,
-                          "wns_post": res["wns_ns"], "gain": round(gain, 3)}, "mldsa")
-        except Exception as e: print(f"rule distill skipped: {e}")
         revert(f"marginal_{gain:+.3f}")
 
 if __name__ == "__main__":

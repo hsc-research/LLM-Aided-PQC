@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "packages": [
+    {
+      "package": "mldsa",
+      "files_checked": 179,
+      "errors": []
+    },
+    {
+      "package": "slh",
+      "files_checked": 102,
+      "errors": []
+    }
+  ],
+  "all_2550_frozen_inputs_present_and_equal": true,
+  "index_stage_snapshot_sha256": "379fbf357a3cab000612f09cf2f9916099c064a27d3cac83d68ac71bff3e3033"
+}

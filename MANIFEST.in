@@ -1,0 +1,17 @@
+# Python tooling only. Historical hardware evidence is not package data.
+include README.md LICENSE NOTICE CITATION.cff CONTRIBUTING.md SECURITY.md
+recursive-include LICENSES *.txt
+prune logs
+prune synth_out
+prune hardware
+prune build
+prune asic
+prune docs
+prune .pqc_runs
+prune runs
+prune agent/slh_dsa/pristine
+prune agent/slh_dsa/slh_src
+prune agent/mldsa/mldsa_src
+recursive-exclude agent *.v *.vh *.vhd *.hex *.mem *.db *.dcp *.rpt *.log *.jsonl
+# Excluding a package file never removes it from Git history.
+global-exclude *.db *.dcp *.log *.key .env *.pyc

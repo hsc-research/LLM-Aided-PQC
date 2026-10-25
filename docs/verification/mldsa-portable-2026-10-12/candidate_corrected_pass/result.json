@@ -1,0 +1,2539 @@
+{
+  "status": "PASS",
+  "run_dir": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m",
+  "backend": "ghdl-synth+verilator",
+  "variant": "candidate+encoder-fallthrough+canonical-hints",
+  "coverage": {
+    "keygen": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "keygen",
+      "expected": 75,
+      "completed": 75,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 4986
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 4990
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 4991
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 4983
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 4993
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 4986
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 4989
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 4986
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 4980
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 4984
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 4992
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 4988
+        },
+        {
+          "level": "II",
+          "kat": 15,
+          "cycles": 4989
+        },
+        {
+          "level": "II",
+          "kat": 16,
+          "cycles": 4984
+        },
+        {
+          "level": "II",
+          "kat": 17,
+          "cycles": 4990
+        },
+        {
+          "level": "II",
+          "kat": 18,
+          "cycles": 4985
+        },
+        {
+          "level": "II",
+          "kat": 19,
+          "cycles": 4983
+        },
+        {
+          "level": "II",
+          "kat": 20,
+          "cycles": 4989
+        },
+        {
+          "level": "II",
+          "kat": 21,
+          "cycles": 4985
+        },
+        {
+          "level": "II",
+          "kat": 22,
+          "cycles": 4985
+        },
+        {
+          "level": "II",
+          "kat": 23,
+          "cycles": 4991
+        },
+        {
+          "level": "II",
+          "kat": 24,
+          "cycles": 4989
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 8431
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 8428
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 8430
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 8424
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 8426
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 8418
+        },
+        {
+          "level": "III",
+          "kat": 15,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 16,
+          "cycles": 8426
+        },
+        {
+          "level": "III",
+          "kat": 17,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 18,
+          "cycles": 8424
+        },
+        {
+          "level": "III",
+          "kat": 19,
+          "cycles": 8422
+        },
+        {
+          "level": "III",
+          "kat": 20,
+          "cycles": 8424
+        },
+        {
+          "level": "III",
+          "kat": 21,
+          "cycles": 8430
+        },
+        {
+          "level": "III",
+          "kat": 22,
+          "cycles": 8430
+        },
+        {
+          "level": "III",
+          "kat": 23,
+          "cycles": 8420
+        },
+        {
+          "level": "III",
+          "kat": 24,
+          "cycles": 8420
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14230
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14228
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14227
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14223
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14224
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14218
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14225
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14226
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14230
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14228
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14227
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14224
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 15,
+          "cycles": 14224
+        },
+        {
+          "level": "V",
+          "kat": 16,
+          "cycles": 14217
+        },
+        {
+          "level": "V",
+          "kat": 17,
+          "cycles": 14218
+        },
+        {
+          "level": "V",
+          "kat": 18,
+          "cycles": 14216
+        },
+        {
+          "level": "V",
+          "kat": 19,
+          "cycles": 14228
+        },
+        {
+          "level": "V",
+          "kat": 20,
+          "cycles": 14236
+        },
+        {
+          "level": "V",
+          "kat": 21,
+          "cycles": 14218
+        },
+        {
+          "level": "V",
+          "kat": 22,
+          "cycles": 14220
+        },
+        {
+          "level": "V",
+          "kat": 23,
+          "cycles": 14227
+        },
+        {
+          "level": "V",
+          "kat": 24,
+          "cycles": 14226
+        }
+      ],
+      "simulator_returncode": 0
+    },
+    "sign": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "sign",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 30264
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 36302
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 42497
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 30020
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 23676
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 12379
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 18394
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 30404
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 12761
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 24077
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 54906
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 12521
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 11302
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 30402
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 18776
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 101398
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 16766
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 16625
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 50336
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 33447
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 41887
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 16614
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 25045
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 25926
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 16614
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 17054
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 16615
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 25768
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 67642
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 59220
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 26130
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 26130
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 38268
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 50403
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 111140
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 50422
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 98986
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 86839
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 98981
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 26111
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 74703
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 38286
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 38293
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 38272
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 26130
+        }
+      ],
+      "simulator_returncode": 0
+    },
+    "verify": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 45,
+      "completed": 45,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6844
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6796
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 7036
+        },
+        {
+          "level": "II",
+          "kat": 11,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 12,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 13,
+          "cycles": 6744
+        },
+        {
+          "level": "II",
+          "kat": 14,
+          "cycles": 6744
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 11,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 12,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 13,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 14,
+          "cycles": 9964
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14844
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14842
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14840
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14832
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14844
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14842
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14844
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14846
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14855
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14838
+        },
+        {
+          "level": "V",
+          "kat": 11,
+          "cycles": 14848
+        },
+        {
+          "level": "V",
+          "kat": 12,
+          "cycles": 14834
+        },
+        {
+          "level": "V",
+          "kat": 13,
+          "cycles": 14838
+        },
+        {
+          "level": "V",
+          "kat": 14,
+          "cycles": 14842
+        }
+      ],
+      "simulator_returncode": 0,
+      "result_encoding": "active-high failure flag: 0=valid, 1=invalid",
+      "known_valid": 9,
+      "known_invalid": 36
+    },
+    "verify_mutations": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 12,
+      "completed": 12,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6892
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9964
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14850
+        }
+      ],
+      "simulator_returncode": 0,
+      "result_encoding": "active-high failure flag: 0=valid, 1=invalid",
+      "known_valid": 0,
+      "known_invalid": 12
+    },
+    "verify_canonical": {
+      "status": "PASS",
+      "reason": null,
+      "operation": "verify",
+      "expected": 33,
+      "completed": 33,
+      "vectors": [
+        {
+          "level": "II",
+          "kat": 0,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 1,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 2,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 3,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 4,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 5,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 6,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 7,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 8,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 9,
+          "cycles": 6892
+        },
+        {
+          "level": "II",
+          "kat": 10,
+          "cycles": 6892
+        },
+        {
+          "level": "III",
+          "kat": 0,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 1,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 2,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 3,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 4,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 5,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 6,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 7,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 8,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 9,
+          "cycles": 9964
+        },
+        {
+          "level": "III",
+          "kat": 10,
+          "cycles": 9964
+        },
+        {
+          "level": "V",
+          "kat": 0,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 1,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 2,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 3,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 4,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 5,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 6,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 7,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 8,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 9,
+          "cycles": 14850
+        },
+        {
+          "level": "V",
+          "kat": 10,
+          "cycles": 14850
+        }
+      ],
+      "simulator_returncode": 0,
+      "result_encoding": "active-high failure flag: 0=valid, 1=invalid",
+      "known_valid": 18,
+      "known_invalid": 15
+    }
+  },
+  "transformations": [
+    {
+      "file": "combined_top.v",
+      "edit": "hoist forward declarations",
+      "count": 0
+    },
+    {
+      "edit": "banked encoder empty-FIFO fallthrough to preserve reference output timing; semantic candidate correction",
+      "source": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/encoder_fallthrough.v",
+      "file": "encoder.v"
+    },
+    {
+      "edit": "canonical HintBitUnpack validation with sticky failure flag; semantic hardening variant",
+      "files": [
+        "usehint.v",
+        "combined_top.v",
+        "mldsa_hint_guard.v"
+      ]
+    },
+    {
+      "file": "keccak_top_ghdl.v",
+      "edit": "GHDL synthesized original VHDL hierarchy to Verilog"
+    },
+    {
+      "file": "ref_combined/src_tb/tb_keygen_top.v",
+      "edit": "append cycle watchdog"
+    },
+    {
+      "file": "ref_combined/src_tb/tb_sign_top.v",
+      "edit": "append cycle watchdog"
+    },
+    {
+      "file": "ref_combined/src_tb/tb_sign_top.v",
+      "edit": "bound partial final hint-word capture to actual signature bytes; testbench only"
+    },
+    {
+      "file": "ref_combined/src_tb/tb_verify_top.v",
+      "edit": "append cycle watchdog"
+    },
+    {
+      "file": "ref_combined/src_tb/tb_verify_top.v",
+      "edit": "pack partial final hint input word bytewise with zero padding; testbench only"
+    },
+    {
+      "file": "ref_combined/mutation_tb/tb_verify_top.v",
+      "edit": "append cycle watchdog"
+    },
+    {
+      "file": "ref_combined/mutation_tb/tb_verify_top.v",
+      "edit": "pack partial final hint input word bytewise with zero padding; testbench only"
+    },
+    {
+      "file": "ref_combined/canonical_tb/tb_verify_top.v",
+      "edit": "append cycle watchdog"
+    },
+    {
+      "file": "ref_combined/canonical_tb/tb_verify_top.v",
+      "edit": "pack partial final hint input word bytewise with zero padding; testbench only"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "ghdl",
+        "--version"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/version-ghdl.log"
+    },
+    {
+      "argv": [
+        "verilator",
+        "--version"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/version-verilator.log"
+    },
+    {
+      "argv": [
+        "ghdl",
+        "-a",
+        "--std=08",
+        "-fsynopsys",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ghdl-analyze.log"
+    },
+    {
+      "argv": [
+        "ghdl",
+        "--synth",
+        "--std=08",
+        "-fsynopsys",
+        "--out=verilog",
+        "keccak_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ghdl-synth.log"
+    },
+    {
+      "argv": [
+        "verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_keygen_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_keygen",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_keygen_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/keygen-compile.log"
+    },
+    {
+      "argv": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_keygen/Vtb_keygen_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/keygen-sim.log"
+    },
+    {
+      "argv": [
+        "verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_sign_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_sign",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_sign_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/sign-compile.log"
+    },
+    {
+      "argv": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_sign/Vtb_sign_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/sign-sim.log"
+    },
+    {
+      "argv": [
+        "verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/verify-compile.log"
+    },
+    {
+      "argv": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/verify-sim.log"
+    },
+    {
+      "argv": [
+        "verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify_mutations",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/verify_mutations-compile.log"
+    },
+    {
+      "argv": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify_mutations/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/verify_mutations-sim.log"
+    },
+    {
+      "argv": [
+        "verilator",
+        "--binary",
+        "--timing",
+        "--top-module",
+        "tb_verify_top",
+        "--Mdir",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify_canonical",
+        "-j",
+        "2",
+        "-Wno-fatal",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/tb_verify_top.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/verify_canonical-compile.log"
+    },
+    {
+      "argv": [
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify_canonical/Vtb_verify_top"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/verify_canonical-sim.log"
+    }
+  ],
+  "tools": {
+    "ghdl": [
+      "GHDL 6.0.0 (Debian 6.0.0+dfsg3-1) [Dunoon edition]",
+      " Compiled with GNAT Version: 14.3.0",
+      " static elaboration, mcode JIT code generator",
+      "Written by Tristan Gingold."
+    ],
+    "verilator": [
+      " rev vUNKNOWN-built20260516-4e853d8"
+    ]
+  },
+  "build_environment": {
+    "MAKEFLAGS": "CFG_CXXFLAGS_PCH_I=-include"
+  },
+  "harness_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/portable_kat_gate.py": "23703b31d9277ec4639e283e95594a011347b3cb978d17ad10ca87f4f063d227"
+  },
+  "snapshot": {
+    "source_integrity": "PASS",
+    "commit": "751009199ac081091a9059805e6921453bde0154",
+    "files": 106,
+    "bytes": 3300503,
+    "keygen_cases_present": 75,
+    "qualification": "NOT RUN: RTL compilation/simulation, Sign/Verify, FIPS certification, or PPA"
+  },
+  "override": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src",
+  "input_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/combined_top.v": "08df99b47393ca2323be2bb5db3a670d7e15040f47e1fbab86b512836291572a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/encoder.v": "8a03370ae3d08a2f69d599e2954f14af64501676f611d6534522c7d7bd6fed1f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/mldsa_src/usehint.v": "08f22a1f02e2a2e507a3b728abf32148bbbfb4abd9cc9f12fea0e021f73c9c68",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_pk_44.txt": "db917346fcc89cf052a3f267fea98c7931021419b5fa7ce1737491a5e20a5899",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_pk_65.txt": "01eea5e31427f45c76cc24474a5779260c55dcb6f75e368c9bad0fac5b41e9a8",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_pk_87.txt": "e445d1ed3ca3df6018e24466ca9d346dbfb59e56b97de001835ee403477817a8",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_seed_44.txt": "03b4c0dd54a959176ae64618918f7b6a5455c88db2ad98c6f4f55f1741d77948",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_seed_65.txt": "703b2ad801a993dde730a00efdbd827574c4c42c3407c5da5b541f0611edcf25",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_seed_87.txt": "d7c5d6445978fe338c295dc1d4d47837c0221be69e231a17cdcbd382d3e4f832",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_sk_44.txt": "88987fcdaf96436e9fa91c6e30a42287188ac6bf49210bc5fbe06e8ea7e9870b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_sk_65.txt": "1b3bae6fbf6a7b7352a2d8c1dda80c802413139d2748bdb098d43c14b2dbd543",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/KeyGen_sk_87.txt": "eb134858a7c6653a2e051b8929dc511b8551208465d3e6db001d94b9804a2727",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctx_44.txt": "9a8050aee90909ee6d821d70caa2cba3a8e1c2b9851f8b5ec85cae80c7c90e7a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctx_65.txt": "8c518801015b3b8e620eefcbfea7e0212ddefd1410a1e650b72c34453e931e3a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctx_87.txt": "6874f864f8020959f3ed23bf524943773184674a11d0c4dfd16d7e4b47ee619b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctxlen_44.txt": "6181d730186994f8910395b8a172d4db95bfac52ee0e792ef0c7cfb1a7d7481c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctxlen_65.txt": "1f521ff9fd63b31c15f985b281966f5feb09db855409c67f08dec2a43b9d1037",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_ctxlen_87.txt": "28b2624f6766ea37aa93c38c04242c654b6f70bbebdcfb92c253ff977dcd4f79",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_message_44.txt": "51f2d4c9f367199715c657606bfcbf80fb8377a0378598c0f934d89c086d3912",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_message_65.txt": "714736e8686dbb792b7f43f150601fd5202a7b3ef2050b02bf9a656ae3b33cd6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_message_87.txt": "7c49fc93f3b3af3906081a8d823a0a84744e9e686eb8c0bc817d5138049e324c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_mlen_44.txt": "3737eb3f3d909112f01189bd211e4a661898f78ec457222f94a7e0ea73c7759b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_mlen_65.txt": "6fccea8eef892ed93c309a19e0c101bce6ea47bf0b1cbc71e7dfc78ec0658849",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_mlen_87.txt": "c47751390ed4f15218bb37ed2e02ec19b1016e1ba3be07b9b20927c224961f88",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_signature_44.txt": "4e5ec7714e6aca405e3047ba3e2f1bf496f81337fe15c81f15098531897a064f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_signature_65.txt": "d247c180079b92a11e5cae3a98226b7dc6e036f2d665529bd8542883b6917368",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_signature_87.txt": "9c958f1df1dc45e6c3863f68150cb6385aad9edcfb282ed6975134fc85df72fa",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_sk_44.txt": "cc43a2fdf8d966c6ca8f462d2e96520ba5446cf2e81e285455b6a0ece33455ef",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_sk_65.txt": "4d1ac3df6f87037cd81941496fb4de94340e7a9ab7c6af4d9e34609f8fc7b2b6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigGen_sk_87.txt": "9bcb921bf505f0aac49b83ac957c00b3f6db6b71084732fd9441e9a7163f263c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctx_44.txt": "a38ef43b319ea86cec1a4e2f532bc0937618dd330a79661ef1cf5e6eead0605a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctx_65.txt": "8a0425907b16821c9706ad6fc703bcc183a0ba8d62134b9fbac14f5d06e596e6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctx_87.txt": "270135bf4ee5986a2419dff6127d092bcb9d9eca44ba04cf5474908bb3037087",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctxlen_44.txt": "fc444c18fba8be0e8982da2a4eafddcba59ebc94ad8bdd40e048fcfa361a2abf",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctxlen_65.txt": "f7fd020923ddfa5767b0ad0c9e25b57cf2a0f80ea45be740f1d1e7576c85e9d0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_ctxlen_87.txt": "9bb0a280ccc7d0b5d98d0dcfc75dedfcafabe15d3735260bcc3c6a171442a332",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_message_44.txt": "97ca547196da8f62060c09e9513499cad41c5bce89487730ecf70e872a10a53d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_message_65.txt": "6655c2e53d45be31e969818de9e6afe819b211d4eb644cc7931abded0010f6f3",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_message_87.txt": "d0ef0be275c9779a61ee713a0d5c003f3152051ca6d937a0ff01e92ad12f2977",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_mlen_44.txt": "be794637aa863ce024cfdc1a08b97a67d28044d01d0ca0a1f6f8c376dbb8b7bc",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_mlen_65.txt": "3664300b5dd4befdb297b4e5e7f4c319dd830fc8bf301f49614d1371aac598e4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_mlen_87.txt": "f9dd0a60c93c83caf43c4e22f92299736260465548526d95582517f24a098279",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_pk_44.txt": "9eb5b0c900dd249409f56599a4d752086e2b30e0951ce8f347af91511ae80014",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_pk_65.txt": "aa4a323392bf08ecb556af035422a872934647450343540bfe04b215a88f5e83",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_pk_87.txt": "77be1bbf80505517af1dbef1d050d8421c095211eb51f14bdb1a19f65a827237",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_result_44.txt": "22ae0a2259ef410a1e7cb56e68050b9fcc164438c5f8f269c13cfd3f93bf2ba6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_result_65.txt": "13f16b3a5c0471270b9b893d164f611a9743c249ac1faed80aaeb63f62e8ac1e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_result_87.txt": "4d15489b4ae9acf609c0173cc92fbb2b9b99ccfc48418a586a0a59ab755fc2d6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_signature_44.txt": "c8bddd4f28e4a15fb884a4c0f7295372c8f271d00a4363aa81fb7dc32621a20c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_signature_65.txt": "9e47f9b1ce64eb5d1fc9d713ae84411aebcd30ac77a59cd387ea345b9a11786c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/KAT/SigVer_signature_87.txt": "65080c994ff92fc510b405e08a19cc0ca59354f292b18c8bafeb87864f15e2c3",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src_tb/tb_keygen_top.v": "0abfcf9eba6671f9e9fd9ac8ce04d94e628548bd344987eeebfc4aa2eac25de4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src_tb/tb_sign_top.v": "8799c2a8cf59437102382319c89c8e258aeea7aafda3c27f635833200961878f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src_tb/tb_verify_top.v": "e96584b3468f7f3c04cb7a228a872206f6bd3b4fcb452e2c2407a594913b65db",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/encoder_fallthrough.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe"
+  },
+  "tool_launcher_hashes": {
+    "/tmp/pqc-ghdl-repro/bin/ghdl": "dcf3498952332b36c70e4505dd881ecf7285c4cb2af92d2a36fde76b67dc5120",
+    "/workspace/shared/spectral-memory-reduction/tools/bin/verilator": "677d5a7bc10c111cf50307a42d0debc791ab5abb57342f68ef409b6cd90cb2cc"
+  },
+  "staged_design_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+  },
+  "verify_mutations": [
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "mutation": "signature least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "mutation": "message least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "mutation": "ctx least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "mutation": "pk least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "mutation": "signature least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "mutation": "message least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "mutation": "ctx least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "mutation": "pk least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "mutation": "signature least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "mutation": "message least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "mutation": "ctx least-significant bit",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "mutation": "pk least-significant bit",
+      "expected_failure_flag": 1
+    }
+  ],
+  "canonical_cases": [
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "count_overflow",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "count_decrease",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "duplicate_index",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "unsorted_indices",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "nonzero_padding",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 44,
+      "positive_control_index": 6,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "count_overflow",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "count_decrease",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "duplicate_index",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "unsorted_indices",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "nonzero_padding",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 65,
+      "positive_control_index": 2,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "count_overflow",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "count_decrease",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "duplicate_index",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "unsorted_indices",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "nonzero_padding",
+      "expected_failure_flag": 1
+    },
+    {
+      "parameter_set": 87,
+      "positive_control_index": 4,
+      "case": "positive_control",
+      "expected_failure_flag": 0
+    }
+  ],
+  "testbench_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_keygen_top.v": "60d279a945a7fd7b8bc77d025346fec9d3c8d5b83aac03518699d0e0eab36627",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_sign_top.v": "352d73a205eb28d485058b072209bae189fb6cda8a2a259f14f505b20891d15c",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_verify_top.v": "3ec1805eaed21f66c49dedaac1912e736757273f8d5bfcb84bc2c9952eefdc89",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/tb_verify_top.v": "1784237295f47c5a3607bccfa2dffe8fe10f872e8e3a87ddc330d46f64083a61",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/tb_verify_top.v": "1101e147b958b2e5ad2f29e625e7c28455b0c0b04a1f665314c7dfd2c81d9a6b"
+  },
+  "simulation_input_hashes": {
+    "keygen": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_44.txt": "db917346fcc89cf052a3f267fea98c7931021419b5fa7ce1737491a5e20a5899",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_65.txt": "01eea5e31427f45c76cc24474a5779260c55dcb6f75e368c9bad0fac5b41e9a8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_87.txt": "e445d1ed3ca3df6018e24466ca9d346dbfb59e56b97de001835ee403477817a8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_44.txt": "03b4c0dd54a959176ae64618918f7b6a5455c88db2ad98c6f4f55f1741d77948",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_65.txt": "703b2ad801a993dde730a00efdbd827574c4c42c3407c5da5b541f0611edcf25",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_87.txt": "d7c5d6445978fe338c295dc1d4d47837c0221be69e231a17cdcbd382d3e4f832",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_44.txt": "88987fcdaf96436e9fa91c6e30a42287188ac6bf49210bc5fbe06e8ea7e9870b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_65.txt": "1b3bae6fbf6a7b7352a2d8c1dda80c802413139d2748bdb098d43c14b2dbd543",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_87.txt": "eb134858a7c6653a2e051b8929dc511b8551208465d3e6db001d94b9804a2727",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_44.txt": "9a8050aee90909ee6d821d70caa2cba3a8e1c2b9851f8b5ec85cae80c7c90e7a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_65.txt": "8c518801015b3b8e620eefcbfea7e0212ddefd1410a1e650b72c34453e931e3a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_87.txt": "6874f864f8020959f3ed23bf524943773184674a11d0c4dfd16d7e4b47ee619b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_44.txt": "6181d730186994f8910395b8a172d4db95bfac52ee0e792ef0c7cfb1a7d7481c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_65.txt": "1f521ff9fd63b31c15f985b281966f5feb09db855409c67f08dec2a43b9d1037",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_87.txt": "28b2624f6766ea37aa93c38c04242c654b6f70bbebdcfb92c253ff977dcd4f79",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_44.txt": "51f2d4c9f367199715c657606bfcbf80fb8377a0378598c0f934d89c086d3912",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_65.txt": "714736e8686dbb792b7f43f150601fd5202a7b3ef2050b02bf9a656ae3b33cd6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_87.txt": "7c49fc93f3b3af3906081a8d823a0a84744e9e686eb8c0bc817d5138049e324c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_44.txt": "3737eb3f3d909112f01189bd211e4a661898f78ec457222f94a7e0ea73c7759b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_65.txt": "6fccea8eef892ed93c309a19e0c101bce6ea47bf0b1cbc71e7dfc78ec0658849",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_87.txt": "c47751390ed4f15218bb37ed2e02ec19b1016e1ba3be07b9b20927c224961f88",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_44.txt": "4e5ec7714e6aca405e3047ba3e2f1bf496f81337fe15c81f15098531897a064f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_65.txt": "d247c180079b92a11e5cae3a98226b7dc6e036f2d665529bd8542883b6917368",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_87.txt": "9c958f1df1dc45e6c3863f68150cb6385aad9edcfb282ed6975134fc85df72fa",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_44.txt": "cc43a2fdf8d966c6ca8f462d2e96520ba5446cf2e81e285455b6a0ece33455ef",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_65.txt": "4d1ac3df6f87037cd81941496fb4de94340e7a9ab7c6af4d9e34609f8fc7b2b6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_87.txt": "9bcb921bf505f0aac49b83ac957c00b3f6db6b71084732fd9441e9a7163f263c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_44.txt": "a38ef43b319ea86cec1a4e2f532bc0937618dd330a79661ef1cf5e6eead0605a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_65.txt": "8a0425907b16821c9706ad6fc703bcc183a0ba8d62134b9fbac14f5d06e596e6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_87.txt": "270135bf4ee5986a2419dff6127d092bcb9d9eca44ba04cf5474908bb3037087",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_44.txt": "fc444c18fba8be0e8982da2a4eafddcba59ebc94ad8bdd40e048fcfa361a2abf",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_65.txt": "f7fd020923ddfa5767b0ad0c9e25b57cf2a0f80ea45be740f1d1e7576c85e9d0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_87.txt": "9bb0a280ccc7d0b5d98d0dcfc75dedfcafabe15d3735260bcc3c6a171442a332",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_44.txt": "97ca547196da8f62060c09e9513499cad41c5bce89487730ecf70e872a10a53d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_65.txt": "6655c2e53d45be31e969818de9e6afe819b211d4eb644cc7931abded0010f6f3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_87.txt": "d0ef0be275c9779a61ee713a0d5c003f3152051ca6d937a0ff01e92ad12f2977",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_44.txt": "be794637aa863ce024cfdc1a08b97a67d28044d01d0ca0a1f6f8c376dbb8b7bc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_65.txt": "3664300b5dd4befdb297b4e5e7f4c319dd830fc8bf301f49614d1371aac598e4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_87.txt": "f9dd0a60c93c83caf43c4e22f92299736260465548526d95582517f24a098279",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_44.txt": "9eb5b0c900dd249409f56599a4d752086e2b30e0951ce8f347af91511ae80014",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_65.txt": "aa4a323392bf08ecb556af035422a872934647450343540bfe04b215a88f5e83",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_87.txt": "77be1bbf80505517af1dbef1d050d8421c095211eb51f14bdb1a19f65a827237",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_44.txt": "22ae0a2259ef410a1e7cb56e68050b9fcc164438c5f8f269c13cfd3f93bf2ba6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_65.txt": "13f16b3a5c0471270b9b893d164f611a9743c249ac1faed80aaeb63f62e8ac1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_87.txt": "4d15489b4ae9acf609c0173cc92fbb2b9b99ccfc48418a586a0a59ab755fc2d6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_44.txt": "c8bddd4f28e4a15fb884a4c0f7295372c8f271d00a4363aa81fb7dc32621a20c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_65.txt": "9e47f9b1ce64eb5d1fc9d713ae84411aebcd30ac77a59cd387ea345b9a11786c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_87.txt": "65080c994ff92fc510b405e08a19cc0ca59354f292b18c8bafeb87864f15e2c3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_keygen_top.v": "60d279a945a7fd7b8bc77d025346fec9d3c8d5b83aac03518699d0e0eab36627",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241"
+    },
+    "sign": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_44.txt": "db917346fcc89cf052a3f267fea98c7931021419b5fa7ce1737491a5e20a5899",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_65.txt": "01eea5e31427f45c76cc24474a5779260c55dcb6f75e368c9bad0fac5b41e9a8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_87.txt": "e445d1ed3ca3df6018e24466ca9d346dbfb59e56b97de001835ee403477817a8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_44.txt": "03b4c0dd54a959176ae64618918f7b6a5455c88db2ad98c6f4f55f1741d77948",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_65.txt": "703b2ad801a993dde730a00efdbd827574c4c42c3407c5da5b541f0611edcf25",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_87.txt": "d7c5d6445978fe338c295dc1d4d47837c0221be69e231a17cdcbd382d3e4f832",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_44.txt": "88987fcdaf96436e9fa91c6e30a42287188ac6bf49210bc5fbe06e8ea7e9870b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_65.txt": "1b3bae6fbf6a7b7352a2d8c1dda80c802413139d2748bdb098d43c14b2dbd543",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_87.txt": "eb134858a7c6653a2e051b8929dc511b8551208465d3e6db001d94b9804a2727",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_44.txt": "9a8050aee90909ee6d821d70caa2cba3a8e1c2b9851f8b5ec85cae80c7c90e7a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_65.txt": "8c518801015b3b8e620eefcbfea7e0212ddefd1410a1e650b72c34453e931e3a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_87.txt": "6874f864f8020959f3ed23bf524943773184674a11d0c4dfd16d7e4b47ee619b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_44.txt": "6181d730186994f8910395b8a172d4db95bfac52ee0e792ef0c7cfb1a7d7481c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_65.txt": "1f521ff9fd63b31c15f985b281966f5feb09db855409c67f08dec2a43b9d1037",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_87.txt": "28b2624f6766ea37aa93c38c04242c654b6f70bbebdcfb92c253ff977dcd4f79",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_44.txt": "51f2d4c9f367199715c657606bfcbf80fb8377a0378598c0f934d89c086d3912",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_65.txt": "714736e8686dbb792b7f43f150601fd5202a7b3ef2050b02bf9a656ae3b33cd6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_87.txt": "7c49fc93f3b3af3906081a8d823a0a84744e9e686eb8c0bc817d5138049e324c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_44.txt": "3737eb3f3d909112f01189bd211e4a661898f78ec457222f94a7e0ea73c7759b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_65.txt": "6fccea8eef892ed93c309a19e0c101bce6ea47bf0b1cbc71e7dfc78ec0658849",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_87.txt": "c47751390ed4f15218bb37ed2e02ec19b1016e1ba3be07b9b20927c224961f88",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_44.txt": "4e5ec7714e6aca405e3047ba3e2f1bf496f81337fe15c81f15098531897a064f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_65.txt": "d247c180079b92a11e5cae3a98226b7dc6e036f2d665529bd8542883b6917368",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_87.txt": "9c958f1df1dc45e6c3863f68150cb6385aad9edcfb282ed6975134fc85df72fa",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_44.txt": "cc43a2fdf8d966c6ca8f462d2e96520ba5446cf2e81e285455b6a0ece33455ef",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_65.txt": "4d1ac3df6f87037cd81941496fb4de94340e7a9ab7c6af4d9e34609f8fc7b2b6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_87.txt": "9bcb921bf505f0aac49b83ac957c00b3f6db6b71084732fd9441e9a7163f263c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_44.txt": "a38ef43b319ea86cec1a4e2f532bc0937618dd330a79661ef1cf5e6eead0605a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_65.txt": "8a0425907b16821c9706ad6fc703bcc183a0ba8d62134b9fbac14f5d06e596e6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_87.txt": "270135bf4ee5986a2419dff6127d092bcb9d9eca44ba04cf5474908bb3037087",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_44.txt": "fc444c18fba8be0e8982da2a4eafddcba59ebc94ad8bdd40e048fcfa361a2abf",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_65.txt": "f7fd020923ddfa5767b0ad0c9e25b57cf2a0f80ea45be740f1d1e7576c85e9d0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_87.txt": "9bb0a280ccc7d0b5d98d0dcfc75dedfcafabe15d3735260bcc3c6a171442a332",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_44.txt": "97ca547196da8f62060c09e9513499cad41c5bce89487730ecf70e872a10a53d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_65.txt": "6655c2e53d45be31e969818de9e6afe819b211d4eb644cc7931abded0010f6f3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_87.txt": "d0ef0be275c9779a61ee713a0d5c003f3152051ca6d937a0ff01e92ad12f2977",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_44.txt": "be794637aa863ce024cfdc1a08b97a67d28044d01d0ca0a1f6f8c376dbb8b7bc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_65.txt": "3664300b5dd4befdb297b4e5e7f4c319dd830fc8bf301f49614d1371aac598e4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_87.txt": "f9dd0a60c93c83caf43c4e22f92299736260465548526d95582517f24a098279",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_44.txt": "9eb5b0c900dd249409f56599a4d752086e2b30e0951ce8f347af91511ae80014",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_65.txt": "aa4a323392bf08ecb556af035422a872934647450343540bfe04b215a88f5e83",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_87.txt": "77be1bbf80505517af1dbef1d050d8421c095211eb51f14bdb1a19f65a827237",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_44.txt": "22ae0a2259ef410a1e7cb56e68050b9fcc164438c5f8f269c13cfd3f93bf2ba6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_65.txt": "13f16b3a5c0471270b9b893d164f611a9743c249ac1faed80aaeb63f62e8ac1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_87.txt": "4d15489b4ae9acf609c0173cc92fbb2b9b99ccfc48418a586a0a59ab755fc2d6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_44.txt": "c8bddd4f28e4a15fb884a4c0f7295372c8f271d00a4363aa81fb7dc32621a20c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_65.txt": "9e47f9b1ce64eb5d1fc9d713ae84411aebcd30ac77a59cd387ea345b9a11786c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_87.txt": "65080c994ff92fc510b405e08a19cc0ca59354f292b18c8bafeb87864f15e2c3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_sign_top.v": "352d73a205eb28d485058b072209bae189fb6cda8a2a259f14f505b20891d15c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241"
+    },
+    "verify": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_44.txt": "db917346fcc89cf052a3f267fea98c7931021419b5fa7ce1737491a5e20a5899",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_65.txt": "01eea5e31427f45c76cc24474a5779260c55dcb6f75e368c9bad0fac5b41e9a8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_pk_87.txt": "e445d1ed3ca3df6018e24466ca9d346dbfb59e56b97de001835ee403477817a8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_44.txt": "03b4c0dd54a959176ae64618918f7b6a5455c88db2ad98c6f4f55f1741d77948",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_65.txt": "703b2ad801a993dde730a00efdbd827574c4c42c3407c5da5b541f0611edcf25",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_seed_87.txt": "d7c5d6445978fe338c295dc1d4d47837c0221be69e231a17cdcbd382d3e4f832",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_44.txt": "88987fcdaf96436e9fa91c6e30a42287188ac6bf49210bc5fbe06e8ea7e9870b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_65.txt": "1b3bae6fbf6a7b7352a2d8c1dda80c802413139d2748bdb098d43c14b2dbd543",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/KeyGen_sk_87.txt": "eb134858a7c6653a2e051b8929dc511b8551208465d3e6db001d94b9804a2727",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_44.txt": "9a8050aee90909ee6d821d70caa2cba3a8e1c2b9851f8b5ec85cae80c7c90e7a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_65.txt": "8c518801015b3b8e620eefcbfea7e0212ddefd1410a1e650b72c34453e931e3a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctx_87.txt": "6874f864f8020959f3ed23bf524943773184674a11d0c4dfd16d7e4b47ee619b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_44.txt": "6181d730186994f8910395b8a172d4db95bfac52ee0e792ef0c7cfb1a7d7481c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_65.txt": "1f521ff9fd63b31c15f985b281966f5feb09db855409c67f08dec2a43b9d1037",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_ctxlen_87.txt": "28b2624f6766ea37aa93c38c04242c654b6f70bbebdcfb92c253ff977dcd4f79",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_44.txt": "51f2d4c9f367199715c657606bfcbf80fb8377a0378598c0f934d89c086d3912",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_65.txt": "714736e8686dbb792b7f43f150601fd5202a7b3ef2050b02bf9a656ae3b33cd6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_message_87.txt": "7c49fc93f3b3af3906081a8d823a0a84744e9e686eb8c0bc817d5138049e324c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_44.txt": "3737eb3f3d909112f01189bd211e4a661898f78ec457222f94a7e0ea73c7759b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_65.txt": "6fccea8eef892ed93c309a19e0c101bce6ea47bf0b1cbc71e7dfc78ec0658849",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_mlen_87.txt": "c47751390ed4f15218bb37ed2e02ec19b1016e1ba3be07b9b20927c224961f88",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_44.txt": "4e5ec7714e6aca405e3047ba3e2f1bf496f81337fe15c81f15098531897a064f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_65.txt": "d247c180079b92a11e5cae3a98226b7dc6e036f2d665529bd8542883b6917368",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_signature_87.txt": "9c958f1df1dc45e6c3863f68150cb6385aad9edcfb282ed6975134fc85df72fa",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_44.txt": "cc43a2fdf8d966c6ca8f462d2e96520ba5446cf2e81e285455b6a0ece33455ef",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_65.txt": "4d1ac3df6f87037cd81941496fb4de94340e7a9ab7c6af4d9e34609f8fc7b2b6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigGen_sk_87.txt": "9bcb921bf505f0aac49b83ac957c00b3f6db6b71084732fd9441e9a7163f263c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_44.txt": "a38ef43b319ea86cec1a4e2f532bc0937618dd330a79661ef1cf5e6eead0605a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_65.txt": "8a0425907b16821c9706ad6fc703bcc183a0ba8d62134b9fbac14f5d06e596e6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctx_87.txt": "270135bf4ee5986a2419dff6127d092bcb9d9eca44ba04cf5474908bb3037087",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_44.txt": "fc444c18fba8be0e8982da2a4eafddcba59ebc94ad8bdd40e048fcfa361a2abf",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_65.txt": "f7fd020923ddfa5767b0ad0c9e25b57cf2a0f80ea45be740f1d1e7576c85e9d0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_ctxlen_87.txt": "9bb0a280ccc7d0b5d98d0dcfc75dedfcafabe15d3735260bcc3c6a171442a332",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_44.txt": "97ca547196da8f62060c09e9513499cad41c5bce89487730ecf70e872a10a53d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_65.txt": "6655c2e53d45be31e969818de9e6afe819b211d4eb644cc7931abded0010f6f3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_message_87.txt": "d0ef0be275c9779a61ee713a0d5c003f3152051ca6d937a0ff01e92ad12f2977",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_44.txt": "be794637aa863ce024cfdc1a08b97a67d28044d01d0ca0a1f6f8c376dbb8b7bc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_65.txt": "3664300b5dd4befdb297b4e5e7f4c319dd830fc8bf301f49614d1371aac598e4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_mlen_87.txt": "f9dd0a60c93c83caf43c4e22f92299736260465548526d95582517f24a098279",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_44.txt": "9eb5b0c900dd249409f56599a4d752086e2b30e0951ce8f347af91511ae80014",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_65.txt": "aa4a323392bf08ecb556af035422a872934647450343540bfe04b215a88f5e83",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_pk_87.txt": "77be1bbf80505517af1dbef1d050d8421c095211eb51f14bdb1a19f65a827237",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_44.txt": "22ae0a2259ef410a1e7cb56e68050b9fcc164438c5f8f269c13cfd3f93bf2ba6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_65.txt": "13f16b3a5c0471270b9b893d164f611a9743c249ac1faed80aaeb63f62e8ac1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_result_87.txt": "4d15489b4ae9acf609c0173cc92fbb2b9b99ccfc48418a586a0a59ab755fc2d6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_44.txt": "c8bddd4f28e4a15fb884a4c0f7295372c8f271d00a4363aa81fb7dc32621a20c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_65.txt": "9e47f9b1ce64eb5d1fc9d713ae84411aebcd30ac77a59cd387ea345b9a11786c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/SigVer_signature_87.txt": "65080c994ff92fc510b405e08a19cc0ca59354f292b18c8bafeb87864f15e2c3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/tb_verify_top.v": "3ec1805eaed21f66c49dedaac1912e736757273f8d5bfcb84bc2c9952eefdc89",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src_tb/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241"
+    },
+    "verify_mutations": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctx_44.txt": "62736bbbad2bbd1dfbd00f6f647fc85bee37ebbafc1c29dad792b386551a1a43",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctx_65.txt": "b5370101367f95efe1087a4ccb3d83b8166bce0dd713c20da2c36b4897c2e92c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctx_87.txt": "1694c6affa6f093a91428c7d6ac3642e75cf78415f2750374d7a6af1773580a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctxlen_44.txt": "7dc4cd0f981944ebf37af9b6f4c73f8c6a6ff63c06c8ae9f29317b7b2f344321",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctxlen_65.txt": "31e1c0a4281cea2b51926dae641be55bd3e8a3133e7cf6d385fffcdf6274d10a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctxlen_87.txt": "259ccea935eabbb4a93a74fb84333de7309e7f30db7920f799034c27961a57c5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_message_44.txt": "7a0302ca929c4c0493ec9cbf1f0f2d1a497e2132342a295bac40a83156a93204",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_message_65.txt": "ca46a3ee407eeeb7da1daff9f5ae28ffac714b5f2d2a383a077e3f525854bba1",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_message_87.txt": "add5c752e267bac6220719cfdcf3bc3940b118c4b186623e7559f536dc81a5ab",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_mlen_44.txt": "386983c6d14018f1be01379ec81238b816149f6f673a9dceb98a4197190eddbd",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_mlen_65.txt": "426bab76cbf427a8194653fae226fc3b57d2aa94587a8c26e6b2e249fae99a99",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_mlen_87.txt": "1938da156c549ea646dc90f8d2efd07c1c4ef750f0b4a6013a7d125e545ded50",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_pk_44.txt": "71de8936418e792172b6a9653a0be691123264cc5c054332da6fc036ed51db6b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_pk_65.txt": "339914d765283a52376430e1fa07264ad4588cb1468b606d445dd7c5056c1357",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_pk_87.txt": "6df80c981fb0babfe334c9f58b79cd9e98bf9d2944c7f7ab6d8a9d996c0b13d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_result_44.txt": "a0db8280e47040bfa328b02b87c122e236c9e04571ae34dffbe91f1f8cb05bb4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_result_65.txt": "a0db8280e47040bfa328b02b87c122e236c9e04571ae34dffbe91f1f8cb05bb4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_result_87.txt": "a0db8280e47040bfa328b02b87c122e236c9e04571ae34dffbe91f1f8cb05bb4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_signature_44.txt": "1986febdc132aae675d118300a377032ceb422dda72c654fc0a0953fb0e5890b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_signature_65.txt": "a0f804cb925aafd0d832ec36a94446c6b3a168d956d10ac0e1a38dfca577ea2f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_signature_87.txt": "562db624b441d1cb7bfbebee03c326a4fb785a33efa05f36b905ca054acfac98",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/tb_verify_top.v": "1784237295f47c5a3607bccfa2dffe8fe10f872e8e3a87ddc330d46f64083a61",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+    },
+    "verify_canonical": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/mldsa_params.v": "e94e195a71f9b75b19bffb3876b7bb22361fb06a6304f919ec54a82f58ceb208",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/common/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctx_44.txt": "6a45a74c8d617878a7cb9f4108bb774ed9fc1993bd6e255fad1e9b43f2438abc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctx_65.txt": "d39e49cd8aa2fc9ec4e5a530d65c3070c5896635e5ac0536dd9b2321a58273bc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctx_87.txt": "69de0d72ed415837b8a7bde118d348c8353d6782e9db8c1f775248ccb5a3c15b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctxlen_44.txt": "8a57dfb0bb3127181333efc80f320a3ec2c29740c1bfb0dec31557e7fbed4413",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctxlen_65.txt": "2e3e4dc49df4e4f71fa54615c7e1c36d3d4536792b450f3491750a6d9c6cf9c4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctxlen_87.txt": "3a0061afab4e5742593fa2b672e9e490e0cd1c663d0cb44c2e9bd63e34a8ca20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_message_44.txt": "c2f012e86eafbe55a280b8b29999b45305089ace4b94beca700b96d06c89b21f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_message_65.txt": "f17645270d6b7ba3983a53bee9ce3864daf649c49d160dd7dfa5d779050413d8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_message_87.txt": "4c4f43a8344e86715bbce7cc222b2151c51313d0ecf050aa36beefa06cfbf7a9",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_mlen_44.txt": "9a298f6545364c87fbaed8355c5c548693c74563d50f958530d87d527a70d544",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_mlen_65.txt": "2e39969395cb96db1116da8c17578fb9e8ee376c954e71871c18efb830c3fd18",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_mlen_87.txt": "dca22c576bcce1239470afc2bc8e903e53a5c72c83a15b052c7a44c9dc3fc2c1",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_pk_44.txt": "2855637fef277b6612be2c66c865549a77806dd66e38a6827f6117444d81dc12",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_pk_65.txt": "4c89950cfd7a99c6f9af398733e619f447b5d41c6931c1538b4f44aa9c45da1c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_pk_87.txt": "d2fef2df27b5c674faa3558686005cb829b2dfbb25f14c25dbbc819b16567f38",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_result_44.txt": "e7e30a6a76cf3fdad1c7cc686599b908b09649bd6e53777c5df0508c0d6cfbbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_result_65.txt": "e7e30a6a76cf3fdad1c7cc686599b908b09649bd6e53777c5df0508c0d6cfbbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_result_87.txt": "e7e30a6a76cf3fdad1c7cc686599b908b09649bd6e53777c5df0508c0d6cfbbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_signature_44.txt": "e3ecca57f8bdb0edfb6ac835418a616d02fc199792fc980be70098c09b620598",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_signature_65.txt": "82cbb05ac6f1f9375946ce4c59619c15a25cedfb0f5022e4511e408e88e36020",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_signature_87.txt": "0411c149abf1b28089bae25a844e6c998b2ab997b06c6b802f6ed9c239b552ac",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/tb_verify_top.v": "1101e147b958b2e5ad2f29e625e7c28455b0c0b04a1f665314c7dfd2c81d9a6b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/zetas.txt": "07d0eabbd7a102982b11d39b748758d34baf309aa71cf3d1bac518b9dded0241",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly.v": "73ea38b9e086b5222a064d95f7833588ebd5758b48cf68d5d0dab42284bf6f93",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/butterfly2x2.v": "7b3fef75d3670c36b245c7a20f0e2491695f995fce97bec68301996d2e3e9394",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/coeff_decomposer.v": "18d699e39b7cc4361be609e41997a6f20bcce94ab4129bcdd68599849a4d4545",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/combined_top.v": "70847cbcbf630e5822cb0b0252cc5f84a95f1970d2852bd743457c9dcd9b0338",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/countern.vhd": "ddb8bb1ced153d812ac2866c8662c4ea336efeafaec37c0919df516c6fdbf053",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decoder.v": "2cf9eef260f0a4ad682fb33e2ddea18046938ffef7c5a17e7a8f2b000cb79477",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/encoder.v": "bb05c09db4f926a4d8575d15e8670693382e49ad219485d85a9e5786b689176d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_c.v": "a21eaa85faf3cbbdc51864aecc3998b17d72b53dab6e2327b7e523b7b08768a2",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_bytepad.vhd": "1d1fe33197837578fde2b0f2f78605d12f2a0099d6caeac2ff51b388623f89bb",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_cons.vhd": "b2702b861d274d824bba77d295b0640a776f6deff785fd10fba84507ea9a8166",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_control.vhd": "062eb959bb0a63a561b8584196e41d13fd2dbcf1477da553b55dd22584fde659",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_datapath.vhd": "e0d6bf837b7ff6f4f46b3f9f99be3de8041be151c9a36d75d672e2bcc552e994",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm1.vhd": "ca610bae9db4503a6ed2464ab9d1d517e4910f0b3fdbd36210ecb9aa3a5a7f4b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_fsm2.vhd": "286cdac53eee946342acc625117f994d3ffa1d9eb9eb224176f5d2a2253bde4f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_pkg.vhd": "5f175032efe3e286a3181d13b72316a124931cdd5d323caf6d600d60b89c7e1e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_round.vhd": "64120dc5742dde93d21bd323b47aa5c90ca836c40155243c0518514d7f5ff074",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top.vhd": "581fc52ec6611713bf2f64c225f10c31b17ad60ee0228637ad2025ac68573904",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/keccak_top_ghdl.v": "b0ed591464598a04a20a15c5f234eb246c4b556126e31a5517bb70de7fefba20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/makehint.v": "0834e6a3e22c104c9f9dcf5a32c0389619651f3509097057bc7b3b4492273843",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/operation_module.v": "1f104b88fbfaf1847302cde9b6b71f7dbef263555725cba7c9245434ec98d63a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/piso.vhd": "9323f2659586498d5df464553651e3739c7651ee1e738c97055cbcbaac803add",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/regn.vhd": "00e89f6986dfc59b2455ad33694d8fe89d29a4993649563fba81211213edc3a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_s.v": "38722eeb3fee13103e6ec714f8aeb1e1b415ecfe428a87bf5e8a4f0b8cd89efe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/rejection_y.v": "8755b4a095ffeb76453c2205c6bad43646ab8f7ba3800cb1b8516aeceaecfe23",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_fsm3.vhd": "ac1ec7fa052fc951126c64f5b41e57bf22d59c8e7c91da4c162535cd06df7432",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sha3_pkg.vhd": "1ad92e9207139819b3748b6a1521375c011ddad63f5a964cb557672eb923fbae",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sipo.vhd": "9b63c7aa1464528f24eedd322eec883ec5573ee2df700466c8d6da26f9d28d4e",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/sr_reg.vhd": "e2835ab11ee11b9e45a6b35d2d310ed8678b57669b405cb6b797206b0dd226d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+    }
+  },
+  "simulation_executable_hashes": {
+    "keygen": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_keygen/Vtb_keygen_top": "3bc15e55b7d2f3ea23fc6638b76fec8c7de985cd528368649d96855725f75794"
+    },
+    "sign": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_sign/Vtb_sign_top": "2ab94ae94982766a4bae9c14d7cbe819796edf7130de8bda85b1d86c9d74b99b"
+    },
+    "verify": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify/Vtb_verify_top": "3d03e5acdd06ca6322a39d05276cbc94c005446f98138547b0c1276da9bc6644"
+    },
+    "verify_mutations": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify_mutations/Vtb_verify_top": "6e8a4ed4f16524a1536150d251ee95aa424bc4eb5748c6a21e96feb02d64bee2"
+    },
+    "verify_canonical": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/obj_verify_canonical/Vtb_verify_top": "bbf49ba5b080f1e992eb7b1b297eb5ab882f663e5aef3904d98b0f42ea88a1a8"
+    }
+  },
+  "generated_input_hashes": {
+    "verify_mutations": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctx_44.txt": "62736bbbad2bbd1dfbd00f6f647fc85bee37ebbafc1c29dad792b386551a1a43",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctx_65.txt": "b5370101367f95efe1087a4ccb3d83b8166bce0dd713c20da2c36b4897c2e92c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctx_87.txt": "1694c6affa6f093a91428c7d6ac3642e75cf78415f2750374d7a6af1773580a5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctxlen_44.txt": "7dc4cd0f981944ebf37af9b6f4c73f8c6a6ff63c06c8ae9f29317b7b2f344321",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctxlen_65.txt": "31e1c0a4281cea2b51926dae641be55bd3e8a3133e7cf6d385fffcdf6274d10a",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_ctxlen_87.txt": "259ccea935eabbb4a93a74fb84333de7309e7f30db7920f799034c27961a57c5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_message_44.txt": "7a0302ca929c4c0493ec9cbf1f0f2d1a497e2132342a295bac40a83156a93204",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_message_65.txt": "ca46a3ee407eeeb7da1daff9f5ae28ffac714b5f2d2a383a077e3f525854bba1",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_message_87.txt": "add5c752e267bac6220719cfdcf3bc3940b118c4b186623e7559f536dc81a5ab",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_mlen_44.txt": "386983c6d14018f1be01379ec81238b816149f6f673a9dceb98a4197190eddbd",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_mlen_65.txt": "426bab76cbf427a8194653fae226fc3b57d2aa94587a8c26e6b2e249fae99a99",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_mlen_87.txt": "1938da156c549ea646dc90f8d2efd07c1c4ef750f0b4a6013a7d125e545ded50",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_pk_44.txt": "71de8936418e792172b6a9653a0be691123264cc5c054332da6fc036ed51db6b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_pk_65.txt": "339914d765283a52376430e1fa07264ad4588cb1468b606d445dd7c5056c1357",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_pk_87.txt": "6df80c981fb0babfe334c9f58b79cd9e98bf9d2944c7f7ab6d8a9d996c0b13d5",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_result_44.txt": "a0db8280e47040bfa328b02b87c122e236c9e04571ae34dffbe91f1f8cb05bb4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_result_65.txt": "a0db8280e47040bfa328b02b87c122e236c9e04571ae34dffbe91f1f8cb05bb4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_result_87.txt": "a0db8280e47040bfa328b02b87c122e236c9e04571ae34dffbe91f1f8cb05bb4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_signature_44.txt": "1986febdc132aae675d118300a377032ceb422dda72c654fc0a0953fb0e5890b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_signature_65.txt": "a0f804cb925aafd0d832ec36a94446c6b3a168d956d10ac0e1a38dfca577ea2f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/mutation_tb/SigVer_signature_87.txt": "562db624b441d1cb7bfbebee03c326a4fb785a33efa05f36b905ca054acfac98"
+    },
+    "verify_canonical": {
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctx_44.txt": "6a45a74c8d617878a7cb9f4108bb774ed9fc1993bd6e255fad1e9b43f2438abc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctx_65.txt": "d39e49cd8aa2fc9ec4e5a530d65c3070c5896635e5ac0536dd9b2321a58273bc",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctx_87.txt": "69de0d72ed415837b8a7bde118d348c8353d6782e9db8c1f775248ccb5a3c15b",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctxlen_44.txt": "8a57dfb0bb3127181333efc80f320a3ec2c29740c1bfb0dec31557e7fbed4413",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctxlen_65.txt": "2e3e4dc49df4e4f71fa54615c7e1c36d3d4536792b450f3491750a6d9c6cf9c4",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_ctxlen_87.txt": "3a0061afab4e5742593fa2b672e9e490e0cd1c663d0cb44c2e9bd63e34a8ca20",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_message_44.txt": "c2f012e86eafbe55a280b8b29999b45305089ace4b94beca700b96d06c89b21f",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_message_65.txt": "f17645270d6b7ba3983a53bee9ce3864daf649c49d160dd7dfa5d779050413d8",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_message_87.txt": "4c4f43a8344e86715bbce7cc222b2151c51313d0ecf050aa36beefa06cfbf7a9",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_mlen_44.txt": "9a298f6545364c87fbaed8355c5c548693c74563d50f958530d87d527a70d544",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_mlen_65.txt": "2e39969395cb96db1116da8c17578fb9e8ee376c954e71871c18efb830c3fd18",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_mlen_87.txt": "dca22c576bcce1239470afc2bc8e903e53a5c72c83a15b052c7a44c9dc3fc2c1",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_pk_44.txt": "2855637fef277b6612be2c66c865549a77806dd66e38a6827f6117444d81dc12",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_pk_65.txt": "4c89950cfd7a99c6f9af398733e619f447b5d41c6931c1538b4f44aa9c45da1c",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_pk_87.txt": "d2fef2df27b5c674faa3558686005cb829b2dfbb25f14c25dbbc819b16567f38",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_result_44.txt": "e7e30a6a76cf3fdad1c7cc686599b908b09649bd6e53777c5df0508c0d6cfbbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_result_65.txt": "e7e30a6a76cf3fdad1c7cc686599b908b09649bd6e53777c5df0508c0d6cfbbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_result_87.txt": "e7e30a6a76cf3fdad1c7cc686599b908b09649bd6e53777c5df0508c0d6cfbbe",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_signature_44.txt": "e3ecca57f8bdb0edfb6ac835418a616d02fc199792fc980be70098c09b620598",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_signature_65.txt": "82cbb05ac6f1f9375946ce4c59619c15a25cedfb0f5022e4511e408e88e36020",
+      "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/ref_combined/canonical_tb/SigVer_signature_87.txt": "0411c149abf1b28089bae25a844e6c998b2ab997b06c6b802f6ed9c239b552ac"
+    }
+  },
+  "reason": "all selected RTL KATs completed with exact expected coverage",
+  "runtime_s": 108.73,
+  "result_file": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-portable-ycgu388m/result.json"
+}

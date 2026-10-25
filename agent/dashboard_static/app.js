@@ -22,11 +22,11 @@ setInterval(()=>{
 /* ---------- theme ---------- */
 document.querySelectorAll('.themes button').forEach(b=>b.onclick=()=>{
   document.body.dataset.theme=b.dataset.t;localStorage.setItem('theme',b.dataset.t);});
-document.body.dataset.theme=localStorage.getItem('theme')||'matrix';
+document.body.dataset.theme='light'; // Shared HSC shell; no animated background.
 
 /* ---------- helpers ---------- */
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function svgLine(pts,w,h,color){
   if(pts.length<2)return '<div class="nobase">not enough points</div>';
   const xs=pts.map((_,i)=>i),ys=pts.map(p=>p[1]);
@@ -40,9 +40,13 @@ function svgLine(pts,w,h,color){
 }
 
 /* ---------- drill-down modal ---------- */
-function openModal(html){$('mbody').innerHTML=html;$('modal').classList.remove('hidden');}
-$('mclose').onclick=()=>$('modal').classList.add('hidden');
-$('modal').onclick=e=>{if(e.target.id==='modal')$('modal').classList.add('hidden');};
+let modalReturnFocus=null;
+function openModal(html){modalReturnFocus=document.activeElement;$('mbody').innerHTML=html;$('modal').classList.remove('hidden');$('mclose').focus();}
+function closeModal(){$('modal').classList.add('hidden');if(modalReturnFocus&&modalReturnFocus.isConnected)modalReturnFocus.focus();}
+$('mclose').onclick=closeModal;
+$('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};
+document.addEventListener('keydown',e=>{if($('modal').classList.contains('hidden'))return;if(e.key==='Escape'){e.preventDefault();closeModal();}if(e.key==='Tab'){const f=$('modal').querySelectorAll('button,a[href],input,select,[tabindex="0"]');const first=f[0],last=f[f.length-1];if((e.shiftKey&&document.activeElement===first)||(!e.shiftKey&&document.activeElement===last)){e.preventDefault();(e.shiftKey?last:first).focus();}}});
+function enableKeyboardDetails(){document.querySelectorAll('#feed .card,.dot.now').forEach(el=>{el.setAttribute('role','button');el.setAttribute('tabindex','0');el.setAttribute('aria-label',el.classList.contains('dot')?'View historical block details':'View historical attempt details');el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}};});}
 function editHtml(edits){
   if(!edits||!edits.length)return '<div class="nobase">edit text not recorded for this win</div>';
   return edits.map((e,i)=>`<div class="diff"><h3>EDIT ${i+1}${e.file?' — '+esc(e.file):''}</h3>
@@ -55,8 +59,8 @@ function showFix(card){
   openModal(`<h2>WIN — ${esc(card.block)}</h2>
     <div class="mrow">
       <span><span class="k">strategy</span> ${esc(card.strategy||'—')}</span>
-      <span><span class="k">gain</span> +${card.gain}ns</span>
-      <span><span class="k">cost</span> ${card.cost!=null?'$'+card.cost:'n/a (no API cost logged)'}</span>
+      <span><span class="k">gain</span> +${esc(card.gain)}ns</span>
+      <span><span class="k">cost</span> ${card.cost!=null?'$'+esc(card.cost):'n/a (no API cost logged)'}</span>
       <span><span class="k">model</span> ${esc(card.model||'—')}</span>
       <span><span class="k">when</span> ${esc(card.ts||'—')}</span>
     </div>
@@ -78,29 +82,33 @@ function render(){
   const t=d.totals;
   $('totals').innerHTML=[['attempts',t.attempts],['verified wins',t.accepted],
     ['total gain (ns)',t.gain_ns],['API spend ($)',t.cost_usd]]
-    .map(([l,n])=>`<div class="tot"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+    .map(([l,n])=>`<div class="tot"><div class="n">${esc(n)}</div><div class="l">${l}</div></div>`).join('');
 
   /* tabs + board */
   const dk=Object.keys(d.designs||{});
   if(!dk.includes(DESIGN))DESIGN=dk[0];
-  $('tabs').innerHTML=dk.map(k=>`<button class="${k===DESIGN?'on':''}" data-k="${k}">${esc(d.designs[k].label||k)}</button>`).join('');
-  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{DESIGN=b.dataset.k;localStorage.setItem('design',DESIGN);render();});
+  $('tabs').innerHTML=dk.map(k=>`<button class="${k===DESIGN?'on':''}" data-k="${esc(k)}">${esc(d.designs[k].label||k)}</button>`).join('');
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{DESIGN=b.dataset.k;localStorage.setItem('design',DESIGN);render();enableKeyboardDetails();const active=Array.from(document.querySelectorAll('#tabs button')).find(x=>x.dataset.k===DESIGN);if(active)active.focus();});
   const des=d.designs[DESIGN]||{cores:[]};
   const vals=des.cores.flatMap(c=>[c.base,c.now]).filter(v=>typeof v==='number');
   const mn=Math.min(...vals,0)-0.2,mx=Math.max(...vals,0)+0.2;
   const px=v=>((v-mn)/(mx-mn))*100;
-  $('board').innerHTML=des.cores.map(c=>{
+  $('board').innerHTML=des.cores.map((c,index)=>{
     if(c.base==null)return `<div class="core"><div class="nm"><span>${esc(c.block)}</span><span class="nobase">no baseline measured</span></div></div>`;
     const win=findWin(c.block);
     return `<div class="core"><div class="nm"><span>${esc(c.block)}</span>
-      <span>${c.base} → <b style="color:var(--win)">${c.now??c.base}</b> ns</span></div>
+      <span>${esc(c.base)} → <b style="color:var(--win)">${esc(c.now??c.base)}</b> ns</span></div>
       <div class="dumb"><div class="track"></div>
         <div class="zero" style="left:${px(0)}%"></div>
-        <div class="dot base" style="left:${px(c.base)}%" title="baseline ${c.base}"></div>
+        <div class="dot base" style="left:${px(c.base)}%" title="baseline ${esc(c.base)}"></div>
         <div class="dot now" style="left:${px(c.now??c.base)}%" title="click for the fix"
-          onclick='showFixByBlock("${esc(c.block)}")'></div>
+          data-core-index="${index}"></div>
       </div></div>`;}).join('')
     +(des.chip?`<div class="chipline">chip closure: ${esc(JSON.stringify(des.chip))}</div>`:'');
+
+  document.querySelectorAll('#board [data-core-index]').forEach(el=>{
+    el.addEventListener('click',()=>showFixByBlock(des.cores[Number(el.dataset.coreIndex)].block));
+  });
 
   /* trend */
   $('trend').innerHTML=svgLine(d.series||[],860,150,'var(--win)');
@@ -122,7 +130,7 @@ function drawFeed(){
   const q=($('q').value||'').toLowerCase();
   const cards=(DATA.cards||[]).filter(c=>!q||JSON.stringify(c).toLowerCase().includes(q));
   $('feed').innerHTML=cards.slice(0,80).map((c,i)=>
-    `<div class="card ${c.kind}" data-i="${i}">
+    `<div class="card ${esc(c.kind)}" data-i="${i}">
       <div class="top"><span>${esc(c.tier)}${c.block?' · '+esc(c.block):''}</span>
       <span><span class="badge">${esc(c.verdict)}</span> ${esc(c.ts||'')}</span></div>
       <div class="story">${esc(c.story)}</div></div>`).join('');
@@ -131,13 +139,13 @@ function drawFeed(){
     if(c.verdict==='ACCEPTED')showFix(c);
     else openModal(`<h2>${esc(c.verdict)} — ${esc(c.block||c.tier)}</h2>
       <div class="mrow"><span><span class="k">when</span> ${esc(c.ts||'—')}</span>
-      <span><span class="k">cost</span> ${c.cost!=null?'$'+c.cost:'—'}</span></div>
+      <span><span class="k">cost</span> ${c.cost!=null?'$'+esc(c.cost):'—'}</span></div>
       <p style="margin:8px 0">${esc(c.story)}</p>
       <p style="color:var(--dim);font-size:12px">${esc((DATA.explain||{})[c.verdict]||'')}</p>
       ${c.detail?`<pre>${esc(JSON.stringify(c.detail,null,1))}</pre>`:''}`);
   });
 }
-$('q').oninput=drawFeed;
+$('q').oninput=()=>{drawFeed();enableKeyboardDetails();};
 
 /* ---------- side panels ---------- */
 async function loadSide(){
@@ -161,9 +169,15 @@ async function loadSide(){
   }catch(e){}
 }
 
-/* ---------- poll ---------- */
-async function tick(){
-  try{DATA=await(await fetch('/api/data')).json();render();}catch(e){}
-  loadSide();
+/* ---------- read-only polling ---------- */
+let legacyBusy=false,legacySignature='';
+async function tick(manual){
+ if(legacyBusy)return;
+ if(!$('modal').classList.contains('hidden'))return;
+ if(!manual&&$('legacy-main').contains(document.activeElement))return;
+ legacyBusy=true;
+ try{const response=await fetch('/api/data',{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();const signature=JSON.stringify({...data,now:null});if(signature!==legacySignature){DATA=data;legacySignature=signature;render();enableKeyboardDetails();$('legacy-state').textContent='Historical records updated. These are not current-run measurements.';}else if(manual){$('legacy-state').textContent='No changes to historical records.';}await loadSide();}catch(e){$('legacy-state').textContent='Refresh failed; historical data may be stale. '+e.message;}finally{legacyBusy=false;}
 }
-tick();setInterval(tick,5000);
+$('legacy-refresh').onclick=()=>tick(true);
+$('legacy-auto').onchange=()=>{$('legacy-state').textContent=$('legacy-auto').checked?'Historical auto-refresh enabled.':'Historical auto-refresh paused.';};
+tick(false);setInterval(()=>{if($('legacy-auto').checked)tick(false);},5000);

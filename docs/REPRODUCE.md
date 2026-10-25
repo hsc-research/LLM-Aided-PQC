@@ -1,591 +1,490 @@
-# Reproducing These Results: A Step-by-Step Playbook
+# Install and run
 
-This guide takes you from a fresh machine to reproducing the three things this
-project claims:
+[Project home](../README.md) · [Documentation](README.md) · [Learn](LEARN.md) · [Results](RESULTS.md)
 
-1. **Correctness**, the optimized RTL still computes HQC correctly (the
-   Known-Answer Test passes at all three security levels).
-2. **The timing wins**, re-synthesizing reproduces the worst-slack numbers in
-   [01_results.md](01_results.md).
-3. **The agent**, the LLM-driven optimizer runs a full flight end to end.
+Run from the repository root. Start with stages 1–3; they do not need an EDA
+license or a model API. Stage 4 runs real RTL when its simulator is available.
+Stages 5–6 need hardware-tool setup. Stage 7 is an optional optimization flow.
+A Python test pass does not reproduce an FPGA or ASIC result.
 
-It is written for someone who has not used this codebase before. Commands are
-meant to be copy-pasted one at a time; read the expected output before moving on.
+| Stage | What it establishes | Main output |
+|---|---|---|
+| 1–2. Setup and software checks | Python tools and checked software behavior work in this checkout | Audit JSON, test summary, link-check summary |
+| 3. Reference input checks | Selected pinned source/data bytes are intact | Integrity-check result |
+| 4. RTL simulation | The selected operations and inputs pass that checker | Simulator logs and run-specific verdict |
+| 5. FPGA measurement | The exact design was implemented under the recorded FPGA settings | Timing, utilization and implementation reports |
+| 6. ASIC synthesis | The exact design was synthesized at a fixed constraint | Source manifest, netlist, timing/area reports and `result.json` |
+| 7. Optimization | An edited full design passes its tests and measured acceptance rules | Candidate outcome and retained/restored sources |
 
----
+Use a dedicated checkout for hardware runs. Do not run `make` as a general
+initialization step: legacy targets can replace tracked HQC RTL under `build/`.
+See the [repository map](REPOSITORY_LAYOUT.md) before moving or cleaning files.
 
-## 0. What you need
+## 1. Get a checkout and Python
 
-You need three things: a Linux environment, Xilinx Vivado, and Python 3.
-
-**If you are on Linux already:** you can ignore every mention of WSL below and
-run the commands directly in your terminal.
-
-**If you are on Windows:** Vivado's Linux edition is the one this project uses,
-and it runs inside WSL2 (Windows Subsystem for Linux). You install WSL once, then
-work entirely inside the Ubuntu terminal it gives you. Everything after the WSL
-setup is identical to a native-Linux user's steps.
-
-### 0a. (Windows only) Install WSL2 + Ubuntu
-
-In an Administrator PowerShell:
-
-```powershell
-wsl --install -d Ubuntu
-```
-
-Reboot if prompted, then launch "Ubuntu" from the Start menu and create a Linux
-username/password when asked. From here on, every command in this guide runs in
-that Ubuntu terminal, not in PowerShell. Your Windows `C:` drive is visible
-inside WSL at `/mnt/c/`.
-
-### 0b. Install Vivado 2025.2 (Linux edition) and the required compatibility steps
-
-Install the Vivado 2025.2 Linux edition (the free edition is sufficient for this
-device). This project targets the Artix-7 `xc7a200tfbg676-1`. The exact
-environment this project was developed and verified on is: Windows 11 with WSL2
-Ubuntu 24.04, Vivado 2025.2 installed inside WSL at `/tools/Xilinx/2025.2`.
-
-The following one-time setup steps are required beyond a default install. These
-are not optional; Vivado 2025.2 will not run correctly on Ubuntu 24 without them.
-
-**1. Python compatibility.** Several scripts call `python`:
+Use a Linux shell, Git, Python 3.10+ and Tcl. On Debian/Ubuntu, install these
+packages if they are missing:
 
 ```bash
-sudo apt install -y python-is-python3
+sudo apt-get update
+sudo apt-get install git python3 python3-venv tcl
 ```
 
-**2. ncurses and tinfo compatibility.** Vivado needs `libncurses.so.5` and
-`libtinfo.so.5`, but Ubuntu 24 only ships the `.so.6` versions. Install the
-libraries and create the symlinks:
+Then:
 
 ```bash
-sudo apt install -y libncurses6 libtinfo6
-sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6  /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-```
-
-(If Vivado launches with a `libncurses.so.5` error, this is the fix.)
-
-**3. Locale.** Vivado expects `en_US.UTF-8`:
-
-```bash
-sudo dpkg-reconfigure locales
-# select en_US.UTF-8 UTF-8 and set it as the default
-```
-
-**4. Vivado's own library installer.** Run it once after installing Vivado:
-
-```bash
-sudo /tools/Xilinx/2025.2/Vivado/scripts/installLibs.sh
-```
-
-**5. Put Vivado on your PATH.** Every new terminal session needs this, so add it
-to your `~/.bashrc` (adjust the path to match your install location):
-
-```bash
-source /tools/Xilinx/2025.2/Vivado/settings64.sh
-vivado -version    # should print Vivado v.2025.2
-```
-
-The scripts in this repo invoke Vivado as the bare command `vivado`, so once
-`vivado -version` works in a fresh shell, the scripts will find it.
-
-### 0c. Python 3
-
-```bash
-python3 --version    # 3.10+ is fine
-```
-
-No third-party Python packages are required for the correctness and timing steps
-(Sections 2 and 3). The agent step (Section 4) needs one package, `anthropic`,
-covered there.
-
----
-
-## 1. Get the code
-
-```bash
-cd ~                      # or wherever you keep projects; on Windows /mnt/c/... works too
 git clone https://github.com/hsc-research/LLM-Aided-PQC.git
 cd LLM-Aided-PQC
+python3 --version
+python3 -m venv .venv
+source .venv/bin/activate
+git rev-parse HEAD
 ```
 
-Orientation, the directories you will touch:
+Save the commit ID with your results. Direct `python3 -m agent` commands work
+from this checkout without installing the package. Installing OS packages and
+optional Python extras needs network access; the software checks themselves
+do not download dependencies or contact a model.
 
-- `build/keygen/`, `build/encap/`, `build/decap/`: the three elaborated RTL
-  build trees. These are what gets synthesized and simulated. (HQC's three
-  operations; each is built and tested independently.)
-- `agent/`, the optimization agent and its tooling. The entry points you will
-  run are `kat_gate.py`, `path_extractor.py`, and `loop_v21.py`.
-- `synth_out/`, synthesis outputs land here. The `paths/*_top20.rpt` files are
-  the per-board critical-path reports; `full_matrix.json` is the cross-level
-  summary.
-- `docs/`, this documentation.
-
----
-
-## 2. Prove correctness: the Known-Answer Test (KAT)
-
-This is the single most important check. It runs the full HQC chain , 
-key generation, encapsulation, decapsulation, in simulation and verifies that
-the shared secret recovered at the end matches end to end, at all three security
-levels. This is a cryptographic correctness check: much stronger than a unit
-testbench, though note it is an end-to-end self-consistency check, not a
-comparison against the official NIST HQC response vectors. If it passes, the RTL
-is functionally correct in the sense that every optimization preserves the
-key-encapsulation behavior.
+## 2. Run the offline checks
 
 ```bash
-python3 agent/kat_gate.py
+python3 -m agent --help
+python3 -m agent doctor --json
+python3 -m agent list --json
+python3 -m agent smoke
+python3 -m unittest discover -s tests -v
+python3 -m compileall -q agent tools tests
+python3 tools/check_docs.py
 ```
 
-Expected output (the simulations take a few minutes total):
+| Command | Expected result | What it does not prove |
+|---|---|---|
+| `doctor --json` | `audit_status: completed`, with discovered tools and explicit blockers | No license checkout, synthesis or simulation is performed |
+| `list --json` | Four design entries with support descriptions | It does not rerun the listed verification evidence |
+| `smoke` | `status: PASS` for preview, apply, rollback and bad-edit rejection | This is a temporary Python edit test, not RTL simulation |
+| `unittest` | `OK`; inspect and report any skipped simulator-dependent tests | Mock EDA tests do not establish real hardware results |
+| `compileall` | Exit 0; normally no output with `-q` | Syntax compilation does not test behavior |
+| `check_docs.py` | Zero local-link errors | It does not fetch remote URLs or verify result claims |
 
-```
-KAT GATE: running full keygen -> encap -> decap verification
-=======================================================
-  ...
-=======================================================
-KAT RESULT: PASS
-  HQC-128: MATCH
-  HQC-192: MATCH
-  HQC-256: MATCH
-```
+The test suite needs `tclsh` for Tcl checks. Some tests exercise installed open
+simulators when present; absent optional tools may cause explicit skips. Do
+not report a skipped check as passed. A missing EDA executable in `doctor` is
+an environment prerequisite, not an RTL failure.
 
-`PASS` with three `MATCH` lines means every optimization in this repo preserves
-correctness. This has been verified from a clean clone: cloning the repository
-fresh and running this command reaches `PASS` at all three levels with no extra
-setup beyond Section 0. If you see `FAIL` or a mismatch, something in your build
-tree differs from the committed RTL, re-clone and confirm you have not locally
-edited the `build/` trees.
+## 3. Check the reference inputs
 
-> If a run errors with a Vivado "project already exists" message, remove the
-> leftover simulation project directories and re-run:
-> `rm -rf test_keygen test_encap test_decap`
-
----
-
-## 3. Prove the timing wins: re-synthesize and read the slack
-
-Each board is synthesized out-of-context at the 200 MHz (5.000 ns) constraint,
-and the worst negative slack (WNS) is read from the top of the timing report.
-The tool that does this in one step is `path_extractor.py`:
+These commands validate pinned source/data files and do not run upstream
+programs or launch EDA tools:
 
 ```bash
-python3 agent/path_extractor.py keygen hqc192 20
+python3 third_party/adams_bridge/integration/verify_sources.py
+python3 tools/check_mldsa_sources.py
 ```
 
-This synthesizes `keygen` at HQC-192 and prints the top 20 critical paths. The
-**worst slack** is the first number in the table; compare it to the value in the
-table in [01_results.md](01_results.md).
+- [Adam's Bridge](../third_party/adams_bridge/README.md) includes the unified
+  ML-KEM-1024 / ML-DSA-87 RTL, memories and selected official ACVP samples.
+- [ML-DSA-OSH](../third_party/mldsa_osh/README.md) includes mixed-language RTL,
+  three testbenches, KAT files and `common/zetas.txt`.
+- [SLH-DSA's checker](../agent/slh_dsa/README.md) verifies its selected mode,
+  protected testbench/input files and frozen expected output during setup.
+- The preferred [HQC SAC 2026 snapshot](../third_party/hqc_sac2026/README.md)
+  is source-only, with a pinned inventory of 126 unchanged files. No runnable
+  verification/synthesis integration is supplied. Earlier HQC experiment
+  sources remain separate in the [repository map](REPOSITORY_LAYOUT.md#design-source-map).
 
-### Reproduce a specific result
+Integrity failure must be resolved before simulation. Restore the exact
+pinned inputs; do not generate replacement answers or empty ROM data. Preserve
+source snapshots and use separate copies for candidates.
 
-Pick the operation and level you want to confirm, run the command, then compare
-the worst slack against the cross-level table in [01_results.md](01_results.md),
-which is the single source of truth for the expected numbers:
+## 4. Run functional RTL tests
 
-| To confirm... | Run |
-|---------------|-----|
-| keygen near closure (any level) | `python3 agent/path_extractor.py keygen hqc192 20` (or `hqc128` / `hqc256`) |
-| encap improvement (any level) | `python3 agent/path_extractor.py encap hqc256 20` (or `hqc128` / `hqc192`) |
-| decap (the placement-bound case) | `python3 agent/path_extractor.py decap hqc128 20` |
+Choose one design first. Read its current [status](PROJECT_STATUS.md) and
+[recorded evidence](VERIFICATION.md), then confirm the required simulator.
+These tests do not need a paid LLM. Missing tools, compilation failures,
+timeouts, incomplete output and mismatches are not passes.
 
-The worst slack is the first number in the printed table. It should match the
-corresponding cell in `01_results.md` to within a few thousandths of a ns.
+### ML-KEM
 
-Small variation (a few thousandths of a ns) between runs is normal: placement and
-routing have run-to-run variance. The cluster *structure* (which registers source
-the worst paths) is the stable, reproducible part, not the third decimal place.
-
-### The whole table at once
-
-To regenerate the full 3-operation by 3-level matrix into
-`synth_out/full_matrix.json`:
+Requires a compatible Verilator installation with timing support and its C++
+build tools. The recorded run used Verilator 5.032. No tool is installed by
+the runner. Icarus 12 rejects this upstream SystemVerilog source.
 
 ```bash
-python3 - << 'PY'
-import sys; sys.path.insert(0, 'agent')
-from synthesizer import run_synthesis
-import json
-results = []
-for m in ['keygen', 'encap', 'decap']:
-    for lv in ['hqc128', 'hqc192', 'hqc256']:
-        r = run_synthesis(m, lv)
-        results.append(r); print(json.dumps(r), flush=True)
-open('synth_out/full_matrix.json', 'w').write(json.dumps(results, indent=2))
-print('MATRIX COMPLETE')
-PY
+python3 tools/run_mlkem_adams_bridge_kat.py --help
+python3 tools/run_mlkem_adams_bridge_kat.py --simulator verilator \
+  --work-dir .pqc_runs/reproduce-mlkem
 ```
 
-The decap runs are the long ones; the full matrix takes a while. Each line printed
-includes `wns_ns` and `fmax_mhz`.
+Inspect `.pqc_runs/reproduce-mlkem/report.json` and the recorded compile/simulator
+logs. Success requires all **80 cases / 39,840 word/status checks** to complete
+and the gate to exit 0. `--prepare-only` deliberately returns nonzero because
+preparing vectors is not a simulation pass. Use a fresh run directory when
+comparing source versions.
 
----
+Coverage is ML-KEM-1024 only, including KeyGen, encapsulation, decapsulation,
+key-input checks and five implicit-rejection samples. The hardware also contains
+ML-DSA-87; this test does not validate that function or produce ML-KEM-only
+area. Read the [harness contract](../verification/mlkem_adams_bridge/README.md)
+and [test limitations](VERIFICATION.md#real-ml-kem-baseline-and-rtl-fault-rejection).
 
-## 4. Run the agent end to end
+### ML-DSA exported-verifier compatibility
 
-The agent automates the optimization loop: it picks a critical-path cluster,
-asks a language model to propose an equivalence-preserving edit, applies that edit
-only through a set of safety checks, re-synthesizes, measures the gain, and runs
-the KAT, reverting anything that does not improve timing or that breaks
-correctness.
+The autonomous FPGA exported-source verifier uses `--unroll-count 512` to
+unroll its 319-element FIFO shifts, 256-element polynomial clear, and
+80-element hint clear. This changes compiler
+unrolling only: all RTL nonblocking assignments remain intact, and neither
+`BLKLOOPINIT` nor `BLKANDNBLK` is suppressed.
 
-### 4a. Provide an LLM API key
+The staged testbenches normalize only the diagnostic `start_time` and `average`
+assignments to blocking assignments, with exact expected assignment shapes and
+counts checked before simulation. The original bundled benches, DUT stimulus,
+output captures, byte comparisons, fixtures, and per-vector cycle expressions
+are unchanged. Aggregate printed averages can change because their updates are
+now immediate; the three Verify summaries also divide by `NUM_TV`, rather than
+the upstream `NUM_TV-1`, to include all accumulated vectors. Acceptance uses
+the unchanged individual vector cycle counts.
 
-The proposal step calls a large language model. The repo was developed against
-one commercial LLM API, but the design is vendor-neutral: the model only ever
-returns a structured list of typed edit operations, which the local harness then
-verifies and applies. See Section 5 for how to point it at a different provider.
+Verilator 5.022 predates support for these array assignments without unrolling.
+The matching EPEL 5.022-3 package compiles with this workaround but fails the
+actual KeyGen byte comparisons, despite matching per-vector cycle counts.
+Do not treat compilation success as qualification or use 5.022 for this gate.
+The historical passing ML-DSA tool was development runtime 5.49, launcher
+`vUNKNOWN-built20260516-4e853d8`, not 5.022. The official Debian package `5.048-1` (runtime Verilator 5.048) passes the
+full 210-case replay with identical per-vector cycle counts; see the
+[compatibility evidence](verification/mldsa-verilator-compat-2026-10-14/README.md).
+This Debian binary is not portable installation guidance for EL9. A separate
+server installation/build still needs its own full baseline replay. No blanket
+minimum-version qualification is claimed. See the upstream
+[BLKLOOPINIT and BLKANDNBLK documentation](https://verilator.org/guide/latest/warnings.html).
 
-As written, the proposal step uses the Anthropic Python client, which needs the
-package installed and a key in the standard environment variable:
+After changing verifier code, create a fresh autonomous run/output directory
+and regenerate its frozen requests. Existing runs bind the previous verifier
+hashes; do not resume them with modified checker files or edit their manifests.
+This compatibility change establishes no mapped-memory, four-state, synthesis,
+or timing-closure qualification.
+
+### ML-DSA
+
+The [portable full-design runner](../verification/mldsa_osh/README.md) has two
+explicit passing variants. Use GHDL with synthesis/Verilog support, Verilator,
+a C++ compiler and make. The recorded toolchain uses GHDL 6.0.0 with pinned
+compatibility-library sources and a specifically recorded Verilator build;
+[tool identities and setup](verification/mldsa-portable-2026-10-12/toolchain.json)
+are part of the evidence. A default Icarus full-datapath run did not complete,
+so select Verilator explicitly for the qualified route.
 
 ```bash
-pip install anthropic
-export ANTHROPIC_API_KEY=your_key_here
+# Guarded baseline: all 210 cases.
+python3 agent/mldsa/portable_kat_gate.py --simulator verilator \
+  --canonical-hints --verify-mutations
+
+# Candidate with both explicit corrections: all 210 cases.
+python3 agent/mldsa/portable_kat_gate.py --simulator verilator \
+  --override agent/mldsa/mldsa_src --encoder-fallthrough \
+  --canonical-hints --verify-mutations
 ```
 
-(`anthropic.Anthropic()` in `agent/optimizer_v2.py` reads `ANTHROPIC_API_KEY`
-automatically.) To use a different provider instead, see Section 5, you replace
-one function and this key/package step changes accordingly.
+Expected for each: overall `PASS`, exit 0, and complete counts of 75 KeyGen,
+45 Sign, 45 upstream Verify, 12 one-bit tamper cases and 33 canonical-encoding
+controls/negatives. Upstream Verify has 9 valid and 36 invalid cases;
+flag 0 means accept, flag 1 reject. The added canonical set has 18 valid
+controls and 15 invalid cases. Inspect the printed private run directory's
+`result.json`, source hashes and simulator logs.
 
-### 4b. Run a flight
+The original baseline passes the 165 upstream cases but fails an added
+malformed-hint check. The original 14-file candidate also fails that check
+and stalls during signing. The two flags above select semantic corrections
+in staged copies; they do not alter the pinned originals or make their
+retained failures disappear. Bounded partial-word testbench adaptations and
+GHDL translation are also recorded. See [exact evidence](VERIFICATION.md#real-ml-dsa-portable-variants).
+
+The optional [GHDL setup helper](../tools/bootstrap_mldsa_ghdl.py) downloads
+hash-pinned official Debian packages into a chosen local directory. It needs
+network access, `dpkg-deb` and a compatible Linux x86-64 runtime; it does not
+install system packages:
 
 ```bash
-python3 agent/loop_v21.py keygen hqc192
+python3 tools/bootstrap_mldsa_ghdl.py --prefix /tmp/pqc-ghdl
+export PATH="/tmp/pqc-ghdl/bin:$PATH"
 ```
 
-A "flight" proceeds through these stages, all printed as it goes:
+Install/configure Verilator and its C++ build tools separately. The focused
+guide explains the recorded build-specific precompiled-header setting;
+it is not an RTL fix. Full passing runs are two-state and use pinned upstream
+KAT answers, not an independently authenticated complete ACVP corpus. There
+is no full four-state or FIPS 204 certification claim.
 
-1. **Target selection**, the code picks one critical-path cluster and prints it.
-2. **Proposal**, the model returns either `no_action` (with a reason) or an
-   experiment (a list of typed edits) as JSON.
-3. **Dry-run echo**, the harness shows the exact diff the edits would produce and
-   the model confirms it.
-4. **Gated apply**, the edits are applied only if every safety check passes.
-5. **Synthesis + gain**, the board is re-synthesized; the per-cluster slack
-   change is printed.
-6. **KAT**, if the gain clears the threshold, the full correctness chain runs.
+For the next FPGA/ASIC stage, [export both passing derivatives](HARDWARE_HANDOFF.md#ml-dsa-export-the-passing-derivatives).
+Do not measure the old candidate directory or historical ASIC source list
+and attach the corrected variant's verification evidence to it.
 
-A successful flight ends with a `VERIFIED` message and leaves the change staged
-for you to review and commit. A flight that finds nothing worthwhile ends with a
-reasoned `no_action` or an auto-reverted result, that is the agent working
-correctly, not failing. Each flight appends one line to `agent/flight_log.jsonl`.
-
-> The agent never commits for you. Review the diff and run `git commit` yourself.
-
----
-
-## 5. Using an AI effectively in this workflow
-
-This section is the practical guidance the project wishes it had had at the start.
-
-### What the AI does, and what it does not
-
-The language model's *only* job is the creative step a human would otherwise do
-by hand: look at a critical-path cluster and propose an edit that removes the
-bottleneck while preserving behavior. It does **not** write trusted RTL. It
-returns a structured proposal; the harness (`agent/edit_ops.py`) re-derives every
-count, checks every safety property, and refuses anything that does not hold. The
-correctness guarantee comes from the KAT and the gates, never from trusting the
-model's output.
-
-This is the central lesson: **let the AI propose, let deterministic code verify.**
-Every early failure in this project came from giving the model a decision that
-code should have owned (which file, how many sites, where to place a
-declaration). The architecture in [04_agent_architecture.md](04_agent_architecture.md)
-exists to take those decisions away from the model.
-
-### Pointing it at a different LLM
-
-The model call is isolated in `agent/optimizer_v2.py`. To use a different
-provider, replace the single function that sends the prompt and returns text;
-keep the prompt and the JSON contract the same. The prompt itself, which encodes
-the optimization taxonomy and the edit-operation grammar, is the valuable,
-reusable part and is provider-independent. Read it before swapping anything; it is
-the distilled methodology.
-
-### Driving it toward a specific outcome
-
-- **To attack a specific board:** `python3 agent/loop_v21.py <module> <level>`.
-  The selector picks the worst un-exhausted cluster on that board.
-- **To re-attempt a cluster you previously skip-listed:** delete
-  `agent/skiplist.json` (it is regenerated each run) and re-fly.
-- **To understand why the agent declined:** read its `no_action` reason and the
-  `agent/flight_log.jsonl` entry. A decline usually means the cluster is
-  placement-bound (see the fingerprints in
-  [02_optimization_taxonomy.md](02_optimization_taxonomy.md)), which RTL edits
-  cannot fix.
-
-### Using AI to read the results yourself
-
-When you run `path_extractor.py` and get a wall of critical paths, that output is
-exactly what the agent's prompt consumes. You can paste a board into any capable
-LLM along with [02_optimization_taxonomy.md](02_optimization_taxonomy.md) and ask
-it to classify the worst cluster, it is a fast way to learn the fingerprints
-before trusting the automated loop.
-
----
-
-## 6. Troubleshooting (real issues from this project)
-
-- **Vivado not found:** you did not source `settings64.sh` in this shell. See 0b.
-- **`libncurses.so.5` error on launch:** create the symlink in 0b (and the
-  matching `libtinfo.so.5` symlink).
-- **KAT "project already exists":** `rm -rf test_keygen test_encap test_decap`,
-  then re-run.
-- **A clock-related synthesis error:** the clock port in these modules is named
-  `clk` (not `clk_i`), and the constraint must be created after `synth_design` in
-  the direct OOC flow. The provided scripts already handle this; the note matters
-  only if you write your own flow.
-- **Slack differs in the third decimal from the table:** expected run-to-run
-  placement variance. Confirm the cluster structure matches, not the exact ns.
-- **The agent proposes something that gets refused:** that is a gate doing its
-  job. Read the refusal message; it names the property that failed.
-
----
-
-## 7. Manual simulation and deeper gotchas
-
-The KAT gate in Section 2 wraps the simulation flow, so most users never need
-the steps below. They are recorded here because they cost real debugging time and
-will matter if you run the simulations by hand or modify the build flow.
-
-### The Makefile `mkdir` dependency bug
-
-The Makefile's `run_xilinx_sim_keygen` target depends on `build_keygen`, which
-uses a bare `mkdir` that fails if the directory already exists. The workaround is
-to run the build once, then call Vivado directly for reruns:
-
-```bash
-PK=$(openssl rand -hex 40)
-SK=$(openssl rand -hex 40)
-make build_keygen pk_seed=$PK sk_seed=$SK
-
-# To rerun later, first clean:
-make clean
-# Then run the sim without re-triggering build_keygen:
-mkdir -p ./build/keygen/output
-vivado -mode batch -nojournal -nolog -notrace -source ./build/keygen/tb/keygen.tcl
-```
-
-### The two versions of `seed_align.py`
-
-keygen and joint_design use different versions of `seed_align.py`:
-
-- `hardware/keygen/memory_files/seed_align.py` takes 2 arguments (seed, filename).
-- `hardware/encap/memory_files/seed_align.py` takes 4 arguments (seed, bytes,
-  filename, endianness).
-
-The Makefile is already correct for both. Do not add the extra arguments to the
-keygen call: the keygen script ignores them and will write its output to a file
-literally named `40`.
-
-### Where the output lands
-
-After a keygen simulation, output files appear in:
-
-```
-test_keygen/test_keygen.sim/sim_1/behav/xsim/
-```
-
-including `S_output_*.out`, `X_output_*.out`, `Y_output_*.out`,
-`vect_set_rand_output_*.out`, and the binary memory dumps `h_*.in`, `s_*.in`,
-`x_*.in`, `y_*.in` that feed encapsulation and decapsulation.
-
-### Seed reproducibility
-
-The keygen seeds are generated randomly by `openssl rand -hex 40`, so they are
-unique per run. Anyone using the same seeds with the same RTL gets identical
-output, which is the deterministic property of HQC, useful for reproducing a
-specific run or comparing outputs against a reference software implementation.
-
----
-
-# Part II: ML-DSA
-
-Sections 0-7 above cover HQC, the first case study. The remaining sections
-cover ML-DSA (GMU/Beckwith codebase), the second scheme. The environment setup
-in Section 0 and the general AI-workflow guidance in Section 5 apply to both;
-everything below is ML-DSA specific.
-
-## 8. ML-DSA: Prove correctness (full KAT gate)
-
-ML-DSA correctness is verified against its own source tree, separate from HQC:
-
-```
-ROOT   = /mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main
-SRC    = ROOT/ref_combined/src
-TB     = ROOT/ref_combined/src_tb/tb_keygen_top.v
-COMMON = ROOT/common
-KAT    = ROOT/KAT
-```
-
-The gate runs the ENTIRE keygen pipeline (~50 files, mixed Verilog/VHDL
-including Keccak) via Vivado xsim against NIST KAT vectors: 25 vectors x 3
-security levels (75 total). This is the outer, full-design gate, distinct from
-the per-block lockstep gates, which only verify fixed-latency equivalence and
-can miss a block that shifts by a cycle.
-
-Usage:
-
-```bash
-python3 agent/mldsa/full_kat_gate.py [override_dir] [--vectors N] [--timeout S]
-```
-
-- No arg: pristine baseline.
-- `override_dir` (e.g. `agent/mldsa/mldsa_src`): same-named files there override
-  the pristine SRC files by basename.
-- `--vectors N`: run a subset of N KAT vectors instead of all 75.
-- `--timeout S`: override the default 24h timeout.
-
-Pristine baseline:
+The separate legacy Vivado gate is **KeyGen-only** and requires `xvhdl`,
+`xvlog`, `xelab` and `xsim`:
 
 ```bash
 python3 agent/mldsa/full_kat_gate.py
-```
-
-Against tracked/optimized sources:
-
-```bash
 python3 agent/mldsa/full_kat_gate.py agent/mldsa/mldsa_src
 ```
 
-PASS criterion: `testbench done` printed and zero `WRONG` lines. Batch mode (the
-default) completes a full 75-KAT pristine run in about 1m37s wall, cheap enough
-to run on every candidate edit, not just pre-commit.
+It defaults to 25 vectors per level (75 total); `--vectors` deliberately
+reduces coverage. `MLDSA_ROOT` / `--root` overrides must be recorded. Neither
+this legacy gate nor the existing optimization adapter automatically selects
+the guarded variants or proves signing/verification coverage.
 
-Logs: `agent/mldsa/fullkat_run.log`. Parsed per-vector results:
-`agent/mldsa/fullkat_vectors.json`.
-
-If interrupted or failed, the script preserves the temp work directory and
-prints its path (`workdir preserved: /tmp/mldsa_fullkat_FAILED_...`).
-
-Do not edit the pristine SRC tree directly. A `.bak` file appearing next to a
-pristine source is a contamination signal, meaning an edit was accidentally
-applied to pristine instead of routed through `agent/mldsa/mldsa_src`. Periodic
-check: `ls SRC/*.bak` should be empty.
-
----
-
-## 9. ML-DSA: Prove the block-level timing wins
-
-Block-level timing reproduction reuses `agent/path_extractor.py` and
-`agent/synthesizer.py`, with the param_set argument set to `mldsa`:
+A separate 400-vector Icarus arithmetic-block test remains available:
 
 ```bash
-python3 agent/path_extractor.py <module> mldsa 20
+python3 tools/check_hdl_smoke.py --output .pqc_runs/hdl-smoke.json
 ```
 
-Valid `<module>` names (from `MODULE_SOURCES` in `agent/synthesizer.py`):
+It requires the baseline and two injected faults to behave as expected.
+That block-only result is independent of the new full-design runs.
 
-`butterfly`, `expandmask_ext`, `gen_a_ext`, `rejection_a`, `decomposer_unit`,
-`coeff_decomposer`, `rejection_y`, `rejection_s`, `makehint`, `gen_c`,
-`decoder`, `usehint`, `sampler_s_pristine` / `sampler_s_opt`,
-`sampler_y_pristine` / `sampler_y_opt`, `sampler_a_pristine` / `sampler_a_opt`,
-`encoder`, `combined_top`.
+### HQC
 
-Example:
+**The preferred [SAC 2026 baseline](../third_party/hqc_sac2026/README.md) is
+source-only and unverified.** It has no supported executable adapter yet.
+The commands below target the **older SAC 2023-derived experiment trees**;
+they must not be used as evidence for the new source snapshot.
+
+The existing Vivado gate runs standalone KeyGen and encapsulation to generate
+inputs, then exercises the joint design's decapsulation/re-encryption path.
+It checks shared-secret consistency, not all three joint API operations.
+Select both the source set and all three security levels explicitly:
 
 ```bash
-python3 agent/path_extractor.py decoder mldsa 20
+# Reference joint design
+python3 agent/hqc/joint_kat_gate.py --source-key hqc_joint_pristine --all
+
+# Current edited joint design
+python3 agent/hqc/joint_kat_gate.py --source-key hqc_joint_opt --all
 ```
 
-The `*_pristine` / `*_opt` pairs share the same wrapper source and swap only the
-inner block, letting you diff timing directly between pristine and optimized
-versions of that block in composition.
+Expected: a shared-secret match for HQC-128/192/256, then the final `JOINT KAT
+GATE: PASS` verdict and exit 0. Without `--all`, the direct gate tests HQC-128
+only. The gate prints its private run-artifact directory under `.pqc_runs/`.
+A shared-secret match is internal consistency; both sides can share a defect.
+It is not an independent official known-answer comparison. Static review found unused
+rejection-check flags. A staged dynamic rejection probe is **inconclusive**:
+changing an input file did not establish that the DUT loaded the changed
+ciphertext, and an instrumented attempt produced unknown values. This is not
+a confirmed live rejection failure or a pass. The legacy gate does not
+establish that invalid ciphertexts are rejected correctly. Read the [exact legacy-source finding](PROJECT_STATUS.md#hqc-legacy-verification-boundary)
+before treating this design as a verified baseline.
 
-Composition is not guaranteed to inherit block-level wins. Documented case:
-`rejection_a`'s `max_fanout` attribute win (+0.076 ns in isolation) INVERTED to
-a loss in the `sampler_a` wrapper (-0.446 ns) once placed in context, and was
-later reverted to pristine for that reason. Structural rewrites
-(flag-precompute, constant-LUT collapse, sign-select) transferred cleanly in all
-measured cases; attribute-only edits (max_fanout and similar) did not, and must
-be re-validated at the composition level before being kept.
+### SLH-DSA
 
----
-
-## 10. ML-DSA: Full-chip integration and the post-route acceptance rule
-
-Post-synthesis (OOC) chip-level estimates are NOT the accept/reject standard for
-ML-DSA at the chip level; post-route is. Post-synthesis chip comparisons showed
-the optimized `combined_top` marginally worse than pristine (a real,
-deterministic -0.217 ns to -0.244 ns regression, confirmed non-noise by a 3-run
-variability check). Post-route with `phys_opt` reverses this: the optimized
-design wins at every measured corner.
-
-RETIRED 2026-08-03. Every row below ran with negative WNS, so the Fmax
-figures were projections computed as 1/(T-WNS) on violated runs, and the
-percentage deltas were derived from those projections. Projected Fmax may not
-be quoted; see rule 2 of the documentation standard. WNS values are retained
-because they are measured.
-
-| Corner | Pristine WNS | Optimized WNS | Fmax |
-|---|---|---|---|
-| -1 grade, 5.00 ns | -10.318 | -8.766 | ~~65.3 / 72.6 MHz, +11.2%~~ |
-| -1 grade, 8.60 ns | -5.995 | -5.017 | ~~68.5 / 73.4 MHz, +7.2%~~ |
-| -3 grade, 8.62 ns | -1.974 | -1.779 | ~~94.4 / 96.2 MHz, +1.9%~~ |
-
-The measured WNS improvement at every corner still supports the qualitative
-claim that post-route `phys_opt` reverses the pre-route regression. Only the
-frequency figures and the percentages are retracted. For measured closure
-numbers see the ML-DSA chip-level ledger in `docs/findings/INDEX.md`.
-
-Post-route (implementation) is run via `agent/impl_runner.py`:
+The selected-mode differential gate requires Vivado's `xvlog`, `xelab` and
+`xsim`. It preserves the source tree's SHA2 parameter selection:
 
 ```bash
-python3 agent/impl_runner.py <module> [period] [--pristine]
+# Unchanged pristine SHA2-128f baseline
+python3 agent/slh_dsa/slh_kat_gate.py agent/slh_dsa/pristine
+
+# Current SHA2-192f candidate
+python3 agent/slh_dsa/slh_kat_gate.py
 ```
 
-- `<module>`: e.g. `combined_top`.
-- `[period]`: target clock period in ns. Defaults to 8.6 if omitted.
-- `--pristine`: runs the pristine variant instead of the tracked/optimized one
-  (internally maps to a `<module>_pristine` key in `MODULE_SOURCES`).
+The gate supports matching frozen references for all six SHA2 sets; SHAKE is
+unsupported. It compares the entire vendor output stream, including a padded
+message tail, and requires the testbench's verify match. This is differential
+evidence, not an independent FIPS 205 KAT. Never switch the candidate's mode
+or regenerate a golden stream just to obtain a pass.
 
-Note: this script does not expose the -1 vs -3 speed grade as a command-line
-argument. The part/grade used for a given corner is set elsewhere in the
-project's Vivado configuration, not passed here. Confirm the active part/grade
-before comparing against the table above.
-
-Commands matching the table's three corners (optimized shown; add `--pristine`
-for the pristine row):
+Unmodified vendor duplicate declarations prevent a direct Icarus/Verilator
+build. A [separate portable runner](../verification/slh_portable/README.md)
+stages hash-recorded Icarus adaptations and a live signature-corruption test:
 
 ```bash
-python3 agent/impl_runner.py combined_top 5.00
-python3 agent/impl_runner.py combined_top 5.00 --pristine
-python3 agent/impl_runner.py combined_top 8.60
-python3 agent/impl_runner.py combined_top 8.60 --pristine
-python3 agent/impl_runner.py combined_top 8.62
-python3 agent/impl_runner.py combined_top 8.62 --pristine
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
+  --output .pqc_runs/slh-portable-pristine-128f.json
 ```
 
-`combined_top` is registered in `agent/synthesizer.py` (~39 Verilog + 11 VHDL
-files, Keccak included via VHDL) with two variants: pristine (all GMU original
-sources) and the tracked-override version (every committed block win applied by
-basename).
+The syntax-only pristine 128f variant has **failed** output/verification checks;
+that command must not be presented as an expected passing baseline. The
+explicitly corrected baseline and candidate each passed at 128f and at 192f,
+using one frozen fixture and a live signature-bitflip rejection check per run:
 
-WSL memory note: full-chip synthesis OOM-killed at the default 7.6 GB WSL memory
-allocation. It was raised to 12 GB to complete. Each full-chip run took roughly
-15-40 minutes observed at 12 GB.
+```bash
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
+  --parameter-set 128f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-baseline-128f.json
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/slh_src \
+  --parameter-set 128f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-candidate-128f.json
 
-Chip-level critical path: both pristine and optimized bind on the DECODER to
-ENCODER cone, specifically `encoder.v`'s PISO output merge (a 256-bit
-variable-length shift register), not any single arithmetic block. This is
-consistent with GMU's own paper (Beckwith et al., ePrint 2021/1451), which
-states their critical path is within the interconnect for the shared Keccak
-modules. Chip-level absolute timing closure is explicitly NOT claimed by this
-project: block-level wins are real and KAT-verified in isolation, but the
-chip-level bottleneck is a shared-resource/interconnect problem outside the
-scope of the per-block optimization taxonomy used here.
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/pristine \
+  --parameter-set 192f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-baseline-192f.json
+python3 tools/check_slh_portable.py --rtl-dir agent/slh_dsa/slh_src \
+  --parameter-set 192f --fix-auth-sensitivity \
+  --output .pqc_runs/slh-portable-candidate-192f.json
+```
 
-GMU comparison, for anyone reproducing the 116 MHz comparison point: the -1 vs
--3 speed grade accounts for most of the gap (68.5 to 94.1 MHz); constraint
-targeting at 8.62 ns on -3 grade reaches 96.2 MHz optimized. The remaining ~17%
-gap to GMU's reported 116 MHz is attributed to the directive/frequency-search
-class (GMU's Minerva tool iterates multiple targets automatically; this project
-ran a single fixed target per corner). Before citing GMU's numbers directly,
-verify their exact device grade, Vivado version, and flow stage against the
-source paper. These are noted as unconfirmed pending citation-check in the
-project's own findings.
+Expected: 2,141 matching words for corrected 128f, or 4,463 for corrected
+192f; normal verification flag 0, rejection flag 1 after the captured-signature
+mutation, and overall exit 0. The option changes a hash-pinned authentication
+path sensitivity list in each staged copy; original sources and frozen
+references stay unchanged. Explicit parameter selection changes only staged
+configuration copies. The [four-run evidence matrix](HARDWARE_HANDOFF.md#slh-dsa-keep-mode-and-derivative-together)
+links the passing source pairs and exact no-EDA export commands for hardware
+measurement. These are not unchanged-source or FIPS 205 conformance results. The syntax-only
+192f run matched all words but failed valid-signature verification; its
+negative control is unqualified. The other four SHA2 sets were not executed.
+Compilation, matching bytes alone and partial output are not passes. Read the
+[portable variant guide](../verification/slh_portable/README.md) for all
+transformations and [current status](PROJECT_STATUS.md#slh-dsa-baseline-boundary)
+for exact completed coverage.
+
+## 5. Measure an FPGA design
+
+Start with the [hardware handoff](HARDWARE_HANDOFF.md) to select the exact
+verified source derivative. The commands below do not silently redirect
+legacy flows to new corrected sources.
+
+Requires AMD Vivado, supported OS libraries and the selected FPGA device files.
+The historical records used Vivado 2025.2 and Artix-7 `xc7a200tfbg676-1`.
+Source your installation's `settings64.sh`, confirm `vivado -version`, and
+resolve the design's inputs before launching. Do not create compatibility
+symlinks between incompatible major system-library versions.
+
+```bash
+# Command preview: does not launch Vivado.
+python3 -m agent.run --target fpga --design hqc --dry-run
+
+# Actual legacy SAC 2023 HQC design measurement: launches Vivado.
+python3 -m agent.run --target fpga --design hqc
+```
+
+The preview does not validate licenses or source coverage. Read
+[FPGA setup and timing](FPGA.md) and the [agent workflow](../agent/README.md)
+for the selected design's checks, output records and existing dispatch support.
+SLH-DSA generic dispatch is unavailable; ML-KEM is a separate baseline route.
+For ML-KEM baseline-only OOC synthesis, use its
+[wrapper-specific launch instructions](../third_party/adams_bridge/README.md#launch-preparation).
+
+An implementation pass and timing report are separate from a functional pass.
+For a historical result, follow its exact [finding](findings/INDEX.md), source
+revision and constraints rather than substituting the latest default command.
+
+## 6. Measure ASIC logic with Genus or DC
+
+Use the [hardware handoff](HARDWARE_HANDOFF.md) for verified derivative exports
+and matched baseline/candidate source configuration.
+
+Requires a licensed Cadence Genus or Synopsys Design Compiler installation,
+permitted target libraries, a reviewed source list and timing constraints.
+This is fixed-period, pre-layout logic synthesis, not ASIC place-and-route.
+
+Choose a matching example:
+
+- [ML-KEM/ML-DSA unified design](../configs/mlkem_adams_bridge_asic.example.json)
+- [ML-DSA complete design](../configs/mldsa_osh_asic.example.json)
+- [Butterfly block only](../configs/butterfly_asic.example.json)
+
+For example, copy the unified design's configuration and edit the local copy:
+
+```bash
+cp configs/mlkem_adams_bridge_asic.example.json configs/mlkem_adams_bridge_asic.local.json
+```
+
+Supply actual library paths, tool/version, corner, period, memory model and
+site IO/load/uncertainty settings as described in the [ASIC guide](../asic/README.md).
+Genus uses `.lib` libraries; DC needs genuine compiled `.db` libraries. Only
+then inspect the generated flow:
+
+```bash
+python3 -m agent.run --target asic --synth-tool genus \
+  --config configs/mlkem_adams_bridge_asic.local.json --dry-run
+```
+
+A dry run still requires real declared input/library files. The unconfigured
+example is expected to fail rather than invent libraries or skip missing
+modules. It does not execute the site Tcl or elaborate RTL.
+
+After reviewing the generated command and Tcl, remove `--dry-run` to run
+Genus; replace `genus` with `dc` to choose Design Compiler. There is no silent
+fallback between vendors. Outputs go to a fresh `runs/asic/<tool>-<uuid>/`
+directory; inspect `result.json`, source hashes, logs and original reports.
+`MEASURED` is a parsed tool result, not equivalence, signoff or publication approval.
+
+## 7. Configure an optimization experiment
+
+Start with the [whole-design controller](WHOLE_DESIGN.md), which tests and
+measures the full design before and after a small edit:
+
+```bash
+python3 -m agent.whole_design --config configs/whole_design.example.json
+```
+
+Expected for this unconfigured template: **`BLOCKED` and a nonzero exit** with
+missing site inputs listed. This is an intentional guard. Copy it to
+`configs/whole_design.local.json`, supply complete test/source manifests,
+qualified measurement commands and reviewed path-to-RTL mapping, then rerun
+the plan. `CONFIGURED_NOT_RUN` means static setup is present, not that EDA or
+functional verification passed.
+
+Only use `--execute` after reviewing those inputs and possible tool/API costs.
+The existing FPGA `--dispatch` path is a separate, older one-round workflow;
+read the [agent guide](../agent/README.md) before using it.
+
+### Optional Python installation and model use
+
+No package installation is needed for the checkout commands. An editable
+installation, with suitable `setuptools` already available, is:
+
+```bash
+python3 -m pip install --no-build-isolation --no-deps -e .
+pqc-agent smoke
+```
+
+Install extras only for an intended feature:
+
+```bash
+python3 -m pip install -e '.[dashboard]'
+# Only for an intentionally configured model-backed experiment:
+python3 -m pip install -e '.[llm]'
+```
+
+The LLM extra additionally needs `PQC_ENABLE_LLM=1` and deliberately configured
+credentials. For foreground proposals, use the [local encrypted Claude vault](CLAUDE_CREDENTIALS.md);
+it saves the key/workspace once and prompts for a passphrase on each new process.
+Detached controller jobs cannot unlock this terminal-only vault. Existing
+site-managed environment integrations must explicitly select `PQC_CLAUDE_AUTH=env`. Model calls can send RTL/report excerpts to an
+external provider and incur charges. Review the inputs and budget; never put
+credentials in Git, prompts or result logs. Setup, tests, report review and
+standalone synthesis do not need a model key.
+
+## Preserve a useful result
+
+Keep baseline and candidate separate. Write a new output directory and record:
+
+- Source commit, local changes and input hashes
+- Exact command, environment overrides and tool version
+- Design top, parameter set, operations and completed test count
+- Device/library, corner, constraints and memory treatment
+- Final exit status, verdict and original report paths
+
+Review `git status --short` after running a research script. Do not overwrite
+historical reports or treat stale output as a new result. Follow
+[comparison rules](RESULTS.md#fair-comparisons) and the
+[evidence-writing standard](DOCUMENTATION_STANDARD.md).
+
+## Troubleshooting
+
+| Symptom | Next step |
+|---|---|
+| `No module named agent` | Run from the checkout root or install the package in the active environment |
+| `tclsh` missing | Install the OS Tcl package before the complete software test suite |
+| Optional `flask` or `anthropic` missing | Install only the extra required for the feature you intend to run |
+| Simulator or vendor tool missing | Load/install the appropriate tool separately, then rerun `doctor` |
+| `/mnt/c/PQC/...` missing | A legacy script needs local path configuration; follow the selected design guide |
+| ML-DSA vectors, ROM data or testbench missing | Run `check_mldsa_sources.py`; check an unintended `MLDSA_ROOT` override and restore pinned inputs |
+| SLH mode/reference/input rejection | Match the selected SHA2 mode and unchanged protected inputs; SHAKE remains unsupported |
+| `BLOCKED` from the controller template | Supply the missing real site inputs; do not create placeholders to force a pass |
+| Stale report after failure | Use a fresh output directory and inspect the process exit status |
+| Missing signature or shared secret | Treat the simulation as incomplete or failed, never a passing comparison |
+
+Report the first missing prerequisite or failing stage and preserve its log.
+Do not replace an unrun measurement with an estimate.

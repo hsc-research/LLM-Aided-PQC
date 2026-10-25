@@ -2,15 +2,14 @@
 full-KAT gating and divergence-guided repair.
 Loop: paths -> LLM proposes pipeline insertion + retap set (multi-file) ->
 apply -> full-KAT -> FAIL: stream-bisect, feed divergence back, retry (<=3)
--> PASS: synth block, compare, ACCEPT/revert. Reset = git checkout.
+-> PASS: synth block, compare, ACCEPT/revert. Reset restores the pre-run working bytes.
 Usage: python3 agent/mldsa/orchestrator_latency.py <block> [--retries N]
 """
-import sys, os, re, json, shutil, subprocess, time, glob
+import sys, os, re, json, shutil, subprocess, time, glob, tempfile
+from pathlib import Path
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(REPO, "agent"))
-os.chdir(REPO)
-import anthropic
 from synthesizer import run_synthesis
 import path_extractor
 
@@ -21,7 +20,7 @@ if "--model" in sys.argv:
 MIN_GAIN_NS = 0.05
 LOG = os.path.join(HERE, "latency_log.jsonl")
 SRCDIR = "agent/mldsa/mldsa_src"
-PRISTINE = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src"
+PRISTINE = os.path.join(os.environ.get("MLDSA_ROOT", os.path.join(REPO, "third_party", "mldsa_osh", "upstream")), "ref_combined", "src")
 # files the model may touch per target block (cluster = block + its schedulers)
 CLUSTERS = {
     "butterfly": ["butterfly.v", "butterfly2x2.v", "operation_module.v"],
@@ -78,42 +77,90 @@ def log(rec):
     open(LOG, "a").write(json.dumps(rec) + "\n")
     print("LOG:", rec.get("verdict"), rec.get("reason", rec.get("design", ""))[:120])
 
-def git_reset(files):
-    subprocess.run(["git", "checkout", "--"] + [f"{SRCDIR}/{f}" for f in files], check=True)
+_INITIAL_SOURCES = {}
 
-def apply_edits(edits):
-    staged = {}
-    for fn, pairs in edits.items():
-        p = f"{SRCDIR}/{fn}"
-        s = open(p).read()
-        for k, e in enumerate(pairs):
-            n = s.count(e["old"])
-            if n != 1:
-                return f"{fn} edit{k} anchor count {n}"
-            s = s.replace(e["old"], e["new"])
-        staged[p] = s
-    for p, s in staged.items():
-        open(p, "w").write(s)
+def git_reset(files):
+    """Legacy name retained; never discard uncommitted work with git checkout."""
+    if any(fn not in _INITIAL_SOURCES for fn in files):
+        raise RuntimeError("No pre-run snapshot available for reset")
+    for fn in files:
+        with open(f"{SRCDIR}/{fn}", "w") as out:
+            out.write(_INITIAL_SOURCES[fn])
+
+
+def apply_edits(edits, allowed_files=None):
+    from edit_ops import apply_experiment, EditError
+    allowed_files = allowed_files or [name for cluster in CLUSTERS.values() for name in cluster]
+    if not isinstance(edits, dict) or not edits or any(name not in allowed_files for name in edits):
+        return "proposal targets a file outside the selected cluster"
+    files = []
+    for filename, pairs in edits.items():
+        if not isinstance(pairs, list) or not pairs:
+            return "missing edit pairs"
+        try:
+            ops = [{"op": "replace_exact", "old": pair["old"], "new": pair["new"], "expect": 1} for pair in pairs]
+        except (KeyError, TypeError):
+            return "invalid edit pairs"
+        files.append({"path": f"{SRCDIR}/{filename}", "ops": ops})
+    try:
+        apply_experiment({"name": "latency-candidate", "files": files},
+                         allowed_paths=[f"{SRCDIR}/{name}" for name in allowed_files])
+    except EditError as error:
+        return str(error)
     print("applied")
     return None
+
 
 def full_kat():
     r = subprocess.run([sys.executable, f"{HERE}/full_kat_gate.py",
                         f"{REPO}/{SRCDIR}", "--timeout", "600"],
                        capture_output=True, text=True)
+    if r.returncode != 0:
+        return {"status": "FAIL", "reason": "full KAT runner failed"}
     i = r.stdout.find("{")
     return json.loads(r.stdout[i:]) if i != -1 else {"status": "FAIL", "reason": r.stdout[-300:]}
+
+def _diagnostic_log(result, run_parent, *, pristine=False):
+    """Read only this invocation's gate artifact; never fall back to evidence logs."""
+    try:
+        outcome = json.loads(result.stdout)
+    except (ValueError, TypeError) as error:
+        raise RuntimeError("gate did not return diagnostic JSON") from error
+    if not isinstance(outcome, dict) or outcome.get("stage") != "sim":
+        raise RuntimeError("instrumented gate did not reach simulation")
+    status = outcome.get("status")
+    if status not in ("PASS", "FAIL") or result.returncode != (0 if status == "PASS" else 1):
+        raise RuntimeError("gate exit status contradicts its diagnostic result")
+    if pristine and status != "PASS":
+        raise RuntimeError("instrumented pristine reference did not pass")
+    if outcome.get("kats_expected") != 3 or outcome.get("kats_completed") != 3:
+        raise RuntimeError("instrumented simulation has incomplete vector coverage")
+    parent = Path(run_parent).resolve()
+    directory = Path(outcome.get("run_dir", "")).resolve()
+    path = Path(outcome.get("log_file", ""))
+    if (not directory.is_relative_to(parent) or directory == parent
+            or path.is_symlink() or path.resolve().parent != directory
+            or path.name != "fullkat_run.log" or not path.is_file()):
+        raise RuntimeError("gate log is missing or outside this diagnostic invocation")
+    text = path.read_text()
+    if not re.search(r"^(?:BFI|BFO) ", text, re.M):
+        raise RuntimeError("instrumented simulation produced no stream samples")
+    return text
+
 
 def bisect(cluster_files):
     """Instrumented 1-vector pristine-vs-current stream compare; returns first divergence text."""
     out = []
+    parent = Path(os.environ.get("PQC_RUN_DIR", str(Path(REPO) / ".pqc_runs"))).resolve()
+    parent.mkdir(parents=True, exist_ok=True)
+    work = Path(tempfile.mkdtemp(prefix="latency-diagnostic-", dir=parent))
     DBG = ('\n    integer dbg_i=0,dbg_o=0;\n    always @(posedge clk) begin\n'
            '      if (validi && dbg_i<4000) begin $display("BFI %m %0d %h %h %h",mode,datai,zetai,acci); dbg_i=dbg_i+1; end\n'
            '      if (valido && dbg_o<4000) begin $display("BFO %m %0d %h",mode,datao); dbg_o=dbg_o+1; end\n'
            '    end\nendmodule')
     def build(name, pristine):
-        d = os.path.join(HERE, name)
-        shutil.rmtree(d, ignore_errors=True); os.makedirs(d)
+        d = str(work / name)
+        os.makedirs(d)
         for p in glob.glob(f"{SRCDIR}/*.v"): shutil.copy(p, d)
         if pristine:
             for b in cluster_files: shutil.copy(os.path.join(PRISTINE, b), d)
@@ -121,12 +168,19 @@ def bisect(cluster_files):
         open(f, "w").write(s.replace("endmodule", DBG))
         return d
     logs = {}
-    for tag, pr in (("p", True), ("e", False)):
-        d = build("lat_dbg_" + tag, pr)
-        subprocess.run([sys.executable, f"{HERE}/full_kat_gate.py", d, "--vectors", "1",
-                        "--timeout", "300"], capture_output=True, text=True)
-        logs[tag] = open(f"{HERE}/fullkat_run.log").read()
-        shutil.rmtree(d, ignore_errors=True)
+    try:
+        for tag, pristine in (("p", True), ("e", False)):
+            directory = build("lat_dbg_" + tag, pristine)
+            run_parent = work / ("gate-" + tag)
+            run_parent.mkdir()
+            env = dict(os.environ, PQC_RUN_DIR=str(run_parent))
+            result = subprocess.run(
+                [sys.executable, f"{HERE}/full_kat_gate.py", directory,
+                 "--vectors", "1", "--timeout", "300"],
+                capture_output=True, text=True, timeout=1200, env=env)
+            logs[tag] = _diagnostic_log(result, run_parent, pristine=pristine)
+    except (OSError, RuntimeError, subprocess.SubprocessError) as error:
+        return f"stream diagnostic INCONCLUSIVE: {error}; artifacts: {work}"
     def parse(t):
         st = {}
         for ln in t.splitlines():
@@ -156,7 +210,7 @@ def usage_cost():
     return round(USAGE["in_tok"]/1e6*pi + USAGE["out_tok"]/1e6*po, 4)
 
 def call_llm(messages):
-    client = anthropic.Anthropic()
+    client = __import__("llm_client").create_client()
     msgs = list(messages)
     for a in range(3):
         r = client.messages.create(model=MODEL, max_tokens=8000, system=POLICY, messages=msgs)
@@ -178,9 +232,12 @@ def call_llm(messages):
     raise SystemExit("LLM failed valid JSON 3x")
 
 def main():
+    os.chdir(REPO)
     block = sys.argv[1]
     retries = int(sys.argv[sys.argv.index("--retries") + 1]) if "--retries" in sys.argv else 3
     files = CLUSTERS[block]
+    _INITIAL_SOURCES.clear()
+    _INITIAL_SOURCES.update({name: open(f"{SRCDIR}/{name}").read() for name in files})
     # pre-check: tracked state must gate-PASS
     g = full_kat()
     if g["status"] != "PASS":
@@ -200,7 +257,7 @@ def main():
             log({"block": block, "verdict": "no_action", "reason": prop.get("reason", "")}); return
         print("DESIGN:", prop.get("design", "")[:300])
         print(f"--- attempt {attempt} ---")
-        err = apply_edits(prop["edits"])
+        err = apply_edits(prop["edits"], files)
         if err:
             print("APPLY FAILED:", err)
             log({"block": block, "verdict": "apply_fail", "attempt": attempt,

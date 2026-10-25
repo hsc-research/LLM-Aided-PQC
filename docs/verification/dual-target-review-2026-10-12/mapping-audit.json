@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "scope": "Independent inspection of seven actual generic Yosys netlists; no standard-cell mapping or full design claim",
+  "source_bindings": 14,
+  "mappings": [
+    {
+      "component": "abr_1r1w_512x4_ram",
+      "status": "PASS",
+      "actual_ff_bits": 2052,
+      "actual_cell_types": {
+        "$_DFFE_PP_": 2052,
+        "$_NOT_": 522,
+        "$_XOR_": 8,
+        "$_AND_": 2062,
+        "$_OR_": 2048,
+        "$_MUX_": 9762
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/abr_1r1w_512x4_ram.json"
+    },
+    {
+      "component": "abr_1r1w_be_ram",
+      "status": "PASS",
+      "actual_ff_bits": 2080,
+      "actual_cell_types": {
+        "$_DFFE_PP_": 2080,
+        "$_AND_": 608,
+        "$_MUX_": 2132,
+        "$_NOT_": 24
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/abr_1r1w_be_ram.json"
+    },
+    {
+      "component": "abr_1r1w_ram",
+      "status": "PASS",
+      "actual_ff_bits": 2080,
+      "actual_cell_types": {
+        "$_DFFE_PP_": 2080,
+        "$_NOT_": 71,
+        "$_XOR_": 5,
+        "$_AND_": 2057,
+        "$_OR_": 2048,
+        "$_MUX_": 8515
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/abr_1r1w_ram.json"
+    },
+    {
+      "component": "abr_ram_regout",
+      "status": "PASS",
+      "actual_ff_bits": 2080,
+      "actual_cell_types": {
+        "$_SDFFE_PP0P_": 2048,
+        "$_DFFE_PP_": 32,
+        "$_NOT_": 71,
+        "$_XOR_": 5,
+        "$_AND_": 2057,
+        "$_OR_": 2048,
+        "$_MUX_": 8515
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/abr_ram_regout.json"
+    },
+    {
+      "component": "mldsa-zetas-rom",
+      "status": "PASS",
+      "actual_ff_bits": 46,
+      "actual_cell_types": {
+        "$_DFFE_PP_": 46,
+        "$_MUX_": 1896,
+        "$_NOT_": 6
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/mldsa-zetas-rom.json"
+    },
+    {
+      "component": "slh-mem_dual-uninitialized",
+      "status": "PASS",
+      "actual_ff_bits": 80,
+      "actual_cell_types": {
+        "$_DFF_P_": 16,
+        "$_DFFE_PP_": 64,
+        "$_AND_": 40,
+        "$_OR_": 8,
+        "$_MUX_": 278,
+        "$_NOT_": 6
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/slh-mem_dual.json"
+    },
+    {
+      "component": "slh-mem_single-uninitialized",
+      "status": "PASS",
+      "actual_ff_bits": 72,
+      "actual_cell_types": {
+        "$_DFFE_PP_": 64,
+        "$_DFF_P_": 8,
+        "$_AND_": 20,
+        "$_MUX_": 67,
+        "$_NOT_": 3
+      },
+      "no_residual_arrays": true,
+      "no_init_attributes": true,
+      "hash_verified": true,
+      "netlist": ".pqc_runs/asic-memory-components/slh-mem_single.json"
+    }
+  ]
+}

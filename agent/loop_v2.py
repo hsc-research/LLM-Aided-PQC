@@ -2,7 +2,7 @@
 KAT verdict -> human commit gate. Auto-revert on assertion failure, synth
 failure, marginal gain (< MIN_GAIN_NS), or KAT failure. One experiment per
 invocation; the human commits."""
-import sys, os, subprocess, json
+import sys, os, subprocess, json, glob, re
 sys.path.insert(0, os.path.dirname(__file__))
 import edit_ops, optimizer_v2
 from synthesizer import run_synthesis
@@ -10,7 +10,7 @@ from synthesizer import run_synthesis
 MIN_GAIN_NS = 0.05
 
 def sh(cmd):
-    return subprocess.run(cmd, shell=True, capture_output=True, text=True).stdout
+    return subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True, timeout=7200).stdout
 
 def gather(module, level, n_detail=2):
     board = sh(f"python3 agent/path_extractor.py {module} {level} 20")
@@ -56,7 +56,9 @@ def excerpts_for(paths_text, module):
                        f"signals ---\n" + "\n...\n".join(blocks[:4]))
     return "\n".join(out)
 
-def run(module, level):
+def _run_candidate(module, level):
+    if module not in ("keygen", "encap", "decap") or level not in ("hqc128", "hqc192", "hqc256"):
+        raise ValueError("Unsupported HQC module or parameter set")
     print(f"=== AGENT EXPERIMENT: {module}/{level} ===")
     board, detail = gather(module, level)
     print(board)
@@ -69,7 +71,8 @@ def run(module, level):
     backups = None
     for attempt in range(2):
         try:
-            backups = edit_ops.apply_experiment(proposal["experiment"])
+            backups = edit_ops.apply_experiment(proposal["experiment"],
+                                                 allowed_paths=[p for op in ("keygen", "encap", "decap") for p in glob.glob(f"build/{op}/*.v")])
             break
         except AssertionError as e:
             print(f"GATE REFUSED (no bytes written): {e}")
@@ -78,15 +81,14 @@ def run(module, level):
             # Feedback pass: hand the model ground truth for every op target
             # so counts become reading, not guessing. One retry only.
             fb = [f"YOUR EXPERIMENT WAS REFUSED: {e}", "GROUND TRUTH FOLLOWS:"]
-            for fs in proposal["experiment"]["files"]:
-                for op in fs["ops"]:
-                    if op["op"] == "pair_assignments":
-                        fb.append(f"--- all '{op['reg']} <=' lines in {fs['path']} ---")
-                        fb.append(sh(f"grep -n '{op['reg']} <=' {fs['path']}"))
-                    elif op["op"] == "regex_swap":
-                        pat = op["pattern"].replace("'", ".")
-                        fb.append(f"--- grep -nE '{pat}' {fs['path']} ---")
-                        fb.append(sh(f"grep -nE '{pat}' {fs['path']}"))
+            # Never interpolate untrusted proposal strings into a shell command.
+            for fs in proposal.get("experiment", {}).get("files", []):
+                try:
+                    path = edit_ops.validate_path(fs.get("path"), [p for op in ("keygen", "encap", "decap") for p in glob.glob(f"build/{op}/*.v")])
+                except edit_ops.EditError:
+                    continue
+                fb.append(f"--- source {path} ---")
+                fb.append(path.read_text()[:12000])
             fb.append("Revise your experiment with counts derived from these "
                       "lines. Distinguish assignments (your pair sites) from "
                       "comparisons. Return the full corrected JSON.")
@@ -106,17 +108,31 @@ def run(module, level):
     if gain < MIN_GAIN_NS:
         print(f"MARGINAL (< {MIN_GAIN_NS}) -> revert"); edit_ops.revert(backups); return
     print("Improvement real. KAT verdict...")
-    kat = sh("python3 agent/hqc/kat_gate.py")
-    print(kat)
-    if "KAT RESULT: PASS" not in kat:
+    from run_safety import run_process, gate_passed
+    kat = run_process([sys.executable, "agent/hqc/kat_gate.py"])
+    print(kat.stdout)
+    if not gate_passed(kat):
         print("KAT FAIL -> revert"); edit_ops.revert(backups); return
     print("=== EXPERIMENT VERIFIED. Backups kept; review and commit manually. ===")
     print(f"Suggested slug: {proposal['experiment']['name']}; reason: {proposal['reason']}")
+    return True
 
 def run_synthesis_wns_from_board(board):
     import re
     m = re.search(r"^\s*1\s+(-?\d+\.\d+)", board, re.M)
-    return float(m.group(1)) if m else 0.0
+    if not m:
+        raise ValueError("No baseline slack in timing board")
+    return float(m.group(1))
+
+def run(module, level):
+    """Legacy HQC experiment wrapped in the same rollback/locking primitives."""
+    if module not in ("keygen", "encap", "decap") or level not in ("hqc128", "hqc192", "hqc256"):
+        raise ValueError("Unsupported HQC module or parameter set")
+    from run_safety import RunLock, SourceTransaction
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    with RunLock(root), SourceTransaction(root, ["build/keygen", "build/encap", "build/decap"]) as transaction:
+        if _run_candidate(module, level):
+            transaction.accept()
 
 if __name__ == "__main__":
     run(sys.argv[1], sys.argv[2])

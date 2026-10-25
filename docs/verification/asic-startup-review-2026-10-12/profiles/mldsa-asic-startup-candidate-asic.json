@@ -1,0 +1,458 @@
+{
+  "boundary": {
+    "clock_ports": [
+      "clk"
+    ],
+    "constants": {
+      "hint_read_view": "80 stored bytes plus48 constant-only inactive read words",
+      "keccak": "fixed net constants, no runtime loading",
+      "zetas": "256x24 constant logic with enabled registered outputs"
+    },
+    "external_memories": [],
+    "memories": [
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 4096,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_0",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      },
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 1024,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_1",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      },
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 1024,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_2",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      },
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 1024,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_3",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      },
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 1024,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_4",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      },
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 1024,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_5",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      },
+      {
+        "collision": "read-before-write; simultaneous same-address dual writes outside qualified contract",
+        "depth": 1024,
+        "disabled_read": "hold",
+        "initialization": "explicit boot-only serial scrub",
+        "instance": "CORE.BRAM_6",
+        "kind": "generic_same_clock_ff",
+        "read_latency_cycles": 1,
+        "registered_outputs": 2,
+        "width": 96
+      }
+    ],
+    "notes": [
+      "Runtime mode and sec_lvl retained; no specialization.",
+      "Explicit boot reset and serial RAM scrub replace FPGA power-up initialization.",
+      "Ordinary rst preserves storage; asserting boot_rst discards stored context.",
+      "Same-address simultaneous dual writes remain outside the qualified contract.",
+      "Constant zetas and Keccak tables are synthesizable logic; no runtime file load.",
+      "Exact generated Keccak Verilog is retained; original VHDL must not also be compiled."
+    ],
+    "ready_ports": [
+      "boot_ready"
+    ],
+    "reset_ports": [
+      "rst",
+      "boot_rst"
+    ],
+    "scope": "full_mldsa_44_65_87_runtime_selection_with_internal_memories",
+    "source_metadata_directory": "source-bundle",
+    "startup_contract": {
+      "boot_ready_port": "boot_ready",
+      "boot_reset_active_high": true,
+      "boot_reset_minimum_cycles": 1,
+      "boot_reset_port": "boot_rst",
+      "boot_reset_synchronous": true,
+      "host_sequence": "Assert boot_rst across at least one rising edge, deassert, wait boot_ready, then follow original per-operation rst/start protocol. Reboot destroys RAM/transaction state.",
+      "ordinary_reset_clears_memory": false,
+      "ordinary_reset_port": "rst",
+      "scrub_cycles": 4096
+    }
+  },
+  "bundle_files_sha256": {
+    "evidence/source-qualification.json": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de",
+    "source-bundle/LICENSES/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "source-bundle/LICENSES/project-GPL-3.0.txt": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "source-bundle/LICENSES/upstream-MIT.txt": "804726a25c90d4e5961093f25626bce7861124662cfef11e40f953b3f1d834d8",
+    "source-bundle/NOTICE": "4d074742bb08bb947cecd004f1d175346ce1fdeaca958d465a4682ad299b5136",
+    "source-bundle/UPSTREAM_NOTICE": "49834a1c6ca7158d691de8decf1402b6c13c5d1f91a20a8076e55e16081b27fe",
+    "source-bundle/evidence/components/hint_read-simulate.log": "84ca88a3d948c4efcadb4dea8f341b6f0e0c63a9af9875e48d0f4f73c5a05e0c",
+    "source-bundle/evidence/components/knownness-negative.log": "3717286da26dcad7cc94122404b3f2e34f47e7824ab2741da138af972552e430",
+    "source-bundle/evidence/components/ram-simulate.log": "377ee3437a2fca9517047114196f1ee734eea65d414889a62c4905bcdf7564e4",
+    "source-bundle/evidence/components/result.json": "865d756cc85062182f4325664c669390a3966795aad46a6ee667ccfa26884dd0",
+    "source-bundle/evidence/components/shell-simulate.log": "91a0c901a7d6cb888d4bc542fdcb6d56e5f11e0d98f04079049841354dda6786",
+    "source-bundle/evidence/full-kat.json": "9680dcc7510a3c5ef3b51e934d1e1aefdf0dd6d094416aea57f14c9e8eb9b38a",
+    "source-bundle/evidence/generic-ff-synthesis.log": "a71e4399021b7a1996b5a6a11e1f78acd3080bc0c2741908cf2e5d3192633cd6",
+    "source-bundle/evidence/keygen/compile.log": "389bc93a11a4a6316e2eb16d896b1d17b859cf33e8b998262d25f80ce794e77c",
+    "source-bundle/evidence/keygen/simulate-seed-0.log": "563bc325b086bb41ad25754454dcb3c9b3d93c7854145f661710a6a19156b865",
+    "source-bundle/evidence/keygen/simulate-seed-11.log": "1ec78bd0331f5af1d57f6a323b9dc56c89c81662259e1104664b25212b7654a3",
+    "source-bundle/evidence/keygen/simulate-seed-29.log": "c1928448ed6a351fafc08babec0819d60dd65cf2388f6c45bad4abac62ca1ba2",
+    "source-bundle/evidence/qualification.json": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de",
+    "source-bundle/evidence/sign/compile.log": "ae5fc45f299f61a76afaa112dcd44d701d429eb10a362c275de564b4832216d6",
+    "source-bundle/evidence/sign/simulate-seed-0.log": "38c6eec2840a740a91750a7e080503bd47d54c22aa9860dbf1605eb68ded19ad",
+    "source-bundle/evidence/sign/simulate-seed-11.log": "ef4358df763a2cab834cc6485c00c50d81042a7d54fda885839e1bdaaf0d2163",
+    "source-bundle/evidence/sign/simulate-seed-29.log": "b9a6daa9d887a0098660b1f976c29de3120d1987871392147bc9b9971d0c7bde",
+    "source-bundle/evidence/verify/compile.log": "96ffdcb21ae5149a4d022b3724a59c9ee2f139aee0d10591214f5f3661a83aa9",
+    "source-bundle/evidence/verify/simulate-seed-0.log": "51101489fb2c28d71aaf4e506cbf8d0fed8ed84f2b1c96d85457f10b389b5da0",
+    "source-bundle/evidence/verify/simulate-seed-11.log": "ee5738968a79afaa69b677f3480d19d79ce2a55d4f1fdf07d6d6e1e8feec6d8d",
+    "source-bundle/evidence/verify/simulate-seed-29.log": "dc8f66030ad7ee6a78baff564c2f8dc2df873ca7db5a2a934538a15033d1f31a",
+    "source-bundle/evidence/verify_canonical/compile.log": "c0208ddfc52e4e30c924dab9566a275c1ac0212ee7c7d9f9f07efecc27e3e4bc",
+    "source-bundle/evidence/verify_canonical/simulate-seed-0.log": "17534541f0f5ffa9fb03ae28fdeb16837c64b01c8765c12062b3724e9cd0e132",
+    "source-bundle/evidence/verify_canonical/simulate-seed-11.log": "d5f5b4ff7d91b4390e06aad048bd38c3d18eae4c3c16aaca0f408263a23bfb1f",
+    "source-bundle/evidence/verify_canonical/simulate-seed-29.log": "eec1bd01c5d14c9a24418a1ad5ba7b23eaa830c7ef927a7c14230266d3635143",
+    "source-bundle/evidence/verify_mutations/compile.log": "022736c935ba99712627eacd5f258a9dd09f02959aa31f09e8af3efacc611a66",
+    "source-bundle/evidence/verify_mutations/simulate-seed-0.log": "2ff0b3634f9a4b0a133c685ed4e89cf3d9da274d46cf894c0a7a88fdd342c578",
+    "source-bundle/evidence/verify_mutations/simulate-seed-11.log": "9cbac68d1942e04912c1e65d990ab8595e4fa418f1da3a8d2e1818920d9376ed",
+    "source-bundle/evidence/verify_mutations/simulate-seed-29.log": "c87d294ecdbae47a4bff110787745abe5b7fcf565f7575d1e792f8a523c69d4f",
+    "source-bundle/manifest.json": "168f6250b099095181700b40a84671ab65ddde3f80c8ec9a277b80c993bec52e",
+    "source-bundle/rtl/Barrett_8380417.v": "040bc64022eb5a07813dc470f3673a28f62e5ca880f65c28adbee56152ae0c43",
+    "source-bundle/rtl/address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "source-bundle/rtl/address_unit.v": "dfdd2e65ef50ec6984ab13c835646d391a10ff16dd438ccc4366db7b827e15c7",
+    "source-bundle/rtl/butterfly.v": "e6e5eb83394536a2dcd5e0bc9f0d48de5a1f99dd8298a440582063a9cca314e7",
+    "source-bundle/rtl/butterfly2x2.v": "b53ceabcff52c9e581ec7911bd6d956eedbbfe588e9a1e0bac903a8dd63e5700",
+    "source-bundle/rtl/coeff_decomposer.v": "1745413e9340d3efe78d8de1575f60934fb3065ddc3c0578c17e460d535d1f3a",
+    "source-bundle/rtl/combined_top.v": "a0ff3c5fb8c6771e5dc107f2d4ffa6b296def21b10dbda35e5fe4de82d88433a",
+    "source-bundle/rtl/combined_top_asic.v": "1b8502fcf988ea636d1d32cada63a809fd60d4846a4c6f3f8739a188873c92a0",
+    "source-bundle/rtl/decoder.v": "c1770f480f4c0565ffa4c1bb401a001769c219d17cedf2d17f62544b68ef3386",
+    "source-bundle/rtl/decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "source-bundle/rtl/decomposer_unit.v": "b92ebdb6efef1d5a64856466b638bdfeda1fe3204c68f5e50f8e728032de7198",
+    "source-bundle/rtl/dual_port_rom.v": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7",
+    "source-bundle/rtl/encoder.v": "a433d2cf4b4da85732269970fda0a856ba2973201b32e3b0764bfbf3ff1264ea",
+    "source-bundle/rtl/expandmask_ext.v": "350522b39eafece869e2bacf3e604105def31933ad2e67906ce51c054f048fd4",
+    "source-bundle/rtl/gen_a_ext.v": "661c4827d21014ffe0c8f60cbb3e2bdefeebb69f6746e20f258db5e0b7e9d983",
+    "source-bundle/rtl/gen_c.v": "3d676511b7b5acfe3697c1455324a92d5444022817c88cb3ada01c4cc1fa953f",
+    "source-bundle/rtl/gen_s.v": "46b224b5422f353fe05423f9cce14cec58b3fb5a274cf63044abe75403d17904",
+    "source-bundle/rtl/keccak_top_ghdl.v": "6116edd240d1c21ee277b4e1aa7704c8c9c3c6cc3a06bb4e21667ffa15d71b27",
+    "source-bundle/rtl/makehint.v": "548171aa63df7dbf3c26e643cd7f23381f84c68f2d2cd42ed571eba7b56078a9",
+    "source-bundle/rtl/mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+    "source-bundle/rtl/mldsa_sameclock_ff_ram.v": "6fbeb77e89893f125fe39ecda9f17bd3da780eedee5dd343abd18bd3a65efb20",
+    "source-bundle/rtl/norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "source-bundle/rtl/ntt_fifo.v": "cd8ecb9f233b1a5f1112e8fb4653f2801e0d9889e12f40cebcdff3ea5e6c8134",
+    "source-bundle/rtl/ntt_fifo_piso.v": "2a6d24bebcb004d9b9affb8898a083d0d6101ff4c4a84074fcc812c7ac4bde24",
+    "source-bundle/rtl/ntt_pipo.v": "3cf45311ce7f1a7c373f273e473baf5a5fc46539957fb697655cb7411fe28df2",
+    "source-bundle/rtl/operation_module.v": "ab7943d9f694e066040cd66bee19859d0eb35a3550aa7f65755fe3090d5e6e3a",
+    "source-bundle/rtl/rejection_a.v": "ff2126f6ee64652b15d3e676be8de31f9ef48e5b1733e584f9ba3bb708ac5b6c",
+    "source-bundle/rtl/rejection_s.v": "bf21103abfcee9b2f23e748c36848d003a73be2807373cc0497e436ee68edc6c",
+    "source-bundle/rtl/rejection_y.v": "3c13a86b88c2c5ab19473e4e5bc5bc587888ce77995517f02ce302d009d0efbe",
+    "source-bundle/rtl/sampler_a_ext.v": "8f05dc289328c9ab05cedb4317f0cd15b8c04ec69f6361e8ae82a63799a5804b",
+    "source-bundle/rtl/sampler_s.v": "6942f550875093a5a597a87b273cd7eacbfc9876863dcf8a80c69c5f8207bc5f",
+    "source-bundle/rtl/sampler_y_ext.v": "86688d9f04cfe65174c8b94de09f26e501078b73ace7c9a7a1898f04c568c9b7",
+    "source-bundle/rtl/twiddle_resolver.v": "c3a404b23ce717f10bb911997f17d3164fdbba5942488d4a74ce9837f833ec42",
+    "source-bundle/rtl/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "source-bundle/rtl/usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+    "source-bundle/rtl/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "source-bundle/startup-deployment.json": "ef824284ada9de0a3454b46a1ac4543475b05ca12b00dbdf2fafeab17418ebdc",
+    "source-bundle/startup-source-manifest.json": "2a00b5a082922fa4f85d1afd937bfed1ce8fb5886b5839125451a2065a32273c"
+  },
+  "compatibility_blockers": [
+    "Licensed DC/Genus elaboration, standard-cell FF/logic mapping and constraints remain unqualified.",
+    "Mapped-netlist startup, memory latency/collision behavior and implementation equivalence require separate qualification.",
+    "Finite RTL tests do not prove arbitrary reset/abort sequences, all input behaviors or cryptographic certification."
+  ],
+  "design": "mldsa",
+  "elaboration": {
+    "compilation_unit": "single_ordered_compilation_unit_with_persistent_preprocessor_state",
+    "data_files": [],
+    "defines": [],
+    "global_include_files": [],
+    "include_dirs": [],
+    "include_files": [],
+    "language_standard": "verilog2005",
+    "parameters": {},
+    "sources": [
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/Barrett_8380417.v",
+        "sha256": "040bc64022eb5a07813dc470f3673a28f62e5ca880f65c28adbee56152ae0c43"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/address_resolver.v",
+        "sha256": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/address_unit.v",
+        "sha256": "dfdd2e65ef50ec6984ab13c835646d391a10ff16dd438ccc4366db7b827e15c7"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/butterfly.v",
+        "sha256": "e6e5eb83394536a2dcd5e0bc9f0d48de5a1f99dd8298a440582063a9cca314e7"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/butterfly2x2.v",
+        "sha256": "b53ceabcff52c9e581ec7911bd6d956eedbbfe588e9a1e0bac903a8dd63e5700"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/coeff_decomposer.v",
+        "sha256": "1745413e9340d3efe78d8de1575f60934fb3065ddc3c0578c17e460d535d1f3a"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/combined_top.v",
+        "sha256": "a0ff3c5fb8c6771e5dc107f2d4ffa6b296def21b10dbda35e5fe4de82d88433a"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/combined_top_asic.v",
+        "sha256": "1b8502fcf988ea636d1d32cada63a809fd60d4846a4c6f3f8739a188873c92a0"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/decoder.v",
+        "sha256": "c1770f480f4c0565ffa4c1bb401a001769c219d17cedf2d17f62544b68ef3386"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/decomp_map1.v",
+        "sha256": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/decomposer_unit.v",
+        "sha256": "b92ebdb6efef1d5a64856466b638bdfeda1fe3204c68f5e50f8e728032de7198"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/dual_port_rom.v",
+        "sha256": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/encoder.v",
+        "sha256": "a433d2cf4b4da85732269970fda0a856ba2973201b32e3b0764bfbf3ff1264ea"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/expandmask_ext.v",
+        "sha256": "350522b39eafece869e2bacf3e604105def31933ad2e67906ce51c054f048fd4"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/gen_a_ext.v",
+        "sha256": "661c4827d21014ffe0c8f60cbb3e2bdefeebb69f6746e20f258db5e0b7e9d983"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/gen_c.v",
+        "sha256": "3d676511b7b5acfe3697c1455324a92d5444022817c88cb3ada01c4cc1fa953f"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/gen_s.v",
+        "sha256": "46b224b5422f353fe05423f9cce14cec58b3fb5a274cf63044abe75403d17904"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/keccak_top_ghdl.v",
+        "sha256": "6116edd240d1c21ee277b4e1aa7704c8c9c3c6cc3a06bb4e21667ffa15d71b27"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/makehint.v",
+        "sha256": "548171aa63df7dbf3c26e643cd7f23381f84c68f2d2cd42ed571eba7b56078a9"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/mldsa_hint_guard.v",
+        "sha256": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/mldsa_sameclock_ff_ram.v",
+        "sha256": "6fbeb77e89893f125fe39ecda9f17bd3da780eedee5dd343abd18bd3a65efb20"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/norm_check.v",
+        "sha256": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/ntt_fifo.v",
+        "sha256": "cd8ecb9f233b1a5f1112e8fb4653f2801e0d9889e12f40cebcdff3ea5e6c8134"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/ntt_fifo_piso.v",
+        "sha256": "2a6d24bebcb004d9b9affb8898a083d0d6101ff4c4a84074fcc812c7ac4bde24"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/ntt_pipo.v",
+        "sha256": "3cf45311ce7f1a7c373f273e473baf5a5fc46539957fb697655cb7411fe28df2"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/operation_module.v",
+        "sha256": "ab7943d9f694e066040cd66bee19859d0eb35a3550aa7f65755fe3090d5e6e3a"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/rejection_a.v",
+        "sha256": "ff2126f6ee64652b15d3e676be8de31f9ef48e5b1733e584f9ba3bb708ac5b6c"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/rejection_s.v",
+        "sha256": "bf21103abfcee9b2f23e748c36848d003a73be2807373cc0497e436ee68edc6c"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/rejection_y.v",
+        "sha256": "3c13a86b88c2c5ab19473e4e5bc5bc587888ce77995517f02ce302d009d0efbe"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sampler_a_ext.v",
+        "sha256": "8f05dc289328c9ab05cedb4317f0cd15b8c04ec69f6361e8ae82a63799a5804b"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sampler_s.v",
+        "sha256": "6942f550875093a5a597a87b273cd7eacbfc9876863dcf8a80c69c5f8207bc5f"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/sampler_y_ext.v",
+        "sha256": "86688d9f04cfe65174c8b94de09f26e501078b73ace7c9a7a1898f04c568c9b7"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/twiddle_resolver.v",
+        "sha256": "c3a404b23ce717f10bb911997f17d3164fdbba5942488d4a74ce9837f833ec42"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/uncenter_coeff.v",
+        "sha256": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/usehint.v",
+        "sha256": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d"
+      },
+      {
+        "language": "verilog",
+        "path": "source-bundle/rtl/zero_strip.v",
+        "sha256": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+      }
+    ],
+    "top": "combined_top_asic",
+    "working_directory": "source-bundle"
+  },
+  "limitations": [
+    "Explicit startup RTL derivative with fresh finite functional evidence; licensed target compatibility remains unqualified.",
+    "No EDA tool, license, cloud API, download or upstream executable is invoked by export or prepare.",
+    "Target defines, memory initialization/collisions, elaboration and post-mapping equivalence require separate qualification.",
+    "ASIC intent is generic register/logic mapping only, with no memory compiler or RAM/ROM macro substitution.",
+    "Flop mapping, blackbox absence, initialization semantics and constraints must be proven by mapped tool evidence.",
+    "No PPA, timing closure, power, side-channel, certification or whole-system claim."
+  ],
+  "parameter_set": "44-65-87",
+  "profile_fingerprint": "f2650130b90efd3a00a7e0931ded471d10a002a33bcd06a82d4266123d6a42fe",
+  "profile_kind": "qualified_source_target_preparation",
+  "provenance": {
+    "export_manifest": {
+      "path": "source-bundle/manifest.json",
+      "sha256": "168f6250b099095181700b40a84671ab65ddde3f80c8ec9a277b80c993bec52e"
+    },
+    "exporter_sha256": "ec5d58a55bd969794cecf6aa705b8daab88303b26a5242a4753233078f97ec96",
+    "qualification_repository_path": "docs/verification/mldsa-asic-startup-2026-10-12/result.json",
+    "source_bytes_modified_by_target_preparation": false,
+    "source_derivative": "asic-startup-candidate"
+  },
+  "qualification": {
+    "evidence_scope": "Fresh explicit-startup full-operation finite RTL tests; not certification",
+    "generic_ff_evidence": {
+      "mapped_netlist_equivalence_qualified": false,
+      "report": {
+        "path": "evidence/source-qualification.json",
+        "sha256": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de"
+      },
+      "scope": "generic FF/logic structural lowering only",
+      "standard_cell_mapping_qualified": false
+    },
+    "observed_operations": [
+      "keygen",
+      "sign",
+      "verify"
+    ],
+    "report": {
+      "path": "evidence/source-qualification.json",
+      "sha256": "0a4c4b71fbd37b2cd603cbe380510fd63f9d13a73df3801cc26ff1d7ac9ed0de"
+    },
+    "required_operations": [
+      "keygen",
+      "sign",
+      "verify"
+    ],
+    "required_operations_meaning": "Future strict optimization admission requirements; not a claim of completed target qualification.",
+    "secure_zeroization_qualified": false,
+    "source_qualified": true,
+    "startup_rtl_tested": true,
+    "target_define_equivalence_qualified": false,
+    "target_tool_qualified": false,
+    "whole_algorithm_qualified": false
+  },
+  "schema_version": 1,
+  "target": {
+    "kind": "asic",
+    "memory_compiler_allowed": false,
+    "memory_implementation": "flops",
+    "memory_macros": [],
+    "technology_mapping_verified": false
+  },
+  "variant": "asic-startup-candidate"
+}

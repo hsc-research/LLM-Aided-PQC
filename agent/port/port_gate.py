@@ -7,26 +7,28 @@ No single check is sufficient (F8 sub-finding):
 
 Every stage must pass. Ordered cheapest first so failures are cheap.
 """
-import subprocess, shutil, os, sys
+import subprocess, shutil, os, sys, shlex
+from pathlib import Path
+try:
+    from ..run_safety import gate_passed, run_process
+except ImportError:
+    from run_safety import gate_passed, run_process
 
 
 def stage1_pure_reorder(path_before, path_after):
     """Byte-level multiset equality. LC_ALL=C is mandatory: locale collation
     ignores leading whitespace and produces false differences."""
-    env = dict(os.environ, LC_ALL="C")
-    a = subprocess.run(["sort", path_before], capture_output=True, text=True, env=env).stdout
-    b = subprocess.run(["sort", path_after],  capture_output=True, text=True, env=env).stdout
-    if a == b:
-        return True, "pure reorder"
     from collections import Counter
-    ca, cb = Counter(a.split("\n")), Counter(b.split("\n"))
-    added   = cb - ca
-    removed = ca - cb
-    def show(c):
-        return "; ".join(f"{n}x {repr(l)[:60]}" for l, n in list(c.items())[:4])
-    return False, (f"not a pure reorder: +{sum(added.values())} "
-                   f"-{sum(removed.values())} | added: {show(added)} "
-                   f"| removed: {show(removed)}")
+    try:
+        ca = Counter(Path(path_before).read_bytes().splitlines(keepends=True))
+        cb = Counter(Path(path_after).read_bytes().splitlines(keepends=True))
+    except OSError as error:
+        return False, f"Unable to read reorder inputs: {error}"
+    if ca == cb:
+        return True, "pure reorder"
+    added, removed = cb - ca, ca - cb
+    return False, f"not a pure reorder: +{sum(added.values())} -{sum(removed.values())}"
+
 
 
 def stage2_tool_accepts(runner):
@@ -38,9 +40,18 @@ def stage2_tool_accepts(runner):
 
 
 def stage3_kat(cmd, cwd=".", pass_token="PASS"):
-    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, shell=True)
-    ok = pass_token in r.stdout
-    return ok, ("KAT PASS" if ok else f"KAT FAIL: {r.stdout[-400:]}")
+    # Legacy plain substring matching accepted FAIL logs that happened to
+    # mention PASS, and ignored process status. Require the structured gate.
+    if pass_token != "PASS":
+        return False, "Custom pass tokens are unsupported; require GATE: PASS or status PASS"
+    try:
+        argv = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
+        result = run_process(argv, cwd=cwd, timeout=3600)
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        return False, f"KAT execution failed: {error}"
+    ok = gate_passed(result)
+    return ok, ("KAT PASS" if ok else f"KAT FAIL: {result.stdout[-400:]}")
+
 
 
 def run_gate(path, backup, tool_runner, kat_cmd, expect_pure_reorder=True, cwd="."):

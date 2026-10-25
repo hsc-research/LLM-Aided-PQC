@@ -1,0 +1,40 @@
+[
+  {
+    "arm": "baseline",
+    "file": "../mldsa-asic-startup-work/mapping/release-baseline-ff.json",
+    "netlist_sha256": "73700187160db98ea10b88a63cfcc48afd6d5102e27439bd0658bea9c928cbb5",
+    "modules": 58,
+    "remaining_memories": 0,
+    "memory_cells": {},
+    "latch_cells": {},
+    "init_attributes": [],
+    "blackboxes": [],
+    "generic_ff_cell_types": {
+      "$sdffe": 135,
+      "$dffe": 6518,
+      "$sdff": 64,
+      "$sdffce": 16,
+      "$dff": 11
+    },
+    "log_check_success": true
+  },
+  {
+    "arm": "candidate",
+    "file": "../mldsa-asic-startup-work/mapping/release-candidate-ff.json",
+    "netlist_sha256": "57dbcb86e0bd29f7c0bef57934989d78670bffb0319287a066e3e2b2aec46a3e",
+    "modules": 58,
+    "remaining_memories": 0,
+    "memory_cells": {},
+    "latch_cells": {},
+    "init_attributes": [],
+    "blackboxes": [],
+    "generic_ff_cell_types": {
+      "$sdffe": 140,
+      "$dffe": 6522,
+      "$sdff": 81,
+      "$sdffce": 14,
+      "$dff": 14
+    },
+    "log_check_success": true
+  }
+]

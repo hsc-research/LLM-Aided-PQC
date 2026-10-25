@@ -1,0 +1,70 @@
+{
+  "status": "PASS_WITH_EXPLICIT_SCOPE_LIMITS",
+  "software_tests_normal": {
+    "run": 453,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "software_tests_optimized_python": {
+    "run": 453,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "hqc_related_tests_excluded": 19,
+  "rtl_exact_export_cases": {
+    "fpga-latch-corrected-baseline": 210,
+    "fpga-latch-corrected-candidate": 210
+  },
+  "candidate_latency_regressions": 210,
+  "candidate_accepted": false,
+  "licensed_eda_run": false,
+  "api_generation_run": false,
+  "automatic_target_admission": "BLOCKED",
+  "javascript_ui_test": "PASS",
+  "qualification_limits": [
+    "Two-state finite RTL tests, not formal equivalence",
+    "No mapped-memory proof or site-qualified structural/path mapping evidence",
+    "API budget guard uses supplied pricing and estimated tokens, not guaranteed billing cap"
+  ],
+  "evidence_sha256": {
+    "README.md": "6ff18dd8fb34107cafe163a3ac126579d7b8eb4224201aa2dd28b0bc2d2c0ece",
+    "exact-export-candidate-kat/driver.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exact-export-candidate-kat/functional.json": "783a8ebde34ab2fe312cc626b842c7a52d1a0728ec806bc8dc2af5e68c1949b3",
+    "exact-export-candidate-kat/keygen/compile.log": "a36c6ba16af929598089e3590d4a1f0f6b523afb3affb2c0038d160ec6657f9d",
+    "exact-export-candidate-kat/keygen/simulation.log": "7a3be9be455ff010d5560bc9991720a13ac3e82a2b4a6591ebac64363cce76cf",
+    "exact-export-candidate-kat/request.json": "b74f71e88b2f58667f87d76d723d46ab75beb5fd1defe68dad0119d411e909f7",
+    "exact-export-candidate-kat/response.json": "49abb239bd85e5f35c67d492871b97d160ba06018ace73416762ef5480dc729b",
+    "exact-export-candidate-kat/sign/compile.log": "8c25a7933daf4ff7a52f76c7bb661169dde541277bb35591186e819d2dd3fd5c",
+    "exact-export-candidate-kat/sign/simulation.log": "3ba1ea60cdbc765535febd86391a857affff647740f1973186f8b3f11177a9ff",
+    "exact-export-candidate-kat/verify/compile.log": "9749e285cbd5b9b1dc84e07662e00481e092db9e5724b4f65cfaee17aa645020",
+    "exact-export-candidate-kat/verify/simulation.log": "30b7e23024f1efa0c54de729186c677f54c1bc4a1374fa4b903382edb04a17dc",
+    "exact-export-candidate-kat/verify_canonical/compile.log": "73384e45668243a9c55d57781499b52321a3daabec9e1afc94a05eb103e7fd64",
+    "exact-export-candidate-kat/verify_canonical/simulation.log": "0ef4d63f9b0780d515e423bdcf7a02a7f51608f2e4afa3e9e6199ff2c1f18863",
+    "exact-export-candidate-kat/verify_mutations/compile.log": "1666038f07b1b50181846dba0917423a97e119eb5b7b0fd65ac981c0e7fbbef6",
+    "exact-export-candidate-kat/verify_mutations/simulation.log": "aceef3d31092f2ff3b78f708df4e3205d8610f4cb3223499c4adffbac02a4d3c",
+    "exact-export-candidate-kat/version.log": "a1c478e9817c5bbcbc5095b6b8abefac89015612a2a1921d283138267d117a2e",
+    "exact-export-kat/driver.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exact-export-kat/functional.json": "d72e9af3edacf329022d70e9ebe56be8002f6642770cef26ce77bdaf530105bb",
+    "exact-export-kat/keygen/compile.log": "b77c63820617abee4997625bad167bc4b3af6fdcd73f17c9f1964fe004bc35f8",
+    "exact-export-kat/keygen/simulation.log": "aa62bb3eaea3818736928f1a8f4ee5487a495ec19697c67843b77e48779a6bb2",
+    "exact-export-kat/request.json": "35db723bc7fd10516a9f17dab17c98b6f0eb65c9357557b596ba01917927c3af",
+    "exact-export-kat/response.json": "597deb9f4309b9898fb8d11ff35dc0ce969d42767625a64f51ad2293baf74a51",
+    "exact-export-kat/sign/compile.log": "90519d09cd475a24d20f3c88bb3dec8de5fe285d45511979a385902c09fabece",
+    "exact-export-kat/sign/simulation.log": "62ac1606467086601f92977eddfa835777695e63e0306b432eb8f46e7386526f",
+    "exact-export-kat/verify/compile.log": "6300d0111425f8eeea1a14aee39b4ad46052181caffc333249f829fc76e35acd",
+    "exact-export-kat/verify/simulation.log": "ccba58a4b3428d5052e39cb56342ad754ba35be5b2f923b84c2d9b462a88bc0e",
+    "exact-export-kat/verify_canonical/compile.log": "83f2964157dcd9b688202286bc4bc7a3050ba417a21c5151337236f08866235e",
+    "exact-export-kat/verify_canonical/simulation.log": "605de3d4af0f40826597323a695e65b04638d92a9aa7829c5e3abfe4278c0012",
+    "exact-export-kat/verify_mutations/compile.log": "d75aa2caa0c0b97b94d8e846e5793ee65c6a5c7599be51f0933704887c1d8eb2",
+    "exact-export-kat/verify_mutations/simulation.log": "1de896e7b91a102bc295ac0fa28ca43d793bcbbc5da93570c7ac03f69523b258",
+    "exact-export-kat/version.log": "a1c478e9817c5bbcbc5095b6b8abefac89015612a2a1921d283138267d117a2e",
+    "latency-comparison.json": "5285a9d4ee7b77ce1de2718b8c1f50669bc3e4e5fd8001007a89375fa78c41d3",
+    "run_permitted_subset.py": "79ed93ede3325bb835d8b98881e0e3eb551848f024a9f848a1dd70bb1e18ffa1",
+    "tests-O0.txt": "f69921950c1a0dfb060fc4cebfad2c8e757ee134bdb404bea0d48b088570ea33",
+    "tests-O1.txt": "913348147a85b4f0ef1292315a8bc88e7ca4fa399550b157e58c55fd11f48719",
+    "unittest-O0.json": "164541fca8a6ee068a1fb1af9ad2981bd840d123d360f0fc4128ca8ea984d2d9",
+    "unittest-O1.json": "6dbb7795075d0b3074a68b2de8b9f0e2ac5ef79d94be6d1a49a7dcd803202e06"
+  }
+}

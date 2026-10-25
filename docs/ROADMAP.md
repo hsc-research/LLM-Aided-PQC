@@ -1,3 +1,8 @@
+> Historical research document. Commands, coverage claims, plans, and numbers below
+> describe earlier experiments. For the current checkout, use
+> [project status](PROJECT_STATUS.md), [setup](REPRODUCE.md), and the
+> [result-reading guide](RESULTS.md).
+
 # Publication Roadmap — what makes this agent distinct
 
 ## The claim

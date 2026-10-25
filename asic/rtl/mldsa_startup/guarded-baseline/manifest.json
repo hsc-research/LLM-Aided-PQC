@@ -1,0 +1,1408 @@
+{
+  "schema_version": 1,
+  "source_variant": "guarded-baseline",
+  "top": "combined_top_asic",
+  "reference_manifest_sha256": "c754617eebc16623ef75136ad9edd628a61df0459c65843d703a514ab55d3449",
+  "reference_source_hashes": {
+    "Barrett_8380417.v": "dcdf972d584088ec35f7cfaf34c03b27e842d791c9a0f6b562c7cfe67679b855",
+    "address_resolver.v": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6",
+    "address_unit.v": "d64d8cbb212a807aaba5e524342cdf2b90aaf73c89da62a8186af2ee0a2d7eb0",
+    "butterfly.v": "a0d107a4aec1a7fccfb10dbd54de82485c77e16c0e05f21233ee3aa8589bc00f",
+    "butterfly2x2.v": "6fe29b03f5e86ba41726851a4c1fb83fc2bc1adaf79465072112d135a1da36d6",
+    "coeff_decomposer.v": "237a64f8291a3598fec00131fc65844d1a9b9f7ad20240d1c089fc6828d9d9ad",
+    "decoder.v": "cfb1b879f75e8d4989570281ce196cec01c76e3aa54e52fa506c222a4278a947",
+    "decomp_map1.v": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7",
+    "decomposer_unit.v": "4c3c20cf1f65593b3779d039602164615379ec60c3721c4a1d66f753d0fec7e7",
+    "dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844",
+    "dual_port_rom.v": "f3477849199c977a50037db3cc450bd8be4cfb2206c582751f7f87a90b300176",
+    "encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+    "expandmask_ext.v": "06c57fb27c0a590933f15066ddf354f12052cdf031b2ba8683329038f3d15c3d",
+    "gen_a_ext.v": "56d43ca228eb406e8f86baa34a10ae6b16b99b37f2248c337c72126411359474",
+    "gen_c.v": "61c566fba62f9c9d9671d9fa3f7c7fdf117a6d12d87c2306c582abb3b352292c",
+    "gen_s.v": "c935e7132c56059206140e774d5e907171a8e888060b86c96aff6e8828eda07e",
+    "keccak_top_ghdl.v": "49e5f9e2bf65a421b40807b5da5cbe6e9e4b65688bda2a8fe03ac0221f5ebc77",
+    "makehint.v": "d8614915814c66fe14d1075b56913ca4cc57c2fe81e25d210765a434fa517fee",
+    "mldsa_hint_guard.v": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe",
+    "norm_check.v": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298",
+    "ntt_fifo.v": "faa85c5164ff1ca897cb59b26adac24b3e8f91bc8a6e4b45a36dec58211e1d00",
+    "ntt_fifo_piso.v": "6b9ba573cb1ed1db3c398cdd23637bb87185ab12897e3af8d83be657ace213a0",
+    "ntt_pipo.v": "155e2f4ce1cff38d9f4168fa4842086a574c0566cc90a7ab0460a6373f4fcead",
+    "operation_module.v": "6e9b6690fbf1e677a36ae970b9a6762adeae8bc4c3f23548091da7b48cf9ca18",
+    "rejection_a.v": "ed8eef14647eadd99f67ac13d099a9447e17d0f944770423d8cf7b8e60bde2b3",
+    "rejection_s.v": "dbb7ab502f54e591839ddbea17c70ffd47f572b20201ed463418f9605211434f",
+    "rejection_y.v": "33b3cd73fc4773ccfd37c7d3e1dc151ccae83e4d4b32e41267732e1afe4145fb",
+    "sampler_a_ext.v": "08b28b1f7f8effbad46659a736c8342fbad844754c47471f6b8c3c11e0c6ae59",
+    "sampler_s.v": "2cbc1d31f8639aea9c1cb8808dd37f9589ca61141f42b1b9de8480462a034055",
+    "sampler_y_ext.v": "f56b6d4934c3709fe5d93c1f5fa87dfec7e794bac46ad4db8d15ba9d5eb02d75",
+    "twiddle_resolver.v": "6a270f54181944dea1432826fef0ac3b50382bcce88eee319adc1230c3b98e9c",
+    "uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "usehint.v": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d",
+    "zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "combined_top.v": "0f288b8af7f5e4edb0a7745f33c1ee13ae5910569cbd98af1ab43fb0bcf92c9f"
+  },
+  "sources": [
+    {
+      "path": "rtl/Barrett_8380417.v",
+      "sha256": "040bc64022eb5a07813dc470f3673a28f62e5ca880f65c28adbee56152ae0c43"
+    },
+    {
+      "path": "rtl/address_resolver.v",
+      "sha256": "567dee1bec18ff4ef1e4a06de380bd3cff425116823db4efe9eec00bf6df87a6"
+    },
+    {
+      "path": "rtl/address_unit.v",
+      "sha256": "dfdd2e65ef50ec6984ab13c835646d391a10ff16dd438ccc4366db7b827e15c7"
+    },
+    {
+      "path": "rtl/butterfly.v",
+      "sha256": "918da4ce37c3c2534b6437c494ef3175fce8ec6b02c0e2ac36fda00f02415b98"
+    },
+    {
+      "path": "rtl/butterfly2x2.v",
+      "sha256": "135ef023529d16efdb0160427c40e0de011342bf3f50a2a9ea881b050796cc76"
+    },
+    {
+      "path": "rtl/coeff_decomposer.v",
+      "sha256": "65dd302dffb728b1bf610154c2de366191b184e46437eca32c12eb0e89f9911d"
+    },
+    {
+      "path": "rtl/combined_top.v",
+      "sha256": "a72c882e3426dc20aff5a451748a6a980d7e1f9a94dbe09c91c6d5133acb30de"
+    },
+    {
+      "path": "rtl/combined_top_asic.v",
+      "sha256": "1b8502fcf988ea636d1d32cada63a809fd60d4846a4c6f3f8739a188873c92a0"
+    },
+    {
+      "path": "rtl/decoder.v",
+      "sha256": "2ce8fe5d2c4749de62c9d1c908cd06e2406a3c7f8b5b3bf249b012e84c98c967"
+    },
+    {
+      "path": "rtl/decomp_map1.v",
+      "sha256": "b5e75d1f62049a86a3f94f96bba9ed6e52fc153ae3d1abad5618fe0660fb5dc7"
+    },
+    {
+      "path": "rtl/decomposer_unit.v",
+      "sha256": "b92ebdb6efef1d5a64856466b638bdfeda1fe3204c68f5e50f8e728032de7198"
+    },
+    {
+      "path": "rtl/dual_port_rom.v",
+      "sha256": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7"
+    },
+    {
+      "path": "rtl/encoder.v",
+      "sha256": "a5bff6c6bad322aa478d12042efceeddb496a959d47684afbe0338e459dc2379"
+    },
+    {
+      "path": "rtl/expandmask_ext.v",
+      "sha256": "350522b39eafece869e2bacf3e604105def31933ad2e67906ce51c054f048fd4"
+    },
+    {
+      "path": "rtl/gen_a_ext.v",
+      "sha256": "661c4827d21014ffe0c8f60cbb3e2bdefeebb69f6746e20f258db5e0b7e9d983"
+    },
+    {
+      "path": "rtl/gen_c.v",
+      "sha256": "ec160c6144c7f987da64a14ee2a514a383c477989953101744049cdb7cfe3b73"
+    },
+    {
+      "path": "rtl/gen_s.v",
+      "sha256": "46b224b5422f353fe05423f9cce14cec58b3fb5a274cf63044abe75403d17904"
+    },
+    {
+      "path": "rtl/keccak_top_ghdl.v",
+      "sha256": "36ef919d8338ba2d86c6a9c46157acf0834a5da31923337834aed377d8f965ae"
+    },
+    {
+      "path": "rtl/makehint.v",
+      "sha256": "4302c86a9ca9cc57908cbea57a3fdf7bb7b94b29cac55109cf1b8b124cd502c1"
+    },
+    {
+      "path": "rtl/mldsa_hint_guard.v",
+      "sha256": "cd6dbacfb3fa94182880a319c963a545fe5dffdd92e9b51a09a13ac82e46cdbe"
+    },
+    {
+      "path": "rtl/mldsa_sameclock_ff_ram.v",
+      "sha256": "6fbeb77e89893f125fe39ecda9f17bd3da780eedee5dd343abd18bd3a65efb20"
+    },
+    {
+      "path": "rtl/norm_check.v",
+      "sha256": "7cf74b8fcca5c4f03c977cb222436b4085fba472df9ccc8394563b453aed3298"
+    },
+    {
+      "path": "rtl/ntt_fifo.v",
+      "sha256": "cd8ecb9f233b1a5f1112e8fb4653f2801e0d9889e12f40cebcdff3ea5e6c8134"
+    },
+    {
+      "path": "rtl/ntt_fifo_piso.v",
+      "sha256": "2a6d24bebcb004d9b9affb8898a083d0d6101ff4c4a84074fcc812c7ac4bde24"
+    },
+    {
+      "path": "rtl/ntt_pipo.v",
+      "sha256": "3cf45311ce7f1a7c373f273e473baf5a5fc46539957fb697655cb7411fe28df2"
+    },
+    {
+      "path": "rtl/operation_module.v",
+      "sha256": "4c820813497cfdc107c143156248e0ab39d118b30c349344ba945310acc45eed"
+    },
+    {
+      "path": "rtl/rejection_a.v",
+      "sha256": "ff2126f6ee64652b15d3e676be8de31f9ef48e5b1733e584f9ba3bb708ac5b6c"
+    },
+    {
+      "path": "rtl/rejection_s.v",
+      "sha256": "c14f1ae32aa625c03ac44e1ab1ee513305121704fe59a52ea5fa810f0c5ae026"
+    },
+    {
+      "path": "rtl/rejection_y.v",
+      "sha256": "26f974b761f47c2d3a6ced414fa0a30c05d894016879e7eab26e96df3f5ac45d"
+    },
+    {
+      "path": "rtl/sampler_a_ext.v",
+      "sha256": "8f05dc289328c9ab05cedb4317f0cd15b8c04ec69f6361e8ae82a63799a5804b"
+    },
+    {
+      "path": "rtl/sampler_s.v",
+      "sha256": "6942f550875093a5a597a87b273cd7eacbfc9876863dcf8a80c69c5f8207bc5f"
+    },
+    {
+      "path": "rtl/sampler_y_ext.v",
+      "sha256": "86688d9f04cfe65174c8b94de09f26e501078b73ace7c9a7a1898f04c568c9b7"
+    },
+    {
+      "path": "rtl/twiddle_resolver.v",
+      "sha256": "c3a404b23ce717f10bb911997f17d3164fdbba5942488d4a74ce9837f833ec42"
+    },
+    {
+      "path": "rtl/uncenter_coeff.v",
+      "sha256": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47"
+    },
+    {
+      "path": "rtl/usehint.v",
+      "sha256": "46123e5d864d1501b392f2fa37c34223eb3de6c6acf84a59fa07c93047b5d76d"
+    },
+    {
+      "path": "rtl/zero_strip.v",
+      "sha256": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+    }
+  ],
+  "boot_port_modules": [
+    "NTT_PIPO",
+    "address_unit",
+    "butterfly",
+    "butterfly2x2",
+    "coeff_decomposer",
+    "combined_top",
+    "decoder",
+    "decomposer_unit",
+    "encoder",
+    "expandmask_ext",
+    "gen_a_ext",
+    "gen_c",
+    "gen_s",
+    "ntt_fifo",
+    "ntt_fifo_piso",
+    "operation_module",
+    "rejection_a",
+    "rejection_s",
+    "rejection_y",
+    "sampler_a_ext",
+    "sampler_s",
+    "sampler_y_ext",
+    "twiddle_resolver"
+  ],
+  "startup_audit": {
+    "address_unit.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "j"
+        ],
+        "original_statement": "j              = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "k"
+        ],
+        "original_statement": "k              = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "i"
+        ],
+        "original_statement": "i              = 1;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "l"
+        ],
+        "original_statement": "l              = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "ram_addr"
+        ],
+        "original_statement": "ram_addr       = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ntt_round_done"
+        ],
+        "original_statement": "ntt_round_done = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done"
+        ],
+        "original_statement": "done           = 0;"
+      }
+    ],
+    "butterfly.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "valid_sr"
+        ],
+        "original_statement": "valid_sr = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj3"
+        ],
+        "original_statement": "aj3[0] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj3"
+        ],
+        "original_statement": "aj3[1] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj3"
+        ],
+        "original_statement": "aj3[2] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj3"
+        ],
+        "original_statement": "aj3[3] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj3"
+        ],
+        "original_statement": "aj3[4] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj1"
+        ],
+        "original_statement": "aj1 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ajlen1"
+        ],
+        "original_statement": "ajlen1 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj2"
+        ],
+        "original_statement": "aj2 = 0;"
+      },
+      {
+        "kind": "read_only_constant",
+        "registers": [
+          "ajlen2_FNTT"
+        ],
+        "original_statement": "ajlen2_FNTT = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ajlen2_INTT"
+        ],
+        "original_statement": "ajlen2_INTT = 0;"
+      },
+      {
+        "kind": "read_only_constant",
+        "registers": [
+          "ajlen2_MODM"
+        ],
+        "original_statement": "ajlen2_MODM = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ajlen3"
+        ],
+        "original_statement": "ajlen3 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj4"
+        ],
+        "original_statement": "aj4 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ajlen4"
+        ],
+        "original_statement": "ajlen4 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ajlen4_sub"
+        ],
+        "original_statement": "ajlen4_sub = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "aj5"
+        ],
+        "original_statement": "aj5 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ajlen5"
+        ],
+        "original_statement": "ajlen5 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "adda"
+        ],
+        "original_statement": "adda = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "addb"
+        ],
+        "original_statement": "addb = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "suba"
+        ],
+        "original_statement": "suba = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "subb"
+        ],
+        "original_statement": "subb = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "adder"
+        ],
+        "original_statement": "adder = 0;"
+      },
+      {
+        "kind": "unused_initializer_removed",
+        "registers": [
+          "add_tmp"
+        ],
+        "original_statement": "add_tmp = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "sub_tmp"
+        ],
+        "original_statement": "sub_tmp = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "subtractor"
+        ],
+        "original_statement": "subtractor = 0;"
+      }
+    ],
+    "butterfly2x2.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "z2_sr",
+          "z3_sr"
+        ],
+        "original_statement": "for (i = 0; i < 8; i = i + 1) begin\n            z2_sr[i] = 0;\n            z3_sr[i] = 0;\n        end"
+      }
+    ],
+    "coeff_decomposer.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "doa"
+        ],
+        "original_statement": "doa = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "dob"
+        ],
+        "original_statement": "dob = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "valid_o"
+        ],
+        "original_statement": "valid_o = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "valid_sr"
+        ],
+        "original_statement": "valid_sr = 0;"
+      }
+    ],
+    "decoder.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_IN"
+        ],
+        "original_statement": "SIPO_IN  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_OUT"
+        ],
+        "original_statement": "SIPO_OUT = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_in_len"
+        ],
+        "original_statement": "sipo_in_len  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_out_len"
+        ],
+        "original_statement": "sipo_out_len = 0;"
+      }
+    ],
+    "encoder.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "PISO"
+        ],
+        "original_statement": "PISO = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "piso_len"
+        ],
+        "original_statement": "piso_len = 0;"
+      }
+    ],
+    "expandmask_ext.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "cstate"
+        ],
+        "original_statement": "cstate = S_HOLD;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "nstate"
+        ],
+        "original_statement": "nstate = S_HOLD;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr"
+        ],
+        "original_statement": "ctr    = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_sampler"
+        ],
+        "original_statement": "done_sampler = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SEED_SIPO"
+        ],
+        "original_statement": "SEED_SIPO = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_status"
+        ],
+        "original_statement": "SIPO_status = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "NONCE"
+        ],
+        "original_statement": "NONCE = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "OFFSET"
+        ],
+        "original_statement": "OFFSET = 0;"
+      }
+    ],
+    "gen_a_ext.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_sampler"
+        ],
+        "original_statement": "done_sampler   = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_latch"
+        ],
+        "original_statement": "done_latch     = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sample_state"
+        ],
+        "original_statement": "sample_state   = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "re_sample"
+        ],
+        "original_statement": "for (i = 0; i < SAMPLER_NUM; i = i + 1)\n            re_sample[i] = 0;"
+      }
+    ],
+    "gen_c.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "cstate"
+        ],
+        "original_statement": "cstate = S_HOLD;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "nstate"
+        ],
+        "original_statement": "nstate = S_HOLD;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr"
+        ],
+        "original_statement": "ctr    = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "MU_SIPO"
+        ],
+        "original_statement": "MU_SIPO   = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "C_SIPO"
+        ],
+        "original_statement": "C_SIPO    = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sample_no"
+        ],
+        "original_statement": "sample_no = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "C_POLY"
+        ],
+        "original_statement": "for (i = 0; i < 256; i = i + 1) begin\n            C_POLY[i] = 0;\n        end"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "samples"
+        ],
+        "original_statement": "samples = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "done_sampler"
+        ],
+        "original_statement": "done_sampler = 0;"
+      },
+      {
+        "kind": "unsupported_selector_default",
+        "registers": [
+          "C_SIPO_START",
+          "ch"
+        ],
+        "note": "Default zero only for sec_lvl other than 2/3/5; supported assignments unchanged. Removes two inferred latches."
+      }
+    ],
+    "gen_s.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_sampler"
+        ],
+        "original_statement": "done_sampler   = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_latch"
+        ],
+        "original_statement": "done_latch     = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sample_state"
+        ],
+        "original_statement": "sample_state   = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "mode"
+        ],
+        "original_statement": "mode           = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "re_sample"
+        ],
+        "original_statement": "for (i = 0; i < SAMPLER_NUM; i = i + 1)\n            re_sample[i] = 0;"
+      }
+    ],
+    "keccak_top_ghdl.v": [
+      {
+        "kind": "constant_table",
+        "registers": [
+          "n2151",
+          "n804",
+          "n807",
+          "n810"
+        ],
+        "words": 56
+      }
+    ],
+    "makehint.v": [
+      {
+        "kind": "inactive_read_mux_definition",
+        "registers": [
+          "hint_addr"
+        ],
+        "storage_words": 80,
+        "constant_only_read_view_words": 48,
+        "note": "Only dynamic reads changed; all writes and 80-byte storage retained. Supported output-read bounds are 0..79 / 0..54 / 0..74 for levels 2/3/5."
+      }
+    ],
+    "ntt_fifo.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "count"
+        ],
+        "original_statement": "count = 0;"
+      }
+    ],
+    "ntt_fifo_piso.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "fifo"
+        ],
+        "original_statement": "for (i = 0; i < DEPTH; i = i + 1)\n            fifo[i] = 0;"
+      }
+    ],
+    "ntt_pipo.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "PIPO"
+        ],
+        "original_statement": "for (i = 0; i < DEPTH; i = i + 1)\n            PIPO[i] = 0;"
+      }
+    ],
+    "operation_module.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "running"
+        ],
+        "original_statement": "running    = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "bram_delay"
+        ],
+        "original_statement": "bram_delay = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_latch"
+        ],
+        "original_statement": "done_latch = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "pause"
+        ],
+        "original_statement": "pause      = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "addr1_sr"
+        ],
+        "original_statement": "for (i = 0; i < 23; i = i + 1)\n            addr1_sr[i] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done"
+        ],
+        "original_statement": "done = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "addra1"
+        ],
+        "original_statement": "addra1 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "addrb1"
+        ],
+        "original_statement": "addrb1 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "web1"
+        ],
+        "original_statement": "web1 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "dib1"
+        ],
+        "original_statement": "dib1 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "addra2"
+        ],
+        "original_statement": "addra2 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "addrb2"
+        ],
+        "original_statement": "addrb2 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "web2"
+        ],
+        "original_statement": "web2 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "dib2"
+        ],
+        "original_statement": "dib2 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "validi_bf"
+        ],
+        "original_statement": "validi_bf = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "datai_bf"
+        ],
+        "original_statement": "datai_bf = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "zetai_bf"
+        ],
+        "original_statement": "zetai_bf = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "acci_bf"
+        ],
+        "original_statement": "acci_bf = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "done_latch"
+        ],
+        "original_statement": "done_latch = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "pause"
+        ],
+        "original_statement": "pause = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "valid_sr"
+        ],
+        "original_statement": "valid_sr = 0;"
+      }
+    ],
+    "rejection_a.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_IN"
+        ],
+        "original_statement": "SIPO_IN  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_OUT"
+        ],
+        "original_statement": "SIPO_OUT = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_in_len"
+        ],
+        "original_statement": "sipo_in_len  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_out_len"
+        ],
+        "original_statement": "sipo_out_len = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "samples"
+        ],
+        "original_statement": "samples = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "valid_o"
+        ],
+        "original_statement": "valid_o = 0;"
+      }
+    ],
+    "rejection_s.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_IN"
+        ],
+        "original_statement": "SIPO_IN  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_OUT"
+        ],
+        "original_statement": "SIPO_OUT = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_in_len"
+        ],
+        "original_statement": "sipo_in_len  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_out_len"
+        ],
+        "original_statement": "sipo_out_len = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "samples"
+        ],
+        "original_statement": "samples = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "valid_o"
+        ],
+        "original_statement": "valid_o = 0;"
+      }
+    ],
+    "rejection_y.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_IN"
+        ],
+        "original_statement": "SIPO_IN  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SIPO_OUT"
+        ],
+        "original_statement": "SIPO_OUT = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_in_len"
+        ],
+        "original_statement": "sipo_in_len  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sipo_out_len"
+        ],
+        "original_statement": "sipo_out_len = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "samples"
+        ],
+        "original_statement": "samples = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "valid_o"
+        ],
+        "original_statement": "valid_o = 0;"
+      }
+    ],
+    "sampler_a_ext.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "state"
+        ],
+        "original_statement": "state      = INIT;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "rst_k"
+        ],
+        "original_statement": "rst_k      = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "rst_a"
+        ],
+        "original_statement": "rst_a      = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SEED_SIPO"
+        ],
+        "original_statement": "SEED_SIPO  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sample_ctr"
+        ],
+        "original_statement": "sample_ctr = 0;"
+      }
+    ],
+    "sampler_s.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "state"
+        ],
+        "original_statement": "state      = INIT;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "rst_k"
+        ],
+        "original_statement": "rst_k      = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "rst_s"
+        ],
+        "original_statement": "rst_s      = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SEED_SIPO"
+        ],
+        "original_statement": "SEED_SIPO  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sample_ctr"
+        ],
+        "original_statement": "sample_ctr = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "resample_reg"
+        ],
+        "original_statement": "resample_reg = 0;"
+      }
+    ],
+    "sampler_y_ext.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "state"
+        ],
+        "original_statement": "state      = INIT;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "rst_k"
+        ],
+        "original_statement": "rst_k      = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "rst_y"
+        ],
+        "original_statement": "rst_y      = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "SEED_SIPO"
+        ],
+        "original_statement": "SEED_SIPO  = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "sample_ctr"
+        ],
+        "original_statement": "sample_ctr = 0;"
+      }
+    ],
+    "twiddle_resolver.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "l1"
+        ],
+        "original_statement": "l1 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "l2"
+        ],
+        "original_statement": "l2 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "l3"
+        ],
+        "original_statement": "l3 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "l4"
+        ],
+        "original_statement": "l4 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "tw_base_i"
+        ],
+        "original_statement": "tw_base_i[0] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "tw_base_i"
+        ],
+        "original_statement": "tw_base_i[1] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "tw_base_i"
+        ],
+        "original_statement": "tw_base_i[2] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "tw_base_i"
+        ],
+        "original_statement": "tw_base_i[3] = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "t_last"
+        ],
+        "original_statement": "t_last = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "twiddle_addr1"
+        ],
+        "original_statement": "twiddle_addr1 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "twiddle_addr2"
+        ],
+        "original_statement": "twiddle_addr2 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "twiddle_addr3"
+        ],
+        "original_statement": "twiddle_addr3 = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "twiddle_addr4"
+        ],
+        "original_statement": "twiddle_addr4 = 0;"
+      }
+    ],
+    "combined_top.v": [
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "cstate0"
+        ],
+        "original_statement": "cstate0 = FSM0_INIT;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "cstate1"
+        ],
+        "original_statement": "cstate1 = FSM1_STALL;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "cstate2"
+        ],
+        "original_statement": "cstate2 = FSM2_STALL;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "ready_i"
+        ],
+        "original_statement": "ready_i = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "valid_o"
+        ],
+        "original_statement": "valid_o = 0;"
+      },
+      {
+        "kind": "combinational_initializer_removed",
+        "registers": [
+          "data_o"
+        ],
+        "original_statement": "data_o = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "C"
+        ],
+        "original_statement": "C = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "TR"
+        ],
+        "original_statement": "TR = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "RHO"
+        ],
+        "original_statement": "RHO = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "MU"
+        ],
+        "original_statement": "MU = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_s1"
+        ],
+        "original_statement": "ctr_s1 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_s2"
+        ],
+        "original_statement": "ctr_s2 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_a1"
+        ],
+        "original_statement": "ctr_a1 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_a2"
+        ],
+        "original_statement": "ctr_a2 = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_t"
+        ],
+        "original_statement": "ctr_t = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_c"
+        ],
+        "original_statement": "ctr_c = 0;"
+      },
+      {
+        "kind": "explicit_boot_reset",
+        "registers": [
+          "ctr_dec"
+        ],
+        "original_statement": "ctr_dec = 0;"
+      }
+    ]
+  },
+  "contract": {
+    "boot_reset": "synchronous active high; assert across at least one clock edge",
+    "ready_cycles": 4096,
+    "normal_rst_clears_memory": false,
+    "same_clock_banks": {
+      "4096x96": 1,
+      "1024x96": 6
+    }
+  },
+  "functional_qualification": false
+}

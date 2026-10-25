@@ -1,0 +1,966 @@
+{
+  "HQC": "Not exported, compiled, simulated or repaired. Prior security restriction preserved.",
+  "checker_sha256": "1404131f65a6a32eb3d800c0581ff85c39be38964fa1b5255a8a107894489192",
+  "date_utc": "2026-10-12",
+  "exporter_sha256": "2b743077c250d5817e1c1a275ba5645a42b3544e8081f0b9a59bd5caeeac5d07",
+  "limits": [
+    "Fourteen exact-source profiles; historical source qualification is retained, but this audit adds compile/lint only.",
+    "No FPGA/ASIC commercial tool or technology mapping ran; no memory compiler/macros or downloaded software.",
+    "Warnings remain unreviewed; zero exit is not compatibility, startup equivalence, BRAM/FF proof, or PPA admission.",
+    "ML-KEM unified source requires ML-DSA operation coverage before shared-core optimization admission.",
+    "ML-DSA and SLH ASIC RAM/control-state initialization remains a whole-top port blocker."
+  ],
+  "profiles": [
+    {
+      "compiler_returncode": 0,
+      "defines": [
+        "SYNTHESIS",
+        "RV_FPGA_OPTIMIZE"
+      ],
+      "design": "mlkem",
+      "functional_qualification": false,
+      "language_standard": "systemverilog2017",
+      "log_sha256": "a65189ac1907bf9b1747bfc1d20da7ebcfa40f1787d6a2a920e2d44a89833813",
+      "memory_mapping_proven": false,
+      "parameter_set": "1024",
+      "profile_fingerprint": "f6f40e87544be7c5e710dddd795cfa4b96fb4174ad8bd8a86ef1f8e54f379ffc",
+      "profile_sha256": "9200e46d670955d637db7e610a6d036b979bdf35a9a755cb3bb6f3112aba9f28",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mlkem-baseline-fpga.log.txt",
+        "sha256": "a65189ac1907bf9b1747bfc1d20da7ebcfa40f1787d6a2a920e2d44a89833813"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mlkem-baseline-fpga.result.json",
+        "sha256": "f69717282c2af4f806d2ec99240adb85d88ec75f2c8f577eebc07aeb8a704a7a"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "mlkem",
+        "--variant",
+        "baseline",
+        "--target",
+        "fpga",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 175,
+      "source_export_manifest_sha256": "a7b397664b98bd1af6d580d9ff6ad6b045237482faa4cee758575e53b7f4cb72",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "ce3a386e459fc77014aa3e69b26e2a0c22ffeac8dcd66ae85daade1f91313d22",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "verilator",
+      "tool_version": " rev vUNKNOWN-built20260516-4e853d8",
+      "variant": "baseline",
+      "warning_categories": {
+        "CMPCONST": 2,
+        "UNOPTFLAT": 2,
+        "WIDTHEXPAND": 197,
+        "WIDTHTRUNC": 47
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [
+        "SYNTHESIS"
+      ],
+      "design": "mlkem",
+      "functional_qualification": false,
+      "language_standard": "systemverilog2017",
+      "log_sha256": "b6c063bdca4f0e83ef3a735b6bc8844e45f4119446e6f9a9a23bcc9d482434f3",
+      "memory_mapping_proven": false,
+      "parameter_set": "1024",
+      "profile_fingerprint": "53ac71ebae3fd96f3c7da4ef3a15e90773326a33c7298e4041fdee7e869470eb",
+      "profile_sha256": "39875934d8d9062e945cca3cc329e92eeb25bbb53762b674764e68f3a34a22e1",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mlkem-baseline-asic.log.txt",
+        "sha256": "b6c063bdca4f0e83ef3a735b6bc8844e45f4119446e6f9a9a23bcc9d482434f3"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mlkem-baseline-asic.result.json",
+        "sha256": "f9798a0e3c61e4acc94b6d9c4ca93fc5a76c1dac5ee567c077e3565709dca498"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/verilator",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "mlkem",
+        "--variant",
+        "baseline",
+        "--target",
+        "asic",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 175,
+      "source_export_manifest_sha256": "a7b397664b98bd1af6d580d9ff6ad6b045237482faa4cee758575e53b7f4cb72",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "ce3a386e459fc77014aa3e69b26e2a0c22ffeac8dcd66ae85daade1f91313d22",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "verilator",
+      "tool_version": " rev vUNKNOWN-built20260516-4e853d8",
+      "variant": "baseline",
+      "warning_categories": {
+        "CMPCONST": 2,
+        "UNOPTFLAT": 2,
+        "WIDTHEXPAND": 197,
+        "WIDTHTRUNC": 47
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "mldsa",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "memory_mapping_proven": false,
+      "parameter_set": "44-65-87",
+      "profile_fingerprint": "9fc5100431c821b8d882ebe791f3fbdafaa56e3626d862f189c8327f66b77faa",
+      "profile_sha256": "6a5851ccb00c448a2fc8388db3fea3416ca96c32fcc84d4188e4c4a421f1dc3d",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-guarded-baseline-fpga.log.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-guarded-baseline-fpga.result.json",
+        "sha256": "3b463d54c72bb7597a682e702044c6f183912771bfaf1da05371ed6dbbfd13e9"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "mldsa",
+        "--variant",
+        "guarded-baseline",
+        "--target",
+        "fpga",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 35,
+      "source_export_manifest_sha256": "c754617eebc16623ef75136ad9edd628a61df0459c65843d703a514ab55d3449",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "b547875ecf00548547f7a9afde60fdd08a9d030d0b168863d450619fe2c9066b",
+      "status": "ELABORATED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "guarded-baseline",
+      "warning_categories": {
+        "port_width_warnings": 0
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "mldsa",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "memory_mapping_proven": false,
+      "parameter_set": "44-65-87",
+      "profile_fingerprint": "6e2eefd9531458ddabc5cab8fb8ce46eb192299adfe11ea8c39d7f121afef7f5",
+      "profile_sha256": "be200b31759967a653e8b724bee6a322b0bc9b6f554853a6ae1ec0d562f95e32",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-guarded-baseline-asic.log.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-guarded-baseline-asic.result.json",
+        "sha256": "9231ac63e52ea7b3a611b2bfc6005c346010814f85e2c726868eb2ccf5f84129"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "mldsa",
+        "--variant",
+        "guarded-baseline",
+        "--target",
+        "asic",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 35,
+      "source_export_manifest_sha256": "c754617eebc16623ef75136ad9edd628a61df0459c65843d703a514ab55d3449",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "b547875ecf00548547f7a9afde60fdd08a9d030d0b168863d450619fe2c9066b",
+      "status": "ELABORATED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "guarded-baseline",
+      "warning_categories": {
+        "port_width_warnings": 0
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "mldsa",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "memory_mapping_proven": false,
+      "parameter_set": "44-65-87",
+      "profile_fingerprint": "bfd6f60ea80433ef7020cb107ea87afca312731324cc27c380c12d6c97cf2e2e",
+      "profile_sha256": "5f02f7423abea8b4b2d89008fb7b810e7a9f49f2820d83fd05d54059258fa454",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-corrected-candidate-fpga.log.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-corrected-candidate-fpga.result.json",
+        "sha256": "8e7cb3beb4585b0d2ce2f41b8be0c287c7aa93546860431ee3b57fdc57a615de"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "mldsa",
+        "--variant",
+        "corrected-candidate",
+        "--target",
+        "fpga",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 35,
+      "source_export_manifest_sha256": "e136e93035cdfe8291c0102085474a014db49b7ba610dddb4c78ba8330542919",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "3a13da09035d63493b961ab360d8aa7b569b5d38fd70d19c29f60e6a758fa341",
+      "status": "ELABORATED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-candidate",
+      "warning_categories": {
+        "port_width_warnings": 0
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "mldsa",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "memory_mapping_proven": false,
+      "parameter_set": "44-65-87",
+      "profile_fingerprint": "60c1c581a70c805334c01f81aef079cedbead39fe9fce8a5972ddd62dabd68c6",
+      "profile_sha256": "6429529f44b62766dc543c1b21eb109f51d06a7ac0a55722aab8e55ceb5a9ad7",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-corrected-candidate-asic.log.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/mldsa-corrected-candidate-asic.result.json",
+        "sha256": "d89fec8ebe6f9a389ef5e7d5fe183e753f70463baa950ebd74c12439fc1607df"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "mldsa",
+        "--variant",
+        "corrected-candidate",
+        "--target",
+        "asic",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 35,
+      "source_export_manifest_sha256": "e136e93035cdfe8291c0102085474a014db49b7ba610dddb4c78ba8330542919",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "3a13da09035d63493b961ab360d8aa7b569b5d38fd70d19c29f60e6a758fa341",
+      "status": "ELABORATED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-candidate",
+      "warning_categories": {
+        "port_width_warnings": 0
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "90b80a49c8f88dfa0f452ab557b5ef8f089230fb87f31472cda243a59c281e42",
+      "memory_mapping_proven": false,
+      "parameter_set": "128f",
+      "profile_fingerprint": "d2867d8f812964b196f914612dff6fde681880e8c6ae150213239ba8abbff443",
+      "profile_sha256": "567922fba3ba7a3e3c7837889ac89d025b939d440d9f87ed7d27f774d092cf8e",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-128f-fpga.log.txt",
+        "sha256": "90b80a49c8f88dfa0f452ab557b5ef8f089230fb87f31472cda243a59c281e42"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-128f-fpga.result.json",
+        "sha256": "c3e003b0b9eb875bb7971c0b3f4f2066aa7a7465dc161b6033915b40073b3000"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-baseline",
+        "--target",
+        "fpga",
+        "--parameter-set",
+        "128f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "3750ec55609c27fdca88012cf045cd094f1f68d8927bd6b82573b7cb1d3a2e74",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "2c98eea2944bae48c85937b92cb6bec521233f11552f8af8455a586511f58392",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-baseline",
+      "warning_categories": {
+        "port_width_warnings": 8
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "444fd06fb32320cac8e7e443a6df08cafb5d7ca16b9e3652539bae050f420249",
+      "memory_mapping_proven": false,
+      "parameter_set": "128f",
+      "profile_fingerprint": "b5f2a7934107b23a900d59cb950349c713216340441350bdbe16e48b2c256716",
+      "profile_sha256": "28aca5b60697839124b40e074f5b235459da7159ec7420f5e6faea5b4d0ee205",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-128f-asic.log.txt",
+        "sha256": "444fd06fb32320cac8e7e443a6df08cafb5d7ca16b9e3652539bae050f420249"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-128f-asic.result.json",
+        "sha256": "317c2b8f34ac25427b9e12acc90e996ab1ad7527bf9b62986ff2f05c50c9e071"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-baseline",
+        "--target",
+        "asic",
+        "--parameter-set",
+        "128f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "3750ec55609c27fdca88012cf045cd094f1f68d8927bd6b82573b7cb1d3a2e74",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "2c98eea2944bae48c85937b92cb6bec521233f11552f8af8455a586511f58392",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-baseline",
+      "warning_categories": {
+        "port_width_warnings": 8
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "8f3a4d10c76bca6eb1f9a1fbd08dd78bed9acc57f897b53aaaf57241cebd7c0c",
+      "memory_mapping_proven": false,
+      "parameter_set": "192f",
+      "profile_fingerprint": "c1119b7d183e560bbd6420d61995a7f6bc0c3a1de6a764465d7d0bf152fa5e2d",
+      "profile_sha256": "c6451cdce7e3af21ac5e3d12f54cb97886d4171f04cf24644dcabee8bc1b9aae",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-192f-fpga.log.txt",
+        "sha256": "8f3a4d10c76bca6eb1f9a1fbd08dd78bed9acc57f897b53aaaf57241cebd7c0c"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-192f-fpga.result.json",
+        "sha256": "7a08cd097f0b21d445ea4c5dc5d0ba069edd6859d44514932dc1bb170053d434"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-baseline",
+        "--target",
+        "fpga",
+        "--parameter-set",
+        "192f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "03531699945f52b8c52e7d63e7db01cb8a166e32d682ff3544ac164fd4392ac6",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-baseline",
+      "warning_categories": {
+        "port_width_warnings": 13
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "abbc79a3d7fa6543376f4e8cb46ca0b02b903438e50ca80048d25da04f663d4d",
+      "memory_mapping_proven": false,
+      "parameter_set": "192f",
+      "profile_fingerprint": "bf72c3262d464a683758d0ba2db4b7abaf5c8065bea6fe293c4ddf9d2d1ca8c7",
+      "profile_sha256": "2dfd13907639f2e2ae7cb04e880f052ea68cd63f5bf16d8fc53648e46959d3ec",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-192f-asic.log.txt",
+        "sha256": "abbc79a3d7fa6543376f4e8cb46ca0b02b903438e50ca80048d25da04f663d4d"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-baseline-192f-asic.result.json",
+        "sha256": "71e6ae4f0e2a2ffabc5b1fdc03ffc6846c6d8c4916b53ab49a4b0eaa9065524b"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-baseline",
+        "--target",
+        "asic",
+        "--parameter-set",
+        "192f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "03531699945f52b8c52e7d63e7db01cb8a166e32d682ff3544ac164fd4392ac6",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "be1201a0d1fa6857a0127d9895bc7aa38bb721e8316591b348b9f0a8f9794343",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-baseline",
+      "warning_categories": {
+        "port_width_warnings": 13
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "23cf2078afd9adcdafea213b710c411950013a699c66a0abadd584ed0039de82",
+      "memory_mapping_proven": false,
+      "parameter_set": "128f",
+      "profile_fingerprint": "16092ac2874967a997f75fd1c686b11e635468f3da26a353f2e6679860d4185e",
+      "profile_sha256": "fb5d9ac3edadeaa8efc849df91dacb1c83fd63e3eb953ab2b49b7088024fde05",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-128f-fpga.log.txt",
+        "sha256": "23cf2078afd9adcdafea213b710c411950013a699c66a0abadd584ed0039de82"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-128f-fpga.result.json",
+        "sha256": "2ca11963bb89f022a5e26208a716249ca5019ade15c1a47841428019c61800c4"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-candidate",
+        "--target",
+        "fpga",
+        "--parameter-set",
+        "128f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "e1f2527e345d635dc59c2665d5fdf3e35e293cdedb55f0086a195a248a05e199",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "8ccfa17c4bc2aeb1a852f1c27d748c4c43ae87b530a84d779476419d504e3a88",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-candidate",
+      "warning_categories": {
+        "port_width_warnings": 8
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "f288a501011556545b07d2c2588911be795d08425ad777f12046a9ca6d87fb88",
+      "memory_mapping_proven": false,
+      "parameter_set": "128f",
+      "profile_fingerprint": "b3a27a69f7b1429f04353ca32883bb13fa38f5896858a7a08e152bc96779b325",
+      "profile_sha256": "df53d63a57ef175ccd9c0ed9ba541f1ce6b771f0614a4c5ae0647d313806a71d",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-128f-asic.log.txt",
+        "sha256": "f288a501011556545b07d2c2588911be795d08425ad777f12046a9ca6d87fb88"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-128f-asic.result.json",
+        "sha256": "d7f9284402ea043b9efed2fd3b547cfaa5cfb64f1dbf78f618dcd6ce466efafb"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-candidate",
+        "--target",
+        "asic",
+        "--parameter-set",
+        "128f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "e1f2527e345d635dc59c2665d5fdf3e35e293cdedb55f0086a195a248a05e199",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "8ccfa17c4bc2aeb1a852f1c27d748c4c43ae87b530a84d779476419d504e3a88",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-candidate",
+      "warning_categories": {
+        "port_width_warnings": 8
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "8f4fdb13043b6e185b78bd21c190408cd13109c36314fd76b34d51e3006af829",
+      "memory_mapping_proven": false,
+      "parameter_set": "192f",
+      "profile_fingerprint": "c766f1c99ae268adc6d310297eb7153b071486fe3b66535d7df0d955e390d6a3",
+      "profile_sha256": "0373802d2b8c0317ddb50f1891bae8cce9fa03ad421d81ce1e0563f87984f2e8",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-192f-fpga.log.txt",
+        "sha256": "8f4fdb13043b6e185b78bd21c190408cd13109c36314fd76b34d51e3006af829"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-192f-fpga.result.json",
+        "sha256": "9fc0aaeb88190c2644ef721b00bb43046ce3337322414d74bf03e9a9e8446056"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-candidate",
+        "--target",
+        "fpga",
+        "--parameter-set",
+        "192f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "1ae47dd3f80483114f43f629e4b825a7781c7641fd79143df9e48f8cff3521bc",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "00c182f676170e28c33f6d258e4f768044c0f5ebdb2918bff81f25cb228f1f4a",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "fpga",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "fpga_inferred_ram",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-candidate",
+      "warning_categories": {
+        "port_width_warnings": 13
+      },
+      "warning_waivers": []
+    },
+    {
+      "compiler_returncode": 0,
+      "defines": [],
+      "design": "slh",
+      "functional_qualification": false,
+      "language_standard": "verilog2005",
+      "log_sha256": "8448d3550c7bfe49971b293ed2a5e0df208cc2965efb335dd6016803798db8a1",
+      "memory_mapping_proven": false,
+      "parameter_set": "192f",
+      "profile_fingerprint": "dd6b50c3c7f06adafcf3589d0650633f4d024cded0ea072a86aa63d660a8987c",
+      "profile_sha256": "be5b5f1443ec9bf43a52993976301e42d0e8e7ab057fb67d722537449fe2ecab",
+      "raw_log": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-192f-asic.log.txt",
+        "sha256": "8448d3550c7bfe49971b293ed2a5e0df208cc2965efb335dd6016803798db8a1"
+      },
+      "raw_result": {
+        "path": "docs/verification/target-profile-elaboration-2026-10-12/slh-corrected-candidate-192f-asic.result.json",
+        "sha256": "df120f34aeee2433aac6b5f434dc2b086b5503fbb5167b364a38453598ddca07"
+      },
+      "reproduce_elaboration": [
+        "python3",
+        "tools/check_target_profile_elaboration.py",
+        "--profile",
+        "NEW_PROFILE_DIR/profile.json",
+        "--compiler",
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "--out",
+        "NEW_CHECK_DIR",
+        "--timeout",
+        "180"
+      ],
+      "reproduce_export": [
+        "python3",
+        "tools/export_target_profiles.py",
+        "--design",
+        "slh",
+        "--variant",
+        "corrected-candidate",
+        "--target",
+        "asic",
+        "--parameter-set",
+        "192f",
+        "--out",
+        "NEW_PROFILE_DIR"
+      ],
+      "source_count": 29,
+      "source_export_manifest_sha256": "1ae47dd3f80483114f43f629e4b825a7781c7641fd79143df9e48f8cff3521bc",
+      "source_hashes_unchanged": true,
+      "source_qualification_sha256": "00c182f676170e28c33f6d258e4f768044c0f5ebdb2918bff81f25cb228f1f4a",
+      "status": "ELABORATED_WARNINGS_UNREVIEWED",
+      "target": {
+        "kind": "asic",
+        "memory_compiler_allowed": false,
+        "memory_implementation": "flops",
+        "memory_macros": [],
+        "technology_mapping_verified": false
+      },
+      "target_tool_qualification": false,
+      "tool_kind": "iverilog",
+      "tool_version": "Icarus Verilog version 12.0 (stable) ()",
+      "variant": "corrected-candidate",
+      "warning_categories": {
+        "port_width_warnings": 13
+      },
+      "warning_waivers": []
+    }
+  ],
+  "schema_version": 1,
+  "status": "COMPILE_ONLY_COMPLETED",
+  "warning_triage": {
+    "mldsa": {
+      "details": [
+        "Icarus accepted both exact derivatives under Verilog-2005. No mapping or initializer equivalence was tested."
+      ],
+      "status": "no diagnostics from compile-only check; ASIC startup still blocked"
+    },
+    "mlkem": {
+      "details": [
+        "47 width truncation and 197 expansion warnings per target need source/target semantic review.",
+        "Two constant-comparison warnings in generated abr_reg.sv need documented intent.",
+        "Two UNOPTFLAT warnings identify tool dependency cycles in register interface and Keccak datapath; they are not proof of physical loops, and must not be blanket-waived."
+      ],
+      "status": "unreviewed; blocking compatibility claim"
+    },
+    "slh": {
+      "details": [
+        "Eight port-width warnings per 128f profile and thirteen per 192f profile.",
+        "top.v:847 narrows memory input from 19 to 12 bits (128f) or 14 bits (192f); intended range needs proof.",
+        "128f top.v:656 connects 15-bit message_to_indices output to 12-bit net; range/meaning needs review.",
+        "Other warnings include unsized constants and 2-to-1-bit HT_mode narrowing; separate benign constant sizing from real data truncation before any derivative.",
+        "Source identifier type requires Verilog-2005. Compiling the unchanged source as SystemVerilog fails."
+      ],
+      "status": "unreviewed; blocking compatibility claim"
+    }
+  }
+}

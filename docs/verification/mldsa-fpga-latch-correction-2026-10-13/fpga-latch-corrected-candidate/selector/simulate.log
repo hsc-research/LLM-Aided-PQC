@@ -1,0 +1,2 @@
+SELECTOR_PASS supported_basis_cases=1542
+tb.v:23: $finish called at 1552 (1s)

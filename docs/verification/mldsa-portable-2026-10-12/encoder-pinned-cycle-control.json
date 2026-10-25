@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "reason": "18 configurations and two mode-switch sequences stream-match",
+  "run_dir": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty",
+  "created_utc": "2026-10-12T19:11:31.285393+00:00",
+  "check": "four-state knownness, cycle-exact output valid/data and accepted-stream comparison",
+  "parameters": {
+    "OUTPUT_W": 4,
+    "COEFF_W": 23,
+    "MAX_LVL": 20,
+    "W": 64
+  },
+  "scope": "18 configurations and 2 mode-switch sequences; fixed randomized seed; reset between independent configurations; complete draining between modes in switch sequences; legal 256-bit occupancy envelope",
+  "limits": [
+    "No reset with pending input/output",
+    "No arbitrary/full-backpressure proof",
+    "No nondefault parameter coverage",
+    "No formal equivalence or PPA claim"
+  ],
+  "encoder": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/encoder.v",
+  "testbench": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/tb_encoder_cycle_equiv.v",
+  "commands": [
+    {
+      "argv": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "-V"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/version-iverilog.log",
+      "returncode": 0,
+      "log_sha256": "f9199cc8658f4afcec3edeb93f29f23bb2aebf66d3eeb217cdc728aaa692f946"
+    },
+    {
+      "argv": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+        "-V"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/version-vvp.log",
+      "returncode": 0,
+      "log_sha256": "c9010a85df9399c2adb11b59115cdc285ea6f0a399802944367c3813c6772a42"
+    },
+    {
+      "argv": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "-g2012",
+        "-s",
+        "tb_encoder",
+        "-o",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/sim",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/tb_encoder_cycle_equiv.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/encoder.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/uncenter_coeff.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_zero_strip.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/zero_strip.v"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/compile.log",
+      "returncode": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/sim"
+      ],
+      "cwd": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty",
+      "log": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/sim.log",
+      "returncode": 0,
+      "log_sha256": "020e7957a7f0e8fc1d38fde3cd8ff0b99271f57f5fe4a7621604f461cd09b906"
+    }
+  ],
+  "transformations": [
+    {
+      "input": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/pinned_encoder.v",
+      "output": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_encoder.v",
+      "edit": "rename encoder/uncenter_coeff/zero_strip identifiers to *_gold"
+    },
+    {
+      "input": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/pinned_uncenter_coeff.v",
+      "output": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_uncenter_coeff.v",
+      "edit": "rename encoder/uncenter_coeff/zero_strip identifiers to *_gold"
+    },
+    {
+      "input": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/pinned_zero_strip.v",
+      "output": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_zero_strip.v",
+      "edit": "rename encoder/uncenter_coeff/zero_strip identifiers to *_gold"
+    }
+  ],
+  "output_markers": [
+    "CFG sl=2 em=0 done: 162 words",
+    "CFG sl=2 em=1 done: 125 words",
+    "CFG sl=2 em=2 done: 37 words",
+    "CFG sl=2 em=3 done: 37 words",
+    "CFG sl=2 em=4 done: 75 words",
+    "CFG sl=2 em=5 done: 225 words",
+    "CFG sl=3 em=0 done: 162 words",
+    "CFG sl=3 em=1 done: 125 words",
+    "CFG sl=3 em=2 done: 50 words",
+    "CFG sl=3 em=3 done: 50 words",
+    "CFG sl=3 em=4 done: 50 words",
+    "CFG sl=3 em=5 done: 250 words",
+    "CFG sl=5 em=0 done: 162 words",
+    "CFG sl=5 em=1 done: 125 words",
+    "CFG sl=5 em=2 done: 37 words",
+    "CFG sl=5 em=3 done: 37 words",
+    "CFG sl=5 em=4 done: 50 words",
+    "CFG sl=5 em=5 done: 250 words",
+    "SWITCHSEQ sl=3 done: 137 words",
+    "SWITCHSEQ sl=5 done: 132 words",
+    "CYCLE CHECK SUMMARY checked=11659 errors=0 unknown_valid=0 unknown_data=0",
+    "GATE RESULT: PASS"
+  ],
+  "snapshot": {
+    "source_integrity": "PASS",
+    "commit": "751009199ac081091a9059805e6921453bde0154",
+    "files": 106,
+    "bytes": 3300503,
+    "keygen_cases_present": 75,
+    "qualification": "NOT RUN: RTL compilation/simulation, Sign/Verify, FIPS certification, or PPA"
+  },
+  "input_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa/gate_result.py": "68fdcbcbebdbc83bd12c458fb11032504f18b4f0e617b84aaac41efbdd5ed5cb",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/mldsa_sources.py": "f5ce5cfb0b9085655f8aac22a4e65ff858e750444ddf0b5cf966d2f9644c89b0",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/agent/run_safety.py": "ff066df97706299c3fb94297023a2a23bcf17c94b5c39097db85cf62c711a121",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/tools/check_mldsa_encoder_fallthrough.py": "69961980e53f4fb9e3f82100d8ae2d7e505174741c775d88bb3b46ce7ff2a999",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/verification/mldsa_osh/tb_encoder_cycle_equiv.v": "665a4901a4b7839cda8f40940e41346f4796308ecf6cff6ad30c39f7d68c5bf4"
+  },
+  "encoder_sha256": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+  "testbench_sha256": "665a4901a4b7839cda8f40940e41346f4796308ecf6cff6ad30c39f7d68c5bf4",
+  "pinned_encoder_sha256": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+  "staged_hashes": {
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_encoder.v": "1804103639e81d3eb1f436688ff9cadee7ab497e2ca7fe21787765f32f7b52e8",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_uncenter_coeff.v": "84b685bf20a30d7f66334aaa7e4daca0bdd44b9e4b40a4f5acd6f1f20e2f99aa",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/gold_zero_strip.v": "9269a34f906f90a5973b0d63d6b476924689946983059556f23753c6570699fb",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/pinned_encoder.v": "bab37a64e8bc76841ec9267420f4017faedf7a901a889225c86d55c8c9489bb6",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/pinned_uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/pinned_zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/tb_encoder_cycle_equiv.v": "665a4901a4b7839cda8f40940e41346f4796308ecf6cff6ad30c39f7d68c5bf4",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/uncenter_coeff.v": "2d72035feb40e74e924cae485d8bd68c4f11bd68c63e8f73d13f8206e5e0cd47",
+    "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/zero_strip.v": "0d91819fa83ba91800c3bfb4e72b6228720b43fcd906d39e61831db016425bac"
+  },
+  "tools": {
+    "iverilog": {
+      "path": "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+      "sha256": "1ea1c29e83b92080ed03b72d619826395d4a649cca479f605819e3ff00c505dc",
+      "version_returncode": 0
+    },
+    "vvp": {
+      "path": "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+      "sha256": "196c0783c4243f5aec9bfa530644a419808d5e0305f6a7e2b1935b445ae10a15",
+      "version_returncode": 0
+    }
+  },
+  "binary_sha256": "5f772478fcfb2dfb023f097a393ffc4f88448a6fe38681366a4ca4a788c0748d",
+  "words": 2278,
+  "cycle_summary": {
+    "checked": 11659,
+    "errors": 0,
+    "unknown_valid": 0,
+    "unknown_data": 0
+  },
+  "first_diagnostics": [],
+  "runtime_s": 0.321,
+  "result_file": "/workspace/scratch/8c6eb979d526/pqc-project/integrated/.pqc_runs/mldsa-encoder-cycle-eowbn8ty/result.json"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    "preview",
+    "apply",
+    "rollback",
+    "reject_wrong_count"
+  ],
+  "scope": "Python harness only; no cryptographic or EDA result was measured."
+}

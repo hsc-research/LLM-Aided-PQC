@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "design_manifest_sha256": "3589892c8a6f577f7e0165138214a0de487243e0f2448019e3a4ad132403bec8",
+  "tools": {
+    "iverilog": {
+      "launcher_sha256": "1ea1c29e83b92080ed03b72d619826395d4a649cca479f605819e3ff00c505dc",
+      "version": [
+        "Icarus Verilog version 12.0 (stable) ()",
+        "",
+        "Copyright (c) 2000-2021 Stephen Williams (steve@icarus.com)",
+        ""
+      ]
+    },
+    "vvp": {
+      "launcher_sha256": "196c0783c4243f5aec9bfa530644a419808d5e0305f6a7e2b1935b445ae10a15",
+      "version": [
+        "Icarus Verilog runtime version 12.0 (stable) ()",
+        "",
+        "Copyright (c) 2001-2021 Stephen Williams (steve@icarus.com)",
+        ""
+      ]
+    }
+  },
+  "checks": {
+    "ram": {
+      "status": "PASS",
+      "compile_command": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "-g2012",
+        "-s",
+        "tb_sameclock_ff_ram",
+        "-o",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/ram.vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_sameclock_ff_ram.sv",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/dual_port_ram.v"
+      ],
+      "input_hashes": {
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_sameclock_ff_ram.sv": "414c60539bbadee59ef4a6cac63110f13f0ea5aaa0edd7ae20544630bd7c470e",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/mldsa_sameclock_ff_ram.v": "6fbeb77e89893f125fe39ecda9f17bd3da780eedee5dd343abd18bd3a65efb20",
+        "/workspace/scratch/8c6eb979d526/pqc-project/integrated/third_party/mldsa_osh/upstream/ref_combined/src/dual_port_ram.v": "fb11dce55e0fdcb8c70009f4373e911544f8deb5109611c5c48e622e2e721844"
+      },
+      "compile_returncode": 0,
+      "executable_sha256": "255c6cdb01d5dc90f5e035294395854cf8459c1cc1f970848c1ad683f0dc39ff",
+      "simulate_command": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/ram.vvp"
+      ],
+      "simulate_returncode": 0,
+      "observed_marker_count": 1,
+      "simulate_log_sha256": "377ee3437a2fca9517047114196f1ee734eea65d414889a62c4905bcdf7564e4",
+      "input_hashes_unchanged": true
+    },
+    "shell": {
+      "status": "PASS",
+      "compile_command": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "-g2012",
+        "-s",
+        "tb_boot_shell",
+        "-o",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/shell.vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_boot_shell.sv",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v"
+      ],
+      "input_hashes": {
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_boot_shell.sv": "a632988f6265d409e5978d2b6cc19527337227e2adff15362acf4535b9451a3e",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/combined_top_asic.v": "1b8502fcf988ea636d1d32cada63a809fd60d4846a4c6f3f8739a188873c92a0"
+      },
+      "compile_returncode": 0,
+      "executable_sha256": "8090006cdc0c53f70f1269c4156fd054b70fe3cfd34d04041e26f6a1ac5721e2",
+      "simulate_command": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/shell.vvp"
+      ],
+      "simulate_returncode": 0,
+      "observed_marker_count": 1,
+      "simulate_log_sha256": "91a0c901a7d6cb888d4bc542fdcb6d56e5f11e0d98f04079049841354dda6786",
+      "input_hashes_unchanged": true
+    },
+    "hint_read": {
+      "status": "PASS",
+      "compile_command": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/iverilog",
+        "-g2012",
+        "-s",
+        "tb_makehint_read_view",
+        "-o",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/hint_read.vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_makehint_read_view.sv",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/makehint_reference.v"
+      ],
+      "input_hashes": {
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/verification/mldsa_startup/tb_makehint_read_view.sv": "709a0f71e368accfae2d8f348fa7b0208fcf4ba58d7fb7cd7be8c353d6e5bdab",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/release/guarded-baseline/rtl/makehint.v": "4302c86a9ca9cc57908cbea57a3fdf7bb7b94b29cac55109cf1b8b124cd502c1",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/makehint_reference.v": "29fcfd97e8a96f49546d6f136b04674858fdcd6b1626278475077a00936d2d10"
+      },
+      "compile_returncode": 0,
+      "executable_sha256": "be4b39a96fe3398b5adfc5425f308495e948950a7595c3255620da5a1a9cc273",
+      "simulate_command": [
+        "/workspace/shared/spectral-memory-reduction/tools/bin/vvp",
+        "/workspace/scratch/8c6eb979d526/pqc-project/mldsa-asic-startup-work/runs/release-components/hint_read.vvp"
+      ],
+      "simulate_returncode": 0,
+      "observed_marker_count": 1,
+      "simulate_log_sha256": "84ca88a3d948c4efcadb4dea8f341b6f0e0c63a9af9875e48d0f4f73c5a05e0c",
+      "input_hashes_unchanged": true
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "root": "..",
+  "synthesis_tool": "genus",
+  "top": "butterfly2x2",
+  "scope": "out_of_context_block",
+  "period_ns": 0.583,
+  "memory_model": "flops",
+  "sdc": "configs/butterfly_asic.sdc",
+  "files": [
+    {
+      "path": "asic/arms/bf2x2_baseline/Barrett_8380417.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/bf2x2_baseline/butterfly.v",
+      "language": "verilog"
+    },
+    {
+      "path": "asic/arms/bf2x2_baseline/butterfly2x2.v",
+      "language": "verilog"
+    }
+  ],
+  "include_dirs": [],
+  "defines": [],
+  "parameters": {},
+  "data_files": [],
+  "output_root": "runs/asic",
+  "timeout_seconds": 288000,
+  "tools": {
+    "genus": {
+      "executable": "genus",
+      "version": "record-installed-version",
+      "time_unit": "ps",
+      "area_unit": "library_unit",
+      "target_libraries": [
+        "${ASAP7_LIB_DIR}/asap7sc7p5t_AO_LVT_TT_nldm_211120.lib",
+        "${ASAP7_LIB_DIR}/asap7sc7p5t_INVBUF_LVT_TT_nldm_220122.lib",
+        "${ASAP7_LIB_DIR}/asap7sc7p5t_OA_LVT_TT_nldm_211120.lib",
+        "${ASAP7_LIB_DIR}/asap7sc7p5t_SEQ_LVT_TT_nldm_220123.lib",
+        "${ASAP7_LIB_DIR}/asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.lib"
+      ],
+      "effort": {
+        "generic": "high",
+        "map": "high",
+        "opt": "high"
+      },
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "ASAP7 LVT TT; verify loaded library PVT at the site"
+    },
+    "dc": {
+      "executable": "dc_shell",
+      "version": "record-installed-version",
+      "time_unit": "ps",
+      "area_unit": "library_unit",
+      "target_libraries": [
+        "${ASAP7_DB_DIR}/asap7sc7p5t_AO_LVT_TT_nldm_211120.db",
+        "${ASAP7_DB_DIR}/asap7sc7p5t_INVBUF_LVT_TT_nldm_220122.db",
+        "${ASAP7_DB_DIR}/asap7sc7p5t_OA_LVT_TT_nldm_211120.db",
+        "${ASAP7_DB_DIR}/asap7sc7p5t_SEQ_LVT_TT_nldm_220123.db",
+        "${ASAP7_DB_DIR}/asap7sc7p5t_SIMPLE_LVT_TT_nldm_211120.db"
+      ],
+      "compile": "compile_ultra",
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "ASAP7 LVT TT; verify loaded library PVT at the site"
+    }
+  }
+}

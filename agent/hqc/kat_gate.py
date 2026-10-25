@@ -1,118 +1,137 @@
-# HQC Agent - KAT (Known-Answer Test) Correctness Gate
-# Runs the full keygen -> encap -> decap simulation chain and verifies that the
-# shared secret from encap matches the shared secret from decap across all three
-# security levels. Returns PASS only if all three match.
-#
-# This is the hard correctness constraint: any RTL change that breaks the
-# shared-secret match is rejected regardless of its PPA.
-#
-# NOTE: This runs full behavioral simulation and is much slower than synthesis
-# (several minutes). Use it to confirm a candidate before accepting it, not on
-# every tweak.
+#!/usr/bin/env python3
+"""HQC keygen -> encap -> decap round-trip gate for all three levels.
 
-import subprocess
-import shutil
+This is a functional consistency check, not an independent reference KAT.
+Runs use snapshots of the current build trees; source and archived evidence
+are never reset or overwritten. PQC_RUN_DIR selects the artifact parent.
+"""
+import hashlib
+import json
 import os
-import glob
+from pathlib import Path
+import re
+import shutil
+import signal
+import subprocess
+import tempfile
 
-REPO_ROOT = "."
-VIVADO = "vivado"
-
-# Simulation output directories (xsim working dirs)
+REPO_ROOT = Path(__file__).resolve().parents[2]
+VIVADO = os.environ.get("VIVADO", "vivado")
+TIMEOUT_S = 3600
 KEYGEN_SIM = "test_keygen/test_keygen.sim/sim_1/behav/xsim"
-ENCAP_SIM  = "test_encap/test_encap.sim/sim_1/behav/xsim"
-DECAP_SIM  = "test_decap/test_decap.sim/sim_1/behav/xsim"
+ENCAP_SIM = "test_encap/test_encap.sim/sim_1/behav/xsim"
+DECAP_SIM = "test_decap/test_decap.sim/sim_1/behav/xsim"
+PARAM_SETS = ("128", "192", "256")
 
-PARAM_SETS = ["128", "192", "256"]
 
-def _run_tcl(tcl_path, label):
-    print(f"  Running {label} simulation (this takes a few minutes)...")
-    result = subprocess.run(
+def new_run_dir(prefix, repo_root=REPO_ROOT):
+    parent = Path(os.environ.get("PQC_RUN_DIR", str(Path(repo_root) / ".pqc_runs"))).resolve()
+    parent.mkdir(parents=True, exist_ok=True)
+    return Path(tempfile.mkdtemp(prefix=prefix, dir=parent))
+
+
+def run_command(cmd, cwd, timeout=TIMEOUT_S):
+    """Reap the whole simulator process group on timeout, including children."""
+    proc = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, text=True,
+                            start_new_session=True)
+    try:
+        output, _ = proc.communicate(timeout=timeout)
+    except BaseException as exc:
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        output, _ = proc.communicate()
+        if isinstance(exc, subprocess.TimeoutExpired):
+            return False, "timeout\n" + (output or "")
+        raise
+    return proc.returncode == 0, output or ""
+
+
+def _run_tcl(tcl_path, label, work):
+    ok, out = run_command(
         [VIVADO, "-mode", "batch", "-nojournal", "-nolog", "-notrace",
-         "-source", tcl_path],
-        cwd=REPO_ROOT, capture_output=True, text=True
-    )
-    if result.returncode != 0:
-        return False, f"{label} sim failed: {result.stderr[-800:]}"
-    return True, "ok"
+         "-source", str(tcl_path)], work)
+    (Path(work) / f"{label}.log").write_text(out)
+    # Vivado may report Tcl/simulation errors without a failing shell status.
+    if re.search(r"(?im)^\s*(?:ERROR|FATAL)(?:\s|:)", out):
+        ok = False
+    return ok, out[-1200:]
 
-def _copy(pattern, dest_dir):
-    files = glob.glob(pattern)
-    os.makedirs(dest_dir, exist_ok=True)
-    for f in files:
-        shutil.copy(f, dest_dir)
-    return len(files)
 
-def _clean_projects():
-    import shutil as sh
-    for d in ["test_keygen", "test_encap", "test_decap"]:
-        if os.path.isdir(d):
-            sh.rmtree(d, ignore_errors=True)
+def copy_inputs(source, destination, prefixes, params=PARAM_SETS):
+    """Require every newly generated binary stimulus; never reuse stale ones."""
+    source, destination = Path(source), Path(destination)
+    destination.mkdir(parents=True, exist_ok=True)
+    for param in params:
+        for prefix in prefixes:
+            path = source / f"{prefix}_{param}.in"
+            value = re.sub(r"/\*.*?\*/|//[^\n]*", "", path.read_text(), flags=re.S)
+            value = re.sub(r"@[0-9a-fA-F]+(?=\s|$)", "", value).strip()
+            if not value or not re.fullmatch(r"[01\s]+", value):
+                raise ValueError(f"empty or invalid binary stimulus: {path.name}")
+            shutil.copy2(path, destination / path.name)
 
-def run_kat():
-    print("KAT GATE: running full keygen -> encap -> decap verification")
-    print("=" * 55)
-    print("  Cleaning previous simulation projects...")
-    _clean_projects()
 
-    # Stage 1: keygen
-    ok, msg = _run_tcl("./build/keygen/tb/keygen.tcl", "keygen")
-    if not ok:
-        return {"status": "FAIL", "stage": "keygen", "reason": msg}
+def compare_secrets(enc_file, dec_file):
+    """The current HQC TB emits 16 32-bit words (128 hexadecimal digits)."""
+    try:
+        enc = Path(enc_file).read_text().strip()
+        dec = Path(dec_file).read_text().strip()
+    except FileNotFoundError:
+        return "MISSING"
+    if not all(re.fullmatch(r"[0-9a-fA-F]{128}", value) for value in (enc, dec)):
+        return "INVALID"
+    return "MATCH" if enc.lower() == dec.lower() else "MISMATCH"
 
-    # Copy keygen outputs (s, h, x, y) into encap testbench dir
-    n = _copy(f"{KEYGEN_SIM}/{{s,h,x,y}}_*.in", "build/encap/tb/")
-    # glob doesn't expand braces; do it explicitly
-    for prefix in ["s", "h", "x", "y"]:
-        _copy(f"{KEYGEN_SIM}/{prefix}_*.in", "build/encap/tb/")
 
-    # Stage 2: encap
-    ok, msg = _run_tcl("./build/encap/tb/encap.tcl", "encap")
-    if not ok:
-        return {"status": "FAIL", "stage": "encap", "reason": msg}
+def run_kat(repo_root=None):
+    repo = Path(repo_root or REPO_ROOT).resolve()
+    work = new_run_dir("hqc-kat-", repo)
+    stage = "setup"
+    source_hashes = {}
+    staged_hashes = {}
+    try:
+        for name in ("keygen", "encap", "decap"):
+            source = repo / "build" / name
+            if not (source / "tb" / f"{name}.tcl").is_file():
+                raise FileNotFoundError(f"missing staged build: {source}")
+            for path in source.rglob("*"):
+                if path.is_file() and path.suffix in (".v", ".vh", ".vhd", ".tcl"):
+                    source_hashes[path] = hashlib.sha256(path.read_bytes()).hexdigest()
+            shutil.copytree(source, work / "build" / name)
+        for path, digest in source_hashes.items():
+            staged = work / path.relative_to(repo)
+            if hashlib.sha256(staged.read_bytes()).hexdigest() != digest:
+                raise ValueError(f"source changed while staging: {path}")
+            staged_hashes[staged] = digest
+        (work / "sources.json").write_text(json.dumps({str(p): d for p, d in source_hashes.items()}, indent=2))
+        for stage in ("keygen", "encap", "decap"):
+            ok, reason = _run_tcl(f"./build/{stage}/tb/{stage}.tcl", stage, work)
+            if not ok:
+                return {"status": "FAIL", "stage": stage, "reason": reason,
+                        "run_dir": str(work)}
+            if stage == "keygen":
+                for target in ("encap", "decap"):
+                    copy_inputs(work / KEYGEN_SIM, work / "build" / target / "tb",
+                                ("s", "h", "x", "y"))
+            elif stage == "encap":
+                copy_inputs(work / ENCAP_SIM, work / "build/decap/tb", ("u", "v", "d"))
+        for path, digest in {**source_hashes, **staged_hashes}.items():
+            if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                raise ValueError(f"candidate changed during verification: {path}")
+        results = {p: compare_secrets(work / ENCAP_SIM / f"ss_output_{p}.out",
+                                      work / DECAP_SIM / f"ss_output_{p}.out")
+                   for p in PARAM_SETS}
+        return {"status": "PASS" if all(v == "MATCH" for v in results.values()) else "FAIL",
+                "stage": "compare", "per_param": results, "run_dir": str(work)}
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        return {"status": "FAIL", "stage": stage, "reason": str(exc), "run_dir": str(work)}
 
-    # Copy keygen + encap outputs into decap testbench dir
-    for prefix in ["s", "h", "x", "y"]:
-        _copy(f"{KEYGEN_SIM}/{prefix}_*.in", "build/decap/tb/")
-    for prefix in ["u", "v", "d"]:
-        _copy(f"{ENCAP_SIM}/{prefix}_*.in", "build/decap/tb/")
-
-    # Stage 3: decap
-    ok, msg = _run_tcl("./build/decap/tb/decap.tcl", "decap")
-    if not ok:
-        return {"status": "FAIL", "stage": "decap", "reason": msg}
-
-    # Stage 4: compare shared secrets
-    results = {}
-    all_match = True
-    for p in PARAM_SETS:
-        enc_file = f"{ENCAP_SIM}/ss_output_{p}.out"
-        dec_file = f"{DECAP_SIM}/ss_output_{p}.out"
-        if not os.path.exists(enc_file) or not os.path.exists(dec_file):
-            results[p] = "MISSING"
-            all_match = False
-            continue
-        with open(enc_file) as f:
-            enc = f.read().strip()
-        with open(dec_file) as f:
-            dec = f.read().strip()
-        match = (enc == dec)
-        results[p] = "MATCH" if match else "MISMATCH"
-        if not match:
-            all_match = False
-
-    return {
-        "status": "PASS" if all_match else "FAIL",
-        "stage": "compare",
-        "per_param": results
-    }
 
 if __name__ == "__main__":
     outcome = run_kat()
-    print("\n" + "=" * 55)
+    print(json.dumps(outcome, indent=2))
     print("KAT RESULT:", outcome["status"])
-    if "per_param" in outcome:
-        for p, r in outcome["per_param"].items():
-            print(f"  HQC-{p}: {r}")
-    if outcome["status"] == "FAIL":
-        print("Reason:", outcome.get("reason", outcome.get("per_param")))
+    raise SystemExit(0 if outcome["status"] == "PASS" else 1)

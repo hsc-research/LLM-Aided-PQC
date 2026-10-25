@@ -13,8 +13,13 @@ Usage: python3 agent/mldsa/encoder_equiv_gate.py [candidate_dir]
 Contract: run_equiv(candidate_dir) -> {"status","reason","words"}.
 """
 import os, re, sys, json, shutil, subprocess, tempfile
+from pathlib import Path
 
-PRISTINE = "/mnt/c/PQC/ML_DSA/ML-DSA-OSH-main_7653/ML-DSA-OSH-main/ref_combined/src"
+try:
+    from .gate_result import encoder_result, pristine_source
+except ImportError:
+    from gate_result import encoder_result, pristine_source
+PRISTINE = pristine_source()
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 DEFAULT_CAND = os.path.join(REPO, "agent/mldsa/mldsa_src")
@@ -37,11 +42,15 @@ def run_equiv(candidate_dir=None):
     cand = candidate_dir or DEFAULT_CAND
     work = tempfile.mkdtemp(prefix="encgate_")
     try:
+        if not os.path.isdir(cand):
+            return {"status": "FAIL", "reason": "candidate directory missing: " + str(cand)}
+        if not os.path.isfile(os.path.join(cand, "encoder.v")):
+            return {"status": "FAIL", "reason": "candidate encoder.v missing"}
         srcs = [TB]
         for f in FILES:
             # gold from pristine, renamed + isolated
             g = os.path.join(work, "gold_" + f)
-            open(g, "w").write(_gold_rename(open(os.path.join(PRISTINE, f)).read()))
+            Path(g).write_text(_gold_rename(Path(PRISTINE, f).read_text()))
             srcs.append(g)
             # candidate: candidate_dir if present, else pristine
             cp = os.path.join(cand, f)
@@ -56,17 +65,16 @@ def run_equiv(candidate_dir=None):
         if r.returncode != 0:
             return {"status": "FAIL", "reason": "compile: " + r.stderr[-300:]}
         r = subprocess.run(["vvp", sim], capture_output=True, text=True, timeout=600)
-        out = r.stdout
-        open("/tmp/encgate_sim.log","w").write(out)
-        words = sum(int(m) for m in re.findall(r"done: (\d+) words", out))
-        if "GATE RESULT: PASS" in out:
-            return {"status": "PASS", "reason": "all 18 configs stream-match", "words": words}
-        fails = [l for l in out.splitlines() if "MISMATCH" in l]
-        return {"status": "FAIL", "reason": (fails[0] if fails else "no PASS marker"),
-                "words": words}
+        with open(os.path.join(work, "sim.log"), "w") as stream:
+            stream.write(r.stdout or "")
+        return encoder_result(r)
+    except (OSError, subprocess.SubprocessError) as exc:
+        return {"status": "FAIL", "reason": str(exc)}
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
 if __name__ == "__main__":
     cd = sys.argv[1] if len(sys.argv) > 1 else None
-    print(json.dumps(run_equiv(cd), indent=2))
+    result = run_equiv(cd)
+    print(json.dumps(result, indent=2))
+    raise SystemExit(0 if result["status"] == "PASS" else 1)

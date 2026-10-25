@@ -1,0 +1,780 @@
+{
+  "schema_version": 1,
+  "root": "..",
+  "synthesis_tool": "genus",
+  "top": "abr_unified_top",
+  "scope": "full_unified_mlkem1024_mldsa87_with_memories",
+  "period_ns": 10.0,
+  "period_note": "Example target only, not measured or recommended Fmax. Choose a site-qualified target.",
+  "memory_model": "flops",
+  "sdc": "configs/mlkem_adams_bridge_asic.sdc",
+  "files": [
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_config_defines.svh",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_params_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_reg_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_sva.svh",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_macros.svh",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_1r1w_ram.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_1r1w_be_ram.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_1r1w_512x4_ram.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_ram_regout.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_icg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_2ff_sync.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_piso_multi.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_piso.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_sample_buffer.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_msg_buffer.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_ahb_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_ahb_slv_sif.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_AND.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_delay_masked_shares.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_add_sub_mod_Boolean.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_MUX.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_N_bit_Boolean_sub.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_full_adder.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_A2B_conv.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_N_bit_Boolean_adder.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_N_bit_Arith_adder.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_B2A_conv.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_N_bit_mult.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_N_bit_mult_two_share.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_adder.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_add_sub_mod.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_ntt_add_sub_mod.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_libs/rtl/abr_masked_OR.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sampler_top/rtl/abr_sampler_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/rej_bounded/rtl/rej_bounded_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/rej_bounded/rtl/rej_bounded2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/rej_sampler/rtl/rej_sampler_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/rej_sampler/rtl/rej_sampler.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/exp_mask/rtl/exp_mask_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/exp_mask/rtl/exp_mask.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sample_in_ball/rtl/sample_in_ball_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sample_in_ball/rtl/sib_mem.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sample_in_ball/rtl/sample_in_ball_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sample_in_ball/rtl/sample_in_ball_shuffler.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sample_in_ball/rtl/sample_in_ball.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/cbd_sampler/rtl/cbd_sampler_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/cbd_sampler/rtl/cbd_sampler.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sha3/rtl/abr_sha3_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_util_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_alert_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_subreg_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_mubi_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_cipher_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_sparse_fsm_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim_generic/rtl/abr_prim_generic_flop_en.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim_generic/rtl/abr_prim_generic_flop.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim_generic/rtl/abr_prim_generic_buf.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_flop_en.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_cdc_rand_delay.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_flop_2sync.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_lfsr.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_mubi4_sync.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_diff_decode.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_sec_anchor_buf.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_slicer.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_count.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_sparse_fsm_flop.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_dom_and_2share.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_sec_anchor_flop.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_reg_we_check.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_packer_fifo.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_max_tree.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_subreg_arb.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_subreg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_intr_hw.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_onehot_check.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_mubi8_sync.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_fifo_sync_cnt.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_buf.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_alert_receiver.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_flop.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_alert_sender.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_fifo_sync.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_arbiter_ppc.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_sum_tree.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_subreg_ext.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_prim/rtl/abr_prim_edge_detector.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sha3/rtl/abr_keccak_round.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sha3/rtl/abr_keccak_2share.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sha3/rtl/abr_sha3pad.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sha3/rtl/abr_sha3.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_sampler_top/rtl/abr_sampler_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/barrett_reduction/rtl/barrett_reduction.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/barrett_reduction/rtl/masked_barrett_if_cond.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/barrett_reduction/rtl/masked_barrett_reduction.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/barrett_reduction/rtl/masked_barrett_if_cond_v2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_butterfly2x2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_butterfly.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_mult_dsp.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_mult_reduction.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_special_adder.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_special_adder.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_mult_redux46.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_div2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_buffer.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_shuffle_buffer.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_twiddle_lookup.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_BFU_add_sub.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_mlkem_masked_BFU_add_sub.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_BFU_mult.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_mlkem_masked_BFU_mult.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_gs_butterfly.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_mlkem_masked_gs_butterfly.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_pwm.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_butterfly1x2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_mlkem_masked_butterfly1x2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_hybrid_butterfly_2x2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_karatsuba_pairwm.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/ntt_top/rtl/ntt_masked_pairwm.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_r1_lut.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_w1_mem.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_mod_2gamma2.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_w1_encode.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompose/rtl/decompose_usehint.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sk_decode/rtl/skdecode_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sk_encode/rtl/skencode.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sk_decode/rtl/skdecode_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sk_decode/rtl/skdecode_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sk_decode/rtl/skdecode_s1s2_unpack.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sk_decode/rtl/skdecode_t0_unpack.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/makehint/rtl/makehint_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/makehint/rtl/hintgen.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/makehint/rtl/makehint.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/norm_check/rtl/norm_check_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/norm_check/rtl/norm_check.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/norm_check/rtl/norm_check_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/norm_check/rtl/norm_check_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sig_encode_z/rtl/sigencode_z_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sig_encode_z/rtl/sigencode_z_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sig_encode_z/rtl/sigencode_z_unit.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sigdecode_h/rtl/sigdecode_h_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sigdecode_h/rtl/sigdecode_h.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sigdecode_h/rtl/sigdecode_h_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sig_decode_z/rtl/sigdecode_z_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sig_decode_z/rtl/sigdecode_z_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/sig_decode_z/rtl/sigdecode_z_unit.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/pk_decode/rtl/pkdecode.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/power2round/rtl/power2round_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/power2round/rtl/power2round_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/power2round/rtl/power2round_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/power2round/rtl/power2round_core.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/power2round/rtl/power2round_skencode.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/compress/rtl/compress_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/compress/rtl/compress_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/compress/rtl/compress.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/compress/rtl/compress_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompress/rtl/decompress_defines_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompress/rtl/decompress_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompress/rtl/decompress.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/decompress/rtl/decompress_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_ctrl_pkg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_mem_if.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_mem_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_seq.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_ctrl.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_top.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/upstream/src/abr_top/rtl/abr_reg.sv",
+      "language": "systemverilog"
+    },
+    {
+      "path": "third_party/adams_bridge/integration/abr_unified_top.sv",
+      "language": "systemverilog"
+    }
+  ],
+  "include_dirs": [
+    "third_party/adams_bridge/upstream/src/abr_top/rtl",
+    "third_party/adams_bridge/upstream/src/abr_libs/rtl",
+    "third_party/adams_bridge/upstream/src/abr_sampler_top/rtl",
+    "third_party/adams_bridge/upstream/src/rej_bounded/rtl",
+    "third_party/adams_bridge/upstream/src/rej_sampler/rtl",
+    "third_party/adams_bridge/upstream/src/exp_mask/rtl",
+    "third_party/adams_bridge/upstream/src/sample_in_ball/rtl",
+    "third_party/adams_bridge/upstream/src/cbd_sampler/rtl",
+    "third_party/adams_bridge/upstream/src/abr_sha3/rtl",
+    "third_party/adams_bridge/upstream/src/abr_prim/rtl",
+    "third_party/adams_bridge/upstream/src/abr_prim_generic/rtl",
+    "third_party/adams_bridge/upstream/src/ntt_top/rtl",
+    "third_party/adams_bridge/upstream/src/barrett_reduction/rtl",
+    "third_party/adams_bridge/upstream/src/decompose/rtl",
+    "third_party/adams_bridge/upstream/src/sk_decode/rtl",
+    "third_party/adams_bridge/upstream/src/sk_encode/rtl",
+    "third_party/adams_bridge/upstream/src/makehint/rtl",
+    "third_party/adams_bridge/upstream/src/norm_check/rtl",
+    "third_party/adams_bridge/upstream/src/sig_encode_z/rtl",
+    "third_party/adams_bridge/upstream/src/sigdecode_h/rtl",
+    "third_party/adams_bridge/upstream/src/sig_decode_z/rtl",
+    "third_party/adams_bridge/upstream/src/pk_decode/rtl",
+    "third_party/adams_bridge/upstream/src/power2round/rtl",
+    "third_party/adams_bridge/upstream/src/compress/rtl",
+    "third_party/adams_bridge/upstream/src/decompress/rtl"
+  ],
+  "defines": [
+    "SYNTHESIS"
+  ],
+  "parameters": {},
+  "data_files": [],
+  "output_root": "runs/asic/mlkem_adams_bridge",
+  "timeout_seconds": 288000,
+  "qualification_status": "source imported; RTL simulation and licensed tool qualification required",
+  "tools": {
+    "genus": {
+      "executable": "genus",
+      "version": "record-installed-version",
+      "time_unit": "ns",
+      "area_unit": "library_unit",
+      "target_libraries": [
+        "${PQC_GENUS_TARGET_LIB}"
+      ],
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "Set to the actual library process, voltage and temperature; time_unit must match library metadata",
+      "effort": {
+        "generic": "high",
+        "map": "high",
+        "opt": "high"
+      }
+    },
+    "dc": {
+      "executable": "dc_shell",
+      "version": "record-installed-version",
+      "time_unit": "ns",
+      "area_unit": "library_unit",
+      "target_libraries": [
+        "${PQC_DC_TARGET_DB}"
+      ],
+      "setup_tcl": "configs/asic_site.example.tcl",
+      "power_activity": "vectorless",
+      "corner": "Set to the actual library process, voltage and temperature; time_unit must match library metadata",
+      "compile": "compile_ultra"
+    }
+  }
+}

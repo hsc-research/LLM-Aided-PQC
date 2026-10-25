@@ -1,0 +1,41 @@
+SLH_ASIC_BOOT_READY
+start fors_sign(), mode 1
+FORS tree #           1/          33
+FORS tree #           2/          33
+FORS tree #           3/          33
+FORS tree #           4/          33
+FORS tree #           5/          33
+FORS tree #           6/          33
+FORS tree #           7/          33
+FORS tree #           8/          33
+FORS tree #           9/          33
+FORS tree #          10/          33
+FORS tree #          11/          33
+FORS tree #          12/          33
+FORS tree #          13/          33
+FORS tree #          14/          33
+FORS tree #          15/          33
+FORS tree #          16/          33
+FORS tree #          17/          33
+FORS tree #          18/          33
+FORS tree #          19/          33
+FORS tree #          20/          33
+FORS tree #          21/          33
+FORS tree #          22/          33
+FORS tree #          23/          33
+FORS tree #          24/          33
+FORS tree #          25/          33
+FORS tree #          26/          33
+FORS tree #          27/          33
+FORS tree #          28/          33
+FORS tree #          29/          33
+FORS tree #          30/          33
+FORS tree #          31/          33
+FORS tree #          32/          33
+FORS tree #          33/          33
+start thash(), mode 3
+start tree_hash(), mode 0
+HT tree #           1/          22
+W_MEM_CONTEXT t=3158930000 v0=1 v1=0 a0=36 a1=37 q0=x q1=x cnt=17 state=3 opcode=0 i_chainflag=1 flag1=0 flag2=0 chain=37 CC=35 wcnt=   1 mode=0 sign=0
+FATAL: /workspace/scratch/8c6eb979d526/pqc-project/slh-asic-startup-work/.pqc_runs/slh-portable-3xgpz090/rtl/sphincslet/tb.v:588: SLH consumed invalid address: W_MEM port1
+       Time: 3158935000  Scope: tb.watch_w

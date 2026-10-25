@@ -1,3 +1,8 @@
+> Historical research document. Commands, coverage claims, plans, and numbers below
+> describe earlier experiments. For the current checkout, use
+> [project status](PROJECT_STATUS.md), [setup](REPRODUCE.md), and the
+> [result-reading guide](RESULTS.md).
+
 # Optimization Taxonomy
 
 This document records the classification of optimization patterns used in the
@@ -112,17 +117,17 @@ the agent (and future work) does not blindly reapply a transformation.
 
 - **Barrett reduction DSP mapping (negative).** Re-enabling DSP48 mapping for the
   Barrett constant multiplications did not improve the critical path. See
-  [findings/FINDINGS_barrett_dsp.md](findings/FINDINGS_barrett_dsp.md).
+  [findings/hqc/FINDINGS_barrett_dsp.md](findings/hqc/FINDINGS_barrett_dsp.md).
 
 - **`poly_mult` RAMWIDTH narrowing (negative).** Narrowing the multiply datapath
   reduces area but roughly doubles the cycle count per halving, a losing trade.
-  See [findings/FINDINGS_poly_mult_ramwidth.md](findings/FINDINGS_poly_mult_ramwidth.md).
+  See [findings/hqc/FINDINGS_poly_mult_ramwidth.md](findings/hqc/FINDINGS_poly_mult_ramwidth.md).
 
 - **FSM retiming on the decap cross-module bundle (negative).** Registering a
   single signal of the v_minus_uy to poly_mult transaction breaks correctness,
   because the data, address, shift amount, valid, and accumulator-writeback
   signals are locked together. A valid fix must retime the whole bundle. See
-  [findings/FINDINGS_decap_encap_crossmodule.md](findings/FINDINGS_decap_encap_crossmodule.md).
+  [findings/hqc/FINDINGS_decap_encap_crossmodule.md](findings/hqc/FINDINGS_decap_encap_crossmodule.md).
 
 ### The calibration lesson: neutral at one level is not neutral at all levels
 

@@ -1,0 +1,313 @@
+{
+  "artifacts": {
+    "asic-parser-negatives.json": {
+      "path": "docs/verification/dual-target-review-2026-10-12/asic-parser-negatives.json",
+      "sha256": "59bfcbcc7188a09cb134b67fb52e086f644d54ca58197c8d523a13e3faa680b5"
+    },
+    "docs.txt": {
+      "path": "docs/verification/dual-target-review-2026-10-12/docs.txt",
+      "sha256": "7e5bad3a0141a6929584478225ba7670b6a9a3e5e07e357f6145a1aae16a8f54"
+    },
+    "final-profile-O0.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/final-profile-O0.log.txt",
+      "sha256": "91db5bae808c606e704a42e9a6385ace7f215673a4e60a51fb4cb5fb2c9e1c13"
+    },
+    "final-profile-O1.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/final-profile-O1.log.txt",
+      "sha256": "ceeff658595cf6005e57a3b3c5d22008e51557dbc9f1a122ba7fc222aefb55e8"
+    },
+    "mapping-audit.json": {
+      "path": "docs/verification/dual-target-review-2026-10-12/mapping-audit.json",
+      "sha256": "29d95a6da5182284ceea785e9dae63ea70f3de3277ceebe6f4c1654a4ac99cd2"
+    },
+    "mldsa-integrity.json": {
+      "path": "docs/verification/dual-target-review-2026-10-12/mldsa-integrity.json",
+      "sha256": "6db189f3e73f02b2abd32995e98895d0e0e11e218d5f37d3bd54ae37568361bd"
+    },
+    "mlkem-integrity.txt": {
+      "path": "docs/verification/dual-target-review-2026-10-12/mlkem-integrity.txt",
+      "sha256": "1672c20b46a9ef8e5af0e063b22bcdd9355d2942ca0e967ff6afaeee7fa31005"
+    },
+    "profile-reexport-audit.json": {
+      "path": "docs/verification/dual-target-review-2026-10-12/profile-reexport-audit.json",
+      "sha256": "0fb76b730b2f76df0420269079fea93a1de143c4709fc42970b5e771e933d791"
+    },
+    "rom-constant_corruption.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/rom-constant_corruption.log.txt",
+      "sha256": "38b01d5db8420c1560d6a7bc08bf40a004f67de0a4329157980375b8a2d6e61e"
+    },
+    "rom-enable_bypass.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/rom-enable_bypass.log.txt",
+      "sha256": "0a4bf56c3bc28d0a5b758db2bc3a6164f15051f42f6bf57a796d572ef16fe931"
+    },
+    "rom-positive.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/rom-positive.log.txt",
+      "sha256": "220e8bded1ecd97a3ca336051aa5d8e9babd57ca458fc486fe32958910f3b869"
+    },
+    "rom-results.json": {
+      "path": "docs/verification/dual-target-review-2026-10-12/rom-results.json",
+      "sha256": "96a8c79e6528ca6c894bb46fef9d8fc5bb5a267e4004b7eca84e1e0968cea6dd"
+    },
+    "smoke.json": {
+      "path": "docs/verification/dual-target-review-2026-10-12/smoke.json",
+      "sha256": "01622aa5b6e2c93cafecd4b427badf1834f0494d975d65de50907504f6c212b6"
+    },
+    "subset_runner": {
+      "note": "Exact runner used. Set ROOT to the local checkout before reproducing elsewhere; it runs selected test cases, excluding the 19 listed below.",
+      "path": "docs/verification/dual-target-review-2026-10-12/run_permitted_subset.py.txt",
+      "sha256": "09dc6ff89f60ec0c4aac553e6e63f450aa9ba6530e88762916b19e1c931335f9"
+    },
+    "unittest-O0.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/unittest-O0.log.txt",
+      "sha256": "91d83def7ecb2f7a9d4a6c08df8252e66e36329f306d66bab4d404b9f7ce9dbb"
+    },
+    "unittest-O1.log": {
+      "path": "docs/verification/dual-target-review-2026-10-12/unittest-O1.log.txt",
+      "sha256": "de85f25e08301f1537b52e3b6d8f258abf90fb72efcf9a860e685f0da701367e"
+    }
+  },
+  "base_commit": "2dd4421328c1607d37118716115f35148924242f",
+  "date_utc": "2026-10-12",
+  "independent_controls": {
+    "all_fourteen_source_profiles": {
+      "compiler_rerun_by_reviewer": false,
+      "deterministic_reexport_matches_recorded_profile_fingerprint": true,
+      "export_manifest_and_historical_qualification_hashes_match": true,
+      "raw_compile_result_and_log_hashes_match": true,
+      "target_qualification": false
+    },
+    "review_catches_rechecked": [
+      "Multiline and inline compile-time directive edits rejected",
+      "Rehashed ML-DSA/ML-KEM profiles cannot weaken design-mandatory operation labels",
+      "Unified ML-KEM profile requires separate ML-DSA operation coverage",
+      "Prepared ASIC scope matches full_design while preserving boundary metadata",
+      "Target admission requires mapped memory-semantics report and exact implementation netlist; FF inventory alone is insufficient"
+    ],
+    "rom_component": {
+      "full_core_requalification": false,
+      "live_constant_bitflip": "REJECTED",
+      "positive_differential": "PASS",
+      "read_enable_bypass": "REJECTED",
+      "unsupported_zetas_widths_23_and_25": "ELABORATION_REJECTED"
+    },
+    "seven_actual_generic_netlists": {
+      "netlist_hashes_and_actual_cell_histograms_verified": true,
+      "no_initialization_attributes": true,
+      "no_latches": true,
+      "no_residual_memory_arrays": true,
+      "source_bindings_verified": 14,
+      "standard_cell_library_mapping": false,
+      "zero_problem_check_logs_present": true
+    },
+    "strict_admission_parser": {
+      "kind": "Synthetic positive-fault or malformed structural/memory count fields; not licensed-tool qualification",
+      "rejected_controls": 90
+    }
+  },
+  "limits": [
+    "19 HQC-related tests were explicitly omitted. This is a permitted non-HQC subset, not a full-suite or HQC pass. No new/legacy HQC gate, RTL execution or repair was performed.",
+    "Software and Tcl fixture tests validate fail-closed plumbing; they do not qualify a licensed vendor adapter or establish PPA.",
+    "All fourteen source profiles remain target-unqualified. Compile/lint zero exit does not waive width, structural or other warnings.",
+    "Profile fingerprints and source_qualified fields are provenance under a reviewed exporter/configuration trust boundary, not signatures or proof that arbitrary edited RTL passed.",
+    "Operation-label minimums are enforced; real vector sufficiency, per-parameter case counts and checker interpretation remain the reviewed trusted verifier responsibility. No new full-operation target adapter is supplied.",
+    "The built-in ASIC runner preserves memory_semantics_verified=false and cannot alone admit a strict target-bound optimization. Startup/read/write/collision equivalence requires a separate mapped checker.",
+    "Seven mappings are selected generic Yosys component mappings, with no residual arrays or initializers for those tested configurations. They are not standard-cell, complete design, area, power or timing results.",
+    "SLH INIT=0 mapping cases use fully populated address spaces. Non-power-of-two behavior and original initialization are separately simulated; production INIT=1 storage remains an ASIC startup blocker.",
+    "The optional ML-DSA constant ROM is not substituted by the default qualified export and does not inherit full-core KAT qualification.",
+    "Separate ML-DSA/SLH startup-port work in sibling directories is excluded from this reviewed snapshot.",
+    "No push, GitHub Actions, commercial EDA, paid API, tool installation, or environment change was performed by this reviewer."
+  ],
+  "other_checks": {
+    "documentation": {
+      "errors": 0,
+      "local_links": 625,
+      "markdown_files": 98
+    },
+    "git_diff_check": "PASS",
+    "mldsa_snapshot_integrity": {
+      "files": 106,
+      "status": "PASS"
+    },
+    "mlkem_snapshot_integrity": {
+      "acvp_cases_present": 80,
+      "compile_entries": 175,
+      "files": 220,
+      "status": "PASS"
+    },
+    "non_hqc_python_compileall": "PASS",
+    "python_smoke": "PASS"
+  },
+  "reviewed_evidence_records": {
+    "asic-memory-components-2026-10-12.json": {
+      "path": "docs/verification/asic-memory-components-2026-10-12.json",
+      "sha256": "566412c7af5f843edccb79e0111404d82ba2dff2bc3d328dc7757de306ad887b"
+    },
+    "target-profile-elaboration-2026-10-12.json": {
+      "path": "docs/verification/target-profile-elaboration-2026-10-12.json",
+      "sha256": "c3cc732b96829f8eb91bb9c85ac67af1a2c58bedcb3f261689da703e7fd7e8ab"
+    }
+  },
+  "reviewed_inputs_sha256": {
+    "README.md": "70143a8b9cb6bda198e11b3dd3f56177fb932dffab7cf762a4a537888ddd0160",
+    "agent/asic_synthesis.py": "182d46a45ca3e536496c9d6353bdcf65508122127ad3f13cec182374cd1f070f",
+    "agent/experiment_history.py": "1eaf89d4eadc6b649c382e57a822a624f1433869c1fd4a28aa55bc9642aca22f",
+    "agent/target_profiles.py": "1d92306febdf222b08d2e927661ba206191cb5fed0632793737331e6629d44c8",
+    "agent/whole_design.py": "bcfe8201ae82d93a1e8f3c41288704ff71027a93e9efbb67bdd7bb814be05383",
+    "agent/whole_design_adapters.py": "bfc9efca31c5ac35d884fb84b5b264afcf20b62ddeefe076c43f2b1986903a2f",
+    "asic/README.md": "3132f4d4743983bb7b1b9216d8f394cb22f6569df39ca3e3fc7a6b585fb272c5",
+    "asic/rtl/mldsa_zetas/dual_port_rom.v": "908b29f754eb513b4391fac7994b162b6f7343be3145e86f2d78627f48e8a0e7",
+    "configs/whole_design.example.json": "8364d4c939cc2244a571f650c56c20922f8f8132500c9972876d0df4e5ddfe13",
+    "configs/whole_design.target.example.json": "c99813d3e460d6d21d0050e91be6bb6024d0b6e4261643a06064625ce61e6581",
+    "docs/ASIC_ADMISSION.md": "1cdcb2bab576c4de4f47fc9611dc3775215ef03459f6e8b0a5e99aa447072c4a",
+    "docs/FPGA.md": "158a64af5e3c622bd6844c3cf5238055899c6b31888c6f8808be8b6912aa79be",
+    "docs/HARDWARE_HANDOFF.md": "642a9de597401278639c16c1e4e52667b097f8e69decdc1de1b883eebb835c0b",
+    "docs/PROJECT_STATUS.md": "9095639d25b0483a33f491a14afb8d1a6c238d49a4fad2da7097a872de8aea0b",
+    "docs/README.md": "eb52ccd7a593d71ce99db0df2e27e5e3841f3a7440fb88951c11d37c11ac15a1",
+    "docs/WHOLE_DESIGN.md": "dfd50abb047d421b376774f753af3b31fd772bad1370d48c8cfb112b7fedf292",
+    "tests/test_asic_admission.py": "779b760034a593336494cfefae6a623632bda617a39c1b327076ad4043898a49",
+    "tests/test_asic_hardening.py": "4c66f0aea359976ee1f765a518ae53805973057abaf55d90bca79e1e3a0b3362",
+    "tests/test_asic_memory_components.py": "8aa61f7890623e98be6603ac06e1bd958feef5ab786acded7fb616222f37d375",
+    "tests/test_chip_gate_coverage.py": "b0061fd49792aa57bcd52a04798a2e87967596ff52289d2cda2b673e3c12fcf6",
+    "tests/test_core_runtime.py": "03c6c5bc0eeadd30459081c6227dd4ec34bc718a396ae574cae1b80e84499997",
+    "tests/test_correctness_gates.py": "333326e4c03266104488deda0a9932b03824838bdefca97a2bc1dd4987f1e4dc",
+    "tests/test_docs.py": "c5598c2159dba903b3260ebac82ba0f4341640876cdcf8356c229685cd65ee68",
+    "tests/test_experiment_history.py": "035bfcc47291a69b35fca4edf572f74c25583275bea4997311d9e76230092beb",
+    "tests/test_latency_diagnostics.py": "f4a1209cda15d90084e1b664b8b98ad559a3f8f81e776c0cdaa789c5bb0acc72",
+    "tests/test_mldsa_export.py": "f6ec450d71b4fe0962740a259ce705ffdf46cc992c881ebfa9de7a69856b2128",
+    "tests/test_mldsa_portable_gate.py": "b4b0bede0a4fb8bc9d2582590dbbbb6dda85d6dddb5c4eaac5b2240edf82419c",
+    "tests/test_mldsa_source_integration.py": "890210dd843189898f76e7b4a4b332e2e6866999b8ddd7e6cd2e569561f5c266",
+    "tests/test_mlkem_adams_bridge_gate.py": "66a9d7e565d495c5ee98fe199b0088c05de40c3dcf37a834c6478ef31f1bdd83",
+    "tests/test_mlkem_source_integration.py": "08d7dbdf680886d32a86a7a11a2aaabd09e5c1cbd77ea86fc6d958781cff0cac",
+    "tests/test_safety_and_backends.py": "a12daba58abb94571c01b855f497540cd035af87edc10ff2ccdb7be879223d01",
+    "tests/test_slh_portable.py": "ffff03504135e411dfc0427b05be49b50cba18adb7eefc1fba54296f3d182b37",
+    "tests/test_slh_selected_gate.py": "92cb767b7c8c1078af3346c927f4f4c8dda568f79fa6d49f6b1ea8ac7794ddac",
+    "tests/test_slh_source_export.py": "2e6bc31c3d377e1c648d8981ab9fd971b490b05868901d23266c916e9a129174",
+    "tests/test_target_aware_whole_design.py": "c34d89dc03495357498cdbaa2f9bbb9aca36586dc7ba5a5830034f644f8d80e6",
+    "tests/test_target_source_export.py": "5515545a669dc284e52323fd94af4fe07d12a338be517f0694d27d2f7d903f0a",
+    "tests/test_vivado_runtime.py": "9568b20755635634babf382d62e08aa8f708d00d0006531bb03fc7ea3224ef61",
+    "tests/test_whole_design.py": "7d1df1c02456ffdb174704199fdbaeeb3ed51bdc81fccda11001d7ee3d563565",
+    "tests/test_whole_design_adapters.py": "9b4570dcb6e679372c0cb93ffc965480848d0c04905c66b107f4eac4054a7779",
+    "tools/check_asic_memory_components.py": "a98a61a9aa99dc4d916fa51cd221e22cdb87cb1e93332e4e262c1c195b7251ec",
+    "tools/check_target_profile_elaboration.py": "1404131f65a6a32eb3d800c0581ff85c39be38964fa1b5255a8a107894489192",
+    "tools/export_mldsa_verified.py": "fa33ab8780e924570c3e610e817b8e3cb743ef55fef1cd290f76a730670b92a7",
+    "tools/export_slh_verified.py": "39422f1b5ef2ff71255804ec3de41873f2fe6f53db809d0bedf2bc92fad92d0a",
+    "tools/export_target_profiles.py": "2b743077c250d5817e1c1a275ba5645a42b3544e8081f0b9a59bd5caeeac5d07",
+    "verification/asic_memory/README.md": "6b57cf84fe2980787579c4a8be6f10e7ea7de73b0dc542b60a814012e7e129dd",
+    "verification/asic_memory/tb_abr_memories.sv": "9a1465e970a737c04954ae994533bdb808544a86381830780254b9a9a1ccbc8c",
+    "verification/asic_memory/tb_mldsa_rom.sv": "4670e9d1e5c03901223c8eaf25ed2d389658524f25d899fef2a96f03f4c9e7e0",
+    "verification/asic_memory/tb_slh_memories.sv": "5b18a941db865d6c5ecb64a25e41d4a46faee0e56aa57525a418136f2cd436b0"
+  },
+  "schema_version": 1,
+  "scope": "Independent review of dual-target source preparation, strict controller/admission plumbing, and bounded memory components. No full ASIC port or hardware qualification claim.",
+  "software_tests": {
+    "discovered": 409,
+    "excluded": [
+      {
+        "reason": "Includes HQC orchestrator imports; omitted conservatively under HQC execution restriction",
+        "test": "test_core_runtime.OfflineRuntime.test_imports_without_sdk_or_key"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_binary_memory_comments_are_accepted_but_not_empty_comments"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_candidate_change_during_run_is_rejected"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_empty_outputs_fail"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_mismatched_secrets_fail"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_missing_or_invalid_stimulus_fails"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_missing_secret_fails"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_run_rejects_empty_secret_even_with_successful_simulator"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_run_snapshots_candidate_and_preserves_old_artifacts"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_run_stops_on_incomplete_generated_stimuli"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_valid_secrets_match"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_correctness_gates.HQCSecrets.test_vivado_error_text_and_nonzero_exit_fail"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_experiment_history.FinalOutcomeHistory.test_hqc_baseline_gate_selects_pristine_manifest"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.ChipAcceptance.test_hqc_block_dispatch_supplies_parameter_set"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.ChipAcceptance.test_hqc_joint_dispatch_has_no_block_or_parameter_argument"
+      },
+      {
+        "reason": "Mixed HQC/MLDSA registry test; omitted conservatively under HQC execution restriction",
+        "test": "test_safety_and_backends.ChipAcceptance.test_supported_blocks_match_runner_registries"
+      },
+      {
+        "reason": "Mixed HQC/MLDSA dispatcher test; omitted conservatively under HQC execution restriction",
+        "test": "test_safety_and_backends.ChipAcceptance.test_unsupported_mapped_blocks_do_not_launch_optimizer"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.HQCPrivateWorkspace.test_joint_defines_are_set_together"
+      },
+      {
+        "reason": "HQC-specific test omitted under prior HQC execution restriction (including mocked gate and staging paths)",
+        "test": "test_safety_and_backends.HQCPrivateWorkspace.test_stage_leaves_live_candidate_untouched"
+      }
+    ],
+    "excluded_hqc_related": 19,
+    "normal": {
+      "elapsed_seconds": 21.435,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests_run": 390
+    },
+    "permitted": 390,
+    "post_freeze_profile_controller_rerun": {
+      "exporter_tests_in_each_full_run": 12,
+      "normal_passed": 26,
+      "optimized_passed": 26
+    },
+    "python_optimized": {
+      "elapsed_seconds": 21.376,
+      "errors": 0,
+      "failures": 0,
+      "optimization_flag": "-O",
+      "skipped": 0,
+      "tests_run": 390
+    }
+  },
+  "status": "PASS_FOR_BOUNDED_SOURCE_PREPARATION_PUBLICATION",
+  "tool_versions": {
+    "iverilog": "12.0 (stable)",
+    "python": "3.12.14",
+    "verilator_reported": "rev vUNKNOWN-built20260516-4e853d8",
+    "vvp": "12.0 (stable)",
+    "yosys": "0.69 (git sha1 9f75ca1f9)"
+  }
+}

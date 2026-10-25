@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "scope": "all four separately qualified ASIC startup/control/width derivatives; historical vendor differential and generic FF structure only",
+  "records": [
+    {
+      "variant": "asic-boot-baseline",
+      "parameter_set": "SHA2-128f",
+      "status": "PASS",
+      "golden_words": 2141,
+      "verification_flags": {
+        "baseline": [
+          "0"
+        ],
+        "signature-memory-bitflip": [
+          "1"
+        ]
+      },
+      "generic_ff_bits": 85243,
+      "reports_sha256": {
+        "docs/verification/slh-asic-boot-baseline-128f-2026-10-12.json": "5be25d5d9a1bf8c80eb49dbaf109608eff6662079f7c2152c6a31f6d621aae21",
+        "docs/verification/slh-asic-structure-baseline-128f-2026-10-12.json": "ebab67ede7c4020c7d8a7955ca2ff4ff3029570b7cba6ec3ee436312072decb9",
+        "docs/verification/slh-asic-functional-audit-baseline-128f-2026-10-12.json": "04b3dcfccd12865cf49e2667f75a041c2ce062a0298e7ba3dfddcbbb8c9da407",
+        "docs/verification/slh-asic-netlist-audit-baseline-128f-2026-10-12.json": "f92614ec3fda1226a35835d5dd9b2c7775690a7723101a0de23afdb108a28454"
+      },
+      "manifest_sha256": "77393b9d8fc413f133b319337631393f01b3ebaf13598ae7d8a0802d6d7fbf51",
+      "checksums_sha256": "5805d87fa09ce98fd9fd666fe76833818874e17b79b36efc137a1ff3c5210310",
+      "repeat_export_identical": true,
+      "all_bundle_checksums_verified": true
+    },
+    {
+      "variant": "asic-boot-candidate",
+      "parameter_set": "SHA2-128f",
+      "status": "PASS",
+      "golden_words": 2141,
+      "verification_flags": {
+        "baseline": [
+          "0"
+        ],
+        "signature-memory-bitflip": [
+          "1"
+        ]
+      },
+      "generic_ff_bits": 85243,
+      "reports_sha256": {
+        "docs/verification/slh-asic-boot-candidate-128f-2026-10-12.json": "d87af2ec3bf5dcb55806b3a09a585301bc775a29d6f208153943b57eca18fac0",
+        "docs/verification/slh-asic-structure-candidate-128f-2026-10-12.json": "ca870cbacb5096723ed1943a915421c2bd714759c6994b52e17dcb124c8724e8",
+        "docs/verification/slh-asic-functional-audit-candidate-128f-2026-10-12.json": "c7e2bc986482a3be1d7478741ce4887d278e8bc5af687b4d4711ef128cc60427",
+        "docs/verification/slh-asic-netlist-audit-candidate-128f-2026-10-12.json": "c35362c18ad45f2a8ec4ccac49e3d76f168093a2abc1f7fd4e4d212fac33bff8"
+      },
+      "manifest_sha256": "df796131abe792ee223aab0f8d450ab7300ee032c4bb64500f4ee0d5cda0ca7f",
+      "checksums_sha256": "d48b8360f5ec4fb362d16d4652adfe66627881eab87930873a0947152dfcb745",
+      "repeat_export_identical": true,
+      "all_bundle_checksums_verified": true
+    },
+    {
+      "variant": "asic-boot-baseline",
+      "parameter_set": "SHA2-192f",
+      "status": "PASS",
+      "golden_words": 4463,
+      "verification_flags": {
+        "baseline": [
+          "0"
+        ],
+        "signature-memory-bitflip": [
+          "1"
+        ]
+      },
+      "generic_ff_bits": 129594,
+      "reports_sha256": {
+        "docs/verification/slh-asic-boot-baseline-192f-2026-10-12.json": "b9e3097ae65e86f91a6f3974fa929951da8e0fab83f1870da7054b76aa62d30c",
+        "docs/verification/slh-asic-structure-baseline-192f-2026-10-12.json": "c1af9b141d5ff2ad46e359e068bd937d89da302d953057c6a2d4dc7a370ad9b2",
+        "docs/verification/slh-asic-functional-audit-baseline-192f-2026-10-12.json": "4e7883d8d527ca82498e2b0e5464081e06e741e7845fb580d30875bf590096d7",
+        "docs/verification/slh-asic-netlist-audit-baseline-192f-2026-10-12.json": "d5f1e0267f0aaf6d4124309d89f7f38eb318149939e02f4722c67ddd7b560df4"
+      },
+      "manifest_sha256": "45e4f26c622f8a88267b43e60070a16126e1b8ee8905a47f9a053bc57b6e83ce",
+      "checksums_sha256": "d86491c7a2307c4e9368b5f9f27542aeeed5c94e9160d63190b57ef8b0b3cc2c",
+      "repeat_export_identical": true,
+      "all_bundle_checksums_verified": true
+    },
+    {
+      "variant": "asic-boot-candidate",
+      "parameter_set": "SHA2-192f",
+      "status": "PASS",
+      "golden_words": 4463,
+      "verification_flags": {
+        "baseline": [
+          "0"
+        ],
+        "signature-memory-bitflip": [
+          "1"
+        ]
+      },
+      "generic_ff_bits": 129594,
+      "reports_sha256": {
+        "docs/verification/slh-asic-boot-candidate-192f-2026-10-12.json": "1b7eb6ba90b55c3cbcb8c0b0801fa8ee7c1eb527182ce4244434b5be5a907f71",
+        "docs/verification/slh-asic-structure-candidate-192f-2026-10-12.json": "95a27092cb8a634fde6422ed1f30ae4cb130377d95a06da864c8c6ed9b84c93c",
+        "docs/verification/slh-asic-functional-audit-candidate-192f-2026-10-12.json": "bae9b3b1cd68da817e4ac63c68892e6f604fdd17568d9f9f946e5eca44346e2a",
+        "docs/verification/slh-asic-netlist-audit-candidate-192f-2026-10-12.json": "630e48ad24ce9f5e29bfd3fd86a67b3c761c25835db75b4637f9e4a1719df35e"
+      },
+      "manifest_sha256": "4fd3c13bca5c9c6ee46a9e4d743c71a64dc4f9b9c53003c194d1c62d59f6fafc",
+      "checksums_sha256": "6005dcb98365c1f2d6ce5771c8c9af380b92e4435d1cd9bcf8ab3af93c09f7b0",
+      "repeat_export_identical": true,
+      "all_bundle_checksums_verified": true
+    }
+  ],
+  "unit_tests": {
+    "normal": 39,
+    "python_optimized": 39
+  },
+  "original_fpga_trees_unchanged": true,
+  "original_files_checked": 124,
+  "exporter_sha256": "c46b7148e34971388cdaed26f05e34484e9a386264c5944d8d8a45a4412b1e56",
+  "monitor_sha256": "38c4dc54b0be440071d93e1595b068668d672003b2b09fc3136deb5a3f38b538",
+  "limits": [
+    "No independent FIPS205/ACVP qualification",
+    "No standard-cell mapping, timing, PPA or physical implementation",
+    "Active-operation boot abort/recovery unqualified",
+    "Undefined reads and simultaneous same-address dual writes outside supported input contract"
+  ]
+}
