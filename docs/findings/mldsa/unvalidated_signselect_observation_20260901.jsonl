@@ -1,0 +1,1 @@
+﻿{"ts": "2026-09-01 11:34:16", "design": "mldsa", "rule": "When WNS is already severely negative (worse than -3ns), avoid sign_select strategy as it tends to worsen timing further, increasing slack violation instead of recovering it.", "evidence": "2026-09-01 11:34:16", "source_model": "claude-sonnet-4-6"}
