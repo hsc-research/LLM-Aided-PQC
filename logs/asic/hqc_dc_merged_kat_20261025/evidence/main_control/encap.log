@@ -1,0 +1,734 @@
+
+****** Vivado v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Sun Oct 25 16:47:53 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source ./build/encap/tb/encap.tcl -notrace
+update_compile_order: Time (s): cpu = 00:00:01 ; elapsed = 00:00:11 . Memory (MB): peak = 1617.125 ; gain = 0.000 ; free physical = 9212 ; free virtual = 19125
+Command: launch_simulation 
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:48:16 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'encap_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/tools/Xilinx/2025.2/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'encap_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_128.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_192.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_256.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/msg_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/msg_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/msg_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/h_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/h_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/h_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/x_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/x_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/x_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/y_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/y_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/y_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/s_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/s_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/s_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_128.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_192.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_256.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj encap_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/barrett_red_gen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module barrett_red_gen
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/cdw_xor_tmp.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cdw_xor_tmp
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/concat_code.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module concat_code
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/control_path.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_path
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/data_path.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module data_path
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module encap
+WARNING: [VRFC 10-2938] 'count_hash_inputs' is already implicitly declared on line 537 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:555]
+WARNING: [VRFC 10-3380] identifier 'd_out' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:247]
+WARNING: [VRFC 10-3380] identifier 'u_v_int' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:248]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:246]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:247]
+WARNING: [VRFC 10-3380] identifier 'sel_uv' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:326]
+WARNING: [VRFC 10-3380] identifier 'u_v_reg' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:504]
+WARNING: [VRFC 10-3380] identifier 'u_v_reg' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:505]
+WARNING: [VRFC 10-3380] identifier 'last_block_capture' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:513]
+WARNING: [VRFC 10-3380] identifier 'block_capture' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:516]
+WARNING: [VRFC 10-3380] identifier 'count_hash_inputs_test' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:525]
+WARNING: [VRFC 10-3380] identifier 'count_hash_inputs_test' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:528]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:544]
+WARNING: [VRFC 10-3380] identifier 'total_shake_input_count' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:598]
+WARNING: [VRFC 10-3380] identifier 'total_shake_input_count' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:630]
+WARNING: [VRFC 10-3380] identifier 'total_shake_input_count' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:857]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1130]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1146]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1161]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1201]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1214]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1241]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1251]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1268]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1280]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1292]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1309]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1338]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1361]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1381]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1428]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1450]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1472]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1499]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1504]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1515]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1531]
+WARNING: [VRFC 10-3380] identifier 'start_hash' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:1541]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module encrypt
+WARNING: [VRFC 10-2938] 'r1_internal' is already implicitly declared on line 365 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:392]
+WARNING: [VRFC 10-2938] 'r2_internal' is already implicitly declared on line 374 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:393]
+WARNING: [VRFC 10-2938] 'loc_addr' is already implicitly declared on line 372 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:395]
+WARNING: [VRFC 10-2938] 'pm_out' is already implicitly declared on line 381 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:396]
+WARNING: [VRFC 10-3248] data object 'pm_out' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:487]
+WARNING: [VRFC 10-9364] second declaration of 'pm_out' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:487]
+WARNING: [VRFC 10-2938] 'pm_rd_addr' is already implicitly declared on line 477 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:488]
+WARNING: [VRFC 10-2938] 'pm_rd_en' is already implicitly declared on line 478 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:489]
+WARNING: [VRFC 10-2938] 'add_out' is already implicitly declared on line 481 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:491]
+WARNING: [VRFC 10-2938] 'add_out_addr' is already implicitly declared on line 482 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:492]
+WARNING: [VRFC 10-2938] 'add_out_valid' is already implicitly declared on line 483 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:493]
+WARNING: [VRFC 10-2938] 'xor_add_en' is already implicitly declared on line 353 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:527]
+WARNING: [VRFC 10-2938] 'xor_add_addr' is already implicitly declared on line 477 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:528]
+WARNING: [VRFC 10-2938] 'xor_add_out' is already implicitly declared on line 481 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:531]
+WARNING: [VRFC 10-2938] 'xor_add_out_addr' is already implicitly declared on line 482 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:532]
+WARNING: [VRFC 10-2938] 'xor_add_out_valid' is already implicitly declared on line 483 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:533]
+WARNING: [VRFC 10-2938] 'en_r1' is already implicitly declared on line 364 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:570]
+WARNING: [VRFC 10-2938] 'en_r2' is already implicitly declared on line 373 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:571]
+WARNING: [VRFC 10-2096] empty statement in sequential block [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:746]
+WARNING: [VRFC 10-2938] 'wen_fw' is already implicitly declared on line 364 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:926]
+WARNING: [VRFC 10-3248] data object 'sel_fw' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:926]
+WARNING: [VRFC 10-9364] second declaration of 'sel_fw' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:926]
+WARNING: [VRFC 10-2938] 'fw_addr_reg' is already implicitly declared on line 363 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:933]
+WARNING: [VRFC 10-2938] 'u_cpy_addr' is already implicitly declared on line 477 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:1032]
+WARNING: [VRFC 10-2938] 'wen_u' is already implicitly declared on line 383 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:1033]
+WARNING: [VRFC 10-2938] 'copy_u' is already implicitly declared on line 477 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:1034]
+WARNING: [VRFC 10-2938] 'sel_r1_hr2' is already implicitly declared on line 510 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:1035]
+WARNING: [VRFC 10-3380] identifier 'rd_fw' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:212]
+WARNING: [VRFC 10-3380] identifier 'fw_addr' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:214]
+WARNING: [VRFC 10-3380] identifier 'sel_e' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:215]
+WARNING: [VRFC 10-3380] identifier 'pm_out' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:338]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:739]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:747]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:759]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:781]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:789]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:791]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:815]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:819]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:826]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:828]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:831]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:848]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:860]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:876]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:879]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:885]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:893]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:896]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:902]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:909]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:919]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module encrypt_parallel
+WARNING: [VRFC 10-2938] 'r1_internal' is already implicitly declared on line 362 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:406]
+WARNING: [VRFC 10-2938] 'r2_internal_hr2' is already implicitly declared on line 384 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:408]
+WARNING: [VRFC 10-2938] 'r2_internal_sr2' is already implicitly declared on line 385 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:409]
+WARNING: [VRFC 10-2938] 'loc_addr_hr2' is already implicitly declared on line 380 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:411]
+WARNING: [VRFC 10-2938] 'loc_addr_sr2' is already implicitly declared on line 381 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:412]
+WARNING: [VRFC 10-3248] data object 'pm_out' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:549]
+WARNING: [VRFC 10-9364] second declaration of 'pm_out' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:549]
+WARNING: [VRFC 10-2938] 'pm_rd_addr' is already implicitly declared on line 500 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:550]
+WARNING: [VRFC 10-2938] 'pm_rd_en' is already implicitly declared on line 501 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:551]
+WARNING: [VRFC 10-2938] 'add_out' is already implicitly declared on line 504 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:553]
+WARNING: [VRFC 10-2938] 'add_out_addr' is already implicitly declared on line 505 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:554]
+WARNING: [VRFC 10-2938] 'add_out_valid' is already implicitly declared on line 506 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:555]
+WARNING: [VRFC 10-2938] 'xor_add_en' is already implicitly declared on line 350 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:613]
+WARNING: [VRFC 10-2938] 'xor_add_addr' is already implicitly declared on line 539 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:614]
+WARNING: [VRFC 10-2938] 'xor_add_out' is already implicitly declared on line 543 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:617]
+WARNING: [VRFC 10-2938] 'xor_add_out_addr' is already implicitly declared on line 544 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:618]
+WARNING: [VRFC 10-2938] 'xor_add_out_valid' is already implicitly declared on line 545 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:619]
+WARNING: [VRFC 10-2938] 'en_r1' is already implicitly declared on line 361 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:656]
+WARNING: [VRFC 10-2938] 'en_r2' is already implicitly declared on line 382 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:657]
+WARNING: [VRFC 10-2096] empty statement in sequential block [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:677]
+WARNING: [VRFC 10-2938] 'wen_fw' is already implicitly declared on line 361 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:858]
+WARNING: [VRFC 10-3248] data object 'sel_fw' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:858]
+WARNING: [VRFC 10-9364] second declaration of 'sel_fw' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:858]
+WARNING: [VRFC 10-2938] 'fw_addr_reg' is already implicitly declared on line 360 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:865]
+WARNING: [VRFC 10-3380] identifier 'rd_fw' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:209]
+WARNING: [VRFC 10-3380] identifier 'fw_addr' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:211]
+WARNING: [VRFC 10-3380] identifier 'sel_e' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:212]
+WARNING: [VRFC 10-3380] identifier 'pm_out_sr2' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:335]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:670]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:678]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:690]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:712]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:720]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:722]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:746]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:750]
+WARNING: [VRFC 10-3380] identifier 'done_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:757]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:759]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:762]
+WARNING: [VRFC 10-3380] identifier 'r2_done' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:779]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:791]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:807]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:810]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:816]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:824]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:827]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:833]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:840]
+WARNING: [VRFC 10-3380] identifier 'start_fw_transfer' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt_parallel.v:850]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fixed_weight
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'din_shake' is not allowed [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:161]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:233]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:234]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:235]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:508]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:520]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:531]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:542]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:548]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight.v:554]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fixed_weight_ct
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'din_shake' is not allowed [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:153]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:222]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:223]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:224]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:492]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:505]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:523]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:542]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:549]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:556]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:563]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fixed_weight_cww
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'din_shake' is not allowed [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:141]
+WARNING: [VRFC 10-2938] 'dout_shake_reduced' is already implicitly declared on line 245 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:270]
+WARNING: [VRFC 10-2938] 'n_minus_i' is already implicitly declared on line 244 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:309]
+WARNING: [VRFC 10-2938] 'dout_reduced_valid' is already implicitly declared on line 241 [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:322]
+WARNING: [VRFC 10-3380] identifier 'n_minus_i' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:229]
+WARNING: [VRFC 10-3380] identifier 'n_minus_i' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:232]
+WARNING: [VRFC 10-3380] identifier 'count' is used before its declaration [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_cww.v:272]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/gf_mul.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module gf_mul
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/hqc_barrett_red.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module hqc_barrett_red
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/karatsuba_small.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module karatsuba_small
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/keccak_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module keccak_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/loc_based_adder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module loc_based_adder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/mem_dual.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_dual
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/mem_single.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_single
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/mem_single_dist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_single_dist
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/mod34.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mod34
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/onegen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module onegen
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/onegen_ct.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module onegen_ct
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module poly_mult
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'mux_word_0' is not allowed [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:103]
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'mux_word_1' is not allowed [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:104]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/rc.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rc
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module reed_muller_encode
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module reed_solomon_encode
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/rm_encoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rm_encoder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/state_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module state_ram
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/state_ram.v:122]
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/state_ram.v:228]
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/state_ram.v:278]
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/state_ram.v:379]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/stateram_inference.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module stateram_inference
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/transform.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module transform
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/xor_based_adder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xor_based_adder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module encap_tb
+WARNING: [VRFC 10-3248] data object 'h_0' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:319]
+WARNING: [VRFC 10-9364] second declaration of 'h_0' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:319]
+WARNING: [VRFC 10-3248] data object 'h_1' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:320]
+WARNING: [VRFC 10-9364] second declaration of 'h_1' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:320]
+WARNING: [VRFC 10-3248] data object 's_0' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:344]
+WARNING: [VRFC 10-9364] second declaration of 's_0' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:344]
+WARNING: [VRFC 10-3248] data object 's_1' is already declared [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:345]
+WARNING: [VRFC 10-9364] second declaration of 's_1' is ignored [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:345]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc128 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot encap_tb_behav xil_defaultlib.encap_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc128 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot encap_tb_behav xil_defaultlib.encap_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3532] module 'glbl' does not have a parameter named 'parameter_set' to override [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/glbl.v:6]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'u_v_in_wen' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:183]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 8 for port 'u_v_in_addr' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:184]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'u_v_in' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:185]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'resume_encap' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:186]
+WARNING: [VRFC 10-3091] actual bit length 368 differs from formal bit length 240 for port 'cdw_in' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v:123]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'start' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v:110]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'start' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:383]
+WARNING: [VRFC 10-3091] actual bit length 7 differs from formal bit length 16 for port 'loc_addr' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:466]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 8 for port 'weight' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:468]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'add_wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:483]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:248]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:249]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 25 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:248]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:252]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:334]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:335]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:336]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:337]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:338]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:339]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:348]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:349]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:350]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:351]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:352]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:353]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:369]
+WARNING: [VRFC 10-5021] port 'shake_force_done_ack' is not connected on this instance [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:153]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:246]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:247]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:544]
+WARNING: [VRFC 10-5021] port 'rst' is not connected on this instance [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v:83]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mem_single_dist(WIDTH=32,DEPTH=4...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=16)
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10)
+Compiling module xil_defaultlib.mem_dual(WIDTH=25,DEPTH=450)
+Compiling module xil_defaultlib.hqc_barrett_red_default
+Compiling module xil_defaultlib.mem_single(WIDTH=15,DEPTH=75)
+Compiling module xil_defaultlib.mem_dual(WIDTH=32,DEPTH=553)
+Compiling module xil_defaultlib.onegen_ct(WEIGHT=75)
+Compiling module xil_defaultlib.fixed_weight_ct(parameter_set="h...
+Compiling module xil_defaultlib.gf_mul_default
+Compiling module xil_defaultlib.cdw_xor_tmp_default
+Compiling module xil_defaultlib.reed_solomon_encode_default
+Compiling module xil_defaultlib.rm_encoder
+Compiling module xil_defaultlib.mem_single(WIDTH=128,DEPTH=46)
+Compiling module xil_defaultlib.reed_muller_encode_default
+Compiling module xil_defaultlib.concat_code(parameter_set="hqc12...
+Compiling module xil_defaultlib.mem_single(WIDTH=128,DEPTH=139)
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=139)
+Compiling module xil_defaultlib.poly_mult(MAX_WEIGHT=75,N=17669,...
+Compiling module xil_defaultlib.loc_based_adder(N=17669,WEIGHT=7...
+Compiling module xil_defaultlib.xor_based_adder(parameter_set="h...
+Compiling module xil_defaultlib.encrypt(parameter_set="hqc128",C...
+Compiling module xil_defaultlib.mod34
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=1143)
+Compiling module xil_defaultlib.encap(FILE_THETA="shake_test.in"...
+Compiling module xil_defaultlib.control_path
+Compiling module xil_defaultlib.rc
+Compiling module xil_defaultlib.transform
+Compiling module xil_defaultlib.stateram_inference_default
+Compiling module xil_defaultlib.stateram_inference(i=1)
+Compiling module xil_defaultlib.stateram_inference(i=2)
+Compiling module xil_defaultlib.stateram_inference(i=3)
+Compiling module xil_defaultlib.stateram_inference(i=4)
+Compiling module xil_defaultlib.stateram_inference(i=5)
+Compiling module xil_defaultlib.stateram_inference(i=6)
+Compiling module xil_defaultlib.stateram_inference(i=7)
+Compiling module xil_defaultlib.stateram_inference(i=8)
+Compiling module xil_defaultlib.stateram_inference(i=9)
+Compiling module xil_defaultlib.stateram_inference(i=10)
+Compiling module xil_defaultlib.stateram_inference(i=11)
+Compiling module xil_defaultlib.stateram_inference(i=12)
+Compiling module xil_defaultlib.stateram_inference(i=13)
+Compiling module xil_defaultlib.stateram_inference(i=14)
+Compiling module xil_defaultlib.stateram_inference(i=15)
+Compiling module xil_defaultlib.stateram_inference(i=16)
+Compiling module xil_defaultlib.stateram_inference(i=17)
+Compiling module xil_defaultlib.stateram_inference(i=18)
+Compiling module xil_defaultlib.stateram_inference(i=19)
+Compiling module xil_defaultlib.stateram_inference(i=20)
+Compiling module xil_defaultlib.stateram_inference(i=21)
+Compiling module xil_defaultlib.stateram_inference(i=22)
+Compiling module xil_defaultlib.stateram_inference(i=23)
+Compiling module xil_defaultlib.stateram_inference(i=24)
+Compiling module xil_defaultlib.state_ram_default
+Compiling module xil_defaultlib.data_path_default
+Compiling module xil_defaultlib.keccak_top
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=139,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=139,FIL...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=4,FILE...
+Compiling module xil_defaultlib.encap_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot encap_tb_behav
+execute_script: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 1697.164 ; gain = 0.000 ; free physical = 9208 ; free virtual = 19121
+INFO: [USF-XSim-69] 'elaborate' step finished in '5' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "encap_tb_behav -key {Behavioral:sim_1:Functional:encap_tb} -tclbatch {encap_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source encap_tb.tcl
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'encap_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:12 ; elapsed = 00:00:24 . Memory (MB): peak = 1697.164 ; gain = 0.000 ; free physical = 9175 ; free virtual = 19089
+Total Clock Cycles:      30825
+$finish called at time : 314925 ns : File "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v" Line 305
+INFO: xsimkernel Simulation Memory Usage: 284540 KB (Peak: 341356 KB), Simulation CPU Usage: 1430 ms
+Command: launch_simulation -step compile -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:48:41 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'encap_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/tools/Xilinx/2025.2/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'encap_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_128.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_192.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_256.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/msg_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/msg_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/msg_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/h_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/h_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/h_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/x_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/x_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/x_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/y_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/y_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/y_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/s_128.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/s_192.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/s_256.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_128.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_192.mem'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/barrett_hqc_256.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj encap_tb_vlog.prj
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:05 . Memory (MB): peak = 1726.605 ; gain = 29.441 ; free physical = 9205 ; free virtual = 19118
+Command: launch_simulation -step elaborate -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:48:46 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'encap_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc192 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot encap_tb_behav xil_defaultlib.encap_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc192 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot encap_tb_behav xil_defaultlib.encap_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3532] module 'glbl' does not have a parameter named 'parameter_set' to override [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/glbl.v:6]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'u_v_in_wen' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:183]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 9 for port 'u_v_in_addr' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:184]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'u_v_in' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:185]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'resume_encap' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:186]
+WARNING: [VRFC 10-3091] actual bit length 448 differs from formal bit length 256 for port 'cdw_in' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v:123]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'start' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v:110]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'start' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:383]
+WARNING: [VRFC 10-3091] actual bit length 7 differs from formal bit length 17 for port 'loc_addr' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:466]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 8 for port 'weight' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:468]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'add_wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:483]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:248]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:249]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 25 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:248]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:252]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:334]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:335]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:336]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:337]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:338]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:339]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:348]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:349]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:350]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:351]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:352]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:353]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:369]
+WARNING: [VRFC 10-5021] port 'shake_force_done_ack' is not connected on this instance [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:153]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:246]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:247]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:544]
+WARNING: [VRFC 10-5021] port 'rst' is not connected on this instance [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v:83]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mem_single_dist(WIDTH=32,DEPTH=6...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=16)
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10)
+Compiling module xil_defaultlib.mem_dual(WIDTH=25,DEPTH=684)
+Compiling module xil_defaultlib.hqc_barrett_red(parameter_set="h...
+Compiling module xil_defaultlib.mem_single(WIDTH=16,DEPTH=114)
+Compiling module xil_defaultlib.mem_dual(WIDTH=32,DEPTH=1121)
+Compiling module xil_defaultlib.onegen_ct(M=16,E0_DEPTH=1121,DEP...
+Compiling module xil_defaultlib.fixed_weight_ct(parameter_set="h...
+Compiling module xil_defaultlib.gf_mul_default
+Compiling module xil_defaultlib.cdw_xor_tmp(parameter_set="hqc19...
+Compiling module xil_defaultlib.reed_solomon_encode(parameter_se...
+Compiling module xil_defaultlib.rm_encoder
+Compiling module xil_defaultlib.mem_single(WIDTH=128,DEPTH=56)
+Compiling module xil_defaultlib.reed_muller_encode(parameter_set...
+Compiling module xil_defaultlib.concat_code_default
+Compiling module xil_defaultlib.mem_single(WIDTH=128,DEPTH=281)
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=281)
+Compiling module xil_defaultlib.poly_mult(parameter_set="hqc192"...
+Compiling module xil_defaultlib.loc_based_adder(parameter_set="h...
+Compiling module xil_defaultlib.xor_based_adder(parameter_set="h...
+Compiling module xil_defaultlib.encrypt(parameter_set="hqc192",C...
+Compiling module xil_defaultlib.mod34
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=2315)
+Compiling module xil_defaultlib.encap(parameter_set="hqc192",FIL...
+Compiling module xil_defaultlib.control_path
+Compiling module xil_defaultlib.rc
+Compiling module xil_defaultlib.transform
+Compiling module xil_defaultlib.stateram_inference_default
+Compiling module xil_defaultlib.stateram_inference(i=1)
+Compiling module xil_defaultlib.stateram_inference(i=2)
+Compiling module xil_defaultlib.stateram_inference(i=3)
+Compiling module xil_defaultlib.stateram_inference(i=4)
+Compiling module xil_defaultlib.stateram_inference(i=5)
+Compiling module xil_defaultlib.stateram_inference(i=6)
+Compiling module xil_defaultlib.stateram_inference(i=7)
+Compiling module xil_defaultlib.stateram_inference(i=8)
+Compiling module xil_defaultlib.stateram_inference(i=9)
+Compiling module xil_defaultlib.stateram_inference(i=10)
+Compiling module xil_defaultlib.stateram_inference(i=11)
+Compiling module xil_defaultlib.stateram_inference(i=12)
+Compiling module xil_defaultlib.stateram_inference(i=13)
+Compiling module xil_defaultlib.stateram_inference(i=14)
+Compiling module xil_defaultlib.stateram_inference(i=15)
+Compiling module xil_defaultlib.stateram_inference(i=16)
+Compiling module xil_defaultlib.stateram_inference(i=17)
+Compiling module xil_defaultlib.stateram_inference(i=18)
+Compiling module xil_defaultlib.stateram_inference(i=19)
+Compiling module xil_defaultlib.stateram_inference(i=20)
+Compiling module xil_defaultlib.stateram_inference(i=21)
+Compiling module xil_defaultlib.stateram_inference(i=22)
+Compiling module xil_defaultlib.stateram_inference(i=23)
+Compiling module xil_defaultlib.stateram_inference(i=24)
+Compiling module xil_defaultlib.state_ram_default
+Compiling module xil_defaultlib.data_path_default
+Compiling module xil_defaultlib.keccak_top
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=281,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=281,FIL...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=6,FILE...
+Compiling module xil_defaultlib.encap_tb(parameter_set="hqc192")
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot encap_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '5' seconds
+launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 1726.605 ; gain = 0.000 ; free physical = 9204 ; free virtual = 19117
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1726.605 ; gain = 29.441 ; free physical = 9175 ; free virtual = 19090
+Total Clock Cycles:      82160
+$finish called at time : 833975 ns : File "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v" Line 305
+INFO: xsimkernel Simulation Memory Usage: 284136 KB (Peak: 341408 KB), Simulation CPU Usage: 2390 ms
+Command: launch_simulation -step compile -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:48:55 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'encap_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj encap_tb_vlog.prj
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+Command: launch_simulation -step elaborate -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:48:59 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'encap_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc256 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot encap_tb_behav xil_defaultlib.encap_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc256 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot encap_tb_behav xil_defaultlib.encap_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3532] module 'glbl' does not have a parameter named 'parameter_set' to override [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/test_encap/test_encap.sim/sim_1/behav/xsim/glbl.v:6]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'u_v_in_wen' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:183]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 9 for port 'u_v_in_addr' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:184]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'u_v_in' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:185]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'resume_encap' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:186]
+WARNING: [VRFC 10-3091] actual bit length 720 differs from formal bit length 464 for port 'cdw_in' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v:123]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'start' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_solomon_encode.v:110]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'start' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v:86]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:383]
+WARNING: [VRFC 10-3091] actual bit length 8 differs from formal bit length 17 for port 'loc_addr' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:466]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 9 for port 'weight' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:468]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'add_wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encrypt.v:483]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:248]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/poly_mult.v:249]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 25 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:248]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/fixed_weight_ct.v:252]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:334]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:335]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:336]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:337]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:338]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:339]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:348]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 128 for port 'data_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:349]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:350]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:351]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_0' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:352]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:353]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wr_en' [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:369]
+WARNING: [VRFC 10-5021] port 'shake_force_done_ack' is not connected on this instance [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v:153]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:246]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:247]
+WARNING: [VRFC 10-8864] concatenation with an unsized literal will be treated as 32 bits [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/encap.v:544]
+WARNING: [VRFC 10-5021] port 'rst' is not connected on this instance [/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/reed_muller_encode.v:83]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mem_single_dist(WIDTH=32,DEPTH=8...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=16)
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10)
+Compiling module xil_defaultlib.mem_dual(WIDTH=25,DEPTH=894)
+Compiling module xil_defaultlib.hqc_barrett_red(parameter_set="h...
+Compiling module xil_defaultlib.mem_single(WIDTH=16,DEPTH=149)
+Compiling module xil_defaultlib.mem_dual(WIDTH=32,DEPTH=1802)
+Compiling module xil_defaultlib.onegen_ct(M=16,E0_DEPTH=1802,DEP...
+Compiling module xil_defaultlib.fixed_weight_ct(N=57637,M=16,WEI...
+Compiling module xil_defaultlib.gf_mul_default
+Compiling module xil_defaultlib.cdw_xor_tmp(parameter_set="hqc25...
+Compiling module xil_defaultlib.reed_solomon_encode(parameter_se...
+Compiling module xil_defaultlib.rm_encoder
+Compiling module xil_defaultlib.mem_single(WIDTH=128,DEPTH=90)
+Compiling module xil_defaultlib.reed_muller_encode(parameter_set...
+Compiling module xil_defaultlib.concat_code(parameter_set="hqc25...
+Compiling module xil_defaultlib.mem_single(WIDTH=128,DEPTH=451)
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=451)
+Compiling module xil_defaultlib.poly_mult(parameter_set="hqc256"...
+Compiling module xil_defaultlib.loc_based_adder(parameter_set="h...
+Compiling module xil_defaultlib.xor_based_adder(N=57637)
+Compiling module xil_defaultlib.encrypt(CT_DESIGN=2'b01)
+Compiling module xil_defaultlib.mod34
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=3718)
+Compiling module xil_defaultlib.encap(parameter_set="hqc256",FIL...
+Compiling module xil_defaultlib.control_path
+Compiling module xil_defaultlib.rc
+Compiling module xil_defaultlib.transform
+Compiling module xil_defaultlib.stateram_inference_default
+Compiling module xil_defaultlib.stateram_inference(i=1)
+Compiling module xil_defaultlib.stateram_inference(i=2)
+Compiling module xil_defaultlib.stateram_inference(i=3)
+Compiling module xil_defaultlib.stateram_inference(i=4)
+Compiling module xil_defaultlib.stateram_inference(i=5)
+Compiling module xil_defaultlib.stateram_inference(i=6)
+Compiling module xil_defaultlib.stateram_inference(i=7)
+Compiling module xil_defaultlib.stateram_inference(i=8)
+Compiling module xil_defaultlib.stateram_inference(i=9)
+Compiling module xil_defaultlib.stateram_inference(i=10)
+Compiling module xil_defaultlib.stateram_inference(i=11)
+Compiling module xil_defaultlib.stateram_inference(i=12)
+Compiling module xil_defaultlib.stateram_inference(i=13)
+Compiling module xil_defaultlib.stateram_inference(i=14)
+Compiling module xil_defaultlib.stateram_inference(i=15)
+Compiling module xil_defaultlib.stateram_inference(i=16)
+Compiling module xil_defaultlib.stateram_inference(i=17)
+Compiling module xil_defaultlib.stateram_inference(i=18)
+Compiling module xil_defaultlib.stateram_inference(i=19)
+Compiling module xil_defaultlib.stateram_inference(i=20)
+Compiling module xil_defaultlib.stateram_inference(i=21)
+Compiling module xil_defaultlib.stateram_inference(i=22)
+Compiling module xil_defaultlib.stateram_inference(i=23)
+Compiling module xil_defaultlib.stateram_inference(i=24)
+Compiling module xil_defaultlib.state_ram_default
+Compiling module xil_defaultlib.data_path_default
+Compiling module xil_defaultlib.keccak_top
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=451,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=451,FIL...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=8,FILE...
+Compiling module xil_defaultlib.encap_tb(parameter_set="hqc256")
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot encap_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '5' seconds
+launch_simulation: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 1726.605 ; gain = 0.000 ; free physical = 9200 ; free virtual = 19112
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:14 ; elapsed = 00:00:12 . Memory (MB): peak = 1726.605 ; gain = 0.000 ; free physical = 9168 ; free virtual = 19082
+Total Clock Cycles:     161559
+$finish called at time : 1634785 ns : File "/mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq/build/encap/tb/encap_tb.v" Line 305
+Final time :00:01:14
+INFO: xsimkernel Simulation Memory Usage: 284128 KB (Peak: 341400 KB), Simulation CPU Usage: 3430 ms
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 25 16:49:09 2026...

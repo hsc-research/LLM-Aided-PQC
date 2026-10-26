@@ -1,0 +1,421 @@
+
+****** Vivado v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Sun Oct 25 16:33:37 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source ./build/keygen/tb/keygen.tcl -notrace
+update_compile_order: Time (s): cpu = 00:00:02 ; elapsed = 00:00:09 . Memory (MB): peak = 1588.359 ; gain = 0.000 ; free physical = 9646 ; free virtual = 19189
+update_compile_order: Time (s): cpu = 00:00:01 ; elapsed = 00:00:07 . Memory (MB): peak = 1588.359 ; gain = 0.000 ; free physical = 9646 ; free virtual = 19189
+Command: launch_simulation 
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:34:09 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'keygen_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/tools/Xilinx/2025.2/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'keygen_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/pk_seed.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/sk_seed.in'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj keygen_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/control_path.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_path
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/data_path.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module data_path
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fixed_weight
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'din_shake' is not allowed [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:161]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:233]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:234]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:235]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:508]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:520]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:531]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:542]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:548]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight.v:554]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fixed_weight_ct
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'din_shake' is not allowed [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:153]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:222]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:223]
+WARNING: [VRFC 10-3380] identifier 'sel_ctx' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:224]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:492]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:505]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:523]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:542]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:549]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:556]
+WARNING: [VRFC 10-3380] identifier 'start_red' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:563]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/hqc_barrett_red.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module hqc_barrett_red
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keccak_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module keccak_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module keygen
+WARNING: [VRFC 10-2938] 'pm_out' is already implicitly declared on line 388 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:396]
+WARNING: [VRFC 10-2938] 'pm_rd_addr' is already implicitly declared on line 385 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:397]
+WARNING: [VRFC 10-2938] 'pm_rd_en' is already implicitly declared on line 386 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:398]
+WARNING: [VRFC 10-2938] 'add_out' is already implicitly declared on line 390 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:400]
+WARNING: [VRFC 10-2938] 'add_out_addr' is already implicitly declared on line 391 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:401]
+WARNING: [VRFC 10-2938] 'add_out_valid' is already implicitly declared on line 392 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:402]
+WARNING: [VRFC 10-2938] 'x_addr_reg' is already implicitly declared on line 315 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:699]
+WARNING: [VRFC 10-3380] identifier 'pm_out' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:191]
+WARNING: [VRFC 10-3380] identifier 'x_addr' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:219]
+WARNING: [VRFC 10-3380] identifier 'x_transfer_done' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:488]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/loc_based_adder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module loc_based_adder
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/mem_dual.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_dual
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/mem_single.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_single
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/onegen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module onegen
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/onegen_ct.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module onegen_ct
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module poly_mult
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'mux_word_0' is not allowed [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:103]
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'mux_word_1' is not allowed [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:104]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/rc.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rc
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/state_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module state_ram
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/state_ram.v:122]
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/state_ram.v:228]
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/state_ram.v:278]
+WARNING: [VRFC 10-634] event expressions must result in a singular type [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/state_ram.v:379]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/stateram_inference.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module stateram_inference
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/transform.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module transform
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vect_set_random
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'shake_din' is not allowed [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:104]
+WARNING: [VRFC 10-2938] 'rand_mem_in' is already implicitly declared on line 151 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:167]
+WARNING: [VRFC 10-2938] 'wr_en_rand' is already implicitly declared on line 155 [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:168]
+WARNING: [VRFC 10-3380] identifier 'pk_rand_addr' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:146]
+WARNING: [VRFC 10-3380] identifier 'pk_rand_addr' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:174]
+WARNING: [VRFC 10-3380] identifier 'pk_rand_addr_reg' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:200]
+WARNING: [VRFC 10-3380] identifier 'pk_rand_addr' is used before its declaration [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:201]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/tb/keygen_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module keygen_tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+execute_script: Time (s): cpu = 00:00:02 ; elapsed = 00:00:08 . Memory (MB): peak = 1588.359 ; gain = 0.000 ; free physical = 9580 ; free virtual = 19171
+INFO: [USF-XSim-69] 'compile' step finished in '8' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc128 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot keygen_tb_behav xil_defaultlib.keygen_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc128 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot keygen_tb_behav xil_defaultlib.keygen_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3532] module 'glbl' does not have a parameter named 'parameter_set' to override [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/glbl.v:6]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:156]
+WARNING: [VRFC 10-3091] actual bit length 7 differs from formal bit length 16 for port 'loc_addr' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:374]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 8 for port 'weight' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:376]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_0' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:248]
+WARNING: [VRFC 10-3091] actual bit length 9 differs from formal bit length 8 for port 'address_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:249]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 25 for port 'data_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:248]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:252]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/control_path.v" Line 35. Module control_path doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/data_path.v" Line 36. Module data_path_default doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=25,DEPTH=264)
+Compiling module xil_defaultlib.hqc_barrett_red_default
+Compiling module xil_defaultlib.mem_single(WIDTH=15,DEPTH=66)
+Compiling module xil_defaultlib.mem_dual(WIDTH=32,DEPTH=553)
+Compiling module xil_defaultlib.onegen_ct_default
+Compiling module xil_defaultlib.fixed_weight_ct(parameter_set="h...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=139)
+Compiling module xil_defaultlib.vect_set_random(N=17669,FILE_PKS...
+Compiling module xil_defaultlib.poly_mult(MAX_WEIGHT=75,N=17669,...
+Compiling module xil_defaultlib.loc_based_adder(WIDTH=128)
+Compiling module xil_defaultlib.keygen(N=17669,FILE_PKSEED="pk_s...
+Compiling module xil_defaultlib.control_path
+Compiling module xil_defaultlib.rc
+Compiling module xil_defaultlib.transform
+Compiling module xil_defaultlib.stateram_inference_default
+Compiling module xil_defaultlib.stateram_inference(i=1)
+Compiling module xil_defaultlib.stateram_inference(i=2)
+Compiling module xil_defaultlib.stateram_inference(i=3)
+Compiling module xil_defaultlib.stateram_inference(i=4)
+Compiling module xil_defaultlib.stateram_inference(i=5)
+Compiling module xil_defaultlib.stateram_inference(i=6)
+Compiling module xil_defaultlib.stateram_inference(i=7)
+Compiling module xil_defaultlib.stateram_inference(i=8)
+Compiling module xil_defaultlib.stateram_inference(i=9)
+Compiling module xil_defaultlib.stateram_inference(i=10)
+Compiling module xil_defaultlib.stateram_inference(i=11)
+Compiling module xil_defaultlib.stateram_inference(i=12)
+Compiling module xil_defaultlib.stateram_inference(i=13)
+Compiling module xil_defaultlib.stateram_inference(i=14)
+Compiling module xil_defaultlib.stateram_inference(i=15)
+Compiling module xil_defaultlib.stateram_inference(i=16)
+Compiling module xil_defaultlib.stateram_inference(i=17)
+Compiling module xil_defaultlib.stateram_inference(i=18)
+Compiling module xil_defaultlib.stateram_inference(i=19)
+Compiling module xil_defaultlib.stateram_inference(i=20)
+Compiling module xil_defaultlib.stateram_inference(i=21)
+Compiling module xil_defaultlib.stateram_inference(i=22)
+Compiling module xil_defaultlib.stateram_inference(i=23)
+Compiling module xil_defaultlib.stateram_inference(i=24)
+Compiling module xil_defaultlib.state_ram_default
+Compiling module xil_defaultlib.data_path_default
+Compiling module xil_defaultlib.keccak_top
+Compiling module xil_defaultlib.keygen_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot keygen_tb_behav
+execute_script: Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 1588.359 ; gain = 0.000 ; free physical = 9278 ; free virtual = 19169
+INFO: [USF-XSim-69] 'elaborate' step finished in '9' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "keygen_tb_behav -key {Behavioral:sim_1:Functional:keygen_tb} -tclbatch {keygen_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source keygen_tb.tcl
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'keygen_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:17 ; elapsed = 00:00:35 . Memory (MB): peak = 1616.348 ; gain = 27.988 ; free physical = 9238 ; free virtual = 19141
+Total Clock Cycles:      13869
+$finish called at time : 157175 ns : File "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/tb/keygen_tb.v" Line 238
+INFO: xsimkernel Simulation Memory Usage: 283368 KB (Peak: 340348 KB), Simulation CPU Usage: 1350 ms
+Command: launch_simulation -step compile -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:34:45 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'keygen_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/tools/Xilinx/2025.2/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'keygen_tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/pk_seed.in'
+INFO: [SIM-utils-43] Exported '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/sk_seed.in'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj keygen_tb_vlog.prj
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:14 . Memory (MB): peak = 1616.348 ; gain = 0.000 ; free physical = 9265 ; free virtual = 19167
+Command: launch_simulation -step elaborate -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:34:58 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'keygen_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc192 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot keygen_tb_behav xil_defaultlib.keygen_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc192 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot keygen_tb_behav xil_defaultlib.keygen_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3532] module 'glbl' does not have a parameter named 'parameter_set' to override [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/glbl.v:6]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:156]
+WARNING: [VRFC 10-3091] actual bit length 7 differs from formal bit length 17 for port 'loc_addr' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:374]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 8 for port 'weight' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:376]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:248]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:249]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 25 for port 'data_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:248]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:252]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/control_path.v" Line 35. Module control_path doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/data_path.v" Line 36. Module data_path_default doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=25,DEPTH=400)
+Compiling module xil_defaultlib.hqc_barrett_red(parameter_set="h...
+Compiling module xil_defaultlib.mem_single(WIDTH=16,DEPTH=100)
+Compiling module xil_defaultlib.mem_dual(WIDTH=32,DEPTH=1121)
+Compiling module xil_defaultlib.onegen_ct(M=16,E0_DEPTH=1121,DEP...
+Compiling module xil_defaultlib.fixed_weight_ct(parameter_set="h...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=281)
+Compiling module xil_defaultlib.vect_set_random(parameter_set="h...
+Compiling module xil_defaultlib.poly_mult(parameter_set="hqc192"...
+Compiling module xil_defaultlib.loc_based_adder(parameter_set="h...
+Compiling module xil_defaultlib.keygen(parameter_set="hqc192",N=...
+Compiling module xil_defaultlib.control_path
+Compiling module xil_defaultlib.rc
+Compiling module xil_defaultlib.transform
+Compiling module xil_defaultlib.stateram_inference_default
+Compiling module xil_defaultlib.stateram_inference(i=1)
+Compiling module xil_defaultlib.stateram_inference(i=2)
+Compiling module xil_defaultlib.stateram_inference(i=3)
+Compiling module xil_defaultlib.stateram_inference(i=4)
+Compiling module xil_defaultlib.stateram_inference(i=5)
+Compiling module xil_defaultlib.stateram_inference(i=6)
+Compiling module xil_defaultlib.stateram_inference(i=7)
+Compiling module xil_defaultlib.stateram_inference(i=8)
+Compiling module xil_defaultlib.stateram_inference(i=9)
+Compiling module xil_defaultlib.stateram_inference(i=10)
+Compiling module xil_defaultlib.stateram_inference(i=11)
+Compiling module xil_defaultlib.stateram_inference(i=12)
+Compiling module xil_defaultlib.stateram_inference(i=13)
+Compiling module xil_defaultlib.stateram_inference(i=14)
+Compiling module xil_defaultlib.stateram_inference(i=15)
+Compiling module xil_defaultlib.stateram_inference(i=16)
+Compiling module xil_defaultlib.stateram_inference(i=17)
+Compiling module xil_defaultlib.stateram_inference(i=18)
+Compiling module xil_defaultlib.stateram_inference(i=19)
+Compiling module xil_defaultlib.stateram_inference(i=20)
+Compiling module xil_defaultlib.stateram_inference(i=21)
+Compiling module xil_defaultlib.stateram_inference(i=22)
+Compiling module xil_defaultlib.stateram_inference(i=23)
+Compiling module xil_defaultlib.stateram_inference(i=24)
+Compiling module xil_defaultlib.state_ram_default
+Compiling module xil_defaultlib.data_path_default
+Compiling module xil_defaultlib.keccak_top
+Compiling module xil_defaultlib.keygen_tb(parameter_set="hqc192"...
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot keygen_tb_behav
+execute_script: Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 1616.348 ; gain = 0.000 ; free physical = 9267 ; free virtual = 19170
+INFO: [USF-XSim-69] 'elaborate' step finished in '10' seconds
+launch_simulation: Time (s): cpu = 00:00:12 ; elapsed = 00:00:11 . Memory (MB): peak = 1616.348 ; gain = 0.000 ; free physical = 9268 ; free virtual = 19170
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:17 ; elapsed = 00:00:27 . Memory (MB): peak = 1624.352 ; gain = 8.004 ; free physical = 9239 ; free virtual = 19143
+Total Clock Cycles:      36126
+$finish called at time : 386785 ns : File "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/tb/keygen_tb.v" Line 238
+INFO: xsimkernel Simulation Memory Usage: 283092 KB (Peak: 340364 KB), Simulation CPU Usage: 1670 ms
+Command: launch_simulation -step compile -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:35:13 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'keygen_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj keygen_tb_vlog.prj
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+launch_simulation: Time (s): cpu = 00:00:04 ; elapsed = 00:00:12 . Memory (MB): peak = 1624.352 ; gain = 0.000 ; free physical = 9268 ; free virtual = 19170
+Command: launch_simulation -step elaborate -simset sim_1 -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host MSI (64) - Ubuntu 26.04 LTS
+INFO: [Vivado 12-28535] Process started - Sun Oct 25 16:35:24 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'keygen_tb'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc256 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot keygen_tb_behav xil_defaultlib.keygen_tb xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -generic_top parameter_set=hqc256 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot keygen_tb_behav xil_defaultlib.keygen_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3532] module 'glbl' does not have a parameter named 'parameter_set' to override [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/test_keygen/test_keygen.sim/sim_1/behav/xsim/glbl.v:6]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/vect_set_random.v:156]
+WARNING: [VRFC 10-3091] actual bit length 8 differs from formal bit length 17 for port 'loc_addr' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:374]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 9 for port 'weight' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/keygen.v:376]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_0' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:248]
+WARNING: [VRFC 10-3091] actual bit length 10 differs from formal bit length 9 for port 'address_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/poly_mult.v:249]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 25 for port 'data_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:248]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'wren_1' [/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/fixed_weight_ct.v:252]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/control_path.v" Line 35. Module control_path doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/data_path.v" Line 36. Module data_path_default doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=25,DEPTH=524)
+Compiling module xil_defaultlib.hqc_barrett_red(parameter_set="h...
+Compiling module xil_defaultlib.mem_single(WIDTH=16,DEPTH=131)
+Compiling module xil_defaultlib.mem_dual(WIDTH=32,DEPTH=1802)
+Compiling module xil_defaultlib.onegen_ct(M=16,E0_DEPTH=1802,DEP...
+Compiling module xil_defaultlib.fixed_weight_ct(N=57637,M=16,WEI...
+Compiling module xil_defaultlib.mem_single(WIDTH=32,DEPTH=10,FIL...
+Compiling module xil_defaultlib.mem_dual(WIDTH=128,DEPTH=451)
+Compiling module xil_defaultlib.vect_set_random(parameter_set="h...
+Compiling module xil_defaultlib.poly_mult(parameter_set="hqc256"...
+Compiling module xil_defaultlib.loc_based_adder(parameter_set="h...
+Compiling module xil_defaultlib.keygen(parameter_set="hqc256",N=...
+Compiling module xil_defaultlib.control_path
+Compiling module xil_defaultlib.rc
+Compiling module xil_defaultlib.transform
+Compiling module xil_defaultlib.stateram_inference_default
+Compiling module xil_defaultlib.stateram_inference(i=1)
+Compiling module xil_defaultlib.stateram_inference(i=2)
+Compiling module xil_defaultlib.stateram_inference(i=3)
+Compiling module xil_defaultlib.stateram_inference(i=4)
+Compiling module xil_defaultlib.stateram_inference(i=5)
+Compiling module xil_defaultlib.stateram_inference(i=6)
+Compiling module xil_defaultlib.stateram_inference(i=7)
+Compiling module xil_defaultlib.stateram_inference(i=8)
+Compiling module xil_defaultlib.stateram_inference(i=9)
+Compiling module xil_defaultlib.stateram_inference(i=10)
+Compiling module xil_defaultlib.stateram_inference(i=11)
+Compiling module xil_defaultlib.stateram_inference(i=12)
+Compiling module xil_defaultlib.stateram_inference(i=13)
+Compiling module xil_defaultlib.stateram_inference(i=14)
+Compiling module xil_defaultlib.stateram_inference(i=15)
+Compiling module xil_defaultlib.stateram_inference(i=16)
+Compiling module xil_defaultlib.stateram_inference(i=17)
+Compiling module xil_defaultlib.stateram_inference(i=18)
+Compiling module xil_defaultlib.stateram_inference(i=19)
+Compiling module xil_defaultlib.stateram_inference(i=20)
+Compiling module xil_defaultlib.stateram_inference(i=21)
+Compiling module xil_defaultlib.stateram_inference(i=22)
+Compiling module xil_defaultlib.stateram_inference(i=23)
+Compiling module xil_defaultlib.stateram_inference(i=24)
+Compiling module xil_defaultlib.state_ram_default
+Compiling module xil_defaultlib.data_path_default
+Compiling module xil_defaultlib.keccak_top
+Compiling module xil_defaultlib.keygen_tb(parameter_set="hqc256"...
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot keygen_tb_behav
+execute_script: Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1624.352 ; gain = 0.000 ; free physical = 9268 ; free virtual = 19171
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+launch_simulation: Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 1624.352 ; gain = 0.000 ; free physical = 9268 ; free virtual = 19171
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:17 ; elapsed = 00:00:23 . Memory (MB): peak = 1624.352 ; gain = 0.000 ; free physical = 9241 ; free virtual = 19145
+Total Clock Cycles:      71103
+$finish called at time : 744595 ns : File "/mnt/c/PQC/hqc/.pqc_runs/hqc-joint-m2nblr5h/build/keygen/tb/keygen_tb.v" Line 238
+Final time :00:01:52
+INFO: xsimkernel Simulation Memory Usage: 283108 KB (Peak: 340380 KB), Simulation CPU Usage: 2370 ms
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 25 16:35:37 2026...
