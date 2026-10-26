@@ -1,0 +1,2 @@
+Run artifacts: /mnt/c/PQC/hqc_main_ctrl/.pqc_runs/hqc-joint-mt968niq
+JOINT KAT GATE: FAIL - hqc128: missing or mismatched shared secret
